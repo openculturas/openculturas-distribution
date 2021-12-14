@@ -1,0 +1,30 @@
+uuid: bc1d4858-9705-4e77-8134-6e180613622b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full
+    - field.field.taxonomy_term.category.field_mood_image
+    - taxonomy.vocabulary.category
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.category.full
+targetEntityType: taxonomy_term
+bundle: category
+mode: full
+content:
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  description: true
