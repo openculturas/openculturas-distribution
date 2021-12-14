@@ -3,16 +3,25 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
     - image.style.large
     - media.type.image
   module:
+    - attribution
     - svg_image
 id: media.image.default
 targetEntityType: media
 bundle: image
 mode: default
 content:
+  field_licenses:
+    type: attribution_creative_commons
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_media_image:
     type: image
     label: visually_hidden
