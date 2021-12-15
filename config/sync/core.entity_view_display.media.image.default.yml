@@ -1,0 +1,42 @@
+uuid: ccfdb091-27e2-41fb-9d9b-9ab072329b52
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.image.field_licenses
+    - field.field.media.image.field_media_image
+    - image.style.large
+    - media.type.image
+  module:
+    - attribution
+    - svg_image
+id: media.image.default
+targetEntityType: media
+bundle: image
+mode: default
+content:
+  field_licenses:
+    type: attribution_creative_commons
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_media_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: large
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true
