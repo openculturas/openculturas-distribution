@@ -26,7 +26,7 @@ dependencies:
     - field.field.node.location.field_url
     - node.type.location
   module:
-    - geocoder_address
+    - address
     - geofield
     - layout_builder
     - link
@@ -100,16 +100,11 @@ content:
     weight: 8
     region: content
   field_address:
-    type: geocoder_address
+    type: address_default
     label: above
-    settings:
-      providers:
-        openstreetmap:
-          checked: '1'
-          weight: '0'
-      dumper: addresstext
+    settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 21
     region: content
   field_address_location:
     type: geofield_latlon
