@@ -20,7 +20,7 @@ and use this.
   * Make sure 'config_sync_directory' points to '../config/sync'
     `$settings['config_sync_directory'] = '../config/sync';`
 * Install OpenCulturas distribution
-  * `drush si drush si --existing-config`
+  * `drush si --existing-config`
 
 ### ddev
 
