@@ -17,6 +17,8 @@ and use this.
 * Prepare a setting.php, you can use the [settings.php](.ddev/settings.php)
   * `if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/ && ln -sf ../../../.ddev/settings.php;fi`
   * Override values (DB etc.) in `web/sites/default/settings.local.php`
+  * Make sure 'config_sync_directory' points to '../config/sync'
+    `$settings['config_sync_directory'] = '../config/sync';`
 * Install OpenCulturas distribution
   * `drush si drush si --existing-config`
 
