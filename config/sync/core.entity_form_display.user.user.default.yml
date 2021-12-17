@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.profile_picture
     - field.field.user.user.field_address
     - field.field.user.user.field_address_location
     - field.field.user.user.field_category
@@ -14,9 +15,9 @@ dependencies:
     - field.field.user.user.field_portrait
   module:
     - address
+    - entity_browser
     - field_group
     - geofield
-    - media_library
     - path
     - user
 third_party_settings:
@@ -121,11 +122,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_portrait:
-    type: media_library_widget
+    type: entity_browser_entity_reference
     weight: 3
     region: content
     settings:
-      media_types: {  }
+      entity_browser: profile_picture
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      field_widget_replace: true
+      open: false
+      field_widget_display_settings:
+        view_mode: media_library
+      selection_mode: selection_append
     third_party_settings: {  }
   language:
     weight: 2
