@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.user.field_portrait
-    - media.type.image
+    - media.type.user_profile_picture
   module:
     - user
 id: user.user.field_portrait
@@ -21,10 +21,10 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      image: image
+      user_profile_picture: user_profile_picture
     sort:
       field: name
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: image
 field_type: entity_reference
