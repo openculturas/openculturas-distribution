@@ -1,65 +1,28 @@
-uuid: 0bb8de1f-6a59-4b7e-8aa5-b4289b6837c6
+uuid: 133e0501-717f-4ba4-b712-1c31eec3a908
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.body
-    - field.field.node.article.comment
-    - field.field.node.article.field_image
-    - field.field.node.article.field_tags
-    - image.style.thumbnail
-    - node.type.article
+    - node.type.profile_artist
   module:
-    - comment
     - path
-    - svg_image
-    - text
-_core:
-  default_config_hash: 6VUXB1jTUjK5zjkfMa2Kd2WW4sFUlgfBlfJSx01qLpU
-id: node.article.default
+id: node.profile_artist.default
 targetEntityType: node
-bundle: article
+bundle: profile_artist
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 1
-    region: content
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-      show_summary: false
-    third_party_settings: {  }
-  comment:
-    type: comment_default
-    weight: 20
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_image:
-    type: image_image
-    weight: 4
+  langcode:
+    type: language_select
+    weight: 2
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_tags:
-    type: entity_reference_autocomplete_tags
-    weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      include_locked: true
     third_party_settings: {  }
   path:
     type: path
@@ -90,7 +53,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: -5
     region: content
     settings:
       size: 60
