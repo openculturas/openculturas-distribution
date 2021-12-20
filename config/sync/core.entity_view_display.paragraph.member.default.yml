@@ -1,0 +1,30 @@
+uuid: 3b927186-a6b0-4cf3-bec1-4f5ef189d243
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.member.field_member
+    - field.field.paragraph.member.field_member_function
+    - paragraphs.paragraphs_type.member
+id: paragraph.member.default
+targetEntityType: paragraph
+bundle: member
+mode: default
+content:
+  field_member:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_member_function:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }
