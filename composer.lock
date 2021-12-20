@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77e5b9a41e420cd797b3d8cfe726bf5d",
+    "content-hash": "e8c36be5a7a6cd226307b326dc42f80c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1555,6 +1555,121 @@
             "homepage": "https://www.drupal.org/project/date_range_formatter",
             "support": {
                 "source": "https://git.drupalcode.org/project/date_range_formatter"
+            }
+        },
+        {
+            "name": "drupal/date_recur",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/date_recur.git",
+                "reference": "3.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/date_recur-3.0.1.zip",
+                "reference": "3.0.1",
+                "shasum": "ca000eabbb0995d629cc5734a9dc6cef72f04d7e"
+            },
+            "require": {
+                "drupal/core": "^9",
+                "php": ">=7.3",
+                "rlanvin/php-rrule": "1.*"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+                "drupal/coder": "^8.3",
+                "drupal/token": "^1.5",
+                "mglaman/phpstan-drupal": "^0.12",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-deprecation-rules": "*"
+            },
+            "suggest": {
+                "drupal/date_recur_interactive": "Provides an interactive recurring date widget."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.1",
+                    "datestamp": "1636969596",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Frando",
+                    "homepage": "https://www.drupal.org/user/21850"
+                },
+                {
+                    "name": "dpi",
+                    "homepage": "https://www.drupal.org/user/81431"
+                }
+            ],
+            "description": "Recurring Dates Field",
+            "homepage": "https://www.drupal.org/project/date_recur",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/date_recur",
+                "issues": "https://www.drupal.org/project/issues/date_recur"
+            }
+        },
+        {
+            "name": "drupal/date_recur_modular",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/date_recur_modular.git",
+                "reference": "3.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/date_recur_modular-3.0.1.zip",
+                "reference": "3.0.1",
+                "shasum": "9b6c2da80024a9ada6c63349219ad4bc129331ee"
+            },
+            "require": {
+                "drupal/core": "^9",
+                "drupal/date_recur": "^3",
+                "php": ">=7.3"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.1",
+                    "datestamp": "1638549496",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "dpi",
+                    "homepage": "https://www.drupal.org/user/81431"
+                }
+            ],
+            "description": "Recurring Date Fields Modular Widgets",
+            "homepage": "https://www.drupal.org/project/date_recur_modular",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/date_recur_modular",
+                "issues": "https://www.drupal.org/project/issues/date_recur_modular"
             }
         },
         {
@@ -7001,6 +7116,54 @@
             "time": "2020-05-12T15:16:56+00:00"
         },
         {
+            "name": "rlanvin/php-rrule",
+            "version": "v1.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rlanvin/php-rrule.git",
+                "reference": "1373df401e0926cf7548716dabbc0d19603a144d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rlanvin/php-rrule/zipball/1373df401e0926cf7548716dabbc0d19603a144d",
+                "reference": "1373df401e0926cf7548716dabbc0d19603a144d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.5|^6.5"
+            },
+            "suggest": {
+                "ext-intl": "Intl extension is needed for humanReadable()"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RRule\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Lightweight and fast recurrence rules for PHP (RFC 5545)",
+            "homepage": "https://github.com/rlanvin/php-rrule",
+            "keywords": [
+                "date",
+                "ical",
+                "recurrence",
+                "recurring",
+                "rrule"
+            ],
+            "support": {
+                "issues": "https://github.com/rlanvin/php-rrule/issues",
+                "source": "https://github.com/rlanvin/php-rrule/tree/v1.6.3"
+            },
+            "time": "2019-01-13T09:49:03+00:00"
+        },
+        {
             "name": "ruflin/elastica",
             "version": "dev-master",
             "source": {
@@ -11434,7 +11597,7 @@
         },
         {
             "name": "openculturas/openculturas-profile",
-            "version": "dev-feature/image_styles",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "profile",

@@ -1,0 +1,40 @@
+uuid: 0916d36a-dd4d-4e7d-8a1d-8c284f455f73
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_datetime
+    - node.type.date
+  module:
+    - date_recur
+id: node.date.field_datetime
+field_name: field_datetime
+entity_type: node
+bundle: date
+label: Datetime
+description: 'The actual date and time of the date.'
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: relative
+    default_date: today
+    default_end_date_type: relative
+    default_end_date: today
+    default_date_time_zone: Europe/Berlin
+    default_time_zone: ''
+    default_rrule: ''
+default_value_callback: ''
+settings:
+  precreate: P1Y
+  parts:
+    all: true
+    frequencies:
+      SECONDLY: {  }
+      MINUTELY: {  }
+      HOURLY: {  }
+      DAILY: {  }
+      WEEKLY: {  }
+      MONTHLY: {  }
+      YEARLY: {  }
+field_type: date_recur
