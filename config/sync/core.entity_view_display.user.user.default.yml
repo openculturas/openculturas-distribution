@@ -3,12 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_address
+    - field.field.user.user.field_address_location
+    - field.field.user.user.field_category
+    - field.field.user.user.field_fullname
     - field.field.user.user.field_last_password_reset
     - field.field.user.user.field_password_expiration
-    - field.field.user.user.user_picture
-    - image.style.thumbnail
+    - field.field.user.user.field_portrait
   module:
-    - svg_image
+    - address
+    - geofield
     - user
 _core:
   default_config_hash: V51QPCKkgNREKtSmB9Iu2wmAMEpktVpnzklWaZV8UYo
@@ -17,15 +21,49 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
-  member_for:
+  field_address:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_address_location:
+    type: geofield_default
+    label: above
+    settings:
+      output_format: wkt
+      output_escape: true
+    third_party_settings: {  }
     weight: 5
     region: content
-  user_picture:
-    type: image
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_fullname:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_portrait:
+    type: entity_reference_entity_view
     label: hidden
     settings:
-      image_link: content
-      image_style: thumbnail
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  member_for:
+    settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
