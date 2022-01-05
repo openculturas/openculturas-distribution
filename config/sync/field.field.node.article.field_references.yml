@@ -1,0 +1,42 @@
+uuid: 52d1fc19-0786-4d55-a9a1-858427908ea8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_references
+    - node.type.article
+    - node.type.date
+    - node.type.event
+    - node.type.location
+    - node.type.page
+    - node.type.profile_artist
+    - node.type.profile_basic
+    - node.type.profile_organizer
+id: node.article.field_references
+field_name: field_references
+entity_type: node
+bundle: article
+label: Mentions
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      page: page
+      date: date
+      event: event
+      location: location
+      profile_artist: profile_artist
+      profile_basic: profile_basic
+      profile_organizer: profile_organizer
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: article
+field_type: entity_reference
