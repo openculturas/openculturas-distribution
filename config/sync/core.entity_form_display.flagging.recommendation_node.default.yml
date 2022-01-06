@@ -1,0 +1,23 @@
+uuid: 20bd6895-fc1c-4b2d-a949-d9226f4d14d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.flagging.recommendation_node.field_behalf
+    - flag.flag.recommendation_node
+id: flagging.recommendation_node.default
+targetEntityType: flagging
+bundle: recommendation_node
+mode: default
+content:
+  field_behalf:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

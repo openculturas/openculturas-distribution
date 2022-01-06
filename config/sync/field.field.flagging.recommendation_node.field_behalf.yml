@@ -1,0 +1,35 @@
+uuid: ac88f582-a0ce-48a6-8c60-a9ceebde8d02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.flagging.field_behalf
+    - flag.flag.recommendation_node
+    - node.type.location
+    - node.type.profile_artist
+    - node.type.profile_basic
+    - node.type.profile_organizer
+id: flagging.recommendation_node.field_behalf
+field_name: field_behalf
+entity_type: flagging
+bundle: recommendation_node
+label: 'Behalf of'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+      profile_artist: profile_artist
+      profile_basic: profile_basic
+      profile_organizer: profile_organizer
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: profile_artist
+field_type: entity_reference
