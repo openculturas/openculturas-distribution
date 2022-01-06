@@ -1,0 +1,55 @@
+uuid: b0429213-d2d6-4737-860b-8f7b111913b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.event.body
+    - field.field.node.event.field_duration
+    - field.field.node.event.field_gallery
+    - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_mood_image
+    - field.field.node.event.field_people_reference
+    - field.field.node.event.field_subtitle
+    - field.field.node.event.field_tags
+    - field.field.node.event.field_url
+    - node.type.event
+  module:
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.event.search_index
+targetEntityType: node
+bundle: event
+mode: search_index
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_duration: true
+  field_gallery: true
+  field_inlanguage: true
+  field_mood_image: true
+  field_people_reference: true
+  field_tags: true
+  field_url: true
+  flag_bookmark_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

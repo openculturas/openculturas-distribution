@@ -1,0 +1,32 @@
+uuid: a4e0090f-8a82-46dd-bbd5-97a00f24c63f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - node.type.date
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.date.search_index
+targetEntityType: node
+bundle: date
+mode: search_index
+content:
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true
