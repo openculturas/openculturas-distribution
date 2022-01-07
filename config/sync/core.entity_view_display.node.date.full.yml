@@ -19,6 +19,10 @@ dependencies:
     - field.field.node.date.field_safety_info
     - field.field.node.date.field_sub_dates
     - field.field.node.date.field_ticketing
+    - core.date_format.medium
+    - core.entity_view_mode.node.full
+    - date_recur.interpreter.default_interpreter
+    - field.field.node.date.field_datetime
     - node.type.date
   module:
     - datetime
@@ -26,6 +30,8 @@ dependencies:
     - link
     - options
     - text
+    - date_recur_adv
+    - layout_builder
     - user
 third_party_settings:
   layout_builder:
@@ -164,6 +170,20 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 109
+  field_datetime:
+    type: date_recur_advanced_formatter
+    label: above
+    settings:
+      format_type: medium
+      occurrence_format_type: medium
+      same_end_date_format_type: medium
+      separator: '-'
+      timezone_override: ''
+      interpreter: default_interpreter
+      show_next: '1'
+      count_per_item: true
+    third_party_settings: {  }
+    weight: 1
     region: content
   flag_bookmark_node:
     settings: {  }

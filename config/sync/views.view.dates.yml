@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.date_format.medium
+    - core.entity_view_mode.node.teaser
     - date_recur.interpreter.default_interpreter
     - field.storage.node.field_datetime
     - node.type.date
@@ -195,7 +196,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          date_format: html_date
+          date_format: site_default_date
           custom_date_format: ''
           timezone: ''
       pager:
@@ -294,12 +295,10 @@ display:
           row_class: ''
           default_row_class: true
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: teaser
       query:
         type: views_query
         options:
