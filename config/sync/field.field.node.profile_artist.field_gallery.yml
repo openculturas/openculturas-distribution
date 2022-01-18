@@ -1,0 +1,31 @@
+uuid: cf45bc25-9c88-49ca-83e4-1c7aff10a7c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gallery
+    - media.type.image
+    - media.type.remote_video
+    - node.type.profile_artist
+id: node.profile_artist.field_gallery
+field_name: field_gallery
+entity_type: node
+bundle: profile_artist
+label: Gallery
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      remote_video: remote_video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

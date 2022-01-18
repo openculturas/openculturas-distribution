@@ -4,24 +4,49 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.profile_artist.body
+    - field.field.node.profile_artist.field_artist_type
+    - field.field.node.profile_artist.field_category
+    - field.field.node.profile_artist.field_contact_data
+    - field.field.node.profile_artist.field_gallery
+    - field.field.node.profile_artist.field_mood_image
+    - field.field.node.profile_artist.field_people_reference
+    - field.field.node.profile_artist.field_portrait
+    - field.field.node.profile_artist.field_reference_title
+    - field.field.node.profile_artist.field_subtitle
     - node.type.profile_artist
   module:
+    - text
     - user
 id: node.profile_artist.teaser
 targetEntityType: node
 bundle: profile_artist
 mode: teaser
 content:
-  flag_bookmark_node:
+  body:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 1
     region: content
-  links:
+  field_subtitle:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
+  field_artist_type: true
+  field_category: true
+  field_contact_data: true
+  field_gallery: true
+  field_mood_image: true
+  field_people_reference: true
+  field_portrait: true
+  field_reference_title: true
+  flag_bookmark_node: true
   langcode: true
+  links: true
   search_api_excerpt: true
