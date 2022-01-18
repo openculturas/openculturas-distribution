@@ -1,0 +1,88 @@
+uuid: 2c329430-b9f1-4d3c-a3c7-bed2ae3fa056
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_data.field_address
+    - field.field.paragraph.contact_data.field_address_location
+    - field.field.paragraph.contact_data.field_email
+    - field.field.paragraph.contact_data.field_legal_url
+    - field.field.paragraph.contact_data.field_phone
+    - field.field.paragraph.contact_data.field_social_media_links
+    - field.field.paragraph.contact_data.field_url
+    - paragraphs.paragraphs_type.contact_data
+  module:
+    - address
+    - geofield
+    - link
+    - social_media_links_field
+id: paragraph.contact_data.default
+targetEntityType: paragraph
+bundle: contact_data
+mode: default
+content:
+  field_address:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_address_location:
+    type: geofield_default
+    label: above
+    settings:
+      output_format: wkt
+      output_escape: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_legal_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_phone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_social_media_links:
+    type: social_media_links_field_default
+    label: above
+    settings:
+      appearance: {  }
+      link_attributes: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  search_api_excerpt: true
