@@ -1,0 +1,149 @@
+uuid: 1d7b6fea-7561-4bfc-a341-e5393ee17717
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_a11y_auditive
+    - field.storage.node.field_category
+    - field.storage.node.field_a11y_cognitive
+    - field.storage.node.field_a11y_flashing
+    - field.storage.node.field_a11y_visual
+    - field.storage.node.field_a11y_wheelchair
+    - search_api.server.content
+    - core.entity_view_mode.node.search_index
+  module:
+    - taxonomy
+    - node
+    - search_api
+id: content
+name: Content
+description: ''
+read_only: false
+field_settings:
+  category_name:
+    label: 'Category » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_category:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_category
+      module:
+        - taxonomy
+  changed:
+    label: Changed
+    datasource_id: 'entity:node'
+    property_path: changed
+    type: date
+    dependencies:
+      module:
+        - node
+  field_a11y_auditive:
+    label: 'Auditive assistance'
+    datasource_id: 'entity:node'
+    property_path: field_a11y_auditive
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_a11y_auditive
+  field_a11y_cognitive:
+    label: 'Cognitive assistance'
+    datasource_id: 'entity:node'
+    property_path: field_a11y_cognitive
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_a11y_cognitive
+  field_a11y_flashing:
+    label: 'Flashing hazard'
+    datasource_id: 'entity:node'
+    property_path: field_a11y_flashing
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_a11y_flashing
+  field_a11y_visual:
+    label: 'Visual assistance'
+    datasource_id: 'entity:node'
+    property_path: field_a11y_visual
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_a11y_visual
+  field_a11y_wheelchair:
+    label: 'Wheelchair accessible'
+    datasource_id: 'entity:node'
+    property_path: field_a11y_wheelchair
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_a11y_wheelchair
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          article: search_index
+          date: search_index
+          event: search_index
+          location: search_index
+          page: search_index
+          profile_artist: search_index
+          profile_basic: search_index
+          profile_organizer: search_index
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  html_filter:
+    weights:
+      preprocess_index: -50
+      preprocess_query: -48
+    all_fields: false
+    fields:
+      - rendered_item
+    title: true
+    alt: true
+    tags:
+      b: 2
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+  ignorecase:
+    weights:
+      preprocess_index: -48
+      preprocess_query: -46
+    all_fields: false
+    fields:
+      - category_name
+      - rendered_item
+  language_with_fallback: {  }
+  rendered_item: {  }
+  transliteration:
+    weights:
+      preprocess_index: -49
+      preprocess_query: -47
+    all_fields: false
+    fields:
+      - category_name
+      - rendered_item
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  track_changes_in_references: true
+server: content

@@ -1,0 +1,32 @@
+uuid: 2c528ec2-d786-4903-833f-e697f0d444a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - node.type.profile_artist
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.profile_artist.search_index
+targetEntityType: node
+bundle: profile_artist
+mode: search_index
+content:
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

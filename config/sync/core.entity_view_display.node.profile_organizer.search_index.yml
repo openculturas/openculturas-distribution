@@ -1,0 +1,32 @@
+uuid: b8e9b6f9-6a48-456b-9334-edb1b5b120ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - node.type.profile_organizer
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.profile_organizer.search_index
+targetEntityType: node
+bundle: profile_organizer
+mode: search_index
+content:
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true
