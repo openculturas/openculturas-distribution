@@ -1,0 +1,28 @@
+$defaultColors: (
+  'primary':        #a1167f,
+  'primary-dark':   #483d8b,
+  'danger':         #d60040,
+  'success':        #188009,
+  'warning':        #ec6507,
+  'complete':       #6a26a5,
+  'info':           #1560b3,
+  'neutral-60':     #1F1F1F,
+  'neutral-50':     #303236,
+  'neutral-40':     #64666A,
+  'neutral-30':     #7B7D85,
+  'neutral-20':     #B1B2B5,
+  'neutral-10':     #E3E3E3,
+  'neutral-canvas': #F6F6F6,
+  'white':          #ffffff,
+  'black':          #000000
+);
+
+/*
+  Setting the default color variables as a fallback.
+  So if for any reason the sub theme or backend isn't able to override them there will be sensible defaults.
+ */
+:root {
+  @each $name, $color in $defaultColors {
+    --color-#{$name}: #{$color};
+  }
+}

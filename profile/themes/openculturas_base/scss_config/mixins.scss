@@ -1,0 +1,53 @@
+/**
+ * Helper mixin for making an image fit to its's container.
+ *
+ * The expected behaviour will be like background-size: cover, but with real images.
+ * Optionally it is possible to define a min-height or max-height.
+ *
+ * Beware: 'object-fit' will not work in IE 11.
+ *
+ * @param $max-height
+ *   Optional max-height value.
+ * @param $min-height
+ *   Optional min-height value.
+ *
+ * @usage
+ *    .imgContainer {
+ *        @include image-fit();
+ *    }
+ */
+@mixin image_fit($max-height: false, $min-height: false) {
+  .media--blazy,
+  figure, picture {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  img {
+    @if $max-height != false {
+      max-height: $max-height;
+    }
+    @if $min-height != false {
+      min-height: $min-height;
+    }
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+/**
+ * Default clearfix implementation.
+ *
+ * @usage
+ *    .box {
+ *      @include clearfix;
+ *    }
+ */
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}

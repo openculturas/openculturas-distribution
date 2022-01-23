@@ -69,7 +69,6 @@ function browsersync() {
   gulp.watch("./templates/**/*.html.twig", browserSync.reload);
 }
 
-
 gulp.task('sass', series(buildSass));
 gulp.task('dev', series(buildDevSass));
 gulp.task('build', series(buildSass));
