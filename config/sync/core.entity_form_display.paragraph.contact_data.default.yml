@@ -1,0 +1,127 @@
+uuid: a6e00eb3-021e-47e6-afcd-45d6c0a615ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_data.field_address
+    - field.field.paragraph.contact_data.field_address_location
+    - field.field.paragraph.contact_data.field_email
+    - field.field.paragraph.contact_data.field_legal_url
+    - field.field.paragraph.contact_data.field_phone
+    - field.field.paragraph.contact_data.field_social_media_links
+    - field.field.paragraph.contact_data.field_url
+    - paragraphs.paragraphs_type.contact_data
+  module:
+    - address
+    - leaflet
+    - link
+    - social_media_links_field
+    - telephone
+id: paragraph.contact_data.default
+targetEntityType: paragraph
+bundle: contact_data
+mode: default
+content:
+  field_address:
+    type: address_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_address_location:
+    type: leaflet_widget_default
+    weight: 1
+    region: content
+    settings:
+      map:
+        leaflet_map: 'OSM Mapnik'
+        height: 400
+        locate: 0
+        auto_center: 1
+        map_position:
+          force: false
+          center:
+            lat: 51.164305
+            lon: 10.4541205
+          zoom: 12
+          minZoom: 1
+          maxZoom: 18
+          zoomFiner: 0
+        scroll_zoom_enabled: 1
+      input:
+        show: false
+        readonly: false
+      toolbar:
+        position: topright
+        drawPolyline: false
+        drawRectangle: false
+        drawPolygon: false
+        drawCircle: false
+        editMode: false
+        dragMode: true
+        cutPolygon: false
+        removalMode: true
+        rotateMode: false
+        marker: defaultMarker
+      reset_map:
+        position: topright
+        control: false
+      fullscreen:
+        control: false
+        options: '{"position":"topleft","pseudoFullscreen":false}'
+      path: '{"color":"#3388ff","opacity":"1.0","stroke":true,"weight":3,"fill":"depends","fillColor":"*","fillOpacity":"0.2","radius":"6"}'
+      geocoder:
+        control: false
+        settings:
+          position: topright
+          input_size: 25
+          providers:
+            openstreetmap:
+              weight: 0
+              checked: false
+          min_terms: 4
+          delay: 800
+          zoom: 16
+          popup: false
+          options: ''
+    third_party_settings: {  }
+  field_email:
+    type: email_default
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_legal_url:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_phone:
+    type: telephone_default
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_social_media_links:
+    type: social_media_links_field_default
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_url:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
