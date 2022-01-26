@@ -1,0 +1,34 @@
+uuid: c1637c09-9023-4c4f-978b-0d46c9a190e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_data
+    - node.type.profile_artist
+    - paragraphs.paragraphs_type.contact_data
+  module:
+    - entity_reference_revisions
+id: node.profile_artist.field_contact_data
+field_name: field_contact_data
+entity_type: node
+bundle: profile_artist
+label: 'Address + contact information'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      contact_data: contact_data
+    negate: 0
+    target_bundles_drag_drop:
+      contact_data:
+        weight: 3
+        enabled: true
+      member:
+        weight: 4
+        enabled: false
+field_type: entity_reference_revisions

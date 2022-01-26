@@ -1,0 +1,31 @@
+uuid: 8c28bb7b-d694-402c-ac74-6a5bd62383c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_people_reference
+    - node.type.profile_artist
+    - paragraphs.paragraphs_type.member
+  module:
+    - entity_reference_revisions
+id: node.profile_artist.field_people_reference
+field_name: field_people_reference
+entity_type: node
+bundle: profile_artist
+label: Members
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      member: member
+    negate: 0
+    target_bundles_drag_drop:
+      member:
+        weight: 2
+        enabled: true
+field_type: entity_reference_revisions
