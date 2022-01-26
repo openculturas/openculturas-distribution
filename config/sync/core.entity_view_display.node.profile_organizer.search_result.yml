@@ -4,9 +4,21 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_result
+    - field.field.node.profile_organizer.body
+    - field.field.node.profile_organizer.field_category
+    - field.field.node.profile_organizer.field_contact_data
+    - field.field.node.profile_organizer.field_gallery
+    - field.field.node.profile_organizer.field_legal_url
+    - field.field.node.profile_organizer.field_logo
+    - field.field.node.profile_organizer.field_mood_image
+    - field.field.node.profile_organizer.field_notification
+    - field.field.node.profile_organizer.field_people_reference
+    - field.field.node.profile_organizer.field_reference_title
+    - field.field.node.profile_organizer.field_subtitle
     - node.type.profile_organizer
   module:
     - layout_builder
+    - text
     - user
 third_party_settings:
   layout_builder:
@@ -17,16 +29,31 @@ targetEntityType: node
 bundle: profile_organizer
 mode: search_result
 content:
-  flag_bookmark_node:
+  body:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 0
     region: content
-  links:
+  field_subtitle:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
 hidden:
+  field_category: true
+  field_contact_data: true
+  field_gallery: true
+  field_legal_url: true
+  field_logo: true
+  field_mood_image: true
+  field_notification: true
+  field_people_reference: true
+  field_reference_title: true
+  flag_bookmark_node: true
   langcode: true
+  links: true
   search_api_excerpt: true
