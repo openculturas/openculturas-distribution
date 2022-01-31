@@ -40,6 +40,16 @@ function buildDevSass() {
     .pipe(browserSync.stream());
 }
 
+function buildWysiwygSass() {
+  return gulp.src(['./scss_config/wysiwyg.scss'])
+    .pipe(sassGlob())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(concat('wysiwyg.css'))
+    .pipe(clean())
+    .pipe(gulp.dest('./css'));
+}
+
 function collectJs() {
   return gulp.src(['./templates/**/**.js'])
     .pipe(concat('openculturas-base.js'))
@@ -75,10 +85,10 @@ function browsersync() {
   gulp.watch("./templates/**/*.html.twig", browserSync.reload);
 }
 
-gulp.task('sass', series(buildSass));
+gulp.task('sass', series(buildSass, buildWysiwygSass));
 gulp.task('js', series(collectJs));
-gulp.task('dev', series(buildDevSass, collectJs));
-gulp.task('build', series(buildSass, collectJs));
+gulp.task('dev', series(buildDevSass, buildWysiwygSass, collectJs));
+gulp.task('build', series(buildSass, buildWysiwygSass, collectJs));
 gulp.task('initConfig', series(copyConfig, readConfig));
 gulp.task('watch', series('initConfig', 'dev', browsersync));
 
