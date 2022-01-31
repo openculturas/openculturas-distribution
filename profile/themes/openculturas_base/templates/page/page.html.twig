@@ -60,30 +60,40 @@
     </div>
     {% endif %}
     {% if page.offcanvas_menu %}
-    <div class="header__offcanvas-menu">
-      {{ page.offcanvas_menu }}
+    <div class="header__burger">
+      <a href="#menu" id="menu-toggle" class="header__burger--link" aria-label="{{ 'Open the menu'|t }}"></a>
+    </div>
+    <div class="header__offcanvas-menu" id="menu">
+      <div class="header__offcanvas-menu--toggle">
+        <a href="#menu" id="menu-offcanvas-toggle" class="header__burger--link header__offcanvas-menu--burger" aria-label="{{ 'Close the menu'|t }}"></a>
+      </div>
+      <div class="header__offcanvas-menu--content">
+        {{ page.offcanvas_menu }}
+      </div>
     </div>
     {% endif %}
   </header>
 
   {% if page.header_intro %}
-  <div class="header-intro">
+  <div class="hero-intro">
     {{ page.header_intro }}
   </div>
   {% endif %}
 
-  <main role="main">
+  <main role="main" class="main content">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
-    <div class="layout-content content">
+    <div class="main__page-title">
       {{ page.pagetitle }}
+    </div>
+    <div class="main__content">
       {{ page.content }}
     </div>
 
   </main>
 
   {% if page.footer %}
-    <footer role="contentinfo">
+    <footer role="contentinfo" class="footer">
       {{ page.footer }}
       <a href="#top"><span class="sr-only">{{ 'Back to top'|t }}</span></a>
     </footer>

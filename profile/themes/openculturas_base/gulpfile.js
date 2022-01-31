@@ -78,7 +78,8 @@ function readConfig(done) {
 
 function browsersync() {
   browserSync.init({
-    proxy: config.browserSync.hostname
+    proxy: config.browserSync.hostname,
+    reloadDelay: 300
   });
   gulp.watch(['./scss_config/*', './templates/**/*.scss'], gulp.series('dev'));
   gulp.watch(["./templates/**/*.js"], gulp.series('js', browserSync.reload));

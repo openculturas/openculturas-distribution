@@ -26,6 +26,7 @@
  *
  */
 @mixin grid($columns-definition: false, $area-names: false) {
+  display: grid;
   @if $columns-definition {
     grid-template-columns: $columns-definition;
   } @else {
@@ -38,7 +39,6 @@
   max-width: $grid-layout-max-width;
   grid-column-gap: $grid-gutter;
   grid-row-gap: 0;
-  margin: 0 $grid-outer-margin;
 }
 
 /**
