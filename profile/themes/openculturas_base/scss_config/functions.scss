@@ -12,6 +12,25 @@
  *        background-color: color(primary);
  *    }
  */
-@function color($name: 'primary') {
+@function color ($name: 'primary') {
   @return var(--color-#{$name});
+}
+
+/**
+ * Helper function for using font sizes.
+ *
+ * @param $size
+ *    The name of the font size from the list defined in variables.scss
+ *
+ * @usage
+ *    .randomElement {
+ *      font-size: size(small);
+ *    }
+ *
+ *    .randomElementHeadline {
+ *      font-size: size(h3);
+ *
+ */
+@function size ($sizeName: body) {
+  @return map_get($fontSizes, $sizeNumber);
 }

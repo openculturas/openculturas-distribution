@@ -27,61 +27,66 @@
  *   comment/reply/12345).
  *
  * Regions:
- * - page.header: Items for the header region.
- * - page.primary_menu: Items for the primary menu region.
- * - page.secondary_menu: Items for the secondary menu region.
- * - page.highlighted: Items for the highlighted content region.
- * - page.help: Dynamic help text, mostly for admin pages.
- * - page.content: The main content of the current page.
- * - page.sidebar_first: Items for the first sidebar.
- * - page.sidebar_second: Items for the second sidebar.
- * - page.footer: Items for the footer region.
- * - page.breadcrumb: Items for the breadcrumb region.
+ * branding: 'Branding (used for logo and slogan of the website)'
+ * utilities: 'Utilities (next to burger button)'
+ * burger_menu: 'Burger menu (only visible with opened burger menu)'
+ * highlights_menu: 'Highlights menu'
+ * header_intro: 'Header intro (for images, sliders, heroes)'
+ * pagetitle: 'Page title'
+ * content: 'Main content'
+ * footer: 'Footer'
  *
  * @see template_preprocess_page()
  * @see html.html.twig
  */
 #}
 <div class="layout-container">
+  <a id="top"></a>
 
-  <header role="banner">
-    {{ page.header }}
+  <header role="banner" class="header">
+    {% if page.branding %}
+    <div class="header__branding">
+      {{ page.branding }}
+    </div>
+    {% endif %}
+    {% if page.utilities_links %}
+    <div class="header__utilities">
+      {{ page.utilities_links }}
+    </div>
+    {% endif %}
+    {% if page.highlights_menu %}
+    <div class="header__highlights-menu">
+      {{ page.highlights_menu }}
+    </div>
+    {% endif %}
+    {% if page.offcanvas_menu %}
+    <div class="header__offcanvas-menu">
+      {{ page.offcanvas_menu }}
+    </div>
+    {% endif %}
   </header>
 
-  {{ page.primary_menu }}
-  {{ page.secondary_menu }}
-
-  {{ page.breadcrumb }}
-
-  {{ page.highlighted }}
-
-  {{ page.help }}
+  {% if page.header_intro %}
+  <div class="header-intro">
+    {{ page.header_intro }}
+  </div>
+  {% endif %}
 
   <main role="main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
     <div class="layout-content">
+      {{ page.pagetitle }}
       {{ page.content }}
-    </div>{# /.layout-content #}
-
-    {% if page.sidebar_first %}
-      <aside class="layout-sidebar-first" role="complementary">
-        {{ page.sidebar_first }}
-      </aside>
-    {% endif %}
-
-    {% if page.sidebar_second %}
-      <aside class="layout-sidebar-second" role="complementary">
-        {{ page.sidebar_second }}
-      </aside>
-    {% endif %}
+    </div>
 
   </main>
 
   {% if page.footer %}
     <footer role="contentinfo">
       {{ page.footer }}
+      <a href="#top"><span class="sr-only">{{ 'Back to top'|t }}</span></a>
     </footer>
   {% endif %}
 
-</div>{# /.layout-container #}
+</div>

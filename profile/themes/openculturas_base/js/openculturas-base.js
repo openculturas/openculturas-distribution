@@ -10,7 +10,7 @@
   /**
    * Behavior description.
    */
-  Drupal.behaviors.openculturasBase = {
+  Drupal.behaviors.nodeLocation = {
     attach: function (context, settings) {
 
     }

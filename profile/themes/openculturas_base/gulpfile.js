@@ -18,7 +18,7 @@ const browserSync = require("browser-sync").create();
 var config;
 
 function buildSass() {
-  return gulp.src(['./scss_config/*', './templates/**/*.scss'])
+  return gulp.src(['./scss_config/base.scss'])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
@@ -29,7 +29,7 @@ function buildSass() {
 }
 
 function buildDevSass() {
-  return gulp.src(['./scss_config/*', './templates/**/*.scss'])
+  return gulp.src(['./scss_config/base.scss'])
     .pipe(sassGlob())
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -38,6 +38,12 @@ function buildDevSass() {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./css'))
     .pipe(browserSync.stream());
+}
+
+function collectJs() {
+  return gulp.src(['./templates/**/**.js'])
+    .pipe(concat('openculturas-base.js'))
+    .pipe(gulp.dest('./js'));
 }
 
 function copyConfig (done){
@@ -65,13 +71,14 @@ function browsersync() {
     proxy: config.browserSync.hostname
   });
   gulp.watch(['./scss_config/*', './templates/**/*.scss'], gulp.series('dev'));
-  gulp.watch(["./js/*.js", "./templates/**/*.js"], browserSync.reload);
+  gulp.watch(["./templates/**/*.js"], gulp.series('js', browserSync.reload));
   gulp.watch("./templates/**/*.html.twig", browserSync.reload);
 }
 
 gulp.task('sass', series(buildSass));
-gulp.task('dev', series(buildDevSass));
-gulp.task('build', series(buildSass));
+gulp.task('js', series(collectJs));
+gulp.task('dev', series(buildDevSass, collectJs));
+gulp.task('build', series(buildSass, collectJs));
 gulp.task('initConfig', series(copyConfig, readConfig));
 gulp.task('watch', series('initConfig', 'dev', browsersync));
 
