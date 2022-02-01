@@ -73,11 +73,20 @@
  */
 @mixin typo ($name: body) {
   font-family: map_get(map_get($fontStyles, $name), 'font-family');
-  font-size: map_get(map_get($fontStyles, $name), 'font-size');
   font-weight: map_get(map_get($fontStyles, $name), 'font-weight');
   line-height: map_get(map_get($fontStyles, $name), 'line-height');
   text-transform: map_get(map_get($fontStyles, $name), 'text-transform');
   letter-spacing: map_get(map_get($fontStyles, $name), 'letter-spacing');
+  font-size: map_get(map_get($fontStyles, $name), 'font-size');
+  margin: map_get(map_get($fontStyles, $name), 'margin');
+
+  @if $name == h1 {
+    @include breakpoint(l) {
+      font-size: map_get(map_get($fontStyles, $name), 'font-size') * 1.5;
+      margin: map_get(map_get($fontStyles, $name), 'font-size') * 1.5 * 0.5 0;
+    }
+  }
+
 }
 
 /**
@@ -113,6 +122,25 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+  }
+}
+
+@mixin icon_button($icon: arrow) {
+  // @TODO: Add icon system.
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: color(neutral-50);
+  border-radius: 0.5rem;
+
+  @include breakpoint(m) {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  @include breakpoint(l) {
+    width: 3.125rem;
+    height: 3.125rem;
   }
 }
 

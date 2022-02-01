@@ -28,8 +28,8 @@
  *
  * Regions:
  * branding: 'Branding (used for logo and slogan of the website)'
- * utilities: 'Utilities (next to burger button)'
- * burger_menu: 'Burger menu (only visible with opened burger menu)'
+ * utilities_links: 'Utilities (next to burger button)'
+ * offcanvas_menu: 'Burger menu (only visible with opened burger menu)'
  * highlights_menu: 'Highlights menu'
  * header_intro: 'Header intro (for images, sliders, heroes)'
  * pagetitle: 'Page title'
@@ -41,7 +41,7 @@
  */
 #}
 <div class="layout-container">
-  <a id="top"></a>
+  <a id="top" class="visually-hidden"></a>
 
   <header role="banner" class="header">
     {% if page.branding %}
@@ -61,11 +61,13 @@
     {% endif %}
     {% if page.offcanvas_menu %}
     <div class="header__burger">
-      <a href="#menu" id="menu-toggle" class="header__burger--link" aria-label="{{ 'Open the menu'|t }}"></a>
+      <a href="#menu" id="menu-toggle" class="header__burger--link" role="button"
+         aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Open the menu'|t }}"></a>
     </div>
-    <div class="header__offcanvas-menu" id="menu">
+    <div class="header__offcanvas-menu" role="dialog" aria-hidden="true" id="offcanvas_menu">
       <div class="header__offcanvas-menu--toggle">
-        <a href="#menu" id="menu-offcanvas-toggle" class="header__burger--link header__offcanvas-menu--burger" aria-label="{{ 'Close the menu'|t }}"></a>
+        <a href="#menu" id="menu-offcanvas-toggle" class="header__burger--link header__offcanvas-menu--burger"
+           role="button" aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Close the menu'|t }}"></a>
       </div>
       <div class="header__offcanvas-menu--content">
         {{ page.offcanvas_menu }}
@@ -81,7 +83,7 @@
   {% endif %}
 
   <main role="main" class="main content">
-    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+    <a id="main-content" tabindex="-1" class="visually-hidden"></a>
 
     <div class="main__page-title">
       {{ page.pagetitle }}
@@ -93,9 +95,9 @@
   </main>
 
   {% if page.footer %}
-    <footer role="contentinfo" class="footer">
+    <footer role="contentinfo" class="footer content">
       {{ page.footer }}
-      <a href="#top"><span class="sr-only">{{ 'Back to top'|t }}</span></a>
+      <a href="#top" class="footer__topbutton"><span class="visually-hidden">{{ 'Back to top'|t }}</span></a>
     </footer>
   {% endif %}
 

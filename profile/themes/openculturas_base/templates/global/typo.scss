@@ -1,6 +1,7 @@
 .content {
   color: color(neutral-60);
 
+  // Set base styles for f.e. h1-h6 automatically.
   @each $name, $def in $fontStyles {
     #{$name} {
       @include typo($name);
@@ -44,6 +45,10 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  li.menu-item {
+    padding-top: 0;
   }
 
   a {

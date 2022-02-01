@@ -1,0 +1,62 @@
+header.header {
+  @include grid(1fr auto auto, ". utilities ."
+  "branding highlights burger"
+  ". . .");
+  grid-template-rows: 2.5rem auto 1.25rem;
+  margin: 0 0 1.25rem;
+  border-bottom: 1px solid color(divider);
+
+  @include breakpoint(m) {
+    grid-column: 4 / 14;
+  }
+
+  @include breakpoint(l) {
+    grid-column: 3 / 15;
+  }
+
+  .header__branding {
+    grid-area: branding;
+    align-self: center;
+
+    img, figure, svg {
+      height: 5rem;
+    }
+
+    .site-name {
+      display: none;
+    }
+  }
+
+  .header__highlights-menu {
+    grid-area: highlights;
+    align-self: center;
+    display: none;
+
+    @include breakpoint(m) {
+      display: block;
+    }
+
+    ul.menu {
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+
+        a {
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+        }
+      }
+    }
+  }
+
+  .header__burger {
+    grid-area: burger;
+    align-self: center;
+
+    &--link {
+      @include icon_button();
+    }
+  }
+}
