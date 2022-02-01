@@ -1,0 +1,32 @@
+uuid: a886c02c-4685-453c-b17e-5411e3bb1230
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.address_data.field_address
+    - field.field.paragraph.address_data.field_address_location
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - address
+    - geofield
+id: paragraph.address_data.default
+targetEntityType: paragraph
+bundle: address_data
+mode: default
+content:
+  field_address:
+    type: address_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_address_location:
+    type: geofield_latlon
+    weight: 1
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

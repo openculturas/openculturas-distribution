@@ -1,10 +1,10 @@
-uuid: 5c84040d-7fbd-48d9-a3d7-7f7a27f72639
+uuid: 3fac64f6-ec96-4860-a26b-c197371740e1
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_address_location
-    - paragraphs.paragraphs_type.contact_data
+    - paragraphs.paragraphs_type.address_data
   module:
     - geocoder_field
     - geofield
@@ -21,17 +21,17 @@ third_party_settings:
     dumper: wkt
     delta_handling: default
     failure:
-      handling: empty
+      handling: preserve
       status_message: true
       log: true
-id: paragraph.contact_data.field_address_location
+id: paragraph.address_data.field_address_location
 field_name: field_address_location
 entity_type: paragraph
-bundle: contact_data
+bundle: address_data
 label: 'Address location'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

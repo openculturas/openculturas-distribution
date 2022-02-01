@@ -1,0 +1,34 @@
+uuid: 81b726da-3aa5-48a6-868d-dd5184bbc6f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.address_data.field_address
+    - field.field.paragraph.address_data.field_address_location
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - address
+    - geofield
+id: paragraph.address_data.default
+targetEntityType: paragraph
+bundle: address_data
+mode: default
+content:
+  field_address:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_address_location:
+    type: geofield_default
+    label: above
+    settings:
+      output_format: wkt
+      output_escape: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true
