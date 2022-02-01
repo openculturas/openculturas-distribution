@@ -1,0 +1,37 @@
+uuid: 4f9c1c9f-6e3f-4155-ae5c-dca6feac449b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address_data
+    - node.type.profile
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - entity_reference_revisions
+id: node.profile.field_address_data
+field_name: field_address_data
+entity_type: node
+bundle: profile
+label: 'Address information'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      address_data: address_data
+    negate: 0
+    target_bundles_drag_drop:
+      address_data:
+        weight: 4
+        enabled: true
+      contact_data:
+        weight: 5
+        enabled: false
+      member:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions
