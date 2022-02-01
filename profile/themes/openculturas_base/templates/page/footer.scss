@@ -7,6 +7,16 @@ footer.footer {
     padding: $grid-gutter*3 0 $grid-gutter;
   }
 
+  a {
+    color: color(link-footer);
+    text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+      color: color(link-footer-focus);
+    }
+  }
+
 
   &:before {
     content: "";
@@ -66,10 +76,6 @@ footer.footer {
         @include typo(h3);
       }
     }
-  }
-
-  a {
-    color: color(white);
   }
 
   .footer__topbutton {
