@@ -11,43 +11,49 @@ dependencies:
   module:
     - link
     - social_media_links_field
+    - telephone
 id: paragraph.contact_data.default
 targetEntityType: paragraph
 bundle: contact_data
 mode: default
 content:
   field_email:
-    type: basic_string
-    label: above
+    type: email_mailto
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
   field_phone:
-    type: basic_string
-    label: above
-    settings: {  }
+    type: telephone_link
+    label: visually_hidden
+    settings:
+      title: ''
     third_party_settings: {  }
     weight: 2
     region: content
   field_social_media_links:
     type: social_media_links_field_default
-    label: above
+    label: hidden
     settings:
-      appearance: {  }
-      link_attributes: {  }
+      appearance:
+        orientation: v
+        show_name: '1'
+      link_attributes:
+        target: '<none>'
+        rel: nofollow
     third_party_settings: {  }
     weight: 6
     region: content
   field_url:
     type: link
-    label: above
+    label: visually_hidden
     settings:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: nofollow
+      target: '0'
     third_party_settings: {  }
     weight: 4
     region: content
