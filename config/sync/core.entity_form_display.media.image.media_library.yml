@@ -6,11 +6,11 @@ dependencies:
     - core.entity_form_mode.media.media_library
     - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
-    - image.style.thumbnail
+    - image.style.media_library
     - media.type.image
   module:
     - attribution
-    - svg_image
+    - focal_point
 id: media.image.media_library
 targetEntityType: media
 bundle: image
@@ -23,12 +23,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media_image:
-    type: image_image
+    type: image_focal_point
     weight: 0
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: thumbnail
+      preview_image_style: media_library
+      preview_link: true
+      offsets: '50,50'
+      preview_styles:
+        header_image: header_image
+        teaser_big: teaser_big
     third_party_settings: {  }
   langcode:
     type: language_select
