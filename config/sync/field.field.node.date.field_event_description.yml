@@ -1,0 +1,29 @@
+uuid: 3e2ab5fd-b1f5-4d6d-8e19-3fe253737645
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_description
+    - node.type.date
+    - node.type.event
+id: node.date.field_event_description
+field_name: field_event_description
+entity_type: node
+bundle: date
+label: 'Event description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      event: event
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

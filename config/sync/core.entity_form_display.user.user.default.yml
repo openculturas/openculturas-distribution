@@ -3,20 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.profile_picture
-    - field.field.user.user.field_address
-    - field.field.user.user.field_address_location
     - field.field.user.user.field_category
     - field.field.user.user.field_fullname
     - field.field.user.user.field_last_password_reset
     - field.field.user.user.field_password_expiration
     - field.field.user.user.field_pending_expire_sent
-    - field.field.user.user.field_portrait
   module:
-    - address
-    - entity_browser
     - field_group
-    - geofield
     - path
     - user
 third_party_settings:
@@ -89,19 +82,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_address:
-    type: address_default
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_address_location:
-    type: geofield_latlon
-    weight: 6
-    region: content
-    settings:
-      html5_geolocation: false
-    third_party_settings: {  }
   field_category:
     type: entity_reference_autocomplete
     weight: 4
@@ -119,21 +99,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_portrait:
-    type: entity_browser_entity_reference
-    weight: 3
-    region: content
-    settings:
-      entity_browser: profile_picture
-      field_widget_display: rendered_entity
-      field_widget_edit: false
-      field_widget_remove: true
-      field_widget_replace: true
-      open: false
-      field_widget_display_settings:
-        view_mode: media_library
-      selection_mode: selection_append
     third_party_settings: {  }
   language:
     weight: 2

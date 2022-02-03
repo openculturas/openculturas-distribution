@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_member
+    - node.type.profile
     - node.type.profile_artist
     - node.type.profile_basic
     - node.type.profile_organizer
@@ -22,12 +23,13 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
+      profile: profile
       profile_artist: profile_artist
       profile_basic: profile_basic
       profile_organizer: profile_organizer
     sort:
       field: _none
       direction: ASC
-    auto_create: false
-    auto_create_bundle: profile_artist
+    auto_create: true
+    auto_create_bundle: profile
 field_type: entity_reference

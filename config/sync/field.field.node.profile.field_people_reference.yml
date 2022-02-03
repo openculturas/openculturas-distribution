@@ -1,0 +1,37 @@
+uuid: 7ec98094-7759-4ee0-97ba-56bd797b3728
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_people_reference
+    - node.type.profile
+    - paragraphs.paragraphs_type.member
+  module:
+    - entity_reference_revisions
+id: node.profile.field_people_reference
+field_name: field_people_reference
+entity_type: node
+bundle: profile
+label: Members
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      member: member
+    negate: 0
+    target_bundles_drag_drop:
+      address_data:
+        weight: 4
+        enabled: false
+      contact_data:
+        weight: 5
+        enabled: false
+      member:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

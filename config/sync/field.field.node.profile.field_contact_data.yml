@@ -1,0 +1,37 @@
+uuid: d7dfdb03-1ee3-4319-af66-b1cccb4cafb5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_data
+    - node.type.profile
+    - paragraphs.paragraphs_type.contact_data
+  module:
+    - entity_reference_revisions
+id: node.profile.field_contact_data
+field_name: field_contact_data
+entity_type: node
+bundle: profile
+label: 'Contact information'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      contact_data: contact_data
+    negate: 0
+    target_bundles_drag_drop:
+      address_data:
+        weight: 4
+        enabled: false
+      contact_data:
+        weight: 5
+        enabled: true
+      member:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

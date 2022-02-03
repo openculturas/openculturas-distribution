@@ -1,0 +1,31 @@
+uuid: 8cbe677f-5372-4450-b93f-43781651cdb5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gallery
+    - media.type.image
+    - media.type.remote_video
+    - node.type.profile
+id: node.profile.field_gallery
+field_name: field_gallery
+entity_type: node
+bundle: profile
+label: Gallery
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      remote_video: remote_video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

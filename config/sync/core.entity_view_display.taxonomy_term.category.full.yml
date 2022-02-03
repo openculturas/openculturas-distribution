@@ -8,6 +8,7 @@ dependencies:
     - taxonomy.vocabulary.category
   module:
     - layout_builder
+    - text
 third_party_settings:
   layout_builder:
     enabled: false
@@ -17,11 +18,18 @@ targetEntityType: taxonomy_term
 bundle: category
 mode: full
 content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_mood_image:
     type: entity_reference_entity_view
-    label: above
+    label: hidden
     settings:
-      view_mode: default
+      view_mode: header_image
       link: false
     third_party_settings: {  }
     weight: 0
@@ -29,9 +37,8 @@ content:
   flag_bookmark_term:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 2
     region: content
 hidden:
-  description: true
   langcode: true
   search_api_excerpt: true

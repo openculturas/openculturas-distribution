@@ -1,0 +1,330 @@
+uuid: aa8abad0-6a04-43b7-9830-21d288ba5ef0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.profile.body
+    - field.field.node.profile.field_address_data
+    - field.field.node.profile.field_category
+    - field.field.node.profile.field_contact_data
+    - field.field.node.profile.field_gallery
+    - field.field.node.profile.field_legal_url
+    - field.field.node.profile.field_mood_image
+    - field.field.node.profile.field_notification
+    - field.field.node.profile.field_people_reference
+    - field.field.node.profile.field_portrait
+    - field.field.node.profile.field_profile_role
+    - field.field.node.profile.field_profile_type
+    - field.field.node.profile.field_reference_title
+    - field.field.node.profile.field_started
+    - field.field.node.profile.field_subtitle
+    - node.type.profile
+  module:
+    - conditional_fields
+    - datetime
+    - field_group
+    - link
+    - media_library
+    - paragraphs
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_profile_type:
+      children:
+        - field_profile_role
+        - field_profile_type
+        - field_reference_title
+        - field_people_reference
+      label: 'Profile type'
+      region: content
+      parent_name: ''
+      weight: 10
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_about:
+      children:
+        - field_mood_image
+        - body
+        - field_started
+      label: About
+      region: content
+      parent_name: ''
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+id: node.profile.default
+targetEntityType: node
+bundle: profile
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 16
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_address_data:
+    type: entity_reference_paragraphs
+    weight: 19
+    region: content
+    settings:
+      title: Address
+      title_plural: Addresses
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+  field_category:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_data:
+    type: entity_reference_paragraphs
+    weight: 16
+    region: content
+    settings:
+      title: 'Contact data'
+      title_plural: 'Contact data'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+  field_gallery:
+    type: media_library_widget
+    weight: 13
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_legal_url:
+    type: link_default
+    weight: 17
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      conditional_fields:
+        ac9c374e-a28f-46b4-ae6b-0b3d6eb376e0:
+          entity_type: node
+          bundle: profile
+          dependee: field_profile_role
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 5
+            value: ''
+            values: organizer
+            value_form:
+              -
+                value: basic
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_mood_image:
+    type: media_library_widget
+    weight: 15
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_notification:
+    type: text_textarea
+    weight: 18
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        55cb6f4b-f43e-4020-8e30-ea0aaaa0f5e7:
+          entity_type: node
+          bundle: profile
+          dependee: field_profile_role
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 5
+            value: ''
+            values: organizer
+            value_form:
+              -
+                value: basic
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_people_reference:
+    type: entity_reference_paragraphs
+    weight: 14
+    region: content
+    settings:
+      title: Member
+      title_plural: Members
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings:
+      conditional_fields:
+        c319197a-183e-460c-8e6c-21fab8a4a17f:
+          entity_type: node
+          bundle: profile
+          dependee: field_profile_type
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 5
+            value: ''
+            values: g
+            value_form:
+              -
+                value: p
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_portrait:
+    type: media_library_widget
+    weight: 9
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_profile_role:
+    type: options_buttons
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_profile_type:
+    type: options_buttons
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_reference_title:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        43fc5363-3eef-4fca-a000-4155ddc2fa00:
+          entity_type: node
+          bundle: profile
+          dependee: field_profile_type
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 5
+            value: ''
+            values: g
+            value_form:
+              -
+                value: p
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_started:
+    type: datetime_default
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_subtitle:
+    type: text_textfield
+    weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

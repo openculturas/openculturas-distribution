@@ -1,13 +1,13 @@
-uuid: 01feb67b-14c5-427d-807f-0be911db93cf
+uuid: 3fac64f6-ec96-4860-a26b-c197371740e1
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_address_location
+    - field.storage.paragraph.field_address_location
+    - paragraphs.paragraphs_type.address_data
   module:
     - geocoder_field
     - geofield
-    - user
 third_party_settings:
   geocoder_field:
     method: geocode
@@ -15,23 +15,23 @@ third_party_settings:
     field: field_address
     skip_not_empty_value: false
     disabled: false
-    hidden: true
+    hidden: false
     providers:
       - openstreetmap
     dumper: wkt
     delta_handling: default
     failure:
       handling: preserve
-      status_message: false
+      status_message: true
       log: true
-id: user.user.field_address_location
+id: paragraph.address_data.field_address_location
 field_name: field_address_location
-entity_type: user
-bundle: user
+entity_type: paragraph
+bundle: address_data
 label: 'Address location'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
