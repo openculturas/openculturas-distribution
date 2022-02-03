@@ -62,7 +62,13 @@ header.header {
     align-self: center;
 
     &--link {
-      @include icon_button();
+      @include offcanvas_button(bars);
+      color: color(white);
+      text-decoration: none;
+
+      &:hover, &:focus {
+        background-color: color(primary);
+      }
     }
   }
 }

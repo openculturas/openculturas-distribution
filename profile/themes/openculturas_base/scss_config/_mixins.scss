@@ -1,0 +1,227 @@
+/**
+ * Helper mixin for setting sensible grid defaults depending on variables.scss.
+ * This mixin will create a simple grid with $grid-column-count columns if no parameters are given.
+ * Optionally you can define your own grid layout as needed by passing $columns and $area-names.
+ *
+ * @param $columns-definition
+ *    A definition for grid columns like "3fr 3fr 6fr 4fr" or "repeat(8, 2fr)".
+ * @param $area-names
+ *    If you want to use named grid areas, you can pass name strings like "media text meta".
+ *
+ * @usage
+ *    .gridContainer {
+ *        // Includes the default grid with 16 columns.
+ *        @include grid();
+ *    }
+ *
+ *    .customGridContainer {
+ *        // Includes a custom grid with 2 areas.
+ *        @include grid(4fr 12fr, "sidebar main");
+ *    }
+ *
+ *    .multiRowGridContainer {
+ *        // Includes a custom grid with 2 areas and 3 rows.
+ *        @include grid(4fr 12fr, "logo header" "sidebar main" "copy footer");
+ *    }
+ *
+ */
+@mixin grid($columns-definition: false, $area-names: false) {
+  display: grid;
+  @if $columns-definition {
+    grid-template-columns: $columns-definition;
+  } @else {
+    grid-template-columns: repeat($grid-column-count, 1fr);
+  }
+  @if $area-names {
+    grid-template-areas: $area-names;
+  }
+  grid-template-rows: auto;
+  max-width: $grid-layout-max-width;
+  grid-column-gap: $grid-gutter;
+  grid-row-gap: 0;
+}
+
+/**
+ * Helper mixin for using breakpoints.
+ *
+ * @param $name
+ *    The name of the breakpoint you want to use as defined in variables.scss.
+ *
+ * @usage
+ *    .responsiveContainer {
+ *        @include breakpoint(m) {
+ *           padding: 1rem;
+ *        }
+ *    }
+ */
+@mixin breakpoint ($name: xs) {
+  @media screen and (#{map_get($breakpoints, $name)}) {
+    @content;
+  }
+}
+
+/**
+ * Helper mixin for quickly setting a font style from the list in variables.scss.
+ *
+ * @param $name
+ *   The name of the font style as listed in variables.scss.
+ *
+ * @usage
+ *    .textContainer {
+ *        @include typo(h1);
+ *    }
+ */
+@mixin typo ($name: body) {
+  font-family: map_get(map_get($fontStyles, $name), 'font-family');
+  font-weight: map_get(map_get($fontStyles, $name), 'font-weight');
+  line-height: map_get(map_get($fontStyles, $name), 'line-height');
+  text-transform: map_get(map_get($fontStyles, $name), 'text-transform');
+  letter-spacing: map_get(map_get($fontStyles, $name), 'letter-spacing');
+  font-size: map_get(map_get($fontStyles, $name), 'font-size');
+  margin: map_get(map_get($fontStyles, $name), 'margin');
+
+  @if $name == h1 {
+    @include breakpoint(l) {
+      font-size: map_get(map_get($fontStyles, $name), 'font-size') * 1.5;
+      margin: map_get(map_get($fontStyles, $name), 'font-size') * 1.5 * 0.5 0;
+    }
+  }
+
+}
+
+/**
+ * Helper mixin for making an image fit to its's container.
+ *
+ * The expected behaviour will be like background-size: cover, but with real images.
+ * Optionally it is possible to define a min-height or max-height.
+ *
+ * @param $max-height
+ *   Optional max-height value.
+ * @param $min-height
+ *   Optional min-height value.
+ *
+ * @usage
+ *    .imgContainer {
+ *        @include image-fit();
+ *    }
+ */
+@mixin image_fit ($max-height: false, $min-height: false) {
+  .media--blazy,
+  figure, picture {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  img {
+    @if $max-height != false {
+      max-height: $max-height;
+    }
+    @if $min-height != false {
+      min-height: $min-height;
+    }
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+/**
+ * Helper mixin for giving an element the default offcanvas button style.
+ * Optinally you can define an icon from the fontawesome library to be added to the button.
+ *
+ * @param $icon
+ *   Optional icon from fontawesome to be added to the button.
+ * @param $iconset
+ *   Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
+ *   in the "brands" set of fontawesome which has the shorthand "fab").
+ *   Possible values with the free version: "fas" & "fab".
+ *
+ * @usage
+ *    .offcanvasButtonElement {
+ *        @include rounded_button();
+ *    }
+ *
+ *    .offcanvasButtonElement {
+ *        @include rounded_button(bars);
+ *    }
+ *
+ *    .offcanvasButtonElement {
+ *        @include rounded_button(twitter, fab);
+ *    }
+ */
+@mixin offcanvas_button($icon: false, $iconset: fas) {
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: color(neutral-50);
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+
+  @include breakpoint(m) {
+    font-size: 2rem;
+  }
+
+  @if $icon {
+    @include icon($icon, $iconset);
+
+    &:before {
+      text-decoration: none;
+      text-align: center;
+      vertical-align: bottom;
+      line-height: 1.5;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+/**
+ * Helper mixin for adding an icon to an element via scss.
+ * Optionally you can select another fontawesome set of icons.
+ *
+ * @param $icon
+ *   The icon name in the fontawesome library (f.e. "arrow-up" or "bars").
+ * @param $iconset
+ *   Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
+ *   in the "brands" set of fontawesome which has the shorthand "fab").
+ *   Possible values with the free version: "fas" & "fab".
+ *
+ * @usage
+ *    .elementWithArrowIcon {
+ *        @include icon(arrow-up);
+ *    }
+ *
+ *    .elementWithTwitterIcon {
+ *        @include icon(twitter, fab);
+ *    }
+ *
+ */
+@mixin icon($icon: arrow-right, $iconset: fas) {
+  @include fa-icon();
+
+  &:before {
+    @extend .#{$fa-css-prefix}-#{$icon}, :before;
+    @extend .#{$iconset};
+  }
+}
+
+/**
+ * Default clearfix implementation to be used in conjunction with floating elements.
+ *
+ * @usage
+ *    .box {
+ *      @include clearfix;
+ *    }
+ */
+@mixin clearfix () {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
