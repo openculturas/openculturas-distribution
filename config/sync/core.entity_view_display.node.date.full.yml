@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.date.field_attendance_mode
     - field.field.node.date.field_body_addon
+    - field.field.node.date.field_date
     - field.field.node.date.field_door_time
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
@@ -25,6 +26,7 @@ dependencies:
     - layout_builder
     - link
     - options
+    - smart_date_recur
     - text
     - user
 third_party_settings:
@@ -41,14 +43,31 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 102
+    weight: 4
     region: content
   field_body_addon:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 111
+    weight: 13
+    region: content
+  field_date:
+    type: smartdate_recurring
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+      format: site_default_date
+      force_chronological: true
+      add_classes: false
+      time_wrapper: true
+      past_display: 2
+      upcoming_display: 2
+      show_next: true
+      current_upcoming: '1'
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_door_time:
     type: datetime_default
@@ -57,7 +76,7 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 106
+    weight: 8
     region: content
   field_event_description:
     type: entity_reference_label
@@ -65,21 +84,21 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 105
+    weight: 7
     region: content
   field_event_series:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 112
+    weight: 14
     region: content
   field_event_status:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 3
     region: content
   field_forfree:
     type: boolean
@@ -89,7 +108,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 107
+    weight: 9
     region: content
   field_location:
     type: entity_reference_label
@@ -97,7 +116,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 103
+    weight: 5
     region: content
   field_location_virtual:
     type: link
@@ -109,7 +128,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 104
+    weight: 6
     region: content
   field_organizer:
     type: entity_reference_entity_view
@@ -118,7 +137,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 115
+    weight: 17
     region: content
   field_parent_date:
     type: entity_reference_entity_view
@@ -127,7 +146,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 114
+    weight: 16
     region: content
   field_pricing:
     type: string
@@ -135,14 +154,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 108
+    weight: 10
     region: content
   field_safety_info:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 110
+    weight: 12
     region: content
   field_sub_dates:
     type: entity_reference_entity_view
@@ -151,7 +170,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 113
+    weight: 15
     region: content
   field_ticketing:
     type: link
@@ -163,17 +182,17 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 109
+    weight: 11
     region: content
   flag_bookmark_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 1
     region: content
   flag_recommendation_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 0
     region: content
 hidden:
   langcode: true
