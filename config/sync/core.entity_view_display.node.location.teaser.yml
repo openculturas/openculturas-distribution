@@ -11,74 +11,58 @@ dependencies:
     - field.field.node.location.field_a11y_info
     - field.field.node.location.field_a11y_visual
     - field.field.node.location.field_a11y_wheelchair
+    - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
     - field.field.node.location.field_address
     - field.field.node.location.field_address_location
-    - field.field.node.location.field_email
+    - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
     - field.field.node.location.field_legal_url
     - field.field.node.location.field_logo
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
-    - field.field.node.location.field_phone
     - field.field.node.location.field_safety_info
-    - field.field.node.location.field_social_media_links
     - field.field.node.location.field_subtitle
     - field.field.node.location.field_tags
-    - field.field.node.location.field_url
     - node.type.location
   module:
-    - text
     - user
 id: node.location.teaser
 targetEntityType: node
 bundle: location
 mode: teaser
 content:
-  body:
-    type: text_summary_or_trimmed
+  field_logo:
+    type: entity_reference_entity_view
     label: hidden
     settings:
-      trim_length: 600
+      view_mode: default
+      link: true
     third_party_settings: {  }
-    weight: 101
-    region: content
-  flag_bookmark_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_recommendation_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
+  body: true
   field_a11y_auditive: true
   field_a11y_cognitive: true
   field_a11y_flashing: true
   field_a11y_info: true
   field_a11y_visual: true
   field_a11y_wheelchair: true
+  field_accessibility: true
   field_additional_information: true
   field_address: true
   field_address_location: true
-  field_email: true
+  field_contact_data: true
   field_gallery: true
   field_legal_url: true
-  field_logo: true
   field_mood_image: true
   field_opening_hours: true
-  field_phone: true
   field_safety_info: true
-  field_social_media_links: true
   field_subtitle: true
   field_tags: true
-  field_url: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
+  links: true
   search_api_excerpt: true
