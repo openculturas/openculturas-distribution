@@ -13,7 +13,7 @@
 
     h1, h2, h3, h4, h5, h6 {
       display: inline-block;
-      @include icon(chevron-down, fas);
+      @include icon(chevron-down, fas, after);
       margin: 0 2rem 0 0;
       width: calc(100% - 2rem);
 
@@ -21,7 +21,7 @@
         color: color(link-focus);
       }
 
-      &:before {
+      &:after {
         position: absolute;
         right: 0;
         top: 0.25em;
@@ -42,7 +42,7 @@
   &[open] {
     summary {
       h1, h2, h3, h4, h5, h6 {
-        &:before {
+        &:after {
           transform: rotate(-180deg);
         }
       }

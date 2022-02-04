@@ -149,22 +149,23 @@
  *        @include rounded_button(twitter, fab);
  *    }
  */
-@mixin offcanvas_button($icon: false, $iconset: fas) {
+@mixin offcanvas_button($icon: false, $iconset: fas, $position: before) {
   display: block;
   width: 1.5em;
   height: 1.5em;
   background-color: color(neutral-50);
   border-radius: 0.5rem;
   font-size: 1.5rem;
+  overflow: hidden;
 
   @include breakpoint(m) {
     font-size: 2rem;
   }
 
   @if $icon {
-    @include icon($icon, $iconset);
+    @include icon($icon, $iconset, $position);
 
-    &:before {
+    &:#{$position} {
       text-decoration: none;
       text-align: center;
       vertical-align: bottom;
@@ -213,7 +214,7 @@
   &:#{$position} {
     @include fa-icon();
     @extend %#{$iconset};
-    @extend .#{$fa-css-prefix}-#{$icon};
+    content: map_get($fa-custom-icon-map, $icon);
   }
 }
 

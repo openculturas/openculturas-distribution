@@ -63,8 +63,22 @@ header.header {
 
     &--link {
       @include offcanvas_button(bars);
+      @include offcanvas_button(times, fas, after);
       color: color(white);
       text-decoration: none;
+
+      &:before, &:after {
+        position: relative;
+        top: 0;
+        transition: top 300ms ease;
+      }
+
+      .offcanvas-open &{
+        &:before, &:after {
+          position: relative;
+          top: -100%;
+        }
+      }
 
       &:hover, &:focus {
         background-color: color(primary);
