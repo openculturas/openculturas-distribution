@@ -181,6 +181,21 @@
   }
 }
 
+@mixin tag_links() {
+  display: inline-block;
+  background: color(neutral-10);
+  color: color(neutral-60);
+  padding: $grid-gutter*0.25 $grid-gutter;
+  margin: 0 $grid-gutter $grid-gutter 0;
+  border-radius: 0.75rem;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    background: color(neutral-40);
+    color: color(white);
+  }
+}
+
 /**
  * Helper mixin for adding an icon to an element via scss.
  * Optionally you can select another fontawesome set of icons.

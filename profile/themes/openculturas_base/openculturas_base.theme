@@ -41,3 +41,19 @@ function openculturas_base_preprocess_node(&$variables) {
 
 }
 
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Adds a class depending on referenced entity to links of entity_reference fields.
+ */
+function openculturas_base_preprocess_field(array &$variables) {
+  if ($variables['field_type'] == 'entity_reference') {
+    foreach ($variables["items"] as $index => &$item) {
+      if (isset($item['content']['#options']['entity_type']) && isset($item['content']['#options']['entity'])) {
+        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"]);
+        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"] . '--' . $item["content"]["#options"]["entity"]->bundle());
+      }
+    }
+  }
+}
+
