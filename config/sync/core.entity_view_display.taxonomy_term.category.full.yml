@@ -6,13 +6,78 @@ dependencies:
     - core.entity_view_mode.taxonomy_term.full
     - field.field.taxonomy_term.category.field_mood_image
     - taxonomy.vocabulary.category
+    - views.view.vocabulary
   module:
     - layout_builder
+    - layout_discovery
     - text
+    - views
 third_party_settings:
   layout_builder:
-    enabled: false
+    enabled: true
     allow_custom: false
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          74807b06-0bf5-4a79-a29e-4929238d08ff:
+            uuid: 74807b06-0bf5-4a79-a29e-4929238d08ff
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:category:field_mood_image'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                  link: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          18044f70-aa4e-40f0-959c-35af5c8d66ac:
+            uuid: 18044f70-aa4e-40f0-959c-35af5c8d66ac
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:category:description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          8f0b16d3-3ae9-474f-a923-a87b690d5520:
+            uuid: 8f0b16d3-3ae9-474f-a923-a87b690d5520
+            region: content
+            configuration:
+              id: 'extra_field_block:taxonomy_term:category:flag_bookmark_term'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 2
+            additional: {  }
+          f1dbd4c3-6667-4650-a70d-70031843d12f:
+            uuid: f1dbd4c3-6667-4650-a70d-70031843d12f
+            region: content
+            configuration:
+              id: 'views_block:vocabulary-block_term_grid'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 3
+            additional: {  }
+        third_party_settings: {  }
 id: taxonomy_term.category.full
 targetEntityType: taxonomy_term
 bundle: category
