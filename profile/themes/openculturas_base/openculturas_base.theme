@@ -50,12 +50,21 @@ function openculturas_base_preprocess_page(&$variables) {
  */
 function openculturas_base_preprocess_node(&$variables) {
   $node = $variables['node'];
+
+  // Hide all flag fields on nodes because they get rendered in a seperated block.
+  foreach ($variables["content"] as $name => $render_array) {
+    if (strpos($name, 'flag_') === 0) {
+      $variables["content"][$name]['#access'] = FALSE;
+    }
+  }
+
+  // Override details title with user-set value and hide original field rendering.
   if ($node->getType() == 'profile') {
     if ($node->hasField('field_reference_title')
       && !$node->get('field_reference_title')->isEmpty()) {
       $reference_title = $node->get('field_reference_title')->value;
       $variables["elements"]["#fieldgroups"]["group_featuring"]->label = $reference_title;
-      $variables['content']['field_reference_title']['#access'] = false;
+      $variables['content']['field_reference_title']['#access'] = FALSE;
     }
   }
 }

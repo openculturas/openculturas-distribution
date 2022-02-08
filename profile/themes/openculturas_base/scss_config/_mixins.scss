@@ -41,6 +41,14 @@
   grid-row-gap: $row-gap;
 }
 
+@mixin content-grid-default() {
+  grid-column: 2 / 16;
+
+  @include breakpoint(m) {
+    grid-column: 4 / 14;
+  }
+}
+
 /**
  * Helper mixin for using breakpoints.
  *
