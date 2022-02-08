@@ -25,8 +25,8 @@ class HeroImageBlock extends BlockBase {
       && $current_entity->hasField('field_mood_image')
       && !$current_entity->get('field_mood_image')->isEmpty()) {
       $field_mood_image = $current_entity->get('field_mood_image')->referencedEntities()[0];
-      $media = \Drupal::entityTypeManager()->getViewBuilder('media')->view($field_mood_image, 'header_image');
-      return $media;
+      $media_view = \Drupal::entityTypeManager()->getViewBuilder('media')->view($field_mood_image, 'header_image');
+      return $media_view;
     }
     return NULL;
   }
