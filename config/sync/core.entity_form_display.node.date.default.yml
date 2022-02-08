@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.date.field_attendance_mode
     - field.field.node.date.field_body_addon
+    - field.field.node.date.field_date
     - field.field.node.date.field_door_time
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
@@ -24,6 +25,8 @@ dependencies:
     - field_group
     - link
     - path
+    - smart_date
+    - smart_date_recur
     - text
 third_party_settings:
   field_group:
@@ -33,6 +36,7 @@ third_party_settings:
         - field_location
         - field_location_virtual
         - field_door_time
+        - field_date
       label: Attendance
       region: content
       parent_name: ''
@@ -53,7 +57,7 @@ third_party_settings:
       label: Tickets
       region: content
       parent_name: ''
-      weight: 4
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -70,7 +74,7 @@ third_party_settings:
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -86,7 +90,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 11
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -98,12 +102,37 @@ content:
     third_party_settings: {  }
   field_body_addon:
     type: text_textarea
-    weight: 5
+    weight: 8
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_date:
+    type: smartdate_inline
+    weight: 15
+    region: content
+    settings:
+      show_extra: 0
+      hide_date: 0
+      modal: false
+      default_duration: 60
+      default_duration_increments: |-
+        30
+        60|1 hour
+        90
+        120|2 hours
+        custom
+    third_party_settings:
+      smart_date_recur:
+        modal: true
+        allowed_recur_freq_values:
+          MINUTELY: '0'
+          HOURLY: '0'
+          DAILY: DAILY
+          WEEKLY: WEEKLY
+          MONTHLY: MONTHLY
+          YEARLY: '0'
   field_door_time:
     type: datetime_default
     weight: 14
@@ -122,7 +151,7 @@ content:
     third_party_settings: {  }
   field_event_series:
     type: options_select
-    weight: 6
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -134,7 +163,7 @@ content:
     third_party_settings: {  }
   field_forfree:
     type: boolean_checkbox
-    weight: 13
+    weight: 9
     region: content
     settings:
       display_label: true
@@ -159,7 +188,7 @@ content:
     third_party_settings: {  }
   field_organizer:
     type: entity_reference_autocomplete
-    weight: 26
+    weight: 18
     region: content
     settings:
       match_operator: CONTAINS
@@ -169,7 +198,7 @@ content:
     third_party_settings: {  }
   field_parent_date:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 13
     region: content
     settings:
       match_operator: CONTAINS
@@ -197,7 +226,7 @@ content:
             selector: ''
   field_pricing:
     type: string_textfield
-    weight: 14
+    weight: 10
     region: content
     settings:
       size: 60
@@ -205,7 +234,7 @@ content:
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 8
+    weight: 10
     region: content
     settings:
       rows: 5
@@ -213,7 +242,7 @@ content:
     third_party_settings: {  }
   field_sub_dates:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 12
     region: content
     settings:
       match_operator: CONTAINS
@@ -241,7 +270,7 @@ content:
             selector: ''
   field_ticketing:
     type: link_default
-    weight: 15
+    weight: 11
     region: content
     settings:
       placeholder_url: ''
@@ -249,34 +278,34 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 9
+    weight: 11
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 14
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 12
+    weight: 14
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 15
+    weight: 17
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 13
+    weight: 15
     region: content
     settings:
       display_label: true
@@ -291,7 +320,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 12
     region: content
     settings:
       match_operator: CONTAINS
