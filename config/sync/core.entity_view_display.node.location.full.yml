@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.location.field_additional_information
     - field.field.node.location.field_address
     - field.field.node.location.field_address_location
+    - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
     - field.field.node.location.field_legal_url
@@ -23,7 +24,6 @@ dependencies:
     - field.field.node.location.field_opening_hours
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_subtitle
-    - field.field.node.location.field_tags
     - node.type.location
   module:
     - address
@@ -41,6 +41,7 @@ third_party_settings:
     group_focus:
       children:
         - field_tags
+        - field_category
       label: Focus
       parent_name: ''
       region: content
@@ -226,6 +227,14 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
+  field_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
   field_contact_data:
     type: entity_reference_revisions_entity_view
     label: hidden
@@ -273,14 +282,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
-    region: content
-  field_tags:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 8
     region: content
   flag_bookmark_node:
     settings: {  }
