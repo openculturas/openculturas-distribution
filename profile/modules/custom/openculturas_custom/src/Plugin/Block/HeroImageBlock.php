@@ -4,6 +4,7 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\openculturas_custom\CurrentEntityHelper;
+use Drupal\Core\Cache\UncacheableDependencyTrait;
 
 /**
  * Provides a hero image from current entity block.
@@ -16,6 +17,8 @@ use Drupal\openculturas_custom\CurrentEntityHelper;
  */
 class HeroImageBlock extends BlockBase {
 
+  use UncacheableDependencyTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -26,6 +29,7 @@ class HeroImageBlock extends BlockBase {
       && !$current_entity->get('field_mood_image')->isEmpty()) {
       $field_mood_image = $current_entity->get('field_mood_image')->referencedEntities()[0];
       $media_view = \Drupal::entityTypeManager()->getViewBuilder('media')->view($field_mood_image, 'header_image');
+      $media_view['#cache']['max-age'] = 0;
       return $media_view;
     }
     return NULL;
