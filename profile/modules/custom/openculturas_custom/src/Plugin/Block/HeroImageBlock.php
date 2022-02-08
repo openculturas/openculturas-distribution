@@ -17,6 +17,7 @@ use Drupal\Core\Cache\UncacheableDependencyTrait;
  */
 class HeroImageBlock extends BlockBase {
 
+  // @TODO: Maybe find a better way to cache those blocks depending in node.
   use UncacheableDependencyTrait;
 
   /**

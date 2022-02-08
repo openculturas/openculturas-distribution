@@ -25,7 +25,7 @@
  *    }
  *
  */
-@mixin grid($columns-definition: false, $area-names: false) {
+@mixin grid($columns-definition: false, $area-names: false, $row-gap: 0) {
   display: grid;
   @if $columns-definition {
     grid-template-columns: $columns-definition;
@@ -38,7 +38,7 @@
   grid-template-rows: auto;
   max-width: $grid-layout-max-width;
   grid-column-gap: $grid-gutter;
-  grid-row-gap: 0;
+  grid-row-gap: $row-gap;
 }
 
 /**
