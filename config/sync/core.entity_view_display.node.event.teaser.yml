@@ -5,38 +5,58 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.body
+    - field.field.node.event.field_category
     - field.field.node.event.field_duration
     - field.field.node.event.field_gallery
     - field.field.node.event.field_inlanguage
     - field.field.node.event.field_mood_image
     - field.field.node.event.field_people_reference
+    - field.field.node.event.field_started
     - field.field.node.event.field_subtitle
-    - field.field.node.event.field_tags
     - field.field.node.event.field_url
     - node.type.event
   module:
+    - text
     - user
 id: node.event.teaser
 targetEntityType: node
 bundle: event
 mode: teaser
 content:
-  flag_recommendation_node:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 180
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 0
     region: content
 hidden:
-  body: true
+  field_category: true
   field_duration: true
   field_gallery: true
   field_inlanguage: true
-  field_mood_image: true
   field_people_reference: true
-  field_subtitle: true
-  field_tags: true
+  field_started: true
   field_url: true
   flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
   links: true
   search_api_excerpt: true
