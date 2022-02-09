@@ -407,7 +407,7 @@ display:
           leaflet_map: 'OSM Mapnik'
           height: '500'
           height_unit: px
-          hide_empty_map: true
+          hide_empty_map: false
           disable_wheel: true
           gesture_handling: true
           reset_map:
@@ -416,8 +416,8 @@ display:
           map_position:
             force: false
             center:
-              lat: !!float 0
-              lon: !!float 0
+              lat: 51.164305
+              lon: 10.4541205
             zoom: 12
             minZoom: 1
             maxZoom: 18
@@ -458,7 +458,7 @@ display:
               providers:
                 openstreetmap:
                   weight: '0'
-                  checked: 0
+                  checked: 1
               min_terms: 4
               delay: 800
               zoom: 16
@@ -505,6 +505,20 @@ display:
         type: none
         options:
           offset: 0
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'No results.'
+            format: basic_html
+          tokenize: false
       style:
         type: default
         options:
@@ -517,6 +531,7 @@ display:
           relationship: none
           view_mode: teaser
       defaults:
+        empty: false
         title: true
         style: false
         row: false
@@ -544,20 +559,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: true
-          content:
-            value: 'No results.'
-            format: basic_html
-          tokenize: false
+      empty: {  }
       defaults:
         empty: false
         exposed_form: true
