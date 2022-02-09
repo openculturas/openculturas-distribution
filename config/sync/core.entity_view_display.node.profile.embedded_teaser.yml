@@ -19,11 +19,9 @@ dependencies:
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
-    - image.style.profile
     - node.type.profile
   module:
     - layout_builder
-    - media
     - user
 third_party_settings:
   layout_builder:
@@ -35,11 +33,11 @@ bundle: profile
 mode: embedded_teaser
 content:
   field_portrait:
-    type: media_thumbnail
+    type: entity_reference_entity_view
     label: hidden
     settings:
-      image_link: content
-      image_style: profile
+      view_mode: default
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content

@@ -1,9 +1,9 @@
-uuid: a43a2b36-eedd-4158-a0de-c25a896a3dc0
+uuid: d9a53524-c02d-4c5d-a0ea-241381a95e9f
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.legal
     - field.field.node.profile.body
     - field.field.node.profile.field_address_data
     - field.field.node.profile.field_category
@@ -21,43 +21,61 @@ dependencies:
     - field.field.node.profile.field_subtitle
     - node.type.profile
   module:
+    - entity_reference_revisions
+    - layout_builder
+    - link
     - text
     - user
-id: node.profile.teaser
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.profile.legal
 targetEntityType: node
 bundle: profile
-mode: teaser
+mode: legal
 content:
-  field_portrait:
-    type: entity_reference_entity_view
+  field_contact_data:
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
       view_mode: default
-      link: false
+      link: ''
     third_party_settings: {  }
     weight: 0
     region: content
-  field_subtitle:
-    type: text_default
-    label: hidden
-    settings: {  }
+  field_legal_url:
+    type: link
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_notification:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   body: true
   field_address_data: true
   field_category: true
-  field_contact_data: true
   field_gallery: true
-  field_legal_url: true
   field_mood_image: true
-  field_notification: true
   field_people_reference: true
+  field_portrait: true
   field_profile_role: true
   field_profile_type: true
   field_reference_title: true
   field_started: true
+  field_subtitle: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true
