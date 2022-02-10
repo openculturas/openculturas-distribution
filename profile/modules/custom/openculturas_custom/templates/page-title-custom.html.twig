@@ -14,7 +14,14 @@
 #}
 {{ title_prefix }}
 {% if title %}
-  <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
-  <h2>{{ subtitle }}</h2>
+  {% if profile_image %}
+    <div class="custom-page-title--with-image">
+  {% endif %}
+    {{ profile_image }}
+    <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
+  {% if profile_image %}
+  </div>
+  {% endif %}
 {% endif %}
 {{ title_suffix }}

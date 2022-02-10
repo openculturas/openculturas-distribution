@@ -48,16 +48,24 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface {
   public function build() {
     $current_entity = CurrentEntityHelper::get_current_page_entity();
     $subtitle = NULL;
-    if (!empty($current_entity) && method_exists($current_entity, 'hasField')
-      && $current_entity->hasField('field_subtitle')
-      && !$current_entity->get('field_subtitle')->isEmpty()) {
-      $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);
+    $profile_image = NULL;
+
+    if (!empty($current_entity) && method_exists($current_entity, 'hasField')) {
+      if ($current_entity->hasField('field_subtitle')
+        && !$current_entity->get('field_subtitle')->isEmpty()) {
+        $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);
+      }
+      if ($current_entity->hasField('field_portrait')
+        && !$current_entity->get('field_portrait')->isEmpty()) {
+        $profile_image = $current_entity->get('field_portrait')->view('profile_image');
+      }
     }
 
     return [
       '#theme' => 'page_title_custom',
       '#title' => $this->title,
-      '#subtitle' => $subtitle
+      '#subtitle' => $subtitle,
+      '#profile_image' => $profile_image
     ];
   }
 
