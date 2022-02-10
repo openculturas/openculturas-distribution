@@ -14,3 +14,4 @@ require_once $app_root . '/sites/example.settings.local.php';
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
    include $app_root . '/' . $site_path . '/settings.local.php';
 }
+$settings['config_exclude_modules'] = ['devel', 'stage_file_proxy', 'config_inspector'];
