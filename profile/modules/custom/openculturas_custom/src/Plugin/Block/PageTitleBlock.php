@@ -51,7 +51,7 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface {
     if (!empty($current_entity) && method_exists($current_entity, 'hasField')
       && $current_entity->hasField('field_subtitle')
       && !$current_entity->get('field_subtitle')->isEmpty()) {
-      $subtitle = $current_entity->get('field_subtitle')->value;
+      $subtitle = $current_entity->get('field_subtitle')->view();
     }
 
     return [
