@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.location.field_logo
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_portrait
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_subtitle
     - node.type.location
@@ -31,6 +32,7 @@ dependencies:
     - field_group
     - layout_builder
     - leaflet
+    - link
     - text
     - user
 third_party_settings:
@@ -44,7 +46,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 5
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -59,11 +61,12 @@ third_party_settings:
         - field_address_location
         - field_opening_hours
         - field_safety_info
+        - field_legal_url
         - field_contact_data
       label: 'Address + Contact information'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -78,7 +81,7 @@ third_party_settings:
       label: Accessibility
       parent_name: ''
       region: content
-      weight: 7
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -93,7 +96,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 8
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -108,7 +111,7 @@ third_party_settings:
       label: 'Additional information'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -127,7 +130,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 6
     region: content
   field_accessibility:
     type: entity_reference_revisions_entity_view
@@ -232,7 +235,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   field_contact_data:
     type: entity_reference_revisions_entity_view
@@ -241,7 +244,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 15
     region: content
   field_gallery:
     type: entity_reference_entity_view
@@ -252,11 +255,32 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
+  field_legal_url:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 14
+    region: content
   field_logo:
     type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: header_image
       link: false
     third_party_settings: {  }
     weight: 2
@@ -268,19 +292,28 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
+  field_portrait:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: profile_image
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_safety_info:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   flag_bookmark_node:
     settings: {  }
@@ -299,8 +332,6 @@ hidden:
   field_a11y_info: true
   field_a11y_visual: true
   field_a11y_wheelchair: true
-  field_legal_url: true
-  field_mood_image: true
   langcode: true
   links: true
   search_api_excerpt: true

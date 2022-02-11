@@ -22,16 +22,74 @@ dependencies:
     - field.field.node.location.field_logo
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_portrait
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
+    - address_display
     - user
 id: node.location.teaser
 targetEntityType: node
 bundle: location
 mode: teaser
 content:
+  field_address:
+    type: address_display_formatter
+    label: above
+    settings:
+      address_display:
+        organization:
+          glue: ''
+          weight: -1
+          display: false
+        address_line1:
+          glue: ''
+          weight: 0
+          display: true
+        address_line2:
+          glue: ','
+          weight: 1
+          display: false
+        locality:
+          glue: ','
+          weight: 2
+          display: true
+        postal_code:
+          glue: ''
+          weight: 3
+          display: false
+        country_code:
+          glue: ''
+          weight: 4
+          display: false
+        langcode:
+          glue: ','
+          weight: 100
+          display: false
+        administrative_area:
+          glue: ','
+          weight: 100
+          display: false
+        dependent_locality:
+          glue: ','
+          weight: 100
+          display: true
+        sorting_code:
+          glue: ','
+          weight: 100
+          display: false
+        given_name:
+          glue: ''
+          weight: 100
+          display: false
+        family_name:
+          glue: ','
+          weight: 100
+          display: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_logo:
     type: entity_reference_entity_view
     label: hidden
@@ -51,7 +109,6 @@ hidden:
   field_a11y_wheelchair: true
   field_accessibility: true
   field_additional_information: true
-  field_address: true
   field_address_location: true
   field_category: true
   field_contact_data: true
@@ -59,6 +116,7 @@ hidden:
   field_legal_url: true
   field_mood_image: true
   field_opening_hours: true
+  field_portrait: true
   field_safety_info: true
   field_subtitle: true
   flag_bookmark_node: true
