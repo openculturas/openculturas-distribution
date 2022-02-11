@@ -21,8 +21,8 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
-    - datetime
     - field_group
+    - field_time
     - link
     - path
     - smart_date
@@ -35,8 +35,8 @@ third_party_settings:
         - field_attendance_mode
         - field_location
         - field_location_virtual
-        - field_door_time
         - field_date
+        - field_door_time
       label: Attendance
       region: content
       parent_name: ''
@@ -134,10 +134,12 @@ content:
           MONTHLY: MONTHLY
           YEARLY: '0'
   field_door_time:
-    type: datetime_default
-    weight: 14
+    type: time_widget
+    weight: 26
     region: content
-    settings: {  }
+    settings:
+      enabled: false
+      step: 5
     third_party_settings: {  }
   field_event_description:
     type: entity_reference_autocomplete

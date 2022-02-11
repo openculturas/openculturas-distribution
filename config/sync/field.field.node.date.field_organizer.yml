@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_organizer
     - node.type.date
-    - node.type.profile_organizer
+    - node.type.profile
 id: node.date.field_organizer
 field_name: field_organizer
 entity_type: node
@@ -20,10 +20,10 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      profile_organizer: profile_organizer
+      profile: profile
     sort:
       field: _none
       direction: ASC
-    auto_create: false
-    auto_create_bundle: ''
+    auto_create: true
+    auto_create_bundle: profile
 field_type: entity_reference

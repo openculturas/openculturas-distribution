@@ -1,16 +1,16 @@
-uuid: 66cb6164-0614-4b83-bd22-1ced0bb15f6e
+uuid: b5db7ea2-f454-45c9-a062-395bd502797d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_logo
-    - media.type.logo_image
-    - node.type.profile_organizer
-id: node.profile_organizer.field_logo
-field_name: field_logo
+    - field.storage.node.field_portrait
+    - media.type.user_profile_picture
+    - node.type.location
+id: node.location.field_portrait
+field_name: field_portrait
 entity_type: node
-bundle: profile_organizer
-label: Logo
+bundle: location
+label: 'Profile image'
 description: ''
 required: false
 translatable: true
@@ -20,7 +20,7 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      logo_image: logo_image
+      user_profile_picture: user_profile_picture
     sort:
       field: _none
       direction: ASC
