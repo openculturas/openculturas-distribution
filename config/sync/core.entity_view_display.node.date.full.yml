@@ -22,7 +22,7 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
-    - datetime
+    - field_time
     - layout_builder
     - link
     - options
@@ -50,7 +50,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: content
   field_date:
     type: smartdate_recurring
@@ -70,13 +70,12 @@ content:
     weight: 2
     region: content
   field_door_time:
-    type: datetime_default
+    type: time_formatter
     label: above
     settings:
-      timezone_override: ''
-      format_type: medium
+      time_format: 'h:i a'
     third_party_settings: {  }
-    weight: 8
+    weight: 17
     region: content
   field_event_description:
     type: entity_reference_label
@@ -91,7 +90,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   field_event_status:
     type: list_default
@@ -108,7 +107,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   field_location:
     type: entity_reference_label
@@ -137,7 +136,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
   field_parent_date:
     type: entity_reference_entity_view
@@ -146,7 +145,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   field_pricing:
     type: string
@@ -154,14 +153,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   field_safety_info:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: content
   field_sub_dates:
     type: entity_reference_entity_view
@@ -170,7 +169,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: content
   field_ticketing:
     type: link
@@ -182,7 +181,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: content
   flag_bookmark_node:
     settings: {  }
