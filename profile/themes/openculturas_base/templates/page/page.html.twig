@@ -95,11 +95,14 @@
 
   </main>
 
-  {% if page.footer %}
-    <footer role="contentinfo" class="footer content">
-      {{ page.footer }}
-      <a href="#top" class="footer__topbutton"><span class="visually-hidden">{{ 'Back to top'|t }}</span></a>
-    </footer>
-  {% endif %}
-
 </div>
+{% if page.footer %}
+  <footer role="contentinfo" class="footer content">
+    <div class="footer--container">
+      {{ page.footer }}
+      <div class="footer__topbutton">
+        <a href="#top" class="footer__topbutton--link"><span class="visually-hidden">{{ 'Back to top'|t }}</span></a>
+      </div>
+    </div>
+  </footer>
+{% endif %}

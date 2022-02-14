@@ -1,10 +1,15 @@
 footer.footer {
   background: color(neutral-50);
   color: color(white);
-  padding: $grid-gutter*2 0 $grid-gutter;
 
-  @include breakpoint(m) {
-    padding: $grid-gutter*3 0 $grid-gutter;
+  .footer--container {
+    margin: 0 auto;
+    @include grid();
+    padding: $grid-gutter*2 0 $grid-gutter;
+
+    @include breakpoint(m) {
+      padding: $grid-gutter*3 0 $grid-gutter;
+    }
   }
 
   a {
@@ -17,35 +22,12 @@ footer.footer {
     }
   }
 
-  &:before {
-    content: "";
-    display: block;
-    width: calc((100vw - 100%) / 2);
-    left: calc(((100vw - 100%) / 2) * -1);
-    top: 0;
-    height: 100%;
-    position: absolute;
-    background: color(neutral-50);
-    z-index: 1;
-
-  }
-  &:after {
-    content: "";
-    display: block;
-    width: calc((100vw - 100%) / 2);
-    right: calc(((100vw - 100%) / 2) * -1);
-    top: 0;
-    height: 100%;
-    position: absolute;
-    background: color(neutral-50);
-    z-index: 1;
-  }
-
   .region-footer {
     //@include grid(repeat(14, 1fr));
     display: block;
     position: relative;
     z-index: 2;
+    grid-column: 2 / 16;
 
     @include breakpoint(m) {
       margin: 0 $grid-gutter*-0.5 0 $grid-gutter*-0.5;
@@ -83,17 +65,21 @@ footer.footer {
   }
 
   .footer__topbutton {
-    @include offcanvas_button(arrow-up);
-    display: block;
-    background: color(white);
-    color: color(black);
-    margin-left: auto;
-    position: relative;
-    z-index: 2;
+    grid-column: 2 / 16;
 
-    &:hover, &:focus {
-      color: color(primary);
+    &--link {
+      @include offcanvas_button(arrow-up);
+      display: block;
+      background: color(white);
+      color: color(black);
+      margin-left: auto;
+      position: relative;
+      z-index: 2;
+      grid-row: 2;
+
+      &:hover, &:focus {
+        color: color(primary);
+      }
     }
   }
-
 }
