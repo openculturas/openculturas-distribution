@@ -25,7 +25,6 @@ dependencies:
     - field_group
     - layout_builder
     - link
-    - media
     - slick_entityreference
     - text
     - user
@@ -40,7 +39,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 6
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -56,7 +55,7 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 7
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -73,7 +72,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 8
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -87,7 +86,7 @@ third_party_settings:
       label: Address
       parent_name: ''
       region: hidden
-      weight: 12
+      weight: 18
       format_type: details
       format_settings:
         classes: ''
@@ -101,7 +100,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: hidden
-      weight: 10
+      weight: 17
       format_type: details
       format_settings:
         classes: ''
@@ -119,7 +118,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   field_address_data:
     type: entity_reference_revisions_entity_view
@@ -175,7 +174,7 @@ content:
       skin_dots: ''
       use_theme_field: false
     third_party_settings: {  }
-    weight: 9
+    weight: 7
     region: content
   field_legal_url:
     type: link
@@ -189,15 +188,6 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
-  field_mood_image:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: header_image
-      link: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view
     label: hidden
@@ -206,15 +196,6 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 11
-    region: content
-  field_portrait:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 3
     region: content
   field_reference_title:
     type: string
@@ -229,7 +210,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
   flag_bookmark_node:
     settings: {  }
@@ -242,7 +223,9 @@ content:
     weight: 0
     region: content
 hidden:
+  field_mood_image: true
   field_notification: true
+  field_portrait: true
   field_profile_role: true
   field_profile_type: true
   field_started: true
