@@ -28,6 +28,19 @@
       }
     }
   };
+
+  /**
+   * Opening / Closing logic for the offcanvas menu items.
+   */
+  Drupal.behaviors.pageHeaderMainMenu = {
+    attach: function (context, settings) {
+      $('.menu-item--toggle', context).once('init-main-menu').click(this.toggleMainMenuItem);
+    },
+    toggleMainMenuItem: function(e= null) {
+      let wasOpen = $(this).parent.hasClass('toggle-active');
+      // @TODO: Menu toggle logic
+    }
+  };
 } (jQuery, Drupal));
 
 /**
