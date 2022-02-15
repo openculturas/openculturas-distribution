@@ -1,8 +1,11 @@
 .contextual {
-  right: -32px;
   width: 32px;
-  border-radius: 0 1rem 1rem 0;
   top: 0px;
+
+  @include breakpoint(l) {
+    right: -32px;
+    border-radius: 0 1rem 1rem 0;
+  }
 
   .trigger {
     margin: 2px 0 2px 3px;
@@ -11,12 +14,15 @@
   }
 
   &.contextual-open .trigger, .focus & .trigger {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: none;
-    background-position: 2px center;
     border-color: color(primary);
     border-width: 2px;
+
+    @include breakpoint(l) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      background-position: 2px center;
+    }
   }
 }
 
