@@ -1,0 +1,13 @@
+{#
+/**
+ * @ingroup themeable
+ */
+#}
+
+{% for platform in platforms %}
+  <div class="field__item field-social field-{{ platform.id }}">
+    <a class="social-media-link" href="{{ platform.url }}" {{ platform.attributes }} >
+      <i class="fab fa-{{ platform.id }}"></i>{{ platform.name }}
+    </a>
+  </div>
+{% endfor %}

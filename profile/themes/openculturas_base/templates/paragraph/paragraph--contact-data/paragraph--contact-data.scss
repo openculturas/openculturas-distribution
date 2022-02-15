@@ -1,0 +1,47 @@
+.contact-data {
+  margin: 0 auto $grid-gutter auto;
+  width: fit-content;
+
+  @include breakpoint(l) {
+    @include grid(repeat(10, 1fr));
+  }
+
+  .field__item {
+    display: block;
+    width: fit-content;
+
+    @include breakpoint(l) {
+      &:nth-child(odd) {
+        grid-column: 1/6;
+      }
+      &:nth-child(even) {
+        grid-column: 7/11;
+      }
+
+    }
+
+    &.field-email a {
+      @include icon(envelope);
+    }
+    &.field-phone a {
+      @include icon(phone);
+    }
+    &.field-url a {
+      @include icon(globe);
+    }
+
+    a {
+      text-transform: uppercase;
+      padding: 0.25rem 0;
+      margin: 0.25rem 0;
+      display: inline-block;
+      text-decoration: none;
+
+      &:before, i {
+        font-size: 1.5rem;
+        vertical-align: bottom;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

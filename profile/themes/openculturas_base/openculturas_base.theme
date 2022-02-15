@@ -85,3 +85,20 @@ function openculturas_base_preprocess_field(array &$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Reformats paragraph data as needed by the templates.
+ */
+function openculturas_base_preprocess_paragraph(array &$variables) {
+
+  if ($variables['paragraph']->bundle() == 'contact_data') {
+    $variables['linklist'] = [];
+    $paragraph_fields = [
+      'field_phone',
+      'field_email',
+      'field_url'
+    ];
+
+  }
+}
