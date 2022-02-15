@@ -1,14 +1,16 @@
+.page-node-type-profile {
+  .region-content > .block-system-main-block {
+    grid-column: 1/17;
+  }
+}
+
 .node--type-profile.node--view-mode-full {
 
   > .node__content {
     @include grid;
 
-    > details, .field--type-text-with-summary {
+    > details, > .field--type-text-with-summary, > div {
       @include content-grid-default;
-    }
-
-    > .field--name-field-portrait {
-      display: none;
     }
 
     > .slick--field-gallery {
@@ -17,8 +19,4 @@
   }
 }
 
-.page-node-type-profile {
-  .region-content > .block-system-main-block {
-    grid-column: 1/17;
-  }
-}
+
