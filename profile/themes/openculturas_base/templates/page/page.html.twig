@@ -65,12 +65,23 @@
          aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Open the menu'|t }}"></a>
     </div>
     <div class="header__offcanvas-menu" role="dialog" aria-hidden="true" id="offcanvas_menu">
-      <div class="header__offcanvas-menu--toggle">
-        <a href="#menu" id="menu-offcanvas-toggle" class="header__burger--link header__offcanvas-menu--burger"
-           role="button" aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Close the menu'|t }}"></a>
-      </div>
-      <div class="header__offcanvas-menu--content">
-        {{ page.offcanvas_menu }}
+      <div class="header__offcanvas-menu--grid">
+        <div class="header__offcanvas-menu--heading">
+          {% if page.branding %}
+            <div class="header__offcanvas-menu__branding">
+              {{ page.branding }}
+            </div>
+          {% endif %}
+          <div class="header__offcanvas-menu--toggle">
+            <a href="#menu" id="menu-offcanvas-toggle" class="header__burger--link header__offcanvas-menu--burger"
+               role="button" aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Close the menu'|t }}"></a>
+          </div>
+        </div>
+        <div class="header__offcanvas-menu--content">
+          <div class="header__offcanvas-menu--content-grid">
+            {{ page.offcanvas_menu }}
+          </div>
+        </div>
       </div>
     </div>
     {% endif %}

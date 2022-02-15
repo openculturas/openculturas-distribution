@@ -242,6 +242,27 @@
 }
 
 /**
+ * Helper mixin for defining the circle size and styling, so it is consistent on every area on the page.
+ */
+@mixin profile_circle() {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 10rem;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+  }
+
+  @include breakpoint(m) {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+
+/**
  * Default clearfix implementation to be used in conjunction with floating elements.
  *
  * @usage
