@@ -8,6 +8,7 @@
   Drupal.behaviors.mainMenu = {
     attach: function (context, settings) {
       $('.menu-item--toggle', context).once('init-main-menu').click(this.toggleMenuItem);
+      // Toggle initial states.
       $('.menu--main ul').each(function() {
         if ($(this).parent().hasClass('menu-item--active-trail')) {
           $(this).slideDown();
@@ -27,7 +28,6 @@
       if (wasOpen) {
         $menuItem.removeClass('menu-item--open').children('ul').slideUp();
       } else {
-        console.log($menuItem.siblings().find('ul'));
         $menuItem.siblings().removeClass('menu-item--open').children('ul').slideUp();
         $menuItem.addClass('menu-item--open').children('ul').slideDown();
       }

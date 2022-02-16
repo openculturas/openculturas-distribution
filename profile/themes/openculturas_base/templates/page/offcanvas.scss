@@ -8,6 +8,7 @@
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
   z-index: 1000;
+  font-size: size(bigger);
 
   .offcanvas-open &{
     transform: translate3d(0, 0, 0);
@@ -137,10 +138,17 @@
       }
     }
 
-    .block-social-media-links {
-      @include social_links;
+    .block-social-media-links .social-links--wrapper {
       width: 100%;
       margin-bottom: 0;
+
+      .platform-name {
+        display: inline;
+      }
+
+      .platform-url {
+        display: none;
+      }
     }
   }
 
