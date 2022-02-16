@@ -314,6 +314,18 @@
 }
 
 /**
+ * Helper mixin for defining screenreader-only text.
+ */
+@mixin visually_hidden() {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+
+/**
  * Default clearfix implementation to be used in conjunction with floating elements.
  *
  * @usage
