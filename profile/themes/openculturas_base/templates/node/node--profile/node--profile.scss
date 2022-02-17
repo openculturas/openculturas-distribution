@@ -1,22 +1,27 @@
-.page-node-type-profile {
-  .region-content > .block-system-main-block {
-    grid-column: 1/17;
+.node--type-profile {
+  .profile--picture {
+    @include profile_circle;
+    background-color: color(neutral-20);
+    display: inline-block;
+
+    @include icon(user, fas, before);
+
+    &:before {
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      width: 100%;
+      font-size: 4rem;
+      color: color(white);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
   }
 }
 
-.node--type-profile.node--view-mode-full {
-
-  > .node__content {
-    @include grid;
-
-    > details, > .field--type-text-with-summary, > div {
-      @include content-grid-default;
-    }
-
-    > .slick--field-gallery {
-      grid-column: 1/17;
-    }
-  }
-}
 
 
