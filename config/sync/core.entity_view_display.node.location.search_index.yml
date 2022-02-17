@@ -5,16 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.search_index
     - field.field.node.location.body
-    - field.field.node.location.field_a11y_auditive
-    - field.field.node.location.field_a11y_cognitive
-    - field.field.node.location.field_a11y_flashing
-    - field.field.node.location.field_a11y_info
-    - field.field.node.location.field_a11y_visual
-    - field.field.node.location.field_a11y_wheelchair
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
-    - field.field.node.location.field_address
-    - field.field.node.location.field_address_location
+    - field.field.node.location.field_address_data
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -27,11 +20,8 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
-    - address
-    - geofield
     - layout_builder
     - link
-    - options
     - text
     - user
 third_party_settings:
@@ -50,70 +40,12 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_a11y_auditive:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 15
-    region: content
-  field_a11y_cognitive:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 16
-    region: content
-  field_a11y_flashing:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  field_a11y_info:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_a11y_visual:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_a11y_wheelchair:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 13
-    region: content
   field_additional_information:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 11
-    region: content
-  field_address:
-    type: address_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 18
-    region: content
-  field_address_location:
-    type: geofield_default
-    label: above
-    settings:
-      output_format: wkt
-      output_escape: true
-    third_party_settings: {  }
-    weight: 20
     region: content
   field_category:
     type: entity_reference_label
@@ -200,6 +132,7 @@ content:
     region: content
 hidden:
   field_accessibility: true
+  field_address_data: true
   field_contact_data: true
   field_portrait: true
   langcode: true

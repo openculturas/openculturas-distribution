@@ -3,12 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_a11y_auditive
     - field.storage.node.field_category
-    - field.storage.node.field_a11y_cognitive
-    - field.storage.node.field_a11y_flashing
-    - field.storage.node.field_a11y_visual
-    - field.storage.node.field_a11y_wheelchair
     - search_api.server.content
     - core.entity_view_mode.node.search_index
   module:
@@ -38,46 +33,6 @@ field_settings:
     dependencies:
       module:
         - node
-  field_a11y_auditive:
-    label: 'Auditive assistance'
-    datasource_id: 'entity:node'
-    property_path: field_a11y_auditive
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_a11y_auditive
-  field_a11y_cognitive:
-    label: 'Cognitive assistance'
-    datasource_id: 'entity:node'
-    property_path: field_a11y_cognitive
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_a11y_cognitive
-  field_a11y_flashing:
-    label: 'Flashing hazard'
-    datasource_id: 'entity:node'
-    property_path: field_a11y_flashing
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_a11y_flashing
-  field_a11y_visual:
-    label: 'Visual assistance'
-    datasource_id: 'entity:node'
-    property_path: field_a11y_visual
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_a11y_visual
-  field_a11y_wheelchair:
-    label: 'Wheelchair accessible'
-    datasource_id: 'entity:node'
-    property_path: field_a11y_wheelchair
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_a11y_wheelchair
   rendered_item:
     label: 'Rendered HTML output'
     property_path: rendered_item
@@ -106,6 +61,7 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  entity_type: {  }
   html_filter:
     weights:
       preprocess_index: -50
