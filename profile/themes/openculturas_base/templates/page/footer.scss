@@ -1,0 +1,85 @@
+footer.footer {
+  background: color(neutral-50);
+  color: color(white);
+
+  .footer--container {
+    margin: 0 auto;
+    @include grid();
+    padding: $grid-gutter*2 0 $grid-gutter;
+
+    @include breakpoint(m) {
+      padding: $grid-gutter*3 0 $grid-gutter;
+    }
+  }
+
+  a {
+    color: color(link-inverted);
+    text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+      color: color(link-inverted-focus);
+    }
+  }
+
+  .region-footer {
+    //@include grid(repeat(14, 1fr));
+    display: block;
+    position: relative;
+    z-index: 2;
+    grid-column: 2 / 16;
+
+    @include breakpoint(m) {
+      margin: 0 $grid-gutter*-0.5 0 $grid-gutter*-0.5;
+    }
+
+    @include breakpoint(m) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    > .block {
+      min-width: 10rem;
+      flex-grow: 1;
+      flex-basis: 0;
+      margin: 0 0 $grid-gutter 0;
+
+      @include breakpoint(m) {
+        margin: 0 $grid-gutter*0.5 $grid-gutter;
+      }
+
+
+      > *:first-child {
+        margin-top: 0;
+      }
+
+      > ul {
+        margin-top: 0;
+        margin-left: 0;
+      }
+
+      > h2 {
+        @include typo(h3);
+      }
+    }
+  }
+
+  .footer__topbutton {
+    grid-column: 2 / 16;
+
+    &--link {
+      @include offcanvas_button(arrow-up);
+      display: block;
+      background: color(white);
+      color: color(black);
+      margin-left: auto;
+      position: relative;
+      z-index: 2;
+      grid-row: 2;
+
+      &:hover, &:focus {
+        color: color(primary);
+      }
+    }
+  }
+}

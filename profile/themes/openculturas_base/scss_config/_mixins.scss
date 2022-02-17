@@ -1,0 +1,347 @@
+/**
+ * Helper mixin for setting sensible grid defaults depending on variables.scss.
+ * This mixin will create a simple grid with $grid-column-count columns if no parameters are given.
+ * Optionally you can define your own grid layout as needed by passing $columns and $area-names.
+ *
+ * @param $columns-definition
+ *    A definition for grid columns like "3fr 3fr 6fr 4fr" or "repeat(8, 2fr)".
+ * @param $area-names
+ *    If you want to use named grid areas, you can pass name strings like "media text meta".
+ *
+ * @usage
+ *    .gridContainer {
+ *        // Includes the default grid with 16 columns.
+ *        @include grid();
+ *    }
+ *
+ *    .customGridContainer {
+ *        // Includes a custom grid with 2 areas.
+ *        @include grid(4fr 12fr, "sidebar main");
+ *    }
+ *
+ *    .multiRowGridContainer {
+ *        // Includes a custom grid with 2 areas and 3 rows.
+ *        @include grid(4fr 12fr, "logo header" "sidebar main" "copy footer");
+ *    }
+ *
+ */
+@mixin grid($columns-definition: false, $area-names: false, $row-gap: 0) {
+  display: grid;
+  @if $columns-definition {
+    grid-template-columns: $columns-definition;
+  } @else {
+    grid-template-columns: repeat($grid-column-count, 1fr);
+  }
+  @if $area-names {
+    grid-template-areas: $area-names;
+  }
+  grid-template-rows: auto;
+  max-width: $grid-layout-max-width;
+  grid-column-gap: $grid-gutter;
+  grid-row-gap: $row-gap;
+}
+
+@mixin content-grid-default() {
+  grid-column: 2 / 16;
+
+  @include breakpoint(m) {
+    grid-column: 4 / 14;
+  }
+}
+
+/**
+ * Helper mixin for using breakpoints.
+ *
+ * @param $name
+ *    The name of the breakpoint you want to use as defined in variables.scss.
+ *
+ * @usage
+ *    .responsiveContainer {
+ *        @include breakpoint(m) {
+ *           padding: 1rem;
+ *        }
+ *    }
+ */
+@mixin breakpoint ($name: xs) {
+  @media screen and (#{map_get($breakpoints, $name)}) {
+    @content;
+  }
+}
+
+/**
+ * Helper mixin for quickly setting a font style from the list in variables.scss.
+ *
+ * @param $name
+ *   The name of the font style as listed in variables.scss.
+ *
+ * @usage
+ *    .textContainer {
+ *        @include typo(h1);
+ *    }
+ */
+@mixin typo ($name: body) {
+  font-family: map_get(map_get($fontStyles, $name), 'font-family');
+  font-weight: map_get(map_get($fontStyles, $name), 'font-weight');
+  line-height: map_get(map_get($fontStyles, $name), 'line-height');
+  text-transform: map_get(map_get($fontStyles, $name), 'text-transform');
+  letter-spacing: map_get(map_get($fontStyles, $name), 'letter-spacing');
+  font-size: map_get(map_get($fontStyles, $name), 'font-size');
+  margin: map_get(map_get($fontStyles, $name), 'margin');
+
+  @if $name == h1 {
+    @include breakpoint(l) {
+      font-size: map_get(map_get($fontStyles, $name), 'font-size') * 1.5;
+      margin: map_get(map_get($fontStyles, $name), 'font-size') * 1.5 * 0.5 0;
+    }
+  }
+
+}
+
+/**
+ * Helper mixin for making an image fit to its's container.
+ *
+ * The expected behaviour will be like background-size: cover, but with real images.
+ * Optionally it is possible to define a min-height or max-height.
+ *
+ * @param $max-height
+ *   Optional max-height value.
+ * @param $min-height
+ *   Optional min-height value.
+ *
+ * @usage
+ *    .imgContainer {
+ *        @include image-fit();
+ *    }
+ */
+@mixin image_fit ($max-height: false, $min-height: false) {
+  .media--blazy,
+  figure, picture {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  img {
+    @if $max-height != false {
+      max-height: $max-height;
+    }
+    @if $min-height != false {
+      min-height: $min-height;
+    }
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+/**
+ * Helper mixin for giving an element the default offcanvas button style.
+ * Optinally you can define an icon from the fontawesome library to be added to the button.
+ *
+ * @param $icon
+ *   Optional icon from fontawesome to be added to the button.
+ * @param $iconset
+ *   Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
+ *   in the "brands" set of fontawesome which has the shorthand "fab").
+ *   Possible values with the free version: "fas" & "fab".
+ *
+ * @usage
+ *    .offcanvasButtonElement {
+ *        @include rounded_button();
+ *    }
+ *
+ *    .offcanvasButtonElement {
+ *        @include rounded_button(bars);
+ *    }
+ *
+ *    .offcanvasButtonElement {
+ *        @include rounded_button(twitter, fab);
+ *    }
+ */
+@mixin offcanvas_button($icon: false, $iconset: fas, $position: before) {
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: color(neutral-50);
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  overflow: hidden;
+
+  @include breakpoint(m) {
+    font-size: 2rem;
+  }
+
+  @if $icon {
+    @include icon($icon, $iconset, $position);
+
+    &:#{$position} {
+      text-decoration: none;
+      text-align: center;
+      vertical-align: bottom;
+      line-height: 1.5;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin tag_links() {
+  display: inline-block;
+  background: color(neutral-10);
+  color: color(neutral-60);
+  padding: $grid-gutter*0.25 $grid-gutter;
+  margin: 0 $grid-gutter $grid-gutter 0;
+  border-radius: 0.75rem;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    background: color(neutral-40);
+    color: color(white);
+  }
+}
+
+/**
+ * Helper mixin for adding an icon to an element via scss.
+ * Optionally you can select another fontawesome set of icons.
+ *
+ * @param $icon
+ *   The icon name in the fontawesome library (f.e. "arrow-up" or "bars").
+ * @param $iconset
+ *   Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
+ *   in the "brands" set of fontawesome which has the shorthand "fab").
+ *   Possible values with the free version: "fas" & "fab".
+ * @param $position
+ *   Optional overriding-posibility for the position of the icon. By default they are appended to a :before element.
+ *   If for some reason you need the icon to be in the :after element, you can pass 'after' as the third parameter.
+ *
+ * @usage
+ *    .elementWithArrowIcon {
+ *        @include icon(arrow-up);
+ *    }
+ *
+ *    .elementWithTwitterIcon {
+ *        @include icon(twitter, fab);
+ *    }
+ *
+ *    .elementWithTwitterIconAfterContent {
+ *        @include icon(twitter, fab, after);
+ *    }
+ *
+ */
+@mixin icon($icon: arrow-right, $iconset: fas, $position: before) {
+  // @TODO: Get $position:after working.
+  &:#{$position} {
+    @include fa-icon();
+    @extend %#{$iconset};
+    content: "#{map_get($fa-icons, $icon)}";
+  }
+}
+
+/**
+ * Helper mixin for defining the circle size and styling, so it is consistent on every area on the page.
+ */
+@mixin profile_circle() {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 10rem;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+  }
+
+  @include breakpoint(m) {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+
+/**
+ * Helper mixin for defining social links styling.
+ */
+@mixin social_links() {
+  margin: 0 auto $grid-gutter auto;
+  width: fit-content;
+
+  @include breakpoint(l) {
+    @include grid(repeat(10, 1fr));
+  }
+
+  .field__item {
+    display: block;
+    width: fit-content;
+
+    @include breakpoint(l) {
+      &:nth-child(odd) {
+        grid-column: 1/6;
+      }
+      &:nth-child(even) {
+        grid-column: 7/11;
+      }
+    }
+
+    &.field-email a {
+      @include icon(envelope);
+    }
+    &.field-phone a {
+      @include icon(phone);
+    }
+    &.field-url a {
+      @include icon(globe);
+    }
+
+    a {
+      padding: 0.25rem 0;
+      margin: 0.25rem 0;
+      display: inline-block;
+      text-decoration: none;
+      word-break: break-word;
+
+      .platform-url {
+        display: none;
+      }
+
+      &:before, i {
+        font-size: 1.5rem;
+        vertical-align: bottom;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+}
+
+/**
+ * Helper mixin for defining screenreader-only text.
+ */
+@mixin visually_hidden() {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+
+/**
+ * Default clearfix implementation to be used in conjunction with floating elements.
+ *
+ * @usage
+ *    .box {
+ *      @include clearfix;
+ *    }
+ */
+@mixin clearfix () {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}

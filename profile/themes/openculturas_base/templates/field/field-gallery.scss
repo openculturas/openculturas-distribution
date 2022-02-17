@@ -1,0 +1,56 @@
+.slick--field-gallery {
+  //@TODO: Add counter as in design to slick slider via js.
+
+  background-color: color(neutral-50);
+  color: color(white);
+  text-align: center;
+
+  @include grid();
+
+  .slick-slider {
+    @include content-grid-default;
+    grid-row: 2;
+    margin: $grid-gutter*2 0;
+
+    .field--name-field-licenses {
+      margin-top: $grid-gutter*2;
+    }
+  }
+
+  .slick__arrow {
+    @include content-grid-default;
+    grid-row: 1;
+    margin-top: $grid-gutter*2;
+
+    button {
+      background: transparent;
+      border: none;
+      color: white;
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.1rem;
+      overflow: hidden;
+      margin: 0 $grid-gutter;
+
+      &.slick-prev {
+        @include icon('chevron-left');
+        &:before {
+          color: color(white);
+          font-size: 2rem;
+        }
+      }
+      &.slick-next {
+        @include icon('chevron-right');
+        &:before {
+          color: color(white);
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

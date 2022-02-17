@@ -1,0 +1,61 @@
+.content details {
+  border: none;
+  border-top: 1px solid color(divider);
+  margin: $grid-gutter 0 $grid-gutter*2;
+  padding: $grid-gutter 0 0 0;
+
+  summary {
+    position: relative;
+    padding: 0;
+    list-style: none;
+
+    // Disable default marker element.
+    &::-webkit-details-marker { display:none; }
+
+    h1, h2, h3, h4, h5, h6 {
+      display: inline-block;
+      @include icon(chevron-down, fas, after);
+      margin: 0 2rem 0 0;
+      width: calc(100% - 2rem);
+
+      &:hover, &:focus {
+        color: color(link-focus);
+      }
+
+      &:after {
+        position: absolute;
+        right: 0;
+        top: 0.25em;
+        transition: transform 300ms ease;
+      }
+    }
+  }
+
+  .details-wrapper {
+    padding: $grid-gutter*2 0 0 0;
+  }
+  /*
+  .details-wrapper {
+    opacity: 0;
+    transition: opacity 500ms ease;
+  }*/
+
+  &[open] {
+    summary {
+      h1, h2, h3, h4, h5, h6 {
+        &:after {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+
+    /*.details-wrapper {
+      opacity: 1;
+    }*/
+  }
+}
+/*
+.js details:not([open]) .details-wrapper {
+  display: block;
+}
+*/

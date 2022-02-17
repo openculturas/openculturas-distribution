@@ -1,0 +1,185 @@
+.content {
+  color: color(neutral-60);
+
+  // Set base styles for f.e. h1-h6 automatically.
+  @each $name, $def in $fontStyles {
+    #{$name} {
+      @include typo($name);
+    }
+  }
+
+  a {
+    color: color(link);
+    text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+      color: color(link-focus);
+    }
+  }
+
+  p {
+    @include typo(body);
+    margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    list-style: disc outside;
+    margin-left: $grid-gutter;
+
+    ul {
+      list-style-type: circle;
+      margin-bottom: $grid-gutter;
+
+      ul {
+        list-style-type: square;
+      }
+    }
+  }
+
+  ol {
+    margin-left: $grid-gutter;
+
+    ol {
+      margin-bottom: $grid-gutter;
+    }
+  }
+
+  li {
+    margin-bottom: 0.5em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  li.menu-item {
+    padding-top: 0;
+  }
+
+  table {
+    margin: 1em auto;
+    max-width: 100%;
+    display: block;
+    overflow-x: auto;
+
+    th {
+      color: color(neutral-40);
+    }
+
+    td, th {
+      padding: 0.5em;
+    }
+
+    tr {
+      border-bottom: 0.1em solid color(primary);
+    }
+  }
+
+  dl {
+    margin-bottom: 1em;
+    margin-left: $grid-gutter;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  dt {
+    margin-bottom: 0.5em;
+    margin-left: $grid-gutter;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  dd {
+    margin-bottom: 1em;
+  }
+
+  blockquote {
+    padding-left: $grid-gutter;
+    font-style: italic;
+    margin: 1em 0 1em 0;
+    border-left: solid 0.5rem color(primary);
+  }
+
+  hr {
+    border-color: color(neutral-40);
+  }
+
+  strong, b {
+    font-weight: bold;
+  }
+
+  em, i, cite, dfn {
+    font-style: italic;
+  }
+
+  i.far, i.fa, i.fab, i.fal, i.fad {
+    font-style: normal;
+  }
+
+  u {
+    text-decoration: underline;
+  }
+
+  del {
+    text-decoration: line-through;
+  }
+
+  sub {
+    font-size: 0.75em;
+    position: relative;
+    bottom: -0.25em;
+  }
+
+  sup {
+    font-size: 0.75em;
+    position: relative;
+    top: -0.5em;
+  }
+
+  small {
+    font-size: 0.8em;
+  }
+
+  abbr {
+    text-decoration: none;
+    border-bottom:2px dotted color(neutral-40);
+  }
+
+  kbd {
+    background: color(neutral-40);
+    border: thin solid color(black);
+    border-radius: 2px;
+    box-shadow: 1px 2px 2px color(white);
+    font-family: inherit;
+    font-size: 0.9em;
+    padding: 0 0.5em;
+  }
+
+  q{
+    &:before {content: "„";}
+    &:after {content: "“";}
+  }
+
+  mark {
+    background-color: color(neutral-20);
+  }
+
+  code {
+    white-space: pre;
+    font-family: monospace;
+  }
+
+  samp, var {
+    font-family: monospace;
+  }
+
+}

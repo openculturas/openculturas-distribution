@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the OpenCulturas Base theme.
+ */
+
+use Drupal\Core\Entity\FieldableEntityInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function openculturas_base_preprocess_html(&$variables) {
+  // Set entity type for addin a class to the body.
+  $entity_type_id = NULL;
+  foreach (\Drupal::routeMatch()->getParameters()->all() as $parameter) {
+    if ($parameter instanceof FieldableEntityInterface) {
+      $variables['entity_type_id'] = $parameter->getEntityTypeId();
+      break;
+    }
+  }
+
+
+  // Render theme setting's css variable definitions.
+  $config = \Drupal::config('openculturas_base.settings')->getRawData();
+
+  $css_string = "";
+  foreach ($config as $key => $val) {
+    if (strpos($key, 'color-') !== false) {
+      $css_string .= "--" . $key . ": " . $val . ';';
+    }
+  }
+
+  $style = [
+    '#tag' => 'style',
+    '#value' => "body {\n " . $css_string . "\n}",
+  ];
+  $variables['page']['#attached']['html_head'][] = [$style, 'openculturas_base_settings'];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function openculturas_base_preprocess_page(&$variables) {
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function openculturas_base_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  // Hide all flag fields on nodes because they get rendered in a seperated block.
+  foreach ($variables["content"] as $name => $render_array) {
+    if (strpos($name, 'flag_') === 0) {
+      $variables["content"][$name]['#access'] = FALSE;
+    }
+  }
+
+  // Override details title with user-set value and hide original field rendering.
+  if ($node->getType() == 'profile') {
+    if ($node->hasField('field_reference_title')
+      && !$node->get('field_reference_title')->isEmpty()) {
+      $reference_title = $node->get('field_reference_title')->value;
+      $variables["elements"]["#fieldgroups"]["group_featuring"]->label = $reference_title;
+      $variables['content']['field_reference_title']['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Adds a class depending on referenced entity to links of entity_reference fields.
+ */
+function openculturas_base_preprocess_field(array &$variables) {
+  if ($variables['field_type'] == 'entity_reference') {
+    foreach ($variables["items"] as $index => &$item) {
+      if (isset($item['content']['#options']['entity_type']) && isset($item['content']['#options']['entity'])) {
+        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"]);
+        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"] . '--' . $item["content"]["#options"]["entity"]->bundle());
+      }
+    }
+  }
+}
+

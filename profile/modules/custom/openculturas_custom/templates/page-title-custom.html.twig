@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for page titles.
+ *
+ * Available variables:
+ * - title_attributes: HTML attributes for the page title element.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ */
+#}
+{{ title_prefix }}
+{% if title %}
+  {% if profile_image %}
+    <div class="custom-page-title--with-image">
+  {% endif %}
+    {{ profile_image }}
+    <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
+  {% if profile_image %}
+  </div>
+  {% endif %}
+{% endif %}
+{{ title_suffix }}

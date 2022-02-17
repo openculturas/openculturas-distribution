@@ -1,0 +1,155 @@
+// Grid definitions.
+$grid-gutter: 1.25rem;
+$grid-column-count: 16;
+$grid-layout-max-width: 68.75rem;
+
+// FontAwesome path rewrite.
+$fa-font-path: "../fontawesome/webfonts";
+
+// Breakpoint definitions.
+$breakpoints: (
+  xs: 'max-width: 479px',
+  s: 'min-width: 480px',
+  m: 'min-width: 768px',
+  l: 'min-width: 992px',
+  xl: 'min-width: #{$grid-layout-max-width}'
+);
+
+// Color definitions.
+// Beware: These are just sensible defaults.
+// They can be overridden via the theme config page in the drupal backend.
+$defaultColors: (
+  'primary':        #a1167f,
+  'primary-dark':   #483d8b,
+  'danger':         #d60040,
+  'success':        #188009,
+  'warning':        #ec6507,
+  'complete':       #6a26a5,
+  'info':           #1560b3,
+  'neutral-60':     #1F1F1F,
+  'neutral-50':     #303236,
+  'neutral-40':     #64666A,
+  'neutral-30':     #7B7D85,
+  'neutral-20':     #B1B2B5,
+  'neutral-10':     #E3E3E3,
+  'neutral-canvas': #F6F6F6,
+  'white':          #ffffff,
+  'black':          #000000,
+  'divider':        #E8E9EB
+);
+
+// Font size base definitions.
+$fontSizes: (
+  h1: 2.5rem,
+  h2: 2.25rem,
+  h3: 1.875rem,
+  h4: 1.375rem,
+  h5: 1.125rem,
+  h6: 1.125rem,
+  bigger: 1.125rem,
+  body: 1rem,
+  small: 0.875rem,
+);
+
+// Font definitions.
+$font-base: var(--font-base);
+$font-head: var(--font-head);
+
+// @TODO: Implicit styles / defaults should not be rendered to make inheritnce available.
+$fontStyles: (
+  small: (
+    font-family: $font-base,
+    font-size: size(small),
+    font-weight: normal,
+    line-height: 1.4,
+    text-transform: none,
+    margin: 0 0
+  ),
+  body: (
+    font-family: $font-base,
+    font-size: size(body),
+    font-weight: normal,
+    line-height: 1.4,
+    text-transform: none,
+    letter-spacing: 0,
+    margin: 0 0
+  ),
+  bold: (
+    font-family: $font-base,
+    font-size: size(body),
+    font-weight: bold,
+    line-height: 1.4,
+    text-transform: none,
+    letter-spacing: 0,
+    margin: 0 0
+  ),
+  h6: (
+    font-family: $font-base,
+    font-size: size(h6),
+    font-weight: bold,
+    line-height: 1.2,
+    text-transform: none,
+    letter-spacing: 0,
+    margin: size(h6)*0.5 0
+  ),
+  h5: (
+    font-family: $font-base,
+    font-size: size(h5),
+    font-weight: normal,
+    line-height: 1.2,
+    text-transform: uppercase,
+    letter-spacing: 1px,
+    margin: size(h5)*0.5 0
+  ),
+  h4: (
+    font-family: $font-base,
+    font-size: size(h4),
+    font-weight: normal,
+    line-height: 1.2,
+    text-transform: uppercase,
+    letter-spacing: 1px,
+    margin: size(h4)*0.5 0
+  ),
+  h3: (
+    font-family: $font-head,
+    font-size: size(h3),
+    font-weight: normal,
+    line-height: 1.2,
+    text-transform: none,
+    letter-spacing: 0,
+    margin: size(h3)*0.5 0
+  ),
+  h2: (
+    font-family: $font-head,
+    font-size: size(h2),
+    font-weight: normal,
+    line-height: 0.9,
+    text-transform: none,
+    letter-spacing: 0,
+    margin: size(h2)*0.5 0
+  ),
+  h1: (
+    font-family: $font-head,
+    font-size: size(h1),
+    font-weight: normal,
+    line-height: 0.9,
+    text-transform: none,
+    letter-spacing: 0,
+    margin: size(h1)*0.5 0
+  ),
+);
+
+// Fontawesome6
+$fa-font-path: '../fontawesome6/webfonts';
+
+%fas,
+%fa-solid {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+%fab,
+%fa-brands {
+  font-family: 'Font Awesome 6 Brands';
+  font-weight: 400;
+}

@@ -1,0 +1,31 @@
+.contextual {
+  width: 32px;
+  top: 0px;
+
+  @include breakpoint(xl) {
+    right: -32px;
+    border-radius: 0 1rem 1rem 0;
+  }
+
+  .trigger {
+    margin: 2px 0 2px 3px;
+    border-color: color(primary);
+    border-width: 2px;
+  }
+
+  &.contextual-open .trigger, .focus & .trigger {
+    border-color: color(primary);
+    border-width: 2px;
+
+    @include breakpoint(xl) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      background-position: 2px center;
+    }
+  }
+}
+
+.contextual-region.focus {
+  outline-color: color(primary);
+}

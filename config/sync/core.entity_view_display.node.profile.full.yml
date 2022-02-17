@@ -25,6 +25,7 @@ dependencies:
     - field_group
     - layout_builder
     - link
+    - slick_entityreference
     - text
     - user
 third_party_settings:
@@ -38,7 +39,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 6
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -54,7 +55,7 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 7
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -67,10 +68,11 @@ third_party_settings:
       children:
         - field_contact_data
         - field_legal_url
+        - field_address_data
       label: Contact
       parent_name: ''
       region: content
-      weight: 8
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -80,12 +82,11 @@ third_party_settings:
         description: ''
         required_fields: false
     group_address:
-      children:
-        - field_address_data
+      children: {  }
       label: Address
       parent_name: ''
-      region: content
-      weight: 9
+      region: hidden
+      weight: 18
       format_type: details
       format_settings:
         classes: ''
@@ -95,12 +96,11 @@ third_party_settings:
         description: ''
         required_fields: false
     group_gallery:
-      children:
-        - field_gallery
+      children: {  }
       label: Gallery
       parent_name: ''
-      region: content
-      weight: 10
+      region: hidden
+      weight: 17
       format_type: details
       format_settings:
         classes: ''
@@ -118,7 +118,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   field_address_data:
     type: entity_reference_revisions_entity_view
@@ -127,7 +127,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 15
+    weight: 18
     region: content
   field_category:
     type: entity_reference_label
@@ -144,16 +144,37 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 16
     region: content
   field_gallery:
-    type: entity_reference_entity_view
+    type: slick_entityreference_vanilla
     label: hidden
     settings:
-      view_mode: default
-      link: false
+      optionset: field_gallery
+      view_mode: header_image
+      cache: 0
+      current_view_mode: full
+      skin: ''
+      fx: ''
+      lazy: ''
+      loading: lazy
+      preload: false
+      style: ''
+      overridables:
+        arrows: '0'
+        autoplay: '0'
+        dots: '0'
+        draggable: '0'
+        infinite: '0'
+        mouseWheel: '0'
+        randomize: '0'
+        variableWidth: '0'
+      override: false
+      skin_arrows: ''
+      skin_dots: ''
+      use_theme_field: false
     third_party_settings: {  }
-    weight: 14
+    weight: 7
     region: content
   field_legal_url:
     type: link
@@ -176,15 +197,6 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  field_portrait:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_reference_title:
     type: string
     label: hidden
@@ -198,7 +210,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
   flag_bookmark_node:
     settings: {  }
@@ -213,6 +225,7 @@ content:
 hidden:
   field_mood_image: true
   field_notification: true
+  field_portrait: true
   field_profile_role: true
   field_profile_type: true
   field_started: true

@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Openculturas Base module.
+ */
+
+/**
+ * Implements hook_editor_js_settings_alter().
+ *
+ * Adds a .content class to the CKEditor body so CSS from frontend will work.
+ */
+function openculturas_custom_editor_js_settings_alter(array &$settings) {
+  if (!empty($settings["editor"]["formats"])) {
+    foreach ($settings["editor"]["formats"] as $format => &$config) {
+      if ($config['editor'] == 'ckeditor') {
+        $config['editorSettings']['bodyClass'] = 'content';
+      }
+    }
+  }
+}
+
+function openculturas_custom_theme() {
+  return [
+    'page_title_custom' => [
+      'variables' => [
+        'title' => NULL,
+        'subtitle' => NULL,
+        'profile_image' => NULL,
+      ],
+      'template' => 'page-title-custom',
+    ]
+  ];
+}

@@ -1,0 +1,14 @@
+/**
+  Setting the default color variables as a fallback.
+  So if for any reason the sub theme or backend isn't able to override them there will be sensible defaults.
+ */
+:root {
+  @each $name, $color in $defaultColors {
+    --color-#{$name}: #{$color};
+  }
+
+  --color-link: #{color(primary)};
+  --color-link-focus: #{color(primary-dark)};
+  --color-link-inverted: #{color(white)};
+  --color-link-inverted-focus: #{color(neutral-10)};
+}

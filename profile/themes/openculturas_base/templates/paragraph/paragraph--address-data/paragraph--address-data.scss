@@ -1,0 +1,35 @@
+.address-container {
+  &--address {
+    width: 100%;
+    text-align: center;
+    margin-bottom: $grid-gutter*2;
+
+    @include icon(location-dot);
+    &:before {
+      color: color(primary);
+      display: block;
+      font-size: 3rem;
+      margin-bottom: $grid-gutter;
+    }
+  }
+
+  &--map {
+    .leaflet-marker-pane {
+      //@TODO: Find a way to replace the icon with fontawesome. All currently tried technics didn't work.
+      /*position: relative;
+      @include icon(location-dot);
+
+      &:before {
+        color: color(primary);
+        font-size: 2rem;
+        position: absolute;
+        bottom: 0;
+        left: -0.7rem;
+      }*/
+
+      .leaflet-marker-icon {
+
+      }
+    }
+  }
+}

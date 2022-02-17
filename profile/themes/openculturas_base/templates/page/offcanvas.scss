@@ -1,0 +1,155 @@
+.header__offcanvas-menu {
+  height: auto;
+  width: calc(100vw - (100vw - 100%));
+  position: fixed;
+  right: 0;
+  top: 0;
+  background: color(white);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  transform: translate3d(100%, 0, 0);
+  z-index: 1000;
+  font-size: size(bigger);
+
+  .offcanvas-open &{
+    transform: translate3d(0, 0, 0);
+    box-shadow: 1rem 0 1rem color(black);
+  }
+
+  &--grid {
+    @include grid();
+    margin: 0 auto;
+  }
+
+  &--heading {
+    grid-row: 1;
+    grid-column: 2 / 16;
+    display: flex;
+    justify-content: space-between;
+    margin-top: $grid-gutter * 3;
+
+    .block-system-branding-block {
+      .site-name {
+        display: none;
+      }
+
+      img {
+        height: 2.5rem;
+        width: auto;
+
+        @include breakpoint(m) {
+          height: 3.5rem;
+        }
+      }
+    }
+
+    .header__offcanvas-menu--toggle {
+      padding: 0 0;
+      @include clearfix;
+
+      .header__offcanvas-menu--burger {
+        float: right;
+      }
+    }
+  }
+
+  &--content {
+    @include content-grid-default;
+    grid-row: 2;
+    margin: $grid-gutter*2 0;
+
+    .block {
+      border-top: 1px solid color(divider);
+      padding: $grid-gutter 0;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      a {
+        color: color(black);
+        text-decoration: none;
+
+        &:hover, &:focus {
+          color: color(primary);
+        }
+      }
+    }
+
+    ul.menu {
+      margin: 0;
+      padding: 0;
+
+      > li > ul {
+        margin-left: $grid-gutter;
+      }
+    }
+
+    li.menu-item {
+      list-style: none;
+      position: relative;
+      padding: 0;
+
+      a {
+        display: block;
+        padding: 0.5rem 2.25rem 0.5rem 0;
+
+        &:hover, &:focus {
+          background: color(neutral-10);
+          padding-left: 0.5rem;
+          margin-left: -0.5rem;
+        }
+      }
+    }
+
+    .views-exposed-form {
+      label {
+        display: inline-block;
+        max-width: 9rem;
+        width: 30%;
+        align-self: center;
+      }
+
+      input {
+        width: 70%;
+      }
+
+      .form--inline {
+        display: flex;
+      }
+
+      .form-item {
+        margin-right: -2px;
+        display: flex;
+
+        @include breakpoint(m) {
+          width: 70%;
+        }
+      }
+
+      .form-actions {
+        display: inline-block;
+
+        button.form-submit {
+          @include icon(search);
+          span {
+            @include visually_hidden;
+          }
+        }
+      }
+    }
+
+    .block-social-media-links .social-links--wrapper {
+      width: 100%;
+      margin-bottom: 0;
+
+      .platform-name {
+        display: inline;
+      }
+
+      .platform-url {
+        display: none;
+      }
+    }
+  }
+
+}

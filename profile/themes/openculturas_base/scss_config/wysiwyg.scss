@@ -1,0 +1,24 @@
+/**
+ *  SCSS compiler entrypoint.
+ *  This file defines the order in which scss components are loaded.
+ */
+@use "sass:math";
+
+// Mixins and helper functions.
+@import "mixins";
+@import "functions";
+
+// Base variables.
+@import "variables";
+
+// Base definition of colors and fonts.
+@import "colors";
+@import "fonts";
+
+// FontAwesome.
+@import "../fontawesome6/scss/fontawesome";
+@import "../fontawesome6/scss/solid";
+@import "../fontawesome6/scss/brands";
+
+// Load all scss files in the template subfolders.
+@import "../templates/global/*.scss";
