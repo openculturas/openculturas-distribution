@@ -143,7 +143,7 @@ display:
           expose:
             label: Relevance
             field_identifier: relevance
-          exposed: false
+          exposed: true
         changed:
           id: changed
           table: search_api_index_content
@@ -156,7 +156,7 @@ display:
           expose:
             label: Changed
             field_identifier: changed
-          exposed: false
+          exposed: true
       arguments: {  }
       filters:
         search_api_fulltext:
@@ -173,7 +173,7 @@ display:
           exposed: true
           expose:
             operator_id: search_api_fulltext_op
-            label: Suche
+            label: 'Fulltext search'
             description: ''
             use_operator: false
             operator: search_api_fulltext_op
@@ -188,7 +188,7 @@ display:
               anonymous: '0'
               administrator: '0'
             expose_fields: false
-            placeholder: Search
+            placeholder: ''
             searched_fields_id: search_api_fulltext_searched_fields
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
@@ -244,6 +244,8 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.content'
@@ -257,7 +259,6 @@ display:
         type: none
       defaults:
         cache: false
-      exposed_block: true
       display_extenders: {  }
       path: search
       menu:
@@ -272,6 +273,8 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.content'
