@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_address_location
     - node.type.location
     - system.menu.footer
     - taxonomy.vocabulary.category
@@ -12,6 +11,7 @@ dependencies:
     - geofield
     - leaflet_views
     - node
+    - paragraphs
     - taxonomy
     - user
     - views_autocomplete_filters
@@ -78,70 +78,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_address_location:
-          id: field_address_location
-          table: node__field_address_location
-          field: field_address_location
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: geofield_default
-          settings:
-            output_format: wkt
-            output_escape: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
       pager:
         type: mini
         options:
@@ -197,9 +133,9 @@ display:
           granularity: second
         field_address_location_proximity:
           id: field_address_location_proximity
-          table: node__field_address_location
+          table: paragraph__field_address_location
           field: field_address_location_proximity
-          relationship: none
+          relationship: field_address_data
           group_type: group
           admin_label: ''
           plugin_id: geofield_proximity_sort
@@ -211,7 +147,7 @@ display:
           units: GEOFIELD_KILOMETERS
           source: geofield_origin_from_proximity_filter
           source_configuration:
-            source_proximity_filter: field_address_location_proximity_1
+            source_proximity_filter: field_address_location_proximity
       arguments: {  }
       filters:
         status:
@@ -337,11 +273,11 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        field_address_location_proximity_1:
-          id: field_address_location_proximity_1
-          table: node__field_address_location
+        field_address_location_proximity:
+          id: field_address_location_proximity
+          table: paragraph__field_address_location
           field: field_address_location_proximity
-          relationship: none
+          relationship: field_address_data
           group_type: group
           admin_label: ''
           plugin_id: geofield_proximity_filter
@@ -353,11 +289,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_location_proximity_1_op
+            operator_id: field_address_location_proximity_op
             label: 'Proximity by current location'
             description: ''
             use_operator: false
-            operator: field_address_location_proximity_1_op
+            operator: field_address_location_proximity_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: location_proximity
@@ -479,7 +415,16 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        field_address_data:
+          id: field_address_data
+          table: node__field_address_data
+          field: field_address_data
+          relationship: none
+          group_type: group
+          admin_label: 'field_address_data: Paragraph'
+          plugin_id: standard
+          required: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -493,8 +438,7 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:field.storage.node.field_address_location'
+      tags: {  }
   attachment_map:
     id: attachment_map
     display_title: 'Locations Map - attachment list'
@@ -551,8 +495,7 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:field.storage.node.field_address_location'
+      tags: {  }
   locations_page_map:
     id: locations_page_map
     display_title: 'Locations Map'
@@ -585,5 +528,4 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:field.storage.node.field_address_location'
+      tags: {  }

@@ -4,16 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.location.body
-    - field.field.node.location.field_a11y_auditive
-    - field.field.node.location.field_a11y_cognitive
-    - field.field.node.location.field_a11y_flashing
-    - field.field.node.location.field_a11y_info
-    - field.field.node.location.field_a11y_visual
-    - field.field.node.location.field_a11y_wheelchair
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
-    - field.field.node.location.field_address
-    - field.field.node.location.field_address_location
+    - field.field.node.location.field_address_data
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -26,9 +19,7 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
-    - address
     - field_group
-    - leaflet
     - link
     - media_library
     - paragraphs
@@ -47,7 +38,7 @@ third_party_settings:
       label: Accessibility
       region: hidden
       parent_name: ''
-      weight: 16
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -62,7 +53,7 @@ third_party_settings:
       label: Tagging
       region: content
       parent_name: ''
-      weight: 8
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -94,13 +85,51 @@ third_party_settings:
         weight: 0
     group_address_contact:
       children:
+        - field_address_data
         - field_address
         - field_address_location
+        - field_opening_hours
+        - field_contact_data
         - field_legal_url
       label: 'Address + contact information'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 6
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+    group_about:
+      children:
+        - field_subtitle
+        - field_mood_image
+        - field_logo
+        - body
+      label: About
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_further_info:
+      children:
+        - field_safety_info
+        - field_additional_information
+        - field_accessibility
+      label: 'Further info'
+      region: content
+      parent_name: ''
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -116,7 +145,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 7
+    weight: 8
     region: content
     settings:
       rows: 9
@@ -132,7 +161,7 @@ content:
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 10
     region: content
     settings:
       title: 'Accessibility information'
@@ -144,75 +173,23 @@ content:
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 14
+    weight: 9
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_address:
-    type: address_default
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_address_location:
-    type: leaflet_widget_default
-    weight: 14
+  field_address_data:
+    type: entity_reference_paragraphs
+    weight: 11
     region: content
     settings:
-      map:
-        leaflet_map: 'OSM Mapnik'
-        height: 400
-        locate: 0
-        auto_center: 1
-        map_position:
-          force: false
-          center:
-            lat: 51.164305
-            lon: 10.4541205
-          zoom: 12
-          minZoom: 1
-          maxZoom: 18
-          zoomFiner: 0
-        scroll_zoom_enabled: 1
-        fullscreen_control: 1
-      input:
-        show: false
-        readonly: true
-      toolbar:
-        position: topright
-        drawPolyline: false
-        drawRectangle: false
-        drawPolygon: false
-        drawCircle: false
-        editMode: false
-        dragMode: true
-        cutPolygon: false
-        removalMode: true
-        rotateMode: false
-        marker: defaultMarker
-      reset_map:
-        position: topright
-        control: false
-      fullscreen:
-        control: false
-        options: '{"position":"topleft","pseudoFullscreen":false}'
-      path: '{"color":"#3388ff","opacity":"1.0","stroke":true,"weight":3,"fill":"depends","fillColor":"*","fillOpacity":"0.2","radius":"6"}'
-      geocoder:
-        control: false
-        settings:
-          position: topright
-          input_size: 25
-          providers:
-            openstreetmap:
-              weight: 0
-              checked: true
-          min_terms: 4
-          delay: 800
-          zoom: 16
-          popup: false
-          options: ''
+      title: 'Address information'
+      title_plural: 'Address informations'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: address_data
     third_party_settings: {  }
   field_category:
     type: entity_reference_autocomplete_tags
@@ -226,7 +203,7 @@ content:
     third_party_settings: {  }
   field_contact_data:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 15
     region: content
     settings:
       title: 'Contact information'
@@ -238,7 +215,7 @@ content:
     third_party_settings: {  }
   field_gallery:
     type: media_library_widget
-    weight: 13
+    weight: 9
     region: content
     settings:
       media_types: {  }
@@ -253,21 +230,21 @@ content:
     third_party_settings: {  }
   field_logo:
     type: media_library_widget
-    weight: 4
+    weight: 7
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 5
+    weight: 6
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_opening_hours:
     type: text_textarea
-    weight: 11
+    weight: 14
     region: content
     settings:
       rows: 5
@@ -275,14 +252,14 @@ content:
     third_party_settings: {  }
   field_portrait:
     type: media_library_widget
-    weight: 6
+    weight: 3
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 12
+    weight: 8
     region: content
     settings:
       rows: 5
@@ -290,7 +267,7 @@ content:
     third_party_settings: {  }
   field_subtitle:
     type: text_textfield
-    weight: 3
+    weight: 5
     region: content
     settings:
       size: 60
@@ -298,7 +275,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 1
     region: content
     settings:
       include_locked: true
@@ -332,7 +309,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 2
     region: content
     settings:
       size: 60
@@ -348,10 +325,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  field_a11y_auditive: true
-  field_a11y_cognitive: true
-  field_a11y_flashing: true
-  field_a11y_info: true
-  field_a11y_visual: true
-  field_a11y_wheelchair: true
+hidden: {  }

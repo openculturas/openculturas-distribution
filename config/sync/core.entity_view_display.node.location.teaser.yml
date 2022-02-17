@@ -5,16 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.location.body
-    - field.field.node.location.field_a11y_auditive
-    - field.field.node.location.field_a11y_cognitive
-    - field.field.node.location.field_a11y_flashing
-    - field.field.node.location.field_a11y_info
-    - field.field.node.location.field_a11y_visual
-    - field.field.node.location.field_a11y_wheelchair
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
-    - field.field.node.location.field_address
-    - field.field.node.location.field_address_location
+    - field.field.node.location.field_address_data
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -27,98 +20,58 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
-    - address_display
+    - entity_reference_revisions
+    - text
     - user
 id: node.location.teaser
 targetEntityType: node
 bundle: location
 mode: teaser
 content:
-  field_address:
-    type: address_display_formatter
+  field_address_data:
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
-      address_display:
-        organization:
-          glue: ''
-          weight: -1
-          display: false
-        address_line1:
-          glue: ''
-          weight: 0
-          display: true
-        address_line2:
-          glue: ','
-          weight: 1
-          display: false
-        locality:
-          glue: ','
-          weight: 2
-          display: true
-        postal_code:
-          glue: ''
-          weight: 3
-          display: false
-        country_code:
-          glue: ''
-          weight: 4
-          display: false
-        langcode:
-          glue: ','
-          weight: 100
-          display: false
-        administrative_area:
-          glue: ','
-          weight: 100
-          display: false
-        dependent_locality:
-          glue: ','
-          weight: 100
-          display: true
-        sorting_code:
-          glue: ','
-          weight: 100
-          display: false
-        given_name:
-          glue: ''
-          weight: 100
-          display: false
-        family_name:
-          glue: ','
-          weight: 100
-          display: false
+      view_mode: address_line
+      link: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
-  field_logo:
+  field_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_portrait:
     type: entity_reference_entity_view
     label: hidden
     settings:
-      view_mode: default
-      link: true
+      view_mode: profile_image
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   body: true
-  field_a11y_auditive: true
-  field_a11y_cognitive: true
-  field_a11y_flashing: true
-  field_a11y_info: true
-  field_a11y_visual: true
-  field_a11y_wheelchair: true
   field_accessibility: true
   field_additional_information: true
-  field_address_location: true
-  field_category: true
   field_contact_data: true
   field_gallery: true
   field_legal_url: true
+  field_logo: true
   field_mood_image: true
   field_opening_hours: true
-  field_portrait: true
   field_safety_info: true
-  field_subtitle: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true

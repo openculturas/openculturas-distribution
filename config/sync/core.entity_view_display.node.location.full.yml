@@ -5,16 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.location.body
-    - field.field.node.location.field_a11y_auditive
-    - field.field.node.location.field_a11y_cognitive
-    - field.field.node.location.field_a11y_flashing
-    - field.field.node.location.field_a11y_info
-    - field.field.node.location.field_a11y_visual
-    - field.field.node.location.field_a11y_wheelchair
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
-    - field.field.node.location.field_address
-    - field.field.node.location.field_address_location
+    - field.field.node.location.field_address_data
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -27,11 +20,9 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
-    - address
     - entity_reference_revisions
     - field_group
     - layout_builder
-    - leaflet
     - link
     - slick_entityreference
     - text
@@ -58,6 +49,7 @@ third_party_settings:
         required_fields: false
     group_address_contact_info:
       children:
+        - field_address_data
         - field_address
         - field_address_location
         - field_opening_hours
@@ -148,86 +140,14 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  field_address:
-    type: address_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_address_location:
-    type: leaflet_formatter_default
+  field_address_data:
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
-      multiple_map: false
-      leaflet_map: 'OSM Mapnik'
-      height: 400
-      height_unit: px
-      hide_empty_map: true
-      disable_wheel: false
-      gesture_handling: false
-      reset_map:
-        control: false
-        position: topright
-      popup: false
-      popup_content: ''
-      map_position:
-        force: false
-        center:
-          lat: !!float 0
-          lon: !!float 0
-        zoom: 12
-        minZoom: 1
-        maxZoom: 18
-        zoomFiner: 0
-      weight: ''
-      icon:
-        iconType: marker
-        iconUrl: ''
-        shadowUrl: ''
-        className: ''
-        iconSize:
-          x: ''
-          'y': ''
-        iconAnchor:
-          x: ''
-          'y': ''
-        shadowSize:
-          x: ''
-          'y': ''
-        shadowAnchor:
-          x: ''
-          'y': ''
-        popupAnchor:
-          x: ''
-          'y': ''
-        html: '<div></div>'
-        html_class: leaflet-map-divicon
-        circle_marker_options: '{"radius":100,"color":"red","fillColor":"#f03","fillOpacity":0.5}'
-      leaflet_markercluster:
-        control: false
-        options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":true,"removeOutsideVisibleBounds": false}'
-        include_path: false
-      fullscreen:
-        control: false
-        options: '{"position":"topleft","pseudoFullscreen":false}'
-      path: '{"color":"#3388ff","opacity":"1.0","stroke":true,"weight":3,"fill":"depends","fillColor":"*","fillOpacity":"0.2","radius":"6"}'
-      geocoder:
-        control: false
-        settings:
-          position: topright
-          input_size: 25
-          providers:
-            openstreetmap:
-              weight: 0
-              checked: false
-          min_terms: 4
-          delay: 800
-          zoom: 16
-          popup: false
-          options: ''
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 15
     region: content
   field_category:
     type: entity_reference_label
@@ -244,7 +164,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 15
+    weight: 21
     region: content
   field_gallery:
     type: slick_entityreference_vanilla
@@ -286,7 +206,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 20
     region: content
   field_logo:
     type: entity_reference_entity_view
@@ -302,7 +222,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 18
     region: content
   field_portrait:
     type: entity_reference_entity_view
@@ -318,7 +238,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 19
     region: content
   field_subtitle:
     type: text_default
@@ -338,12 +258,6 @@ content:
     weight: 0
     region: content
 hidden:
-  field_a11y_auditive: true
-  field_a11y_cognitive: true
-  field_a11y_flashing: true
-  field_a11y_info: true
-  field_a11y_visual: true
-  field_a11y_wheelchair: true
   field_mood_image: true
   langcode: true
   links: true
