@@ -9,12 +9,12 @@
     attach: function (context, settings) {
       $('.menu-item--toggle', context).once('init-main-menu').click(this.toggleMenuItem);
       // Toggle initial states.
-      $('.menu--main ul').each(function() {
+      $('.region-offcanvas-menu ul').each(function() {
         if ($(this).parent().hasClass('menu-item--active-trail')) {
           $(this).slideDown();
           $(this).parent().addClass('menu-item--open');
         } else {
-          if (!$(this).parent().hasClass('menu--main')) {
+          if (!$(this).parent().hasClass('block-menu')) {
             $(this).slideUp();
           }
         }
@@ -22,7 +22,7 @@
     },
     toggleMenuItem: function(e= null) {
       let $menuItem = $(this).parent();
-      let $allMenuItems = $('.menu--main li.menu-item');
+      let $allMenuItems = $('.region-offcanvas-menu li.menu-item');
       let wasOpen = $menuItem.hasClass('menu-item--open');
 
       if (wasOpen) {
