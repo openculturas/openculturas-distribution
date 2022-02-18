@@ -1,0 +1,33 @@
+uuid: 8ecb88e1-3514-4c2a-a224-12534bba326e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.related_date
+  module:
+    - node
+    - views
+  theme:
+    - openculturas_base
+id: related_date_event
+theme: openculturas_base
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:related_date-related_date_event'
+settings:
+  id: 'views_block:related_date-related_date_event'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      event: event
