@@ -3,10 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_accessibility
+    - field.storage.paragraph.field_a11y_features
     - field.storage.node.field_category
     - search_api.server.content
     - core.entity_view_mode.node.search_index
   module:
+    - paragraphs
     - taxonomy
     - node
     - search_api
@@ -33,6 +36,17 @@ field_settings:
     dependencies:
       module:
         - node
+  field_a11y_features:
+    label: 'Accessibility information » Paragraph » Accessibility Features'
+    datasource_id: 'entity:node'
+    property_path: 'field_accessibility:entity:field_a11y_features'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_accessibility
+        - field.storage.paragraph.field_a11y_features
+      module:
+        - paragraphs
   rendered_item:
     label: 'Rendered HTML output'
     property_path: rendered_item

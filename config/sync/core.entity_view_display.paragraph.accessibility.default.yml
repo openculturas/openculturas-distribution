@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.accessibility.field_a11y_features
     - field.field.paragraph.accessibility.field_a11y_info
     - paragraphs.paragraphs_type.accessibility
   module:
@@ -12,6 +13,14 @@ targetEntityType: paragraph
 bundle: accessibility
 mode: default
 content:
+  field_a11y_features:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_a11y_info:
     type: text_default
     label: hidden

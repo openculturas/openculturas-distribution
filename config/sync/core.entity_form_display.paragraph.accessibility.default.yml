@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.accessibility.field_a11y_features
     - field.field.paragraph.accessibility.field_a11y_info
     - paragraphs.paragraphs_type.accessibility
   module:
@@ -12,6 +13,12 @@ targetEntityType: paragraph
 bundle: accessibility
 mode: default
 content:
+  field_a11y_features:
+    type: options_buttons
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_a11y_info:
     type: text_textarea
     weight: 0
