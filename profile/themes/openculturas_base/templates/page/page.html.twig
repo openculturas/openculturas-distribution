@@ -84,11 +84,15 @@
     </div>
     {% endif %}
   </header>
-  {{ content.field_mood_image }}
+  {% if page.breadcrumbs %}
+    <div class="breadcrumbs">
+      {{ page.breadcrumbs }}
+    </div>
+  {% endif %}
+
   {% if page.header_intro %}
   <div class="hero-intro">
     {{ page.header_intro }}
-
   </div>
   {% endif %}
 
