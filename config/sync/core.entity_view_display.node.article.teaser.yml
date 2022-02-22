@@ -14,27 +14,52 @@ dependencies:
     - field.field.node.article.field_subtitle
     - node.type.article
   module:
+    - text
     - user
 id: node.article.teaser
 targetEntityType: node
 bundle: article
 mode: teaser
 content:
-  flag_recommendation_node:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 400
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_author:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 1
     region: content
 hidden:
-  body: true
-  field_author: true
   field_category: true
   field_column: true
   field_date_published: true
-  field_mood_image: true
   field_references: true
-  field_subtitle: true
   flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
   links: true
   search_api_excerpt: true
