@@ -6,7 +6,7 @@ $utility_grids: (
   'grid-col4': 4
 )!default;
 
-$utility_grids-container-selectors: '> .view-content, > .field__items'!default;
+$utility_grids-container-selectors: '> .view-content, > .field__items, > .details-wrapper'!default;
 
 // Set grid utility classes without breakpoint limitations.
 @each $utility_name, $count in $utility_grids {
@@ -65,5 +65,13 @@ $utility_grids-container-selectors: '> .view-content, > .field__items'!default;
         }
       }
     }
+  }
+}
+
+.grid-child-fullwidth {
+  grid-column: 1 / -1;
+
+  @include breakpoint(m) {
+    grid-column: 1 / -1;
   }
 }
