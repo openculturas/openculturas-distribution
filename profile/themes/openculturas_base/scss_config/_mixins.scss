@@ -269,6 +269,7 @@
 @mixin social_links() {
   margin: 0 auto $grid-gutter auto;
   width: fit-content;
+  max-width: 100%;
 
   @include breakpoint(l) {
     @include grid(repeat(10, 1fr));
@@ -277,6 +278,7 @@
   .field__item {
     display: block;
     width: fit-content;
+    max-width: 100%;
 
     @include breakpoint(l) {
       &:nth-child(odd) {
@@ -302,7 +304,11 @@
       margin: 0.25rem 0;
       display: inline-block;
       text-decoration: none;
-      word-break: break-word;
+      overflow: hidden;
+      word-break: keep-all;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
 
       .platform-url {
         display: none;
