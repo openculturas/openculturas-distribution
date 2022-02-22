@@ -22,6 +22,7 @@ dependencies:
     - node.type.profile
   module:
     - entity_reference_revisions
+    - field_formatter_class
     - field_group
     - layout_builder
     - link
@@ -66,8 +67,8 @@ third_party_settings:
         required_fields: false
     group_contact:
       children:
-        - field_contact_data
         - field_legal_url
+        - field_contact_data
         - field_address_data
       label: Contact
       parent_name: ''
@@ -194,7 +195,9 @@ content:
     settings:
       view_mode: default
       link: ''
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: 'grid-1col grid-2col@m grid-3col@l grid-row-gap-2 grid-row-gap-2@m grid-row-gap-2@l '
     weight: 11
     region: content
   field_reference_title:
