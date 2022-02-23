@@ -1,11 +1,12 @@
 // Grids
 $utility_grids: (
-  'grid-col1': 1,
-  'grid-col2': 2,
-  'grid-col3': 3,
-  'grid-col4': 4
+  'grid-1': 1,
+  'grid-2': 2,
+  'grid-3': 3,
+  'grid-4': 4
 )!default;
 
+// @TODO: Document this file and especially this selectors!
 $utility_grids-container-selectors: '> .view-content, > .field__items, > .details-wrapper'!default;
 
 // Set grid utility classes without breakpoint limitations.
@@ -18,17 +19,17 @@ $utility_grids-container-selectors: '> .view-content, > .field__items, > .detail
 }
 
 @for $i from 0 through 3 {
-  .grid-gap#{$i} {
+  .grid-gap-#{$i} {
     #{$utility_grids-container-selectors} {
       grid-gap: $grid_gutter * $i;
     }
   }
-  .grid-row-gap#{$i} {
+  .grid-row-gap-#{$i} {
     #{$utility_grids-container-selectors} {
       grid-row-gap: $grid_gutter * $i;
     }
   }
-  .grid-column-gap#{$i} {
+  .grid-column-gap-#{$i} {
     #{$utility_grids-container-selectors} {
       grid-column-gap: $grid_gutter * $i;
     }
@@ -49,17 +50,17 @@ $utility_grids-container-selectors: '> .view-content, > .field__items, > .detail
 
   @include breakpoint($bp_name) {
     @for $i from 0 through 3 {
-      .grid-gap#{$i}-#{$bp_name} {
+      .grid-gap-#{$i}-#{$bp_name} {
         #{$utility_grids-container-selectors} {
           grid-gap: $grid_gutter * $i;
         }
       }
-      .grid-row-gap#{$i}-#{$bp_name} {
+      .grid-row-gap-#{$i}-#{$bp_name} {
         #{$utility_grids-container-selectors} {
           grid-row-gap: $grid_gutter * $i;
         }
       }
-      .grid-column-gap#{$i}-#{$bp_name} {
+      .grid-column-gap-#{$i}-#{$bp_name} {
         #{$utility_grids-container-selectors} {
           grid-column-gap: $grid_gutter * $i;
         }
