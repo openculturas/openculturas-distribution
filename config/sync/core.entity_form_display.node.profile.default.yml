@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.profile.field_mood_image
     - field.field.node.profile.field_notification
     - field.field.node.profile.field_people_reference
+    - field.field.node.profile.field_performer_event_view_ref
     - field.field.node.profile.field_portrait
     - field.field.node.profile.field_profile_role
     - field.field.node.profile.field_profile_type
@@ -28,6 +29,7 @@ dependencies:
     - paragraphs
     - path
     - text
+    - viewfield
 third_party_settings:
   field_group:
     group_profile_type:
@@ -216,6 +218,12 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
+  field_performer_event_view_ref:
+    type: viewfield_select
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_portrait:
     type: media_library_widget
     weight: 9
