@@ -5,62 +5,35 @@ dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.full
     - field.field.taxonomy_term.column.field_mood_image
+    - field.field.taxonomy_term.column.field_related_article_view_ref
+    - field.field.taxonomy_term.column.field_term_children_view_ref
     - taxonomy.vocabulary.column
-    - views.view.vocabulary
   module:
+    - field_formatter_class
+    - field_group
     - layout_builder
-    - layout_discovery
     - text
-    - views
+    - viewfield
 third_party_settings:
   layout_builder:
-    enabled: true
+    enabled: false
     allow_custom: false
-    sections:
-      -
-        layout_id: layout_onecol
-        layout_settings:
-          label: ''
-        components:
-          330c3ffd-71b6-4fb9-b086-53b942c337a2:
-            uuid: 330c3ffd-71b6-4fb9-b086-53b942c337a2
-            region: content
-            configuration:
-              id: 'field_block:taxonomy_term:column:description'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings: {  }
-            weight: 1
-            additional: {  }
-          42d921aa-7ec0-422a-bd6f-415203d1cd07:
-            uuid: 42d921aa-7ec0-422a-bd6f-415203d1cd07
-            region: content
-            configuration:
-              id: 'extra_field_block:taxonomy_term:column:flag_bookmark_term'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-            weight: 2
-            additional: {  }
-          59ffc371-1298-4802-853e-d56d6e447aaf:
-            uuid: 59ffc371-1298-4802-853e-d56d6e447aaf
-            region: content
-            configuration:
-              id: 'views_block:vocabulary-block_term_grid'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: none
-            weight: 3
-            additional: {  }
-        third_party_settings: {  }
+  field_group:
+    group_sub_categories:
+      children:
+        - field_term_children_view_ref
+      label: Sub-categories
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
 id: taxonomy_term.column.full
 targetEntityType: taxonomy_term
 bundle: column
@@ -73,20 +46,36 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_mood_image:
-    type: entity_reference_entity_view
+  field_related_article_view_ref:
+    type: viewfield_default
+    label: above
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+  field_term_children_view_ref:
+    type: viewfield_default
     label: hidden
     settings:
-      view_mode: header_image
-      link: false
-    third_party_settings: {  }
-    weight: 0
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 5
     region: content
   flag_bookmark_term:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
 hidden:
+  field_mood_image: true
   langcode: true
   search_api_excerpt: true
