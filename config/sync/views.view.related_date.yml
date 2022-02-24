@@ -13,6 +13,7 @@ dependencies:
     - smart_date
     - text
     - user
+    - views_infinite_scroll
 id: related_date
 label: 'Related dates'
 module: views
@@ -350,7 +351,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -405,10 +406,10 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: mini
+        type: infinite_scroll
         options:
           offset: 0
-          items_per_page: 5
+          items_per_page: 4
           total_pages: null
           id: 0
           tags:
@@ -422,6 +423,10 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Load More'
+            automatically_load_content: false
+            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
