@@ -13,20 +13,24 @@ dependencies:
     - field.field.node.location.field_gallery
     - field.field.node.location.field_legal_url
     - field.field.node.location.field_logo
+    - field.field.node.location.field_mention_by_art_view_ref
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
     - field.field.node.location.field_portrait
+    - field.field.node.location.field_related_date_view_ref
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
     - entity_reference_revisions
+    - field_formatter_class
     - field_group
     - layout_builder
     - link
     - slick_entityreference
     - text
     - user
+    - viewfield
 third_party_settings:
   layout_builder:
     enabled: false
@@ -86,7 +90,7 @@ third_party_settings:
       label: 'Additional information'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -95,6 +99,35 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_upcoming_events:
+      children:
+        - field_related_date_view_ref
+      label: 'Upcoming events'
+      parent_name: ''
+      region: content
+      weight: 8
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_magazine:
+      children:
+        - field_mention_by_art_view_ref
+      label: Magazine
+      parent_name: ''
+      region: content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
 id: node.location.full
 targetEntityType: node
 bundle: location
@@ -177,7 +210,7 @@ content:
       skin_dots: ''
       use_theme_field: false
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   field_legal_url:
     type: link
@@ -200,6 +233,18 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_mention_by_art_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 12
+    region: content
   field_opening_hours:
     type: text_default
     label: above
@@ -215,6 +260,18 @@ content:
       link: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_related_date_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 13
     region: content
   field_safety_info:
     type: text_default
