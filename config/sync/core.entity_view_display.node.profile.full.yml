@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.profile.field_contact_data
     - field.field.node.profile.field_gallery
     - field.field.node.profile.field_legal_url
+    - field.field.node.profile.field_member_of_view_ref
+    - field.field.node.profile.field_mention_by_art_view_ref
     - field.field.node.profile.field_mood_image
     - field.field.node.profile.field_notification
     - field.field.node.profile.field_people_reference
@@ -22,6 +24,7 @@ dependencies:
     - field.field.node.profile.field_subtitle
     - node.type.profile
   module:
+    - datetime
     - entity_reference_revisions
     - field_formatter_class
     - field_group
@@ -58,7 +61,7 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -69,10 +72,24 @@ third_party_settings:
         required_fields: false
     group_contact:
       children:
-        - field_legal_url
         - field_contact_data
+        - field_legal_url
         - field_address_data
       label: Contact
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+    group_performer:
+      children:
+        - field_performer_event_view_ref
+      label: 'Involved in'
       parent_name: ''
       region: content
       weight: 6
@@ -83,12 +100,29 @@ third_party_settings:
         id: ''
         open: false
         description: ''
-    group_address:
-      children: {  }
-      label: Address
+    group_member_of:
+      children:
+        - field_member_of_view_ref
+      label: 'Member of'
       parent_name: ''
-      region: hidden
-      weight: 20
+      region: content
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_further_information:
+      children:
+        - field_started
+        - field_notification
+      label: 'Further information'
+      parent_name: ''
+      region: content
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -97,26 +131,13 @@ third_party_settings:
         open: false
         description: ''
         required_fields: false
-    group_gallery:
-      children: {  }
-      label: Gallery
-      parent_name: ''
-      region: hidden
-      weight: 19
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-    group_performer:
+    group_magazine:
       children:
-        - field_performer_event_view_ref
-      label: 'Involved in'
+        - field_mention_by_art_view_ref
+      label: Magazine
       parent_name: ''
       region: content
-      weight: 5
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -124,6 +145,7 @@ third_party_settings:
         id: ''
         open: false
         description: ''
+        required_fields: false
 id: node.profile.full
 targetEntityType: node
 bundle: profile
@@ -167,7 +189,7 @@ content:
     label: hidden
     settings:
       optionset: field_gallery
-      view_mode: header_image
+      view_mode: gallery
       cache: 0
       current_view_mode: full
       skin: ''
@@ -189,8 +211,10 @@ content:
       skin_arrows: ''
       skin_dots: ''
       use_theme_field: false
-    third_party_settings: {  }
-    weight: 8
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 10
     region: content
   field_legal_url:
     type: link
@@ -202,7 +226,38 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 17
+    region: content
+  field_member_of_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 6
+    region: content
+  field_mention_by_art_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_notification:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
     region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view
@@ -235,6 +290,17 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
+  field_started:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'F Y'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 16
+    region: content
   flag_bookmark_node:
     settings: {  }
     third_party_settings: {  }
@@ -247,11 +313,9 @@ content:
     region: content
 hidden:
   field_mood_image: true
-  field_notification: true
   field_portrait: true
   field_profile_role: true
   field_profile_type: true
-  field_started: true
   field_subtitle: true
   langcode: true
   links: true
