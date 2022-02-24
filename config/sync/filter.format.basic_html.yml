@@ -47,23 +47,11 @@ filters:
     status: false
     weight: -46
     settings: {  }
-  media_embed:
-    id: media_embed
-    provider: media
-    status: false
-    weight: -45
-    settings:
-      default_view_mode: default
-      allowed_view_modes:
-        default: default
-      allowed_media_types:
-        image: image
-        remote_video: remote_video
-  filter_autop:
-    id: filter_autop
+  filter_html_escape:
+    id: filter_html_escape
     provider: filter
     status: false
-    weight: -43
+    weight: -44
     settings: {  }
   filter_url:
     id: filter_url
@@ -78,11 +66,11 @@ filters:
     status: false
     weight: -40
     settings: {  }
-  filter_html_escape:
-    id: filter_html_escape
+  filter_autop:
+    id: filter_autop
     provider: filter
     status: false
-    weight: -44
+    weight: -43
     settings: {  }
   linkit:
     id: linkit
@@ -91,6 +79,32 @@ filters:
     weight: -41
     settings:
       title: true
+  media_embed:
+    id: media_embed
+    provider: media
+    status: false
+    weight: -45
+    settings:
+      default_view_mode: default
+      allowed_view_modes:
+        default: default
+      allowed_media_types:
+        image: image
+        remote_video: remote_video
+  blazy_filter:
+    id: blazy_filter
+    provider: blazy
+    status: false
+    weight: 3
+    settings:
+      media_switch: ''
+      hybrid_style: ''
+      box_style: ''
+      box_caption: ''
+      filter_tags:
+        img: img
+        iframe: iframe
+      use_data_uri: '0'
   slick_filter:
     id: slick_filter
     provider: slick
@@ -122,17 +136,3 @@ filters:
       thumbnail_effect: ''
       thumbnail_position: ''
       override: false
-  blazy_filter:
-    id: blazy_filter
-    provider: blazy
-    status: false
-    weight: 3
-    settings:
-      media_switch: ''
-      hybrid_style: ''
-      box_style: ''
-      box_caption: ''
-      filter_tags:
-        img: img
-        iframe: iframe
-      use_data_uri: '0'
