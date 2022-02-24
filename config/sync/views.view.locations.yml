@@ -8,6 +8,7 @@ dependencies:
     - system.menu.footer
     - taxonomy.vocabulary.category
   module:
+    - better_exposed_filters
     - geofield
     - leaflet_views
     - node
@@ -97,7 +98,7 @@ display:
             offset: false
             offset_label: Offset
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: Apply
           reset_button: false
@@ -106,6 +107,29 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: null
+          bef:
+            general:
+              autosubmit: false
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+            sort:
+              plugin_id: default
+            pager:
+              plugin_id: default
+            filter:
+              title:
+                plugin_id: default
+              field_category_target_id:
+                plugin_id: default
+              field_address_location_proximity:
+                plugin_id: default
       access:
         type: perm
         options:
@@ -482,6 +506,7 @@ display:
       display_description: ''
       display_extenders: {  }
       displays:
+        locations_block_map: locations_block_map
         locations_page_map: locations_page_map
       attachment_position: after
       inherit_exposed_filters: true
@@ -496,9 +521,32 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
+  locations_block_map:
+    id: locations_block_map
+    display_title: 'Locations Map (block)'
+    display_plugin: block
+    position: 1
+    display_options:
+      empty: {  }
+      defaults:
+        empty: false
+        exposed_form: true
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
   locations_page_map:
     id: locations_page_map
-    display_title: 'Locations Map'
+    display_title: 'Locations Map (page)'
     display_plugin: page
     position: 1
     display_options:
