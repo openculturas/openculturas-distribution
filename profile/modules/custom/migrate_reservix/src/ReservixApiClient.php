@@ -11,11 +11,7 @@ use GuzzleHttp\Client;
  *
  * @see https://developer.reservix.de/
  */
-class ReservixApiClient {
-
-  const IMAGE_DETAIL = 1;
-
-  const IMAGE_SLIDESHOW = 2;
+class ReservixApiClient implements ReservixApiClientInterface {
 
   /**
    * The HTTP Client for making API requests.
@@ -125,10 +121,10 @@ class ReservixApiClient {
    */
   public function get(string $endpoint, array $params = []): array {
     $params = [
-      'lat' => $this->config->get('latitude'),
-      'lng' => $this->config->get('longitude'),
-      'radius' => $this->config->get('radius'),
-    ] + $params;
+        'lat' => $this->config->get('latitude'),
+        'lng' => $this->config->get('longitude'),
+        'radius' => $this->config->get('radius'),
+      ] + $params;
 
     switch ($endpoint) {
       case 'custom/artist':
@@ -191,6 +187,19 @@ class ReservixApiClient {
    */
   public function getEvents(array $params = []): array {
     return $this->get('sale/event', $params);
+  }
+
+  /**
+   * Get eventgroups API wrapper.
+   *
+   * @param array $params
+   *   An array of API parameters.
+   *
+   * @return array
+   *   An associative array of data from the API.
+   */
+  public function getEventgroups(array $params = []): array {
+    return $this->get('sale/eventgroup', $params);
   }
 
   /**
@@ -282,10 +291,10 @@ class ReservixApiClient {
     $rows['data'] = [];
     foreach ($response['data'] as $event) {
       if (isset($event['references'])
-         && is_array($event['references']['image'])) {
+        && is_array($event['references']['image'])) {
 
         foreach ($event['references']['image'] as $image) {
-          if ($image['type'] === 1) {
+          if ($image['type'] === $type) {
             $rows['data'][] = $image;
           }
         }

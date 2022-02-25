@@ -4,6 +4,7 @@ namespace Drupal\migrate_reservix\Plugin\migrate\source;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\migrate\Row;
+use Drupal\migrate_reservix\ReservixApiClientInterface;
 
 /**
  * Provides a flexible, generic import source for the Reservix API.
@@ -42,11 +43,14 @@ class ReservixEventsAPI extends ReservixBaseAPI {
     $database = \Drupal::database();
 
     // Massage values for simplified usage in migrate plugins.
+    $description = $row->getSourceProperty('description');
+    $description = str_replace(['<br>', '<br/>', '<br />'], [' '], $description);
+    $row->setSourceProperty('_description', $description);
 
     // Duration seconds to ISO 8601 duration.
     $duration_minutes = $row->getSourceProperty('duration');
     $row->setSourceProperty('_duration_seconds', $duration_minutes * 60);
-    $row->setSourceProperty('_duration_duration', self::timestampToIso8601Duration($duration_minutes * 60));
+    $row->setSourceProperty('_duration_duration', ReservixBaseAPI::timestampToIso8601Duration($duration_minutes * 60));
 
     $references = $row->getSourceProperty('references');
     if (!$references) {
@@ -81,93 +85,47 @@ class ReservixEventsAPI extends ReservixBaseAPI {
       }
     }
 
-    // @todo This can probably be solved with a migrate_lookup plugin instead.
-    $results = $database
-      // @fixme This will break, when the migration identifier changes.
-      ->select('migrate_map_entity_import__reservix_genre__category', 'mm')
-      ->fields('mm', ['destid1'])
-      ->condition('mm.sourceid1', reset($references['genre'])['id'], '=')
-      ->execute()
-      ->fetchAll();
-    if (!empty($results)) {
-      foreach ($results as $result) {
-        $row->setSourceProperty('_genre_dest_id', $result->destid1);
+    $image_ids = [];
+    foreach ($references['image'] as $image) {
+      if ($image['type'] === ReservixApiClientInterface::IMAGE_SLIDESHOW) {
+        $image_ids[] = $image['id'];
       }
     }
 
-    // @todo This can probably be solved with a paragraphs_lookup plugin instead, someday.
-    // @see https://git.drupalcode.org/project/paragraphs/-/blob/8.x-1.x/src/Plugin/migrate/process/ParagraphsLookup.php
+    // @todo This can probably be solved with a migrate_lookup plugin instead.
     $results = $database
       // @fixme This will break, when the migration identifier changes.
-      ->select('migrate_map_entity_import__reservix_artist__profile', 'mm')
+      ->select('migrate_map_entity_import__reservix_images__image', 'mm')
       ->fields('mm', ['destid1'])
-      ->condition('mm.sourceid1', $row->getSourceProperty('artist'), '=')
+      ->condition('mm.sourceid1', reset($image_ids), '=')
       ->execute()
       ->fetchAll();
     if (!empty($results)) {
       foreach ($results as $result) {
-        $paragraphs = $database
-          ->select('paragraph__field_member', 'pmf')
-          ->fields('pmf', ['entity_id'])
-          ->condition('pmf.field_member_target_id', $result->destid1, '=')
-          ->execute()
-          ->fetchAll();
-        if (!empty($paragraphs)) {
-          foreach ($paragraphs as $paragraph) {
-            $paragraphs_reference[] = [
-              'target_id' => $paragraph->entity_id,
-              'target_revision_id' => $paragraph->entity_id,
-            ];
-          }
-          $row->setSourceProperty('_paragraphs_artist', $paragraphs_reference);
+        $row->setSourceProperty('_image_target_id', $result->destid1);
+      }
+    }
+
+    if (count($image_ids)) {
+      $image_target_ids = [];
+
+      // @todo This can probably be solved with a migrate_lookup plugin instead.
+      $results = $database
+        // @fixme This will break, when the migration identifier changes.
+        ->select('migrate_map_entity_import__reservix_images__image', 'mm')
+        ->fields('mm', ['destid1'])
+        ->condition('mm.sourceid1', (array) $image_ids, 'IN')
+        ->execute()
+        ->fetchAll();
+      if (!empty($results)) {
+        foreach ($results as $result) {
+          $image_target_ids[] = $result->destid1;
         }
+        $row->setSourceProperty('_image_target_ids', $image_target_ids);
       }
     }
 
     return TRUE;
-  }
-
-  /**
-   * Timestamp to duration.
-   *
-   * @param int $seconds
-   *   The seconds of duration.
-   *
-   * @return string
-   *   The ISO 8601 duration string.
-   */
-  private static function timestampToIso8601Duration(int $seconds): string {
-    $units = [
-      'Y' => 365 * 24 * 3600,
-      'D' => 24 * 3600,
-      'H' => 3600,
-      'M' => 60,
-      'S' => 1,
-    ];
-
-    $str = "P";
-    $is_time = FALSE;
-
-    foreach ($units as $unitName => &$unit) {
-      $quot = intval($seconds / $unit);
-      $seconds -= $quot * $unit;
-      $unit = $quot;
-      if ($unit > 0) {
-        if (
-          !$is_time
-          && in_array($unitName, ["H", "M", "S"])
-        ) {
-          $str .= "T";
-          $is_time = TRUE;
-        }
-        $str .= strval($unit) . $unitName;
-      }
-    }
-
-    if ($str === "P") {
-      $str = "P0D";
-    }
-    return $str;
   }
 
 }

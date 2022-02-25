@@ -7,7 +7,7 @@ use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\RequirementsInterface;
 use Drupal\migrate\Row;
 use Drupal\entity_import\Plugin\migrate\source\EntityImportSourceLimitIteratorBase;
-use Drupal\migrate_reservix\ReservixApiClient;
+use Drupal\migrate_reservix\ReservixApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 
@@ -50,9 +50,9 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
   /**
    * The Reservix API service.
    *
-   * @var \Drupal\migrate_reservix\ReservixApiClient
+   * @var \Drupal\migrate_reservix\ReservixApiClientInterface
    */
-  protected ReservixApiClient $apiService;
+  protected ReservixApiClientInterface $apiService;
 
   /**
    * {@inheritdoc}
@@ -120,23 +120,6 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
    * {@inheritdoc}
    */
   public function buildImportForm(array $form, FormStateInterface $form_state): array {
-    $config = $this->getConfiguration();
-
-    // Making an API request will set up total item counts.
-    $this->apiRequest();
-    $values = [
-      $this->t('Ready to import %count items from the endpoint %endpoint.', [
-        '%count' => $this->totalEntries,
-        '%endpoint' => $config['endpoint'],
-      ]),
-    ];
-
-    // The form just shows overview data about the items to import.
-    $form['access_token'] = [
-      '#prefix' => '<h2>' . $this->t('Reservix Importer') . '</h2><pre>',
-      '#suffix' => '</pre>',
-      '#markup' => implode('<br/>', $values),
-    ];
     return $form;
   }
 
@@ -251,7 +234,7 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
   public function next() {
     // If not called from inside a batch process, get the next page of data.
     if (!$this->isBatch
-        && !$this->getIterator()->valid()) {
+      && !$this->getIterator()->valid()) {
       $this->currentPage++;
       $results = $this->apiRequest($this->currentPage);
       if (count($results)) {
@@ -303,11 +286,54 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
    */
   protected function defaultConfiguration(): array {
     return [
-      'api_key' => '',
-      'endpoint' => 'sale/event',
-      'params' => '',
-      'throttle' => 200,
-    ] + parent::defaultConfiguration();
+        'api_key' => '',
+        'endpoint' => 'sale/event',
+        'params' => '',
+        'throttle' => 200,
+      ] + parent::defaultConfiguration();
+  }
+
+  /**
+   * Timestamp to duration.
+   *
+   * @param int $seconds
+   *   The seconds of duration.
+   *
+   * @return string
+   *   The ISO 8601 duration string.
+   */
+  public static function timestampToIso8601Duration(int $seconds): string {
+    $units = [
+      'Y' => 365 * 24 * 3600,
+      'D' => 24 * 3600,
+      'H' => 3600,
+      'M' => 60,
+      'S' => 1,
+    ];
+
+    $str = "P";
+    $is_time = FALSE;
+
+    foreach ($units as $unitName => &$unit) {
+      $quot = intval($seconds / $unit);
+      $seconds -= $quot * $unit;
+      $unit = $quot;
+      if ($unit > 0) {
+        if (
+          !$is_time
+          && in_array($unitName, ["H", "M", "S"])
+        ) {
+          $str .= "T";
+          $is_time = TRUE;
+        }
+        $str .= strval($unit) . $unitName;
+      }
+    }
+
+    if ($str === "P") {
+      $str = "P0D";
+    }
+    return $str;
   }
 
 }

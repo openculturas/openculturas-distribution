@@ -35,11 +35,6 @@ class ReservixOrganizersAPI extends ReservixBaseAPI {
       return FALSE;
     }
 
-    // Skip empty rows.
-    if ($row->getSourceProperty('name') === 'n/a') {
-      return FALSE;
-    }
-
     $row->setSourceProperty('_role', 'organizer');
 
     return TRUE;
