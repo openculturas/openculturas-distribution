@@ -1,0 +1,26 @@
+uuid: 71413ac8-d625-4bad-b4d8-870aa6db4e73
+langcode: en
+status: true
+dependencies: {  }
+id: reservix_date
+label: 'Reservix Date'
+expose_importer: false
+description: ''
+migration_source:
+  source:
+    plugin_id: migrate_reservix_dates_source
+    configuration:
+      api_key: rSvxmbcnf5ajNPwALSBchE97MmMiuIBtP1uqQ5tJ8xyYC01O
+      endpoint:
+        - sale/event
+      params: '{"lat": "51.70213583367987", "lng": "9.992154084099482", "radius": 50}'
+      throttle: '200'
+migration_entity:
+  entity:
+    type: node
+    bundles:
+      date: date
+migration_dependencies:
+  optional:
+    migration:
+      'entity_import:reservix_organizer:profile': 'entity_import:reservix_organizer:profile'

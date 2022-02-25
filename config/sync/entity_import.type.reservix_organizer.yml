@@ -1,0 +1,25 @@
+uuid: a4318a42-e9a5-4d66-8943-e7034c5a034f
+langcode: en
+status: true
+dependencies: {  }
+id: reservix_organizer
+label: 'Reservix Organizer'
+expose_importer: false
+description: ''
+migration_source:
+  source:
+    plugin_id: migrate_reservix_organizers_source
+    configuration:
+      api_key: rSvxmbcnf5ajNPwALSBchE97MmMiuIBtP1uqQ5tJ8xyYC01O
+      endpoint:
+        - custom/organizer
+      params: '{"lat": "51.70213583367987", "lng": "9.992154084099482", "radius": 50}'
+      throttle: '200'
+migration_entity:
+  entity:
+    type: node
+    bundles:
+      profile: profile
+migration_dependencies:
+  optional:
+    migration: {  }

@@ -1,0 +1,25 @@
+uuid: acff9840-c430-4069-a437-9df0fdfe670a
+langcode: en
+status: true
+dependencies: {  }
+id: reservix_genre
+label: 'Reservix Genre'
+expose_importer: false
+description: ''
+migration_source:
+  source:
+    plugin_id: migrate_reservix_genres_source
+    configuration:
+      api_key: rSvxmbcnf5ajNPwALSBchE97MmMiuIBtP1uqQ5tJ8xyYC01O
+      endpoint:
+        - sale/genre
+      params: ''
+      throttle: '200'
+migration_entity:
+  entity:
+    type: taxonomy_term
+    bundles:
+      category: category
+migration_dependencies:
+  optional:
+    migration: {  }

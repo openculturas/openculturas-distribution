@@ -1,0 +1,25 @@
+uuid: ab1f19cd-e80b-4563-abe1-cd866f804a5a
+langcode: en
+status: true
+dependencies: {  }
+id: reservix_artist
+label: 'Reservix Artist'
+expose_importer: false
+description: ''
+migration_source:
+  source:
+    plugin_id: migrate_reservix_artists_source
+    configuration:
+      api_key: rSvxmbcnf5ajNPwALSBchE97MmMiuIBtP1uqQ5tJ8xyYC01O
+      endpoint:
+        - custom/artist
+      params: '{"lat": "51.70213583367987", "lng": "9.992154084099482", "radius": 50}'
+      throttle: '200'
+migration_entity:
+  entity:
+    type: node
+    bundles:
+      profile: profile
+migration_dependencies:
+  optional:
+    migration: {  }
