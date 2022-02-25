@@ -1,0 +1,124 @@
+<?php
+
+namespace Drupal\migrate_reservix\Plugin\migrate\source;
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\migrate\Row;
+
+/**
+ * Provides a flexible, generic import source for the Reservix API.
+ *
+ * @MigrateSource(
+ *   id = "migrate_reservix_events_source",
+ *   label = @Translation("Reservix Events API"),
+ * )
+ */
+class ReservixEventsAPI extends ReservixBaseAPI {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::buildConfigurationForm($form, $form_state);
+    $form['endpoint']['#value'] = ['sale/event'];
+    $form['endpoint']['#attributes']['disabled'] = 'disabled';
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row): bool {
+    // Always include this fragment at the beginning of every prepareRow()
+    // implementation, so parent classes can ignore rows.
+    if (parent::prepareRow($row) === FALSE) {
+      return FALSE;
+    }
+
+    // There is no paragraphs lookup plugin for migrate, so we do it ourselves
+    // until published.
+    // @see https://git.drupalcode.org/project/paragraphs/-/blob/8.x-1.x/src/Plugin/migrate/process/ParagraphsLookup.php
+    $paragraphs = [];
+    $database = \Drupal::database();
+
+    // Massage values for simplified usage in migrate plugins.
+    $references = $row->getSourceProperty('references');
+    if (!$references) {
+      return TRUE;
+    }
+
+    foreach (array_keys($references) as $property_name) {
+      if (!isset($references[$property_name])
+        || !is_array($references[$property_name])) {
+        break;
+      }
+
+      // Flatten the references for better accessibility in migration mapping.
+      $i = 0;
+      foreach ($references[$property_name] as $reference) {
+        foreach ($reference as $field_name => $field_value) {
+          // This results into keys like e.g. "_genre_0_id", "_genre_0_name" ...
+          try {
+            $row->setSourceProperty(
+              '_' . $property_name . '_' . $i . '_' . $field_name,
+              $field_value
+            );
+          }
+          catch (\Exception $e) {
+            \Drupal::logger('migrate_reservix')
+              ->debug('Could not change source property: @message', [
+                '@message' => $e->getMessage(),
+              ]);
+          }
+        }
+        $i++;
+      }
+    }
+
+    // @todo This can probably be solved with a migrate_lookup plugin instead.
+    $results = $database
+      // @fixme This will break, when the migration identifier changes.
+      ->select('migrate_map_entity_import__reservix_genre__category', 'mm')
+      ->fields('mm', ['destid1'])
+      ->condition('mm.sourceid1', reset($references['genre'])['id'], '=')
+      ->execute()
+      ->fetchAll();
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $row->setSourceProperty('_genre_dest_id', $result->destid1);
+      }
+    }
+
+    // @todo This can probably be solved with a paragraphs_lookup plugin instead, someday.
+    // @see https://git.drupalcode.org/project/paragraphs/-/blob/8.x-1.x/src/Plugin/migrate/process/ParagraphsLookup.php
+    $results = $database
+      // @fixme This will break, when the migration identifier changes.
+      ->select('migrate_map_entity_import__reservix_artist__profile', 'mm')
+      ->fields('mm', ['destid1'])
+      ->condition('mm.sourceid1', $row->getSourceProperty('artist'), '=')
+      ->execute()
+      ->fetchAll();
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $paragraphs = $database
+          ->select('paragraph__field_member', 'pmf')
+          ->fields('pmf', ['entity_id'])
+          ->condition('pmf.field_member_target_id', $result->destid1, '=')
+          ->execute()
+          ->fetchAll();
+        if (!empty($paragraphs)) {
+          foreach ($paragraphs as $paragraph) {
+            $paragraphs_reference[] = [
+              'target_id' => $paragraph->entity_id,
+              'target_revision_id' => $paragraph->entity_id,
+            ];
+          }
+          $row->setSourceProperty('_paragraphs_artist', $paragraphs_reference);
+        }
+      }
+    }
+
+    return TRUE;
+  }
+
+}
