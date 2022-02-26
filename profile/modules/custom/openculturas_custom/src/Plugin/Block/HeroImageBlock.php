@@ -3,8 +3,9 @@
 namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
-use Drupal\Core\Cache\UncacheableDependencyTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a hero image from current entity block.
@@ -15,22 +16,33 @@ use Drupal\Core\Cache\UncacheableDependencyTrait;
  *   category = @Translation("Openculturas")
  * )
  */
-class HeroImageBlock extends BlockBase {
+class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  // @TODO: Maybe find a better way to cache those blocks depending in node.
-  use UncacheableDependencyTrait;
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->renderer = $container->get('renderer');
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
    */
   public function build() {
-    $current_entity = CurrentEntityHelper::get_current_page_entity();
-    if (!empty($current_entity)
+    $current_entity = CurrentEntityHelper::getEventReference(CurrentEntityHelper::get_current_page_entity());
+    if ($current_entity !== NULL
       && $current_entity->hasField('field_mood_image')
       && !$current_entity->get('field_mood_image')->isEmpty()) {
-      $field_mood_image = $current_entity->get('field_mood_image')->referencedEntities()[0];
-      $media_view = \Drupal::entityTypeManager()->getViewBuilder('media')->view($field_mood_image, 'header_image');
-      $media_view['#cache']['max-age'] = 0;
+      $display_options = ['type' => 'entity_reference_entity_view', 'viewmode' => 'header_image', 'label' => 'hidden'];
+      $media_view = $current_entity->get('field_mood_image')->view($display_options);
+      $this->renderer->addCacheableDependency($media_view, $current_entity);
       return $media_view;
     }
     return NULL;
