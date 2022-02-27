@@ -50,101 +50,87 @@ $defaultColors: (
 // Font size base definitions.
 $fontSizes: (
   h1: 2.5rem,
-  h2: 2.25rem,
-  h3: 1.875rem,
-  h4: 1.375rem,
-  h5: 1.125rem,
-  h6: 1.125rem,
-  bigger: 1.125rem,
+  h2: 2rem,
+  h3: 1.75rem,
+  h4: 1.275rem,
+  h5: 1rem,
+  h6: 0.875rem,
+  big: 1.125rem,
   body: 1rem,
   small: 0.875rem,
+  teaser: 1.275rem,
 );
 
 // Font definitions.
 $font-base: var(--font-base);
 $font-head: var(--font-head);
 
-// @TODO: Implicit styles / defaults should not be rendered to make inheritnce available.
 $fontStyles: (
   small: (
-    font-family: $font-base,
     font-size: size(small),
-    font-weight: normal,
-    line-height: 1.4,
-    text-transform: none,
-    margin: 0 0
   ),
   body: (
     font-family: $font-base,
     font-size: size(body),
-    font-weight: normal,
-    line-height: 1.4,
-    text-transform: none,
-    letter-spacing: 0,
-    margin: 0 0
   ),
-  bold: (
+  allcaps: (
+    text-transform: uppercase,
+    letter-spacing: 0.05rem,
+    line-height: 1.4,
+  ),
+  teaser: (
+    font-size: size(teaser),
     font-family: $font-base,
-    font-size: size(body),
     font-weight: bold,
     line-height: 1.4,
     text-transform: none,
     letter-spacing: 0,
-    margin: 0 0
+  ),
+  bold: (
+    font-size: size(body),
+    font-weight: bold,
   ),
   h6: (
     font-family: $font-base,
     font-size: size(h6),
-    font-weight: bold,
-    line-height: 1.2,
-    text-transform: none,
-    letter-spacing: 0,
-    margin: size(h6)*0.5 0
+    margin: 0.5em 0,
   ),
   h5: (
     font-family: $font-base,
     font-size: size(h5),
     font-weight: normal,
-    line-height: 1.2,
     text-transform: uppercase,
-    letter-spacing: 1px,
-    margin: size(h5)*0.5 0
+    letter-spacing: 0.05rem,
+    margin: 0.5em 0,
   ),
   h4: (
     font-family: $font-base,
     font-size: size(h4),
     font-weight: normal,
-    line-height: 1.2,
     text-transform: uppercase,
-    letter-spacing: 1px,
-    margin: size(h4)*0.5 0
+    letter-spacing: 0.05rem,
+    margin: 0.5em 0,
   ),
   h3: (
     font-family: $font-head,
     font-size: size(h3),
     font-weight: normal,
     line-height: 1.2,
-    text-transform: none,
-    letter-spacing: 0,
-    margin: size(h3)*0.5 0
+    margin: 0.5em 0,
   ),
   h2: (
     font-family: $font-head,
     font-size: size(h2),
     font-weight: normal,
-    line-height: 0.9,
-    text-transform: none,
-    letter-spacing: 0,
-    margin: size(h2)*0.5 0
+    line-height: 1.2,
+    margin: 0.5em 0,
   ),
   h1: (
     font-family: $font-head,
     font-size: size(h1),
     font-weight: normal,
-    line-height: 0.9,
-    text-transform: none,
-    letter-spacing: 0,
-    margin: size(h1)*0.5 0
+    line-height: 1.2,
+    margin: 0.5em 0,
   ),
 );
 

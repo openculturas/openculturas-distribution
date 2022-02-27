@@ -1,13 +1,17 @@
 .header__offcanvas-menu {
   height: auto;
   width: calc(100vw - (100vw - 100%));
+  max-height: 100vh;
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: color(white);
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
-  z-index: 1000;
   font-size: size(bigger);
 
   .offcanvas-open &{
@@ -151,5 +155,9 @@
       }
     }
   }
+}
 
+body.offcanvas-open {
+  width: 100%;
+  overflow: hidden;
 }

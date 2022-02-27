@@ -80,13 +80,11 @@
  *    }
  */
 @mixin typo ($name: body) {
-  font-family: map_get(map_get($fontStyles, $name), 'font-family');
-  font-weight: map_get(map_get($fontStyles, $name), 'font-weight');
-  line-height: map_get(map_get($fontStyles, $name), 'line-height');
-  text-transform: map_get(map_get($fontStyles, $name), 'text-transform');
-  letter-spacing: map_get(map_get($fontStyles, $name), 'letter-spacing');
-  font-size: map_get(map_get($fontStyles, $name), 'font-size');
-  margin: map_get(map_get($fontStyles, $name), 'margin');
+  $definition: map_get($fontStyles, $name);
+
+  @each $property, $value in $definition {
+    #{$property}: $value;
+  }
 
   @if $name == h1 {
     @include breakpoint(l) {
