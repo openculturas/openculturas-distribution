@@ -12,14 +12,8 @@ footer.footer {
     }
   }
 
-  a {
-    color: color(link-inverted);
-    text-decoration: none;
-
-    &:hover, &:focus {
-      text-decoration: underline;
-      color: color(link-inverted-focus);
-    }
+  a, .content a, ul.menu a {
+    @include link-inverted;
   }
 
   .region-footer {
@@ -56,10 +50,19 @@ footer.footer {
       > ul {
         margin-top: 0;
         margin-left: 0;
+
+        li {
+          list-style: none;
+
+          ul {
+            display: none;
+          }
+        }
       }
 
       > h2 {
         @include typo(h3);
+        color: color(white);
       }
     }
   }

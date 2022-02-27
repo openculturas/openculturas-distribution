@@ -92,7 +92,83 @@
       margin: map_get(map_get($fontStyles, $name), 'font-size') * 1.5 * 0.5 0;
     }
   }
+}
 
+/**
+ * Helper mixin for setting default link style with css vars.
+ */
+@mixin link-default () {
+  color: color(link);
+  text-decoration: none;
+
+  &.is-active {
+    color: color(link);
+  }
+
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: color(link-hover);
+  }
+
+  &:focus {
+    color: color(link-focused);
+  }
+
+  &:active {
+    color: color(link-active);
+  }
+
+  &:visited {
+    color: color(link-visited);
+  }
+}
+
+/**
+ * Helper mixin for setting inverted link style with css vars.
+ */
+@mixin link-inverted () {
+  color: color(link-inverted);
+  text-decoration: none;
+
+  &.is-active {
+    color: color(link-inverted);
+  }
+
+  &:hover, &:focus, &:active, &:visited {
+    color: color(link-inverted-focused);
+    text-decoration: underline;
+  }
+}
+
+/**
+ * Helper mixin for setting offcanvas link style with css vars.
+ */
+@mixin link-offcanvas () {
+  color: color(link-offcanvas);
+  text-decoration: none;
+
+  &.is-active, &:visited {
+    color: color(link-offcanvas);
+  }
+
+  &:hover, &:focus, &:active, &:visited {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: color(link-offcanvas-hover);
+  }
+
+  &:focus {
+    color: color(link-offcanvas-focused);
+  }
+
+  &:active {
+    color: color(link-offcanvas-active);
+  }
 }
 
 /**

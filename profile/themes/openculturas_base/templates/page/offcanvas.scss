@@ -70,12 +70,7 @@
       }
 
       a {
-        color: color(black);
-        text-decoration: none;
-
-        &:hover, &:focus {
-          color: color(primary);
-        }
+        @include link-offcanvas;
       }
     }
 
@@ -97,7 +92,7 @@
         display: block;
         padding: 0.5rem 2.25rem 0.5rem 0;
 
-        &:hover, &:focus {
+        &:hover, &:focus, &:active {
           background: color(neutral-10);
           padding-left: 0.5rem;
           margin-left: -0.5rem;
