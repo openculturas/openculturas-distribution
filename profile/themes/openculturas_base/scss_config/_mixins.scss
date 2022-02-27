@@ -172,6 +172,44 @@
 }
 
 /**
+ * Helper mixin for setting button primary styling.
+ */
+@mixin button-primary () {
+  padding: 0.5rem 2rem;
+  margin-right: $grid-gutter;
+  @include typo(body);
+  line-height: 1;
+  color: color(link-inverted);
+  background: color(button);
+  border: 1px solid transparent;
+  outline-offset: 0.25rem;
+  cursor: pointer;
+
+  &:hover {
+    background: color(button-hover);
+  }
+
+  &:focus {
+    background: color(button-focused)
+  }
+
+  &:active {
+    background: color(button-active);
+    border-color: color(button-hover);
+    color: color(button-hover);
+    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
+  }
+
+  &[disabled] {
+    background: color(button);
+    color: color(link-inverted);
+    opacity: 0.5;
+    box-shadow: none;
+    cursor: default;
+  }
+}
+
+/**
  * Helper mixin for making an image fit to its's container.
  *
  * The expected behaviour will be like background-size: cover, but with real images.
