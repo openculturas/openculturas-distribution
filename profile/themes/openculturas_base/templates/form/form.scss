@@ -5,8 +5,14 @@ form {
 }
 
 .content {
-  .form-submit, .button, input[type="submit"] {
+  .form-submit, .button, a.button, input[type="submit"] {
     @include button-primary();
+  }
+  .form-submit.secondary, .button.secondary, a.button.secondary, input[type="submit"].secondary {
+    @include button-secondary();
+  }
+  .form-submit.danger, .button.danger, a.button.danger, input[type="submit"].danger {
+    @include button-danger();
   }
 }
 

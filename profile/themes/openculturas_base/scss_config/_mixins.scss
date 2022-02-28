@@ -184,13 +184,16 @@
   border: 1px solid transparent;
   outline-offset: 0.25rem;
   cursor: pointer;
+  font-weight: normal;
 
   &:hover {
     background: color(button-hover);
+    text-decoration: none;
   }
 
   &:focus {
-    background: color(button-focused)
+    background: color(button-focused);
+    text-decoration: none;
   }
 
   &:active {
@@ -198,6 +201,7 @@
     border-color: color(button-hover);
     color: color(button-hover);
     box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
+    text-decoration: none;
   }
 
   &[disabled] {
@@ -206,6 +210,105 @@
     opacity: 0.5;
     box-shadow: none;
     cursor: default;
+    text-decoration: none;
+  }
+}
+
+/**
+ * Helper mixin for setting button secondary styling.
+ */
+@mixin button-secondary () {
+  padding: 0.5rem 2rem;
+  margin-right: $grid-gutter;
+  @include typo(body);
+  line-height: 1;
+  color: color(link);
+  background: color(button-secondary);
+  border: 1px solid color(link);
+  outline-offset: 0.25rem;
+  cursor: pointer;
+  font-weight: normal;
+
+  &:hover {
+    background: color(button-secondary-hover);
+    border-color: color(button-secondary);
+    color: color(link-inverted);
+    text-decoration: none;
+  }
+
+  &:focus {
+    background: color(button-secondary-focused);
+    border-color: color(button-secondary);
+    color: color(link-inverted);
+    text-decoration: none;
+  }
+
+  &:active {
+    background: color(button-secondary-active);
+    border-color: color(button-secondary);
+    color: color(button-secondary-focused);
+    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+  }
+
+  &[disabled] {
+    background: color(button-secondary-disabled);
+    color: color(link);
+    border-color: color(link);
+    opacity: 0.5;
+    box-shadow: none;
+    cursor: default;
+    text-decoration: none;
+  }
+}
+
+/**
+ * Helper mixin for setting button secondary styling.
+ */
+@mixin button-danger () {
+  padding: 0.5rem 2rem;
+  margin-right: $grid-gutter;
+  @include typo(body);
+  line-height: 1;
+  color: color(link-inverted);
+  background: color(button-alert);
+  border: 1px solid color(white);
+  outline-offset: 0.25rem;
+  cursor: pointer;
+  font-weight: normal;
+
+  @include icon(times) {
+    margin-right: 0.5rem;
+  };
+
+  &:hover {
+    background: color(button-alert-hover);
+    color: color(link-inverted);
+    text-decoration: none;
+  }
+
+  &:focus {
+    background: color(button-alert-hover);
+    color: color(link-inverted);
+    text-decoration: none;
+  }
+
+  &:active {
+    background: color(button-active);
+    border-color: color(button-alert-active);
+    color: color(button-alert-active);
+    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+  }
+
+  &[disabled] {
+    background: color(button-alert);
+    color: color(link-inverted);
+    border-color: color(link-inverted);
+    opacity: 0.5;
+    box-shadow: none;
+    cursor: default;
+    text-decoration: none;
   }
 }
 
