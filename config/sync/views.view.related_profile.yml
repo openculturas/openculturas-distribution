@@ -213,7 +213,7 @@ display:
           id: rendered_entity_1
           table: node
           field: rendered_entity
-          relationship: reverse__node__field_people_reference
+          relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
@@ -265,7 +265,7 @@ display:
           id: field_member_target_id
           table: paragraph__field_member
           field: field_member_target_id
-          relationship: reverse__paragraph__field_member
+          relationship: field_people_reference
           group_type: group
           admin_label: ''
           plugin_id: numeric
@@ -330,45 +330,30 @@ display:
         operator: AND
         groups:
           1: AND
-      style:
-        type: default
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
-      row:
-        type: fields
-        options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
       defaults:
         title: false
-        style: false
-        row: false
+        style: true
+        row: true
         relationships: false
         fields: false
         arguments: false
         filters: false
         filter_groups: false
       relationships:
-        reverse__paragraph__field_member:
-          id: reverse__paragraph__field_member
-          table: node_field_data
-          field: reverse__paragraph__field_member
+        field_people_reference:
+          id: field_people_reference
+          table: node__field_people_reference
+          field: field_people_reference
           relationship: none
           group_type: group
-          admin_label: field_member
-          entity_type: node
-          plugin_id: entity_reverse
+          admin_label: 'field_people_reference: Paragraph'
+          plugin_id: standard
           required: true
         reverse__node__field_people_reference:
           id: reverse__node__field_people_reference
           table: paragraphs_item_field_data
           field: reverse__node__field_people_reference
-          relationship: reverse__paragraph__field_member
+          relationship: field_people_reference
           group_type: group
           admin_label: field_people_reference
           entity_type: paragraph
