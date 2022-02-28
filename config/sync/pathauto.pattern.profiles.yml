@@ -1,0 +1,22 @@
+uuid: 853fef81-aa96-483d-bf34-c62196a941a9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: profiles
+label: Profiles
+type: 'canonical_entities:node'
+pattern: 'profiles/[node:title]'
+selection_criteria:
+  75d4a612-3acc-4418-b131-4e3073763aa2:
+    id: node_type
+    negate: false
+    uuid: 75d4a612-3acc-4418-b131-4e3073763aa2
+    context_mapping:
+      node: node
+    bundles:
+      profile: profile
+selection_logic: and
+weight: -5
+relationships: {  }
