@@ -5,6 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.search_index
     - field.field.node.page.body
+    - field.field.node.page.field_mood_image
+    - field.field.node.page.field_subtitle
+    - field.field.node.page.field_views_ref
     - node.type.page
   module:
     - layout_builder
@@ -26,21 +29,20 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
-  flag_bookmark_node:
+  field_subtitle:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_recommendation_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  links:
-    weight: 101
+    weight: 0
     region: content
 hidden:
+  field_mood_image: true
+  field_views_ref: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
+  links: true
   search_api_excerpt: true

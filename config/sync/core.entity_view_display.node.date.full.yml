@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.date.field_parent_date
     - field.field.node.date.field_people_reference
     - field.field.node.date.field_pricing
+    - field.field.node.date.field_related_date_view_ref
     - field.field.node.date.field_safety_info
     - field.field.node.date.field_sub_dates
     - field.field.node.date.field_ticketing
@@ -143,7 +144,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 13
+      weight: 15
       format_type: details
       format_settings:
         classes: ''
@@ -152,12 +153,13 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
-    group_program:
-      children: {  }
-      label: Program
+    group_alternative_dates:
+      children:
+        - field_related_date_view_ref
+      label: 'Alternative dates'
       parent_name: ''
       region: content
-      weight: 14
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
@@ -184,7 +186,7 @@ content:
   extra_field_event_gallery:
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   extra_field_location_address_data:
     settings: {  }
@@ -229,10 +231,10 @@ content:
       force_chronological: true
       add_classes: false
       time_wrapper: true
-      past_display: 1
-      upcoming_display: 0
-      show_next: false
-      current_upcoming: 0
+      past_display: 0
+      upcoming_display: 1
+      show_next: true
+      current_upcoming: '1'
     third_party_settings:
       field_formatter_class:
         class: ''
@@ -325,6 +327,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 9
+    region: content
+  field_related_date_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_safety_info:
     type: text_default
