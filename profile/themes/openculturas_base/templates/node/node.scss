@@ -1,20 +1,24 @@
 .path-node {
   .region-content > .block-system-main-block {
-    grid-column: 1/17;
+    grid-column: 1 / -1;
+    @include grid;
+
+    > * {
+      grid-column: 1 / -1;
+    }
+
+    > form {
+      @include content-grid-default;
+    }
   }
 }
 
 .node {
-  details {
-    @include clearfix;
-  }
-
   &.node--view-mode-full {
-
     > .node__content {
       @include grid;
 
-      > details, > .field--type-text-with-summary, > div {
+      > details, > .field--type-text-with-summary, > div, > form {
         @include content-grid-default;
 
         &.grid-child-fullwidth {
@@ -30,11 +34,5 @@
         grid-column: 1/17;
       }
     }
-  }
-}
-
-h1,h2,h3,h4,h5,h6 {
-  &.teaser {
-    @include typo(teaser);
   }
 }

@@ -74,7 +74,15 @@
     }
 
     tr {
-      border-bottom: 0.1em solid color(primary);
+      border-bottom: 1px solid color(primary);
+    }
+
+    .draggable {
+      .tabledrag-handle {
+        display: block;
+        width: 1rem;
+        height: 1rem;
+      }
     }
   }
 
@@ -212,5 +220,10 @@
   .caption, .footnote {
     @include typo(small);
   }
+}
 
+h1,h2,h3,h4,h5,h6 {
+  &.teaser {
+    @include typo(teaser);
+  }
 }

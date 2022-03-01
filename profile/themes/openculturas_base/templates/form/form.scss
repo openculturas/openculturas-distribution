@@ -1,7 +1,147 @@
 form {
+  padding: 0 $grid-gutter;
+  @include form_background;
+
   .description {
     @include typo(small);
   }
+
+  .js-hide {
+    display: none!important;
+  }
+
+  .media-library-selection {
+    margin: $grid-gutter 0;
+
+    button[id*="remove"] {
+      @include icon(times) {
+        margin-right: 0.5rem;
+      };
+    }
+  }
+
+  .form-textarea-wrapper, .filter-wrapper {
+    background: color(white);
+
+    .cke_top, .cke_contents, .cke_bottom {
+      background: color(white);
+    }
+  }
+
+  .field-suffix .button {
+    margin-bottom: $grid-gutter;
+  }
+
+  fieldset, fieldset.fieldgroup {
+    padding: $grid-gutter*2.5 $grid-gutter $grid-gutter $grid-gutter;
+    @include form_background;
+
+    summary, legend {
+      position: absolute;
+      left: $grid-gutter;
+      top: $grid-gutter;
+      text-transform: none;
+      font-weight: bold;
+    }
+
+    fieldset, fieldset.fieldgroup {
+      position: relative;
+      &:before {
+        content: none;
+      }
+    }
+  }
+
+  .form-required:after {
+    background-image: none;
+    content: '*';
+    color: color(danger);
+    vertical-align: text-top;
+  }
+
+  .form-item {
+    margin: 2rem 0;
+
+    .description {
+      @include typo(small);
+    }
+
+    label {
+      display: block;
+    }
+
+    label.option {
+      display: inline-block;
+    }
+
+    input, select, textarea {
+      padding: 0.5rem 1rem;
+      line-height: 2rem;
+      background: color(white);
+      border: 1px solid color(neutral-60);
+      //outline-offset: 0.2rem;
+
+      &:focus {
+        border-bottom-color: color(info);
+        box-shadow: 0 -3px 0 inset color(info);
+      }
+
+      .error {
+        border: 1px solid color(neutral-60);
+        box-shadow: 0 -3px 0 inset color(danger-dark);
+      }&
+
+      &::placeholder {
+        color: color(neutral-30);
+        text-align: right;
+      }
+
+      &[disabled] {
+        opacity: 0.5;
+      }
+    }
+
+    select {
+      -moz-appearance:none; /* Firefox */
+      -webkit-appearance:none; /* Safari and Chrome */
+      appearance:none;
+      padding-right: 2rem;
+      position: relative;
+      background: color(white) url(../images/chevron-down.svg) right 0.5rem top 0.9rem no-repeat;
+      background-size: 1em;
+
+      &.error {
+        border: 1px solid color(neutral-60);
+        box-shadow: 0 -3px 0 inset color(danger-dark);
+      }
+
+      &[disabled] {
+        opacity: 0.5;
+      }
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+      margin-right: 0.5rem;
+      width: 1em;
+      height: 1em;
+      vertical-align: baseline;
+      position: relative;
+      top: 0.1rem;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &[disabled] {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .vertical-tabs {
+    margin-left: 0;
+  }
+
 }
 
 .content {
@@ -14,6 +154,21 @@ form {
   .form-submit.danger, .button.danger, a.button.danger, input[type="submit"].danger {
     @include button-danger();
   }
+
+  .field-add-more-submit, .button--small {
+    @include button-secondary;
+  }
 }
 
+.ui-menu .ui-menu-item-wrapper {
+  display: block;
+  background-color: transparent;
+  border: none;
+  color: color(black);
 
+  &:hover, &:focus {
+    background-color: color(primary);
+    color: color(white);
+    border: none;
+  }
+}
