@@ -3,6 +3,7 @@
 namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\UncacheableDependencyTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
+  use UncacheableDependencyTrait;
   /**
    * @var \Drupal\Core\Render\RendererInterface
    */
