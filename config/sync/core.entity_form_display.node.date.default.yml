@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.date.field_accessibility
     - field.field.node.date.field_attendance_mode
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
@@ -13,8 +14,10 @@ dependencies:
     - field.field.node.date.field_forfree
     - field.field.node.date.field_location
     - field.field.node.date.field_location_virtual
+    - field.field.node.date.field_mention_by_art_view_ref
     - field.field.node.date.field_organizer
     - field.field.node.date.field_parent_date
+    - field.field.node.date.field_people_reference
     - field.field.node.date.field_pricing
     - field.field.node.date.field_safety_info
     - field.field.node.date.field_sub_dates
@@ -24,10 +27,12 @@ dependencies:
     - field_group
     - field_time
     - link
+    - paragraphs
     - path
     - smart_date
     - smart_date_recur
     - text
+    - viewfield
 third_party_settings:
   field_group:
     group_attendance:
@@ -93,6 +98,18 @@ content:
     weight: 13
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_accessibility:
+    type: entity_reference_paragraphs
+    weight: 29
+    region: content
+    settings:
+      title: 'Accessibility information'
+      title_plural: 'Accessibility informations'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
   field_attendance_mode:
     type: options_buttons
@@ -188,6 +205,12 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+  field_mention_by_art_view_ref:
+    type: viewfield_select
+    weight: 28
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_organizer:
     type: entity_reference_autocomplete
     weight: 18
@@ -226,6 +249,18 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
+  field_people_reference:
+    type: entity_reference_paragraphs
+    weight: 27
+    region: content
+    settings:
+      title: Member
+      title_plural: Members
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: member
+    third_party_settings: {  }
   field_pricing:
     type: string_textfield
     weight: 10

@@ -1,0 +1,40 @@
+uuid: a505cb4e-52c8-463a-85d1-36b29062945a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_accessibility
+    - node.type.date
+    - paragraphs.paragraphs_type.member
+  module:
+    - entity_reference_revisions
+id: node.date.field_accessibility
+field_name: field_accessibility
+entity_type: node
+bundle: date
+label: 'Accessibility information'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      member: member
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: 5
+        enabled: false
+      address_data:
+        weight: 6
+        enabled: false
+      contact_data:
+        weight: 7
+        enabled: false
+      member:
+        weight: 8
+        enabled: true
+field_type: entity_reference_revisions

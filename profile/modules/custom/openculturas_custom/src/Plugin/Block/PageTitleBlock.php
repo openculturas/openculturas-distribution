@@ -4,8 +4,10 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
-use Drupal\Core\Cache\UncacheableDependencyTrait;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 /**
@@ -17,15 +19,29 @@ use Drupal\openculturas_custom\CurrentEntityHelper;
  *   category = @Translation("Openculturas")
  * )
  */
-class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface {
+class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,ContainerFactoryPluginInterface {
 
-  use UncacheableDependencyTrait;
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
   /**
    * The page title: a string (plain title) or a render array (formatted title).
    *
    * @var string|array
    */
   protected $title = '';
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->renderer = $container->get('renderer');
+    return $instance;
+  }
+
 
   /**
    * {@inheritdoc}
@@ -46,11 +62,12 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
-    $current_entity = CurrentEntityHelper::get_current_page_entity();
+    $current_entity = CurrentEntityHelper::getEventReference(CurrentEntityHelper::get_current_page_entity());
     $subtitle = NULL;
     $profile_image = NULL;
 
-    if (!empty($current_entity) && method_exists($current_entity, 'hasField')) {
+    if ($current_entity !== NULL) {
+      $this->setTitle($current_entity->label());
       if ($current_entity->hasField('field_subtitle')
         && !$current_entity->get('field_subtitle')->isEmpty()) {
         $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);
@@ -61,12 +78,14 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface {
       }
     }
 
-    return [
+    $build = [
       '#theme' => 'page_title_custom',
       '#title' => $this->title,
       '#subtitle' => $subtitle,
       '#profile_image' => $profile_image
     ];
+    $this->renderer->addCacheableDependency($build, $current_entity);
+    return $build;
   }
 
 }

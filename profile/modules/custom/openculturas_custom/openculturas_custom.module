@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @file
- * Primary module hooks for Openculturas Base module.
+ * Primary module hooks for OpenCulturas Base module.
  */
 
 /**
@@ -11,15 +13,18 @@
  * Adds a .content class to the CKEditor body so CSS from frontend will work.
  */
 function openculturas_custom_editor_js_settings_alter(array &$settings) {
-  if (!empty($settings["editor"]["formats"])) {
-    foreach ($settings["editor"]["formats"] as $format => &$config) {
-      if ($config['editor'] == 'ckeditor') {
+  if (!empty($settings['editor']['formats'])) {
+    foreach ($settings['editor']['formats'] as &$config) {
+      if ($config['editor'] === 'ckeditor') {
         $config['editorSettings']['bodyClass'] = 'content';
       }
     }
   }
 }
 
+/**
+ * Implements hook_theme().
+ */
 function openculturas_custom_theme() {
   return [
     'page_title_custom' => [
@@ -29,6 +34,6 @@ function openculturas_custom_theme() {
         'profile_image' => NULL,
       ],
       'template' => 'page-title-custom',
-    ]
+    ],
   ];
 }
