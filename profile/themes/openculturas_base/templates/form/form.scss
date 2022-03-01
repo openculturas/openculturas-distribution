@@ -1,6 +1,10 @@
 form {
-  padding: 0 $grid-gutter;
+  padding: $grid-gutter;
   @include form_background;
+
+  > *:first-child, .form-item:first-child {
+    margin-top: 0;
+  }
 
   .description {
     @include typo(small);
@@ -42,6 +46,7 @@ form {
       top: $grid-gutter;
       text-transform: none;
       font-weight: bold;
+      @include typo(allcaps);
     }
 
     fieldset, fieldset.fieldgroup {
@@ -99,6 +104,11 @@ form {
       &[disabled] {
         opacity: 0.5;
       }
+
+      &.form-autocomplete {
+        padding-right: 2rem;
+        background-position: right 0.5rem center!important;
+      }
     }
 
     select {
@@ -155,8 +165,12 @@ form {
     @include button-danger();
   }
 
-  .field-add-more-submit, .button--small {
+  .field-add-more-submit, .button--small, button[id*="remove"] {
     @include button-secondary;
+  }
+
+  button.link {
+    @include link-default;
   }
 }
 

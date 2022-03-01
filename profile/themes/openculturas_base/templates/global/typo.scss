@@ -67,6 +67,7 @@
 
     th {
       color: color(neutral-40);
+      text-align: left;
     }
 
     td, th {
@@ -77,11 +78,23 @@
       border-bottom: 1px solid color(primary);
     }
 
+    .field-multiple-drag {
+      white-space: nowrap;
+    }
+
     .draggable {
+      position: relative;
       .tabledrag-handle {
         display: block;
-        width: 1rem;
-        height: 1rem;
+        width: 2rem;
+        height: 2rem;
+        position: absolute;
+        top: calc(50% - 0.55rem);
+
+        .handle {
+          width: 2rem;
+          height: 2rem;
+        }
       }
     }
   }

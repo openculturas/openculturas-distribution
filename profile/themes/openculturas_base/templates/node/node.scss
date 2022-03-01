@@ -9,6 +9,14 @@
 
     > form {
       @include content-grid-default;
+
+      &.grid-child-fullwidth {
+        grid-column: 1 / -1;
+
+        @include breakpoint(m) {
+          grid-column: 1 / -1;
+        }
+      }
     }
   }
 }
