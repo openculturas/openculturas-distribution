@@ -1,0 +1,48 @@
+.taxonomy-term {
+  .taxonomy-term--tag {
+    @include tag_links;
+  }
+
+  .field {
+    margin: 0;
+  }
+}
+
+.taxonomy-term.term--view-mode-teaser {
+  .content.with-image {
+    position: relative;
+    overflow: hidden;
+
+    .taxonomy-term--tagwrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .taxonomy-term--tag {
+        margin: 0;
+      }
+    }
+
+    img {
+      vertical-align: bottom;
+      transition: transform 300ms ease;
+    }
+
+    &:focus-within, &:hover {
+      img {
+        transform: scale(1.2);
+      }
+
+      .taxonomy-term--tag {
+        background: color(neutral-40);
+        color: color(white);
+      }
+    }
+  }
+}

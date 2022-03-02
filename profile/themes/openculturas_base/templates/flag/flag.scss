@@ -1,64 +1,70 @@
-.flag {
-  position: relative;
+header {
+  .flag {
+    position: relative;
 
-  a {
-    @include offcanvas_button(false);
-    color: color(white);
-    font-size: 1.5rem;
-    border-radius: 0 0 0.3em 0.3em;
-    text-decoration: none;
-    @include breakpoint(m) {
+    a {
+      @include offcanvas_button(false);
+      color: color(white);
       font-size: 1.5rem;
-    }
-
-    &:before {
+      border-radius: 0 0 0.3em 0.3em;
       text-decoration: none;
-      text-align: center;
-      vertical-align: bottom;
-      line-height: 1.5;
-      width: 100%;
-      height: 100%;
-      display: block;
+      @include breakpoint(m) {
+        font-size: 1.5rem;
+      }
+
+      &:before {
+        text-decoration: none;
+        text-align: center;
+        vertical-align: bottom;
+        line-height: 1.5;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .offcanvas--visually-hidden {
+        @include visually_hidden;
+      }
+
+    }
+    &.action-unflag a {
+      background-color: color(primary);
+    }
+
+    .js-flag-message {
+      position: absolute;
+      right: calc(100% + #{$grid-gutter});
+      top: 0rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .ajax-progress-throbber {
+      position: absolute;
+      left: 0.25em;
+      top: 0;
+    }
+  }
+
+  .flag-bookmark-node, .flag-bookmark-term {
+    a {
+      @include icon(bookmark);
+
+      &:before {
+        line-height: 1;
+      }
     }
 
   }
-  &.action-unflag a {
-    background-color: color(primary);
-  }
 
-  .js-flag-message {
-    position: absolute;
-    right: calc(100% + #{$grid-gutter});
-    top: 0rem;
-    text-align: right;
-    white-space: nowrap;
-  }
+  .flag-recommendation-node {
+    a {
+      @include icon(share-alt);
 
-  .ajax-progress-throbber {
-    position: absolute;
-    left: 0.25em;
-    top: 0;
-  }
-}
+      &:before {
+        line-height: 1.5;
+      }
 
-.flag-bookmark-node, .flag-bookmark-term {
-  a {
-    @include icon(bookmark);
-
-    &:before {
-      line-height: 1;
     }
-  }
-
-}
-
-.flag-recommendation-node {
-  a {
-    @include icon(share-alt);
-
-    &:before {
-      line-height: 1.5;
-    }
-
   }
 }
