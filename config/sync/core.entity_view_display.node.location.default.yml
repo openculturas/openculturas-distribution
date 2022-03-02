@@ -23,20 +23,11 @@ dependencies:
   module:
     - text
     - user
-    - viewfield
 id: node.location.default
 targetEntityType: node
 bundle: location
 mode: default
 content:
-  field_category:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
   field_logo:
     type: entity_reference_entity_view
     label: hidden
@@ -45,26 +36,6 @@ content:
       link: true
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_mention_by_art_view_ref:
-    type: viewfield_default
-    label: above
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_related_date_view_ref:
-    type: viewfield_default
-    label: above
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 3
     region: content
   field_subtitle:
     type: text_default
@@ -78,12 +49,15 @@ hidden:
   field_accessibility: true
   field_additional_information: true
   field_address_data: true
+  field_category: true
   field_contact_data: true
   field_gallery: true
   field_legal_url: true
+  field_mention_by_art_view_ref: true
   field_mood_image: true
   field_opening_hours: true
   field_portrait: true
+  field_related_date_view_ref: true
   field_safety_info: true
   flag_bookmark_node: true
   flag_recommendation_node: true
