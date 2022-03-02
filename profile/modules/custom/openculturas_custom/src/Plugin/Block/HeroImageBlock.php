@@ -40,6 +40,7 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
    */
   public function build() {
     $current_entity = CurrentEntityHelper::getEventReference(CurrentEntityHelper::get_current_page_entity());
+    $build = [];
     if ($current_entity !== NULL
       && $current_entity->hasField('field_mood_image')
       && !$current_entity->get('field_mood_image')->isEmpty()) {
@@ -49,10 +50,9 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
         'settings' => ['view_mode' => 'header_image',]
       ];
       $build = $current_entity->get('field_mood_image')->view($display_options);
-      $this->renderer->addCacheableDependency($build, $current_entity);
-      return $build;
     }
-    return NULL;
+    $this->renderer->addCacheableDependency($build, $current_entity);
+    return $build;
   }
 
   /**
