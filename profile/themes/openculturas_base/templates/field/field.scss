@@ -1,7 +1,24 @@
-.field-label-above > label {
-  @include typo(allcaps);
-}
-
 .field {
-  //margin: $grid-gutter 0;
+  margin: 1rem 0;
+
+  .field__item {
+    > p:first-child {
+      margin-top: 0;
+    }
+  }
+
+  > .field__label {
+    @include typo(allcaps);
+    font-size: size(tiny);
+    line-height: 1.866;
+  }
+
+  &.field--label-inline {
+    .field__label {
+      padding-right: 0.75rem;
+      position: relative;
+      top: 0.1rem;
+    }
+  }
+
 }
