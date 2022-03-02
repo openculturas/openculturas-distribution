@@ -1,0 +1,66 @@
+.universal-teaser {
+  margin: $grid-gutter 0;
+
+  .field {
+    margin: 0.5rem 0;
+  }
+
+  .teaser--top {
+    @include clearfix;
+
+    .field--name-field-mood-image, .field--name-field-portrait {
+      display: block;
+      width: 100%;
+
+      @include breakpoint(m) {
+        max-width: 30%;
+        float: right;
+        margin: 0 0 0.5rem 0.5rem;
+      }
+
+      .field {
+        margin: 0;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        vertical-align: bottom;
+      }
+    }
+
+    .field--name-field-subtitle {
+      font-weight: bold;
+    }
+  }
+
+  footer {
+    margin-top: 1rem;
+
+    @include breakpoint(m) {
+      margin-top: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .teaser--author {
+
+    h3.teaser, h3.teaser a {
+      @include typo(body);
+      font-weight: bold;
+      color: color(neutral-60);
+    }
+
+    .profile--picture {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  .teaser--date {
+    text-align: right;
+    margin-left: $grid-gutter;
+  }
+
+}

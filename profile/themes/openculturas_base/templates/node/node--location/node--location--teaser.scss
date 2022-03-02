@@ -1,14 +1,15 @@
-.node--type-profile.node--view-mode-teaser {
+.node--type-location.node--view-mode-teaser {
   text-align: left;
-  margin: $grid-gutter*2 0;
+  margin: $grid-gutter 0;
 
-  @include grid(auto 1fr);
-  align-items: center;
-  //width: fit-content;
-  //margin: 0 auto;
+  &.with-image {
+    @include grid(auto 1fr);
+    align-items: center;
+  }
 
   .profile--picture {
     text-align: center;
+    max-width: 8rem;
   }
 
   .profile--content {
@@ -19,6 +20,9 @@
 
     .field:first-child {
       margin-top: 0;
+    }
+    .field:last-child {
+      margin-bottom: 0;
     }
   }
 }

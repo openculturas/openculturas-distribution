@@ -75,31 +75,26 @@
   node.isSticky() ? 'node--sticky',
   not node.isPublished() ? 'node--unpublished',
   view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  content.field_portrait|render|trim is not empty ? 'with-image'
 ]
 %}
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  {{ title_prefix }}
-  {% if label and not page %}
-    <h3{{ title_attributes.addClass('teaser') }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-    </h3>
-  {% endif %}
-  {{ title_suffix }}
-
-  {% if display_submitted %}
-    <footer class="node__meta">
-      {{ author_picture }}
-      <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
-  {% endif %}
-
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+  <div class="profile--picture">
+    {{ content.field_portrait }}
+  </div>
+  <div class="profile--content">
+    {{ title_prefix }}
+    {% if label %}
+      <h3{{ title_attributes.addClass('teaser') }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h3>
+    {% endif %}
+    {{ title_suffix }}
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content | without('field_portrait') }}
+    </div>
   </div>
 
 </article>

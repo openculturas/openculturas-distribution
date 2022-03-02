@@ -2,13 +2,14 @@
   .taxonomy-term--tag {
     @include tag_links;
   }
+}
+
+.taxonomy-term.term--view-mode-teaser {
 
   .field {
     margin: 0;
   }
-}
 
-.taxonomy-term.term--view-mode-teaser {
   .content.with-image {
     position: relative;
     overflow: hidden;
@@ -32,11 +33,15 @@
     img {
       vertical-align: bottom;
       transition: transform 300ms ease;
+      width: 100%;
+      height: auto;
     }
 
     &:focus-within, &:hover {
       img {
         transform: scale(1.2);
+        width: 100%;
+        height: auto;
       }
 
       .taxonomy-term--tag {
