@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -52,6 +53,15 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
       return $build;
     }
     return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(parent::getCacheContexts(), [
+      'url.path',
+    ]);
   }
 
 }

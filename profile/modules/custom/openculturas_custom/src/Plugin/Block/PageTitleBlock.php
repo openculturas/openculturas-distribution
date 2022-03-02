@@ -6,6 +6,7 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -93,5 +94,15 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
     $this->renderer->addCacheableDependency($build, $current_entity);
     return $build;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(parent::getCacheContexts(), [
+      'url.path',
+    ]);
+  }
+
 
 }
