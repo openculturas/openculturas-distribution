@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Cache\UncacheableDependencyTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,7 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  use UncacheableDependencyTrait;
   /**
    * @var \Drupal\Core\Render\RendererInterface
    */
@@ -42,10 +42,14 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
     if ($current_entity !== NULL
       && $current_entity->hasField('field_mood_image')
       && !$current_entity->get('field_mood_image')->isEmpty()) {
-      $display_options = ['type' => 'entity_reference_entity_view', 'viewmode' => 'header_image', 'label' => 'hidden'];
-      $media_view = $current_entity->get('field_mood_image')->view($display_options);
-      $this->renderer->addCacheableDependency($media_view, $current_entity);
-      return $media_view;
+      $display_options = [
+        'type' => 'entity_reference_entity_view',
+        'label' => 'hidden',
+        'settings' => ['view_mode' => 'header_image',]
+      ];
+      $build = $current_entity->get('field_mood_image')->view($display_options);
+      $this->renderer->addCacheableDependency($build, $current_entity);
+      return $build;
     }
     return NULL;
   }

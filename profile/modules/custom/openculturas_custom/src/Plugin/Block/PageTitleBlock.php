@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
-use Drupal\Core\Cache\UncacheableDependencyTrait;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,ContainerFactoryPluginInterface {
 
-  use UncacheableDependencyTrait;
   /**
    * @var \Drupal\Core\Render\RendererInterface
    */
@@ -76,7 +75,11 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
       }
       if ($current_entity->hasField('field_portrait')
         && !$current_entity->get('field_portrait')->isEmpty()) {
-        $display_options = ['type' => 'entity_reference_entity_view', 'viewmode' => 'profile_image', 'label' => 'hidden'];
+        $display_options = [
+          'type' => 'entity_reference_entity_view',
+          'label' => 'hidden',
+          'settings' => ['view_mode' => 'profile_image',]
+        ];
         $profile_image = $current_entity->get('field_portrait')->view($display_options);
       }
     }
