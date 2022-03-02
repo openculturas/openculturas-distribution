@@ -100,7 +100,15 @@
       }
     }
 
-    .views-exposed-form {
+    form {
+      padding: 0;
+
+      &:before {
+        content: none;
+      }
+    }
+
+    .block-views-exposed-filter-blocksearch-search-input {
       label {
         display: inline-block;
         max-width: 9rem;
@@ -114,8 +122,13 @@
 
       .form-item {
         margin-right: -2px;
-        display: flex;
-        width: 70%;
+        width: 100%;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        @include breakpoint(m) {
+          width: 70%;
+        }
 
         input {
           width: 100%;
@@ -124,9 +137,15 @@
 
       .form-actions {
         display: inline-block;
+        margin: 0;
 
         button.form-submit {
-          @include icon(search);
+          @include button-secondary;
+          height: 100%;
+          padding: 0 0.75rem;
+          @include icon(search) {
+            font-size: 1.5rem;
+          };
           span {
             @include visually_hidden;
           }
