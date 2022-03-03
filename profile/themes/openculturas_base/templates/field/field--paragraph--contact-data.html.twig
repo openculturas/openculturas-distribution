@@ -54,5 +54,10 @@
 %}
 
 {% for item in items %}
-  <div{{ item.attributes.addClass('field__item').addClass(field_name|clean_class) }}>{{ item.content }}</div>
+  <div{{ item.attributes.addClass('field__item').addClass(field_name|clean_class) }}>
+    {% if not label_hidden %}
+      <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
+    {% endif %}
+    {{ item.content }}
+  </div>
 {% endfor %}
