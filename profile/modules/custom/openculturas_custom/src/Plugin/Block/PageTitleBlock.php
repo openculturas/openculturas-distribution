@@ -64,7 +64,8 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
    * {@inheritdoc}
    */
   public function build() {
-    $current_entity = CurrentEntityHelper::getEventReference(CurrentEntityHelper::get_current_page_entity());
+    $page_entity = CurrentEntityHelper::get_current_page_entity();
+    $current_entity = CurrentEntityHelper::getEventReference($page_entity);
     $subtitle = NULL;
     $profile_image = NULL;
 
@@ -92,6 +93,7 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
       '#profile_image' => $profile_image
     ];
     $this->renderer->addCacheableDependency($build, $current_entity);
+    $this->renderer->addCacheableDependency($build, $page_entity);
     return $build;
   }
 
@@ -100,7 +102,7 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
    */
   public function getCacheContexts() {
     return Cache::mergeContexts(parent::getCacheContexts(), [
-      'url.path',
+      'route'
     ]);
   }
 

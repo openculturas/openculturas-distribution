@@ -39,8 +39,9 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function build() {
-    $current_entity = CurrentEntityHelper::getEventReference(CurrentEntityHelper::get_current_page_entity());
     $build = [];
+    $page_entity = CurrentEntityHelper::get_current_page_entity();
+    $current_entity = CurrentEntityHelper::getEventReference($page_entity);
     if ($current_entity !== NULL
       && $current_entity->hasField('field_mood_image')
       && !$current_entity->get('field_mood_image')->isEmpty()) {
@@ -52,6 +53,7 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
       $build = $current_entity->get('field_mood_image')->view($display_options);
     }
     $this->renderer->addCacheableDependency($build, $current_entity);
+    $this->renderer->addCacheableDependency($build, $page_entity);
     return $build;
   }
 
@@ -60,7 +62,7 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
    */
   public function getCacheContexts() {
     return Cache::mergeContexts(parent::getCacheContexts(), [
-      'url.path',
+      'route',
     ]);
   }
 
