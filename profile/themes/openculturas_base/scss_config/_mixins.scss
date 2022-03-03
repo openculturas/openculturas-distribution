@@ -122,7 +122,7 @@
   }
 
   &:visited {
-    color: color(link-visited);
+    color: color(link);
   }
 }
 
@@ -137,7 +137,7 @@
     color: color(link-inverted);
   }
 
-  &:hover, &:focus, &:active, &:visited {
+  &:hover, &:focus, &:active {
     color: color(link-inverted-focused);
     text-decoration: underline;
   }
@@ -154,7 +154,7 @@
     color: color(link-offcanvas);
   }
 
-  &:hover, &:focus, &:active, &:visited {
+  &:hover, &:focus, &:active {
     text-decoration: underline;
   }
 
@@ -410,15 +410,10 @@
 @mixin tag_links() {
   display: inline-block;
   background: color(neutral-10);
-  color: color(neutral-60);
   padding: $grid-gutter*0.25 $grid-gutter;
   margin: 0 $grid-gutter $grid-gutter 0;
   border-radius: 0.75rem;
   text-decoration: none;
-
-  &:visited {
-    color: color(neutral-60);
-  }
 
   &:hover, &:focus {
     background: color(neutral-40);

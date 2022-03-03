@@ -101,22 +101,19 @@
     {{ title_suffix }}
 
     <div{{ content_attributes.addClass('node__content') }}>
-      {{ content | without('field_mood_image', 'field_author', 'field_portrait')}}
+      {{ content | without('field_mood_image', 'field_author', 'field_portrait', 'field_date_published')}}
     </div>
   </div>
 
-  {% if content.field_author|render|trim or node.bundle|clean_class == 'article'  %}
+  {% if content.field_author|render|trim or content.field_publication_date|render|trim  %}
   <footer>
     <div class="teaser--author">
       {{ content.field_author }}
     </div>
     <div class="teaser--date">
-      <div class="field">
-        {# @TODO: Set field / preprocess for date here if needed. #}
-        {% if node.bundle|clean_class == 'article' %}
-          {{ date }}
-        {% endif %}
-      </div>
+      {% if content.field_date_published %}
+        {{ content.field_date_published }}
+      {% endif %}
     </div>
   </footer>
   {% endif %}

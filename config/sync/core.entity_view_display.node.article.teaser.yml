@@ -14,6 +14,8 @@ dependencies:
     - field.field.node.article.field_subtitle
     - node.type.article
   module:
+    - datetime
+    - field_formatter_class
     - text
     - user
 id: node.article.teaser
@@ -40,6 +42,17 @@ content:
         class: ''
     weight: 3
     region: content
+  field_date_published:
+    type: datetime_default
+    label: visually_hidden
+    settings:
+      timezone_override: ''
+      format_type: site_default_date
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 4
+    region: content
   field_mood_image:
     type: entity_reference_entity_view
     label: hidden
@@ -59,7 +72,6 @@ content:
 hidden:
   field_category: true
   field_column: true
-  field_date_published: true
   field_references: true
   flag_bookmark_node: true
   flag_recommendation_node: true
