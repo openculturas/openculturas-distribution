@@ -87,9 +87,9 @@
 
   <div class="teaser--top">
     {% if mood_image %}
-    {{ content.field_mood_image }}
+      {{ content.field_mood_image }}
     {% elseif profile_image %}
-    {{ content.field_portrait }}
+      {{ content.field_portrait }}
     {% endif %}
 
     {{ title_prefix }}
@@ -105,17 +105,19 @@
     </div>
   </div>
 
+  {% if content.field_author|render|trim or node.bundle|clean_class == 'article'  %}
   <footer>
     <div class="teaser--author">
-    {{ content.field_author }}
+      {{ content.field_author }}
     </div>
     <div class="teaser--date">
       <div class="field">
-        {# @TODO: Set field / preprocess for date here of needed. #}
+        {# @TODO: Set field / preprocess for date here if needed. #}
         {% if node.bundle|clean_class == 'article' %}
-         {{ date }}
+          {{ date }}
         {% endif %}
       </div>
     </div>
   </footer>
+  {% endif %}
 </article>
