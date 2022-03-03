@@ -1,0 +1,36 @@
+.content .block-openculturas-custom-page-title {
+
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    @include typo(h6);
+    font-size: 1.5rem;
+    margin-top: 0;
+  }
+
+  .field {
+    margin: 0;
+  }
+
+  .custom-page-title--with-image {
+    margin-bottom: 0.5rem;
+
+    @include grid(auto 1fr, "image text" "image text2");
+    .field--name-field-portrait {
+      grid-area: image;
+      max-width: 8rem;
+      margin: $grid-gutter 0 0 0;
+      @include profile_circle;
+    }
+
+    h1 {
+      grid-area: text;
+    }
+
+    h2 {
+      grid-area: text2;
+    }
+  }
+}

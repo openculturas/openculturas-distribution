@@ -4,10 +4,6 @@
   margin: $grid-gutter 0 $grid-gutter*2;
   padding: $grid-gutter 0 0 0;
 
-  details {
-    //margin-left: $grid-gutter;
-  }
-
   > summary {
     position: relative;
     padding: 0;
@@ -16,7 +12,7 @@
     // Disable default marker element on webkit browsers.
     &::-webkit-details-marker { display:none; }
 
-    > h1,> h2,> h3,> h4,> h5,> h6 {
+    > h2 {
       @include typo(h3);
       display: inline-block;
       @include icon(chevron-down, fas, before);
@@ -40,13 +36,22 @@
         content: none;
       }
 
-      h1, h2, h3, h4, h5, h6 {
+      h2 {
         &:after {
           content: '*';
           color: color(danger);
         }
       }
+    }
+  }
 
+  &[open] {
+    > summary {
+      > h2 {
+        &:before {
+          transform: rotate(-180deg);
+        }
+      }
     }
   }
 
@@ -58,14 +63,4 @@
     }
   }
 
-
-  &[open] {
-    > summary {
-      > h1,> h2,> h3,> h4,> h5,> h6 {
-        &:before {
-          transform: rotate(-180deg);
-        }
-      }
-    }
-  }
 }

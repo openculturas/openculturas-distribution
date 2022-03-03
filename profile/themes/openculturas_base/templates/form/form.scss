@@ -148,32 +148,37 @@ form {
     }
   }
 
+  .form--inline {
+    .form-item {
+      margin-top: 0;
+    }
+  }
+
   .vertical-tabs {
     margin-left: 0;
   }
 
 }
 
-.content {
-  .form-submit, .button, a.button, input[type="submit"] {
-    @include button-primary();
-  }
-  .form-submit.secondary, .button.secondary, a.button.secondary, input[type="submit"].secondary {
-    @include button-secondary();
-  }
-  .form-submit.danger, .button.danger, a.button.danger, input[type="submit"].danger {
-    @include button-danger();
-  }
-
-  .field-add-more-submit, .button--small, button[id*="remove"] {
-    @include button-secondary;
-  }
-
-  button.link {
-    @include link-default;
-  }
+.form-submit, .button, a.button, input[type="submit"] {
+  @include button-primary();
+}
+.form-submit.secondary, .button.secondary, a.button.secondary, input[type="submit"].secondary {
+  @include button-secondary();
+}
+.form-submit.danger, .button.danger, a.button.danger, input[type="submit"].danger {
+  @include button-danger();
 }
 
+.field-add-more-submit, .button--small, button[id*="remove"] {
+  @include button-secondary;
+}
+
+button.link {
+  @include link-default;
+}
+
+// Autocomplete widget select.
 .ui-menu .ui-menu-item-wrapper {
   display: block;
   background-color: transparent;

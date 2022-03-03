@@ -33,9 +33,8 @@
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
   <a  href="{{ url }}">
     <div class="content with-image">
-      {# @TODO: Remove placeholder image and add placeholder image to field. #}
     {% if content.field_mood_image|render|trim is empty %}
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAACSCAQAAAAJSXxrAAAA9klEQVR42u3SAQ0AAAwCIO0f+vb4IAPNBVIREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAFEQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAREQAQREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREAEREIFvBkkykgHcohYNAAAAAElFTkSuQmCC" width="260" height="146">
+      <div class="with-image--placeholder"></div>
     {% else %}
       {{ content.field_mood_image }}
     {% endif %}

@@ -1,25 +1,31 @@
+// Set base styles for f.e. h1-h6 automatically.
+@each $name, $def in $fontStyles {
+  #{$name} {
+    @include typo($name);
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  &.teaser {
+    @include typo(teaser);
+  }
+}
+
+a {
+  @include link-default;
+}
+
+p {
+  @include typo(body);
+  margin-bottom: 1em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .content {
   color: color(neutral-60);
-
-  // Set base styles for f.e. h1-h6 automatically.
-  @each $name, $def in $fontStyles {
-    #{$name} {
-      @include typo($name);
-    }
-  }
-
-  a {
-    @include link-default;
-  }
-
-  p {
-    @include typo(body);
-    margin-bottom: 1em;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 
   ul {
     list-style: disc outside;
@@ -235,8 +241,3 @@
   }
 }
 
-h1,h2,h3,h4,h5,h6 {
-  &.teaser {
-    @include typo(teaser);
-  }
-}
