@@ -43,7 +43,7 @@ third_party_settings:
       label: 'Profile type'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -60,7 +60,7 @@ third_party_settings:
       label: About
       region: content
       parent_name: ''
-      weight: 11
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -69,6 +69,27 @@ third_party_settings:
         open: true
         description: ''
         required_fields: true
+    group_administrative:
+      children:
+        - uid
+        - created
+        - promote
+        - sticky
+        - path
+        - status
+      label: Administrative
+      region: content
+      parent_name: ''
+      weight: 16
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
 id: node.profile.default
 targetEntityType: node
 bundle: profile
@@ -86,13 +107,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_address_data:
     type: entity_reference_paragraphs
-    weight: 19
+    weight: 11
     region: content
     settings:
       title: Address
@@ -104,7 +125,7 @@ content:
     third_party_settings: {  }
   field_category:
     type: entity_reference_autocomplete_tags
-    weight: 12
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
@@ -114,7 +135,7 @@ content:
     third_party_settings: {  }
   field_contact_data:
     type: entity_reference_paragraphs
-    weight: 16
+    weight: 8
     region: content
     settings:
       title: 'Contact data'
@@ -126,14 +147,14 @@ content:
     third_party_settings: {  }
   field_gallery:
     type: media_library_widget
-    weight: 13
+    weight: 7
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_legal_url:
     type: link_default
-    weight: 17
+    weight: 9
     region: content
     settings:
       placeholder_url: ''
@@ -159,13 +180,13 @@ content:
             selector: ''
   field_member_of_view_ref:
     type: viewfield_select
-    weight: 27
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   field_mention_by_art_view_ref:
     type: viewfield_select
-    weight: 28
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -178,7 +199,7 @@ content:
     third_party_settings: {  }
   field_notification:
     type: text_textarea
-    weight: 18
+    weight: 10
     region: content
     settings:
       rows: 5
@@ -204,7 +225,7 @@ content:
             selector: ''
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 14
+    weight: 15
     region: content
     settings:
       title: Member
@@ -234,13 +255,13 @@ content:
             selector: ''
   field_performer_event_view_ref:
     type: viewfield_select
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   field_portrait:
     type: media_library_widget
-    weight: 9
+    weight: 3
     region: content
     settings:
       media_types: {  }
@@ -259,7 +280,7 @@ content:
     third_party_settings: {  }
   field_reference_title:
     type: string_textfield
-    weight: 13
+    weight: 14
     region: content
     settings:
       size: 60
@@ -285,13 +306,13 @@ content:
             selector: ''
   field_started:
     type: datetime_default
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
   field_subtitle:
     type: text_textfield
-    weight: 8
+    weight: 2
     region: content
     settings:
       size: 60
@@ -299,41 +320,41 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 1
+    weight: 0
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 15
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 7
+    weight: 18
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 16
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
@@ -341,7 +362,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 13
     region: content
     settings:
       match_operator: CONTAINS

@@ -46,7 +46,7 @@ third_party_settings:
       label: Attendance
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -63,7 +63,7 @@ third_party_settings:
       label: Tickets
       region: content
       parent_name: ''
-      weight: 7
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -80,7 +80,7 @@ third_party_settings:
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -89,6 +89,27 @@ third_party_settings:
         open: false
         description: ''
         required_fields: true
+    group_administrative:
+      children:
+        - uid
+        - created
+        - promote
+        - sticky
+        - path
+        - status
+      label: Administrative
+      region: content
+      parent_name: ''
+      weight: 14
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
 id: node.date.default
 targetEntityType: node
 bundle: date
@@ -102,7 +123,7 @@ content:
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 29
+    weight: 12
     region: content
     settings:
       title: 'Accessibility information'
@@ -114,13 +135,13 @@ content:
     third_party_settings: {  }
   field_attendance_mode:
     type: options_buttons
-    weight: 11
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   field_body_addon:
     type: text_textarea
-    weight: 8
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -128,7 +149,7 @@ content:
     third_party_settings: {  }
   field_date:
     type: smartdate_inline
-    weight: 15
+    weight: 9
     region: content
     settings:
       show_extra: 0
@@ -153,7 +174,7 @@ content:
           YEARLY: '0'
   field_door_time:
     type: time_widget
-    weight: 26
+    weight: 10
     region: content
     settings:
       enabled: false
@@ -161,7 +182,7 @@ content:
     third_party_settings: {  }
   field_event_description:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -177,7 +198,7 @@ content:
     third_party_settings: {  }
   field_event_status:
     type: options_select
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -190,7 +211,7 @@ content:
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 7
     region: content
     settings:
       match_operator: CONTAINS
@@ -200,7 +221,7 @@ content:
     third_party_settings: {  }
   field_location_virtual:
     type: link_default
-    weight: 13
+    weight: 8
     region: content
     settings:
       placeholder_url: ''
@@ -208,13 +229,13 @@ content:
     third_party_settings: {  }
   field_mention_by_art_view_ref:
     type: viewfield_select
-    weight: 28
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   field_organizer:
     type: entity_reference_autocomplete
-    weight: 18
+    weight: 9
     region: content
     settings:
       match_operator: CONTAINS
@@ -252,7 +273,7 @@ content:
             selector: ''
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 27
+    weight: 10
     region: content
     settings:
       title: Member
@@ -272,13 +293,13 @@ content:
     third_party_settings: {  }
   field_related_date_view_ref:
     type: viewfield_select
-    weight: 30
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 10
+    weight: 8
     region: content
     settings:
       rows: 5
@@ -322,7 +343,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 11
+    weight: 0
     region: content
     settings:
       include_locked: true
@@ -356,7 +377,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
