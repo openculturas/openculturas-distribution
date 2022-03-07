@@ -13,6 +13,10 @@ use GuzzleHttp\Client;
  */
 class ReservixApiClient {
 
+  const IMAGE_DETAIL = 1;
+
+  const IMAGE_SLIDESHOW = 2;
+
   /**
    * The HTTP Client for making API requests.
    *
@@ -136,6 +140,12 @@ class ReservixApiClient {
       case 'custom/organizer':
         return $this->getOrganizers($params);
 
+      case 'custom/imagesdetail':
+        return $this->getDetailImages($params);
+
+      case 'custom/imagesslideshow':
+        return $this->getSlideshowImages($params);
+
       default:
         if (in_array($endpoint, ReservixBaseAPI::API_ENDPOINTS)) {
           return $this->request('GET', $endpoint, $params);
@@ -251,6 +261,57 @@ class ReservixApiClient {
       }
     }
     return $rows;
+  }
+
+  /**
+   * Get images API wrapper.
+   *
+   * @param array $params
+   *   An array of API parameters.
+   * @param int $type
+   *   The image type id:
+   *   - 1: A detail image.
+   *   - 2: A slideshow image.
+   *
+   * @return array
+   *   An associative array of data from the API.
+   */
+  public function getImages(array $params = [], int $type = self::IMAGE_DETAIL): array {
+    $response = $this->get('sale/event', $params);
+    $rows = $response;
+    $rows['data'] = [];
+    foreach ($response['data'] as $event) {
+      if (isset($event['references'])
+         && is_array($event['references']['image'])) {
+
+        foreach ($event['references']['image'] as $image) {
+          if ($image['type'] === 1) {
+            $rows['data'][] = $image;
+          }
+        }
+      }
+    }
+    return $rows;
+  }
+
+  /**
+   * Get detail images API wrapper.
+   *
+   * @return array
+   *   An associative array of data from the API.
+   */
+  public function getDetailImages(array $params = []): array {
+    return $this->getImages($params, self::IMAGE_DETAIL);
+  }
+
+  /**
+   * Get slideshow images API wrapper.
+   *
+   * @return array
+   *   An associative array of data from the API.
+   */
+  public function getSlideshowImages(array $params = []): array {
+    return $this->getImages($params, self::IMAGE_SLIDESHOW);
   }
 
 }
