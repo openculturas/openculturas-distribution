@@ -121,10 +121,10 @@ class ReservixApiClient implements ReservixApiClientInterface {
    */
   public function get(string $endpoint, array $params = []): array {
     $params = [
-        'lat' => $this->config->get('latitude'),
-        'lng' => $this->config->get('longitude'),
-        'radius' => $this->config->get('radius'),
-      ] + $params;
+      'lat' => $this->config->get('latitude'),
+      'lng' => $this->config->get('longitude'),
+      'radius' => $this->config->get('radius'),
+    ] + $params;
 
     switch ($endpoint) {
       case 'custom/artist':
