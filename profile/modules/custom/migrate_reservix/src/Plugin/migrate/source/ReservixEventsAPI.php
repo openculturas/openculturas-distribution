@@ -42,6 +42,12 @@ class ReservixEventsAPI extends ReservixBaseAPI {
     $database = \Drupal::database();
 
     // Massage values for simplified usage in migrate plugins.
+
+    // Duration seconds to ISO 8601 duration.
+    $duration_minutes = $row->getSourceProperty('duration');
+    $row->setSourceProperty('_duration_seconds', $duration_minutes * 60);
+    $row->setSourceProperty('_duration_duration', self::timestampToIso8601Duration($duration_minutes * 60));
+
     $references = $row->getSourceProperty('references');
     if (!$references) {
       return TRUE;
@@ -119,6 +125,49 @@ class ReservixEventsAPI extends ReservixBaseAPI {
     }
 
     return TRUE;
+  }
+
+  /**
+   * Timestamp to duration.
+   *
+   * @param int $seconds
+   *   The seconds of duration.
+   *
+   * @return string
+   *   The ISO 8601 duration string.
+   */
+  private static function timestampToIso8601Duration(int $seconds): string {
+    $units = [
+      'Y' => 365 * 24 * 3600,
+      'D' => 24 * 3600,
+      'H' => 3600,
+      'M' => 60,
+      'S' => 1,
+    ];
+
+    $str = "P";
+    $is_time = FALSE;
+
+    foreach ($units as $unitName => &$unit) {
+      $quot = intval($seconds / $unit);
+      $seconds -= $quot * $unit;
+      $unit = $quot;
+      if ($unit > 0) {
+        if (
+          !$is_time
+          && in_array($unitName, ["H", "M", "S"])
+        ) {
+          $str .= "T";
+          $is_time = TRUE;
+        }
+        $str .= strval($unit) . $unitName;
+      }
+    }
+
+    if ($str === "P") {
+      $str = "P0D";
+    }
+    return $str;
   }
 
 }
