@@ -13,6 +13,10 @@ use GuzzleHttp\Client;
  */
 class ReservixApiClient implements ReservixApiClientInterface {
 
+  const IMAGE_DETAIL = 1;
+
+  const IMAGE_SLIDESHOW = 2;
+
   /**
    * The HTTP Client for making API requests.
    *
