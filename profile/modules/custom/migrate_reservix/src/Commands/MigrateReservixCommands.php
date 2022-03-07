@@ -26,9 +26,11 @@ class MigrateReservixCommands extends DrushCommands {
    * @aliases foo
    */
   public function commandName() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
     /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
     $service = \Drupal::service('migrate_reservix.client');
-    $service->setCredentials('rSvxmbcnf5ajNPwALSBchE97MmMiuIBtP1uqQ5tJ8xyYC01O');
+    $service->setCredentials($config->get('api_key'));
 
     $result = $service->getArtists();
 

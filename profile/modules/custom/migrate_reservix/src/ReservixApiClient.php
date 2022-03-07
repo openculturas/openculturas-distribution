@@ -2,6 +2,7 @@
 
 namespace Drupal\migrate_reservix;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\migrate_reservix\Plugin\migrate\source\ReservixBaseAPI;
 use GuzzleHttp\Client;
 
@@ -18,6 +19,13 @@ class ReservixApiClient {
    * @var \GuzzleHttp\Client
    */
   protected Client $httpClient;
+
+  /**
+   * The config object.
+   *
+   * @var \Drupal\Core\Config\Config|\Drupal\Core\Config\ImmutableConfig
+   */
+  protected $config;
 
   /**
    * Base URI for requests.
@@ -37,12 +45,16 @@ class ReservixApiClient {
    * The constructor.
    *
    * @param \GuzzleHttp\Client $http_client
-   *   The http client service.
+   *   The http client object.
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   *   The config factory object.
    */
   public function __construct(
-    Client $http_client
+    Client $http_client,
+    ConfigFactory $config_factory
   ) {
     $this->httpClient = $http_client;
+    $this->config = $config_factory->get('migrate_reservix.settings');
   }
 
   /**
@@ -108,6 +120,12 @@ class ReservixApiClient {
    *   An associative array of data from the API.
    */
   public function get(string $endpoint, array $params = []): array {
+    $params = [
+      'lat' => $this->config->get('latitude'),
+      'lng' => $this->config->get('longitude'),
+      'radius' => $this->config->get('radius'),
+    ] + $params;
+
     switch ($endpoint) {
       case 'custom/artist':
         return $this->getArtists($params);

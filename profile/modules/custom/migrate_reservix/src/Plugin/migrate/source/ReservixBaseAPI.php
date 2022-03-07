@@ -143,11 +143,6 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $config = $this->getConfiguration();
-    $form['api_key'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('API key'),
-      '#default_value' => $config['api_key'],
-    ];
     $options = array_combine(self::API_ENDPOINTS, [
       $this->t('Artists'),
       $this->t('Events'),
@@ -223,8 +218,10 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
    *   An associative array of data.
    */
   public function apiRequest(int $page = 0): array {
+    $settings = \Drupal::configFactory()->get('migrate_reservix.settings');
+    $this->apiService->setCredentials($settings->get('api_key'));
+
     $config = $this->getConfiguration();
-    $this->apiService->setCredentials($config['api_key']);
 
     // Set up API request parameters.
     $params = json_decode($config['params'], TRUE);

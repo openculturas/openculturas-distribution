@@ -10,10 +10,9 @@ migration_source:
   source:
     plugin_id: migrate_reservix_events_source
     configuration:
-      api_key: rSvxmbcnf5ajNPwALSBchE97MmMiuIBtP1uqQ5tJ8xyYC01O
       endpoint:
         - sale/event
-      params: '{"lat": "51.70213583367987", "lng": "9.992154084099482", "radius": 50}'
+      params: ''
       throttle: '200'
 migration_entity:
   entity:
@@ -23,9 +22,9 @@ migration_entity:
 migration_dependencies:
   optional:
     migration:
-      'entity_import:reservix_date:date': 'entity_import:reservix_date:date'
       'entity_import:reservix_address:address_data': 'entity_import:reservix_address:address_data'
       'entity_import:reservix_artist:profile': 'entity_import:reservix_artist:profile'
+      'entity_import:reservix_date:date': 'entity_import:reservix_date:date'
       'entity_import:reservix_genre:category': 'entity_import:reservix_genre:category'
       'entity_import:reservix_location:location': 'entity_import:reservix_location:location'
       'entity_import:reservix_organizer:profile': 'entity_import:reservix_organizer:profile'

@@ -40,6 +40,8 @@ class ReservixOrganizersAPI extends ReservixBaseAPI {
       return FALSE;
     }
 
+    $row->setSourceProperty('_role', 'organizer');
+
     return TRUE;
   }
 
