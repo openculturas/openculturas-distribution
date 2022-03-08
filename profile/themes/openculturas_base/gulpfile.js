@@ -14,6 +14,7 @@ const autoprefixer = require("gulp-autoprefixer");
 const sourcemaps = require("gulp-sourcemaps");
 const concat = require("gulp-concat");
 const clean = require("gulp-clean-css");
+const minify = require("gulp-minify");
 const browserSync = require("browser-sync").create();
 var config;
 
@@ -53,6 +54,12 @@ function buildWysiwygSass() {
 function collectJs() {
   return gulp.src(['./templates/**/**.js'])
     .pipe(concat('openculturas-base.js'))
+    .pipe(minify({
+      ext: {
+        min: '.js'
+      },
+      noSource: true
+    }))
     .pipe(gulp.dest('./js'));
 }
 

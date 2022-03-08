@@ -1,6 +1,9 @@
 /**
-  Setting the default color variables as a fallback.
-  So if for any reason the sub theme or backend isn't able to override them there will be sensible defaults.
+ * Setting the default color variables as a fallback.
+ * So if for any reason the sub theme or backend isn't able to override them there will be sensible defaults.
+ *
+ * If the color system doesn't match your needs,
+ * it is possible to override the custom properties with colors of your liking.
  */
 :root {
   @each $name, $color in $defaultColors {
@@ -32,19 +35,19 @@
   --color-button: #{color(primary)};
   --color-button-hover: #{color(primary-dark)};
   --color-button-focused: #{color(primary-dark)};
-  --color-button-active: #{color(white)}; // -> Schatten nach unten
+  --color-button-active: #{color(white)};
   --color-button-disabled: #{color(primary)}80;
 
   --color-button-secondary: #{color(white)};
   --color-button-secondary-hover: #{color(primary-dark)};
   --color-button-secondary-focused: #{color(primary-dark)};
-  --color-button-secondary-active: #{color(white)}; // -> Schatten nach unten
+  --color-button-secondary-active: #{color(white)};
   --color-button-secondary-disabled: #{color(white)};
 
   --color-button-alert: #{color(danger)};
   --color-button-alert-hover: #{color(danger-dark)};
   --color-button-alert-focused: #{color(danger-dark)};
-  --color-button-alert-active: #{color(danger-dark)}; // -> Schatten nach unten
+  --color-button-alert-active: #{color(danger-dark)};
   --color-button-alert-disabled: #{color(danger-dark)}80;
 
   --line-color: #{color(neutral-30)};

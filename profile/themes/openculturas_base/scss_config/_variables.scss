@@ -1,8 +1,28 @@
-// Grid definitions.
-$grid-gutter: 1.25rem;
-$grid-column-count: 16;
-$grid-layout-max-width: 68.75rem;
+/**
+ * Variables definition file.
+ *
+ * About: In this file all the base variables for the grid, typo and color systems are set.
+ * If you want to change SCSS-Variables in any other file of this project, this is the place for it.
+ */
 
+/**
+ * Grid base definition.
+ *
+ * Has effect on the grid wherever it is used.
+ */
+$grid-gutter: 1.25rem; // The grid gap between columns.
+$grid-column-count: 16; // The default amount of columns added to a grid if there is no override.
+$grid-layout-max-width: 68.75rem; // Maximum width of the grid to prevent the site from getting to wide on large screens.
+
+/**
+ * Utility Classes Grid system definition.
+ *
+ * If you need more info on how this works, have a look into utility_classes.scss.
+ *
+ * The key of the map defines the selector and the value how many columns the grid should have.
+ * You can add new values to the grid if you need utility classes with more columns.
+ * These settings will only have an effect on the utility classes and not on the main layout grid.
+ */
 $utility_grids: (
   'grid-1': 1,
   'grid-2': 2,
@@ -10,12 +30,29 @@ $utility_grids: (
   'grid-4': 4
 );
 
-$utility_grids-container-selectors: '> .view-content, > .field__items, > .details-wrapper';
+/**
+ * Selectors for setting the grid on sub-elements with utility classes.
+ *
+ * BEWARE: Unlike other systems like bootstrap f.e.
+ * the grid will not be defined on the element containing the class directly.
+ * Instead it will be set on the following selectors beneath the set class element.
+ * You can add more selectors this setting if you need the grid to work on more elements.
+ */
+$utility_grids_container_selectors: '> .view-content, > .field__items, > .details-wrapper';
 
-// FontAwesome path rewrite.
-$fa-font-path: "../fontawesome/webfonts";
-
-// Breakpoint definitions.
+/**
+ * Breakpoint definitions.
+ *
+ * This map defines all the breakpoints used by openculturas_base to be easily used in scss files.
+ *
+ * Have a look at the 'breakpoint' mixin in mixins.scss for more info on how to use it.
+ *
+ * You can change the values to match your design better, by changing the media selectors.
+ * Also you can add new breakpoints if you need them.
+ *
+ * But BEWARE: It is NOT recommended to DELETE any of the default breakpoint definitions below.
+ * Since they are used by the scss files, this would most likely result in a broken compilation process.
+ */
 $breakpoints: (
   xs: 'max-width: 479px',
   s: 'min-width: 480px',
@@ -24,9 +61,16 @@ $breakpoints: (
   xl: 'min-width: #{$grid-layout-max-width}'
 );
 
-// Color definitions.
-// Beware: These are just sensible defaults.
-// They can be overridden via the theme config page in the drupal backend.
+/**
+ * Default color definitions, for if the theme has no color config.
+ *
+ * BEWARE: These are just sensible defaults.
+ * These will set initial values for the CSS custom properties used anywhere in the theme for mapping colors.
+ *
+ * The openculturas_base theme has a backend config for overriding the default colors via CSS custom properties.
+ * So as long as you are setting the colors in the backend of the theme system ('settings' link on /admin/appearance)
+ * there should be no need to change the values in this file. They will be overridden by the config anyways.
+ */
 $defaultColors: (
   'primary':        #a1167f,
   'primary-dark':   #483d8b,
@@ -48,7 +92,26 @@ $defaultColors: (
   'divider':        #E8E9EB
 );
 
-// Font size base definitions.
+/**
+ * Base font size definitions.
+ *
+ * This map defines all the default font sizes.
+ * It is recommended to only use them with the 'size' function found in _functions.scss.
+ * Also it is recommended to never set a font size directly, but always via the 'size' function or 'typo' mixin.
+ *
+ * Also the keys of the map will be used as a default selector. So 'small: 0.875rem' will also produce the following css:
+ *
+ * @usage
+ *   small {
+ *     font-size: 0.875rem;
+ *   }
+ *
+ * You can change the values to match your design better, by changing the sizes.
+ * Also you can add new font sizes if you need them.
+ *
+ * But BEWARE: It is NOT recommended to DELETE any of the default font size definitions below.
+ * Since they are used by the scss files, this would most likely result in a broken compilation process.
+ */
 $fontSizes: (
   h1: 2.5rem,
   h2: 2rem,
@@ -63,10 +126,39 @@ $fontSizes: (
   teaser: 1.375rem,
 );
 
-// Font definitions.
+/**
+ * Default font mapping for headlines and body text.
+ *
+ * Which fonts are used and mapped to the CSS custom properties is defined in the fonts.scss file.
+ * If you need different webfonts, please change the loading and mapping in the fonts.scss file.
+ */
 $font-base: var(--font-base);
 $font-head: var(--font-head);
 
+/**
+ * Font styles map.
+ *
+ * Because font styles of the design system cannot be sufficiently styled only by size, and more properties are needed
+ * just like 'color' or a different 'font-family', this map helps you define all the default font styles regardless of
+ * the selector they are applied to.
+ *
+ * This helps with keeping the font styles consistent around the whole system.
+ *
+ * If you want to give an element the style of a h3 f.e., you can just use the 'typo' mixin like this for it to behave
+ * exactly like an default h3 element:
+ *
+ * @usage
+ *  .textContainer {
+ *    @include typo(h3);
+ *  }
+ *
+ * You can change the values and add properties, to match your design better, by changing the sizes.
+ * Also you can add new font styles and properties if you need them.
+ *
+ * But BEWARE: It is NOT recommended to DELETE any of the default font style definitions below.
+ * Since they are used by the scss files, this would most likely result in a broken compilation process.
+ * You are allowed to delete singular properties of every definition but not to delete a definition completely.
+ */
 $fontStyles: (
   tiny: (
     font-size: size(tiny),
@@ -143,9 +235,27 @@ $fontStyles: (
   ),
 );
 
-// Fontawesome6
+/**
+ * Fontawesome 6.
+ *
+ * This theme comes with a copy of fontawesome 6 free version.
+ * You can use fontawesome like the official documentation with setting <i> elements or via scss mixins.
+ *
+ * Have a look for the 'icon' mixin in mixins.scss for more info on how to use it.
+ *
+ * The fontawesome package lives in 'themes/openculturas_base/fontawesome6', so we need to tell the fontawesome
+ * scss config, that our copy is in another directory relative to the compiled css file, for the font paths to resolve.
+ */
 $fa-font-path: '../fontawesome6/webfonts';
 
+/**
+ * Fontawesome extend-only selectors for webfont names.
+ *
+ * As long as you are using fontawesome 6 this should not need a change.
+ * These selectors work as a mapping for the 'icon' mixin so it will map icons to the right webfonts.
+ *
+ * If for any reason, fontawesome decides they want to rename their webfonts, this is the place to adapt the new names.
+ */
 %fas,
 %fa-solid {
   font-family: 'Font Awesome 6 Free';
