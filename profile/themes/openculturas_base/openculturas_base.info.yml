@@ -2,7 +2,7 @@ name: OpenCulturas Base
 type: theme
 base theme: classy
 description: "A base theme for the OpenCulturas distribution. BEWARE: Don't change files of this theme. If you want to add custom theme logic, please create a sub theme based on openculturas_base."
-package: Custom
+package: Openculturas
 core_version_requirement: ^8 || ^9
 
 ckeditor_stylesheets:
@@ -10,6 +10,10 @@ ckeditor_stylesheets:
 
 libraries:
   - openculturas_base/global
+
+# Prevent social_media_links from loading fontawesome again via CDN. It is included in openculturas_base locally.
+libraries-override:
+  social_media_links/fontawesome.component: false
 
 regions:
   page_top: 'Above everything'
