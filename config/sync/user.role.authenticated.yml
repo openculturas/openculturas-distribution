@@ -8,13 +8,12 @@ dependencies:
     - media.type.image
     - media.type.logo_image
     - media.type.remote_video
+    - media.type.user_profile_picture
     - node.type.article
     - node.type.date
     - node.type.event
     - node.type.location
     - node.type.profile
-    - taxonomy.vocabulary.category
-    - taxonomy.vocabulary.column
   module:
     - comment
     - contact
@@ -26,12 +25,11 @@ dependencies:
     - node
     - shortcut
     - system
-    - taxonomy
 _core:
   default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
 id: authenticated
 label: 'Authenticated user'
-weight: 1
+weight: -9
 is_admin: false
 permissions:
   - 'access comments'
@@ -41,6 +39,7 @@ permissions:
   - 'access site-wide contact form'
   - 'access site-wide contact form'
   - 'cancel account'
+  - 'change own username'
   - 'create article content'
   - 'create date content'
   - 'create event content'
@@ -49,16 +48,14 @@ permissions:
   - 'create logo_image media'
   - 'create profile content'
   - 'create remote_video media'
-  - 'create terms in category'
-  - 'create terms in column'
+  - 'create user_profile_picture media'
   - 'delete media'
   - 'delete own article content'
   - 'delete own date content'
   - 'delete own event content'
   - 'delete own location content'
   - 'delete own profile content'
-  - 'delete terms in category'
-  - 'delete terms in column'
+  - 'delete own user_profile_picture media'
   - 'edit own article content'
   - 'edit own date content'
   - 'edit own event content'
@@ -67,8 +64,7 @@ permissions:
   - 'edit own logo_image media'
   - 'edit own profile content'
   - 'edit own remote_video media'
-  - 'edit terms in category'
-  - 'edit terms in column'
+  - 'edit own user_profile_picture media'
   - 'flag bookmark_node'
   - 'flag bookmark_term'
   - 'post comments'
@@ -81,3 +77,4 @@ permissions:
   - 'use text format minimal_html'
   - 'view Terms and Conditions'
   - 'view media'
+  - 'view the administration theme'
