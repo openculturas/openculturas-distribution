@@ -7,12 +7,14 @@ dependencies:
     - field.field.user.user.field_fullname
     - field.field.user.user.field_last_password_reset
     - field.field.user.user.field_my_bookmarks_view_ref
+    - field.field.user.user.field_my_content_view_ref
     - field.field.user.user.field_password_expiration
     - field.field.user.user.field_pending_expire_sent
   module:
     - field_group
     - path
     - user
+    - viewfield
 third_party_settings:
   field_group:
     group_account_details:
@@ -97,6 +99,12 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_my_content_view_ref:
+    type: viewfield_select
+    weight: 5
+    region: content
+    settings: {  }
     third_party_settings: {  }
   language:
     weight: 2

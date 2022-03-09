@@ -1,20 +1,17 @@
-uuid: 9c9e50d0-9ed7-480f-a206-bf65162a8d6d
+uuid: e02866b0-a186-4376-95a2-7b805a53a3c1
 langcode: en
 status: true
 dependencies:
   config:
-    - flag.flag.bookmark_node
     - user.role.authenticated
-    - views.view.my_bookmarks_taxonomy
   module:
-    - flag
     - node
     - user
-id: my_bookmarks
-label: 'My bookmarks (Content)'
+id: my_content
+label: 'My content'
 module: views
-description: 'OpenCulturas: List of flagged content.'
-tag: OpenCulturas
+description: 'OpenCulturas: List of own content.'
+tag: ''
 base_table: node_field_data
 base_field: nid
 display:
@@ -24,7 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'My bookmarks'
+      title: 'My content'
       fields:
         title:
           id: title
@@ -33,73 +30,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
           plugin_id: field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: false
-            ellipsis: false
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        link_flag:
-          id: link_flag
-          table: flagging
-          field: link_flag
-          relationship: flag_relationship
-          group_type: group
-          admin_label: ''
-          entity_type: flagging
-          plugin_id: flag_link
           label: ''
           exclude: false
           alter:
@@ -133,7 +64,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -141,6 +72,20 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         type:
           id: type
           table: node_field_data
@@ -197,8 +142,7 @@ display:
           settings:
             link: false
           group_column: target_id
-          group_columns:
-            bundle: bundle
+          group_columns: {  }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -208,9 +152,10 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: none
+        type: some
         options:
           offset: 0
+          items_per_page: 20
       exposed_form:
         type: basic
         options:
@@ -231,33 +176,17 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        created:
-          id: created
+        changed:
+          id: changed
           table: node_field_data
-          field: created
+          field: changed
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: created
+          entity_field: changed
           plugin_id: date
           order: DESC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: second
-        created_1:
-          id: created_1
-          table: flagging
-          field: created
-          relationship: flag_relationship
-          group_type: group
-          admin_label: ''
-          entity_type: flagging
-          entity_field: created
-          plugin_id: date
-          order: ASC
           expose:
             label: ''
             field_identifier: ''
@@ -266,12 +195,12 @@ display:
       arguments:
         uid:
           id: uid
-          table: flagging
+          table: node_field_data
           field: uid
-          relationship: flag_relationship
+          relationship: none
           group_type: group
           admin_label: ''
-          entity_type: flagging
+          entity_type: node
           entity_field: uid
           plugin_id: numeric
           default_action: default
@@ -335,11 +264,6 @@ display:
           class: ''
       row:
         type: fields
-        options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
       query:
         type: views_query
         options:
@@ -348,34 +272,10 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships:
-        flag_relationship:
-          id: flag_relationship
-          table: node_field_data
-          field: flag_relationship
-          relationship: none
-          group_type: group
-          admin_label: 'Bookmarked node by any user'
-          entity_type: node
-          plugin_id: flag_relationship
-          required: true
-          flag: bookmark_node
-          user_scope: any
-      css_class: 'bookmarks grid-2-m grid-3-l grid-row-gap-2'
-      group_by: false
+      relationships: {  }
+      css_class: 'content grid-2-m grid-3-l grid-row-gap-2'
       header: {  }
-      footer:
-        view:
-          id: view
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: view
-          empty: true
-          view_to_insert: 'my_bookmarks_taxonomy:default'
-          inherit_arguments: true
+      footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -386,13 +286,12 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags: {  }
-  my_bookmarks_content:
-    id: my_bookmarks_content
-    display_title: 'My bookmarks - Block'
+  my_content_block:
+    id: my_content_block
+    display_title: Block
     display_plugin: block
     position: 1
     display_options:
-      display_description: ''
       display_extenders: {  }
     cache_metadata:
       max-age: -1
