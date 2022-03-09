@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.article.field_category
     - field.field.node.article.field_column
     - field.field.node.article.field_date_published
+    - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
@@ -26,12 +27,10 @@ third_party_settings:
         - created
         - promote
         - sticky
-        - path
-        - status
       label: Administrative
       region: content
       parent_name: ''
-      weight: 16
+      weight: 11
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -41,6 +40,38 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
+    group_gallery:
+      children:
+        - field_gallery
+      label: Gallery
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+    group_meta_information:
+      children:
+        - field_date_published
+        - field_author
+        - field_category
+      label: 'Meta information'
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
 id: node.article.default
 targetEntityType: node
 bundle: article
@@ -48,7 +79,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 9
+    weight: 5
     region: content
     settings:
       rows: 9
@@ -63,57 +94,64 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_author:
-    type: entity_reference_autocomplete_tags
-    weight: 5
+    type: entity_reference_autocomplete
+    weight: 10
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: 'Use the comma to seperate the multiple authors. Author name 1 (ID), Author name 2 (ID), ...'
+      placeholder: ''
     third_party_settings: {  }
   field_category:
-    type: entity_reference_autocomplete_tags
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_column:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_published:
+    type: datetime_default
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_gallery:
+    type: media_library_widget
+    weight: 7
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_mood_image:
+    type: media_library_widget
+    weight: 4
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_references:
+    type: entity_reference_autocomplete
     weight: 7
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: 'Use the comma to seperate the multiple categories. Category (ID), Category (ID), ..'
-    third_party_settings: {  }
-  field_column:
-    type: options_select
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_date_published:
-    type: datetime_default
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_mood_image:
-    type: media_library_widget
-    weight: 3
-    region: content
-    settings:
-      media_types: {  }
-    third_party_settings: {  }
-  field_references:
-    type: entity_reference_autocomplete_tags
-    weight: 8
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: 'Use the comma to seperate the multiple mentions. Event (ID), Location (ID), ...'
+      placeholder: ''
     third_party_settings: {  }
   field_subtitle:
     type: text_textfield
-    weight: 2
+    weight: 3
     region: content
     settings:
       size: 60
@@ -128,7 +166,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 16
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -141,7 +179,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 17
+    weight: 9
     region: content
     settings:
       display_label: true
@@ -155,7 +193,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 2
     region: content
     settings:
       size: 60

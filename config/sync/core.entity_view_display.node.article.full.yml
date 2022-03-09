@@ -9,14 +9,17 @@ dependencies:
     - field.field.node.article.field_category
     - field.field.node.article.field_column
     - field.field.node.article.field_date_published
+    - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
   module:
     - datetime
+    - field_formatter_class
     - field_group
     - layout_builder
+    - slick_entityreference
     - text
     - user
 third_party_settings:
@@ -30,7 +33,7 @@ third_party_settings:
       label: Tagging
       parent_name: ''
       region: content
-      weight: 6
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -44,7 +47,7 @@ third_party_settings:
       label: Mentions
       parent_name: ''
       region: content
-      weight: 7
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -62,7 +65,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 6
     region: content
   field_author:
     type: entity_reference_entity_view
@@ -73,7 +76,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 5
+    weight: 8
     region: content
   field_category:
     type: entity_reference_label
@@ -85,7 +88,7 @@ content:
     region: content
   field_column:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -98,6 +101,49 @@ content:
       timezone_override: ''
       format_type: site_default_date
     third_party_settings: {  }
+    weight: 5
+    region: content
+  field_gallery:
+    type: slick_entityreference_vanilla
+    label: hidden
+    settings:
+      optionset: field_gallery
+      view_mode: gallery
+      cache: 0
+      current_view_mode: full
+      skin: ''
+      fx: ''
+      lazy: ''
+      loading: lazy
+      preload: false
+      style: ''
+      overridables:
+        arrows: '0'
+        autoplay: '0'
+        dots: '0'
+        draggable: '0'
+        infinite: '0'
+        mouseWheel: '0'
+        randomize: '0'
+        variableWidth: '0'
+      override: false
+      skin_arrows: ''
+      skin_dots: ''
+      use_theme_field: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 7
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: header_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 2
     region: content
   field_references:
@@ -108,6 +154,13 @@ content:
       link: false
     third_party_settings: {  }
     weight: 8
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   flag_bookmark_node:
     settings: {  }
@@ -120,8 +173,6 @@ content:
     weight: 0
     region: content
 hidden:
-  field_mood_image: true
-  field_subtitle: true
   langcode: true
   links: true
   search_api_excerpt: true
