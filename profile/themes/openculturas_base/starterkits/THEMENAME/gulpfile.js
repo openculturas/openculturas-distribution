@@ -19,7 +19,7 @@ const browserSync = require("browser-sync").create();
 var config;
 
 function buildSass() {
-  return gulp.src(['./scss_config/base.scss'])
+  return gulp.src(['./scss/base.scss'])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
@@ -30,7 +30,7 @@ function buildSass() {
 }
 
 function buildDevSass() {
-  return gulp.src(['./scss_config/base.scss'])
+  return gulp.src(['./scss/base.scss'])
     .pipe(sassGlob())
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -42,7 +42,7 @@ function buildDevSass() {
 }
 
 function buildWysiwygSass() {
-  return gulp.src(['./scss_config/wysiwyg.scss'])
+  return gulp.src(['./scss/wysiwyg.scss'])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
@@ -88,7 +88,7 @@ function browsersync() {
     proxy: config.browserSync.hostname,
     reloadDelay: 300
   });
-  gulp.watch(['./scss_config/*', './templates/**/*.scss'], gulp.series('dev'));
+  gulp.watch(['./scss/*', './templates/**/*.scss'], gulp.series('dev'));
   gulp.watch(["./templates/**/*.js"], gulp.series('js', browserSync.reload));
   gulp.watch("./templates/**/*.html.twig", browserSync.reload);
 }
