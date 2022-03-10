@@ -13,7 +13,7 @@ matchers:
     id: 'entity:node'
     uuid: 6f853382-7b8d-42ea-ac7e-a78881db3843
     settings:
-      metadata: '[node:field_profile_role:value] | [node:created:medium]'
+      metadata: 'profile ([node:field_profile_role:value]) | [node:created:medium]'
       bundles:
         profile: profile
       group_by_bundle: false
@@ -25,7 +25,7 @@ matchers:
     id: 'entity:node'
     uuid: df723e46-71be-49a9-bec2-af6ae9981fbd
     settings:
-      metadata: '[node:field_profile_role:value] | [node:created:medium]'
+      metadata: 'location | [node:created:medium]'
       bundles:
         location: location
       group_by_bundle: false
@@ -37,7 +37,7 @@ matchers:
     id: 'entity:node'
     uuid: 935711dd-351a-4641-8271-91cffc4515a9
     settings:
-      metadata: '[node:field_subtitle]'
+      metadata: 'event catalogue entry | [node:field_subtitle]'
       bundles:
         event: event
       group_by_bundle: false
@@ -49,9 +49,9 @@ matchers:
     id: 'entity:node'
     uuid: bfa130e3-9d79-499c-adf6-16d40d25b76b
     settings:
-      metadata: '[node:field_author] | [node:field_date_published:date:site_short_date]'
+      metadata: 'magazine | [node:field_author] | [node:field_date_published:date:site_short_date]'
       bundles:
-        event: event
+        article: article
       group_by_bundle: false
       substitution_type: canonical
       limit: 100
