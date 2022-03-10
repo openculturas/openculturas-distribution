@@ -1,0 +1,38 @@
+uuid: 0b6af20f-dc42-4a6c-b1fc-e4ee29153597
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.audio.field_licenses
+    - field.field.media.audio.field_media_audio_file
+    - image.style.medium
+    - media.type.audio
+  module:
+    - svg_image
+id: media.audio.media_library
+targetEntityType: media
+bundle: audio
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: medium
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_licenses: true
+  field_media_audio_file: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true
