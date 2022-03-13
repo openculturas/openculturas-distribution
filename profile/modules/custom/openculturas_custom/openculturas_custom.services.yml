@@ -1,0 +1,8 @@
+services:
+  openculturas_custom.breadcrumb:
+    class: Drupal\openculturas_custom\TermPathBasedBreadcrumbBuilder
+    calls:
+     - ['setTermBreadcrumbBuilder', ['@taxonomy_term.breadcrumb']]
+    parent: system.breadcrumb.default
+    tags:
+      - { name: breadcrumb_builder, priority: 1003 }

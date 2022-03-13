@@ -30,8 +30,7 @@ class EventGallery extends ExtraFieldBase {
 
     $build = parent::viewElements($entity);
     if ($build !== []) {
-      $display_options = ['type' => 'entity_reference_entity_view', 'viewmode' => 'default', 'label' => 'hidden'];
-      $renderArray = $this->eventEntity->get('field_gallery')->view($display_options);
+      $renderArray = $this->eventEntity->get('field_gallery')->view($this->referenceViewFormatterSettings);
       $build['#markup'] = $this->renderer->render($renderArray);
     }
 

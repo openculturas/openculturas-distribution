@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.flagging.field_behalf
     - flag.flag.recommendation_node
-    - node.type.location
-    - node.type.profile
 id: flagging.recommendation_node.field_behalf
 field_name: field_behalf
 entity_type: flagging
@@ -18,14 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      location: location
-      profile: profile
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    auto_create_bundle: location
+    view:
+      view_name: my_content
+      display_name: entity_reference_behalf_of
+      arguments: {  }
 field_type: entity_reference

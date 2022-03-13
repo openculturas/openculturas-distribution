@@ -1,0 +1,50 @@
+uuid: 6f7b41fb-b711-486e-a6ff-95f9965f82c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.gallery
+    - field.field.media.audio.field_licenses
+    - field.field.media.audio.field_media_audio_file
+    - media.type.audio
+  module:
+    - attribution
+    - field_formatter_class
+    - file
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: media.audio.gallery
+targetEntityType: media
+bundle: audio
+mode: gallery
+content:
+  field_licenses:
+    type: attribution_creative_commons_icons
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_media_audio_file:
+    type: file_audio
+    label: visually_hidden
+    settings:
+      controls: true
+      autoplay: false
+      loop: false
+      multiple_file_display_type: tags
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

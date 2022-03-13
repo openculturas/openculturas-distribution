@@ -29,8 +29,7 @@ final class LocationAddressData extends ExtraFieldBase {
     $this->setReferenceField('field_location');
     $build = parent::viewElements($entity);
     if ($build !== []) {
-      $display_options = ['type' => 'entity_reference_entity_view', 'viewmode' => 'address_line', 'label' => 'hidden'];
-      $renderArray = $this->eventEntity->get('field_address_data')->view($display_options);
+      $renderArray = $this->eventEntity->get('field_address_data')->view($this->referenceViewFormatterSettings);
       $build['#markup'] = $this->renderer->render($renderArray);
     }
     return $build;

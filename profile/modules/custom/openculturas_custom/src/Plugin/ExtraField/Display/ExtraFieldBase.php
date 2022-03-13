@@ -22,9 +22,19 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Core\Entity\EntityDisplayRepository
+   */
+  protected $entityDisplayRepository;
+
+  /**
    * @var \Drupal\Core\Entity\ContentEntityInterface|null
    */
   protected $eventEntity;
+
+  /**
+   * @var array
+   */
+  protected $referenceViewFormatterSettings;
 
   /**
    * @var string
@@ -62,6 +72,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->entityDisplayRepository = $container->get('entity_display.repository');
     return $instance;
   }
 
@@ -79,6 +90,11 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
       if ($this->fieldname !== NULL && (!$this->eventEntity->hasField($this->fieldname) || $this->eventEntity->get($this->fieldname)->isEmpty())) {
         return $build;
       }
+      $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
+        $this->eventEntity->getEntityTypeId(),
+        $this->eventEntity->bundle(),
+        $this->viewMode
+      )->getComponent($this->fieldname);
       $this->renderer->addCacheableDependency($build, $this->eventEntity);
     }
 
