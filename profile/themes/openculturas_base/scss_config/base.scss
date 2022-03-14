@@ -1,24 +1,13 @@
 /**
- *  SCSS compiler entrypoint.
- *  This file defines the order in which scss components are loaded.
+ * SCSS compiler entrypoint.
+ * This file defines the order in which scss components are loaded.
  */
-@use "sass:math";
 
-// Mixins and helper functions.
-@import "mixins";
-@import "functions";
+// Load all base systems / partials and variables.
+@import "includes";
 
-// Base variables.
-@import "variables";
-
-// Base definition of colors and fonts.
-@import "colors";
-@import "fonts";
-
-// FontAwesome.
-@import "../fontawesome6/scss/fontawesome";
-@import "../fontawesome6/scss/solid";
-@import "../fontawesome6/scss/brands";
+// Load printing base systems / partials and variables.
+@import "printing";
 
 // Utility classes for Views and field formatters to be used in drupal backend.
 @import "utility_classes";

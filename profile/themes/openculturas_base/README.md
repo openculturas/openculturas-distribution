@@ -9,7 +9,53 @@ For creating your subtheme there is a starterkit you can copy (starterkits/THEME
 
 ## Creating a subtheme
 
-@TODO: Document subtheme creation
+To use the subtheme starterkit, follow these steps:
+
+1. Copy the whole `starterkits/THEMENAME` directory and paste it to your $PROJECT_ROOT/web/themes/custom directory.
+2. Replace all occurrences of `THEMENAME` with the machine name you'd like for your custom theme.
+3. Replace all occurrences of `THEMETITLE` with the human readable representation of your custom theme' name.
+4. Optionally you can replace the `favicon.ico`, `logo.svg` and `screenshot.png` files with graphics of your liking.
+
+When all the above steps are completed, you should already be able to enable the theme in drupal's backend.
+
+## Overriding default colors
+
+This theme comes with a system for overriding the default colors without the need for any code changes
+(except the creation of the subtheme, but you could theoretically simply use the basetheme as default theme, if you do
+not need to override any templates / stylings and just want to use different colors).
+
+To do so, visit the following drupal backend sites:
+
+* `/admin/appearance/settings/openculturas_base`: If you do not plan to use a subtheme and want to use the basetheme as-is.
+* `/admin/appearance/settings/[THEMENAME]`: If you are using this subtheme starterkit. Replace `[THEMENAME]` with your
+  subtheme's machine name.
+
+There you should see some color fields. With those, you are able to change the colors of the whole theme to your liking,
+if you want to have some personalization, but do not want to write any code or build the frontend css for it.
+
+## Creating own templates
+
+If you want to overwrite any template via this theme, you can simply add the needed files to the
+`templates` directory. It is recommended, to wrap them in directories which describe what kind
+of element they are overriding, so they will be easier to manage, when they start adding up.
+
+F.e. a block template like `block--custom.html.twig` would go to the `templates/block/` or, if you want to be more
+specific, `templates/block/block--custom` the directory.
+
+Also you can create .SCSS and .JS files for your custom template directly where the template lies.
+
+**BEWARE: The created .scss and .js files will only be picked up if you are using the compilers in the next chapter.**
+
+So f.e. you could have a directoy like this:
+
+```
++ templates
+|-+ block
+  |-+ block--custom
+    |- block--custom.html.twig
+    |- block--custom.scss
+    |- block--custom.js
+```
 
 ## Compiling frontend
 
@@ -38,12 +84,12 @@ their respective component, to keep all elements of a component together.
 
 On Building they will be picked up and compiled into the `css` and `js`directories.
 
-## Utility class system (WIP)
+## Utility class system
 
 There is an utility class system in place for setting grid layouts on fields and views.
 
 To use it, you can add the classes below to a field group, views display or a field display formatter
-(via `field_formatter_class` module).
+(via `field_formatter_class` module) in the drupal backend.
 
 ### Defining a grid
 
@@ -124,7 +170,7 @@ classes to it. Usually this should not be needed, because the context defines wh
 * `link-offcanvas` The offcanvas menu link style.
 * `link-inverted` The inverted link style for footer elements.
 
-### Text alignment
+#### Text alignment
 
 For aligning elements, f.e. in conjunction with the `grid-inline-block` class, you can add the following classes to
 containers.
@@ -132,4 +178,3 @@ containers.
 * `align-left` Align the text to left.
 * `align-center` Align the text to center.
 * `align-right` Align the text to right.
-
