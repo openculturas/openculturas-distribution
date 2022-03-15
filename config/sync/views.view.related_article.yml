@@ -7,8 +7,10 @@ dependencies:
     - field.storage.node.field_references
     - node.type.article
     - taxonomy.vocabulary.category
+    - taxonomy.vocabulary.column
   module:
     - node
+    - taxonomy
     - user
     - views_infinite_scroll
 id: related_article
@@ -482,14 +484,15 @@ display:
     position: 1
     display_options:
       arguments:
-        field_column_target_id:
-          id: field_column_target_id
-          table: node__field_column
-          field: field_column_target_id
+        term_node_tid_depth:
+          id: term_node_tid_depth
+          table: node_field_data
+          field: term_node_tid_depth
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          entity_type: node
+          plugin_id: taxonomy_index_tid_depth
           default_action: default
           exception:
             value: all
@@ -516,13 +519,22 @@ display:
             format: default_summary
           specify_validation: true
           validate:
-            type: none
+            type: 'entity:taxonomy_term'
             fail: empty
-          validate_options: {  }
+          validate_options:
+            bundles:
+              column: column
+            access: false
+            operation: view
+            multiple: 0
           break_phrase: false
-          not: false
+          depth: 1
+          use_taxonomy_term_path: false
       defaults:
+        query: true
+        relationships: false
         arguments: false
+      relationships: {  }
       display_description: ''
       display_extenders: {  }
     cache_metadata:
