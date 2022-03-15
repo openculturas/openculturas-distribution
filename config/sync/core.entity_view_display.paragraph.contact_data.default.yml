@@ -14,7 +14,6 @@ dependencies:
     - link
     - social_media_links_field
     - telephone
-    - text
 id: paragraph.contact_data.default
 targetEntityType: paragraph
 bundle: contact_data
@@ -26,25 +25,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_legal_info:
-    type: text_default
-    label: visually_hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_legal_url:
-    type: link
-    label: visually_hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 3
     region: content
   field_phone:
     type: telephone_link
@@ -65,7 +45,7 @@ content:
         target: '<none>'
         rel: nofollow
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_url:
     type: link
@@ -80,4 +60,6 @@ content:
     weight: 2
     region: content
 hidden:
+  field_legal_info: true
+  field_legal_url: true
   search_api_excerpt: true
