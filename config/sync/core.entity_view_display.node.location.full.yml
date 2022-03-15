@@ -25,7 +25,7 @@ dependencies:
     - field_formatter_class
     - field_group
     - layout_builder
-    - slick_entityreference
+    - swiffy_slider
     - text
     - user
     - viewfield
@@ -55,7 +55,6 @@ third_party_settings:
         - field_address_data
         - field_opening_hours
         - field_safety_info
-        - field_legal_url
       label: 'Address + Contact information'
       parent_name: ''
       region: content
@@ -181,33 +180,14 @@ content:
     weight: 21
     region: content
   field_gallery:
-    type: slick_entityreference_vanilla
+    type: swiffy_slider_entity_reference
     label: hidden
     settings:
-      optionset: field_gallery
       view_mode: gallery
-      cache: 0
-      current_view_mode: full
-      skin: ''
-      fx: ''
-      lazy: ''
-      loading: lazy
-      preload: false
-      style: ''
-      overridables:
-        arrows: '0'
-        autoplay: '0'
-        dots: '0'
-        draggable: '0'
-        infinite: '0'
-        mouseWheel: '0'
-        randomize: '0'
-        variableWidth: '0'
-      override: false
-      skin_arrows: ''
-      skin_dots: ''
-      use_theme_field: false
-    third_party_settings: {  }
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-16x9&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale&preview-style=preview-images'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 9
     region: content
   field_logo:
