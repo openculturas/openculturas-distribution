@@ -7,10 +7,13 @@ from the openculturas_base theme.
 
 To use the subtheme starterkit, follow these steps:
 
-1. Copy the whole `starterkits/THEMENAME` directory and paste it to your $PROJECT_ROOT/web/themes/custom directory.
-2. Replace all occurrences of `THEMENAME` with the machine name you'd like for your custom theme.
-3. Replace all occurrences of `THEMETITLE` with the human readable representation of your custom theme' name.
-4. Optionally you can replace the `favicon.ico`, `logo.svg` and `screenshot.png` files with graphics of your liking.
+1. Copy the whole `THEMENAME` directory found in `/starterkits` and paste it to your $PROJECT_ROOT/web/themes/custom directory (if the directory does not exist yet, you can simply create it).
+2. Rename the copied directory from `THEMENAME`  to the machine name you'd like for your custom theme.
+3. Replace all occurrences of `THEMENAME` with the machine name from step 2.
+4. Replace all occurrences of `THEMETITLE` with the human readable representation of your custom theme's name.
+5. Rename `THEMENAME.starterkit.yml` to `THEMENAME.info.yml` and replace `THEMENAME` with the machine name from step 2.
+6. Rename `THEMENAME.libraries.yml` and `THEMENAME.theme` and replace `THEMENAME` with the machine name from step 2.
+7. Optionally you can replace the `favicon.ico`, `logo.svg` and `screenshot.png` files with graphics of your liking.
 
 When all the above steps are completed, you should already be able to enable the theme in drupal's backend.
 
