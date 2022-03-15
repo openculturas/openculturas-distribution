@@ -9,11 +9,9 @@ dependencies:
     - field.field.node.profile.field_category
     - field.field.node.profile.field_contact_data
     - field.field.node.profile.field_gallery
-    - field.field.node.profile.field_legal_url
     - field.field.node.profile.field_member_of_view_ref
     - field.field.node.profile.field_mention_by_art_view_ref
     - field.field.node.profile.field_mood_image
-    - field.field.node.profile.field_notification
     - field.field.node.profile.field_people_reference
     - field.field.node.profile.field_performer_event_view_ref
     - field.field.node.profile.field_portrait
@@ -30,7 +28,6 @@ dependencies:
     - field_formatter_class
     - field_group
     - layout_builder
-    - link
     - slick_entityreference
     - text
     - user
@@ -232,18 +229,6 @@ content:
         class: ''
     weight: 11
     region: content
-  field_legal_url:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 17
-    region: content
   field_member_of_view_ref:
     type: viewfield_default
     label: hidden
@@ -267,13 +252,6 @@ content:
       field_formatter_class:
         class: ''
     weight: 0
-    region: content
-  field_notification:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 17
     region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view

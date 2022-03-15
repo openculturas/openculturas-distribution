@@ -1,9 +1,9 @@
-uuid: abc2d46d-7d05-46d1-a6ec-0db2c47d95dc
+uuid: 74ea8a41-a4ca-4251-9b7a-96f234879019
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.search_result
+    - core.entity_view_mode.node.legal
     - field.field.node.location.body
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
@@ -22,34 +22,39 @@ dependencies:
     - node.type.location
   module:
     - entity_reference_revisions
+    - field_formatter_class
     - layout_builder
-    - text
     - user
 third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: node.location.search_result
+id: node.location.legal
 targetEntityType: node
 bundle: location
-mode: search_result
+mode: legal
 content:
   field_address_data:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
-      view_mode: address_line
+      view_mode: address_block
       link: ''
-    third_party_settings: {  }
-    weight: 2
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 8
     region: content
-  field_category:
-    type: entity_reference_label
-    label: hidden
+  field_contact_data:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
     settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
+      view_mode: embedded_legal
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
     region: content
   field_portrait:
     type: entity_reference_entity_view
@@ -57,26 +62,16 @@ content:
     settings:
       view_mode: profile_image
       link: false
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 0
-    region: content
-  field_subtitle:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  search_api_excerpt:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
     region: content
 hidden:
   body: true
   field_accessibility: true
   field_additional_information: true
-  field_contact_data: true
+  field_category: true
   field_gallery: true
   field_logo: true
   field_mention_by_art_view_ref: true
@@ -84,7 +79,9 @@ hidden:
   field_opening_hours: true
   field_related_date_view_ref: true
   field_safety_info: true
+  field_subtitle: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true
   links: true
+  search_api_excerpt: true
