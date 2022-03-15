@@ -1,0 +1,41 @@
+{%
+  set title_classes = [
+  label_display == 'visually_hidden' ? 'visually-hidden',
+]
+%}
+
+{% if label_hidden %}
+  {% if multiple %}
+    <div {{ swiffy_slider_attributes }}>
+    <ul{{ attributes.addClass('slider-container') }}>
+      {% for item in items %}
+        <li{{ item.attributes }}>{{ item.content }}</li>
+      {% endfor %}
+    </ul>
+      <button type="button" class="slider-nav" aria-label="{{ 'Go to previous'|t }}"></button>
+      <button type="button" class="slider-nav slider-nav-next" aria-label="{{ 'Go to next'|t }}"></button>
+      <div class="slider-indicators">
+      {% for item in items %}
+        <button {% if loop.index0 == 0 %}class="active" {% endif %} aria-label="{{'Go to slide'|t }}"></button>
+      {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    {% for item in items %}
+      <div{{ attributes }}>{{ item.content }}</div>
+    {% endfor %}
+  {% endif %}
+{% else %}
+  <div{{ attributes }}>
+    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
+    {% if multiple %}
+    <div>
+      {% endif %}
+      {% for item in items %}
+        <div{{ item.attributes }}>{{ item.content }}</div>
+      {% endfor %}
+      {% if multiple %}
+    </div>
+    {% endif %}
+  </div>
+{% endif %}
