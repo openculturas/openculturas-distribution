@@ -1,0 +1,90 @@
+label: Gruppenbeiträge
+description: 'Zeigt alle Beiträge an, die einer Gruppe hinzugefügt wurden.'
+display:
+  default:
+    display_title: Master
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      pager:
+        options:
+          tags:
+            previous: ‹‹
+            next: ››
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: 'Elemente pro Seite'
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      fields:
+        title:
+          label: Titel
+          separator: ', '
+        type:
+          label: Inhaltstyp
+          separator: ', '
+        status:
+          label: Status
+          settings:
+            format_custom_true: Veröffentlicht
+            format_custom_false: 'Nicht veröffentlicht'
+          separator: ', '
+        changed:
+          label: Aktualisiert
+          separator: ', '
+        view_group_content:
+          admin_label: 'Beziehungslink anzeigen'
+          label: 'Link zum Gruppeninhalt'
+          text: 'Beziehung anzeigen'
+        edit_group_content:
+          admin_label: 'Beziehungslink bearbeiten'
+          label: 'Link zum Bearbeiten des Gruppeninhalts'
+          text: 'Beziehung bearbeiten'
+        delete_group_content:
+          admin_label: 'Beziehungslink löschen'
+          label: 'Link zum Löschen des Gruppeninhalt'
+          text: 'Beziehung löschen'
+        edit_node:
+          admin_label: 'Link zum Bearbeiten des Inhalts'
+          label: 'Link zum Bearbeiten des Inhalts'
+          text: 'Beitrag bearbeiten'
+        delete_node:
+          admin_label: 'Link zum Löschen des Inhalts'
+          label: 'Link zum Löschen des Inhalts'
+          text: 'Beitrag löschen'
+        dropbutton:
+          label: Aktionen
+      filters:
+        status:
+          expose:
+            label: Veröffentlichungsstatus
+          group_info:
+            label: Veröffentlichungsstatus
+            group_items:
+              1:
+                title: Veröffentlicht
+              2:
+                title: 'Nicht veröffentlicht'
+        type:
+          expose:
+            label: Typ
+      empty:
+        area_text_custom:
+          content: 'Kein Inhalt verfügbar.'
+      arguments:
+        gid:
+          exception:
+            title: Alle
+          title: '{{ arguments.gid|placeholder }} Inhalte'
+      title: Inhalte
+  page_1:
+    display_title: Seite
+    display_options:
+      menu:
+        title: Inhalte
