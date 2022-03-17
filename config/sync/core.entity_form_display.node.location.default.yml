@@ -14,7 +14,9 @@ dependencies:
     - field.field.node.location.field_mention_by_art_view_ref
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_people_reference
     - field.field.node.location.field_portrait
+    - field.field.node.location.field_reference_title
     - field.field.node.location.field_related_date_view_ref
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_subtitle
@@ -28,26 +30,6 @@ dependencies:
     - viewfield
 third_party_settings:
   field_group:
-    group_accessibility:
-      children:
-        - field_a11y_auditive
-        - field_a11y_cognitive
-        - field_a11y_flashing
-        - field_a11y_info
-        - field_a11y_visual
-        - field_a11y_wheelchair
-      label: Accessibility
-      region: hidden
-      parent_name: ''
-      weight: 12
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
     group_tagging:
       children:
         - field_category
@@ -87,11 +69,8 @@ third_party_settings:
     group_address_contact:
       children:
         - field_address_data
-        - field_address
-        - field_address_location
         - field_opening_hours
         - field_contact_data
-        - field_legal_url
       label: 'Address + contact information'
       region: content
       parent_name: ''
@@ -131,6 +110,22 @@ third_party_settings:
       region: content
       parent_name: ''
       weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+    group_featuring:
+      children:
+        - field_reference_title
+        - field_people_reference
+      label: Featuring
+      region: content
+      parent_name: ''
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -230,7 +225,7 @@ content:
     third_party_settings: {  }
   field_mention_by_art_view_ref:
     type: viewfield_select
-    weight: 27
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -249,6 +244,25 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_people_reference:
+    type: paragraphs
+    weight: 12
+    region: content
+    settings:
+      title: ' Regular performer'
+      title_plural: ' Regular performers'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_portrait:
     type: media_library_widget
     weight: 3
@@ -256,9 +270,17 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
+  field_reference_title:
+    type: string_textfield
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_related_date_view_ref:
     type: viewfield_select
-    weight: 26
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

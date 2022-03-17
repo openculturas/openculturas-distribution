@@ -15,7 +15,9 @@ dependencies:
     - field.field.node.location.field_mention_by_art_view_ref
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_people_reference
     - field.field.node.location.field_portrait
+    - field.field.node.location.field_reference_title
     - field.field.node.location.field_related_date_view_ref
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_subtitle
@@ -117,6 +119,21 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
+      weight: 12
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+    group_featuring:
+      children:
+        - field_reference_title
+        - field_people_reference
+      label: Featuring
+      parent_name: ''
+      region: content
       weight: 11
       format_type: details
       format_settings:
@@ -125,6 +142,7 @@ third_party_settings:
         id: ''
         open: true
         description: ''
+        required_fields: false
 id: node.location.full
 targetEntityType: node
 bundle: location
@@ -220,6 +238,17 @@ content:
     third_party_settings: {  }
     weight: 23
     region: content
+  field_people_reference:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
+    weight: 17
+    region: content
   field_portrait:
     type: entity_reference_entity_view
     label: hidden
@@ -228,6 +257,14 @@ content:
       link: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_reference_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 16
     region: content
   field_related_date_view_ref:
     type: viewfield_default

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.profile.field_mention_by_art_view_ref
     - field.field.node.profile.field_mood_image
     - field.field.node.profile.field_people_reference
+    - field.field.node.profile.field_performer_at_view_ref
     - field.field.node.profile.field_performer_event_view_ref
     - field.field.node.profile.field_portrait
     - field.field.node.profile.field_profile_role
@@ -75,7 +76,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -118,7 +119,7 @@ third_party_settings:
       label: 'Further information'
       parent_name: ''
       region: content
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -133,7 +134,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -148,7 +149,22 @@ third_party_settings:
       label: Recommendations
       parent_name: ''
       region: content
-      weight: 9
+      weight: 10
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_regular_location:
+      children:
+        - field_performer_at_view_ref
+      label: 'Regular location'
+      parent_name: ''
+      region: content
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -204,7 +220,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 11
+    weight: 12
     region: content
   field_member_of_view_ref:
     type: viewfield_default
@@ -240,6 +256,16 @@ content:
       field_formatter_class:
         class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l '
     weight: 11
+    region: content
+  field_performer_at_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_performer_event_view_ref:
     type: viewfield_default

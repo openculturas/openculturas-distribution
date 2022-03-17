@@ -61,7 +61,7 @@ function openculturas_base_preprocess_node(&$variables) {
 
   // Hide all fields used by seperated blocks in different areas of the theme on full viewmode.
   // We don't hide them on other viewmodes because they could be needed there.
-  if ($variables["view_mode"] == 'full') {
+  if ($variables["view_mode"] === 'full') {
     $hidden_fields = [
       'field_subtitle',
       'field_mood_image',
@@ -75,14 +75,12 @@ function openculturas_base_preprocess_node(&$variables) {
   }
 
   // Override details title with user-set value and hide original field rendering.
-  if ($node->getType() === 'profile') {
-    if ($node->hasField('field_reference_title')
-      && !$node->get('field_reference_title')->isEmpty()
-      && isset($variables['elements']['#fieldgroups']['group_featuring'])) {
-      $reference_title = $node->get('field_reference_title')->value;
-      $variables['elements']['#fieldgroups']['group_featuring']->label = $reference_title;
-      $variables['content']['field_reference_title']['#access'] = FALSE;
-    }
+  if ($node->hasField('field_reference_title')
+    && !$node->get('field_reference_title')->isEmpty()
+    && isset($variables['elements']['#fieldgroups']['group_featuring'])) {
+    $reference_title = $node->get('field_reference_title')->value;
+    $variables['elements']['#fieldgroups']['group_featuring']->label = $reference_title;
+    $variables['content']['field_reference_title']['#access'] = FALSE;
   }
 }
 
