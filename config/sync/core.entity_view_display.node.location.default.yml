@@ -22,7 +22,6 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
-    - entity_reference_revisions
     - text
     - user
 id: node.location.default
@@ -38,23 +37,6 @@ content:
       link: true
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_people_reference:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_reference_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
     region: content
   field_subtitle:
     type: text_default
@@ -74,7 +56,9 @@ hidden:
   field_mention_by_art_view_ref: true
   field_mood_image: true
   field_opening_hours: true
+  field_people_reference: true
   field_portrait: true
+  field_reference_title: true
   field_related_date_view_ref: true
   field_safety_info: true
   flag_bookmark_node: true
