@@ -24,6 +24,7 @@ dependencies:
   module:
     - field_group
     - media_library
+    - media_library_edit
     - paragraphs
     - path
     - text
@@ -229,15 +230,21 @@ content:
     weight: 10
     region: content
     settings:
-      media_types: {  }
-    third_party_settings: {  }
+      media_types:
+        - image
+        - remote_video
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_logo:
     type: media_library_widget
     weight: 7
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_mention_by_art_view_ref:
     type: viewfield_select
     weight: 12
@@ -250,7 +257,9 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_opening_hours:
     type: text_textarea
     weight: 14
@@ -284,7 +293,9 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_reference_title:
     type: string_textfield
     weight: 11

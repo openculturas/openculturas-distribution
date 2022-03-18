@@ -24,6 +24,7 @@ dependencies:
     - languagefield
     - link
     - media_library
+    - media_library_edit
     - paragraphs
     - path
     - text
@@ -154,8 +155,12 @@ content:
     weight: 8
     region: content
     settings:
-      media_types: {  }
-    third_party_settings: {  }
+      media_types:
+        - image
+        - remote_video
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_inlanguage:
     type: languagefield_select
     weight: 7
@@ -176,7 +181,9 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_people_reference:
     type: entity_reference_paragraphs
     weight: 9

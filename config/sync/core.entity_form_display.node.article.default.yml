@@ -17,6 +17,7 @@ dependencies:
     - datetime
     - field_group
     - media_library
+    - media_library_edit
     - path
     - text
 third_party_settings:
@@ -130,15 +131,21 @@ content:
     weight: 7
     region: content
     settings:
-      media_types: {  }
-    third_party_settings: {  }
+      media_types:
+        - image
+        - remote_video
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_mood_image:
     type: media_library_widget
     weight: 4
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_references:
     type: entity_reference_autocomplete
     weight: 7
