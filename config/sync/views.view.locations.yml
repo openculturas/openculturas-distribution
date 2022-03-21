@@ -15,6 +15,7 @@ dependencies:
     - paragraphs
     - taxonomy
     - user
+    - views_add_button
     - views_autocomplete_filters
 id: locations
 label: Locations
@@ -554,7 +555,37 @@ display:
       defaults:
         empty: false
         exposed_form: true
+        header: false
       display_description: ''
+      header:
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 0
+          type: node+location
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: ''
+          destination: 0
       display_extenders: {  }
       path: locations
       menu:

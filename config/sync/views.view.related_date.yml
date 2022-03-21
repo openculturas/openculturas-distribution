@@ -13,6 +13,7 @@ dependencies:
     - smart_date
     - text
     - user
+    - views_add_button
     - views_infinite_scroll
 id: related_date
 label: 'Related dates'
@@ -921,7 +922,37 @@ display:
         arguments: false
         filters: false
         filter_groups: false
+        header: false
       display_description: ''
+      header:
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 0
+          type: node+date
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: ''
+          destination: 0
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
       display_extenders: {  }
     cache_metadata:
