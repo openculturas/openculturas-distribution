@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.profile.field_profile_role
     - field.field.node.profile.field_profile_type
     - field.field.node.profile.field_recommendations
+    - field.field.node.profile.field_recommended_by_view_ref
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
@@ -261,6 +262,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_recommended_by_view_ref:
+    type: viewfield_select
+    weight: 51
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_reference_title:
     type: string_textfield
     weight: 14
@@ -352,5 +359,10 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

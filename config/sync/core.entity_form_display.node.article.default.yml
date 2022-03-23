@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.article.field_date_published
     - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
+    - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
@@ -20,6 +21,7 @@ dependencies:
     - media_library_edit
     - path
     - text
+    - viewfield
 third_party_settings:
   field_group:
     group_administrative:
@@ -146,6 +148,12 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_recommended_by_view_ref:
+    type: viewfield_select
+    weight: 51
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_references:
     type: entity_reference_autocomplete
     weight: 7
@@ -215,5 +223,10 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

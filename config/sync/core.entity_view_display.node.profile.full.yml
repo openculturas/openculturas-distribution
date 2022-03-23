@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.profile.field_profile_role
     - field.field.node.profile.field_profile_type
     - field.field.node.profile.field_recommendations
+    - field.field.node.profile.field_recommended_by_view_ref
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
@@ -133,7 +134,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 11
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -177,7 +178,22 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 12
+      weight: 13
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_recommended_by:
+      children:
+        - field_recommended_by_view_ref
+      label: 'Recommended by'
+      parent_name: ''
+      region: content
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -301,6 +317,16 @@ content:
       empty_view_title: hidden
     third_party_settings: {  }
     weight: 17
+    region: content
+  field_recommended_by_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_reference_title:
     type: string

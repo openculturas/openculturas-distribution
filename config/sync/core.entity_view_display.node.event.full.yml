@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.event.field_mention_by_art_view_ref
     - field.field.node.event.field_mood_image
     - field.field.node.event.field_people_reference
+    - field.field.node.event.field_recommended_by_view_ref
     - field.field.node.event.field_related_date_view_ref
     - field.field.node.event.field_started
     - field.field.node.event.field_subtitle
@@ -146,6 +147,21 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_recommended_by:
+      children:
+        - field_recommended_by_view_ref
+      label: 'Recommended by'
+      parent_name: ''
+      region: content
       weight: 10
       format_type: details
       format_settings:
@@ -238,6 +254,16 @@ content:
       field_formatter_class:
         class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
     weight: 9
+    region: content
+  field_recommended_by_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_related_date_view_ref:
     type: viewfield_default

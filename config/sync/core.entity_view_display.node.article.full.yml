@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.article.field_date_published
     - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
+    - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
@@ -22,6 +23,7 @@ dependencies:
     - swiffy_slider
     - text
     - user
+    - viewfield
 third_party_settings:
   layout_builder:
     enabled: false
@@ -47,6 +49,20 @@ third_party_settings:
       label: 'Mentioned in this article'
       parent_name: ''
       region: content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+    group_recommended_by:
+      children:
+        - field_recommended_by_view_ref
+      label: 'Recommended by'
+      parent_name: ''
+      region: content
       weight: 10
       format_type: details
       format_settings:
@@ -55,6 +71,7 @@ third_party_settings:
         id: ''
         open: true
         description: ''
+        required_fields: false
 id: node.article.full
 targetEntityType: node
 bundle: article
@@ -124,6 +141,16 @@ content:
       field_formatter_class:
         class: ''
     weight: 2
+    region: content
+  field_recommended_by_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 13
     region: content
   field_references:
     type: entity_reference_entity_view
