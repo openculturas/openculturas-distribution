@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\openculturas_custom\Plugin\GeofieldProximitySource;
+namespace Drupal\geofield_proximity_filter_extra\Plugin\GeofieldProximitySource;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
@@ -19,9 +19,11 @@ use function implode;
  * @GeofieldProximitySource(
  *   id = "geofield_geocode_origin_combine",
  *   label = @Translation("Geocode Origin (with Autocomplete option from combine fields)"),
- *   description = @Translation("Geocodes origin from free text input, with Autocomplete option."),
- *   exposedDescription = @Translation("Geocode origin from free text input, with Autocomplete option."),
- *   context = {},
+ *   description = @Translation("Geocodes origin from combine fields."),
+ *   exposedDescription = @Translation("Geocode origin from combine fields."),
+ *   context = {
+ *    "filter",
+ *   },
  * )
  */
 final class GeocodeOriginFromCombine extends GeocodeOrigin {
@@ -34,47 +36,54 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
 
     if (!$is_exposed) {
 
+      $form['settings']['#access'] = FALSE;
+      $form['use_autocomplete']['#access'] = FALSE;
+
       $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), function(\Drupal\views\Plugin\views\filter\FilterPluginBase $filter) {
-        return $filter->canExpose() && $filter->isExposed() === FALSE;
+        return $filter instanceof \Drupal\geofield_proximity_filter_extra\Plugin\views\filter\GeocodeOriginCombine;
       });
       $filter_options = [];
       foreach ($filters as $id => $filter) {
         $filter_options[$id] = $filter->adminLabel();
       }
-      $form['settings']['autocomplete']['filtersource'] = [
+      $form['geocode_origin_combine_filter'] = [
         '#type' => 'select',
-        '#title' => $this->t('Data source'),
+        '#title' => $this->t('Geocode origin combine filter'),
         '#options' => $filter_options,
-        '#default_value' => $this->configuration['settings']['autocomplete']['filtersource'] ?? NULL,
+        '#default_value' => $this->configuration['geocode_origin_combine_filter'] ?? NULL,
+      ];
+      $form['show_find_my_button'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Enable a find my location button'),
+        '#default_value' => $this->configuration['show_find_my_button'] ?? TRUE,
       ];
 
-      $stop = 1;
     }
     else {
-      #return;
-      // Add autocomplete path to the exposed textfield.
       $view_args = !empty(array_filter($this->viewHandler->view->args)) ? implode('||', $this->viewHandler->view->args) : 0;
       unset($form['origin_address']['#attributes']['class']);
       $form['origin_address']['#autocomplete_route_name'] = 'geofield_geocode_origin_combine.autocomplete';
       $form['origin_address']['#autocomplete_route_parameters'] = [
         'view_name' => $this->viewHandler->view->storage->get('id'),
         'view_display' => $this->viewHandler->view->current_display,
-        'filter_name' => $this->configuration['settings']['autocomplete']['filtersource'] ?? NULL,
+        'filter_name' => $this->configuration['geocode_origin_combine_filter'] ?? NULL,
         'view_args' => $view_args,
       ];
-      $form['locate_me'] = [
-        '#type' => 'button',
-        '#value' => $this->t('Find my location'),
-        '#limit_validation_errors' => [],
-        '#after_build' => [[$this, 'locateMeAfterBuild']],
-        '#button_type' => 'locate_me',
-        '#name' => 'locate',
-        '#is_button' => FALSE,
-      ];
+      if (isset($this->configuration['show_find_my_button']) && $this->configuration['show_find_my_button']) {
+        $form['find_my_location'] = [
+          '#type' => 'button',
+          '#value' => $this->t('Find my location'),
+          '#limit_validation_errors' => [],
+          '#after_build' => [[$this, 'findMyLocationAfterBuild']],
+          '#button_type' => 'locate_me',
+          '#is_button' => FALSE,
+        ];
+      }
+
     }
   }
 
-  public function locateMeAfterBuild(array $element, FormStateInterface $form_state) {
+  public function findMyLocationAfterBuild(array $element, FormStateInterface $form_state) {
     $form = $form_state->getCompleteForm();
     array_pop($element['#array_parents']);
     $key_exists = NULL;
@@ -84,8 +93,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
       return $element;
     }
     $element['#attributes']['data-target-selector-id'] = $container['origin_address']['#attributes']['data-drupal-selector'];
-    $element['#attached']['library'][] = 'openculturas_custom/locate_me';
-    $element['#attached']['library'][] = 'geocoder/geocoder';
+    $element['#attached']['library'][] = 'geofield_proximity_filter_extra/locate_me';
     $element['#attached']['drupalSettings'] = [
       'geocode_origin_autocomplete' => [
         'providers' => array_keys($this->getEnabledProviderPlugins()),

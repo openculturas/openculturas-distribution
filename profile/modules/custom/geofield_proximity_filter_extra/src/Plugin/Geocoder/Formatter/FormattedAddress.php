@@ -1,7 +1,10 @@
 <?php
 
-namespace Drupal\geocoder\Plugin\Geocoder\Formatter;
+declare(strict_types=1);
 
+namespace Drupal\geofield_proximity_filter_extra\Plugin\Geocoder\Formatter;
+
+use Drupal\geocoder\Plugin\Geocoder\Formatter\FormatterBase;
 use Geocoder\Model\Address;
 
 /**

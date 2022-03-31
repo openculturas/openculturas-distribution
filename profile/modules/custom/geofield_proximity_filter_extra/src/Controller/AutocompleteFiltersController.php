@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\openculturas_custom\Controller;
+namespace Drupal\geofield_proximity_filter_extra\Controller;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
@@ -16,13 +16,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use function rawurlencode;
-use function urlencode;
 
 /**
- * Returns autocomplete responses for taxonomy terms.
+ * Returns autocomplete for input field in GeocodeOriginFromCombine
+ * @see GeocodeOriginFromCombine
  */
-class ViewsAutocompleteFiltersController implements ContainerInjectionInterface {
+class AutocompleteFiltersController implements ContainerInjectionInterface {
 
   /**
    * @var \Psr\Log\LoggerInterface
