@@ -10,11 +10,13 @@ dependencies:
     - field.field.node.event.field_gallery
     - field.field.node.event.field_inlanguage
     - field.field.node.event.field_mention_by_art_view_ref
+    - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
     - field.field.node.event.field_people_reference
     - field.field.node.event.field_recommended_by_view_ref
     - field.field.node.event.field_related_date_view_ref
     - field.field.node.event.field_started
+    - field.field.node.event.field_status
     - field.field.node.event.field_subtitle
     - field.field.node.event.field_url
     - node.type.event
@@ -38,7 +40,7 @@ third_party_settings:
       label: Focus
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -50,6 +52,7 @@ third_party_settings:
     group_details:
       children:
         - field_started
+        - field_min_age
         - field_inlanguage
         - field_duration
         - field_url
@@ -57,7 +60,7 @@ third_party_settings:
       label: Details
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -78,7 +81,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -94,7 +97,7 @@ third_party_settings:
       label: Gallery
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -120,7 +123,7 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 12
+    weight: 37
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -165,7 +168,7 @@ content:
         show_edit: '1'
   field_inlanguage:
     type: languagefield_select
-    weight: 7
+    weight: 8
     region: content
     settings:
       format:
@@ -173,13 +176,20 @@ content:
     third_party_settings: {  }
   field_mention_by_art_view_ref:
     type: viewfield_select
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_min_age:
+    type: number
+    weight: 7
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 4
+    weight: 5
     region: content
     settings:
       media_types: {  }
@@ -200,19 +210,25 @@ content:
     third_party_settings: {  }
   field_recommended_by_view_ref:
     type: viewfield_select
-    weight: 26
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_related_date_view_ref:
     type: viewfield_select
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   field_started:
     type: datetime_default
     weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_status:
+    type: options_buttons
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -241,27 +257,27 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 15
+    weight: 40
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 13
+    weight: 38
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 16
+    weight: 41
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 14
+    weight: 39
     region: content
     settings:
       display_label: true
@@ -276,7 +292,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 36
     region: content
     settings:
       match_operator: CONTAINS
@@ -285,7 +301,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 17
+    weight: 42
     region: content
     settings: {  }
     third_party_settings: {  }

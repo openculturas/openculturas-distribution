@@ -11,11 +11,13 @@ dependencies:
     - field.field.node.event.field_gallery
     - field.field.node.event.field_inlanguage
     - field.field.node.event.field_mention_by_art_view_ref
+    - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
     - field.field.node.event.field_people_reference
     - field.field.node.event.field_recommended_by_view_ref
     - field.field.node.event.field_related_date_view_ref
     - field.field.node.event.field_started
+    - field.field.node.event.field_status
     - field.field.node.event.field_subtitle
     - field.field.node.event.field_url
     - node.type.event
@@ -28,6 +30,7 @@ dependencies:
     - languagefield
     - layout_builder
     - link
+    - options
     - swiffy_slider
     - text
     - user
@@ -43,7 +46,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -57,7 +60,7 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -67,13 +70,14 @@ third_party_settings:
         description: ''
     group_details:
       children:
+        - field_min_age
         - field_duration
         - field_inlanguage
         - field_started
       label: Details
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -88,7 +92,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 8
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -103,7 +107,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 9
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -118,7 +122,7 @@ third_party_settings:
       label: 'Upcoming dates'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -132,7 +136,7 @@ third_party_settings:
       label: Accessibility
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -147,7 +151,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 11
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
@@ -162,7 +166,7 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 10
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -181,7 +185,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_accessibility:
     type: entity_reference_revisions_entity_view
@@ -207,7 +211,7 @@ content:
       text_length: full
       separator: space
     third_party_settings: {  }
-    weight: 8
+    weight: 10
     region: content
   field_gallery:
     type: swiffy_slider_entity_reference
@@ -230,7 +234,7 @@ content:
         name_native: 0
       link_to_entity: 0
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   field_mention_by_art_view_ref:
     type: viewfield_default
@@ -243,6 +247,15 @@ content:
       field_formatter_class:
         class: ''
     weight: 10
+    region: content
+  field_min_age:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view
@@ -284,7 +297,14 @@ content:
       timezone_override: ''
       date_format: 'F Y'
     third_party_settings: {  }
-    weight: 10
+    weight: 12
+    region: content
+  field_status:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_url:
     type: link
