@@ -46,6 +46,80 @@ function openculturas_custom_preprocess_leaflet_map(&$variables) {
 }
 
 /**
+ * Implements hook_library_info_alter().
+ */
+function openculturas_custom_info_alter(&$libraries, $extension) {
+
+  if ($extension === 'leaflet_markercluster') {
+    /** @var \Drupal\Core\Asset\LibrariesDirectoryFileFinder $library_file_finder */
+    $library_file_finder = \Drupal::service('library.libraries_directory_file_finder');
+    $library = 'leaflet-markercluster';
+    if (isset($libraries[$library])) {
+      if (($path = $library_file_finder->find('leaflet.markercluster/dist/MarkerCluster.css'))) {
+        $libraries[$library]['css']['component'] = ['/' . $path => []];
+        unset($libraries[$library]['css']['component']['js/leaflet_markercluster/dist/MarkerCluster.css']);
+      }
+      if (($path = $library_file_finder->find('leaflet.markercluster/dist/MarkerCluster.Default.css'))) {
+        $libraries[$library]['css']['component']['/' . $path] = [];
+        unset($libraries[$library]['css']['component']['js/leaflet_markercluster/dist/MarkerCluster.Default.css']);
+      }
+      if (($path = $library_file_finder->find('leaflet.markercluster/dist/leaflet.markercluster.js'))) {
+        $libraries[$library]['js']['/' . $path] = ['minified' => TRUE];
+        unset($libraries[$library]['js']['js/leaflet_markercluster/dist/leaflet.markercluster.js']);
+      }
+    }
+  }
+
+  if ($extension !== 'leaflet') {
+    return;
+  }
+  /** @var \Drupal\Core\Asset\LibrariesDirectoryFileFinder $library_file_finder */
+  $library_file_finder = \Drupal::service('library.libraries_directory_file_finder');
+  $library = 'leaflet';
+  if (isset($libraries[$library])) {
+    if (($path = $library_file_finder->find('leaflet/dist/leaflet.js'))) {
+      $libraries[$library]['js'] = ['/' . $path => ['minified' => TRUE]];
+      if (\preg_match_all('/Leaflet ([0-9].[0-9].[0-9])/',
+        file_get_contents($path), $matches)) {
+        $libraries[$library]['version'] = $matches[1][0] ?? NULL;
+      }
+      $path = $library_file_finder->find('leaflet/dist/leaflet.css');
+      $libraries[$library]['css']['component'] = ['/' . $path => []];
+    }
+  }
+
+  $library = 'leaflet-geoman';
+  if (isset($libraries[$library])) {
+    if (($path = $library_file_finder->find('leaflet.geoman/css/leaflet-geoman.css'))) {
+      $libraries[$library]['css']['theme'] = ['/' . $path => []];
+    }
+    if (($path = $library_file_finder->find('leaflet.geoman/js/leaflet-geoman.min.js'))) {
+      $libraries[$library]['js'] = ['/' . $path => ['minified' => TRUE]];
+    }
+  }
+
+  $library = 'leaflet.fullscreen';
+  if (isset($libraries[$library])) {
+    if (($path = $library_file_finder->find('leaflet.fullscreen/dist/leaflet.fullscreen.css'))) {
+      $libraries[$library]['css']['component'] = ['/' . $path => []];
+    }
+    if (($path = $library_file_finder->find('leaflet.fullscreen/dist/Leaflet.fullscreen.min.js'))) {
+      $libraries[$library]['js'] = ['/' . $path => ['minified' => TRUE]];
+    }
+  }
+
+  $library = 'leaflet.gesture_handling';
+  if (isset($libraries[$library])) {
+    if (($path = $library_file_finder->find('leaflet.gesture-handling/dist/leaflet-gesture-handling.min.css'))) {
+      $libraries[$library]['css']['component'] = ['/' . $path => ['minified' => TRUE]];
+    }
+    if (($path = $library_file_finder->find('leaflet.gesture-handling/dist/leaflet-gesture-handling.min.js'))) {
+      $libraries[$library]['js'] = ['/' . $path => ['minified' => TRUE]];
+    }
+  }
+}
+
+/**
  * Implements hook_leaflet_map_view_style_alter().
  */
 function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, \Drupal\leaflet_views\Plugin\views\style\LeafletMap $view_style) {
