@@ -1,4 +1,6 @@
 (function($, Drupal, drupalSettings) {
+  'use strict';
+
   Drupal.behaviors.locate_me = {
     attach: function (context, settings) {
       var $buttons = $('.button--locate_me', context);

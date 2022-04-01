@@ -37,3 +37,46 @@ function openculturas_custom_theme() {
     ],
   ];
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for leaflet-map.html.twig.
+ */
+function openculturas_custom_preprocess_leaflet_map(&$variables) {
+  $variables['#attached']['library'][] =  'openculturas_custom/leaflet_extra';
+}
+
+/**
+ * Implements hook_leaflet_map_view_style_alter().
+ */
+function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, \Drupal\leaflet_views\Plugin\views\style\LeafletMap $view_style) {
+  $filters = $view_style->displayHandler->getHandlers('filter');
+
+  /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
+  $proximityFilters = array_filter($filters, function ($filter) {
+    return ($filter instanceof \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter);
+  });
+  if (count($proximityFilters) > 0) {
+    $proximityFilter = reset($proximityFilters);
+    $property = new ReflectionProperty($proximityFilter, 'sourcePlugin');
+    $property->setAccessible(true);
+    /** @var \Drupal\geofield\Plugin\GeofieldProximitySourceInterface $source_plugin */
+    $source_plugin = $property->getValue($proximityFilter);
+    $value = $proximityFilter->value;
+    $origin = $source_plugin->getOrigin();
+    if (!empty($origin['lat']) && !empty($origin['lon'])) {
+      $origin_marker = $origin;
+      $origin_marker['type'] = 'point';
+      $origin_marker['label'] = t('Origin');
+      $origin_marker['popup'] = \Drupal\views\Render\ViewsRenderPipelineMarkup::create(t('Origin'));
+      $origin_marker['icon'] = [
+        'iconType' => 'circle_marker',
+        'options' => '{"radius":9,"color":"#fff","fillColor":"#2A93EE","fillOpacity":1,"opacity":1}',
+      ];
+      $map_settings['features'][] = $origin_marker;
+      $map_settings['map']['settings']['center'] = array_merge($map_settings['map']['settings']['center'], $origin);
+      $map_settings['map']['settings']['radius'] = $value['value'] ?? NULL;
+      $map_settings['map']['settings']['map_position_force'] = TRUE;
+    }
+  }
+  $stop = 1;
+}
