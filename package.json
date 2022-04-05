@@ -1,0 +1,85 @@
+{
+  "name": "openculturas",
+  "description": "The OpenCulturas distribution install profile.",
+  "license": "GPL-2.0",
+  "private": true,
+  "engines": {
+    "node": ">= 16.0"
+  },
+  "scripts": {
+    "build:js": "cross-env BABEL_ENV=legacy node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
+    "build:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
+    "watch:js": "cross-env BABEL_ENV=legacy node ./scripts/js/babel-es6-watch.js",
+    "watch:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node ./scripts/js/babel-es6-watch.js",
+    "lint:core-js": "node ./node_modules/eslint/bin/eslint.js profile",
+    "lint:core-js-stats": "node ./node_modules/eslint/bin/eslint.js --format=./scripts/js/eslint-stats-by-type.js .",
+    "lint:css": "stylelint \"profile/themes/openculturas_base/css/*.css\" \"profile/modules/**/*.css\"",
+    "lint:css-checkstyle": "stylelint \"**/*.css\" --custom-formatter ./node_modules/stylelint-checkstyle-formatter/index.js",
+    "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --ext .yml .",
+    "prettier": "prettier --write \"./**/*.es6.js\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-plugin-add-header-comment": "^1.0.3",
+    "chalk": "^4.1.0",
+    "chokidar": "^3.3.1",
+    "cross-env": "^7.0.2",
+    "glob": "^7.1.2",
+    "minimist": "^1.2.2",
+    "es6-promise": "^4.2.8",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-yml": "^0.10.0",
+    "prettier": "^2.1.2",
+    "stylelint": "^13.0.0",
+    "stylelint-checkstyle-formatter": "^0.1.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.0.0"
+  },
+  "//": "'development is the default environment, and legacy is for transpiling the old jQuery codebase",
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "modules": "commonjs",
+              "targets": {
+                "node": "current"
+              }
+            }
+          ]
+        ]
+      },
+      "legacy": {
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "modules": false
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "browserslist": [
+    "last 2 Chrome major versions",
+    "last 2 Firefox major versions",
+    "last 2 Safari major versions",
+    "last 2 Edge major versions",
+    "last 2 Opera versions",
+    "last 2 iOS major versions",
+    "last 1 Explorer major version",
+    "last 1 ChromeAndroid version",
+    "last 1 UCAndroid version",
+    "last 1 Samsung version",
+    "Firefox ESR"
+  ]
+}
