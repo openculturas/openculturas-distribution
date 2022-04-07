@@ -154,3 +154,27 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
   }
   $stop = 1;
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function openculturas_custom_flagging_insert(\Drupal\flag\FlaggingInterface $entity) {
+  if ($entity->getFlagId() === 'recommendation_node') {
+    /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
+    $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
+    $flagged_entity = $entity->getFlaggable();
+    $cacheInvalidator->invalidateTags($flagged_entity->getCacheTagsToInvalidate());
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function openculturas_custom_flagging_update(\Drupal\flag\FlaggingInterface $entity) {
+  if ($entity->getFlagId() === 'recommendation_node') {
+    /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
+    $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
+    $flagged_entity = $entity->getFlaggable();
+    $cacheInvalidator->invalidateTags($flagged_entity->getCacheTagsToInvalidate());
+  }
+}
