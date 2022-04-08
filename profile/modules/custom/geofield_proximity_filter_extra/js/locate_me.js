@@ -5,33 +5,41 @@
 * @preserve
 **/
 
-(function ($, Drupal, drupalSettings) {
+(function (Drupal, drupalSettings) {
   Drupal.behaviors.locate_me = {
-    attach: function attach(context) {
-      var $buttons = $('.button--locate_me', context);
+    attach: function attach() {
+      var messages = new Drupal.Message();
 
-      if ($buttons.length) {
-        var messages = new Drupal.Message();
-        $buttons.click(function (event) {
-          var $button = $(event.currentTarget);
-          event.preventDefault();
+      if ('geolocation' in navigator) {
+        var $selector = '[data-target-selector-id]';
+        var $buttons = once('locate_me', $selector);
 
-          if ('geolocation' in navigator) {
-            messages.clear();
-            messages.add(Drupal.t('Locating...'));
-            Drupal.behaviors.locate_me.target_id = $button.attr('data-target-selector-id');
-            navigator.geolocation.getCurrentPosition(Drupal.behaviors.locate_me.success, Drupal.behaviors.locate_me.error, {
-              timeout: 5000,
-              enableHighAccuracy: true
+        if ($buttons) {
+          $buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+              if ('geolocation' in navigator) {
+                messages.clear();
+                messages.add(Drupal.t('Locating...'));
+                Drupal.behaviors.locate_me.target_id = button.getAttribute('data-target-selector-id');
+                navigator.geolocation.getCurrentPosition(Drupal.behaviors.locate_me.success, Drupal.behaviors.locate_me.error, {
+                  timeout: 5000,
+                  enableHighAccuracy: true
+                });
+              } else {
+                messages.clear();
+                messages.add(Drupal.t('Geolocation is not supported by this browser.'), {
+                  type: 'error'
+                });
+              }
+
+              return false;
             });
-          } else {
-            messages.clear();
-            messages.add(Drupal.t('Geolocation is not supported by this browser.'), {
-              type: 'error'
-            });
-          }
-
-          return false;
+          });
+        }
+      } else {
+        messages.clear();
+        messages.add(Drupal.t('Geolocation is not supported by this browser.'), {
+          type: 'error'
         });
       }
     },
@@ -44,24 +52,21 @@
       var providers = drupalSettings.geocode_origin_autocomplete.providers.toString();
       var geocodePath = "".concat(baseUrl, "geocoder/api/reverse_geocode");
       var latLon = encodeURIComponent("".concat(latitude, ",").concat(longitude));
-      $.ajax({
-        url: "".concat(geocodePath, "?latlng=").concat(latLon, "&geocoder=").concat(providers),
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json'
-      }).fail(function () {
+      fetch("".concat(geocodePath, "?latlng=").concat(latLon, "&geocoder=").concat(providers)).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        var $value = data[0].formatted_address;
+        var $selector = "[data-drupal-selector=".concat(Drupal.behaviors.locate_me.target_id, "]");
+        var $element = document.querySelector($selector);
+
+        if ($element) {
+          $element.value = $value;
+        }
+      }).catch(function () {
         messages.clear();
         messages.add(Drupal.t('A server error has occurred.'), {
           type: 'error'
         });
-      }).done(function (data) {
-        var $value = data[0].formatted_address;
-        var $selector = "[data-drupal-selector=".concat(Drupal.behaviors.locate_me.target_id, "]");
-        var $element = $($selector);
-
-        if ($element.length) {
-          $element.val($value);
-        }
       });
     },
     error: function error() {
@@ -72,4 +77,4 @@
       });
     }
   };
-})(jQuery, Drupal, drupalSettings);
+})(Drupal, drupalSettings);
