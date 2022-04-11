@@ -13,7 +13,7 @@ $info = [
   // Available colors and color labels used in theme.
   'fields' => [
     'color_primary' => t('Primary'),
-    'color_secondary' => t('Socondary'),
+    'color_secondary' => t('Secondary'),
     'color_success' => t('Success'),
     'color_info' => t('Info'),
     'color_warning' => t('Warning'),
