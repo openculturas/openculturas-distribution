@@ -1,4 +1,4 @@
-(($, Drupal, drupalSettings) => {
+((Drupal, drupalSettings) => {
   /**
    * @type {Drupal~behavior}
    *
@@ -10,38 +10,50 @@
    *   errorCallback for navigator.geolocation.getCurrentPosition.
    */
   Drupal.behaviors.locate_me = {
-    attach: (context) => {
-      const $buttons = $('.button--locate_me', context);
-      if ($buttons.length) {
-        const messages = new Drupal.Message();
-        $buttons.click((event) => {
-          const $button = $(event.currentTarget);
-          event.preventDefault();
-          if ('geolocation' in navigator) {
-            messages.clear();
-            messages.add(Drupal.t('Locating...'));
-            Drupal.behaviors.locate_me.target_id = $button.attr(
-              'data-target-selector-id',
-            );
-            navigator.geolocation.getCurrentPosition(
-              Drupal.behaviors.locate_me.success,
-              Drupal.behaviors.locate_me.error,
-              {
-                timeout: 5000,
-                enableHighAccuracy: true,
-              },
-            );
-          } else {
-            messages.clear();
-            messages.add(
-              Drupal.t('Geolocation is not supported by this browser.'),
-              { type: 'error' },
-            );
-          }
-          return false;
-        });
+    attach: () => {
+      const messages = new Drupal.Message();
+      if ('geolocation' in navigator) {
+        const $selector = '[data-target-selector-id]';
+        const $buttons = once('locate_me', $selector);
+        if ($buttons) {
+          $buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+              if ('geolocation' in navigator) {
+                messages.clear();
+                messages.add(Drupal.t('Locating...'));
+                Drupal.behaviors.locate_me.target_id = button.getAttribute(
+                  'data-target-selector-id',
+                );
+                navigator.geolocation.getCurrentPosition(
+                  Drupal.behaviors.locate_me.success,
+                  Drupal.behaviors.locate_me.error,
+                  {
+                    timeout: 5000,
+                    enableHighAccuracy: true,
+                  },
+                );
+              } else {
+                messages.clear();
+                messages.add(
+                  Drupal.t('Geolocation is not supported by this browser.'),
+                  { type: 'error' },
+                );
+              }
+              return false;
+            });
+          });
+        }
+      } else {
+        messages.clear();
+        messages.add(
+          Drupal.t('Geolocation is not supported by this browser.'),
+          { type: 'error' },
+        );
       }
     },
+    /**
+     * @param {GeolocationPosition} position Position
+     */
     success: (position) => {
       const messages = new Drupal.Message();
       messages.clear();
@@ -52,26 +64,23 @@
         drupalSettings.geocode_origin_autocomplete.providers.toString();
       const geocodePath = `${baseUrl}geocoder/api/reverse_geocode`;
       const latLon = encodeURIComponent(`${latitude},${longitude}`);
-      $.ajax({
-        url: `${geocodePath}?latlng=${latLon}&geocoder=${providers}`,
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-      })
-        .fail(() => {
-          // const messages = new Drupal.Message();
+      fetch(`${geocodePath}?latlng=${latLon}&geocoder=${providers}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          const $value = data[0].formatted_address;
+          const $selector = `[data-drupal-selector=${Drupal.behaviors.locate_me.target_id}]`;
+          const $element = document.querySelector($selector);
+          if ($element) {
+            $element.value = $value;
+          }
+        })
+        .catch(() => {
           messages.clear();
           messages.add(Drupal.t('A server error has occurred.'), {
             type: 'error',
           });
-        })
-        .done((data) => {
-          const $value = data[0].formatted_address;
-          const $selector = `[data-drupal-selector=${Drupal.behaviors.locate_me.target_id}]`;
-          const $element = $($selector);
-          if ($element.length) {
-            $element.val($value);
-          }
         });
     },
     error: () => {
@@ -80,4 +89,4 @@
       messages.add(Drupal.t('Locating not possible.'), { type: 'error' });
     },
   };
-})(jQuery, Drupal, drupalSettings);
+})(Drupal, drupalSettings);

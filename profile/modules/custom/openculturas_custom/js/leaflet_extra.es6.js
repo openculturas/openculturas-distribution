@@ -19,11 +19,10 @@
           );
           const circle = L.circle(latlng, {
             radius: parseInt(settings.settings.radius, 10) * 1000,
-          }).addTo(lMap);
-          circle.fillOpacity(0.2);
-          lMap.fitBounds(circle.getBounds());
+          });
+          circle.setStyle({ fill: false });
+          circle.addTo(lMap);
           lMap.flyToBounds(circle.getBounds());
-          // lMap.setView(latlng);
         }
       });
     },
