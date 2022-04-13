@@ -1,0 +1,37 @@
+uuid: 634bb091-f128-4859-93cf-6eb8ab6692a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.call-to-action
+  module:
+    - system
+    - user
+  theme:
+    - openculturas_base
+id: call_to_action
+theme: openculturas_base
+region: content
+weight: -10
+provider: null
+plugin: 'system_menu_block:call-to-action'
+settings:
+  id: 'system_menu_block:call-to-action'
+  label: 'Call to action'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
