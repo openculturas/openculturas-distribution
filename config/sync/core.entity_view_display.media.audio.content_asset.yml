@@ -1,9 +1,9 @@
-uuid: 6f7b41fb-b711-486e-a6ff-95f9965f82c1
+uuid: 4e7ad277-5258-47e8-a189-cb31ff8225e5
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.gallery
+    - core.entity_view_mode.media.content_asset
     - field.field.media.audio.field_licenses
     - field.field.media.audio.field_media_audio_file
     - media.type.audio
@@ -16,21 +16,21 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: media.audio.gallery
+id: media.audio.content_asset
 targetEntityType: media
 bundle: audio
-mode: gallery
+mode: content_asset
 content:
   field_licenses:
     type: attribution_creative_commons_refined
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_media_audio_file:
     type: file_audio
-    label: visually_hidden
+    label: hidden
     settings:
       controls: true
       autoplay: false
@@ -41,17 +41,10 @@ content:
         class: ''
     weight: 0
     region: content
-  name:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 1
-    region: content
 hidden:
   created: true
   langcode: true
+  name: true
   search_api_excerpt: true
   thumbnail: true
   uid: true
