@@ -8,9 +8,9 @@ dependencies:
     - field.field.node.page.field_content_paragraphs
     - field.field.node.page.field_mood_image
     - field.field.node.page.field_subtitle
-    - field.field.node.page.field_views_ref
     - node.type.page
   module:
+    - entity_reference_revisions
     - layout_builder
     - text
     - user
@@ -32,6 +32,15 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_content_paragraphs:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_subtitle:
     type: text_default
     label: hidden
@@ -40,9 +49,7 @@ content:
     weight: 0
     region: content
 hidden:
-  field_content_paragraphs: true
   field_mood_image: true
-  field_views_ref: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true

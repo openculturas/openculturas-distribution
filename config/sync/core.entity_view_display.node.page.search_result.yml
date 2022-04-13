@@ -8,9 +8,9 @@ dependencies:
     - field.field.node.page.field_content_paragraphs
     - field.field.node.page.field_mood_image
     - field.field.node.page.field_subtitle
-    - field.field.node.page.field_views_ref
     - node.type.page
   module:
+    - field_formatter_class
     - layout_builder
     - text
     - user
@@ -26,29 +26,27 @@ bundle: page
 mode: search_result
 content:
   body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 160
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+  field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 100
-    region: content
-  flag_bookmark_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_recommendation_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  links:
-    weight: 101
+    weight: 0
     region: content
 hidden:
   field_content_paragraphs: true
   field_mood_image: true
-  field_subtitle: true
-  field_views_ref: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
+  links: true
   search_api_excerpt: true

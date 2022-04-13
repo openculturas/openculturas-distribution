@@ -1,8 +1,9 @@
-uuid: a464b723-3340-4e41-97d4-cf1c5d53dc28
+uuid: 6a7795a4-3122-4de9-b2ba-03f9618ff170
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.page.body
     - field.field.node.page.field_content_paragraphs
     - field.field.node.page.field_mood_image
@@ -11,21 +12,26 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_formatter_class
+    - layout_builder
     - text
     - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
 _core:
   default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
-id: node.page.default
+id: node.page.full
 targetEntityType: node
 bundle: page
-mode: default
+mode: full
 content:
   body:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   field_content_paragraphs:
     type: entity_reference_revisions_entity_view
@@ -34,7 +40,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   field_mood_image:
     type: entity_reference_entity_view
@@ -45,18 +51,26 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 0
+    weight: 2
     region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 3
+    region: content
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
     weight: 1
     region: content
+  flag_recommendation_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
-  flag_bookmark_node: true
-  flag_recommendation_node: true
   langcode: true
   links: true
   search_api_excerpt: true
