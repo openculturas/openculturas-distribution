@@ -11,7 +11,7 @@ id: node.page.field_views_ref
 field_name: field_views_ref
 entity_type: node
 bundle: page
-label: 'Views picker'
+label: 'DEPRECATED: Views picker'
 description: 'Optional: select a views block.'
 required: false
 translatable: false
@@ -20,16 +20,16 @@ default_value_callback: ''
 settings:
   force_default: false
   allowed_views:
-    user_admin_people: '0'
+    comment: '0'
+    content: '0'
     block_content: '0'
-    files: '0'
     entity_reference_node: '0'
     event_catalogue: '0'
     feeds_feed: '0'
-    group_nodes: '0'
+    files: '0'
+    frontpage: '0'
     group_members: '0'
-    content: '0'
-    comment: '0'
+    group_nodes: '0'
     legal_terms: '0'
     legal_users: '0'
     locations: '0'
@@ -39,26 +39,28 @@ settings:
     my_bookmarks_taxonomy: '0'
     my_content: '0'
     my_recommendations: '0'
-    who_s_new: '0'
+    user_admin_people: '0'
     comments_recent: '0'
     content_recent: '0'
+    recommended_by: '0'
+    redirect: '0'
     related_article: '0'
     related_date: '0'
     related_event: '0'
     related_location: '0'
     related_profile: '0'
     search: '0'
-    frontpage: '0'
-    watchdog: '0'
     vocabulary: '0'
+    watchdog: '0'
+    who_s_new: '0'
     who_s_online: '0'
   allowed_display_types:
     block: block
     page: page
     attachment: '0'
+    default: '0'
     entity_reference: '0'
     feed: '0'
-    default: '0'
   handler: 'default:view'
   handler_settings: {  }
 field_type: viewfield

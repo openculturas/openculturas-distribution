@@ -5,6 +5,10 @@ dependencies:
   config:
     - field.storage.node.field_content_paragraphs
     - node.type.page
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.view
   module:
     - entity_reference_revisions
 id: node.page.field_content_paragraphs
@@ -20,7 +24,11 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    target_bundles: null
+    target_bundles:
+      gallery: gallery
+      media: media
+      text: text
+      view: view
     negate: 0
     target_bundles_drag_drop:
       accessibility:
@@ -34,17 +42,17 @@ settings:
         enabled: false
       gallery:
         weight: 12
-        enabled: false
+        enabled: true
       media:
         weight: 13
-        enabled: false
+        enabled: true
       member:
         weight: 14
         enabled: false
       text:
         weight: 15
-        enabled: false
+        enabled: true
       view:
         weight: 16
-        enabled: false
+        enabled: true
 field_type: entity_reference_revisions
