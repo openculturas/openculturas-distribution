@@ -1,6 +1,7 @@
 form {
   padding: $grid-gutter;
-  @include form-background;
+  // TODO this background approach is broken.
+  //@include form-background;
 
   > *:first-child, .form-item:first-child {
     margin-top: 0;
@@ -25,10 +26,10 @@ form {
   }
 
   .form-textarea-wrapper, .filter-wrapper {
-    background: color(white);
+    background: $color-bg-light;
 
     .cke_top, .cke_contents, .cke_bottom {
-      background: color(white);
+      background: $color-bg-light;
     }
   }
 
@@ -60,7 +61,7 @@ form {
   .form-required:after {
     background-image: none;
     content: '*';
-    color: color(danger);
+    color: $color-danger;
     vertical-align: text-top;
   }
 
@@ -79,25 +80,33 @@ form {
       display: inline-block;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       padding: 0.5rem 1rem;
       line-height: 2rem;
-      background: color(white);
-      border: 1px solid color(neutral-60);
-      //outline-offset: 0.2rem;
+      background: $color-bg-light;
+      border: 1px solid $color-text;
 
       &:focus {
-        border-bottom-color: color(info);
-        box-shadow: 0 -3px 0 inset color(info);
+        // TODO Where is a common focus/outline Style??
+        border-bottom-color: $color-info;
+        box-shadow: 0 -3px 0 inset $color-info;
       }
+      // A better way would be the following.
+      // But it is not recommended to change outline colors.
+      //&:focus-visible {
+      //  outline-color: var(--color-interaction);
+      //  box-shadow-color: var(--color-interaction);
+      //}
 
       .error {
-        border: 1px solid color(neutral-60);
-        box-shadow: 0 -3px 0 inset color(danger-dark);
-      }&
+        border: 1px solid $color-text;
+        box-shadow: 0 -3px 0 inset $color-danger;
+      }
 
       &::placeholder {
-        color: color(neutral-30);
+        color: $color-text-muted;
         text-align: right;
       }
 
@@ -117,12 +126,12 @@ form {
       appearance:none;
       padding-right: 2rem;
       position: relative;
-      background: color(white) url(../images/chevron-down.svg) right 0.5rem top 0.9rem no-repeat;
+      background: $color-bg-light url(../images/chevron-down.svg) right 0.5rem top 0.9rem no-repeat;
       background-size: 1em;
 
       &.error {
-        border: 1px solid color(neutral-60);
-        box-shadow: 0 -3px 0 inset color(danger-dark);
+        border: 1px solid $color-text;
+        box-shadow: 0 -3px 0 inset $color-danger;
       }
 
       &[disabled] {
@@ -160,10 +169,19 @@ form {
 
 }
 
-.form-submit, .button, a.button, input[type="submit"] {
-  @include button-primary();
+// TODO THIS IS BASICALLY OVERRIDING link DEFAULT
+// WASBEFORE : a, a.button
+.form-submit,
+.view-header .button,
+form .button,
+input[type="submit"] {
+   @include button-primary;
 }
-.form-submit.secondary, .button.secondary, a.button.secondary, input[type="submit"].secondary {
+
+.form-submit.secondary,
+.button.secondary,
+a.button.secondary,
+input[type="submit"].secondary {
   @include button-secondary();
 }
 .form-submit.danger, .button.danger, a.button.danger, input[type="submit"].danger {
@@ -183,11 +201,11 @@ button.link {
   display: block;
   background-color: transparent;
   border: none;
-  color: color(black);
+  color: $color-text;
 
   &:hover, &:focus {
-    background-color: color(primary);
-    color: color(white);
+    background-color: $color-primary;
+    color: $color-text-inverted;
     border: none;
   }
 }

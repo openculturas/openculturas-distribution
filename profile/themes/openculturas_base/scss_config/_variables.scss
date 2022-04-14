@@ -62,98 +62,81 @@ $breakpoints: (
 );
 
 //
-// Default color variables.
-// Changeable by css_color_variables or Color Module settings.
+// Colors.
 //
+/**
+ * Default colors
+ *
+ * Changeable by css_color_variables or Color Module settings.
+**/
+//
+//   DO NOT CHANGE VAR NAMES
+//   DO NOT ADD NEW CSS COLOR VARIABLES
+//
+// Changing requires updating the color.inc and css_color_variables_dependants.yml
 :root {
-
-  // FROM CURRENT STAGE
-  //--color-primary: #a1167f;
-  //--color-primary-dark: #483d8b;
-  //--color-danger: #d60040;
-  //--color-success: #188009;
-  //--color-warning: #ec6507;
-  //--color-complete: #6a26a5;
-  //--color-info: #1560b3;
-  //--color-neutral-10: #e3e3e3;
-  //--color-neutral-20: #b1b2b5;
-  //--color-neutral-30: #7b7d85;
-  //--color-neutral-40: #64666a;
-  //--color-neutral-50: #303236;
-  //--color-neutral-60: #1f1f1f;
-  //--color-neutral-canvas: #f6f6f6;
-  //--color-white: #ffffff;
-  //--color-black: #000000;
-  //--color-divider: #e8e9eb;
-
   --color-primary: #a1167f;
+  // --color-interaction: $color-secondary; // Secondary
   --color-secondary: #483d8b;
-
-  --color-neutral-60: #1F1F1F;
-  --color-neutral-50: #303236;
-  --color-neutral-40: #64666A;
-  --color-neutral-30: #7B7D85;
-  --color-neutral-20: #B1B2B5;
-  --color-neutral-10: #E3E3E3;
-  --color-neutral-canvas: #F6F6F6;
-
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-divider: #E8E9EB;
-  --color-bg-dark: #303236;
-  --color-bg-light: #ffffff;
-  --color-bg-medium: #e8e9eb;
-  --color-border-dark: #7b7d85;
-  --color-border-light: #e8e9eb;
-
-  --color-danger: #d51317;
-  --color-danger-dark: #a90000;
-  --color-info: #1560b3;
-  --color-success: #188009;
-
   --color-text: #1f1f1f;
-  --color-text-inverted: #ffffff;
   --color-text-muted: #7b7d85;
-  --color-warning: #ee6507;
+  --color-text-inverted: #ffffff;
+  --color-headline: #1f1f1f;
+  --color-link: #a1167f;
+  --color-danger: #d51317 ;
+  --color-info: #1f71b8;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  // WAS neutral-canvas
+  --color-bg-page: #F6F6F6;
+  --color-bg-dark: #303236;
+  //Alternative to --color-bg-slight-contrast: #e8e9eb;
+  --color-bg-medium: #b1b2b5;
+  --color-bg-light: #ffffff;
+  --color-divider-light: #e8e9eb;
+  --color-divider-dark: #7b7d85;
 }
+
+// Reasigning to SASS variables
+//
+// + Undefined CSS vars fail silently, better fail hard with SASS.
+// + Better readability and support in IDE
+// + A clearly defined set of CSS Variables.
+// + No need to write var(--bla) everywhere.
+// - Disabeling all SASS color functions as they won't work.
+//
+//
+$color-primary: var(--color-primary);
+$color-secondary: var(--color-secondary);
+$color-text: var(--color-text);
+$color-text-muted: var(--color-text-muted);
+$color-text-inverted: var(--color-text-inverted);
+$color-headline: var(--color-headline);
+$color-link: var(--color-link);
+
+$color-bg-page: var(--color-bg-page);
+$color-bg-dark: var(--color-bg-dark);
+$color-bg-medium: var(--color-bg-medium);
+$color-bg-light: var(--color-bg-light);
+
+$color-divider-light: --color-divider-light;
+$color-divider-dark: var(--color-divider-dark);
+
+$color-danger: var(--color-danger);
+$color-info: var(--color-info);
+$color-success: var(--color-success);
+$color-warning: var(--color-warning);
+
+// TODO: Add SASS vars for derivated colors
+// e.g. $color-bg-danger $color-danger-dark
 
 //
 // Derivate Colors
 // can not directly be changed in UI / Color module.
-//
+//x
 body {
-  --color-text: var(--color-neutral-60);
-  --color-text-muted: var(--color-neutral-40);
-  --color-text-inverse: var(--color-neutral-canvas);
-  --color-headline: var(--color-neutral-60);
-  --color-link: var(--color-primary);
-  --color-link-visited: var(--color-primary);
-  --color-link-hover: var(--color-primary);
-  --color-link-focused: var(--color-secondary);
-  --color-link-active: var(--color-primary);
-  --color-link-inverted: var(--color-white);
-  --color-link-inverted-focused: var(--color-neutral-10);
-  --color-link-offcanvas: var(--color-neutral-60);
-  --color-link-offcanvas-hover: var(--color-primary);
-  --color-link-offcanvas-focused: var(--color-primary);
-  --color-link-offcanvas-active: var(--color-primary);
-  --color-button: var(--color-primary);
-  --color-button-hover: var(--color-secondary);
-  --color-button-focused: var(--color-secondary);
-  --color-button-active: var(--color-white);
-  --color-button-disabled: var(--color-primary);
-  --color-button-secondary: var(--color-white);
-  --color-button-secondary-hover: var(--color-secondary);
-  --color-button-secondary-focused: var(--color-secondary);
-  --color-button-secondary-active: var(--color-white);
-  --color-button-secondary-disabled: var(--color-white);
-  --color-button-alert: var(--color-danger);
-  --color-button-alert-hover: var(--color-danger-dark);
-  --color-button-alert-focused: var(--color-danger-dark);
-  --color-button-alert-active: var(--color-danger-dark);
-  --color-button-alert-disabled: var(--color-danger-dark);
-  --line-color: var(--color-neutral-30);
-  --line-color-muted: var(--color-neutral-20);
+  // If you need to reassign CSS variables, you must do it HERE!
+  // If you do it in :root, they will not change with Color UI changes.
 }
 
 /**
@@ -271,7 +254,7 @@ $fontStyles: (
     text-transform: uppercase,
     letter-spacing: 0.05rem,
     margin: 0.5em 0,
-    color: color(primary-dark),
+    color: $color-secondary,
   ),
   h3: (
     font-family: $font-head,
@@ -279,7 +262,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
   h2: (
     font-family: $font-head,
@@ -287,7 +270,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
   h1: (
     font-family: $font-head,
@@ -295,7 +278,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
 );
 

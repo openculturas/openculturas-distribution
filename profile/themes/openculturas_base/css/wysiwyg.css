@@ -178,20 +178,6 @@
  *    }
  */
 /**
- * Helper function for using CSS var colors.
- *
- * This function doesn't do any magic.
- * It is mainly for reducing the amount you have to type for setting a color via CSS vars.
- *
- * @param $name
- *   The name of the color variable you want to use (without 'color-').
- *
- * @usage
- *    .randomContainer {
- *        background-color: color(primary);
- *    }
- */
-/**
  * Helper function for using font sizes.
  *
  * The size definitions can be edited in the _variables.scss of your subtheme.
@@ -249,67 +235,27 @@
  * But BEWARE: It is NOT recommended to DELETE any of the default breakpoint definitions below.
  * Since they are used by the scss files, this would most likely result in a broken compilation process.
  */
+/**
+ * Default colors.
+**/
 :root {
   --color-primary: #a1167f;
   --color-secondary: #483d8b;
-  --color-neutral-60: #1F1F1F;
-  --color-neutral-50: #303236;
-  --color-neutral-40: #64666A;
-  --color-neutral-30: #7B7D85;
-  --color-neutral-20: #B1B2B5;
-  --color-neutral-10: #E3E3E3;
-  --color-neutral-canvas: #F6F6F6;
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-divider: #E8E9EB;
-  --color-bg-dark: #303236;
-  --color-bg-light: #ffffff;
-  --color-bg-medium: #e8e9eb;
-  --color-border-dark: #7b7d85;
-  --color-border-light: #e8e9eb;
-  --color-danger: #d51317;
-  --color-danger-dark: #a90000;
-  --color-info: #1560b3;
-  --color-success: #188009;
   --color-text: #1f1f1f;
-  --color-text-inverted: #ffffff;
   --color-text-muted: #7b7d85;
-  --color-warning: #ee6507;
-}
-
-body {
-  --color-text: var(--color-neutral-60);
-  --color-text-muted: var(--color-neutral-40);
-  --color-text-inverse: var(--color-neutral-canvas);
-  --color-headline: var(--color-neutral-60);
-  --color-link: var(--color-primary);
-  --color-link-visited: var(--color-primary);
-  --color-link-hover: var(--color-primary);
-  --color-link-focused: var(--color-secondary);
-  --color-link-active: var(--color-primary);
-  --color-link-inverted: var(--color-white);
-  --color-link-inverted-focused: var(--color-neutral-10);
-  --color-link-offcanvas: var(--color-neutral-60);
-  --color-link-offcanvas-hover: var(--color-primary);
-  --color-link-offcanvas-focused: var(--color-primary);
-  --color-link-offcanvas-active: var(--color-primary);
-  --color-button: var(--color-primary);
-  --color-button-hover: var(--color-secondary);
-  --color-button-focused: var(--color-secondary);
-  --color-button-active: var(--color-white);
-  --color-button-disabled: var(--color-primary);
-  --color-button-secondary: var(--color-white);
-  --color-button-secondary-hover: var(--color-secondary);
-  --color-button-secondary-focused: var(--color-secondary);
-  --color-button-secondary-active: var(--color-white);
-  --color-button-secondary-disabled: var(--color-white);
-  --color-button-alert: var(--color-danger);
-  --color-button-alert-hover: var(--color-danger-dark);
-  --color-button-alert-focused: var(--color-danger-dark);
-  --color-button-alert-active: var(--color-danger-dark);
-  --color-button-alert-disabled: var(--color-danger-dark);
-  --line-color: var(--color-neutral-30);
-  --line-color-muted: var(--color-neutral-20);
+  --color-text-inverted: #ffffff;
+  --color-headline: #1f1f1f;
+  --color-link: #a1167f;
+  --color-danger: #d51317 ;
+  --color-info: #1f71b8;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  --color-bg-page: #F6F6F6;
+  --color-bg-dark: #303236;
+  --color-bg-medium: #b1b2b5;
+  --color-bg-light: #ffffff;
+  --color-divider-light: #e8e9eb;
+  --color-divider-dark: #7b7d85;
 }
 
 /**
@@ -11191,47 +11137,47 @@ readers do not read off random characters that represent icons */
   text-decoration: underline;
 }
 .link-default:hover {
-  color: var(--color-link-hover);
+  color: var(--color-primary);
 }
 .link-default:focus {
-  color: var(--color-link-focused);
+  color: var(--color-secondary);
 }
 .link-default:active {
-  color: var(--color-link-active);
+  color: var(--color-primary);
 }
 .link-default:visited {
   color: var(--color-link);
 }
 
 .link-offcanvas {
-  color: var(--color-link-offcanvas);
+  color: var(--color-text);
   text-decoration: none;
 }
 .link-offcanvas.is-active, .link-offcanvas:visited {
-  color: var(--color-link-offcanvas);
+  color: var(--color-text);
 }
 .link-offcanvas:hover, .link-offcanvas:focus, .link-offcanvas:active {
   text-decoration: underline;
 }
 .link-offcanvas:hover {
-  color: var(--color-link-offcanvas-hover);
+  color: var(--color-primary);
 }
 .link-offcanvas:focus {
-  color: var(--color-link-offcanvas-focused);
+  color: var(--color-primary);
 }
 .link-offcanvas:active {
-  color: var(--color-link-offcanvas-active);
+  color: var(--color-primary);
 }
 
 .link-inverted {
-  color: var(--color-link-inverted);
+  color: var(--color-text-inverted);
   text-decoration: none;
 }
 .link-inverted.is-active {
-  color: var(--color-link-inverted);
+  color: var(--color-text-inverted);
 }
 .link-inverted:hover, .link-inverted:focus, .link-inverted:active {
-  color: var(--color-link-inverted-focused);
+  color: var(--color-text-muted);
   text-decoration: underline;
 }
 
@@ -11262,21 +11208,23 @@ html {
     scroll-behavior: auto;
   }
 }
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-neutral-canvas);
+  background-color: var(--color-bg-page);
   font-size: 100%;
-  color: var(--color-neutral-60);
+  color: var(--color-text);
   font-family: var(--font-base);
   line-height: 1.4;
   font-weight: normal;
   letter-spacing: 0;
   text-transform: none;
 }
-body *, html * {
+body *,
+html * {
   box-sizing: border-box;
 }
 
@@ -11351,7 +11299,7 @@ h4, .h4 {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   margin: 0.5em 0;
-  color: var(--color-primary-dark);
+  color: var(--color-secondary);
 }
 
 h3, .h3 {
@@ -11387,7 +11335,12 @@ h1, .h1 {
   }
 }
 
-h1.teaser, h2.teaser, h3.teaser, h4.teaser, h5.teaser, h6.teaser {
+h1.teaser,
+h2.teaser,
+h3.teaser,
+h4.teaser,
+h5.teaser,
+h6.teaser {
   font-size: 1.375rem;
   font-family: var(--font-base);
   font-weight: bold;
@@ -11407,13 +11360,13 @@ a:hover, a:focus, a:active {
   text-decoration: underline;
 }
 a:hover {
-  color: var(--color-link-hover);
+  color: var(--color-primary);
 }
 a:focus {
-  color: var(--color-link-focused);
+  color: var(--color-secondary);
 }
 a:active {
-  color: var(--color-link-active);
+  color: var(--color-primary);
 }
 a:visited {
   color: var(--color-link);
@@ -11428,9 +11381,6 @@ p:last-child {
   margin-bottom: 0;
 }
 
-.content {
-  color: var(--color-neutral-60);
-}
 .content ul {
   list-style: disc outside;
   margin-left: 1.25rem;
@@ -11441,6 +11391,12 @@ p:last-child {
 }
 .content ul ul ul {
   list-style-type: square;
+}
+.content ul.inline {
+  margin-left: 0;
+}
+.content ul.inline li {
+  display: inline-block;
 }
 .content ol {
   margin-left: 1.25rem;
@@ -11469,7 +11425,7 @@ p:last-child {
   line-height: 1.4;
 }
 .content table th {
-  color: var(--color-neutral-40);
+  color: var(--color-text-muted);
   text-align: left;
 }
 .content table td, .content table th {
@@ -11512,7 +11468,8 @@ p:last-child {
 .content dd {
   margin-bottom: 1em;
 }
-.content blockquote, .content blockquote p {
+.content blockquote,
+.content blockquote p {
   font-family: var(--font-head);
   font-size: 1.75rem;
   font-weight: normal;
@@ -11522,10 +11479,11 @@ p:last-child {
   font-size: 1.375rem;
   margin: 2.5rem 0;
   font-style: italic;
-  color: var(--color-neutral-40);
+  color: var(--color-text-muted);
 }
 @media screen and (min-width: 48rem) {
-  .content blockquote, .content blockquote p {
+  .content blockquote,
+.content blockquote p {
     font-size: 1.75rem;
   }
 }
@@ -11569,7 +11527,7 @@ p:last-child {
   margin-top: 0;
 }
 .content hr {
-  border-color: var(--color-neutral-40);
+  border-color: var(--color-divider-dark);
 }
 .content strong, .content b {
   font-weight: bold;
@@ -11601,13 +11559,13 @@ p:last-child {
 }
 .content abbr {
   text-decoration: none;
-  border-bottom: 2px dotted var(--color-neutral-40);
+  border-bottom: 2px dotted var(--color-text-muted);
 }
 .content kbd {
-  background: var(--color-neutral-40);
-  border: thin solid var(--color-black);
+  background: var(--color-text-muted);
+  border: thin solid var(--color-text);
   border-radius: 2px;
-  box-shadow: 1px 2px 2px var(--color-white);
+  box-shadow: 1px 2px 2px var(--color-bg-light);
   font-family: inherit;
   font-size: 0.9em;
   padding: 0 0.5em;
@@ -11619,15 +11577,20 @@ p:last-child {
   content: "“";
 }
 .content mark {
-  background-color: var(--color-neutral-20);
+  background-color: var(--color-bg-medium);
 }
 .content code {
   white-space: pre;
   font-family: monospace;
+  max-width: 100%;
+  overflow: scroll;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 .content samp, .content var {
   font-family: monospace;
 }
-.content .caption, .content .footnote {
+.content .caption,
+.content .footnote {
   font-size: 0.875rem;
 }
