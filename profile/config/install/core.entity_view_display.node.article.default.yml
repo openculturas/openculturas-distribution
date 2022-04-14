@@ -2,59 +2,37 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment.default
     - field.field.node.article.body
-    - field.field.node.article.comment
-    - field.field.node.article.field_image
-    - field.field.node.article.field_tags
-    - image.style.large
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_column
+    - field.field.node.article.field_date_published
+    - field.field.node.article.field_gallery
+    - field.field.node.article.field_mood_image
+    - field.field.node.article.field_recommended_by_view_ref
+    - field.field.node.article.field_references
+    - field.field.node.article.field_subtitle
     - node.type.article
   module:
-    - comment
-    - image
-    - text
     - user
 id: node.article.default
 targetEntityType: node
 bundle: article
 mode: default
-content:
-  body:
-    type: text_default
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    label: hidden
-  comment:
-    type: comment_default
-    weight: 110
-    region: content
-    label: above
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-  field_image:
-    type: image
-    weight: -1
-    region: content
-    settings:
-      image_style: large
-      image_link: ''
-    third_party_settings: {  }
-    label: hidden
-  field_tags:
-    type: entity_reference_label
-    weight: 10
-    region: content
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-  links:
-    weight: 100
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+content: {  }
+hidden:
+  body: true
+  field_author: true
+  field_category: true
+  field_column: true
+  field_date_published: true
+  field_gallery: true
+  field_mood_image: true
+  field_recommended_by_view_ref: true
+  field_references: true
+  field_subtitle: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

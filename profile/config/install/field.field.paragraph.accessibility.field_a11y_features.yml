@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_a11y_features
+    - paragraphs.paragraphs_type.accessibility
+    - taxonomy.vocabulary.accessibility
+id: paragraph.accessibility.field_a11y_features
+field_name: field_a11y_features
+entity_type: paragraph
+bundle: accessibility
+label: 'Accessibility Features'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      accessibility: accessibility
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

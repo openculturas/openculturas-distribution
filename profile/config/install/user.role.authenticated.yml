@@ -1,16 +1,79 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.minimal_html
+    - media.type.audio
+    - media.type.image
+    - media.type.logo_image
+    - media.type.remote_video
+    - media.type.user_profile_picture
+    - node.type.article
+    - node.type.date
+    - node.type.event
+    - node.type.location
+    - node.type.profile
+  module:
+    - comment
+    - contact
+    - entity_browser
+    - field_permissions
+    - filter
+    - flag
+    - legal
+    - media
+    - node
+    - shortcut
+    - smart_date_recur
+    - system
 id: authenticated
 label: 'Authenticated user'
-weight: 1
+weight: -9
 is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
+  - 'access profile_picture entity browser pages'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'access site-wide contact form'
+  - 'cancel account'
+  - 'cancel smart date recur instances'
+  - 'change own username'
+  - 'create audio media'
+  - 'create date content'
+  - 'create event content'
+  - 'create image media'
+  - 'create location content'
+  - 'create logo_image media'
+  - 'create profile content'
+  - 'create remote_video media'
+  - 'create user_profile_picture media'
+  - 'delete media'
+  - 'delete own article content'
+  - 'delete own date content'
+  - 'delete own event content'
+  - 'delete own location content'
+  - 'delete own profile content'
+  - 'edit own article content'
+  - 'edit own date content'
+  - 'edit own event content'
+  - 'edit own location content'
+  - 'edit own profile content'
+  - 'flag bookmark_node'
+  - 'flag bookmark_term'
+  - 'make smart dates recur'
   - 'post comments'
-  - 'search content'
+  - 'reschedule smart date recur instances'
   - 'skip comment approval'
+  - 'unflag bookmark_node'
+  - 'unflag bookmark_term'
+  - 'unflag recommendation_node'
+  - 'update media'
   - 'use text format basic_html'
+  - 'use text format minimal_html'
+  - 'view Terms and Conditions'
+  - 'view field_view'
+  - 'view media'
+  - 'view the administration theme'

@@ -1,0 +1,202 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full
+    - field.field.taxonomy_term.category.field_mood_image
+    - field.field.taxonomy_term.category.field_related_article_view_ref
+    - field.field.taxonomy_term.category.field_related_artist_view_ref
+    - field.field.taxonomy_term.category.field_related_date_view_ref
+    - field.field.taxonomy_term.category.field_related_event_view_ref
+    - field.field.taxonomy_term.category.field_related_location_view_ref
+    - field.field.taxonomy_term.category.field_related_organizer_view_ref
+    - field.field.taxonomy_term.category.field_term_children_view_ref
+    - taxonomy.vocabulary.category
+  module:
+    - field_group
+    - layout_builder
+    - text
+    - viewfield
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+  field_group:
+    group_sub_categories:
+      children:
+        - field_term_children_view_ref
+      label: Sub-categories
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_upcoming_events:
+      children:
+        - field_related_event_view_ref
+      label: 'Event catalogue'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+    group_locations:
+      children:
+        - field_related_location_view_ref
+      label: Locations
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: false
+    group_artists:
+      children:
+        - field_related_artist_view_ref
+      label: Artists
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: false
+    group_magazine:
+      children:
+        - field_related_article_view_ref
+      label: Magazine
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: false
+    group_organizer:
+      children:
+        - field_related_organizer_view_ref
+      label: Organizers
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+id: taxonomy_term.category.full
+targetEntityType: taxonomy_term
+bundle: category
+mode: full
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_related_article_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 8
+    region: content
+  field_related_artist_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 8
+    region: content
+  field_related_event_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_related_location_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_related_organizer_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_term_children_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  flag_bookmark_term:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_mood_image: true
+  field_related_date_view_ref: true
+  langcode: true
+  search_api_excerpt: true

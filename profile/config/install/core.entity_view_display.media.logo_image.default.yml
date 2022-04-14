@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.logo_image.field_media_image
+    - image.style.logo
+    - media.type.logo_image
+  module:
+    - field_formatter_class
+    - svg_image
+id: media.logo_image.default
+targetEntityType: media
+bundle: logo_image
+mode: default
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: logo
+      svg_attributes:
+        width: 190
+        height: 190
+      svg_render_as_image: true
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

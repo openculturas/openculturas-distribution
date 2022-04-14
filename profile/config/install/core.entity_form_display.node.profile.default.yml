@@ -1,0 +1,367 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.profile.body
+    - field.field.node.profile.field_address_data
+    - field.field.node.profile.field_category
+    - field.field.node.profile.field_contact_data
+    - field.field.node.profile.field_gallery
+    - field.field.node.profile.field_member_of_view_ref
+    - field.field.node.profile.field_mention_by_art_view_ref
+    - field.field.node.profile.field_mood_image
+    - field.field.node.profile.field_people_reference
+    - field.field.node.profile.field_performer_at_view_ref
+    - field.field.node.profile.field_performer_event_view_ref
+    - field.field.node.profile.field_portrait
+    - field.field.node.profile.field_profile_role
+    - field.field.node.profile.field_profile_type
+    - field.field.node.profile.field_recommendations
+    - field.field.node.profile.field_recommended_by_view_ref
+    - field.field.node.profile.field_reference_title
+    - field.field.node.profile.field_started
+    - field.field.node.profile.field_subtitle
+    - node.type.profile
+  module:
+    - conditional_fields
+    - datetime
+    - field_group
+    - media_library
+    - media_library_edit
+    - paragraphs
+    - path
+    - text
+    - viewfield
+third_party_settings:
+  field_group:
+    group_profile_type:
+      children:
+        - field_profile_role
+        - field_profile_type
+        - field_reference_title
+        - field_people_reference
+      label: 'Profile type'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_about:
+      children:
+        - field_mood_image
+        - body
+        - field_started
+      label: About
+      region: content
+      parent_name: ''
+      weight: 5
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_administrative:
+      children:
+        - uid
+        - created
+        - promote
+        - sticky
+        - path
+        - status
+      label: Administrative
+      region: content
+      parent_name: ''
+      weight: 14
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
+    group_gallery:
+      children:
+        - field_gallery
+      label: Gallery
+      region: content
+      parent_name: ''
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+id: node.profile.default
+targetEntityType: node
+bundle: profile
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 16
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_address_data:
+    type: entity_reference_paragraphs
+    weight: 10
+    region: content
+    settings:
+      title: Address
+      title_plural: Addresses
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+  field_category:
+    type: entity_reference_autocomplete_tags
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Use the comma to seperate the multiple categories. Category (ID), Category (ID), ..'
+    third_party_settings: {  }
+  field_contact_data:
+    type: entity_reference_paragraphs
+    weight: 9
+    region: content
+    settings:
+      title: 'Contact data'
+      title_plural: 'Contact data'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+  field_gallery:
+    type: media_library_widget
+    weight: 8
+    region: content
+    settings:
+      media_types:
+        - image
+        - remote_video
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_member_of_view_ref:
+    type: viewfield_select
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_mention_by_art_view_ref:
+    type: viewfield_select
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_mood_image:
+    type: media_library_widget
+    weight: 15
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_people_reference:
+    type: entity_reference_paragraphs
+    weight: 15
+    region: content
+    settings:
+      title: Member
+      title_plural: Members
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings:
+      conditional_fields:
+        c319197a-183e-460c-8e6c-21fab8a4a17f:
+          entity_type: node
+          bundle: profile
+          dependee: field_profile_type
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 5
+            value: ''
+            values: g
+            value_form:
+              -
+                value: p
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_performer_at_view_ref:
+    type: viewfield_select
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_performer_event_view_ref:
+    type: viewfield_select
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_portrait:
+    type: media_library_widget
+    weight: 3
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_profile_role:
+    type: options_buttons
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_profile_type:
+    type: options_buttons
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_recommendations:
+    type: viewfield_select
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_recommended_by_view_ref:
+    type: viewfield_select
+    weight: 51
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_reference_title:
+    type: string_textfield
+    weight: 14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        43fc5363-3eef-4fca-a000-4155ddc2fa00:
+          entity_type: node
+          bundle: profile
+          dependee: field_profile_type
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 5
+            value: ''
+            values: g
+            value_form:
+              -
+                value: p
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_started:
+    type: datetime_default
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_subtitle:
+    type: text_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 0
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 19
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 17
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 13
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

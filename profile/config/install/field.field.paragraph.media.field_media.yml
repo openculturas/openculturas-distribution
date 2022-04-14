@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_media
+    - media.type.audio
+    - media.type.image
+    - media.type.logo_image
+    - media.type.remote_video
+    - media.type.user_profile_picture
+    - paragraphs.paragraphs_type.media
+id: paragraph.media.field_media
+field_name: field_media
+entity_type: paragraph
+bundle: media
+label: 'Select media'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      audio: audio
+      image: image
+      logo_image: logo_image
+      user_profile_picture: user_profile_picture
+      remote_video: remote_video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: audio
+field_type: entity_reference

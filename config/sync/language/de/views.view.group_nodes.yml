@@ -4,24 +4,7 @@ display:
   default:
     display_title: Master
     display_options:
-      exposed_form:
-        options:
-          submit_button: Anwenden
-          reset_button_label: Zurücksetzen
-          exposed_sorts_label: 'Sortieren nach'
-          sort_asc_label: Aufsteigend
-          sort_desc_label: Absteigend
-      pager:
-        options:
-          tags:
-            previous: ‹‹
-            next: ››
-            first: '« Anfang'
-            last: 'Ende »'
-          expose:
-            items_per_page_label: 'Elemente pro Seite'
-            items_per_page_options_all_label: '- Alle -'
-            offset_label: Versatz
+      title: Inhalte
       fields:
         title:
           label: Titel
@@ -32,8 +15,8 @@ display:
         status:
           label: Status
           settings:
-            format_custom_true: Veröffentlicht
             format_custom_false: 'Nicht veröffentlicht'
+            format_custom_true: Veröffentlicht
           separator: ', '
         changed:
           label: Aktualisiert
@@ -60,6 +43,32 @@ display:
           text: 'Beitrag löschen'
         dropbutton:
           label: Aktionen
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: 'Elemente pro Seite'
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area_text_custom:
+          content: 'Kein Inhalt verfügbar.'
+      arguments:
+        gid:
+          exception:
+            title: Alle
+          title: '{{ arguments.gid|placeholder }} Inhalte'
       filters:
         status:
           expose:
@@ -74,15 +83,6 @@ display:
         type:
           expose:
             label: Typ
-      empty:
-        area_text_custom:
-          content: 'Kein Inhalt verfügbar.'
-      arguments:
-        gid:
-          exception:
-            title: Alle
-          title: '{{ arguments.gid|placeholder }} Inhalte'
-      title: Inhalte
   page_1:
     display_title: Seite
     display_options:

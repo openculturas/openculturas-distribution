@@ -1,0 +1,71 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.article.body
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_column
+    - field.field.node.article.field_date_published
+    - field.field.node.article.field_gallery
+    - field.field.node.article.field_mood_image
+    - field.field.node.article.field_recommended_by_view_ref
+    - field.field.node.article.field_references
+    - field.field.node.article.field_subtitle
+    - node.type.article
+  module:
+    - datetime
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.article.search_result
+targetEntityType: node
+bundle: article
+mode: search_result
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_date_published:
+    type: datetime_default
+    label: visually_hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  flag_recommendation_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  field_author: true
+  field_category: true
+  field_column: true
+  field_gallery: true
+  field_mood_image: true
+  field_recommended_by_view_ref: true
+  field_references: true
+  flag_bookmark_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

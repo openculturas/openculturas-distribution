@@ -1,0 +1,183 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.article.body
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_column
+    - field.field.node.article.field_date_published
+    - field.field.node.article.field_gallery
+    - field.field.node.article.field_mood_image
+    - field.field.node.article.field_recommended_by_view_ref
+    - field.field.node.article.field_references
+    - field.field.node.article.field_subtitle
+    - node.type.article
+  module:
+    - datetime
+    - field_formatter_class
+    - field_group
+    - layout_builder
+    - swiffy_slider
+    - text
+    - user
+    - viewfield
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+  field_group:
+    group_tagging:
+      children:
+        - field_category
+      label: Focus
+      parent_name: ''
+      region: content
+      weight: 9
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+    group_mentions:
+      children:
+        - field_references
+      label: 'Mentioned in this article'
+      parent_name: ''
+      region: content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+    group_recommended_by:
+      children:
+        - field_recommended_by_view_ref
+      label: 'Recommended by'
+      parent_name: ''
+      region: content
+      weight: 10
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+id: node.article.full
+targetEntityType: node
+bundle: article
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_author:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: compact
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 8
+    region: content
+  field_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_column:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_date_published:
+    type: datetime_default
+    label: visually_hidden
+    settings:
+      timezone_override: ''
+      format_type: site_default_date
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_gallery:
+    type: swiffy_slider_entity_reference
+    label: hidden
+    settings:
+      view_mode: gallery
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-16x9&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale&preview-style=preview-images'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 7
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: header_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
+    region: content
+  field_recommended_by_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_references:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  flag_recommendation_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: column
+label: Column
+type: 'canonical_entities:taxonomy_term'
+pattern: 'magazine/columns/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  0f3223ff-52b7-4c67-bae1-35ab98802ed8:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 0f3223ff-52b7-4c67-bae1-35ab98802ed8
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      column: column
+selection_logic: and
+weight: -5
+relationships: {  }

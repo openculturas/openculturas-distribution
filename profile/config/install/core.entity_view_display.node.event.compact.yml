@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.compact
+    - field.field.node.event.body
+    - field.field.node.event.field_accessibility
+    - field.field.node.event.field_category
+    - field.field.node.event.field_duration
+    - field.field.node.event.field_gallery
+    - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_mention_by_art_view_ref
+    - field.field.node.event.field_min_age
+    - field.field.node.event.field_mood_image
+    - field.field.node.event.field_people_reference
+    - field.field.node.event.field_recommended_by_view_ref
+    - field.field.node.event.field_related_date_view_ref
+    - field.field.node.event.field_started
+    - field.field.node.event.field_status
+    - field.field.node.event.field_subtitle
+    - field.field.node.event.field_url
+    - node.type.event
+  module:
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.event.compact
+targetEntityType: node
+bundle: event
+mode: compact
+content:
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  field_accessibility: true
+  field_category: true
+  field_duration: true
+  field_gallery: true
+  field_inlanguage: true
+  field_mention_by_art_view_ref: true
+  field_min_age: true
+  field_mood_image: true
+  field_people_reference: true
+  field_recommended_by_view_ref: true
+  field_related_date_view_ref: true
+  field_started: true
+  field_status: true
+  field_url: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
