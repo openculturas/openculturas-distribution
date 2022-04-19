@@ -1,33 +1,143 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.content_asset
+    - core.entity_view_mode.media.logo
+    - core.entity_view_mode.media.teaser_image
   module:
+    - blazy
     - editor
+    - linkit
+    - media
+    - slick
 name: 'Full HTML'
 format: full_html
-weight: 2
+weight: -6
 filters:
   filter_align:
     id: filter_align
     provider: filter
     status: true
-    weight: 8
+    weight: -49
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: true
-    weight: 9
+    weight: -48
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: 10
+    weight: -47
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: 11
+    weight: -46
     settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -44
+    settings:
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <s> <sup> <sub> <img src alt data-entity-type data-entity-uuid data-align data-caption> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <hr> <p> <h1> <pre> <span dir lang> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <aside class="inset">'
+      filter_html_help: true
+      filter_html_nofollow: false
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: -50
+    settings:
+      title: true
+  media_embed:
+    id: media_embed
+    provider: media
+    status: true
+    weight: -45
+    settings:
+      default_view_mode: content_asset
+      allowed_view_modes:
+        content_asset: content_asset
+        logo: logo
+        teaser_image: teaser_image
+      allowed_media_types:
+        audio: audio
+        image: image
+        logo_image: logo_image
+        remote_video: remote_video
+  blazy_filter:
+    id: blazy_filter
+    provider: blazy
+    status: false
+    weight: -40
+    settings:
+      media_switch: ''
+      hybrid_style: ''
+      box_style: ''
+      box_caption: ''
+      filter_tags:
+        img: img
+        iframe: iframe
+      use_data_uri: '0'
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: false
+    weight: -43
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: false
+    weight: -41
+    settings:
+      filter_url_length: 72
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: false
+    weight: -38
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: false
+    weight: -42
+    settings: {  }
+  slick_filter:
+    id: slick_filter
+    provider: slick
+    status: false
+    weight: -39
+    settings:
+      optionset: default
+      layout: ''
+      skin: ''
+      loading: ''
+      preload: false
+      background: false
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      overridables:
+        arrows: '0'
+        autoplay: '0'
+        dots: '0'
+        draggable: '0'
+        infinite: '0'
+        mouseWheel: '0'
+        randomize: '0'
+        variableWidth: '0'
+      optionset_thumbnail: ''
+      skin_thumbnail: ''
+      thumbnail_caption: ''
+      thumbnail_effect: ''
+      thumbnail_position: ''
+      override: false

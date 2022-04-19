@@ -4,6 +4,39 @@ display:
   default:
     display_title: Standard
     display_options:
+      title: Kommentare
+      fields:
+        comment_bulk_form:
+          action_title: Aktion
+        subject:
+          label: Betreff
+          separator: ', '
+        uid:
+          separator: ', '
+        name:
+          label: Autor
+          separator: ', '
+        entity_id:
+          label: 'Erstellt in'
+          separator: ', '
+        changed:
+          label: Aktualisiert
+          separator: ', '
+        operations:
+          label: Aktionen
+        name_1:
+          separator: ', '
+      pager:
+        options:
+          tags:
+            next: 'nächste Seite ›'
+            previous: '‹ vorherige Seite'
+            first: '« erste Seite'
+            last: 'letzte Seite »'
+          expose:
+            items_per_page_label: 'Elemente pro Seite'
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
       exposed_form:
         options:
           submit_button: Filter
@@ -11,38 +44,9 @@ display:
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-      pager:
-        options:
-          tags:
-            previous: '‹ vorherige Seite'
-            next: 'nächste Seite ›'
-            first: '« erste Seite'
-            last: 'letzte Seite »'
-          expose:
-            items_per_page_label: 'Elemente pro Seite'
-            items_per_page_options_all_label: '- Alle -'
-            offset_label: Versatz
-      fields:
-        comment_bulk_form:
-          action_title: Aktion
-        subject:
-          label: Betreff
-          separator: ', '
-        uid:
-          separator: ', '
-        name:
-          label: Autor
-          separator: ', '
-        entity_id:
-          label: 'Erstellt in'
-          separator: ', '
-        changed:
-          label: Aktualisiert
-          separator: ', '
-        operations:
-          label: Aktionen
-        name_1:
-          separator: ', '
+      empty:
+        area_text_custom:
+          content: 'Keine Kommentare verfügbar.'
       filters:
         subject:
           expose:
@@ -53,35 +57,17 @@ display:
         langcode:
           expose:
             label: Sprache
-      title: Kommentare
-      empty:
-        area_text_custom:
-          content: 'Keine Kommentare verfügbar.'
       use_more_text: mehr
   page_published:
     display_title: 'Veröffentlichte Kommentare'
     display_options:
+      display_description: 'Die Liste veröffentlichter Kommentare.'
       menu:
         title: Kommentare
         description: 'Kommentare veröffentlicht'
-      display_description: 'Die Liste veröffentlichter Kommentare.'
   page_unapproved:
     display_title: 'Nicht freigegebene Kommentare'
     display_options:
-      menu:
-        title: 'Nicht freigegebene Kommentare'
-        description: 'Unveröffentlichte Kommentare'
-      display_description: 'Die Liste unveröffentlichter Kommentare'
-      filters:
-        subject:
-          expose:
-            label: Betreff
-        combine:
-          expose:
-            label: 'Name des Autors'
-        langcode:
-          expose:
-            label: Sprache
       fields:
         comment_bulk_form:
           action_title: Aktion
@@ -103,3 +89,17 @@ display:
           label: Aktionen
         name_1:
           separator: ', '
+      filters:
+        subject:
+          expose:
+            label: Betreff
+        combine:
+          expose:
+            label: 'Name des Autors'
+        langcode:
+          expose:
+            label: Sprache
+      display_description: 'Die Liste unveröffentlichter Kommentare'
+      menu:
+        title: 'Nicht freigegebene Kommentare'
+        description: 'Unveröffentlichte Kommentare'

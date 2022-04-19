@@ -1,13 +1,27 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.minimal_html
+    - filter.format.restricted_html
+  module:
+    - comment
+    - contact
+    - field_permissions
+    - filter
+    - legal
+    - media
+    - system
 id: anonymous
 label: 'Anonymous user'
-weight: 0
+weight: -10
 is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
-  - 'search content'
+  - 'use text format minimal_html'
   - 'use text format restricted_html'
+  - 'view Terms and Conditions'
+  - 'view field_view'
+  - 'view media'

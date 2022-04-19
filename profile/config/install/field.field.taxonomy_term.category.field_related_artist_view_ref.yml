@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_related_artist_view_ref
+    - taxonomy.vocabulary.category
+    - views.view.related_profile
+  module:
+    - viewfield
+id: taxonomy_term.category.field_related_artist_view_ref
+field_name: field_related_artist_view_ref
+entity_type: taxonomy_term
+bundle: category
+label: 'Related artist'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 99b5e860-dee8-4314-a223-0c841235837b
+    display_id: related_profile_term_artist
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+default_value_callback: ''
+settings:
+  force_default: true
+  allowed_views:
+    comment: '0'
+    content: '0'
+    block_content: '0'
+    feeds_feed: '0'
+    files: '0'
+    frontpage: '0'
+    group_members: '0'
+    group_nodes: '0'
+    legal_terms: '0'
+    legal_users: '0'
+    locations: '0'
+    media: '0'
+    media_library: '0'
+    user_admin_people: '0'
+    comments_recent: '0'
+    content_recent: '0'
+    related_article: '0'
+    related_date: '0'
+    related_event: '0'
+    related_location: '0'
+    related_profile: '0'
+    search: '0'
+    vocabulary: '0'
+    watchdog: '0'
+    who_s_new: '0'
+    who_s_online: '0'
+  allowed_display_types:
+    block: block
+    attachment: '0'
+    default: '0'
+    feed: '0'
+    page: '0'
+  handler: 'default:view'
+  handler_settings: {  }
+field_type: viewfield

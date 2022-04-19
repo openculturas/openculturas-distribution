@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: dates
+label: Dates
+type: 'canonical_entities:node'
+pattern: 'calendar/[node:nid]-[node:field_event_description:entity:title]'
+selection_criteria:
+  e3a8a628-26db-46a0-a705-7fee57437a65:
+    id: node_type
+    negate: false
+    uuid: e3a8a628-26db-46a0-a705-7fee57437a65
+    context_mapping:
+      node: node
+    bundles:
+      date: date
+selection_logic: and
+weight: -5
+relationships: {  }

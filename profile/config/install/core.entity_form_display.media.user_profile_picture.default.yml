@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.user_profile_picture.field_media_image
+    - image.style.media_library
+    - media.type.user_profile_picture
+  module:
+    - focal_point
+id: media.user_profile_picture.default
+targetEntityType: media
+bundle: user_profile_picture
+mode: default
+content:
+  field_media_image:
+    type: image_focal_point
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: media_library
+      preview_link: true
+      offsets: '50,50'
+      preview_styles:
+        profile: profile
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  name: true
+  path: true
+  status: true
+  uid: true

@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: recommendation_node
+label: 'Recommendation node'
+bundles: {  }
+entity_type: node
+global: false
+flag_short: Recommend
+flag_long: 'Add to your public recommendations list'
+flag_message: 'Recommendation added'
+unflag_short: 'Edit/remove recommendation'
+unflag_long: 'Edit/remove recommendation'
+unflag_message: 'Recommendation removed'
+unflag_denied_text: 'Recommendation removal not possible'
+weight: 0
+flag_type: 'entity:node'
+link_type: field_entry
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig:
+  flag_confirmation: 'Specify your recommendation'
+  edit_flagging: 'Edit recommendation details'
+  unflag_confirmation: 'Remove this recommendation?'
+  flag_create_button: Recommend
+  flag_delete_button: 'Remove recommendation'
+  flag_update_button: 'Update recommendation'
+  form_behavior: modal

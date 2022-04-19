@@ -16,6 +16,7 @@ settings:
           items:
             - Bold
             - Italic
+            - Strike
         -
           name: Linking
           items:
@@ -30,7 +31,6 @@ settings:
           name: Media
           items:
             - Blockquote
-            - DrupalImage
         -
           name: 'Block Formatting'
           items:
@@ -39,14 +39,22 @@ settings:
           name: Tools
           items:
             - Source
+            - PasteFromWord
+            - Language
+            - Maximize
   plugins:
+    language:
+      language_list: all
+    drupallink:
+      linkit_enabled: false
+      linkit_profile: ''
     stylescombo:
-      styles: ''
+      styles: aside.inset|Inset
 image_upload:
-  status: true
+  status: false
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: 0
-    height: 0
+    width: null
+    height: null

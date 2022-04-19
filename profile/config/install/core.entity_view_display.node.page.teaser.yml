@@ -4,8 +4,12 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.page.body
+    - field.field.node.page.field_content_paragraphs
+    - field.field.node.page.field_mood_image
+    - field.field.node.page.field_subtitle
     - node.type.page
   module:
+    - field_formatter_class
     - text
     - user
 id: node.page.teaser
@@ -14,14 +18,41 @@ bundle: page
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 100
-    region: content
+    label: hidden
     settings:
-      trim_length: 600
-    third_party_settings: {  }
-  links:
-    weight: 101
+      trim_length: 160
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
     region: content
-hidden: {  }
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: header_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  field_content_paragraphs: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mention_by_art_view_ref
+    - node.type.profile
+    - views.view.related_article
+  module:
+    - viewfield
+id: node.profile.field_mention_by_art_view_ref
+field_name: field_mention_by_art_view_ref
+entity_type: node
+bundle: profile
+label: 'Mention by'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 14fd6670-ee2e-4865-8d11-9e98c9dc4718
+    display_id: mention_by_article
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+default_value_callback: ''
+settings:
+  force_default: true
+  allowed_views:
+    comment: '0'
+    content: '0'
+    block_content: '0'
+    feeds_feed: '0'
+    files: '0'
+    frontpage: '0'
+    group_members: '0'
+    group_nodes: '0'
+    legal_terms: '0'
+    legal_users: '0'
+    locations: '0'
+    media: '0'
+    media_library: '0'
+    user_admin_people: '0'
+    comments_recent: '0'
+    content_recent: '0'
+    related_article: '0'
+    related_date: '0'
+    related_event: '0'
+    related_location: '0'
+    related_profile: '0'
+    search: '0'
+    vocabulary: '0'
+    watchdog: '0'
+    who_s_new: '0'
+    who_s_online: '0'
+  allowed_display_types:
+    block: block
+    attachment: '0'
+    default: '0'
+    feed: '0'
+    page: '0'
+  handler: 'default:view'
+  handler_settings: {  }
+field_type: viewfield

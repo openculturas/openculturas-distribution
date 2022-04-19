@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: categories
+label: Categories
+type: 'canonical_entities:taxonomy_term'
+pattern: 'categories/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  0df3e507-5f99-445f-9e04-ca3c6ab6f56e:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 0df3e507-5f99-445f-9e04-ca3c6ab6f56e
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      category: category
+selection_logic: and
+weight: -5
+relationships: {  }

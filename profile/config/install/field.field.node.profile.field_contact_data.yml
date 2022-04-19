@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_data
+    - node.type.profile
+    - paragraphs.paragraphs_type.contact_data
+  module:
+    - entity_reference_revisions
+id: node.profile.field_contact_data
+field_name: field_contact_data
+entity_type: node
+bundle: profile
+label: Contact
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      contact_data: contact_data
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: 5
+        enabled: false
+      address_data:
+        weight: 4
+        enabled: false
+      contact_data:
+        weight: 5
+        enabled: true
+      member:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

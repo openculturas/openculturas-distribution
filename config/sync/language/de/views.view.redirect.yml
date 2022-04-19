@@ -4,24 +4,7 @@ display:
   default:
     display_title: Master
     display_options:
-      exposed_form:
-        options:
-          submit_button: Filter
-          reset_button_label: Zurücksetzen
-          exposed_sorts_label: 'Sortieren nach'
-          sort_asc_label: Aufsteigend
-          sort_desc_label: Absteigend
-      pager:
-        options:
-          tags:
-            previous: '‹ vorherige Seite'
-            next: 'nächste Seite ›'
-            first: '« erste Seite'
-            last: 'letzte Seite »'
-          expose:
-            items_per_page_label: 'Elemente pro Seite'
-            items_per_page_options_all_label: '- Alle -'
-            offset_label: Versatz
+      title: Umleiten
       fields:
         redirect_bulk_form:
           action_title: Auswahl
@@ -30,6 +13,27 @@ display:
           separator: ', '
         created:
           label: Erstellt
+      pager:
+        options:
+          tags:
+            next: 'nächste Seite ›'
+            previous: '‹ vorherige Seite'
+            first: '« erste Seite'
+            last: 'letzte Seite »'
+          expose:
+            items_per_page_label: 'Elemente pro Seite'
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area_text_custom:
+          content: 'Es wurde noch keine Umleitung eingerichtet.'
       filters:
         redirect_source__path:
           expose:
@@ -60,9 +64,5 @@ display:
         language:
           expose:
             label: Originalsprache
-      title: Umleiten
-      empty:
-        area_text_custom:
-          content: 'Es wurde noch keine Umleitung eingerichtet.'
   page_1:
     display_title: Seite

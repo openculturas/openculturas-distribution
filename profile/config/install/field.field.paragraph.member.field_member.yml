@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_member
+    - node.type.profile
+    - paragraphs.paragraphs_type.member
+id: paragraph.member.field_member
+field_name: field_member
+entity_type: paragraph
+bundle: member
+label: Member
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      profile: profile
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: profile
+field_type: entity_reference
