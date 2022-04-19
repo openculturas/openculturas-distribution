@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.address_block
+    - field.field.paragraph.address_data.field_address
+    - field.field.paragraph.address_data.field_address_location
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - address
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.address_data.address_block
+targetEntityType: paragraph
+bundle: address_data
+mode: address_block
+content:
+  field_address:
+    type: address_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_address_location: true
+  search_api_excerpt: true

@@ -2,34 +2,126 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.user.user.user_picture
-    - image.style.thumbnail
+    - field.field.user.user.field_category
+    - field.field.user.user.field_fullname
+    - field.field.user.user.field_last_password_reset
+    - field.field.user.user.field_my_bookmarks_view_ref
+    - field.field.user.user.field_my_content_view_ref
+    - field.field.user.user.field_password_expiration
+    - field.field.user.user.field_pending_expire_sent
   module:
-    - image
+    - field_group
+    - path
     - user
+    - viewfield
+third_party_settings:
+  field_group:
+    group_account_details:
+      children:
+        - account
+        - language
+        - timezone
+        - contact
+      label: 'Account details'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_profile_information:
+      children:
+        - field_fullname
+      label: 'Profile information'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+    group_my_interests:
+      children:
+        - field_category
+      label: 'My interests'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
   account:
-    weight: -10
+    weight: 1
     region: content
+    settings: {  }
+    third_party_settings: {  }
   contact:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_category:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fullname:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_my_content_view_ref:
+    type: viewfield_select
     weight: 5
     region: content
-  language:
-    weight: 0
-    region: content
-  timezone:
-    weight: 6
-    region: content
-  user_picture:
-    type: image_image
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+    settings: {  }
     third_party_settings: {  }
-    weight: -1
+  language:
+    weight: 2
     region: content
-hidden: {  }
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_last_password_reset: true
+  field_my_bookmarks_view_ref: true
+  field_password_expiration: true
+  field_pending_expire_sent: true
+  langcode: true

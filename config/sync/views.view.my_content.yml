@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.compact
     - node.type.location
     - node.type.profile
     - user.role.authenticated
@@ -25,81 +26,17 @@ display:
     display_options:
       title: 'My content'
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        type:
-          id: type
-          table: node_field_data
-          field: type
+        rendered_entity:
+          id: rendered_entity
+          table: node
+          field: rendered_entity
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: type
-          plugin_id: field
+          plugin_id: rendered_entity
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -139,20 +76,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          view_mode: compact
       pager:
         type: some
         options:
@@ -252,20 +176,16 @@ display:
             operator_limit_selection: false
             operator_list: {  }
       style:
-        type: html_list
+        type: default
         options:
-          grouping:
-            -
-              field: type
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
-          type: ul
-          wrapper_class: view--group
-          class: ''
       row:
-        type: fields
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: compact
       query:
         type: views_query
         options:
@@ -275,19 +195,57 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: 'content grid-2-m grid-3-l grid-row-gap-2'
+      css_class: content
       header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.node.article.compact'
+        - 'config:core.entity_view_display.node.article.default'
+        - 'config:core.entity_view_display.node.article.full'
+        - 'config:core.entity_view_display.node.article.search_index'
+        - 'config:core.entity_view_display.node.article.search_result'
+        - 'config:core.entity_view_display.node.article.teaser'
+        - 'config:core.entity_view_display.node.date.compact'
+        - 'config:core.entity_view_display.node.date.default'
+        - 'config:core.entity_view_display.node.date.full'
+        - 'config:core.entity_view_display.node.date.search_index'
+        - 'config:core.entity_view_display.node.date.search_result'
+        - 'config:core.entity_view_display.node.date.teaser'
+        - 'config:core.entity_view_display.node.event.compact'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.full'
+        - 'config:core.entity_view_display.node.event.search_index'
+        - 'config:core.entity_view_display.node.event.search_result'
+        - 'config:core.entity_view_display.node.event.teaser'
+        - 'config:core.entity_view_display.node.location.compact'
+        - 'config:core.entity_view_display.node.location.default'
+        - 'config:core.entity_view_display.node.location.full'
+        - 'config:core.entity_view_display.node.location.legal'
+        - 'config:core.entity_view_display.node.location.search_index'
+        - 'config:core.entity_view_display.node.location.search_result'
+        - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.full'
+        - 'config:core.entity_view_display.node.page.search_index'
+        - 'config:core.entity_view_display.node.page.search_result'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.profile.compact'
+        - 'config:core.entity_view_display.node.profile.contact'
+        - 'config:core.entity_view_display.node.profile.default'
+        - 'config:core.entity_view_display.node.profile.embedded_teaser'
+        - 'config:core.entity_view_display.node.profile.full'
+        - 'config:core.entity_view_display.node.profile.legal'
+        - 'config:core.entity_view_display.node.profile.search_index'
+        - 'config:core.entity_view_display.node.profile.search_result'
+        - 'config:core.entity_view_display.node.profile.teaser'
   entity_reference_behalf_of:
     id: entity_reference_behalf_of
     display_title: 'Behalf of'
@@ -565,9 +523,47 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.node.article.compact'
+        - 'config:core.entity_view_display.node.article.default'
+        - 'config:core.entity_view_display.node.article.full'
+        - 'config:core.entity_view_display.node.article.search_index'
+        - 'config:core.entity_view_display.node.article.search_result'
+        - 'config:core.entity_view_display.node.article.teaser'
+        - 'config:core.entity_view_display.node.date.compact'
+        - 'config:core.entity_view_display.node.date.default'
+        - 'config:core.entity_view_display.node.date.full'
+        - 'config:core.entity_view_display.node.date.search_index'
+        - 'config:core.entity_view_display.node.date.search_result'
+        - 'config:core.entity_view_display.node.date.teaser'
+        - 'config:core.entity_view_display.node.event.compact'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.full'
+        - 'config:core.entity_view_display.node.event.search_index'
+        - 'config:core.entity_view_display.node.event.search_result'
+        - 'config:core.entity_view_display.node.event.teaser'
+        - 'config:core.entity_view_display.node.location.compact'
+        - 'config:core.entity_view_display.node.location.default'
+        - 'config:core.entity_view_display.node.location.full'
+        - 'config:core.entity_view_display.node.location.legal'
+        - 'config:core.entity_view_display.node.location.search_index'
+        - 'config:core.entity_view_display.node.location.search_result'
+        - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.full'
+        - 'config:core.entity_view_display.node.page.search_index'
+        - 'config:core.entity_view_display.node.page.search_result'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.profile.compact'
+        - 'config:core.entity_view_display.node.profile.contact'
+        - 'config:core.entity_view_display.node.profile.default'
+        - 'config:core.entity_view_display.node.profile.embedded_teaser'
+        - 'config:core.entity_view_display.node.profile.full'
+        - 'config:core.entity_view_display.node.profile.legal'
+        - 'config:core.entity_view_display.node.profile.search_index'
+        - 'config:core.entity_view_display.node.profile.search_result'
+        - 'config:core.entity_view_display.node.profile.teaser'

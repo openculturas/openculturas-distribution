@@ -1,9 +1,11 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - slick
 name: 'Plain text'
 format: plain_text
-weight: 10
+weight: -5
 filters:
   filter_html_escape:
     id: filter_html_escape
@@ -24,3 +26,11 @@ filters:
     status: true
     weight: 0
     settings: {  }
+  slick_filter:
+    id: slick_filter
+    provider: slick
+    status: false
+    weight: 4
+    settings:
+      optionset: default
+      media_switch: ''

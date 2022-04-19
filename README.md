@@ -17,7 +17,7 @@ and use this.
 * Prepare a setting.php, you can use the [settings.php](.ddev/settings.php)
   * `if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/ && ln -sf ../../../.ddev/settings.php;fi`
   * Override values (DB etc.) in `web/sites/default/settings.local.php`
-  * Make sure 'config_sync_directory' points to '../config/sync'
+  * Make sure *config_sync_directory* points to *../config/sync*
     `$settings['config_sync_directory'] = '../config/sync';`
 * Install OpenCulturas distribution
   * `drush si --existing-config`
@@ -30,4 +30,6 @@ Cheatsheet:
 * Run composer commands `ddev composer COMMAND` e.g. `ddev composer install`
 * Run drush commands `ddev drush COMMAND` e. g. `ddev drush uli`
 
-
+### Update installation profile configuration
+This script copies and prepares the files from `config/sync` to `profile/config/install` to use it for a new installation.
+* `composer run update-config`

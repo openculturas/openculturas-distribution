@@ -1,0 +1,79 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.locality
+    - field.field.paragraph.address_data.field_address
+    - field.field.paragraph.address_data.field_address_location
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - address_display
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.address_data.locality
+targetEntityType: paragraph
+bundle: address_data
+mode: locality
+content:
+  field_address:
+    type: address_display_formatter
+    label: visually_hidden
+    settings:
+      address_display:
+        organization:
+          glue: ''
+          weight: -1
+          display: false
+        address_line1:
+          glue: ''
+          weight: 0
+          display: false
+        address_line2:
+          glue: ','
+          weight: 1
+          display: false
+        locality:
+          glue: ','
+          weight: 2
+          display: true
+        postal_code:
+          glue: ''
+          weight: 3
+          display: false
+        country_code:
+          glue: ''
+          weight: 4
+          display: false
+        langcode:
+          glue: ','
+          weight: 100
+          display: false
+        administrative_area:
+          glue: ','
+          weight: 100
+          display: true
+        dependent_locality:
+          glue: ','
+          weight: 100
+          display: true
+        sorting_code:
+          glue: ','
+          weight: 100
+          display: false
+        given_name:
+          glue: ''
+          weight: 100
+          display: false
+        family_name:
+          glue: ','
+          weight: 100
+          display: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_address_location: true
+  search_api_excerpt: true

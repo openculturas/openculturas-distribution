@@ -3,7 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.gallery
+    - core.entity_view_mode.media.content_asset
+    - core.entity_view_mode.media.logo
   module:
     - blazy
     - linkit
@@ -92,8 +93,10 @@ filters:
     status: true
     weight: 100
     settings:
-      default_view_mode: gallery
-      allowed_view_modes: {  }
+      default_view_mode: content_asset
+      allowed_view_modes:
+        content_asset: content_asset
+        logo: logo
       allowed_media_types:
         audio: audio
         image: image

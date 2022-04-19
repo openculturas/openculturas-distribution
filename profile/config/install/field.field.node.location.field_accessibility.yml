@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_accessibility
+    - node.type.location
+    - paragraphs.paragraphs_type.accessibility
+  module:
+    - entity_reference_revisions
+id: node.location.field_accessibility
+field_name: field_accessibility
+entity_type: node
+bundle: location
+label: Accessibility
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      accessibility: accessibility
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: 5
+        enabled: true
+      address_data:
+        weight: 6
+        enabled: false
+      contact_data:
+        weight: 7
+        enabled: false
+      member:
+        weight: 8
+        enabled: false
+field_type: entity_reference_revisions

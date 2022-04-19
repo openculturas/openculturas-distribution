@@ -4,16 +4,16 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
+    - field.field.node.page.field_content_paragraphs
     - field.field.node.page.field_mood_image
     - field.field.node.page.field_subtitle
-    - field.field.node.page.field_views_ref
     - node.type.page
   module:
     - media_library
     - media_library_edit
+    - paragraphs
     - path
     - text
-    - viewfield
 _core:
   default_config_hash: AD_lefuYmjsKeH3OQApsyP_nLj6ZnGaALznLQSQ0Z_o
 id: node.page.default
@@ -33,9 +33,28 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_content_paragraphs:
+    type: paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: 'Content element'
+      title_plural: 'Content elements'
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: modal
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
@@ -54,12 +73,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_views_ref:
-    type: viewfield_select
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 0
@@ -69,27 +82,27 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 8
+    weight: 9
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 11
+    weight: 12
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 9
+    weight: 10
     region: content
     settings:
       display_label: true
@@ -104,12 +117,17 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 13
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

@@ -2,6 +2,10 @@ uuid: 9718246a-691a-4bc6-93b8-dff854522ef8
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.content_asset
+    - core.entity_view_mode.media.logo
+    - core.entity_view_mode.media.teaser_image
   module:
     - blazy
     - editor
@@ -60,11 +64,15 @@ filters:
     status: true
     weight: -45
     settings:
-      default_view_mode: default
+      default_view_mode: content_asset
       allowed_view_modes:
-        default: default
+        content_asset: content_asset
+        logo: logo
+        teaser_image: teaser_image
       allowed_media_types:
+        audio: audio
         image: image
+        logo_image: logo_image
         remote_video: remote_video
   blazy_filter:
     id: blazy_filter

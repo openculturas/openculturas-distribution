@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_portrait
+    - media.type.user_profile_picture
+    - node.type.profile
+id: node.profile.field_portrait
+field_name: field_portrait
+entity_type: node
+bundle: profile
+label: 'Profile image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      user_profile_picture: user_profile_picture
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

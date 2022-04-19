@@ -1,0 +1,69 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_data.field_email
+    - field.field.paragraph.contact_data.field_legal_info
+    - field.field.paragraph.contact_data.field_legal_url
+    - field.field.paragraph.contact_data.field_phone
+    - field.field.paragraph.contact_data.field_social_media_links
+    - field.field.paragraph.contact_data.field_url
+    - paragraphs.paragraphs_type.contact_data
+  module:
+    - link
+    - social_media_links_field
+    - telephone
+    - text
+id: paragraph.contact_data.default
+targetEntityType: paragraph
+bundle: contact_data
+mode: default
+content:
+  field_email:
+    type: email_default
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_legal_info:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_legal_url:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_phone:
+    type: telephone_default
+    weight: 0
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_social_media_links:
+    type: social_media_links_field_default
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_url:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
