@@ -6,26 +6,45 @@
 #    - opacity: [100-0]
 #
 default_variants:
-  - darken: 25
   - lighten: 75
-  - lighten: 90
-  - opacity: 12
-  - opacity: 20
-  - opacity: 35
-  - opacity: 50
+  - opacity: 8
+  - opacity: 16
+  - opacity: 24
+  - opacity: 32
+  - opacity: 64
+# für die Formularhintergründe brauchen wir eine --color-secondary-lighten-95
+
 colors:
   - name: color_primary
-  - name: color_secondary
-#  - name: color_bg_dark
-#    variants:
-#      - opacity: 10
-#      - opacity: 15
-#      - opacity: 75
+    variants:
+      - lighten: 95
+      - darken: 25
+  # secondary
+  - name: color_interaction
+    variants:
+      - lighten: 95
+      - darken: 25
+  # More opacity variants
   - name: color_bg_dark
-  - name: color_bg_medium
-  - name: color_bg_light
   - name: color_link
+    variants:
+      - darken: 25
+#
+# Alerts
+#
   - name: color_success
+    variants:
+      - lighten: 85
+      - darken: 25
   - name: color_info
+    variants:
+      - darken: 25
+      - lighten: 85
   - name: color_warning
+    variants:
+      - darken: 25
+      - lighten: 85
   - name: color_danger
+    variants:
+      - darken: 25
+      - lighten: 85

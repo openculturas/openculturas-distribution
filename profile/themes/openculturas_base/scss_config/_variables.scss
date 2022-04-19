@@ -64,20 +64,19 @@ $breakpoints: (
 //
 // Colors.
 //
-/**
- * Default colors
- *
- * Changeable by css_color_variables or Color Module settings.
-**/
 //
 //   DO NOT CHANGE VAR NAMES
 //   DO NOT ADD NEW CSS COLOR VARIABLES
 //
 // Changing requires updating the color.inc and css_color_variables_dependants.yml
 :root {
+  /**
+   * Default colors
+   *
+   * Changeable by css_color_variables or Color Module settings.
+  **/
   --color-primary: #a1167f;
-  // --color-interaction: $color-secondary; // Secondary
-  --color-secondary: #483d8b;
+  --color-interaction:  #483d8b; // Secondary
   --color-text: #1f1f1f;
   --color-text-muted: #7b7d85;
   --color-text-inverted: #ffffff;
@@ -87,36 +86,65 @@ $breakpoints: (
   --color-info: #1f71b8;
   --color-success: #188009;
   --color-warning: #ffc400;
-  // WAS neutral-canvas
-  --color-bg-page: #F6F6F6;
+  --color-neutral-canvas: #F6F6F6;
   --color-bg-dark: #303236;
-  //Alternative to --color-bg-slight-contrast: #e8e9eb;
-  --color-bg-medium: #b1b2b5;
+  --color-bg-slight-contrast: #b1b2b5;
   --color-bg-light: #ffffff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
+
+  /**
+   * Default derivated colors
+   *
+   * are changed when base colors are changed by css_color_variables or Color Module settings.
+   **/
+
+  /* Alerts */
+  --color-bg-danger: var(--color-danger-lighten-85, #f9dcdd);
+  --color-danger-dark: var(--color-danger-darken-25, #a00f12);
+  --color-bg-info: var(--color-info-lighten-85, #deeaf5);
+  --color-info-dark: var(--color-info-darken-25, #18558a);
+  --color-bg-success: var(--color-success-lighten-85, #ddecdb);
+  --color-success-dark: var(--color-success-darken-25, #126007);
+  --color-bg-warning: var(--color-warning-lighten-85, #fff7d9);
+  --color-warning-dark: var(--color-warning-darken-25, #c09300);
+
+  /* Form colors */
+  --color-bg-form: var(--color-interaction--lighten-95, #f6f6fa);
+  --color-bg-fieldset: var(--color-bg-dark--opacity-8, #30323614);
 }
 
-// Reasigning to SASS variables
 //
-// + Undefined CSS vars fail silently, better fail hard with SASS.
-// + Better readability and support in IDE
+// SASS-color-variables containing CSS-variables
+//
+// + Basetheme uses strict SASS based color Schema (vs Undefined CSS vars fail silently).
 // + A clearly defined set of CSS Variables.
+// + Easy subtheming with UI configurable base and easy to define derivate colors.
+// + Better readability and support in IDE for SSASS variables.
 // + No need to write var(--bla) everywhere.
-// - Disabeling all SASS color functions as they won't work.
+// - SASS color functions do not work.
+//   They are disabled and throw error when used.
+//   --> use of Hexadecimal opacity:
+//       #0000007F not rgba(0, 0, 0, 0.5)
 //
+//   Prefer css_color_variables_dependant variables like:
+//    --color-danger-lighten-85
+//    --color-danger-darken-25
+//    --color-primary--opacity-16
+//   Check out openculturas_base/color/css_color_variables_dependants.yml
+//   and the UI at /css_color_variables_demopage to check out colors and derivate-variants.
 //
 $color-primary: var(--color-primary);
-$color-secondary: var(--color-secondary);
+$color-interaction: var(--color-interaction);
 $color-text: var(--color-text);
 $color-text-muted: var(--color-text-muted);
 $color-text-inverted: var(--color-text-inverted);
 $color-headline: var(--color-headline);
 $color-link: var(--color-link);
 
-$color-bg-page: var(--color-bg-page);
+$color-neutral-canvas: var(--color-neutral-canvas);
 $color-bg-dark: var(--color-bg-dark);
-$color-bg-medium: var(--color-bg-medium);
+$color-bg-slight-contrast: var(--color-bg-slight-contrast);
 $color-bg-light: var(--color-bg-light);
 
 $color-divider-light: --color-divider-light;
@@ -127,13 +155,19 @@ $color-info: var(--color-info);
 $color-success: var(--color-success);
 $color-warning: var(--color-warning);
 
-// TODO: Add SASS vars for derivated colors
-// e.g. $color-bg-danger $color-danger-dark
-
-//
 // Derivate Colors
 // can not directly be changed in UI / Color module.
-//x
+$color-bg-danger: var(--color-bg-danger);
+$color-danger-dark: var(--color-danger-dark);
+$color-bg-info: var(--color-bg-info);
+$color-bg-dark: var(--color-info-dark);
+$color-bg-success: var(--color-bg-success);
+$color-success-dark: var(--color-success-dark);
+$color-bg-warning: var(--color-bg-warning);
+$color-warning-dark: var(--color-warning-dark);
+$color-bg-form: var(--color-bg-form);
+$color-bg-fieldset: var(--color-bg-fieldset);
+
 body {
   // If you need to reassign CSS variables, you must do it HERE!
   // If you do it in :root, they will not change with Color UI changes.
@@ -254,7 +288,7 @@ $fontStyles: (
     text-transform: uppercase,
     letter-spacing: 0.05rem,
     margin: 0.5em 0,
-    color: $color-secondary,
+    color: $color-interaction,
   ),
   h3: (
     font-family: $font-head,

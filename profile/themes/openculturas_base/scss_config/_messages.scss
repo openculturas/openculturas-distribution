@@ -1,0 +1,63 @@
+// Drupal Messages system + info message in Blue.
+.messages {
+  border-width: 2px;
+  border-radius: .4rem;
+  box-shadow: none;
+  background-image: none;
+  padding: .6rem 1rem .6rem 2.6rem;
+  position: relative;
+
+  &:before {
+    //content: "\f058";
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    position: absolute;
+    left: .8rem;
+    padding-bottom: .5rem;
+  }
+
+  a,
+  a:hover {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: underline;
+    display: inline;
+  }
+
+  &.messages--error {
+    color: $color-danger;
+    border-color: $color-danger;
+    background-color: $color-bg-danger;
+    &:before {
+      content: "\f057";
+    }
+  }
+
+  &.messages--status {
+    border-color: $color-success;
+    color: $color-success;
+    background-color: $color-bg-success;
+    &:before {
+      content: "\f058";
+    }
+  }
+
+  &.messages--warning {
+    color: $color-warning;
+    border-color: $color-warning;
+    background-color: $color-bg-warning;
+    &:before {
+      content: "\f071";
+    }
+  }
+
+  &.messages--info {
+    color: $color-info;
+    border-color: $color-info;
+    background-color: $color-bg-info;
+    &:before {
+      content: "\f05a";
+    }
+  }
+}

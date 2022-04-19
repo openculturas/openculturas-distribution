@@ -1,7 +1,6 @@
 form {
   padding: $grid-gutter;
-  // TODO this background approach is broken.
-  //@include form-background;
+  background: $color-bg-form;
 
   > *:first-child, .form-item:first-child {
     margin-top: 0;
@@ -37,11 +36,13 @@ form {
     margin-bottom: $grid-gutter;
   }
 
-  fieldset, fieldset.fieldgroup {
+  fieldset,
+  fieldset.fieldgroup {
     padding: $grid-gutter*2.5 $grid-gutter $grid-gutter $grid-gutter;
-    @include form-background;
+    background: $color-bg-fieldset;
 
-    summary, legend {
+    summary,
+    legend {
       position: absolute;
       left: $grid-gutter;
       top: $grid-gutter;
@@ -50,7 +51,8 @@ form {
       @include typo(allcaps);
     }
 
-    fieldset, fieldset.fieldgroup {
+    fieldset,
+    fieldset.fieldgroup {
       position: relative;
       &:before {
         content: none;
@@ -120,6 +122,11 @@ form {
       }
     }
 
+    input[size] {
+      width: 100%;
+      max-width: 100%;
+    }
+
     select {
       -moz-appearance:none; /* Firefox */
       -webkit-appearance:none; /* Safari and Chrome */
@@ -139,7 +146,8 @@ form {
       }
     }
 
-    input[type="checkbox"], input[type="radio"] {
+    input[type="checkbox"],
+    input[type="radio"] {
       margin-right: 0.5rem;
       width: 1em;
       height: 1em;
@@ -184,7 +192,11 @@ a.button.secondary,
 input[type="submit"].secondary {
   @include button-secondary();
 }
-.form-submit.danger, .button.danger, a.button.danger, input[type="submit"].danger {
+
+.form-submit.danger,
+.button.danger,
+a.button.danger,
+input[type="submit"].danger {
   @include button-danger();
 }
 
