@@ -1,9 +1,21 @@
 form {
-  padding: $grid-gutter;
   background: $color-bg-form;
 
-  > *:first-child, .form-item:first-child {
-    margin-top: 0;
+  // Padding without adding padding to FORM Tag (which messes up button positioning).
+  >.form--inline,
+  >.form-item,
+  >.form-wrapper,
+  >[id*=ajax-wrapper] {
+    //outline: 2px dashed green;
+    margin-left: $grid-gutter;
+    margin-right: $grid-gutter;
+    width: auto !important;
+    &:first-child {
+      padding-top: $grid-gutter;
+    }
+    &:last-of-type {
+      padding-bottom: $grid-gutter;
+    }
   }
 
   .description {
@@ -62,8 +74,10 @@ form {
     vertical-align: text-top;
   }
 
+
+
   .form-item {
-    margin: 2rem 0;
+    //outline: 2px dashed red;
 
     .description {
       @include typo(small);
@@ -86,16 +100,9 @@ form {
       border: 1px solid $color-text;
 
       &:focus {
-        // TODO Where is a common focus/outline Style??
         border-bottom-color: $color-info;
         box-shadow: 0 -3px 0 inset $color-info;
       }
-      // A better way would be the following.
-      // But it is not recommended to change outline colors.
-      //&:focus-visible {
-      //  outline-color: var(--color-interaction);
-      //  box-shadow-color: var(--color-interaction);
-      //}
 
       .error {
         border: 1px solid $color-text;
@@ -118,8 +125,8 @@ form {
     }
 
     input[size] {
-      width: 100%;
       max-width: 100%;
+      width: 100%;
     }
 
     select {
@@ -185,7 +192,7 @@ input[type='submit'] {
   // TODO Exclude classy component?
   margin-left: 0;
   margin-right: $grid-gutter;
-  //margin-bottom: $grid-gutter;  TODO This messes up with form background&Padding
+  margin-bottom: $grid-gutter;
 
   &:first-child {
     margin-right: $grid-gutter;
