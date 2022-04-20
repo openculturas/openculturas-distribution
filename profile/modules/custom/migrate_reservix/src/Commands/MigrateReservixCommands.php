@@ -18,23 +18,128 @@ use Drush\Commands\DrushCommands;
 class MigrateReservixCommands extends DrushCommands {
 
   /**
-   * Command description here.
+   * Get artists.
    *
-   * @usage migrate_reservix-foo foo
+   * @usage migrate_reservix:artists
    *
-   * @command migrate_reservix:foo
-   * @aliases foo
+   * @command migrate_reservix:artists
    */
-  public function commandName() {
+  public function getArtists() {
     $config = \Drupal::configFactory()->get('migrate_reservix.settings');
 
     /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
     $service = \Drupal::service('migrate_reservix.client');
     $service->setCredentials($config->get('api_key'));
 
-    $result = $service->getArtists();
+    $result = $service->getArtists(['page' => 0]);
 
-    $this->logger()->success(print_r($result, TRUE));
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get organizers.
+   *
+   * @usage migrate_reservix:organizers
+   *
+   * @command migrate_reservix:organizers
+   */
+  public function getOrganizers() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getOrganizers(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get locations.
+   *
+   * @usage migrate_reservix:locations
+   *
+   * @command migrate_reservix:locations
+   */
+  public function getLocations() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getLocations(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get genres.
+   *
+   * @usage migrate_reservix:genres
+   *
+   * @command migrate_reservix:genres
+   */
+  public function getGenres() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getGenres(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get dates.
+   *
+   * @usage migrate_reservix:dates
+   *
+   * @command migrate_reservix:dates
+   */
+  public function getDates() {
+    $this->getEvents();
+  }
+
+  /**
+   * Get events.
+   *
+   * @usage migrate_reservix:events
+   *
+   * @command migrate_reservix:events
+   */
+  public function getEvents() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getEvents(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get venues.
+   *
+   * @usage migrate_reservix:venues
+   *
+   * @command migrate_reservix:venues
+   */
+  public function getVenues() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getVenues(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
   }
 
 }

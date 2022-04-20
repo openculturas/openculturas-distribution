@@ -190,6 +190,7 @@ class ReservixApiClient implements ReservixApiClientInterface {
    *   An associative array of data from the API.
    */
   public function getEvents(array $params = []): array {
+    echo print_r($params, TRUE), PHP_EOL;
     return $this->get('sale/event', $params);
   }
 

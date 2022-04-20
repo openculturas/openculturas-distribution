@@ -27,6 +27,7 @@ class ReservixAddressAPI extends ReservixBaseAPI {
 
   /**
    * {@inheritdoc}
+   * @throws \Exception
    */
   public function prepareRow(Row $row): bool {
     // Always include this fragment at the beginning of every prepareRow()

@@ -34,6 +34,30 @@ class ReservixEventgroupsAPI extends ReservixBaseAPI {
     if (parent::prepareRow($row) === FALSE) {
       return FALSE;
     }
+
+    // Add additional data to the event that is part of an event
+    // instance on Reservix.
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $events = $service->getEvents(['eventgroupId' => $row->getSourceProperty('id')]);
+
+    if ($event = reset($events['data'])) {
+      $row->setSourceProperty('_name', $event['name']);
+      $row->setSourceProperty('_description', $event['description']);
+      $duration_minutes = $row->getSourceProperty('duration');
+      $row->setSourceProperty('_duration_seconds', $duration_minutes * 60);
+      $row->setSourceProperty('_duration_iso_8601', ReservixBaseAPI::timestampToIso8601Duration($duration_minutes * 60));
+      $row->setSourceProperty('_artist', $event['artist']);
+      $row->setSourceProperty('_affiliateSaleUrl', $event['affiliateSaleUrl']);
+      $row->setSourceProperty('_', $event['']);
+      $row->setSourceProperty('_', $event['']);
+      $row->setSourceProperty('_', $event['']);
+      $row->setSourceProperty('_', $event['']);
+    }
+
+    echo print_r($events, TRUE), PHP_EOL;
+
     return TRUE;
   }
 

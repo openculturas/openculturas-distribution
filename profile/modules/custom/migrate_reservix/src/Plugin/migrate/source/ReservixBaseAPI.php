@@ -336,4 +336,47 @@ class ReservixBaseAPI extends EntityImportSourceLimitIteratorBase implements Req
     return $str;
   }
 
+  /**
+   * Timestamp to duration.
+   *
+   * @param int $seconds
+   *   The seconds of duration.
+   *
+   * @return string
+   *   The ISO 8601 duration string.
+   */
+  public static function timestampToIso8601Duration(int $seconds): string {
+    $units = [
+      'Y' => 365 * 24 * 3600,
+      'D' => 24 * 3600,
+      'H' => 3600,
+      'M' => 60,
+      'S' => 1,
+    ];
+
+    $str = "P";
+    $is_time = FALSE;
+
+    foreach ($units as $unitName => &$unit) {
+      $quot = intval($seconds / $unit);
+      $seconds -= $quot * $unit;
+      $unit = $quot;
+      if ($unit > 0) {
+        if (
+          !$is_time
+          && in_array($unitName, ["H", "M", "S"])
+        ) {
+          $str .= "T";
+          $is_time = TRUE;
+        }
+        $str .= strval($unit) . $unitName;
+      }
+    }
+
+    if ($str === "P") {
+      $str = "P0D";
+    }
+    return $str;
+  }
+
 }
