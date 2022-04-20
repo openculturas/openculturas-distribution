@@ -754,18 +754,33 @@ display:
               magazine_editor: '0'
               administrator: '0'
             reduce: false
-          is_grouped: false
+          is_grouped: true
           group_info:
-            label: ''
+            label: Role
             description: ''
-            identifier: ''
+            identifier: profile-role
             optional: true
             widget: select
             multiple: false
             remember: false
-            default_group: All
+            default_group: '1'
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: Artists
+                operator: or
+                value:
+                  artists: artists
+              2:
+                title: Organizers
+                operator: or
+                value:
+                  organizer: organizer
+              3:
+                title: 'Just interested'
+                operator: and
+                value:
+                  basic: basic
           reduce_duplicates: false
         title:
           id: title
@@ -1056,21 +1071,25 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.node.article.compact'
         - 'config:core.entity_view_display.node.article.default'
         - 'config:core.entity_view_display.node.article.full'
         - 'config:core.entity_view_display.node.article.search_index'
         - 'config:core.entity_view_display.node.article.search_result'
         - 'config:core.entity_view_display.node.article.teaser'
+        - 'config:core.entity_view_display.node.date.compact'
         - 'config:core.entity_view_display.node.date.default'
         - 'config:core.entity_view_display.node.date.full'
         - 'config:core.entity_view_display.node.date.search_index'
         - 'config:core.entity_view_display.node.date.search_result'
         - 'config:core.entity_view_display.node.date.teaser'
+        - 'config:core.entity_view_display.node.event.compact'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.full'
         - 'config:core.entity_view_display.node.event.search_index'
         - 'config:core.entity_view_display.node.event.search_result'
         - 'config:core.entity_view_display.node.event.teaser'
+        - 'config:core.entity_view_display.node.location.compact'
         - 'config:core.entity_view_display.node.location.default'
         - 'config:core.entity_view_display.node.location.full'
         - 'config:core.entity_view_display.node.location.legal'
