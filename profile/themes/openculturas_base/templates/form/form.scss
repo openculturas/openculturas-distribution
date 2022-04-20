@@ -169,14 +169,13 @@ form {
   .vertical-tabs {
     margin-left: 0;
   }
-
 }
 
+// Button base styles
 .button,
 input[type='button'],
 input[type='submit'] {
   padding: 0.5rem 2rem;
-
   line-height: 1;
   border: 1px solid transparent;
   outline-offset: 0.25rem;
@@ -186,9 +185,12 @@ input[type='submit'] {
   // TODO Exclude classy component?
   margin-left: 0;
   margin-right: $grid-gutter;
+  //margin-bottom: $grid-gutter;  TODO This messes up with form background&Padding
+
   &:first-child {
     margin-right: $grid-gutter;
   }
+
   &:active,
   &:focus,
   &:hover {
@@ -234,12 +236,9 @@ input[type='submit'] {
   }
 }
 
+// TODO THIS IS BASICALLY OVERRIDING link DEFAULT
+// WAS BEFORE : a, a.button, form .button,
 
-
-//
-
-//// TODO THIS IS BASICALLY OVERRIDING link DEFAULT
-//// WASBEFORE : a, a.button, form .button,
 .form-submit,
 .view-header .button,
 input[type="submit"],
@@ -264,7 +263,6 @@ a.button.danger,
 input[type="submit"].danger {
   @include button-danger();
 }
-
 
 button.link {
   @include link-default;
