@@ -243,21 +243,19 @@ input[type='submit'] {
 .form-submit,
 .view-header .button,
 input[type="submit"],
-button[type="submit"]{
+button[type="submit"] {
   @include button-primary;
 }
 
 .form-submit.secondary,
 .button.secondary,
 a.button.secondary,
-input[type="submit"].secondary {
-  @include button-secondary();
-}
-
+input[type="submit"].secondary,
+.button[data-drupal-selector$=cancel],
 .field-add-more-submit,
 .button--small,
-button[id*="remove"] {
-  @include button-secondary;
+button[id*=remove] {
+  @include button-secondary();
 }
 
 .form-submit.danger,
