@@ -1,0 +1,29 @@
+version: '3.6'
+services:
+  chromedriver:
+    container_name: ddev-${DDEV_SITENAME}-chromedriver
+    image: drupalci/chromedriver:production
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    external_links:
+      - ddev-router:${DDEV_SITENAME}.${DDEV_TLD}
+  web:
+    links:
+      - chromedriver:$DDEV_HOSTNAME
+    environment:
+      # *** One of these must be uncommented ***
+      # In order for the system to work, one of these must be uncommented so
+      # that the test system can connect to the database.
+      - SIMPLETEST_DB=sqlite://localhost//dev/shm/sitetest.db
+      # - SIMPLETEST_DB=mysql://ddev-<project>-db:db@db:3306/db
+      #
+      # Note: Do not modify the base URL value.
+      - SIMPLETEST_BASE_URL=http://web
+      - DTT_BASE_URL=http://web
+      - BROWSERTEST_OUTPUT_DIRECTORY=/tmp
+      - DTT_HTML_OUTPUT_DIRECTORY=/tmp
+      - BROWSERTEST_OUTPUT_BASE_URL=${DDEV_PRIMARY_URL}
+      - MINK_DRIVER_ARGS_WEBDRIVER=["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--no-sandbox"]}}, "http://chromedriver:9515"]
+      - DTT_MINK_DRIVER_ARGS=["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--no-sandbox"]}}, "http://chromedriver:9515"]
+      - SYMFONY_DEPRECATIONS_HELPER=disabled

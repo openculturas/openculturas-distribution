@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="vendor/weitzman/drupal-test-traits/src/bootstrap.php"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         failOnWarning="true"
+         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
+         cacheResult="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd">
+  <php>
+    <ini name="error_reporting" value="E_ALL"/>
+    <ini name="display_errors" value="1"/>
+    <ini name="display_startup_errors" value="1"/>
+    <ini name="memory_limit" value="-1"/>
+    <ini name="zend.enable_gc" value="1"/>
+    <env name="SIMPLETEST_DB" value="sqlite://localhost//dev/shm/sitetest.db"/>
+    <env name="SIMPLETEST_BASE_URL" value=""/>
+    <env name="DTT_BASE_URL" value="http://web"/>
+    <env name="DTT_MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--no-sandbox"]}}, "http://chromedriver:9515"]'/>
+    <env name="DTT_API_OPTIONS" value='{"socketTimeout": 360, "domWaitTimeout": 3600000}' />
+
+    <!-- Example BROWSERTEST_OUTPUT_DIRECTORY value: /tmp
+         Specify a temporary directory for storing debug images and html documents.
+         These artifacts get copied to /sites/simpletest/browser_output by BrowserTestBase. -->
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="/tmp"/>
+    <!-- To disable deprecation testing completely uncomment the next line. -->
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+    <!-- Specify the default directory screenshots should be placed. -->
+    <!--<env name="DTT_SCREENSHOT_REPORT_DIRECTORY" value=""/>-->
+    <!-- Specify the default directory page captures should be placed.
+        When using the \Drupal\Tests\Listeners\HtmlOutputPrinter printerClass this will default to
+        /sites/simpletest/browser_output. If using another printer such as teamcity this must be defined.
+        -->
+    <!--<env name="DTT_HTML_OUTPUT_DIRECTORY" value=""/>-->
+
+  </php>
+  <testsuites>
+    <testsuite name="existing-site">
+      <directory>./tests/src/ExistingSite</directory>
+      <directory>./web/modules/custom/*/tests/src/ExistingSite</directory>
+    </testsuite>
+    <testsuite name="existing-site-javascript">
+      <directory>./tests/src/ExistingSiteJavascript</directory>
+      <directory>./web/modules/custom/*/tests/src/ExistingSiteJavascript</directory>
+    </testsuite>
+  </testsuites>
+  <listeners>
+    <listener class="\Drupal\Tests\Listeners\DrupalListener">
+    </listener>
+  </listeners>
+</phpunit>
