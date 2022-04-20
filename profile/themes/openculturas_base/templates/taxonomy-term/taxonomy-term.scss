@@ -1,8 +1,33 @@
-.taxonomy-term {
-  .taxonomy-term--tag {
-    @include tag_links;
+.reference--taxonomy_term {
+  display: inline-block;
+
+  .taxonomy-term,
+  >a {
+    background: $color-bg-slight-contrast;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+
+    display: inline-block;
+
+    padding: $grid-gutter*0.25 $grid-gutter;
+    margin: 0 $grid-gutter $grid-gutter 0;
+    border-radius: 0.75rem;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      background: $color-interaction;
+      border-color: $color-interaction;
+      color: $color-text-inverted;
+    }
+    &:active {
+      background: $color-text-inverted;
+      border: 1px dashed $color-interaction;
+      color: $color-interaction;
+    }
   }
 }
+
 
 .taxonomy-term.term--view-mode-teaser {
 
@@ -38,15 +63,12 @@
         position: absolute;
         left: 0;
         top: 0;
-        background-color: $color-link;
-        opacity: 0.6;
+        background-color: $color-bg-dark;
+        opacity: 0.4;
         z-index: 1;
       }
-
-      .taxonomy-term--tag {
-        margin: 0;
-        text-align: center;
-        z-index: 2;
+      &:hover:before {
+        opacity: .1;
       }
     }
 
@@ -58,7 +80,19 @@
       height: auto;
     }
 
-    &:focus-within, &:hover {
+    .taxonomy-term--tag {
+      margin: 0;
+      text-align: center;
+      z-index: 2;
+      background: $color-text-inverted;
+      border-color: $color-text-inverted;
+    }
+
+
+    &:focus-within,
+    &:hover {
+      cursor: pointer;
+
       img {
         transform: scale(1.2);
         width: 100%;
@@ -71,6 +105,20 @@
         &:active {
           text-decoration: underline;
         }
+
+      }
+      .taxonomy-term--tag {
+        background: $color-interaction;
+        border-color: $color-text-inverted;
+        color: $color-text-inverted;
+      }
+    }
+
+    &:active {
+      .taxonomy-term--tag {
+        background: $color-text-inverted;
+        border: 1px dashed $color-interaction;
+        color: $color-interaction;
       }
     }
   }

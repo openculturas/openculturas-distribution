@@ -71,7 +71,19 @@
       }
 
       a {
-        @include link-offcanvas;
+        // @include link-offcanvas();
+        color: $color-text;
+        text-decoration: none;
+
+        &:visited{
+          color: $color-text;
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $color-primary;
+        }
       }
     }
 

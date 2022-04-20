@@ -64,11 +64,13 @@ $breakpoints: (
 //
 // Colors.
 //
+// CAUTION:
+//   Do not change CSS color variable names (in base theme)
 //
-//   DO NOT CHANGE VAR NAMES
-//   DO NOT ADD NEW CSS COLOR VARIABLES
+// This would lead to inconsistent results when changing the colors with
+// css_color_variables_ui module.
+// Any changes require updating the color.inc and css_color_variables_dependants.yml
 //
-// Changing requires updating the color.inc and css_color_variables_dependants.yml
 :root {
   /**
    * Default colors
@@ -117,22 +119,23 @@ $breakpoints: (
 //
 // SASS-color-variables containing CSS-variables
 //
+// Why we reasign CSS vars to SASS variables?
 // + Basetheme uses strict SASS based color Schema (vs Undefined CSS vars fail silently).
-// + A clearly defined set of CSS Variables.
+// + A clearly defined set of CSS Variables keeps Subthemes working.
 // + Easy subtheming with UI configurable base and easy to define derivate colors.
 // + Better readability and support in IDE for SSASS variables.
 // + No need to write var(--bla) everywhere.
+// Disadvantage:
 // - SASS color functions do not work.
 //   They are disabled and throw error when used.
-//   --> use of Hexadecimal opacity:
-//       #0000007F not rgba(0, 0, 0, 0.5)
-//
-//   Prefer css_color_variables_dependant variables like:
+//   --> Prefer css_color_variables_dependant variables like:
 //    --color-danger-lighten-85
 //    --color-danger-darken-25
 //    --color-primary--opacity-16
-//   Check out openculturas_base/color/css_color_variables_dependants.yml
-//   and the UI at /css_color_variables_demopage to check out colors and derivate-variants.
+//   --> Make use of Hexadecimal opacity:
+//       #0000007F not rgba(0, 0, 0, 0.5)
+//   --> Check out openculturas_base/color/css_color_variables_dependants.yml
+//       and the UI at /css_color_variables_demopage to check out colors and derivate-variants.
 //
 $color-primary: var(--color-primary);
 $color-interaction: var(--color-interaction);
@@ -160,7 +163,7 @@ $color-warning: var(--color-warning);
 $color-bg-danger: var(--color-bg-danger);
 $color-danger-dark: var(--color-danger-dark);
 $color-bg-info: var(--color-bg-info);
-$color-bg-dark: var(--color-info-dark);
+$color-bg-dark: var(--color-bg-dark);
 $color-bg-success: var(--color-bg-success);
 $color-success-dark: var(--color-success-dark);
 $color-bg-warning: var(--color-bg-warning);

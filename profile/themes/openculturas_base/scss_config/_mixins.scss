@@ -285,78 +285,17 @@
 }
 
 /**
- * Helper mixin for setting offcanvas link style with css vars.
- */
-@mixin link-offcanvas () {
-  color: $color-text;
-  text-decoration: none;
-
-  &.is-active,
-  &:visited {
-    color: $color-text;
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: underline;
-  }
-
-  &:hover {
-    color: $color-primary;
-  }
-
-  &:focus {
-    color: $color-primary;
-  }
-
-  &:active {
-    color: $color-primary;
-  }
-}
-
-/**
  * Helper mixin for setting button primary styling.
  */
 @mixin button-primary () {
-  padding: 0.5rem 2rem;
-  margin-right: $grid-gutter;
-  @include typo(body);
-  line-height: 1;
-  // TODO ???
   color: $color-text-inverted;
   background: $color-primary;
-  border: 1px solid transparent;
-  outline-offset: 0.25rem;
-  cursor: pointer;
-  font-weight: normal;
-  display: inline-block;
+  border: 1px solid $color-primary;
 
   &:focus,
   &:hover {
     background: $color-interaction;
     color: $color-text-inverted;
-    text-decoration: none;
-  }
-
-  &:active {
-    background: $color-text-inverted;
-    border: 1px dashed $color-interaction;
-    color: $color-interaction;
-    background: $color-text-inverted;
-    // TODO remove RGBA
-    box-shadow: 0 0.25rem 0.125rem #483D8B3F;
-    text-decoration: none;
-  }
-
-  &[disabled] {
-    background: $color-primary;
-    color: $color-text-inverted;
-    // TODO
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: default;
-    text-decoration: none;
   }
 }
 
@@ -364,107 +303,33 @@
  * Helper mixin for setting button secondary styling.
  */
 @mixin button-secondary () {
-  padding: 0.5rem 2rem;
-  margin-right: $grid-gutter;
-  @include typo(body);
-  line-height: 1;
   color: $color-interaction;
   background: $color-bg-light;
-  border: 1px solid $color-interaction;
-  outline-offset: 0.25rem;
-  cursor: pointer;
-  font-weight: normal;
-  display: inline-block;
-
-  &:focus,
-  &:hover {
-    background: $color-interaction;
-    color: $color-text-inverted;
-    text-decoration: none;
-  }
-
-  &:active {
-    background: $color-text-inverted;
-    border: 1px dashed $color-interaction;
-    color: $color-interaction;
-    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
-    text-decoration: none;
-  }
-
-  &[disabled] {
-    // TODO 50% opacity
-    background: $color-text-inverted;
-    color: $color-interaction;
-    border-color: $color-interaction;
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: default;
-    text-decoration: none;
-  }
+  border-color: $color-interaction;
 }
 
 /**
  * Helper mixin for setting button danger styling.
  */
 @mixin button-danger () {
-  padding: 0.5rem 2rem;
-  margin-right: $grid-gutter;
-  @include typo(body);
-  line-height: 1;
   color: $color-danger;
   background: $color-text-inverted;
-  border: 1px solid $color-danger;
-  outline-offset: 0.25rem;
-  cursor: pointer;
-  font-weight: normal;
-  display: inline-block;
-
-  @include icon(times) {
-    margin-right: 0.5rem;
+  border-color: $color-danger;
+  @include icon(xmark) {
+    margin-right: .5rem;
   };
 
-  &:hover,
+  &:not([disabled]):hover,
   &:focus {
     background: $color-danger;
     color: $color-text-inverted;
-    text-decoration: none;
+    border-color: $color-danger;
   }
 
   &:active {
-    // TODO
     background: $color-text-inverted;
     border-color: $color-danger;
     color: $color-danger;
-    box-shadow: 0 0.25rem 0.125rem #00000066;
-    text-decoration: none;
-  }
-
-  &[disabled] {
-    background: $color-bg-slight-contrast;
-    color: $color-text-inverted;
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: default;
-    text-decoration: none;
-  }
-}
-
-/**
- * Helper mixin for setting the tag links styling.
- * You can give it to any link to give it the pill style of tag links.
- */
-@mixin tag_links() {
-  display: inline-block;
-  background: $color-divider-light;
-  padding: $grid-gutter*0.25 $grid-gutter;
-  margin: 0 $grid-gutter $grid-gutter 0;
-  border-radius: 0.75rem;
-  text-decoration: none;
-
-  &:hover,
-  &:focus {
-    background: $color-text-muted;
-    color: $color-text-inverted;
   }
 }
 
