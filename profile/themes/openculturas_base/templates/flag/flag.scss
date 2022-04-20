@@ -4,7 +4,8 @@ header {
 
     a {
       @include offcanvas-button(false);
-      color: color(white);
+      background-color: $color-primary;
+      color: $color-text-inverted;
       font-size: 1.5rem;
       border-radius: 0 0 0.3em 0.3em;
       text-decoration: none;
@@ -28,7 +29,7 @@ header {
 
     }
     &.action-unflag a {
-      background-color: color(primary);
+      background-color: $color-primary;
     }
 
     .js-flag-message {
@@ -46,7 +47,8 @@ header {
     }
   }
 
-  .flag-bookmark-node, .flag-bookmark-term {
+  .flag-bookmark-node,
+  .flag-bookmark-term {
     a {
       @include icon(bookmark);
 

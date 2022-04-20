@@ -120,7 +120,8 @@
  */
 @mixin image-fit ($max-height: false, $min-height: false) {
   .media--blazy,
-  figure, picture {
+  figure,
+  picture {
     display: block;
     height: 100%;
     width: 100%;
@@ -166,7 +167,7 @@
   display: block;
   width: 1.5em;
   height: 1.5em;
-  background-color: color(neutral-50);
+  // Bbackground-color: $color-bg-dark;
   border-radius: 0.5rem;
   font-size: 1.5rem;
   overflow: hidden;
@@ -188,7 +189,8 @@
       display: block;
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       text-decoration: none;
     }
   }
@@ -235,31 +237,33 @@
  * Helper mixin for setting default link style with css vars.
  */
 @mixin link-default () {
-  color: color(link);
+  color: $color-link;
   text-decoration: none;
 
   &.is-active {
-    color: color(link);
+    color: $color-link;
   }
 
-  &:hover, &:focus, &:active {
+  &:hover,
+  &:focus,
+  &:active {
     text-decoration: underline;
   }
 
   &:hover {
-    color: color(link-hover);
+    color: $color-primary;
   }
 
   &:focus {
-    color: color(link-focused);
+    color: $color-interaction;
   }
 
   &:active {
-    color: color(link-active);
+    color: $color-primary;
   }
 
   &:visited {
-    color: color(link);
+    color: $color-link;
   }
 }
 
@@ -267,44 +271,16 @@
  * Helper mixin for setting inverted link style with css vars.
  */
 @mixin link-inverted () {
-  color: color(link-inverted);
+  color: $color-text-inverted;
   text-decoration: none;
 
   &.is-active {
-    color: color(link-inverted);
+    color: $color-text-inverted;
   }
 
   &:hover, &:focus, &:active {
-    color: color(link-inverted-focused);
+    color: $color-text-muted;
     text-decoration: underline;
-  }
-}
-
-/**
- * Helper mixin for setting offcanvas link style with css vars.
- */
-@mixin link-offcanvas () {
-  color: color(link-offcanvas);
-  text-decoration: none;
-
-  &.is-active, &:visited {
-    color: color(link-offcanvas);
-  }
-
-  &:hover, &:focus, &:active {
-    text-decoration: underline;
-  }
-
-  &:hover {
-    color: color(link-offcanvas-hover);
-  }
-
-  &:focus {
-    color: color(link-offcanvas-focused);
-  }
-
-  &:active {
-    color: color(link-offcanvas-active);
   }
 }
 
@@ -312,43 +288,14 @@
  * Helper mixin for setting button primary styling.
  */
 @mixin button-primary () {
-  padding: 0.5rem 2rem;
-  margin-right: $grid-gutter;
-  @include typo(body);
-  line-height: 1;
-  color: color(link-inverted);
-  background: color(button);
-  border: 1px solid transparent;
-  outline-offset: 0.25rem;
-  cursor: pointer;
-  font-weight: normal;
-  display: inline-block;
+  color: $color-text-inverted;
+  background: $color-primary;
+  border: 1px solid $color-primary;
 
+  &:focus,
   &:hover {
-    background: color(button-hover);
-    text-decoration: none;
-  }
-
-  &:focus {
-    background: color(button-focused);
-    text-decoration: none;
-  }
-
-  &:active {
-    background: color(button-active);
-    border-color: color(button-hover);
-    color: color(button-hover);
-    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
-    text-decoration: none;
-  }
-
-  &[disabled] {
-    background: color(button);
-    color: color(link-inverted);
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: default;
-    text-decoration: none;
+    background: $color-interaction;
+    color: $color-text-inverted;
   }
 }
 
@@ -356,117 +303,33 @@
  * Helper mixin for setting button secondary styling.
  */
 @mixin button-secondary () {
-  padding: 0.5rem 2rem;
-  margin-right: $grid-gutter;
-  @include typo(body);
-  line-height: 1;
-  color: color(link);
-  background: color(button-secondary);
-  border: 1px solid color(link);
-  outline-offset: 0.25rem;
-  cursor: pointer;
-  font-weight: normal;
-  display: inline-block;
-
-  &:hover {
-    background: color(button-secondary-hover);
-    border-color: color(button-secondary);
-    color: color(link-inverted);
-    text-decoration: none;
-  }
-
-  &:focus {
-    background: color(button-secondary-focused);
-    border-color: color(button-secondary);
-    color: color(link-inverted);
-    text-decoration: none;
-  }
-
-  &:active {
-    background: color(button-secondary-active);
-    border-color: color(button-secondary);
-    color: color(button-secondary-focused);
-    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
-    text-decoration: none;
-  }
-
-  &[disabled] {
-    background: color(button-secondary-disabled);
-    color: color(link);
-    border-color: color(link);
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: default;
-    text-decoration: none;
-  }
+  color: $color-interaction;
+  background: $color-bg-light;
+  border-color: $color-interaction;
 }
 
 /**
  * Helper mixin for setting button danger styling.
  */
 @mixin button-danger () {
-  padding: 0.5rem 2rem;
-  margin-right: $grid-gutter;
-  @include typo(body);
-  line-height: 1;
-  color: color(link-inverted);
-  background: color(button-alert);
-  border: 1px solid color(white);
-  outline-offset: 0.25rem;
-  cursor: pointer;
-  font-weight: normal;
-  display: inline-block;
-
-  @include icon(times) {
-    margin-right: 0.5rem;
+  color: $color-danger;
+  background: $color-text-inverted;
+  border-color: $color-danger;
+  @include icon(xmark) {
+    margin-right: .5rem;
   };
 
-  &:hover {
-    background: color(button-alert-hover);
-    color: color(link-inverted);
-    text-decoration: none;
-  }
-
+  &:not([disabled]):hover,
   &:focus {
-    background: color(button-alert-hover);
-    color: color(link-inverted);
-    text-decoration: none;
+    background: $color-danger;
+    color: $color-text-inverted;
+    border-color: $color-danger;
   }
 
   &:active {
-    background: color(button-active);
-    border-color: color(button-alert-active);
-    color: color(button-alert-active);
-    box-shadow: 0 0.25rem 0.125rem rgba(0, 0, 0, 0.4);
-    text-decoration: none;
-  }
-
-  &[disabled] {
-    background: color(button-alert);
-    color: color(link-inverted);
-    border-color: color(link-inverted);
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: default;
-    text-decoration: none;
-  }
-}
-
-/**
- * Helper mixin for setting the tag links styling.
- * You can give it to any link to give it the pill style of tag links.
- */
-@mixin tag_links() {
-  display: inline-block;
-  background: color(neutral-10);
-  padding: $grid-gutter*0.25 $grid-gutter;
-  margin: 0 $grid-gutter $grid-gutter 0;
-  border-radius: 0.75rem;
-  text-decoration: none;
-
-  &:hover, &:focus {
-    background: color(neutral-40);
-    color: color(white);
+    background: $color-text-inverted;
+    border-color: $color-danger;
+    color: $color-danger;
   }
 }
 
@@ -548,36 +411,13 @@
         display: none;
       }
 
-      &:before, i {
+      &:before,
+      i {
         font-size: 1.5rem;
         vertical-align: bottom;
         margin-right: 0.5rem;
       }
     }
-  }
-}
-
-/**
- * Helper mixin for defining a light background on an element, f.e. forms.
- */
-@mixin form-background() {
-  position: relative;
-  &:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: color(primary-dark);
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
   }
 }
 

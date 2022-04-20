@@ -5,10 +5,13 @@
   }
 }
 
-h1,h2,h3,h4,h5,h6 {
-  &.teaser {
-    @include typo(teaser);
-  }
+h1.teaser,
+h2.teaser,
+h3.teaser,
+h4.teaser,
+h5.teaser,
+h6.teaser {
+  @include typo(teaser);
 }
 
 a {
@@ -25,7 +28,8 @@ p {
 }
 
 .content {
-  color: color(neutral-60);
+  // TODO: This has been moved to body.
+  //color: $color-text;
 
   ul {
     list-style: disc outside;
@@ -39,7 +43,14 @@ p {
         list-style-type: square;
       }
     }
+    &.inline {
+      margin-left: 0;
+      li {
+        display: inline-block;
+      }
+    }
   }
+
 
   ol {
     margin-left: $grid-gutter;
@@ -72,7 +83,7 @@ p {
     }
 
     th {
-      color: color(neutral-40);
+      color: $color-text-muted;
       text-align: left;
     }
 
@@ -81,7 +92,8 @@ p {
     }
 
     tr {
-      border-bottom: 1px solid color(primary);
+      // TODO Is this OK?
+      border-bottom: 1px solid $color-primary;
     }
 
     .field-multiple-drag {
@@ -127,7 +139,8 @@ p {
     margin-bottom: 1em;
   }
 
-  blockquote, blockquote p {
+  blockquote,
+  blockquote p {
     @include typo(h3);
     font-size: size(h4);
     @include breakpoint(m) {
@@ -135,7 +148,7 @@ p {
     }
     margin: $grid-gutter * 2 0;
     font-style: italic;
-    color: color(neutral-40);
+    color: $color-text-muted;
   }
 
   blockquote {
@@ -164,7 +177,7 @@ p {
   }
 
   hr {
-    border-color: color(neutral-40);
+    border-color: $color-divider-dark;
   }
 
   strong, b {
@@ -205,14 +218,14 @@ p {
 
   abbr {
     text-decoration: none;
-    border-bottom:2px dotted color(neutral-40);
+    border-bottom:2px dotted $color-text-muted;
   }
 
   kbd {
-    background: color(neutral-40);
-    border: thin solid color(black);
+    background: $color-text-muted;
+    border: thin solid $color-text;
     border-radius: 2px;
-    box-shadow: 1px 2px 2px color(white);
+    box-shadow: 1px 2px 2px $color-bg-light;
     font-family: inherit;
     font-size: 0.9em;
     padding: 0 0.5em;
@@ -224,19 +237,24 @@ p {
   }
 
   mark {
-    background-color: color(neutral-20);
+    background-color: $color-bg-slight-contrast;
   }
 
   code {
     white-space: pre;
     font-family: monospace;
+    max-width: 100%;
+    overflow: scroll;
+    display: inline-block;
+    padding-bottom: 0.5rem;
   }
 
   samp, var {
     font-family: monospace;
   }
 
-  .caption, .footnote {
+  .caption,
+  .footnote {
     @include typo(small);
   }
 }

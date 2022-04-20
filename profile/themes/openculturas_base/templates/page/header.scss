@@ -6,7 +6,7 @@ header.header {
   );
   grid-template-rows: 2.5rem auto 1.25rem;
   margin: 0 0 1.25rem;
-  border-bottom: 1px solid color(divider);
+  border-bottom: 1px solid $color-divider-light;
 
   @include breakpoint(m) {
     grid-column: 4 / 14;
@@ -70,8 +70,10 @@ header.header {
 
     &--link {
       @include offcanvas-button(bars);
-      @include offcanvas-button(times, fas, after);
-      color: color(white);
+
+      @include offcanvas-button(xmark, fas, after);
+      color: $color-text-inverted;
+      background: $color-bg-dark;
       text-decoration: none;
 
       &:before, &:after {
@@ -87,8 +89,9 @@ header.header {
         }
       }
 
-      &:hover, &:focus {
-        background-color: color(primary);
+      &:hover,
+      &:focus {
+        background-color: $color-primary;
       }
     }
   }

@@ -61,36 +61,120 @@ $breakpoints: (
   xl: 'min-width: #{$grid-layout-max-width}'
 );
 
-/**
- * Default color definitions, for if the theme has no color config.
- *
- * BEWARE: These are just sensible defaults.
- * These will set initial values for the CSS custom properties used anywhere in the theme for mapping colors.
- *
- * The openculturas_base theme has a backend config for overriding the default colors via CSS custom properties.
- * So as long as you are setting the colors in the backend of the theme system ('settings' link on /admin/appearance)
- * there should be no need to change the values in this file. They will be overridden by the config anyways.
- */
-$defaultColors: (
-  'primary':        #a1167f,
-  'primary-dark':   #483d8b,
-  'danger':         #d60040,
-  'danger-dark':    #a90000,
-  'success':        #188009,
-  'warning':        #ec6507,
-  'complete':       #6a26a5,
-  'info':           #1560b3,
-  'neutral-60':     #1F1F1F,
-  'neutral-50':     #303236,
-  'neutral-40':     #64666A,
-  'neutral-30':     #7B7D85,
-  'neutral-20':     #B1B2B5,
-  'neutral-10':     #E3E3E3,
-  'neutral-canvas': #F6F6F6,
-  'white':          #ffffff,
-  'black':          #000000,
-  'divider':        #E8E9EB
-);
+//
+// Colors.
+//
+// CAUTION:
+//   Do not change CSS color variable names (in base theme)
+//
+// This would lead to inconsistent results when changing the colors with
+// css_color_variables_ui module.
+// Any changes require updating the color.inc and css_color_variables_dependants.yml
+//
+:root {
+  /**
+   * Default colors
+   *
+   * Changeable by css_color_variables or Color Module settings.
+  **/
+  --color-primary: #a1167f;
+  --color-interaction:  #483d8b; // Secondary
+  --color-text: #1f1f1f;
+  --color-text-muted: #7b7d85;
+  --color-text-inverted: #ffffff;
+  --color-headline: #1f1f1f;
+  --color-link: #a1167f;
+  --color-danger: #d51317 ;
+  --color-info: #1f71b8;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  --color-neutral-canvas: #F6F6F6;
+  --color-bg-dark: #303236;
+  --color-bg-slight-contrast: #b1b2b5;
+  --color-bg-light: #ffffff;
+  --color-divider-light: #e8e9eb;
+  --color-divider-dark: #7b7d85;
+
+  /**
+   * Default derivated colors
+   *
+   * are changed when base colors are changed by css_color_variables or Color Module settings.
+   **/
+
+  /* Alerts */
+  --color-bg-danger: var(--color-danger-lighten-85, #f9dcdd);
+  --color-danger-dark: var(--color-danger-darken-25, #a00f12);
+  --color-bg-info: var(--color-info-lighten-85, #deeaf5);
+  --color-info-dark: var(--color-info-darken-25, #18558a);
+  --color-bg-success: var(--color-success-lighten-85, #ddecdb);
+  --color-success-dark: var(--color-success-darken-25, #126007);
+  --color-bg-warning: var(--color-warning-lighten-85, #fff7d9);
+  --color-warning-dark: var(--color-warning-darken-25, #c09300);
+
+  /* Form colors */
+  --color-bg-form: var(--color-interaction--lighten-95, #f6f6fa);
+  --color-bg-fieldset: var(--color-bg-dark--opacity-8, #30323614);
+}
+
+//
+// SASS-color-variables containing CSS-variables
+//
+// Why we reasign CSS vars to SASS variables?
+// + Basetheme uses strict SASS based color Schema (vs Undefined CSS vars fail silently).
+// + A clearly defined set of CSS Variables keeps Subthemes working.
+// + Easy subtheming with UI configurable base and easy to define derivate colors.
+// + Better readability and support in IDE for SSASS variables.
+// + No need to write var(--bla) everywhere.
+// Disadvantage:
+// - SASS color functions do not work.
+//   They are disabled and throw error when used.
+//   --> Prefer css_color_variables_dependant variables like:
+//    --color-danger-lighten-85
+//    --color-danger-darken-25
+//    --color-primary--opacity-16
+//   --> Make use of Hexadecimal opacity:
+//       #0000007F not rgba(0, 0, 0, 0.5)
+//   --> Check out openculturas_base/color/css_color_variables_dependants.yml
+//       and the UI at /css_color_variables_demopage to check out colors and derivate-variants.
+//
+$color-primary: var(--color-primary);
+$color-interaction: var(--color-interaction);
+$color-text: var(--color-text);
+$color-text-muted: var(--color-text-muted);
+$color-text-inverted: var(--color-text-inverted);
+$color-headline: var(--color-headline);
+$color-link: var(--color-link);
+
+$color-neutral-canvas: var(--color-neutral-canvas);
+$color-bg-dark: var(--color-bg-dark);
+$color-bg-slight-contrast: var(--color-bg-slight-contrast);
+$color-bg-light: var(--color-bg-light);
+
+$color-divider-light: --color-divider-light;
+$color-divider-dark: var(--color-divider-dark);
+
+$color-danger: var(--color-danger);
+$color-info: var(--color-info);
+$color-success: var(--color-success);
+$color-warning: var(--color-warning);
+
+// Derivate Colors
+// can not directly be changed in UI / Color module.
+$color-bg-danger: var(--color-bg-danger);
+$color-danger-dark: var(--color-danger-dark);
+$color-bg-info: var(--color-bg-info);
+$color-bg-dark: var(--color-bg-dark);
+$color-bg-success: var(--color-bg-success);
+$color-success-dark: var(--color-success-dark);
+$color-bg-warning: var(--color-bg-warning);
+$color-warning-dark: var(--color-warning-dark);
+$color-bg-form: var(--color-bg-form);
+$color-bg-fieldset: var(--color-bg-fieldset);
+
+body {
+  // If you need to reassign CSS variables, you must do it HERE!
+  // If you do it in :root, they will not change with Color UI changes.
+}
 
 /**
  * Base font size definitions.
@@ -207,7 +291,7 @@ $fontStyles: (
     text-transform: uppercase,
     letter-spacing: 0.05rem,
     margin: 0.5em 0,
-    color: color(primary-dark),
+    color: $color-interaction,
   ),
   h3: (
     font-family: $font-head,
@@ -215,7 +299,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
   h2: (
     font-family: $font-head,
@@ -223,7 +307,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
   h1: (
     font-family: $font-head,
@@ -231,7 +315,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
 );
 

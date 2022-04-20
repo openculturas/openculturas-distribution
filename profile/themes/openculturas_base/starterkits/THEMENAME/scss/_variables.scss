@@ -54,8 +54,8 @@ $utility_grids_container_selectors: '> .view-content, > .field__items, > .detail
  * Since they are used by the scss files, this would most likely result in a broken compilation process.
  */
 $breakpoints: (
-  xs: 'max-width: 29.9375rem',
-  s: 'min-width: 30rem',
+  xs: 'max-width: 29.9375rem', // < 480px
+  s: 'min-width: 30rem', // @todo Not consistent
   m: 'min-width: 48rem',
   l: 'min-width: 62rem',
   xl: 'min-width: #{$grid-layout-max-width}'
@@ -207,7 +207,7 @@ $fontStyles: (
     text-transform: uppercase,
     letter-spacing: 0.05rem,
     margin: 0.5em 0,
-    color: color(primary-dark),
+    color: $color-secondary,
   ),
   h3: (
     font-family: $font-head,
@@ -215,7 +215,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
   h2: (
     font-family: $font-head,
@@ -223,7 +223,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
   h1: (
     font-family: $font-head,
@@ -231,7 +231,7 @@ $fontStyles: (
     font-weight: normal,
     line-height: 1.2,
     margin: 0.5em 0,
-    color: color(headline),
+    color: $color-headline,
   ),
 );
 

@@ -1,6 +1,6 @@
 footer.footer {
-  background: color(neutral-50);
-  color: color(white);
+  background: $color-bg-dark;
+  color: $color-text-inverted;
 
   .footer--container {
     margin: 0 auto;
@@ -42,7 +42,7 @@ footer.footer {
       }
 
       .block--title {
-        color: color(white);
+        color: $color-text-inverted;
       }
 
 
@@ -65,7 +65,7 @@ footer.footer {
 
       > h2 {
         @include typo(h3);
-        color: color(white);
+        color: $color-text-inverted;
       }
     }
   }
@@ -76,15 +76,20 @@ footer.footer {
     &--link {
       @include offcanvas-button(arrow-up);
       display: block;
-      background: color(white);
-      color: color(black);
+      background: $color-bg-light;
+      color: $color-text;
       margin-left: auto;
       position: relative;
       z-index: 2;
       grid-row: 2;
 
-      &:hover, &:focus {
-        color: color(primary);
+      &:hover,
+      &:focus {
+        color: $color-primary;
+        // Todo: Not ennough Contrast
+        //background: $color-primary;
+        //color: $color-text-inverted;
+        //outline: 2px solid $color-text-inverted;
       }
     }
   }

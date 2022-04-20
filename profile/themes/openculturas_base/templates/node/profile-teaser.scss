@@ -3,7 +3,7 @@
 
   .profile--picture {
     @include profile_circle;
-    background-color: color(neutral-20);
+    background-color: $color-bg-slight-contrast;
     display: inline-block;
 
     @include icon(user, fas, before);
@@ -14,7 +14,7 @@
       left: 0;
       width: 100%;
       font-size: 4rem;
-      color: color(white);
+      color: $color-text-inverted;
     }
 
     img {
@@ -26,6 +26,7 @@
 
   &.node--type-location {
     .profile--picture {
+      background: $color-bg-slight-contrast;
       @include icon(location-dot, fas, before);
 
       &:before {
@@ -34,18 +35,20 @@
         left: 0;
         width: 100%;
         font-size: 4rem;
-        color: color(white);
+        color: $color-text-inverted;
       }
     }
   }
 }
 
-.profile-teaser.node--view-mode-embedded-teaser, .profile-teaser.node--view-mode-contact {
+.profile-teaser.node--view-mode-embedded-teaser,
+.profile-teaser.node--view-mode-contact {
   text-align: center;
   margin: 0;
 
   .profile--content {
-    h4, h3 {
+    h4,
+    h3 {
       @include typo(teaser);
       margin: 0;
     }
@@ -57,7 +60,9 @@
 }
 
 
-.profile-teaser.node--view-mode-teaser, .profile-teaser.node--view-mode-compact, .profile-teaser.node--view-mode-legal {
+.profile-teaser.node--view-mode-teaser,
+.profile-teaser.node--view-mode-compact,
+.profile-teaser.node--view-mode-legal {
   text-align: left;
 
   @include grid(auto 1fr);

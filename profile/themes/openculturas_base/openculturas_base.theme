@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Entity\FieldableEntityInterface;
-use Drupal\Core\Render\Markup;
 
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
@@ -20,23 +19,6 @@ function openculturas_base_preprocess_html(&$variables) {
       break;
     }
   }
-
-
-  // Render theme setting's css variable definitions.
-  $config = \Drupal::config('openculturas_base.settings')->getRawData();
-
-  $css_string = "";
-  foreach ($config as $key => $val) {
-    if (strpos($key, 'color-') !== false) {
-      $css_string .= "--" . $key . ": " . $val . ';';
-    }
-  }
-
-  $style = [
-    '#markup' => Markup::create('<style>:root { ' . $css_string . '}</style>'),
-  ];
-
-  $variables['openculturas_css_settings'] = $style;
 }
 
 /**

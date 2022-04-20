@@ -4,19 +4,20 @@
   max-height: 100vh;
   position: fixed;
   right: 0;
-  top: 0;
+  top: auto;
   z-index: 1000;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: color(white);
+  background: $color-bg-light;
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
   font-size: size(bigger);
 
   .offcanvas-open &{
     transform: translate3d(0, 0, 0);
-    box-shadow: 1rem 0 1rem color(black);
+    //box-shadow: 1rem 0 1rem var(----color-text);
+    box-shadow: 0 0.5rem 1.5rem -0.5rem $color-text;
   }
 
   &--grid {
@@ -62,7 +63,7 @@
     margin: $grid-gutter*1 0 $grid-gutter*2 0;
 
     .block {
-      border-top: 1px solid color(divider);
+      border-top: 1px solid $color-divider-light;
       padding: $grid-gutter 0;
 
       &:first-child {
@@ -70,7 +71,19 @@
       }
 
       a {
-        @include link-offcanvas;
+        // @include link-offcanvas();
+        color: $color-text;
+        text-decoration: none;
+
+        &:visited{
+          color: $color-text;
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $color-primary;
+        }
       }
     }
 
@@ -92,8 +105,10 @@
         display: block;
         padding: 0.5rem 2.25rem 0.5rem 0;
 
-        &:hover, &:focus, &:active {
-          background: color(neutral-10);
+        &:hover,
+        &:focus,
+        &:active {
+          background: $color-bg-slight-contrast;
           padding-left: 0.5rem;
           margin-left: -0.5rem;
         }
