@@ -18,7 +18,7 @@ trait LoginTrait
      * Login via a one time password URL.
      *
      * @param \Drupal\Core\Session\AccountInterface $account
-     *                                                       The account interface.
+     *   The account interface.
      */
     protected function drupalLogin(AccountInterface $account)
     {
@@ -30,8 +30,7 @@ trait LoginTrait
         $account = User::load($account->id()); // Reload to get latest login timestamp.
         $login = $this->user_pass_reset_url($account).'/login';
         $this->getSession()->visit($login);
-        //$this->
-
+        $this->submitForm(['extras-1' => TRUE, 'legal_accept' => TRUE], 'Confirm');
         // @see ::drupalUserIsLoggedIn()
         $account->sessionId = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);
         $this->assertTrue($this->drupalUserIsLoggedIn($account), (string) new FormattableMarkup('User %name successfully logged in.', ['%name' => $account->getAccountName()]));
@@ -65,15 +64,15 @@ trait LoginTrait
      * The only change here is use of time() instead of REQUEST_TIME.
      *
      * @param \Drupal\user\UserInterface $account
-     *                                            An object containing the user account.
-     * @param array                      $options
-     *                                            (optional) A keyed array of settings. Supported options are:
-     *                                            - langcode: A language code to be used when generating locale-sensitive
-     *                                            URLs. If langcode is NULL the users preferred language is used.
+     *   An object containing the user account.
+     * @param array $options
+     *  (optional) A keyed array of settings. Supported options are:
+     *  - langcode: A language code to be used when generating locale-sensitive
+     *    URLs. If langcode is NULL the users preferred language is used.
      *
      * @return string
-     *                A unique URL that provides a one-time log in for the user, from which
-     *                they can change their password.
+     *   A unique URL that provides a one-time log in for the user, from which
+     *   they can change their password.
      */
     public function user_pass_reset_url(UserInterface $account, array $options = [])
     {
