@@ -56,8 +56,6 @@ class ReservixEventgroupsAPI extends ReservixBaseAPI {
       $row->setSourceProperty('_', $event['']);
     }
 
-    echo print_r($events, TRUE), PHP_EOL;
-
     return TRUE;
   }
 
