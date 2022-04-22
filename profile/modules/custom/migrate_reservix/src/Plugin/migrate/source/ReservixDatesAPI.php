@@ -45,6 +45,9 @@ class ReservixDatesAPI extends ReservixBaseAPI {
     $end = \DateTime::createFromFormat('Y-m-d H:m', $source_end_date . ' ' . $source_end_time, new \DateTimeZone('Europe/Berlin'));
     $row->setSourceProperty('_end_datetime', $end->format('U'));
 
+    $artist = '<p><strong>' . $row->getSourceProperty('artist') . '</strong></p>';
+    $row->setSourceProperty('_artist', $artist);
+
     $references = $row->getSourceProperty('references');
     if (!$references) {
       return TRUE;
