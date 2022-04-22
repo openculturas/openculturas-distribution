@@ -50,20 +50,20 @@ class ReservixDatesAPI extends ReservixBaseAPI {
       return TRUE;
     }
 
-    // @todo This can probably be solved with a migrate_lookup plugin instead.
-    $database = \Drupal::database();
-    $results = $database
-      // @fixme This will break, when the migration identifier changes.
-      ->select('migrate_map_entity_import__reservix_eventgroup__event', 'mm')
-      ->fields('mm', ['destid1'])
-      ->condition('mm.sourceid1', reset($references['eventgroup'])['id'], '=')
-      ->execute()
-      ->fetchAll();
-    if (!empty($results)) {
-      foreach ($results as $result) {
-        $row->setSourceProperty('_event_dest_id', $result->destid1);
-      }
-    }
+//    // @todo This can probably be solved with a migrate_lookup plugin instead.
+//    $database = \Drupal::database();
+//    $results = $database
+//      // @fixme This will break, when the migration identifier changes.
+//      ->select('migrate_map_entity_import__reservix_eventgroup__event', 'mm')
+//      ->fields('mm', ['destid1'])
+//      ->condition('mm.sourceid1', reset($references['eventgroup'])['id'], '=')
+//      ->execute()
+//      ->fetchAll();
+//    if (!empty($results)) {
+//      foreach ($results as $result) {
+//        $row->setSourceProperty('_event_dest_id', $result->destid1);
+//      }
+//    }
 
     echo print_r($row->getSource(), TRUE), PHP_EOL;
 
