@@ -179,7 +179,6 @@ class MockReservixApiClient implements ReservixApiClientInterface {
    * Get events.
    */
   public function getEvents(array $params = []): array {
-    echo __METHOD__, PHP_EOL;
     $filename = 'events.json';
     return json_decode(file_get_contents(__DIR__ . '/../tests/assets/' . $filename), TRUE);
   }
