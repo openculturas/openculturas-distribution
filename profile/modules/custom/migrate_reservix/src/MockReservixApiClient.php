@@ -52,7 +52,6 @@ class MockReservixApiClient implements ReservixApiClientInterface {
     Client $http_client,
     ConfigFactory $config_factory
   ) {
-    echo __CLASS__ . '::' . __METHOD__, PHP_EOL;
     $this->httpClient = $http_client;
     $this->config = $config_factory->get('migrate_reservix.settings');
   }
