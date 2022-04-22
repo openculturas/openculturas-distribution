@@ -48,6 +48,9 @@ class ReservixDatesAPI extends ReservixBaseAPI {
     $artist = '<p><strong>' . $row->getSourceProperty('artist') . '</strong></p>';
     $row->setSourceProperty('_artist', $artist);
 
+    $title = $row->getSourceProperty('name') . ' ' . $row->getSourceProperty('startdate');
+    $row->setSourceProperty('_title', $title);
+
     $references = $row->getSourceProperty('references');
     if (!$references) {
       return TRUE;
