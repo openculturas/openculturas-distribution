@@ -7,6 +7,11 @@ declare(strict_types=1);
  * Primary module hooks for OpenCulturas Base module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+
 /**
  * Implements hook_editor_js_settings_alter().
  *
@@ -152,7 +157,6 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
       $map_settings['map']['settings']['map_position_force'] = TRUE;
     }
   }
-  $stop = 1;
 }
 
 /**
@@ -176,5 +180,41 @@ function openculturas_custom_flagging_update(\Drupal\flag\FlaggingInterface $ent
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
     $flagged_entity = $entity->getFlaggable();
     $cacheInvalidator->invalidateTags($flagged_entity->getCacheTagsToInvalidate());
+  }
+}
+
+/**
+ * Implements hook_entity_prepare_form().
+ */
+function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $operation, FormStateInterface $form_state) {
+  if (!$date_entity instanceof NodeInterface) {
+    return;
+  }
+  if ($date_entity->bundle() !== 'date' || !$date_entity->isNew()) {
+    return;
+  }
+  if (\Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('event_id')) {
+    $event_id = $request->get('event_id');
+    if (empty($event_id)) {
+      return;
+    }
+    $event = Node::load($event_id);
+    if (!$event instanceof NodeInterface) {
+      return;
+    }
+    if ($event->bundle() !== 'event') {
+      return;
+    }
+    $date_entity->set('field_event_description', ['target_id' => $event->id()]);
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $source_data */
+    $source_data = $event->get('field_people_reference');
+    if ($source_data->isEmpty()) {
+      return;
+    }
+    foreach ($source_data as $index => $ref) {
+      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+      $paragraph = clone $ref->entity;
+      $date_entity->get('field_people_reference')->set($index, $paragraph);
+    }
   }
 }
