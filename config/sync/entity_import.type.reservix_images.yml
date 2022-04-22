@@ -1,0 +1,24 @@
+uuid: 3d680cf5-f6c9-4f6f-980a-8030bf638114
+langcode: en
+status: true
+dependencies: {  }
+id: reservix_images
+label: 'Reservix Images'
+expose_importer: true
+description: ''
+migration_source:
+  source:
+    plugin_id: migrate_reservix_images_slideshow_source
+    configuration:
+      endpoint:
+        - custom/imagesslideshow
+      params: ''
+      throttle: '200'
+migration_entity:
+  entity:
+    type: media
+    bundles:
+      image: image
+migration_dependencies:
+  optional:
+    migration: {  }
