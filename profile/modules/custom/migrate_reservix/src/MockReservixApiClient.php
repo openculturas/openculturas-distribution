@@ -236,8 +236,8 @@ class MockReservixApiClient implements ReservixApiClientInterface {
    * Get eventgroups.
    */
   public function getEventgroups(array $params = []): array {
-    error_log('Not implemented: ' . __METHOD__);
-    return [];
+    $filename = 'eventgroups.json';
+    return json_decode(file_get_contents(__DIR__ . '/../tests/assets/' . $filename), TRUE);
   }
 
 }
