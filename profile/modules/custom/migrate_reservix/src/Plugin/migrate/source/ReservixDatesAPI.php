@@ -113,7 +113,20 @@ class ReservixDatesAPI extends ReservixBaseAPI {
     if (!empty($results)) {
       foreach ($results as $result) {
         $row->setSourceProperty('_organizer_target_id', $result->destid1);
-        echo $result->destid1, PHP_EOL;
+      }
+    }
+
+    // @todo This can probably be solved with a migrate_lookup plugin instead.
+    $results = $database
+      // @fixme This will break, when the migration identifier changes.
+      ->select('migrate_map_entity_import__reservix_location__location', 'mm')
+      ->fields('mm', ['destid1'])
+      ->condition('mm.sourceid1', reset($references['venue'])['id'], '=')
+      ->execute()
+      ->fetchAll();
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $row->setSourceProperty('_location_target_id', $result->destid1);
       }
     }
 
