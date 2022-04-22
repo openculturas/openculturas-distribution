@@ -9,7 +9,7 @@ namespace Drupal\migrate_reservix;
  */
 interface ReservixApiClientInterface {
 
-  const IMAGE_DETAIL = 2;
+  const IMAGE_DETAIL = 1;
 
   const IMAGE_SLIDESHOW = 2;
 

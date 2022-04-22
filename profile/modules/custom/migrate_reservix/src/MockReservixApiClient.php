@@ -220,7 +220,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
    * Get detail images.
    */
   public function getDetailImages(array $params = []): array {
-    $filename = 'image-details.json';
+    $filename = 'images-detail.json';
     return json_decode(file_get_contents(__DIR__ . '/../tests/assets/' . $filename), TRUE);
   }
 

@@ -142,4 +142,61 @@ class MigrateReservixCommands extends DrushCommands {
     print json_encode($result, JSON_PRETTY_PRINT);
   }
 
+  /**
+   * Get slideshow images.
+   *
+   * @usage migrate_reservix:images-slideshow
+   *
+   * @command migrate_reservix:images-slideshow
+   */
+  public function getImagesSlideshow() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getSlideshowImages(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get detail images.
+   *
+   * @usage migrate_reservix:images-detail
+   *
+   * @command migrate_reservix:images-detail
+   */
+  public function getImagesDetail() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getDetailImages(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
+  /**
+   * Get eventgroups.
+   *
+   * @usage migrate_reservix:eventgroups
+   *
+   * @command migrate_reservix:eventgroups
+   */
+  public function getEventgroups() {
+    $config = \Drupal::configFactory()->get('migrate_reservix.settings');
+
+    /** @var \Drupal\migrate_reservix\ReservixApiClient $service */
+    $service = \Drupal::service('migrate_reservix.client');
+    $service->setCredentials($config->get('api_key'));
+
+    $result = $service->getEventgroups(['page' => 0]);
+
+    print json_encode($result, JSON_PRETTY_PRINT);
+  }
+
 }

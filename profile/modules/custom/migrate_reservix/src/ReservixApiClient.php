@@ -13,10 +13,6 @@ use GuzzleHttp\Client;
  */
 class ReservixApiClient implements ReservixApiClientInterface {
 
-  const IMAGE_DETAIL = 1;
-
-  const IMAGE_SLIDESHOW = 2;
-
   /**
    * The HTTP Client for making API requests.
    *
@@ -190,7 +186,6 @@ class ReservixApiClient implements ReservixApiClientInterface {
    *   An associative array of data from the API.
    */
   public function getEvents(array $params = []): array {
-    echo print_r($params, TRUE), PHP_EOL;
     return $this->get('sale/event', $params);
   }
 
