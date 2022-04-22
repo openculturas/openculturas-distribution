@@ -47,6 +47,10 @@ class ReservixEventsAPI extends ReservixBaseAPI {
     $description = str_replace(['<br>', '<br/>', '<br />'], [' '], $description);
     $row->setSourceProperty('_description', $description);
 
+    $description = $row->getSourceProperty('description');
+    $description = str_replace(['<br>', '<br/>', '<br />'], [' '], $description);
+    $row->setSourceProperty('_description', $description);
+
     // Duration seconds to ISO 8601 duration.
     $duration_minutes = $row->getSourceProperty('duration');
     $row->setSourceProperty('_duration_seconds', $duration_minutes * 60);
