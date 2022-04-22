@@ -4,24 +4,28 @@ status: true
 dependencies:
   config:
     - filter.format.advanced_html
+    - media.type.audio
     - node.type.article
     - taxonomy.vocabulary.accessibility
     - taxonomy.vocabulary.category
     - taxonomy.vocabulary.column
   module:
     - filter
+    - flag
     - media
     - node
     - path
     - taxonomy
 id: magazine_editor
-label: 'Magazine editor'
-weight: -8
+label: 'OC magazine editor'
+weight: -6
 is_admin: null
 permissions:
-  - 'access media overview'
+  - 'access content overview'
   - 'access taxonomy overview'
   - 'create article content'
+  - 'create audio media'
+  - 'create media'
   - 'create terms in accessibility'
   - 'create terms in category'
   - 'create terms in column'
@@ -29,9 +33,13 @@ permissions:
   - 'delete terms in accessibility'
   - 'delete terms in category'
   - 'delete terms in column'
+  - 'edit any article content'
   - 'edit terms in accessibility'
   - 'edit terms in category'
   - 'edit terms in column'
+  - 'flag recommendation_node'
   - 'revert article revisions'
+  - 'unflag recommendation_node'
   - 'use text format advanced_html'
   - 'view article revisions'
+  - 'view own unpublished content'
