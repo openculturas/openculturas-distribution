@@ -160,6 +160,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get genres.
    */
   public function getGenres(array $params = []): array {
     $filename = 'genres.json';
@@ -167,6 +168,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get venues.
    */
   public function getVenues(array $params = []): array {
     $filename = 'venues.json';
@@ -174,6 +176,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get events.
    */
   public function getEvents(array $params = []): array {
     echo __METHOD__, PHP_EOL;
@@ -182,13 +185,15 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get organizers.
    */
   public function getOrganizers(array $params = []): array {
     $filename = 'organizers.json';
-    return $response = json_decode(file_get_contents(__DIR__ . '/../tests/assets/' . $filename), TRUE);;
+    return json_decode(file_get_contents(__DIR__ . '/../tests/assets/' . $filename), TRUE);
   }
 
   /**
+   * Get locations.
    */
   public function getLocations(array $params = []): array {
     $filename = 'locations.json';
@@ -196,6 +201,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get artists.
    */
   public function getArtists(array $params = []): array {
     $filename = 'artists.json';
@@ -203,6 +209,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get images.
    */
   public function getImages(array $params = [], int $type = self::IMAGE_DETAIL): array {
     $filename = 'images.json';
@@ -210,6 +217,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get detail images.
    */
   public function getDetailImages(array $params = []): array {
     $filename = 'image-details.json';
@@ -217,6 +225,7 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get slideshow images.
    */
   public function getSlideshowImages(array $params = []): array {
     $filename = 'images-slideshow.json';
@@ -224,11 +233,11 @@ class MockReservixApiClient implements ReservixApiClientInterface {
   }
 
   /**
+   * Get eventgroups.
    */
   public function getEventgroups(array $params = []): array {
+    error_log('Not implemented: ' . __METHOD__);
     return [];
-    $filename = 'images-slideshow.json';
-    return json_decode(file_get_contents(__DIR__ . '/../tests/assets/' . $filename), TRUE);
   }
 
 }

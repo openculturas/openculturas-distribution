@@ -31,7 +31,7 @@ class SettingsForm extends ConfigFormBase {
     $form['api_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('API key'),
-      '#description' => $this->t('The API key '),
+      '#description' => $this->t('The API key'),
       '#default_value' => $this->config('migrate_reservix.settings')->get('api_key'),
     ];
     $form['latitude'] = [
@@ -53,13 +53,6 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $this->config('migrate_reservix.settings')->get('radius'),
     ];
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
   }
 
   /**
