@@ -51,9 +51,53 @@ class ReservixDatesAPI extends ReservixBaseAPI {
     $title = $row->getSourceProperty('name') . ' ' . $row->getSourceProperty('startdate');
     $row->setSourceProperty('_title', $title);
 
+    $database = \Drupal::database();
+    // @todo This can probably be solved with a migrate_lookup plugin instead.
+    $results = $database
+      // @fixme This will break, when the migration identifier changes.
+      ->select('migrate_map_entity_import__reservix_event__event', 'mm')
+      ->fields('mm', ['destid1'])
+      ->condition('mm.sourceid1', $row->getSourceProperty('id'), '=')
+      ->execute()
+      ->fetchAll();
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $row->setSourceProperty('_event_target_id', $result->destid1);
+        echo $result->destid1, PHP_EOL;
+      }
+    }
+
     $references = $row->getSourceProperty('references');
     if (!$references) {
       return TRUE;
+    }
+
+    foreach (array_keys($references) as $property_name) {
+      if (!isset($references[$property_name])
+        || !is_array($references[$property_name])) {
+        break;
+      }
+
+      // Flatten the references for better accessibility in migration mapping.
+      $i = 0;
+      foreach ($references[$property_name] as $reference) {
+        foreach ($reference as $field_name => $field_value) {
+          // This results into keys like e.g. "_genre_0_id", "_genre_0_name" ...
+          try {
+            $row->setSourceProperty(
+              '_' . $property_name . '_' . $i . '_' . $field_name,
+              $field_value
+            );
+          }
+          catch (\Exception $e) {
+            \Drupal::logger('migrate_reservix')
+              ->debug('Could not change source property: @message', [
+                '@message' => $e->getMessage(),
+              ]);
+          }
+        }
+        $i++;
+      }
     }
 
     return TRUE;
