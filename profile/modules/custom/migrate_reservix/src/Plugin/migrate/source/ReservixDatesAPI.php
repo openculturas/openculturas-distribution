@@ -45,13 +45,16 @@ class ReservixDatesAPI extends ReservixBaseAPI {
     $end = \DateTime::createFromFormat('Y-m-d H:m', $source_end_date . ' ' . $source_end_time, new \DateTimeZone('Europe/Berlin'));
     $row->setSourceProperty('_end_datetime', $end->format('U'));
 
-    $artist = '<p><strong>' . $row->getSourceProperty('artist') . '</strong></p>';
+    if ($artist = $row->getSourceProperty('artist')) {
+      $artist = '<p><strong>' . $artist . '</strong></p>';
+    }
     $row->setSourceProperty('_artist', $artist);
 
     $title = $row->getSourceProperty('name') . ' ' . $row->getSourceProperty('startdate');
     $row->setSourceProperty('_title', $title);
 
     $database = \Drupal::database();
+
     // @todo This can probably be solved with a migrate_lookup plugin instead.
     $results = $database
       // @fixme This will break, when the migration identifier changes.
@@ -63,7 +66,6 @@ class ReservixDatesAPI extends ReservixBaseAPI {
     if (!empty($results)) {
       foreach ($results as $result) {
         $row->setSourceProperty('_event_target_id', $result->destid1);
-        echo $result->destid1, PHP_EOL;
       }
     }
 
@@ -97,6 +99,21 @@ class ReservixDatesAPI extends ReservixBaseAPI {
           }
         }
         $i++;
+      }
+    }
+
+    // @todo This can probably be solved with a migrate_lookup plugin instead.
+    $results = $database
+      // @fixme This will break, when the migration identifier changes.
+      ->select('migrate_map_entity_import__reservix_organizer__profile', 'mm')
+      ->fields('mm', ['destid1'])
+      ->condition('mm.sourceid1', reset($references['organizer'])['id'], '=')
+      ->execute()
+      ->fetchAll();
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $row->setSourceProperty('_organizer_target_id', $result->destid1);
+        echo $result->destid1, PHP_EOL;
       }
     }
 
