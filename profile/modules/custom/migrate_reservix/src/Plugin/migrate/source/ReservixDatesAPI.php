@@ -15,6 +15,8 @@ use Drupal\migrate\Row;
  */
 class ReservixDatesAPI extends ReservixBaseAPI {
 
+  const ARTIST_FORMAT = 'basic_html';
+
   /**
    * {@inheritdoc}
    */
@@ -49,6 +51,7 @@ class ReservixDatesAPI extends ReservixBaseAPI {
       $artist = '<p><strong>' . $artist . '</strong></p>';
     }
     $row->setSourceProperty('_artist', $artist);
+    $row->setSourceProperty('_artist_format', static::ARTIST_FORMAT);
 
     $title = $row->getSourceProperty('name') . ' ' . $row->getSourceProperty('startdate');
     $row->setSourceProperty('_title', $title);
