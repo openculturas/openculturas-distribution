@@ -140,6 +140,7 @@
         "drupal/duration_field": "^2.0",
         "drupal/elasticsearch_connector": "^7.0-dev",
         "drupal/entity_browser": "^2.6",
+        "drupal/epp": "^1.2",
         "drupal/eu_cookie_compliance": "^1.19",
         "drupal/extra_field": "^2.1",
         "drupal/facets": "^2.0",
@@ -209,13 +210,20 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/config_inspector": "^2.0",
         "drupal/core-composer-scaffold": "^9.3",
+        "drupal/core-dev-pinned": "^9.3",
         "drupal/core-recommended": "^9.3",
         "drupal/devel": "^4.1",
         "drupal/stage_file_proxy": "^1.2",
         "drush/drush": "^10.6",
         "npm-asset/jquery-ui-touch-punch": "^0.2.3",
         "oomphinc/composer-installers-extender": "^2.0",
-        "openculturas/openculturas-profile": "*"
+        "openculturas/openculturas-profile": "*",
+        "weitzman/drupal-test-traits": "dev-master"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\openculturas\\" : "tests/src"
+        }
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -331,8 +339,12 @@
             "drupal/views_autocomplete_filters": {
                 "Issue #2999501: Undefined index: autocomplete_field breaking search view ajax": "https://www.drupal.org/files/issues/2022-03-22/views_autocomplete_filter-2999501-9-stable-dont_break_ajax_with_php_notice.patch"
             },
-            "drupal/paragraphs": {
-                "Issue #3165793: Uncaught ReflectionException error on dev if migrate module is not enabled": "https://git.drupalcode.org/project/paragraphs/-/commit/80e4c5b.patch"
+            "drupal/legal": {
+                "Issue #3074688: Password reset links no longer work": "https://git.drupalcode.org/project/legal/-/merge_requests/7.patch",
+                "Issue #3252838: session_destroy(): Trying to destroy uninitialized session": "https://git.drupalcode.org/project/legal/-/merge_requests/4.patch"
+            },
+            "drupal/css_color_variables": {
+                "Issue #3276424: Error: Call to a member function __toString() on string in css_color_variables_ui_page_attachments()": "https://git.drupalcode.org/project/css_color_variables/-/merge_requests/2.diff"
             }
         }
     }
