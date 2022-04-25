@@ -88,7 +88,7 @@ blockquote span:before {
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 700;
-  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-70.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-70.woff") format("woff");
+  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-700.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-700.woff") format("woff");
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
@@ -116,7 +116,7 @@ blockquote span:before {
   font-family: "Noto Serif";
   font-style: normal;
   font-weight: 700;
-  src: local(""), url("../fonts/noto-serif-v16-latin-ext_latin-70.woff2") format("woff2"), url("../fonts/noto-serif-v16-latin-ext_latin-70.woff") format("woff");
+  src: local(""), url("../fonts/noto-serif-v16-latin-ext_latin-700.woff2") format("woff2"), url("../fonts/noto-serif-v16-latin-ext_latin-700.woff") format("woff");
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
@@ -10258,15 +10258,15 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 100%;
-  color: var(--color-text);
   background-color: var(--color-neutral-canvas);
+  color: var(--color-text);
   font-family: var(--font-base);
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
   line-height: 1.4;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
 /* %allcaps */
@@ -10448,16 +10448,17 @@ li:last-child {
 }
 
 table {
+  display: block;
   margin: 1em auto;
   max-width: 100%;
-  display: block;
   overflow-x: auto;
 }
 table th {
   color: var(--color-text-muted);
   text-align: left;
 }
-table td, table th {
+table td,
+table th {
   padding: 0.5em;
 }
 table tr {
@@ -12504,10 +12505,10 @@ h6.teaser {
 }
 
 .messages {
-  border-width: 2px;
-  border-radius: 0.4rem;
-  box-shadow: none;
   background-image: none;
+  border-radius: 0.4rem;
+  border-width: 2px;
+  box-shadow: none;
   padding: 0.6rem 1rem 0.6rem 2.6rem;
   position: relative;
 }
@@ -12522,22 +12523,22 @@ h6.teaser {
 .messages a,
 .messages a:hover {
   color: inherit;
+  display: inline;
   font-weight: bold;
   text-decoration: underline;
-  display: inline;
 }
 .messages.messages--error {
-  color: var(--color-danger);
-  border-color: var(--color-danger);
   background-color: var(--color-bg-danger);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
 }
 .messages.messages--error:before {
   content: "\f057";
 }
 .messages.messages--status {
+  background-color: var(--color-bg-success);
   border-color: var(--color-success);
   color: var(--color-success);
-  background-color: var(--color-bg-success);
 }
 .messages.messages--status:before {
   content: "\f058";
