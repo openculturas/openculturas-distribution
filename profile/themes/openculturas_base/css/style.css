@@ -52,10 +52,10 @@ body {
   --color-bg-fieldset: var(--color-interaction--opacity-3, #483d8b07);
 }
 
-.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button.form-submit:before, .oc-details > summary > .h3:before,
-.oc-details > summary > blockquote:before,
-blockquote .oc-details > summary > p:before, .header .header__burger--link:after, .header .header__burger--link:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node a:before, .flag-bookmark-node a:before,
-.flag-bookmark-term a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before, .form-submit.danger:before,
+.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button.form-submit:before, .header .header__burger--link:after, .header .header__burger--link:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node a:before, .flag-bookmark-node a:before,
+.flag-bookmark-term a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before, details > summary > .h3:before,
+details > summary > blockquote:before,
+blockquote details > summary > p:before, .form-submit.danger:before,
 .button.danger:before,
 a.button.danger:before,
 input[type=submit].danger:before,
@@ -10702,34 +10702,6 @@ form .form-required:after {
 form .form--inline .form-item {
   margin-top: 0;
 }
-form .vertical-tabs {
-  margin-left: 0;
-  display: flex;
-  border-color: var(--color-link);
-}
-form .vertical-tabs .vertical-tabs__menu {
-  margin: 0 1rem 0 0;
-  width: 12em;
-}
-form .vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
-  margin: 0;
-  background: var(--color-bg-light);
-  border-color: var(--color-divider-light);
-}
-form .vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
-  background: transparent;
-}
-form .vertical-tabs .vertical-tabs__panes {
-  flex-grow: 1;
-}
-form .vertical-tabs .oc-details {
-  margin: 0;
-  padding: 0;
-}
-form .vertical-tabs .details-wrapper {
-  margin-top: 1rem;
-  padding: 0 1rem 1rem 0;
-}
 
 .form-item label {
   display: block;
@@ -10892,6 +10864,113 @@ input[type=submit].danger:active {
   color: var(--color-danger);
 }
 
+.vertical-tabs {
+  margin-left: 0;
+  display: flex;
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-light);
+}
+.vertical-tabs .vertical-tabs__menu {
+  margin: 0;
+  width: 12rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-fieldset);
+  line-height: 1;
+  margin: 0;
+  padding: 0.2em;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
+  background: var(--color-bg-light);
+}
+.vertical-tabs .vertical-tabs__panes {
+  flex-grow: 1;
+}
+.vertical-tabs .oc-details {
+  margin: 0;
+  padding: 0;
+}
+.vertical-tabs .details-wrapper {
+  margin-top: 1rem;
+  background: var(--color-bg-light);
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  padding: 0.5rem 1rem;
+}
+
+details {
+  border: 0;
+  border-top: 1px solid var(--color-divider-light);
+  margin: 1.25rem 0 2.5rem;
+  padding: 1.25rem 0 0 0;
+}
+details > summary {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary > .h3,
+details > summary > blockquote,
+blockquote details > summary > p {
+  display: inline-block;
+  margin: 0 2rem 0 0;
+  width: calc(100% - 2rem);
+}
+details > summary > .h3:before,
+details > summary > blockquote:before,
+blockquote details > summary > p:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f078";
+}
+details > summary > .h3:hover,
+details > summary > blockquote:hover,
+blockquote details > summary > p:hover, details > summary > .h3:focus,
+details > summary > blockquote:focus,
+blockquote details > summary > p:focus {
+  color: var(--color-interaction);
+}
+details > summary > .h3:before,
+details > summary > blockquote:before,
+blockquote details > summary > p:before {
+  position: absolute;
+  right: 0;
+  top: 0.15em;
+  transition: transform 300ms ease;
+}
+details > summary.form-required:after {
+  content: none;
+}
+details > summary.form-required h2:after {
+  content: "*";
+  color: var(--color-danger);
+}
+details[open] > summary > .h2:before,
+details[open] > summary > .h3:before,
+details[open] > summary > blockquote:before,
+blockquote details[open] > summary > p:before,
+details[open] > summary > .h4:before,
+details[open] > summary > .h5:before,
+details[open] > summary > .h6:before {
+  transform: rotate(-180deg);
+}
+details .details-wrapper {
+  padding: 2.5rem 0 0;
+}
+details .details-wrapper > *:first-child {
+  margin-top: 0;
+}
+
 .button,
 input[type=button],
 input[type=submit] {
@@ -10980,6 +11059,11 @@ input[type=submit][disabled] {
 
 .align-center {
   text-align: center;
+}
+
+.pager .pager__item > a {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .grid-1 > .view-content, .grid-1 > .field__items, .grid-1 > .details-wrapper {
@@ -11979,20 +12063,7 @@ input[type=submit][disabled] {
   grid-column: 1/-1;
 }
 .path-node .region-content > .block-system-main-block > form {
-  grid-column: 2/16;
-}
-@media screen and (min-width: 48rem) {
-  .path-node .region-content > .block-system-main-block > form {
-    grid-column: 4/14;
-  }
-}
-.path-node .region-content > .block-system-main-block > form.grid-child-fullwidth {
-  grid-column: 1/-1;
-}
-@media screen and (min-width: 48rem) {
-  .path-node .region-content > .block-system-main-block > form.grid-child-fullwidth {
-    grid-column: 1/-1;
-  }
+  margin: 2.5rem 1.25rem;
 }
 
 .node.node--view-mode-full > .node__content {
@@ -12558,77 +12629,6 @@ h6.teaser {
 }
 .messages.messages--info:before {
   content: "\f05a";
-}
-
-.oc-details {
-  border: 0;
-  border-top: 1px solid var(--color-divider-light);
-  margin: 1.25rem 0 2.5rem;
-  padding: 1.25rem 0 0 0;
-}
-.oc-details > summary {
-  list-style: none;
-  padding: 0;
-  position: relative;
-}
-.oc-details > summary::-webkit-details-marker {
-  display: none;
-}
-.oc-details > summary > .h3,
-.oc-details > summary > blockquote,
-blockquote .oc-details > summary > p {
-  display: inline-block;
-  margin: 0 2rem 0 0;
-  width: calc(100% - 2rem);
-}
-.oc-details > summary > .h3:before,
-.oc-details > summary > blockquote:before,
-blockquote .oc-details > summary > p:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f078";
-}
-.oc-details > summary > .h3:hover,
-.oc-details > summary > blockquote:hover,
-blockquote .oc-details > summary > p:hover, .oc-details > summary > .h3:focus,
-.oc-details > summary > blockquote:focus,
-blockquote .oc-details > summary > p:focus {
-  color: var(--color-interaction);
-}
-.oc-details > summary > .h3:before,
-.oc-details > summary > blockquote:before,
-blockquote .oc-details > summary > p:before {
-  position: absolute;
-  right: 0;
-  top: 0.15em;
-  transition: transform 300ms ease;
-}
-.oc-details > summary.form-required:after {
-  content: none;
-}
-.oc-details > summary.form-required h2:after {
-  content: "*";
-  color: var(--color-danger);
-}
-.oc-details[open] > summary > .h2:before,
-.oc-details[open] > summary > .h3:before,
-.oc-details[open] > summary > blockquote:before,
-blockquote .oc-details[open] > summary > p:before,
-.oc-details[open] > summary > .h4:before,
-.oc-details[open] > summary > .h5:before,
-.oc-details[open] > summary > .h6:before {
-  transform: rotate(-180deg);
-}
-.oc-details .details-wrapper {
-  padding: 2.5rem 0 0;
-}
-.oc-details .details-wrapper > *:first-child {
-  margin-top: 0;
 }
 
 .header__offcanvas-menu {

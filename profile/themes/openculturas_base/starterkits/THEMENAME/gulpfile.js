@@ -19,7 +19,7 @@ const browserSync = require("browser-sync").create();
 var config;
 
 function buildSass() {
-  return gulp.src(['./scss/base.scss'])
+  return gulp.src(['./scss/style.scss'])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
@@ -30,7 +30,7 @@ function buildSass() {
 }
 
 function buildDevSass() {
-  return gulp.src(['./scss/base.scss'])
+  return gulp.src(['./scss/style.scss'])
     .pipe(sassGlob())
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
