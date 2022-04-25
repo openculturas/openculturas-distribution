@@ -18,7 +18,7 @@
 {%- if title -%}
 <h2 class="visually-hidden">{{ title }}</h2>
 {%- endif -%}
-<details{{ attributes }}>
+<details{{ attributes.addClass('oc-details') }}>
   {%- if title -%}
     {%
       set summary_classes = [
@@ -26,7 +26,7 @@
         required ? 'form-required',
       ]
     %}
-    <summary{{ summary_attributes.addClass(summary_classes) }}><span class="h2">{{ title }}</span></summary>
+    <summary{{ summary_attributes.addClass(summary_classes) }}><span class="h3">{{ title }}</span></summary>
   {%- endif -%}
   <div class="details-wrapper">
     {% if errors %}

@@ -1,4 +1,4 @@
-header.header {
+.header {
   @include grid(1fr auto auto,
   "utilities utilities ."
   "branding highlights burger"
@@ -56,9 +56,9 @@ header.header {
         display: inline-block;
 
         a {
-          @include link-default;
+          @extend %link-default;
           text-decoration: none;
-          padding: 0.5rem 1rem;
+          padding: .5rem 1rem;
         }
       }
     }
@@ -73,7 +73,8 @@ header.header {
 
       @include offcanvas-button(xmark, fas, after);
       color: $color-text-inverted;
-      background: $color-bg-dark;
+      //background: $color-bg-dark;
+      background: $color-interaction;
       text-decoration: none;
 
       &:before, &:after {

@@ -19,18 +19,18 @@ const browserSync = require("browser-sync").create();
 var config;
 
 function buildSass() {
-  return gulp.src(['./scss_config/base.scss'])
+  // Removed .pipe(clean()), because Drupal stylesheets should not be minified.
+  return gulp.src(['./scss_config/style.scss'])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(concat('style.css'))
-    .pipe(clean())
     .pipe(gulp.dest('./css'))
     .pipe(browserSync.stream());
 }
 
 function buildDevSass() {
-  return gulp.src(['./scss_config/base.scss'])
+  return gulp.src(['./scss_config/style.scss'])
     .pipe(sassGlob())
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -86,9 +86,13 @@ function readConfig(done) {
 function browsersync() {
   browserSync.init({
     proxy: config.browserSync.hostname,
-    reloadDelay: 300
+    reloadDelay: 300,
+    // Disable for offline development.
+    online: true,
+    // Open ab new browser window at start
+    open: false
   });
-  gulp.watch(['./scss_config/*', './templates/**/*.scss'], gulp.series('dev'));
+  gulp.watch(['./scss_config/**/*.scss', './templates/**/*.scss'], gulp.series('dev'));
   gulp.watch(["./templates/**/*.js"], gulp.series('js', browserSync.reload));
   gulp.watch("./templates/**/*.html.twig", browserSync.reload);
 }

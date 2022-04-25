@@ -1,21 +1,47 @@
+.teaser {
+  @include all-headings {
+    font-family: $font-base;
+    font-size: $font-size-teaser-heading;
+    font-weight: bold;
+    letter-spacing: unset;
+    line-height: 1.4;
+  }
+}
+
+h1.teaser,
+h2.teaser,
+h3.teaser,
+h4.teaser,
+h5.teaser,
+h6.teaser {
+  // TOSDO WAS @include typo(teaser);
+  font-family: $font-base;
+  font-size: $font-size-teaser-heading;
+  font-weight: bold;
+  letter-spacing: unset;
+  line-height: 1.4;
+}
+
+
 .universal-teaser {
   margin: $grid-gutter 0;
 
   .field {
-    margin: 0.5rem 0;
+    margin: .5rem 0;
   }
 
   .teaser--top {
     @include clearfix;
 
-    .field--name-field-mood-image, .field--name-field-portrait {
+    .field--name-field-mood-image,
+    .field--name-field-portrait {
       display: block;
       width: 100%;
 
       @include breakpoint(m) {
         max-width: 30%;
         float: right;
-        margin: 0 0 0.5rem 0.5rem;
+        margin: 0 0 .5rem .5rem;
       }
 
       .field {
@@ -26,6 +52,7 @@
         width: 100%;
         height: auto;
         vertical-align: bottom;
+        margin-left: .75em;
       }
     }
 
@@ -47,29 +74,29 @@
 
   .teaser--author {
 
-    h3.teaser,
-    h3.teaser a {
-      @include typo(body);
-      font-weight: bold;
+    .teaser,
+    .teaser a {
       color: $color-headline;
+      font-size: 1rem;
+      font-weight: bold;
       margin: 0;
     }
 
     .profile--picture {
-      width: 3rem;
       height: 3rem;
+      width: 3rem;
 
       &:before {
         font-size: 1.5rem;
-        top: 0.75rem;
+        top: .75rem;
       }
     }
   }
 
   .teaser--date {
-    text-align: right;
     margin-left: $grid-gutter;
+    text-align: right;
 
   }
-
 }
+

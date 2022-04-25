@@ -3,16 +3,12 @@
 .reference--taxonomy_term > a, // Tag-Links
 .taxonomy-term--tagwrapper .taxonomy-term--tag { // Buttons in Teasers
   background: $color-bg-slight-contrast;
-  color: $color-primary;
   border: 1px solid $color-primary;
-
+  border-radius: .75rem;
+  color: $color-primary;
   display: inline-block;
-  padding: .5rem 2rem;
   margin: 0 $grid-gutter $grid-gutter 0;
-
-  // TODO .5 or .75rem
-  border-radius: 0.75rem;
-
+  padding: .5rem 2rem;
   text-decoration: none;
 
   &:hover,
@@ -35,42 +31,41 @@
 }
 
 .taxonomy-term.term--view-mode-teaser {
-
   .field {
     margin: 0;
   }
 
   .content.with-image {
-    position: relative;
     overflow: hidden;
+    position: relative;
 
     .with-image--placeholder {
       aspect-ratio: 16/9;
-      width: 100%;
       height: auto;
+      width: 100%;
     }
 
     .taxonomy-term--tagwrapper {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 0 0.5rem;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      left: 0;
+      padding: 0 .5rem;
+      position: absolute;
+      top: 0;
+      width: 100%;
 
       &:before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
         background-color: $color-bg-dark;
-        opacity: 0.4;
+        content: '';
+        height: 100%;
+        left: 0;
+        opacity: .4;
+        position: absolute;
+        top: 0;
         transition: opacity 300ms;
+        width: 100%;
         z-index: 1;
       }
 
@@ -81,10 +76,10 @@
 
     img {
       aspect-ratio: 16/9;
-      vertical-align: bottom;
-      transition: transform 300ms ease;
-      width: 100%;
       height: auto;
+      transition: transform 300ms ease;
+      vertical-align: bottom;
+      width: 100%;
     }
 
     .taxonomy-term--tag {
@@ -109,8 +104,8 @@
         &:active {
           text-decoration: underline;
         }
-
       }
+
       .taxonomy-term--tag {
         background: $color-interaction;
         border-color: $color-text-inverted;

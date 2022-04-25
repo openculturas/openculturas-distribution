@@ -1,0 +1,414 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  @media screen and (prefers-reduced-motion: reduce) {
+    & {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 100%;
+  color: $color-text;
+  background-color: $color-neutral-canvas;
+  font-family: $font-base;
+  line-height: 1.4;
+}
+
+
+
+/* %allcaps */
+.allcaps,
+%allcaps {
+  letter-spacing: .05rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+
+b,
+strong,
+.bold {
+  font-weight: bold;
+}
+
+@include all-headings {
+  font-weight: normal;
+  margin: .5em 0;
+}
+
+h1,
+.h1 {
+  color: var(--color-headline);
+  font-family: var(--font-head);
+  font-size: $font-size-h1;
+  line-height: 1.2;
+  @include breakpoint(l) {
+    font-size: 3.75rem;
+    margin: 1.875rem 0;
+  }
+}
+
+h2,
+.h2 {
+  color: var(--color-headline);
+  font-family: var(--font-head);
+  font-size: $font-size-h2;
+  line-height: 1.2;
+}
+
+h3,
+.h3 {
+  color: var(--color-headline);
+  font-family: var(--font-head);
+  font-size: $font-size-h3;
+  line-height: 1.2;
+}
+
+h4,
+.h4 {
+  color: var(--color-interaction);
+  font-family: var(--font-base);
+  font-size: $font-size-h4;
+  letter-spacing: .05rem;
+  text-transform: uppercase;
+}
+
+h5,
+.h5 {
+  font-family: var(--font-base);
+  font-size: $font-size-h5;
+  letter-spacing: .05rem;
+  text-transform: uppercase;
+}
+
+h6,
+.h6 {
+  font-size: $font-size-h6;
+  font-weight: bold;
+}
+
+
+
+
+//###############################################################
+a,
+%link-default {
+  /* Mixing %link-default */
+  color: $color-link;
+  text-decoration: none;
+
+  &.is-active {
+    color: $color-link;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  &:focus {
+    color: $color-interaction;
+  }
+
+  &:active {
+    color: $color-primary;
+  }
+
+  &:visited {
+    color: $color-link;
+  }
+}
+
+p {
+  margin-bottom: 1em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+ul {
+  list-style: disc outside;
+  margin-left: $grid-gutter;
+
+  ul {
+    list-style-type: circle;
+    margin-bottom: $grid-gutter;
+
+    ul {
+      list-style-type: square;
+    }
+  }
+  &.inline {
+    margin-left: 0;
+    li {
+      display: inline-block;
+    }
+  }
+}
+
+ol {
+  margin-left: $grid-gutter;
+
+  ol {
+    margin-bottom: $grid-gutter;
+  }
+}
+
+li {
+  margin-bottom: 0.5em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+table {
+  margin: 1em auto;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+
+  caption {
+    @extend %allcaps;
+  }
+
+  th {
+    color: $color-text-muted;
+    text-align: left;
+  }
+
+  td, th {
+    padding: 0.5em;
+  }
+
+  tr {
+    // TODO Is this OK?
+    border-bottom: 1px solid $color-primary;
+  }
+
+  .field-multiple-drag {
+    white-space: nowrap;
+  }
+
+  .draggable {
+    position: relative;
+    .tabledrag-handle {
+      display: block;
+      height: 2rem;
+      position: absolute;
+      top: calc(50% - 0.55rem);
+      width: 2rem;
+
+      .handle {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+  }
+}
+
+dl {
+  margin-bottom: 1em;
+  margin-left: $grid-gutter;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+dt {
+  margin-bottom: 0.5em;
+  margin-left: $grid-gutter;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+dd {
+  margin-bottom: 1em;
+}
+
+
+hr {
+  border-color: $color-divider-dark;
+}
+
+// Disabled styles which repeat browser Defaults.
+//strong,
+//b {
+//  font-weight: bold;
+//}
+
+//em,
+//i,
+//cite,
+//dfn {
+//  font-style: italic;
+//}
+
+// Manybe fontawesome?
+//i.far,
+//i.fa,
+//i.fab,
+//i.fal,
+//i.fad {
+//  font-style: normal;
+//}
+
+//u {
+//  text-decoration: underline;
+//}
+
+//del {
+//  text-decoration: line-through;
+//}
+
+sub {
+  font-size: .75em;
+  position: relative;
+  bottom: -0.25em;
+}
+
+sup {
+  font-size: .75em;
+  position: relative;
+  top: -0.5em;
+}
+
+.tiny {
+  font-size: .75rem;
+}
+
+/* %small */
+small,
+.small,
+%small {
+  font-size: $font-size-small;
+}
+
+abbr {
+  border-bottom: 2px dotted $color-text-muted;
+  text-decoration: none;
+}
+
+kbd {
+  background: $color-text-muted;
+  border: thin solid $color-text;
+  border-radius: 2px;
+  box-shadow: 1px 2px 2px $color-bg-light;
+  font-family: inherit;
+  font-size: 0.9em;
+  padding: 0 0.5em;
+}
+
+q {
+  &:before {content: "„";}
+  &:after {content: "“";}
+}
+
+mark {
+  background-color: $color-bg-slight-contrast;
+}
+
+pre,
+code {
+  display: inline-block;
+  font-family: monospace;
+  max-width: 100%;
+  overflow: scroll;
+  padding-bottom: .5rem;
+  white-space: pre;
+}
+
+samp,
+var {
+  font-family: monospace;
+}
+
+img,
+figure {
+  height: auto;
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+figcaption {
+  @extend %small;
+}
+
+// Responsive forms.
+input[size] {
+  max-width: 100%;
+  width: 100%;
+
+  &[disabled] {
+    opacity: .5;
+  }
+}
+
+%blockquote,
+blockquote  {
+  /* Mixing %blockquote */
+  display: flex;
+  margin: (2 * $grid-gutter) 0;
+  text-align: center;
+
+  @include breakpoint(m) {
+    margin: (3 * $grid-gutter) $grid-gutter ;
+  }
+
+  &,
+  p {
+    @extend .h3;
+    font-size: size(h4);
+    padding: 0 $grid-gutter;
+    font-style: italic;
+    color: $color-text-muted;
+    display: inline-block;
+  }
+
+  span {
+    @include icon(quote-right, fas, before) {
+      margin-right: 1rem;
+    }
+    @include icon(quote-left, fas, after){
+      display: inline-block;
+      margin-left: 1rem;
+      white-space: nowrap;
+    };
+  }
+
+  > *:first-child {
+    margin-top: 0;
+  }
+}
+
+// TODO
+/* %teaser */
+%teaser {
+  font-size: $font-size-teaser-heading;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-transform: none;
+}

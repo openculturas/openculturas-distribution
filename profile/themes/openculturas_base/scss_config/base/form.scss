@@ -1,0 +1,226 @@
+form {
+  background: $color-bg-form;
+
+  >.form--inline,
+  >.form-item,
+  >.form-wrapper,
+  >[id*=ajax-wrapper] {
+    // Padding without adding padding to FORM Tag (which would mess up button positioning).
+    margin-left: $grid-gutter;
+    margin-right: $grid-gutter;
+    width: auto !important;
+
+    &:first-child {
+      padding-top: $grid-gutter;
+    }
+
+    &:last-of-type {
+      padding-bottom: $grid-gutter;
+    }
+  }
+
+  .description {
+    @extend %small;
+  }
+
+  .js-hide {
+    display: none !important;
+  }
+
+
+  .form-textarea-wrapper,
+  .filter-wrapper {
+    background: $color-bg-fieldset;
+
+    .cke_top,
+    .cke_contents,
+    .cke_bottom {
+      background: $color-bg-fieldset;
+    }
+    .filter-guidelines-item {
+      margin: 0;
+    }
+  }
+
+  .field-suffix .button {
+    margin-bottom: $grid-gutter;
+  }
+
+  fieldset,
+  fieldset.fieldgroup {
+    background: $color-bg-fieldset;
+    padding: $grid-gutter $grid-gutter $grid-gutter $grid-gutter;
+
+    summary,
+    legend {
+      @extend %allcaps;
+    }
+
+    fieldset,
+    fieldset.fieldgroup {
+      background: transparent;
+    }
+  }
+
+  .form-required:after {
+    background-image: none;
+    color: $color-danger;
+    content: '*';
+    vertical-align: text-top;
+  }
+
+  .form--inline {
+    .form-item {
+      margin-top: 0;
+    }
+  }
+
+  .vertical-tabs {
+    margin-left: 0;
+    display: flex;
+    border-color: $color-link;
+
+    .vertical-tabs__menu {
+      margin: 0 1rem 0 0;
+      width: 12em;
+      //border: 3px solid red;
+      .vertical-tabs__menu-item {
+        margin: 0;
+        background: $color-bg-light;
+        border-color: $color-divider-light;
+        &.is-selected {
+          background: transparent;
+        }
+      }
+    }
+    .vertical-tabs__panes {
+      flex-grow: 1;
+    }
+
+    // TODO This shouldn't be here check html template?
+    // Combination vertical-Tabs/details? Why not replace?
+    .oc-details {
+      margin: 0;
+      padding: 0;
+    }
+
+    .details-wrapper {
+      margin-top: 1rem;
+      padding: 0 1rem 1rem 0;
+    }
+  }
+}
+
+.form-item {
+  label {
+    display: block;
+    &.option {
+      display: inline-block;
+    }
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 0.5rem 1rem;
+    background: $color-bg-light;
+    border: 1px solid $color-text;
+
+    &:focus {
+      border-bottom-color: $color-info;
+      box-shadow: 0 -3px 0 inset $color-info;
+    }
+
+    .error {
+      border: 1px solid $color-text;
+      box-shadow: 0 -3px 0 inset $color-danger;
+    }
+
+    &::placeholder {
+      color: $color-text-muted;
+      text-align: right;
+    }
+
+    &[disabled] {
+      opacity: .5;
+    }
+
+    &.form-autocomplete {
+      background-position: right 0.5rem center!important;
+      padding-right: 2rem;
+    }
+  }
+
+  select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    padding-right: 2rem;
+    position: relative;
+    background: $color-bg-light url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
+    background-size: 1em;
+
+    &.error {
+      border: 1px solid $color-text;
+      box-shadow: 0 -3px 0 inset $color-danger;
+    }
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    height: 1em;
+    margin-right: .5rem;
+    position: relative;
+    top: .1rem;
+    vertical-align: baseline;
+    width: 1em;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+// Autocomplete widget select.
+.ui-menu .ui-menu-item-wrapper {
+  background-color: transparent;
+  border: 0;
+  color: $color-text;
+  display: block;
+
+  &:hover,
+  &:focus {
+    background-color: $color-primary;
+    border: 0;
+    color: $color-text-inverted;
+  }
+}
+
+.form-submit,
+.view-header .button,
+input[type="submit"],
+button[type="submit"] {
+  @include button-primary;
+}
+
+.form-submit.secondary,
+.button.secondary,
+a.button.secondary,
+input[type="submit"].secondary,
+.button[data-drupal-selector$=cancel],
+.field-add-more-submit,
+.button--small,
+button[id*=remove] {
+  @include button-secondary();
+}
+
+.form-submit.danger,
+.button.danger,
+a.button.danger,
+input[type="submit"].danger {
+  @include button-danger();
+}
+
+button.link {
+  @extend %link-default;
+}

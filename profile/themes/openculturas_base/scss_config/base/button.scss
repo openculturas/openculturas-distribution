@@ -1,0 +1,46 @@
+// Button base styles
+.button,
+input[type='button'],
+input[type='submit'] {
+  border: 1px solid transparent;
+  border-radius: 2px;
+  display: inline-block;
+  line-height: 1;
+  margin-bottom: $grid-gutter;
+  margin-left: 0;
+
+  // TODO Exclude classy component?
+  margin-right: $grid-gutter;
+  outline-offset: .25rem;
+  padding: .5rem 2rem;
+
+  &:first-child {
+    margin-right: $grid-gutter;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus,
+  &:not([disabled]):hover {
+    background: $color-interaction;
+    border-color: $color-interaction;
+    color: $color-text-inverted;
+  }
+
+  &:active {
+    background: $color-text-inverted;
+    border: 1px dashed $color-interaction;
+    box-shadow: 0 .25rem .125rem $color-interaction-opacity64;
+    color: $color-interaction;
+    text-decoration: none;
+  }
+
+  &[disabled] {
+    opacity: .5;
+    pointer-events: none; // Prevents hover&active changes.
+  }
+}

@@ -1,7 +1,7 @@
+// Disallowed in favor of CSS variables.
 $disallowed-function-message: "Color functions are not allowed in favor of css variables. Just don't use them. Use HEX rgba nottion #00000080 instead of rgba(0, 0, 0, .5)" ;
 @function rgb($red, $green, $blue) { @error $disallowed-function-message; }
-// TODO RGBA SHOULD BE DISABLED TOO
-// @function rgba($args...) { @error $disallowed-function-message; }
+@function rgba($args...) { @error $disallowed-function-message; }
 @function hsl($hue, $saturation, $lightness) { @error $disallowed-function-message; }
 @function hsla($hue, $saturation, $lightness, $alpha) { @error $disallowed-function-message; }
 @function red($color) { @error $disallowed-function-message; }

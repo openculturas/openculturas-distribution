@@ -1,21 +1,22 @@
-.content details {
-  border: none;
+.oc-details {
+  border: 0;
   border-top: 1px solid $color-divider-light;
-  margin: $grid-gutter 0 $grid-gutter*2;
+  margin: $grid-gutter 0 (2 * $grid-gutter);
   padding: $grid-gutter 0 0 0;
 
   > summary {
-    position: relative;
-    padding: 0;
     list-style: none;
+    padding: 0;
+    position: relative;
 
     // Disable default marker element on webkit browsers.
-    &::-webkit-details-marker { display:none; }
+    &::-webkit-details-marker {
+      display: none;
+    }
 
-    > .h2 {
-      @include typo(h3);
-      display: inline-block;
+    > .h3 {
       @include icon(chevron-down, fas, before);
+      display: inline-block;
       margin: 0 2rem 0 0;
       width: calc(100% - 2rem);
 
@@ -44,11 +45,16 @@
         }
       }
     }
+
   }
 
   &[open] {
     > summary {
-      > .h2 {
+      > .h2,
+      > .h3,
+      > .h4,
+      > .h5,
+      > .h6 {
         &:before {
           transform: rotate(-180deg);
         }
@@ -57,11 +63,9 @@
   }
 
   .details-wrapper {
-    padding: $grid-gutter*2 0 0 0;
-
+    padding: 2 * $grid-gutter 0 0;
     > *:first-child {
       margin-top: 0;
     }
   }
-
 }

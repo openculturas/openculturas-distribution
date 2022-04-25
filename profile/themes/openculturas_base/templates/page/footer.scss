@@ -1,18 +1,19 @@
-footer.footer {
+.footer {
   background: $color-bg-dark;
   color: $color-text-inverted;
 
   .footer--container {
-    margin: 0 auto;
     @include grid();
-    padding: $grid-gutter*2 0 $grid-gutter;
+    margin: 0 auto;
+    padding: (2 * $grid-gutter) 0 $grid-gutter;
 
     @include breakpoint(m) {
-      padding: $grid-gutter*3 0 $grid-gutter;
+      padding: (3 * $grid-gutter) 0 $grid-gutter;
     }
   }
 
-  a, .content a, ul.menu a {
+  a, .content a,
+  ul.menu a {
     @include link-inverted;
   }
 
@@ -23,7 +24,7 @@ footer.footer {
     grid-column: 2 / 16;
 
     @include breakpoint(m) {
-      margin: 0 $grid-gutter*-0.5 0 $grid-gutter*-0.5;
+      margin: 0 (-0.5 * $grid-gutter) 0 (-0.5 * $grid-gutter);
     }
 
     @include breakpoint(m) {
@@ -38,7 +39,7 @@ footer.footer {
       margin: 0 0 $grid-gutter 0;
 
       @include breakpoint(m) {
-        margin: 0 $grid-gutter*0.5 $grid-gutter;
+        margin: 0 (.5 * $grid-gutter) $grid-gutter;
       }
 
       .block--title {
@@ -64,32 +65,9 @@ footer.footer {
       }
 
       > h2 {
-        @include typo(h3);
+        font-family: $font-base;
+        font-size: $font-size-h3;
         color: $color-text-inverted;
-      }
-    }
-  }
-
-  .footer__topbutton {
-    grid-column: 2 / 16;
-
-    &--link {
-      @include offcanvas-button(arrow-up);
-      display: block;
-      background: $color-bg-light;
-      color: $color-text;
-      margin-left: auto;
-      position: relative;
-      z-index: 2;
-      grid-row: 2;
-
-      &:hover,
-      &:focus {
-        color: $color-primary;
-        // Todo: Not ennough Contrast
-        //background: $color-primary;
-        //color: $color-text-inverted;
-        //outline: 2px solid $color-text-inverted;
       }
     }
   }

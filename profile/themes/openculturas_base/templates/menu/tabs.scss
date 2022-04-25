@@ -1,8 +1,21 @@
-ul.tabs {
+.tabs {
   border-top: $color-bg-slight-contrast 1px solid;
   border-bottom: $color-bg-slight-contrast 1px solid;
-
   li {
-    margin: 0.5rem 0;
+    margin: .5rem 0;
+    //font-size: small;
+    a {
+      border-radius: 2px;
+
+      &:hover {
+        text-decoration: none;
+        background: $color-interaction;
+        color: $color-text-inverted;
+      }
+
+      &.is-active {
+        display: none;
+      }
+    }
   }
 }
