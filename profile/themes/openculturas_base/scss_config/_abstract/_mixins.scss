@@ -239,55 +239,6 @@
 }
 
 //
-//  Helper mixin for setting button primary styling.
-//
-@mixin button-primary () {
-  color: $color-text-inverted;
-  background: $color-primary;
-  border: 1px solid $color-primary;
-
-  &:focus,
-  &:hover {
-    background: $color-interaction;
-    color: $color-text-inverted;
-  }
-}
-
-//
-//  Helper mixin for setting button secondary styling.
-//
-@mixin button-secondary () {
-  color: $color-interaction;
-  background: $color-bg-light;
-  border-color: $color-interaction;
-}
-
-//
-//  Helper mixin for setting button danger styling.
-//
-@mixin button-danger () {
-  color: $color-danger;
-  background: $color-text-inverted;
-  border-color: $color-danger;
-  @include icon(xmark) {
-    margin-right: .5rem;
-  };
-
-  &:not([disabled]):hover,
-  &:focus {
-    background: $color-danger;
-    color: $color-text-inverted;
-    border-color: $color-danger;
-  }
-
-  &:active {
-    background: $color-text-inverted;
-    border-color: $color-danger;
-    color: $color-danger;
-  }
-}
-
-//
 // Helper mixin for defining the profile image circle size and styling.
 //
 @mixin profile_circle() {

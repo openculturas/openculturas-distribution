@@ -1,6 +1,6 @@
 # Module Rules
 
-**"Mudules are designed to exist as a standalone component"**
+**"Module are designed to exist as a standalone component"**
 
 In Drupal teminology we name them **Components**.
 Same rules apply for the components in  `templates/**.scss`.

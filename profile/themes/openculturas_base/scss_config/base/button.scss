@@ -32,7 +32,7 @@ input[type='submit'] {
   &:active {
     background: $color-text-inverted;
     border: 1px dashed $color-interaction;
-    box-shadow: 0 .25rem .125rem $color-interaction-opacity64;
+    box-shadow: 0 .25rem .125rem $color-box-shaddow;
     color: $color-interaction;
     text-decoration: none;
   }
@@ -42,3 +42,58 @@ input[type='submit'] {
     pointer-events: none; // Prevents hover&active changes.
   }
 }
+
+
+.form-submit,
+.view-header .button,
+input[type="submit"],
+button[type="submit"] {
+  color: $color-text-inverted;
+  background: $color-primary;
+  border: 1px solid $color-primary;
+
+  &:focus,
+  &:hover {
+    background: $color-interaction;
+    color: $color-text-inverted;
+  }
+}
+
+.form-submit.secondary,
+.button.secondary,
+a.button.secondary,
+input[type="submit"].secondary,
+.button[data-drupal-selector$=cancel],
+.field-add-more-submit,
+.button--small,
+button[id*=remove] {
+  color: $color-interaction;
+  background: $color-bg-light;
+  border-color: $color-interaction;
+}
+
+.form-submit.danger,
+.button.danger,
+a.button.danger,
+input[type="submit"].danger {
+  color: $color-danger;
+  background: $color-text-inverted;
+  border-color: $color-danger;
+  @include icon(xmark) {
+    margin-right: .5rem;
+  };
+
+  &:not([disabled]):hover,
+  &:focus {
+    background: $color-danger;
+    color: $color-text-inverted;
+    border-color: $color-danger;
+  }
+
+  &:active {
+    background: $color-text-inverted;
+    border-color: $color-danger;
+    color: $color-danger;
+  }
+}
+

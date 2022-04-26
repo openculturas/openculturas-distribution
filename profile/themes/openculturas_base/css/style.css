@@ -47,18 +47,19 @@ body {
   --color-success-dark: var(--color-success-darken-25, #126007);
   --color-bg-warning: var(--color-warning-lighten-85, #fff7d9);
   --color-warning-dark: var(--color-warning-darken-25, #c09300);
-  /* Form colors */
+  /* Form & other colors */
   --color-bg-form: var(--color-interaction--lighten-95, #f6f6fa);
   --color-bg-fieldset: var(--color-interaction--opacity-4, #483d8b07);
+  --color-box-shaddow: var(--color-box-shaddow, #483d8ba3);
 }
 
-.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button.form-submit:before, .header .header__burger--link:after, .header .header__burger--link:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node a:before, .flag-bookmark-node a:before,
-.flag-bookmark-term a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before, details > summary > .h3:before,
-details > summary > blockquote:before,
-blockquote details > summary > p:before, .form-submit.danger:before,
+.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before, .header .header__burger--link:after, .header .header__burger--link:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node a:before, .flag-bookmark-node a:before,
+.flag-bookmark-term a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before, .form-submit.danger:before,
 .button.danger:before,
 a.button.danger:before,
-input[type=submit].danger:before,
+input[type=submit].danger:before, details > summary > .h3:before,
+details > summary > blockquote:before,
+blockquote details > summary > p:before,
 blockquote span:after,
 blockquote span:before {
   font-family: "Font Awesome 6 Free";
@@ -10305,7 +10306,7 @@ h1,
 .h1 {
   color: var(--color-headline);
   font-family: var(--font-head);
-  font-size: 2.5rem;
+  font-size: var(--font-size-h1, 2.5rem);
   line-height: 1.2;
 }
 @media screen and (min-width: 62rem) {
@@ -10320,7 +10321,7 @@ h2,
 .h2 {
   color: var(--color-headline);
   font-family: var(--font-head);
-  font-size: 2rem;
+  font-size: var(--font-size-h2, 2rem);
   line-height: 1.2;
 }
 
@@ -10330,7 +10331,7 @@ blockquote,
 blockquote p {
   color: var(--color-headline);
   font-family: var(--font-head);
-  font-size: 1.75rem;
+  font-size: var(--font-size-h3, 1.75rem);
   line-height: 1.2;
 }
 
@@ -10338,7 +10339,7 @@ h4,
 .h4 {
   color: var(--color-interaction);
   font-family: var(--font-base);
-  font-size: 1.375rem;
+  font-size: var(--font-size-h4, 1.375rem);
   letter-spacing: 0.05rem;
   text-transform: uppercase;
 }
@@ -10346,40 +10347,40 @@ h4,
 h5,
 .h5 {
   font-family: var(--font-base);
-  font-size: 1rem;
+  font-size: var(--font-size-h5, 1rem);
   letter-spacing: 0.05rem;
   text-transform: uppercase;
 }
 
 h6,
 .h6 {
-  font-size: 0.875rem;
+  font-size: var(--font-size-h6, 0.875rem);
   font-weight: bold;
 }
 
+/* %link-default */
 a,
 .header .header__highlights-menu ul.menu li a,
 .link-default,
 button.link {
-  /* Mixing %link-default */
   color: var(--color-link);
   text-decoration: none;
 }
 a.is-active,
 .header .header__highlights-menu ul.menu li a.is-active,
 .is-active.link-default,
-button.is-active.link {
+button.link.is-active {
   color: var(--color-link);
 }
 a:hover, a:focus, a:active,
 .header .header__highlights-menu ul.menu li a:hover,
 .link-default:hover,
-button.link:hover,
 .header .header__highlights-menu ul.menu li a:focus,
 .link-default:focus,
-button.link:focus,
 .header .header__highlights-menu ul.menu li a:active,
 .link-default:active,
+button.link:hover,
+button.link:focus,
 button.link:active {
   text-decoration: underline;
 }
@@ -10530,7 +10531,7 @@ small,
 .footnote,
 form .description,
 figcaption {
-  font-size: 0.875rem;
+  font-size: var(--font-small, 0.875rem);
 }
 
 abbr {
@@ -10636,7 +10637,6 @@ blockquote > *:first-child {
   margin-top: 0;
 }
 
-/* %teaser */
 form {
   background: var(--color-bg-form);
 }
@@ -10790,6 +10790,165 @@ form .form--inline .form-item {
   color: var(--color-text-inverted);
 }
 
+details {
+  border: 0;
+  border-top: 1px solid var(--color-divider-light);
+  margin: 1.25rem 0 2.5rem;
+  padding: 1.25rem 0 0 0;
+}
+details > summary {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary > .h3,
+details > summary > blockquote,
+blockquote details > summary > p {
+  display: inline-block;
+  margin: 0 2rem 0 0;
+  width: calc(100% - 2rem);
+}
+details > summary > .h3:before,
+details > summary > blockquote:before,
+blockquote details > summary > p:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f078";
+}
+details > summary > .h3:hover,
+details > summary > blockquote:hover,
+blockquote details > summary > p:hover, details > summary > .h3:focus,
+details > summary > blockquote:focus,
+blockquote details > summary > p:focus {
+  color: var(--color-interaction);
+}
+details > summary > .h3:before,
+details > summary > blockquote:before,
+blockquote details > summary > p:before {
+  position: absolute;
+  right: 0;
+  top: 0.15em;
+  transition: transform 300ms ease;
+}
+details > summary.form-required:after {
+  content: none;
+}
+details > summary.form-required h2:after {
+  content: "*";
+  color: var(--color-danger);
+}
+details[open] > summary > .h2:before,
+details[open] > summary > .h3:before,
+details[open] > summary > blockquote:before,
+blockquote details[open] > summary > p:before,
+details[open] > summary > .h4:before,
+details[open] > summary > .h5:before,
+details[open] > summary > .h6:before {
+  transform: rotate(-180deg);
+}
+details .details-wrapper {
+  padding: 2.5rem 0 0;
+}
+details .details-wrapper > *:first-child {
+  margin-top: 0;
+}
+
+.vertical-tabs {
+  margin-left: 0;
+  display: flex;
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-light);
+}
+.vertical-tabs .vertical-tabs__menu {
+  margin: 0;
+  width: 12rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-fieldset);
+  line-height: 1;
+  margin: 0;
+  padding: 0.2em;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
+  background: var(--color-bg-light);
+}
+.vertical-tabs .vertical-tabs__panes {
+  flex-grow: 1;
+}
+.vertical-tabs .oc-details {
+  margin: 0;
+  padding: 0;
+}
+.vertical-tabs .details-wrapper {
+  margin-top: 1rem;
+  background: var(--color-bg-light);
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.button,
+input[type=button],
+input[type=submit] {
+  border: 1px solid transparent;
+  border-radius: 2px;
+  display: inline-block;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  margin-left: 0;
+  margin-right: 1.25rem;
+  outline-offset: 0.25rem;
+  padding: 0.5rem 2rem;
+}
+.button:first-child,
+input[type=button]:first-child,
+input[type=submit]:first-child {
+  margin-right: 1.25rem;
+}
+.button:active, .button:focus, .button:hover,
+input[type=button]:active,
+input[type=button]:focus,
+input[type=button]:hover,
+input[type=submit]:active,
+input[type=submit]:focus,
+input[type=submit]:hover {
+  text-decoration: none;
+}
+.button:focus, .button:not([disabled]):hover,
+input[type=button]:focus,
+input[type=button]:not([disabled]):hover,
+input[type=submit]:focus,
+input[type=submit]:not([disabled]):hover {
+  background: var(--color-interaction);
+  border-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.button:active,
+input[type=button]:active,
+input[type=submit]:active {
+  background: var(--color-text-inverted);
+  border: 1px dashed var(--color-interaction);
+  box-shadow: 0 0.25rem 0.125rem var(--color-interaction--opacity-64);
+  color: var(--color-interaction);
+  text-decoration: none;
+}
+.button[disabled],
+input[type=button][disabled],
+input[type=submit][disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .form-submit,
 .view-header .button,
 input[type=submit],
@@ -10862,165 +11021,6 @@ input[type=submit].danger:active {
   background: var(--color-text-inverted);
   border-color: var(--color-danger);
   color: var(--color-danger);
-}
-
-.vertical-tabs {
-  margin-left: 0;
-  display: flex;
-  border-color: var(--color-divider-light);
-  background: var(--color-bg-light);
-}
-.vertical-tabs .vertical-tabs__menu {
-  margin: 0;
-  width: 12rem;
-  list-style-type: none;
-  padding-left: 0;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
-  border-color: var(--color-divider-light);
-  background: var(--color-bg-fieldset);
-  line-height: 1;
-  margin: 0;
-  padding: 0.2em;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
-  background: var(--color-bg-light);
-}
-.vertical-tabs .vertical-tabs__panes {
-  flex-grow: 1;
-}
-.vertical-tabs .oc-details {
-  margin: 0;
-  padding: 0;
-}
-.vertical-tabs .details-wrapper {
-  margin-top: 1rem;
-  background: var(--color-bg-light);
-  margin: 0.3rem 0.3rem 0.3rem 0;
-  padding: 0.5rem 1rem;
-}
-
-details {
-  border: 0;
-  border-top: 1px solid var(--color-divider-light);
-  margin: 1.25rem 0 2.5rem;
-  padding: 1.25rem 0 0 0;
-}
-details > summary {
-  list-style: none;
-  padding: 0;
-  position: relative;
-}
-details > summary::-webkit-details-marker {
-  display: none;
-}
-details > summary > .h3,
-details > summary > blockquote,
-blockquote details > summary > p {
-  display: inline-block;
-  margin: 0 2rem 0 0;
-  width: calc(100% - 2rem);
-}
-details > summary > .h3:before,
-details > summary > blockquote:before,
-blockquote details > summary > p:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f078";
-}
-details > summary > .h3:hover,
-details > summary > blockquote:hover,
-blockquote details > summary > p:hover, details > summary > .h3:focus,
-details > summary > blockquote:focus,
-blockquote details > summary > p:focus {
-  color: var(--color-interaction);
-}
-details > summary > .h3:before,
-details > summary > blockquote:before,
-blockquote details > summary > p:before {
-  position: absolute;
-  right: 0;
-  top: 0.15em;
-  transition: transform 300ms ease;
-}
-details > summary.form-required:after {
-  content: none;
-}
-details > summary.form-required h2:after {
-  content: "*";
-  color: var(--color-danger);
-}
-details[open] > summary > .h2:before,
-details[open] > summary > .h3:before,
-details[open] > summary > blockquote:before,
-blockquote details[open] > summary > p:before,
-details[open] > summary > .h4:before,
-details[open] > summary > .h5:before,
-details[open] > summary > .h6:before {
-  transform: rotate(-180deg);
-}
-details .details-wrapper {
-  padding: 2.5rem 0 0;
-}
-details .details-wrapper > *:first-child {
-  margin-top: 0;
-}
-
-.button,
-input[type=button],
-input[type=submit] {
-  border: 1px solid transparent;
-  border-radius: 2px;
-  display: inline-block;
-  line-height: 1;
-  margin-bottom: 1.25rem;
-  margin-left: 0;
-  margin-right: 1.25rem;
-  outline-offset: 0.25rem;
-  padding: 0.5rem 2rem;
-}
-.button:first-child,
-input[type=button]:first-child,
-input[type=submit]:first-child {
-  margin-right: 1.25rem;
-}
-.button:active, .button:focus, .button:hover,
-input[type=button]:active,
-input[type=button]:focus,
-input[type=button]:hover,
-input[type=submit]:active,
-input[type=submit]:focus,
-input[type=submit]:hover {
-  text-decoration: none;
-}
-.button:focus, .button:not([disabled]):hover,
-input[type=button]:focus,
-input[type=button]:not([disabled]):hover,
-input[type=submit]:focus,
-input[type=submit]:not([disabled]):hover {
-  background: var(--color-interaction);
-  border-color: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-.button:active,
-input[type=button]:active,
-input[type=submit]:active {
-  background: var(--color-text-inverted);
-  border: 1px dashed var(--color-interaction);
-  box-shadow: 0 0.25rem 0.125rem var(--color-interaction--opacity-64);
-  color: var(--color-interaction);
-  text-decoration: none;
-}
-.button[disabled],
-input[type=button][disabled],
-input[type=submit][disabled] {
-  opacity: 0.5;
-  pointer-events: none;
 }
 
 /**
@@ -11795,7 +11795,7 @@ input[type=submit][disabled] {
   margin-top: 0;
 }
 .field > .field__label {
-  font-size: 0.75rem;
+  font-size: var(--font-tiny, 0.75rem);
   line-height: 1.866;
 }
 .field.field--label-inline .field__label {
@@ -11934,7 +11934,7 @@ input[type=submit][disabled] {
 }
 .breadcrumb ol li a {
   text-transform: uppercase;
-  font-size: 0.875rem;
+  font-size: var(--font-small, 0.875rem);
 }
 
 .contextual {
@@ -12248,7 +12248,7 @@ blockquote .teaser p,
 .teaser h5, .teaser .h5,
 .teaser h6, .teaser .h6 {
   font-family: var(--font-base);
-  font-size: 1.375rem;
+  font-size: var(--font-size-teaser-heading, 1.375rem);
   font-weight: bold;
   letter-spacing: unset;
   line-height: 1.4;
@@ -12261,7 +12261,7 @@ h4.teaser,
 h5.teaser,
 h6.teaser {
   font-family: var(--font-base);
-  font-size: 1.375rem;
+  font-size: var(--font-size-teaser-heading, 1.375rem);
   font-weight: bold;
   letter-spacing: unset;
   line-height: 1.4;
@@ -12422,7 +12422,7 @@ h6.teaser {
 }
 .footer .region-footer > .block > h2 {
   font-family: var(--font-base);
-  font-size: 1.75rem;
+  font-size: var(--font-size-h3, 1.75rem);
   color: var(--color-text-inverted);
 }
 
@@ -12645,7 +12645,7 @@ h6.teaser {
   background: var(--color-bg-light);
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
-  font-size: 1.125rem;
+  font-size: var(--font-size-big, 1.125rem);
 }
 .offcanvas-open .header__offcanvas-menu {
   transform: translate3d(0, 0, 0);
@@ -12777,14 +12777,15 @@ h6.teaser {
   display: inline-block;
   margin: 0;
 }
-.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button.form-submit {
+.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit] {
+  border-color: var(--color-divider-dark);
+  border-left: 0;
+  background: transparent;
   color: var(--color-interaction);
-  background: var(--color-bg-light);
-  border-color: var(--color-interaction);
   height: 100%;
   padding: 0 0.75rem;
 }
-.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button.form-submit:before {
+.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -12795,7 +12796,11 @@ h6.teaser {
   content: "\f002";
   font-size: 1.5rem;
 }
-.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button.form-submit span {
+.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:hover {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit] span {
   position: absolute !important;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);

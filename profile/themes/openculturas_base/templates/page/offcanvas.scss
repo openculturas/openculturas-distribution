@@ -160,13 +160,22 @@
         display: inline-block;
         margin: 0;
 
-        button.form-submit {
-          @include button-secondary;
-          height: 100%;
-          padding: 0 .75rem;
+        button[type="submit"] {
           @include icon(search) {
             font-size: 1.5rem;
           };
+          border-color: $color-divider-dark;
+          border-left: 0;
+          background: transparent;
+          color: $color-interaction;
+          height: 100%;
+          padding: 0 .75rem;
+
+          &:hover {
+            background: $color-interaction;
+            color: $color-text-inverted;
+          }
+
           span {
             @include visually_hidden;
           }
