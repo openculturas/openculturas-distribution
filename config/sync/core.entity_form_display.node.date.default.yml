@@ -74,12 +74,11 @@ third_party_settings:
     group_event_series:
       children:
         - field_event_series
-        - field_sub_dates
         - field_parent_date
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -100,7 +99,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -117,7 +116,7 @@ third_party_settings:
       label: 'People/groups involved'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -134,7 +133,7 @@ third_party_settings:
       label: 'Further information'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -156,7 +155,7 @@ content:
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 9
+    weight: 14
     region: content
     settings:
       title: 'Accessibility information'
@@ -174,7 +173,7 @@ content:
     third_party_settings: {  }
   field_body_addon:
     type: text_textarea
-    weight: 10
+    weight: 15
     region: content
     settings:
       rows: 5
@@ -356,40 +355,12 @@ content:
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 8
+    weight: 13
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_sub_dates:
-    type: entity_reference_autocomplete
-    weight: 12
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings:
-      conditional_fields:
-        21e0ba16-4a90-485f-b0d2-b62bc42d4a61:
-          entity_type: node
-          bundle: date
-          dependee: field_event_series
-          settings:
-            state: visible
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: has_sub_events
-            effect: show
-            effect_options: {  }
-            selector: ''
   field_ticketing:
     type: link_default
     weight: 11
@@ -407,7 +378,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -420,14 +391,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 18
+    weight: 19
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 15
+    weight: 16
     region: content
     settings:
       display_label: true
@@ -451,10 +422,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   field_mention_by_art_view_ref: true
   field_related_date_view_ref: true
+  field_sub_dates: true
