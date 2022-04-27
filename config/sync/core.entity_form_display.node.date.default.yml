@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
     - field.field.node.date.field_door_time
+    - field.field.node.date.field_door_time_relative
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
     - field.field.node.date.field_event_status
@@ -42,6 +43,7 @@ third_party_settings:
         - field_location_virtual
         - field_date
         - field_door_time
+        - field_door_time_relative
       label: Attendance
       region: content
       parent_name: ''
@@ -78,7 +80,7 @@ third_party_settings:
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -99,7 +101,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -116,7 +118,7 @@ third_party_settings:
       label: 'People/groups involved'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -133,7 +135,7 @@ third_party_settings:
       label: 'Further information'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -181,7 +183,7 @@ content:
     third_party_settings: {  }
   field_date:
     type: smartdate_inline
-    weight: 9
+    weight: 8
     region: content
     settings:
       show_extra: 0
@@ -206,11 +208,17 @@ content:
           YEARLY: '0'
   field_door_time:
     type: time_widget
-    weight: 10
+    weight: 9
     region: content
     settings:
       enabled: false
       step: 5
+    third_party_settings: {  }
+  field_door_time_relative:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_event_description:
     type: entity_reference_autocomplete
@@ -243,7 +251,7 @@ content:
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
@@ -271,7 +279,7 @@ content:
             selector: ''
   field_location_virtual:
     type: link_default
-    weight: 8
+    weight: 7
     region: content
     settings:
       placeholder_url: ''

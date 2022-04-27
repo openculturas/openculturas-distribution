@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
     - field.field.node.date.field_door_time
+    - field.field.node.date.field_door_time_relative
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
     - field.field.node.date.field_event_status
@@ -41,6 +42,7 @@ third_party_settings:
         - field_location_virtual
         - field_date
         - field_door_time
+        - field_door_time_relative
       label: Attendance
       region: content
       parent_name: ''
@@ -77,7 +79,7 @@ third_party_settings:
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -98,7 +100,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -180,7 +182,7 @@ content:
     third_party_settings: {  }
   field_date:
     type: smartdate_inline
-    weight: 9
+    weight: 8
     region: content
     settings:
       show_extra: 0
@@ -205,11 +207,17 @@ content:
           YEARLY: '0'
   field_door_time:
     type: time_widget
-    weight: 10
+    weight: 9
     region: content
     settings:
       enabled: false
       step: 5
+    third_party_settings: {  }
+  field_door_time_relative:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_event_description:
     type: entity_reference_autocomplete
@@ -223,7 +231,7 @@ content:
     third_party_settings: {  }
   field_event_series:
     type: options_select
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -242,7 +250,7 @@ content:
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
@@ -270,7 +278,7 @@ content:
             selector: ''
   field_location_virtual:
     type: link_default
-    weight: 8
+    weight: 7
     region: content
     settings:
       placeholder_url: ''
@@ -296,7 +304,7 @@ content:
             selector: ''
   field_organizer:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 7
     region: content
     settings:
       match_operator: CONTAINS
@@ -306,7 +314,7 @@ content:
     third_party_settings: {  }
   field_parent_date:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 10
     region: content
     settings:
       match_operator: CONTAINS
@@ -334,7 +342,7 @@ content:
             selector: ''
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 11
+    weight: 8
     region: content
     settings:
       title: Member
@@ -350,7 +358,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: '2.00 - 10.00 €'
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea

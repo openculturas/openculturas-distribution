@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+    - options
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_door_time_relative
+field_name: field_door_time_relative
+entity_type: node
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 120
+      label: '2 hours before'
+    -
+      value: 90
+      label: '1,5 hours before'
+    -
+      value: 60
+      label: '1 hour before'
+    -
+      value: 30
+      label: '30 minutes before'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
