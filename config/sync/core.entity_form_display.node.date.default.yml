@@ -27,7 +27,6 @@ dependencies:
     - node.type.date
   module:
     - field_group
-    - field_time
     - link
     - paragraphs
     - path
@@ -42,7 +41,6 @@ third_party_settings:
         - field_location
         - field_location_virtual
         - field_date
-        - field_door_time
         - field_door_time_relative
       label: Attendance
       region: content
@@ -80,7 +78,7 @@ third_party_settings:
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -101,7 +99,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -118,7 +116,7 @@ third_party_settings:
       label: 'People/groups involved'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -135,7 +133,7 @@ third_party_settings:
       label: 'Further information'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -151,7 +149,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -175,7 +173,7 @@ content:
     third_party_settings: {  }
   field_body_addon:
     type: text_textarea
-    weight: 15
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -206,14 +204,6 @@ content:
           WEEKLY: WEEKLY
           MONTHLY: MONTHLY
           YEARLY: '0'
-  field_door_time:
-    type: time_widget
-    weight: 9
-    region: content
-    settings:
-      enabled: false
-      step: 5
-    third_party_settings: {  }
   field_door_time_relative:
     type: options_select
     weight: 10
@@ -305,7 +295,7 @@ content:
             selector: ''
   field_organizer:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 10
     region: content
     settings:
       match_operator: CONTAINS
@@ -343,7 +333,7 @@ content:
             selector: ''
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 8
+    weight: 11
     region: content
     settings:
       title: Member
@@ -392,7 +382,7 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 14
+    weight: 15
     region: content
     settings:
       display_label: true
@@ -435,6 +425,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_door_time: true
   field_mention_by_art_view_ref: true
   field_related_date_view_ref: true
   field_sub_dates: true
