@@ -36,7 +36,7 @@
 %}
 
 {# Set nofollow to prevent search bots from crawling anonymous flag links #}
-{% set attributes = attributes.setAttribute('rel', 'nofollow').setAttribute('title', title) %}
+{% set attributes = attributes.setAttribute('rel', 'nofollow').setAttribute('title', title).addClass('flag--link') %}
 
 <div class="{{classes|join(' ')}}"><a{{ attributes }}><span class="offcanvas--visually-hidden">{{ title }}</span></a></div>
 {% endspaceless %}

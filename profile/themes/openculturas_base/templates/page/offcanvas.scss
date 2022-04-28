@@ -14,9 +14,8 @@
   transform: translate3d(100%, 0, 0);
   font-size: $font-size-big;
 
-  .offcanvas-open &{
+  .offcanvas-open & {
     transform: translate3d(0, 0, 0);
-    //box-shadow: 1rem 0 1rem var(----color-text);
     box-shadow: 0 .5rem 1.5rem -.5rem $color-text;
   }
 
@@ -46,15 +45,6 @@
         }
       }
     }
-
-    .header__offcanvas-menu--toggle {
-      padding: 0 0;
-      @include clearfix;
-
-      .header__offcanvas-menu--burger {
-        float: right;
-      }
-    }
   }
 
   &--content {
@@ -71,7 +61,6 @@
       }
 
       a {
-        // @include link-offcanvas();
         color: $color-text;
         text-decoration: none;
 
@@ -198,7 +187,60 @@
   }
 }
 
-body.offcanvas-open {
-  width: 100%;
+.header__burger--link {
+  @include icon(bars);
+
+  background: $color-interaction;
+  border-radius: 0.5rem;
+  color: $color-text-inverted;
+  display: block;
+  font-size: 1.5rem;
+  height: 1.5em;
   overflow: hidden;
+  text-decoration: none;
+  width: 1.5em;
+
+  @include breakpoint(m) {
+    font-size: 1.75rem;
+  }
+
+  &:before,
+  &:after {
+    color: inherit;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    top: 0;
+    transition: top 300ms ease;
+    width: inherit;
+  }
+
+  &:after {
+    @extend %fa-icon;
+    @extend .fa-solid;
+    content: "\f00d"; // $fa-var-xmark
+  }
+
+  .offcanvas-open & {
+    &:before,
+    &:after {
+      top: -100%;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $color-primary;
+    color: $color-text-inverted;
+    text-decoration: none;
+  }
 }
+
+// This should not be necessary or you have out of bound Elements (such as long pre-Elements)
+//body.offcanvas-open {
+//  width: 100%;
+//  overflow: hidden;
+//}

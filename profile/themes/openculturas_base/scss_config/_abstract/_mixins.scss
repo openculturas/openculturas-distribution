@@ -128,63 +128,6 @@
 }
 
 //
-//  Helper mixin for giving an element the default offcanvas button style.
-//  Optionally you can define an icon from the fontawesome library to be added to the button.
-//
-//  @param $icon
-//    Optional icon from fontawesome to be added to the button.
-//  @param $iconset
-//    Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
-//    in the "brands" set of fontawesome which has the shorthand "fab").
-//    Possible values with the free version: "fas" & "fab".
-//
-//  @usage
-//     .offcanvasButtonElement {
-//         @include offcanvas-button();
-//     }
-//
-//     .offcanvasButtonElement {
-//         @include offcanvas-button(bars);
-//     }
-//
-//     .offcanvasButtonElement {
-//         @include offcanvas-button(twitter, fab);
-//     }
-//
-@mixin offcanvas-button($icon: false, $iconset: fas, $position: before) {
-  display: block;
-  width: 1.5em;
-  height: 1.5em;
-  // Bbackground-color: $color-bg-dark;
-  border-radius: 0.5rem;
-  font-size: 1.5rem;
-  overflow: hidden;
-
-  @include breakpoint(m) {
-    font-size: 1.75rem;
-  }
-
-  @if $icon {
-    @include icon($icon, $iconset, $position);
-
-    &:#{$position} {
-      text-decoration: none;
-      text-align: center;
-      vertical-align: bottom;
-      line-height: 1.5;
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
-  }
-}
-
-//
 //  Helper mixin for adding an icon to an element via scss.
 //  Optionally you can select another fontawesome set of icons and the location of the icon (:before or :after).
 //

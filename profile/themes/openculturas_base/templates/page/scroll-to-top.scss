@@ -2,7 +2,7 @@
 // Scroll to top
 //
 .scroll-to-top {
-  @include offcanvas-button(circle-arrow-up);
+  @include icon(circle-arrow-up);
   background: transparent;
   bottom: $grid-gutter;
   cursor: pointer;
@@ -11,10 +11,8 @@
   position: fixed;
   right: $grid-gutter;
   width: (2 * $grid-gutter);
-
-  // Keep hidden without js.
-  //visibility: hidden;
   z-index: 2;
+
   &:before {
     background: $color-bg-light;
     border-radius: 1.5rem;
@@ -22,6 +20,7 @@
     display: block;
     font-size: 2rem;
     line-height: (2 * $grid-gutter);
+    text-align: center;
   }
 
   &:hover,

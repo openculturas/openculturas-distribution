@@ -67,33 +67,5 @@
   .header__burger {
     grid-area: burger;
     align-self: center;
-
-    &--link {
-      @include offcanvas-button(bars);
-
-      @include offcanvas-button(xmark, fas, after);
-      color: $color-text-inverted;
-      //background: $color-bg-dark;
-      background: $color-interaction;
-      text-decoration: none;
-
-      &:before, &:after {
-        position: relative;
-        top: 0;
-        transition: top 300ms ease;
-      }
-
-      .offcanvas-open &{
-        &:before, &:after {
-          position: relative;
-          top: -100%;
-        }
-      }
-
-      &:hover,
-      &:focus {
-        background-color: $color-primary;
-      }
-    }
   }
 }
