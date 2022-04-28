@@ -4,12 +4,23 @@ Do not use this project/code to start a new project. Go to https://github.com/op
 and use this.
 
 ## Requirements
-* TBD
+* https://www.drupal.org/docs/system-requirements for Drupal 9
+  * PHP 7.4
 
 
 ## Development
 
-### Installation
+We recommend to use https://ddev.com for development.
+
+### Installation (with ddev)
+
+* Clone this repository
+* Install dependencies
+  * `ddev composer install`
+* Install OpenCulturas distribution
+  * `drush si --existing-config`
+
+### Installation (without ddev)
 
 * Clone this repository
 * Install dependencies
