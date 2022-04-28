@@ -29,7 +29,6 @@ body {
 .allcaps,
 %allcaps {
   letter-spacing: .05rem;
-  line-height: 1.4;
   text-transform: uppercase;
 }
 
@@ -50,10 +49,6 @@ h1,
   font-family: var(--font-head);
   font-size: $font-size-h1;
   line-height: 1.2;
-  @include breakpoint(l) {
-    font-size: 3.75rem;
-    margin: 1.875rem 0;
-  }
 }
 
 h2,
@@ -107,21 +102,22 @@ button.link {
   }
 
   &:hover,
-  &:focus,
-  &:active {
-    text-decoration: underline;
+  &:focus{
+    //text-decoration: underline;
+    background: $color-link;
+    color: $color-text-inverted !important;
   }
 
   &:hover {
-    color: $color-primary;
+    //color: $color-primary;
   }
 
   &:focus {
-    color: $color-interaction;
+    //color: $color-interaction;
   }
 
   &:active {
-    color: $color-primary;
+    outline: $outline-active;
   }
 
   &:visited {
@@ -354,16 +350,13 @@ figcaption {
 // Responsive forms.
 input[size] {
   max-width: 100%;
-  width: 100%;
 
   &[disabled] {
     opacity: .5;
   }
 }
 
-%blockquote,
 blockquote  {
-  /* Mixing %blockquote */
   display: flex;
   margin: (2 * $grid-gutter) 0;
   text-align: center;
@@ -375,7 +368,7 @@ blockquote  {
   &,
   p {
     @extend .h3;
-    font-size: size(h4);
+    font-size: $font-size-h4;
     padding: 0 $grid-gutter;
     font-style: italic;
     color: $color-text-muted;

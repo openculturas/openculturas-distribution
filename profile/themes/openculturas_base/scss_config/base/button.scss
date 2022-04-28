@@ -1,5 +1,6 @@
 // Button base styles
 .button,
+button,
 input[type='button'],
 input[type='submit'] {
   border: 1px solid transparent;
@@ -31,10 +32,10 @@ input[type='submit'] {
 
   &:active {
     background: $color-text-inverted;
-    border: 1px dashed $color-interaction;
+    border-color: currentColor;
     box-shadow: 0 .25rem .125rem $color-box-shaddow;
     color: $color-interaction;
-    text-decoration: none;
+    outline: $outline-active;
   }
 
   &[disabled] {

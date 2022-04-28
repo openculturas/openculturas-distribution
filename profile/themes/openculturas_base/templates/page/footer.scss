@@ -1,16 +1,18 @@
+// Layout only.
+.footer--container {
+  @include grid();
+  margin: 0 auto;
+  padding: (2 * $grid-gutter) 0 $grid-gutter;
+
+  @include breakpoint(m) {
+    padding: (3 * $grid-gutter) 0 $grid-gutter;
+  }
+}
+
+// Content.
 .footer {
   background: $color-bg-dark;
   color: $color-text-inverted;
-
-  .footer--container {
-    @include grid();
-    margin: 0 auto;
-    padding: (2 * $grid-gutter) 0 $grid-gutter;
-
-    @include breakpoint(m) {
-      padding: (3 * $grid-gutter) 0 $grid-gutter;
-    }
-  }
 
   a,
   .content a,

@@ -3,10 +3,11 @@
 .reference--taxonomy_term > a, // Tag-Links
 .taxonomy-term--tagwrapper .taxonomy-term--tag { // Buttons in Teasers
   background: $color-bg-slight-contrast;
-  border: 1px solid $color-primary;
+  border: 1px solid $color-bg-slight-contrast;
   border-radius: .75rem;
   color: $color-primary;
   display: inline-block;
+  line-height: 1;
   margin: 0 $grid-gutter $grid-gutter 0;
   padding: .5rem 2rem;
   text-decoration: none;
@@ -20,8 +21,9 @@
 
   &:active {
     background: $color-text-inverted;
-    border: 1px dashed $color-interaction;
-    color: $color-interaction;
+    border-color: transparent;
+    outline: $outline-active;
+    color: $color-interaction !important;
   }
 }
 
