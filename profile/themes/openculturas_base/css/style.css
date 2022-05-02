@@ -10635,6 +10635,455 @@ blockquote > *:first-child {
   margin-top: 0;
 }
 
+form {
+  background: var(--color-bg-form);
+}
+form > .form--inline,
+form > .form-item,
+form > .form-wrapper,
+form > [id*=ajax-wrapper] {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  width: auto !important;
+}
+form > .form--inline:first-child,
+form > .form-item:first-child,
+form > .form-wrapper:first-child,
+form > [id*=ajax-wrapper]:first-child {
+  padding-top: 1.25rem;
+}
+form > .form--inline:last-of-type,
+form > .form-item:last-of-type,
+form > .form-wrapper:last-of-type,
+form > [id*=ajax-wrapper]:last-of-type {
+  padding-bottom: 1.25rem;
+}
+form .js-hide {
+  display: none !important;
+}
+form .form-textarea-wrapper,
+form .filter-wrapper {
+  background: var(--color-bg-fieldset);
+}
+form .form-textarea-wrapper .cke_top,
+form .form-textarea-wrapper .cke_contents,
+form .form-textarea-wrapper .cke_bottom,
+form .filter-wrapper .cke_top,
+form .filter-wrapper .cke_contents,
+form .filter-wrapper .cke_bottom {
+  background: var(--color-bg-fieldset);
+}
+form .form-textarea-wrapper .filter-guidelines-item,
+form .filter-wrapper .filter-guidelines-item {
+  margin: 0;
+}
+form .field-suffix .button {
+  margin-bottom: 1.25rem;
+}
+form fieldset,
+form fieldset.fieldgroup {
+  background: var(--color-bg-fieldset);
+  padding: 1.25rem;
+}
+form fieldset fieldset,
+form fieldset fieldset.fieldgroup,
+form fieldset.fieldgroup fieldset,
+form fieldset.fieldgroup fieldset.fieldgroup {
+  background: transparent;
+  padding: 0;
+}
+form .form-required:after {
+  background-image: none;
+  color: var(--color-danger);
+  content: "*";
+  vertical-align: text-top;
+}
+form .form--inline .form-item {
+  margin-top: 0;
+}
+
+.form-item label {
+  display: block;
+}
+.form-item label.option {
+  display: inline-block;
+}
+.form-item input,
+.form-item select,
+.form-item textarea {
+  padding: 0.5rem 1rem;
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-text);
+}
+.form-item input:focus,
+.form-item select:focus,
+.form-item textarea:focus {
+  border-bottom-color: var(--color-info);
+  box-shadow: 0 -3px 0 inset var(--color-info);
+}
+.form-item input .error,
+.form-item select .error,
+.form-item textarea .error {
+  border: 1px solid var(--color-danger);
+  box-shadow: 0 -3px 0 inset var(--color-danger);
+}
+.form-item input:-ms-input-placeholder, .form-item select:-ms-input-placeholder, .form-item textarea:-ms-input-placeholder {
+  color: var(--color-text-muted);
+  text-align: right;
+}
+.form-item input::placeholder,
+.form-item select::placeholder,
+.form-item textarea::placeholder {
+  color: var(--color-text-muted);
+  text-align: right;
+}
+.form-item input[disabled],
+.form-item select[disabled],
+.form-item textarea[disabled] {
+  opacity: 0.5;
+}
+.form-item input.form-autocomplete,
+.form-item select.form-autocomplete,
+.form-item textarea.form-autocomplete {
+  background-position: right 0.5rem center !important;
+  padding-right: 2rem;
+}
+.form-item select {
+  -moz-appearance: none;
+  /* Firefox */
+  -webkit-appearance: none;
+  /* Safari and Chrome */
+  appearance: none;
+  padding-right: 2rem;
+  position: relative;
+  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
+  background-size: 1em;
+}
+.form-item select.error {
+  border: 1px solid var(--color-text);
+  box-shadow: 0 -3px 0 inset var(--color-danger);
+}
+.form-item input[type=checkbox],
+.form-item input[type=radio] {
+  height: 1em;
+  margin-right: 0.5rem;
+  position: relative;
+  top: 0.1rem;
+  vertical-align: baseline;
+  width: 1em;
+}
+.form-item input[type=checkbox]:focus,
+.form-item input[type=radio]:focus {
+  box-shadow: none;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+  background-color: transparent;
+  border: 0;
+  color: var(--color-text);
+  display: block;
+}
+.ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper:focus {
+  background-color: var(--color-primary);
+  border: 0;
+  color: var(--color-text-inverted);
+}
+
+details {
+  border: 0;
+  border-top: 1px solid var(--color-divider-light);
+  padding: 0 1.25rem;
+}
+details.form-wrapper {
+  margin: 1.25rem 0 0;
+}
+details.form-wrapper:last-of-type {
+  padding-bottom: 0.5rem;
+}
+details:last-of-type {
+  border-bottom: 1px solid var(--color-divider-light);
+  margin-bottom: 1.25rem;
+}
+details > summary {
+  list-style: none;
+  padding: 0;
+}
+details > summary:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f078";
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary:before {
+  border-radius: 4px;
+  float: right;
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-top: 0.25em;
+  padding: 0 0.5em;
+  transition: transform 300ms ease;
+}
+details > summary:hover:before {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+details > summary:active:before {
+  background: transparent;
+  color: var(--color-interaction);
+  outline: var(--outline-active);
+}
+details > summary .details--title {
+  color: inherit;
+  display: inline-block;
+  line-height: 2;
+  margin: 0;
+  width: auto;
+}
+details > summary:hover, details > summary:focus {
+  color: var(--color-interaction);
+}
+details > summary.form-required:after {
+  font-size: var(--font-size-h3, 1.75rem);
+  line-height: 2;
+  vertical-align: top;
+}
+details > summary.form-required h2:after {
+  color: var(--color-danger);
+  content: "*";
+}
+details[open] > summary:before {
+  transform: rotate(-180deg);
+}
+details .details-wrapper {
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.vertical-tabs {
+  margin-left: 0;
+  display: flex;
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-light);
+}
+.vertical-tabs .vertical-tabs__menu {
+  margin: 0;
+  width: 12rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-fieldset);
+  line-height: 1;
+  margin: 0;
+  padding: 0.2em;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
+  background: var(--color-bg-light);
+  pointer-events: none;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected a:focus {
+  background: transparent;
+  outline: var(--outline-active);
+}
+.vertical-tabs .vertical-tabs__panes {
+  flex-grow: 1;
+}
+.vertical-tabs > div {
+  margin-top: 1rem;
+  background: var(--color-bg-light);
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.button,
+button,
+input[type=button],
+input[type=submit] {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: inline-block;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  margin-left: 0;
+  margin-right: 1.25rem;
+  outline-offset: 0.25rem;
+  padding: 0.5rem 2rem;
+}
+.button:first-child,
+button:first-child,
+input[type=button]:first-child,
+input[type=submit]:first-child {
+  margin-right: 1.25rem;
+}
+.button:active, .button:focus, .button:hover,
+button:active,
+button:focus,
+button:hover,
+input[type=button]:active,
+input[type=button]:focus,
+input[type=button]:hover,
+input[type=submit]:active,
+input[type=submit]:focus,
+input[type=submit]:hover {
+  text-decoration: none;
+}
+.button:focus, .button:not([disabled]):hover,
+button:focus,
+button:not([disabled]):hover,
+input[type=button]:focus,
+input[type=button]:not([disabled]):hover,
+input[type=submit]:focus,
+input[type=submit]:not([disabled]):hover {
+  background: var(--color-interaction);
+  border-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.button:active,
+button:active,
+input[type=button]:active,
+input[type=submit]:active {
+  background: var(--color-text-inverted);
+  border-color: currentColor;
+  color: var(--color-interaction);
+  outline: var(--outline-active);
+}
+.button[disabled],
+button[disabled],
+input[type=button][disabled],
+input[type=submit][disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.form-submit,
+.view-header .button,
+input[type=submit],
+button[type=submit] {
+  color: var(--color-text-inverted);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+.form-submit:focus, .form-submit:hover,
+.view-header .button:focus,
+.view-header .button:hover,
+input[type=submit]:focus,
+input[type=submit]:hover,
+button[type=submit]:focus,
+button[type=submit]:hover {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+
+.form-submit.secondary,
+.button.secondary,
+a.button.secondary,
+input[type=submit].secondary,
+.button[data-drupal-selector$=cancel],
+.field-add-more-submit,
+.button--small,
+button[id*=remove] {
+  color: var(--color-interaction);
+  background: var(--color-bg-light);
+  border-color: var(--color-interaction);
+}
+
+.form-submit.danger,
+.button.danger,
+a.button.danger,
+input[type=submit].danger {
+  color: var(--color-danger);
+  background: var(--color-text-inverted);
+  border-color: var(--color-danger);
+}
+.form-submit.danger:before,
+.button.danger:before,
+a.button.danger:before,
+input[type=submit].danger:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f00d";
+  margin-right: 0.5rem;
+}
+.form-submit.danger:not([disabled]):hover, .form-submit.danger:focus,
+.button.danger:not([disabled]):hover,
+.button.danger:focus,
+a.button.danger:not([disabled]):hover,
+a.button.danger:focus,
+input[type=submit].danger:not([disabled]):hover,
+input[type=submit].danger:focus {
+  background: var(--color-danger);
+  color: var(--color-text-inverted);
+  border-color: var(--color-danger);
+}
+.form-submit.danger:active,
+.button.danger:active,
+a.button.danger:active,
+input[type=submit].danger:active {
+  background: var(--color-text-inverted);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/**
+ * Link style classes.
+ *
+ * Utility classes for setting the different default link styles.
+ * Since links in the main content, the offcanvas menu and footer behave differently because of different
+ * context / background, you can force the styling of any of those styles on any link by adding the respective following
+ * classes to it. Usually this should not be needed, because the context defines which link styling is appropiate.
+ */
+/**
+ * Text alignment classes.
+ *
+ * Utility classes for text-alignment.
+ * Can also be used in conjunction with .grid-inline-block to define the direction of the inline block elements.
+ */
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.pager .pager__item > a {
+  background: var(--color-primary);
+  border: 1px solid var(--color-text-inverted);
+  border-radius: 4px;
+  color: var(--color-text-inverted);
+  display: inline-block;
+  line-height: 1.8;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.pager .pager__item > a:focus, .pager .pager__item > a:hover {
+  background: var(--color-interaction);
+  border-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.pager .pager__item > a:active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-interaction);
+}
+
 .grid-1 > .view-content, .grid-1 > .field__items, .grid-1 > .details-wrapper {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -11181,455 +11630,6 @@ blockquote > *:first-child {
   display: flex;
 }
 
-form {
-  background: var(--color-bg-form);
-}
-form > .form--inline,
-form > .form-item,
-form > .form-wrapper,
-form > [id*=ajax-wrapper] {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-  width: auto !important;
-}
-form > .form--inline:first-child,
-form > .form-item:first-child,
-form > .form-wrapper:first-child,
-form > [id*=ajax-wrapper]:first-child {
-  padding-top: 1.25rem;
-}
-form > .form--inline:last-of-type,
-form > .form-item:last-of-type,
-form > .form-wrapper:last-of-type,
-form > [id*=ajax-wrapper]:last-of-type {
-  padding-bottom: 1.25rem;
-}
-form .js-hide {
-  display: none !important;
-}
-form .form-textarea-wrapper,
-form .filter-wrapper {
-  background: var(--color-bg-fieldset);
-}
-form .form-textarea-wrapper .cke_top,
-form .form-textarea-wrapper .cke_contents,
-form .form-textarea-wrapper .cke_bottom,
-form .filter-wrapper .cke_top,
-form .filter-wrapper .cke_contents,
-form .filter-wrapper .cke_bottom {
-  background: var(--color-bg-fieldset);
-}
-form .form-textarea-wrapper .filter-guidelines-item,
-form .filter-wrapper .filter-guidelines-item {
-  margin: 0;
-}
-form .field-suffix .button {
-  margin-bottom: 1.25rem;
-}
-form fieldset,
-form fieldset.fieldgroup {
-  background: var(--color-bg-fieldset);
-  padding: 1.25rem;
-}
-form fieldset fieldset,
-form fieldset fieldset.fieldgroup,
-form fieldset.fieldgroup fieldset,
-form fieldset.fieldgroup fieldset.fieldgroup {
-  background: transparent;
-  padding: 0;
-}
-form .form-required:after {
-  background-image: none;
-  color: var(--color-danger);
-  content: "*";
-  vertical-align: text-top;
-}
-form .form--inline .form-item {
-  margin-top: 0;
-}
-
-.form-item label {
-  display: block;
-}
-.form-item label.option {
-  display: inline-block;
-}
-.form-item input,
-.form-item select,
-.form-item textarea {
-  padding: 0.5rem 1rem;
-  background: var(--color-bg-light);
-  border: 1px solid var(--color-text);
-}
-.form-item input:focus,
-.form-item select:focus,
-.form-item textarea:focus {
-  border-bottom-color: var(--color-info);
-  box-shadow: 0 -3px 0 inset var(--color-info);
-}
-.form-item input .error,
-.form-item select .error,
-.form-item textarea .error {
-  border: 1px solid var(--color-danger);
-  box-shadow: 0 -3px 0 inset var(--color-danger);
-}
-.form-item input:-ms-input-placeholder, .form-item select:-ms-input-placeholder, .form-item textarea:-ms-input-placeholder {
-  color: var(--color-text-muted);
-  text-align: right;
-}
-.form-item input::placeholder,
-.form-item select::placeholder,
-.form-item textarea::placeholder {
-  color: var(--color-text-muted);
-  text-align: right;
-}
-.form-item input[disabled],
-.form-item select[disabled],
-.form-item textarea[disabled] {
-  opacity: 0.5;
-}
-.form-item input.form-autocomplete,
-.form-item select.form-autocomplete,
-.form-item textarea.form-autocomplete {
-  background-position: right 0.5rem center !important;
-  padding-right: 2rem;
-}
-.form-item select {
-  -moz-appearance: none;
-  /* Firefox */
-  -webkit-appearance: none;
-  /* Safari and Chrome */
-  appearance: none;
-  padding-right: 2rem;
-  position: relative;
-  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
-  background-size: 1em;
-}
-.form-item select.error {
-  border: 1px solid var(--color-text);
-  box-shadow: 0 -3px 0 inset var(--color-danger);
-}
-.form-item input[type=checkbox],
-.form-item input[type=radio] {
-  height: 1em;
-  margin-right: 0.5rem;
-  position: relative;
-  top: 0.1rem;
-  vertical-align: baseline;
-  width: 1em;
-}
-.form-item input[type=checkbox]:focus,
-.form-item input[type=radio]:focus {
-  box-shadow: none;
-}
-
-.ui-menu .ui-menu-item-wrapper {
-  background-color: transparent;
-  border: 0;
-  color: var(--color-text);
-  display: block;
-}
-.ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper:focus {
-  background-color: var(--color-primary);
-  border: 0;
-  color: var(--color-text-inverted);
-}
-
-details {
-  border: 0;
-  border-top: 1px solid var(--color-divider-light);
-  padding: 0 1.25rem;
-}
-details.form-wrapper {
-  margin: 1.25rem 0 0;
-}
-details.form-wrapper:last-of-type {
-  padding-bottom: 0.5rem;
-}
-details:last-of-type {
-  border-bottom: 1px solid var(--color-divider-light);
-  margin-bottom: 1.25rem;
-}
-details > summary {
-  list-style: none;
-  padding: 0;
-}
-details > summary:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f078";
-}
-details > summary::-webkit-details-marker {
-  display: none;
-}
-details > summary:before {
-  border-radius: 4px;
-  float: right;
-  font-size: 1.5rem;
-  line-height: 2;
-  margin-top: 0.25em;
-  padding: 0 0.5em;
-  transition: transform 300ms ease;
-}
-details > summary:hover:before {
-  background: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-details > summary:active:before {
-  background: transparent;
-  color: var(--color-interaction);
-  outline: var(--outline-active);
-}
-details > summary .details--title {
-  color: inherit;
-  display: inline-block;
-  line-height: 2;
-  margin: 0;
-  width: auto;
-}
-details > summary:hover, details > summary:focus {
-  color: var(--color-interaction);
-}
-details > summary.form-required:after {
-  font-size: var(--font-size-h3, 1.75rem);
-  line-height: 2;
-  vertical-align: top;
-}
-details > summary.form-required h2:after {
-  color: var(--color-danger);
-  content: "*";
-}
-details[open] > summary:before {
-  transform: rotate(-180deg);
-}
-details .details-wrapper {
-  margin: 0;
-  padding: 0.5rem 0;
-}
-
-.vertical-tabs {
-  margin-left: 0;
-  display: flex;
-  border-color: var(--color-divider-light);
-  background: var(--color-bg-light);
-}
-.vertical-tabs .vertical-tabs__menu {
-  margin: 0;
-  width: 12rem;
-  list-style-type: none;
-  padding-left: 0;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
-  border-color: var(--color-divider-light);
-  background: var(--color-bg-fieldset);
-  line-height: 1;
-  margin: 0;
-  padding: 0.2em;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
-  background: var(--color-bg-light);
-  pointer-events: none;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected a:focus {
-  background: transparent;
-  outline: var(--outline-active);
-}
-.vertical-tabs .vertical-tabs__panes {
-  flex-grow: 1;
-}
-.vertical-tabs > div {
-  margin-top: 1rem;
-  background: var(--color-bg-light);
-  margin: 0.3rem 0.3rem 0.3rem 0;
-  padding: 0.5rem 1rem;
-}
-
-.button,
-button,
-input[type=button],
-input[type=submit] {
-  border: 1px solid transparent;
-  border-radius: 4px;
-  display: inline-block;
-  line-height: 1;
-  margin-bottom: 1.25rem;
-  margin-left: 0;
-  margin-right: 1.25rem;
-  outline-offset: 0.25rem;
-  padding: 0.5rem 2rem;
-}
-.button:first-child,
-button:first-child,
-input[type=button]:first-child,
-input[type=submit]:first-child {
-  margin-right: 1.25rem;
-}
-.button:active, .button:focus, .button:hover,
-button:active,
-button:focus,
-button:hover,
-input[type=button]:active,
-input[type=button]:focus,
-input[type=button]:hover,
-input[type=submit]:active,
-input[type=submit]:focus,
-input[type=submit]:hover {
-  text-decoration: none;
-}
-.button:focus, .button:not([disabled]):hover,
-button:focus,
-button:not([disabled]):hover,
-input[type=button]:focus,
-input[type=button]:not([disabled]):hover,
-input[type=submit]:focus,
-input[type=submit]:not([disabled]):hover {
-  background: var(--color-interaction);
-  border-color: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-.button:active,
-button:active,
-input[type=button]:active,
-input[type=submit]:active {
-  background: var(--color-text-inverted);
-  border-color: currentColor;
-  color: var(--color-interaction);
-  outline: var(--outline-active);
-}
-.button[disabled],
-button[disabled],
-input[type=button][disabled],
-input[type=submit][disabled] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.form-submit,
-.view-header .button,
-input[type=submit],
-button[type=submit] {
-  color: var(--color-text-inverted);
-  background: var(--color-primary);
-  border: 1px solid var(--color-primary);
-}
-.form-submit:focus, .form-submit:hover,
-.view-header .button:focus,
-.view-header .button:hover,
-input[type=submit]:focus,
-input[type=submit]:hover,
-button[type=submit]:focus,
-button[type=submit]:hover {
-  background: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-
-.form-submit.secondary,
-.button.secondary,
-a.button.secondary,
-input[type=submit].secondary,
-.button[data-drupal-selector$=cancel],
-.field-add-more-submit,
-.button--small,
-button[id*=remove] {
-  color: var(--color-interaction);
-  background: var(--color-bg-light);
-  border-color: var(--color-interaction);
-}
-
-.form-submit.danger,
-.button.danger,
-a.button.danger,
-input[type=submit].danger {
-  color: var(--color-danger);
-  background: var(--color-text-inverted);
-  border-color: var(--color-danger);
-}
-.form-submit.danger:before,
-.button.danger:before,
-a.button.danger:before,
-input[type=submit].danger:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f00d";
-  margin-right: 0.5rem;
-}
-.form-submit.danger:not([disabled]):hover, .form-submit.danger:focus,
-.button.danger:not([disabled]):hover,
-.button.danger:focus,
-a.button.danger:not([disabled]):hover,
-a.button.danger:focus,
-input[type=submit].danger:not([disabled]):hover,
-input[type=submit].danger:focus {
-  background: var(--color-danger);
-  color: var(--color-text-inverted);
-  border-color: var(--color-danger);
-}
-.form-submit.danger:active,
-.button.danger:active,
-a.button.danger:active,
-input[type=submit].danger:active {
-  background: var(--color-text-inverted);
-  border-color: var(--color-danger);
-  color: var(--color-danger);
-}
-
-/**
- * Link style classes.
- *
- * Utility classes for setting the different default link styles.
- * Since links in the main content, the offcanvas menu and footer behave differently because of different
- * context / background, you can force the styling of any of those styles on any link by adding the respective following
- * classes to it. Usually this should not be needed, because the context defines which link styling is appropiate.
- */
-/**
- * Text alignment classes.
- *
- * Utility classes for text-alignment.
- * Can also be used in conjunction with .grid-inline-block to define the direction of the inline block elements.
- */
-.align-left {
-  text-align: left;
-}
-
-.align-right {
-  text-align: right;
-}
-
-.align-center {
-  text-align: center;
-}
-
-.pager .pager__item > a {
-  background: var(--color-primary);
-  border: 1px solid var(--color-text-inverted);
-  border-radius: 4px;
-  color: var(--color-text-inverted);
-  display: inline-block;
-  line-height: 1.8;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-.pager .pager__item > a:focus, .pager .pager__item > a:hover {
-  background: var(--color-interaction);
-  border-color: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-.pager .pager__item > a:active {
-  background: transparent;
-  border-color: transparent;
-  color: var(--color-interaction);
-}
-
 .block-openculturas-custom-hero-image .field {
   margin: 0;
 }
@@ -11914,6 +11914,8 @@ input[type=submit].danger:active {
 }
 
 #color-schema-ui {
+  top: 4rem;
+  left: 4rem;
   font-size: small;
   background: var(--color-bg-slight-contrast);
 }
@@ -12059,7 +12061,7 @@ input[type=submit].danger:active {
   background: transparent;
   color: var(--color-interaction);
 }
-.region-offcanvas-menu .menu-item.menu-item--open > a.menu-item--toggle:before {
+.region-offcanvas-menu .menu-item.menu-item--open a.menu-item--toggle:before {
   transform: rotate(-180deg);
 }
 
@@ -12939,7 +12941,6 @@ h6.teaser {
   right: 1.25rem;
   width: 2.5rem;
   z-index: 2;
-  padding: 0;
 }
 .scroll-to-top:before {
   -webkit-font-smoothing: antialiased;
