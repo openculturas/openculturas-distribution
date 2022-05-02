@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
     - field.field.node.date.field_door_time
+    - field.field.node.date.field_door_time_relative
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
     - field.field.node.date.field_event_status
@@ -25,14 +26,12 @@ dependencies:
     - node.type.date
   module:
     - field_group
-    - field_time
     - link
     - paragraphs
     - path
     - smart_date
     - smart_date_recur
     - text
-    - viewfield
 third_party_settings:
   field_group:
     group_attendance:
@@ -41,7 +40,7 @@ third_party_settings:
         - field_location
         - field_location_virtual
         - field_date
-        - field_door_time
+        - field_door_time_relative
       label: Attendance
       region: content
       parent_name: ''
@@ -51,7 +50,7 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        open: false
+        open: true
         description: ''
         required_fields: true
     group_tickets:
@@ -68,18 +67,17 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        open: false
+        open: true
         description: ''
         required_fields: true
     group_event_series:
       children:
         - field_event_series
-        - field_sub_dates
         - field_parent_date
       label: 'Event series'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -95,11 +93,12 @@ third_party_settings:
         - promote
         - sticky
         - path
+        - url_redirects
         - status
       label: Administrative
       region: content
       parent_name: ''
-      weight: 14
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -109,6 +108,39 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
+    group_people_groups:
+      children:
+        - field_organizer
+        - field_people_reference
+      label: 'People/groups involved'
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_further_information:
+      children:
+        - field_safety_info
+        - field_accessibility
+        - field_body_addon
+      label: 'Further information'
+      region: content
+      parent_name: ''
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 id: node.date.default
 targetEntityType: node
 bundle: date
@@ -116,13 +148,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 12
+    weight: 14
     region: content
     settings:
       title: 'Accessibility information'
@@ -140,7 +172,7 @@ content:
     third_party_settings: {  }
   field_body_addon:
     type: text_textarea
-    weight: 6
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -148,7 +180,7 @@ content:
     third_party_settings: {  }
   field_date:
     type: smartdate_inline
-    weight: 9
+    weight: 8
     region: content
     settings:
       show_extra: 0
@@ -171,13 +203,11 @@ content:
           WEEKLY: WEEKLY
           MONTHLY: MONTHLY
           YEARLY: '0'
-  field_door_time:
-    type: time_widget
+  field_door_time_relative:
+    type: options_select
     weight: 10
     region: content
-    settings:
-      enabled: false
-      step: 5
+    settings: {  }
     third_party_settings: {  }
   field_event_description:
     type: entity_reference_autocomplete
@@ -191,7 +221,7 @@ content:
     third_party_settings: {  }
   field_event_series:
     type: options_select
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -210,31 +240,61 @@ content:
     third_party_settings: {  }
   field_location:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        6c52f6b1-20cf-44fc-9122-4fa67d18ad8e:
+          entity_type: node
+          bundle: date
+          dependee: field_attendance_mode
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: OnlineEventAttendanceMode
+            effect: show
+            effect_options: {  }
+            selector: ''
   field_location_virtual:
     type: link_default
-    weight: 8
+    weight: 7
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
-  field_mention_by_art_view_ref:
-    type: viewfield_select
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        26628d31-6301-47da-8bc0-c2fe8a6c7e98:
+          entity_type: node
+          bundle: date
+          dependee: field_attendance_mode
+          settings:
+            state: '!visible'
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: OfflineEventAttendanceMode
+            effect: show
+            effect_options: {  }
+            selector: ''
   field_organizer:
     type: entity_reference_autocomplete
-    weight: 9
+    weight: 10
     region: content
     settings:
       match_operator: CONTAINS
@@ -244,7 +304,7 @@ content:
     third_party_settings: {  }
   field_parent_date:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 10
     region: content
     settings:
       match_operator: CONTAINS
@@ -272,7 +332,7 @@ content:
             selector: ''
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 11
     region: content
     settings:
       title: Member
@@ -288,50 +348,16 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_related_date_view_ref:
-    type: viewfield_select
-    weight: 13
-    region: content
-    settings: {  }
+      placeholder: '2.00 - 10.00 €'
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 8
+    weight: 13
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_sub_dates:
-    type: entity_reference_autocomplete
-    weight: 12
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings:
-      conditional_fields:
-        21e0ba16-4a90-485f-b0d2-b62bc42d4a61:
-          entity_type: node
-          bundle: date
-          dependee: field_event_series
-          settings:
-            state: visible
-            condition: value
-            grouping: AND
-            values_set: 1
-            value: ''
-            values: {  }
-            value_form:
-              -
-                value: has_sub_events
-            effect: show
-            effect_options: {  }
-            selector: ''
   field_ticketing:
     type: link_default
     weight: 11
@@ -349,27 +375,27 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 14
+    weight: 15
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 17
+    weight: 19
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 15
+    weight: 16
     region: content
     settings:
       display_label: true
@@ -393,8 +419,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_door_time: true
+  field_mention_by_art_view_ref: true
+  field_related_date_view_ref: true
+  field_sub_dates: true

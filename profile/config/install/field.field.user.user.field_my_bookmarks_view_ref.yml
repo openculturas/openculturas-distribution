@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.user.field_my_bookmarks_view_ref
     - views.view.my_bookmarks
+    - views.view.my_bookmarks_taxonomy
   module:
     - user
     - viewfield
@@ -18,7 +19,43 @@ translatable: false
 default_value:
   -
     target_uuid: 9c9e50d0-9ed7-480f-a206-bf65162a8d6d
-    display_id: my_bookmarks_content
+    display_id: date
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+  -
+    target_uuid: 9c9e50d0-9ed7-480f-a206-bf65162a8d6d
+    display_id: magazine
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+  -
+    target_uuid: 9c9e50d0-9ed7-480f-a206-bf65162a8d6d
+    display_id: location
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+  -
+    target_uuid: 9c9e50d0-9ed7-480f-a206-bf65162a8d6d
+    display_id: event
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+  -
+    target_uuid: 9c9e50d0-9ed7-480f-a206-bf65162a8d6d
+    display_id: profile
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+  -
+    target_uuid: 0cf38030-d7c3-45f7-b7fa-c8e793015574
+    display_id: category
+    arguments: ''
+    items_to_display: ''
+    token_help: ''
+  -
+    target_uuid: 0cf38030-d7c3-45f7-b7fa-c8e793015574
+    display_id: columns
     arguments: ''
     items_to_display: ''
     token_help: ''
@@ -29,6 +66,8 @@ settings:
     comment: '0'
     content: '0'
     block_content: '0'
+    entity_reference_node: '0'
+    event_catalogue: '0'
     feeds_feed: '0'
     files: '0'
     frontpage: '0'
@@ -40,9 +79,14 @@ settings:
     media: '0'
     media_library: '0'
     my_bookmarks: '0'
+    my_bookmarks_taxonomy: '0'
+    my_content: '0'
+    my_recommendations: '0'
     user_admin_people: '0'
     comments_recent: '0'
     content_recent: '0'
+    recommended_by: '0'
+    redirect: '0'
     related_article: '0'
     related_date: '0'
     related_event: '0'
@@ -57,6 +101,7 @@ settings:
     block: block
     attachment: '0'
     default: '0'
+    entity_reference: '0'
     feed: '0'
     page: '0'
   handler: 'default:view'

@@ -7,11 +7,9 @@ dependencies:
     - core.entity_view_mode.media.logo
     - core.entity_view_mode.media.teaser_image
   module:
-    - blazy
-    - editor
-    - linkit
-    - media
-    - slick
+    1: editor
+    2: linkit
+    3: media
 _core:
   default_config_hash: svejBAiBwALaC_w177xrfxgSohJVRMBWC8o2kfKabLs
 name: 'Full HTML'
@@ -74,20 +72,6 @@ filters:
         image: image
         logo_image: logo_image
         remote_video: remote_video
-  blazy_filter:
-    id: blazy_filter
-    provider: blazy
-    status: false
-    weight: -40
-    settings:
-      media_switch: ''
-      hybrid_style: ''
-      box_style: ''
-      box_caption: ''
-      filter_tags:
-        img: img
-        iframe: iframe
-      use_data_uri: '0'
   filter_html_escape:
     id: filter_html_escape
     provider: filter
@@ -113,34 +97,3 @@ filters:
     status: false
     weight: -42
     settings: {  }
-  slick_filter:
-    id: slick_filter
-    provider: slick
-    status: false
-    weight: -39
-    settings:
-      optionset: default
-      layout: ''
-      skin: ''
-      loading: ''
-      preload: false
-      background: false
-      image_style: ''
-      media_switch: ''
-      ratio: ''
-      thumbnail_style: ''
-      overridables:
-        arrows: '0'
-        autoplay: '0'
-        dots: '0'
-        draggable: '0'
-        infinite: '0'
-        mouseWheel: '0'
-        randomize: '0'
-        variableWidth: '0'
-      optionset_thumbnail: ''
-      skin_thumbnail: ''
-      thumbnail_caption: ''
-      thumbnail_effect: ''
-      thumbnail_position: ''
-      override: false

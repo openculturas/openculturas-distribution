@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
     - field.field.node.date.field_door_time
+    - field.field.node.date.field_door_time_relative
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
     - field.field.node.date.field_event_status
@@ -28,8 +29,6 @@ dependencies:
     - entity_reference_revisions
     - field_formatter_class
     - field_group
-    - field_time
-    - layout_builder
     - link
     - options
     - smart_date_recur
@@ -37,9 +36,6 @@ dependencies:
     - user
     - viewfield
 third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
   field_group:
     group_part_of_event_series:
       children:
@@ -74,7 +70,7 @@ third_party_settings:
         - field_forfree
         - field_pricing
         - field_ticketing
-        - field_door_time
+        - field_door_time_relative
         - field_attendance_mode
         - field_location_virtual
         - field_safety_info
@@ -249,11 +245,10 @@ content:
         class: ''
     weight: 3
     region: content
-  field_door_time:
-    type: time_formatter
+  field_door_time_relative:
+    type: list_default
     label: above
-    settings:
-      time_format: 'h:i a'
+    settings: {  }
     third_party_settings: {  }
     weight: 11
     region: content
@@ -317,7 +312,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 19
+    weight: 11
     region: content
   field_parent_date:
     type: entity_reference_entity_view
@@ -374,7 +369,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   flag_bookmark_node:
     settings: {  }
@@ -388,6 +383,7 @@ content:
     region: content
 hidden:
   extra_field_event_subtitle: true
+  field_door_time: true
   field_event_description: true
   field_event_series: true
   field_sub_dates: true

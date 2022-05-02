@@ -932,8 +932,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_add_button_area
-          empty: false
-          tokenize: 0
+          empty: true
+          tokenize: 1
           type: node+date
           render_plugin: views_add_button_node
           access_plugin: views_add_button_node
@@ -950,7 +950,7 @@ display:
           button_suffix:
             value: ''
             format: minimal_html
-          query_string: ''
+          query_string: 'event_id={{ raw_arguments.field_event_description_target_id }}'
           destination: 0
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
       display_extenders: {  }
