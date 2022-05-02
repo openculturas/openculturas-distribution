@@ -1,34 +1,49 @@
-.flag {
-  position: relative;
+.flag--link {
+  background-color: $color-primary;
+  border-radius: 0 0 .3em .3em;
+  color: $color-text-inverted;
+  display: block;
+  font-size: 1.5rem;
+  height: 1.5em;
+  overflow: hidden;
+  width: 1.5em;
 
-  .flag--link {
-    background-color: $color-primary;
-    border-radius: 0 0 .3em .3em;
-    color: $color-text-inverted;
+  &:before {
+    color: inherit;
     display: block;
-    font-size: 1.5rem;
-    height: 1.5em;
-    overflow: hidden;
-    width: 1.5em;
-
-    &:before {
-      display: block;
-      height: 100%;
-      line-height: 1.5;
-      text-align: center;
-      vertical-align: bottom;
-      width: 100%;
-    }
-
-    .offcanvas--visually-hidden {
-      @include visually_hidden;
-    }
-
-    .action-unflag & {
-      background-color: $color-primary;
-    }
+    height: 100%;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: bottom;
+    width: 100%;
   }
 
+  .offcanvas--visually-hidden {
+    @include visually_hidden;
+  }
+
+  &:focus,
+  &:hover {
+    background: $color-interaction;
+    color: $color-text-inverted;
+  }
+
+  &:active {
+    background: $color-interaction;
+    color: $color-text-inverted;
+    outline: $outline-active;
+    outline-offset: 3px;
+  }
+
+  //  .action-flag &  {
+  //}
+  //.action-unflag &  {
+  //}
+}
+
+
+.flag {
+  position: relative;
 
   .js-flag-message {
     position: absolute;
@@ -47,6 +62,7 @@
 
 .flag-bookmark-node,
 .flag-bookmark-term {
+
   .flag--link {
     @include icon(bookmark);
 
@@ -66,3 +82,4 @@
     }
   }
 }
+

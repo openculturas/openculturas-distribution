@@ -6,6 +6,7 @@
   box-shadow: none;
   padding: .6rem 1rem .6rem 2.6rem;
   position: relative;
+  color: $color-text;
 
   &:before {
     //content: "\f058";
@@ -23,12 +24,16 @@
     display: inline;
     font-weight: bold;
     text-decoration: underline;
+    &:hover {
+      background: transparent;
+      border-bottom: 2px solid currentColor;
+    }
   }
 
   &.messages--error {
     background-color: $color-bg-danger;
     border-color: $color-danger;
-    color: $color-danger;
+    //color: $color-danger;
     &:before {
       // @see https://fontawesome.com/v5/icons/times-circle
       content: "\f057";
@@ -38,7 +43,7 @@
   &.messages--status {
     background-color: $color-bg-success;
     border-color: $color-success;
-    color: $color-success;
+    //color: $color-success;
 
     &:before {
       // @see https://fontawesome.com/v5/icons/check-circle
@@ -47,7 +52,7 @@
   }
 
   &.messages--warning {
-    color: $color-warning;
+    //color: $color-warning;
     border-color: $color-warning;
     background-color: $color-bg-warning;
     &:before {
@@ -57,7 +62,7 @@
   }
 
   &.messages--info {
-    color: $color-info;
+    //color: $color-info;
     border-color: $color-info;
     background-color: $color-bg-info;
     &:before {

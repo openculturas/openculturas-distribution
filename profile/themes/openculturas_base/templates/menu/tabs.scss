@@ -1,16 +1,22 @@
 .tabs {
   border-top: $color-bg-slight-contrast 1px solid;
   border-bottom: $color-bg-slight-contrast 1px solid;
+
   li {
     margin: .5rem 0;
     //font-size: small;
     a {
-      border-radius: 2px;
+      border-radius: $button-border-radius;
 
+      &:focus,
       &:hover {
-        text-decoration: none;
         background: $color-interaction;
         color: $color-text-inverted;
+      }
+
+      &:active {
+        background: $color-text-inverted;
+        color: $color-interaction;
       }
 
       &.is-active {

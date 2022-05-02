@@ -17,7 +17,17 @@
   a,
   .content a,
   ul.menu a {
-    @include link-inverted;
+    color: $color-text-inverted;
+    text-decoration: none;
+
+    &.is-active {
+      color: $color-text-inverted;
+    }
+
+    &:active {
+      color: $color-text;
+      outline-color: $color-text-inverted;
+    }
   }
 
   .region-footer {

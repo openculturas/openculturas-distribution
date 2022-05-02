@@ -58,8 +58,7 @@ body {
 .flag-bookmark-term .flag--link:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before, .form-submit.danger:before,
 .button.danger:before,
 a.button.danger:before,
-input[type=submit].danger:before, details > summary > .h3:before, details > summary > blockquote:before,
-blockquote details > summary > p:before, blockquote span:after, blockquote span:before {
+input[type=submit].danger:before, details > summary:before, blockquote span:after, blockquote span:before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
 }
@@ -10300,7 +10299,7 @@ strong,
 }
 
 h1, .h1,
-h2, .h2,
+h2, .h2, details > summary .details--title,
 h3, .h3, blockquote,
 blockquote p,
 h4, .h4,
@@ -10319,7 +10318,8 @@ h1,
 }
 
 h2,
-.h2 {
+.h2,
+details > summary .details--title {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: var(--font-size-h2, 2rem);
@@ -10366,11 +10366,15 @@ a,
 button.link {
   color: var(--color-link);
   text-decoration: none;
+  outline: 0;
 }
-a.is-active,
+a.is-active, a:visited,
 .header .header__highlights-menu ul.menu li a.is-active,
 .is-active.link-default,
-button.link.is-active {
+.header .header__highlights-menu ul.menu li a:visited,
+.link-default:visited,
+button.link.is-active,
+button.link:visited {
   color: var(--color-link);
 }
 a:hover, a:focus,
@@ -10381,19 +10385,22 @@ a:hover, a:focus,
 button.link:hover,
 button.link:focus {
   background: var(--color-link);
-  color: var(--color-text-inverted) !important;
+  color: var(--color-text-inverted);
 }
 a:active,
 .header .header__highlights-menu ul.menu li a:active,
 .link-default:active,
 button.link:active {
   outline: var(--outline-active);
+  color: var(--color-interaction);
+  background: var(--color-text-inverted);
 }
-a:visited,
-.header .header__highlights-menu ul.menu li a:visited,
-.link-default:visited,
-button.link:visited {
-  color: var(--color-link);
+.text-formatted a,
+.text-formatted .header .header__highlights-menu ul.menu li a,
+.header .header__highlights-menu ul.menu li .text-formatted a,
+.text-formatted .link-default,
+.text-formatted button.link {
+  border-bottom: 1px solid currentColor;
 }
 
 p {
@@ -10450,7 +10457,7 @@ table th {
   padding: 0.5em;
 }
 table tr {
-  border-bottom: 1px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-divider-dark);
 }
 table .field-multiple-drag {
   white-space: nowrap;
@@ -10464,6 +10471,12 @@ table .draggable .tabledrag-handle {
   position: absolute;
   top: calc(50% - 0.55rem);
   width: 2rem;
+}
+table .draggable .tabledrag-handle:active, table .draggable .tabledrag-handle:hover {
+  background: transparent;
+}
+table .draggable .tabledrag-handle:active {
+  outline: 0;
 }
 table .draggable .tabledrag-handle .handle {
   height: 2rem;
@@ -10529,7 +10542,7 @@ abbr {
 kbd {
   background: var(--color-text-muted);
   border: thin solid var(--color-text);
-  border-radius: 2px;
+  border-radius: 4px;
   box-shadow: 1px 2px 2px var(--color-bg-light);
   font-family: inherit;
   font-size: 0.9em;
@@ -10620,439 +10633,6 @@ blockquote span:after {
 }
 blockquote > *:first-child {
   margin-top: 0;
-}
-
-form {
-  background: var(--color-bg-form);
-}
-form > .form--inline,
-form > .form-item,
-form > .form-wrapper,
-form > [id*=ajax-wrapper] {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-  width: auto !important;
-}
-form > .form--inline:first-child,
-form > .form-item:first-child,
-form > .form-wrapper:first-child,
-form > [id*=ajax-wrapper]:first-child {
-  padding-top: 1.25rem;
-}
-form > .form--inline:last-of-type,
-form > .form-item:last-of-type,
-form > .form-wrapper:last-of-type,
-form > [id*=ajax-wrapper]:last-of-type {
-  padding-bottom: 1.25rem;
-}
-form .js-hide {
-  display: none !important;
-}
-form .form-textarea-wrapper,
-form .filter-wrapper {
-  background: var(--color-bg-fieldset);
-}
-form .form-textarea-wrapper .cke_top,
-form .form-textarea-wrapper .cke_contents,
-form .form-textarea-wrapper .cke_bottom,
-form .filter-wrapper .cke_top,
-form .filter-wrapper .cke_contents,
-form .filter-wrapper .cke_bottom {
-  background: var(--color-bg-fieldset);
-}
-form .form-textarea-wrapper .filter-guidelines-item,
-form .filter-wrapper .filter-guidelines-item {
-  margin: 0;
-}
-form .field-suffix .button {
-  margin-bottom: 1.25rem;
-}
-form fieldset,
-form fieldset.fieldgroup {
-  background: var(--color-bg-fieldset);
-  padding: 1.25rem 1.25rem 1.25rem 1.25rem;
-}
-form fieldset fieldset,
-form fieldset fieldset.fieldgroup,
-form fieldset.fieldgroup fieldset,
-form fieldset.fieldgroup fieldset.fieldgroup {
-  background: transparent;
-}
-form .form-required:after {
-  background-image: none;
-  color: var(--color-danger);
-  content: "*";
-  vertical-align: text-top;
-}
-form .form--inline .form-item {
-  margin-top: 0;
-}
-
-.form-item label {
-  display: block;
-}
-.form-item label.option {
-  display: inline-block;
-}
-.form-item input,
-.form-item select,
-.form-item textarea {
-  padding: 0.5rem 1rem;
-  background: var(--color-bg-light);
-  border: 1px solid var(--color-text);
-}
-.form-item input:focus,
-.form-item select:focus,
-.form-item textarea:focus {
-  border-bottom-color: var(--color-info);
-  box-shadow: 0 -3px 0 inset var(--color-info);
-}
-.form-item input .error,
-.form-item select .error,
-.form-item textarea .error {
-  border: 1px solid var(--color-danger);
-  box-shadow: 0 -3px 0 inset var(--color-danger);
-}
-.form-item input:-ms-input-placeholder, .form-item select:-ms-input-placeholder, .form-item textarea:-ms-input-placeholder {
-  color: var(--color-text-muted);
-  text-align: right;
-}
-.form-item input::placeholder,
-.form-item select::placeholder,
-.form-item textarea::placeholder {
-  color: var(--color-text-muted);
-  text-align: right;
-}
-.form-item input[disabled],
-.form-item select[disabled],
-.form-item textarea[disabled] {
-  opacity: 0.5;
-}
-.form-item input.form-autocomplete,
-.form-item select.form-autocomplete,
-.form-item textarea.form-autocomplete {
-  background-position: right 0.5rem center !important;
-  padding-right: 2rem;
-}
-.form-item select {
-  -moz-appearance: none;
-  /* Firefox */
-  -webkit-appearance: none;
-  /* Safari and Chrome */
-  appearance: none;
-  padding-right: 2rem;
-  position: relative;
-  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
-  background-size: 1em;
-}
-.form-item select.error {
-  border: 1px solid var(--color-text);
-  box-shadow: 0 -3px 0 inset var(--color-danger);
-}
-.form-item input[type=checkbox],
-.form-item input[type=radio] {
-  height: 1em;
-  margin-right: 0.5rem;
-  position: relative;
-  top: 0.1rem;
-  vertical-align: baseline;
-  width: 1em;
-}
-.form-item input[type=checkbox]:focus,
-.form-item input[type=radio]:focus {
-  box-shadow: none;
-}
-
-.ui-menu .ui-menu-item-wrapper {
-  background-color: transparent;
-  border: 0;
-  color: var(--color-text);
-  display: block;
-}
-.ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper:focus {
-  background-color: var(--color-primary);
-  border: 0;
-  color: var(--color-text-inverted);
-}
-
-details {
-  border: 0;
-  border-top: 1px solid var(--color-divider-light);
-  margin: 1.25rem 0 2.5rem;
-  padding: 1.25rem 0 0 0;
-}
-details > summary {
-  list-style: none;
-  padding: 0;
-  position: relative;
-}
-details > summary::-webkit-details-marker {
-  display: none;
-}
-details > summary > .h3, details > summary > blockquote,
-blockquote details > summary > p {
-  display: inline-block;
-  margin: 0 2rem 0 0;
-  width: calc(100% - 2rem);
-}
-details > summary > .h3:before, details > summary > blockquote:before,
-blockquote details > summary > p:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f078";
-}
-details > summary > .h3:hover, details > summary > blockquote:hover,
-blockquote details > summary > p:hover, details > summary > .h3:focus, details > summary > blockquote:focus,
-blockquote details > summary > p:focus {
-  color: var(--color-interaction);
-}
-details > summary > .h3:before, details > summary > blockquote:before,
-blockquote details > summary > p:before {
-  position: absolute;
-  right: 0;
-  top: 0.15em;
-  transition: transform 300ms ease;
-}
-details > summary.form-required:after {
-  content: none;
-}
-details > summary.form-required h2:after {
-  content: "*";
-  color: var(--color-danger);
-}
-details[open] > summary > .h2:before,
-details[open] > summary > .h3:before,
-details[open] > summary > blockquote:before,
-blockquote details[open] > summary > p:before,
-details[open] > summary > .h4:before,
-details[open] > summary > .h5:before,
-details[open] > summary > .h6:before {
-  transform: rotate(-180deg);
-}
-details .details-wrapper {
-  padding: 2.5rem 0 0;
-}
-details .details-wrapper > *:first-child {
-  margin-top: 0;
-}
-
-.vertical-tabs {
-  margin-left: 0;
-  display: flex;
-  border-color: var(--color-divider-light);
-  background: var(--color-bg-light);
-}
-.vertical-tabs .vertical-tabs__menu {
-  margin: 0;
-  width: 12rem;
-  list-style-type: none;
-  padding-left: 0;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
-  border-color: var(--color-divider-light);
-  background: var(--color-bg-fieldset);
-  line-height: 1;
-  margin: 0;
-  padding: 0.2em;
-}
-.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
-  background: var(--color-bg-light);
-}
-.vertical-tabs .vertical-tabs__panes {
-  flex-grow: 1;
-}
-.vertical-tabs .oc-details {
-  margin: 0;
-  padding: 0;
-}
-.vertical-tabs .details-wrapper {
-  margin-top: 1rem;
-  background: var(--color-bg-light);
-  margin: 0.3rem 0.3rem 0.3rem 0;
-  padding: 0.5rem 1rem;
-}
-
-.button,
-button,
-input[type=button],
-input[type=submit] {
-  border: 1px solid transparent;
-  border-radius: 2px;
-  display: inline-block;
-  line-height: 1;
-  margin-bottom: 1.25rem;
-  margin-left: 0;
-  margin-right: 1.25rem;
-  outline-offset: 0.25rem;
-  padding: 0.5rem 2rem;
-}
-.button:first-child,
-button:first-child,
-input[type=button]:first-child,
-input[type=submit]:first-child {
-  margin-right: 1.25rem;
-}
-.button:active, .button:focus, .button:hover,
-button:active,
-button:focus,
-button:hover,
-input[type=button]:active,
-input[type=button]:focus,
-input[type=button]:hover,
-input[type=submit]:active,
-input[type=submit]:focus,
-input[type=submit]:hover {
-  text-decoration: none;
-}
-.button:focus, .button:not([disabled]):hover,
-button:focus,
-button:not([disabled]):hover,
-input[type=button]:focus,
-input[type=button]:not([disabled]):hover,
-input[type=submit]:focus,
-input[type=submit]:not([disabled]):hover {
-  background: var(--color-interaction);
-  border-color: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-.button:active,
-button:active,
-input[type=button]:active,
-input[type=submit]:active {
-  background: var(--color-text-inverted);
-  border-color: currentColor;
-  box-shadow: 0 0.25rem 0.125rem var(--color-interaction--opacity-64);
-  color: var(--color-interaction);
-  outline: var(--outline-active);
-}
-.button[disabled],
-button[disabled],
-input[type=button][disabled],
-input[type=submit][disabled] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.form-submit,
-.view-header .button,
-input[type=submit],
-button[type=submit] {
-  color: var(--color-text-inverted);
-  background: var(--color-primary);
-  border: 1px solid var(--color-primary);
-}
-.form-submit:focus, .form-submit:hover,
-.view-header .button:focus,
-.view-header .button:hover,
-input[type=submit]:focus,
-input[type=submit]:hover,
-button[type=submit]:focus,
-button[type=submit]:hover {
-  background: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-
-.form-submit.secondary,
-.button.secondary,
-a.button.secondary,
-input[type=submit].secondary,
-.button[data-drupal-selector$=cancel],
-.field-add-more-submit,
-.button--small,
-button[id*=remove] {
-  color: var(--color-interaction);
-  background: var(--color-bg-light);
-  border-color: var(--color-interaction);
-}
-
-.form-submit.danger,
-.button.danger,
-a.button.danger,
-input[type=submit].danger {
-  color: var(--color-danger);
-  background: var(--color-text-inverted);
-  border-color: var(--color-danger);
-}
-.form-submit.danger:before,
-.button.danger:before,
-a.button.danger:before,
-input[type=submit].danger:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f00d";
-  margin-right: 0.5rem;
-}
-.form-submit.danger:not([disabled]):hover, .form-submit.danger:focus,
-.button.danger:not([disabled]):hover,
-.button.danger:focus,
-a.button.danger:not([disabled]):hover,
-a.button.danger:focus,
-input[type=submit].danger:not([disabled]):hover,
-input[type=submit].danger:focus {
-  background: var(--color-danger);
-  color: var(--color-text-inverted);
-  border-color: var(--color-danger);
-}
-.form-submit.danger:active,
-.button.danger:active,
-a.button.danger:active,
-input[type=submit].danger:active {
-  background: var(--color-text-inverted);
-  border-color: var(--color-danger);
-  color: var(--color-danger);
-}
-
-/**
- * Link style classes.
- *
- * Utility classes for setting the different default link styles.
- * Since links in the main content, the offcanvas menu and footer behave differently because of different
- * context / background, you can force the styling of any of those styles on any link by adding the respective following
- * classes to it. Usually this should not be needed, because the context defines which link styling is appropiate.
- */
-.link-inverted {
-  color: var(--color-text-inverted);
-  text-decoration: none;
-}
-.link-inverted.is-active {
-  color: var(--color-text-inverted);
-}
-.link-inverted:hover, .link-inverted:focus, .link-inverted:active {
-  color: var(--color-text-muted);
-  text-decoration: underline;
-}
-
-/**
- * Text alignment classes.
- *
- * Utility classes for text-alignment.
- * Can also be used in conjunction with .grid-inline-block to define the direction of the inline block elements.
- */
-.align-left {
-  text-align: left;
-}
-
-.align-right {
-  text-align: right;
-}
-
-.align-center {
-  text-align: center;
-}
-
-.pager .pager__item > a {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .grid-1 > .view-content, .grid-1 > .field__items, .grid-1 > .details-wrapper {
@@ -11601,6 +11181,455 @@ input[type=submit].danger:active {
   display: flex;
 }
 
+form {
+  background: var(--color-bg-form);
+}
+form > .form--inline,
+form > .form-item,
+form > .form-wrapper,
+form > [id*=ajax-wrapper] {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  width: auto !important;
+}
+form > .form--inline:first-child,
+form > .form-item:first-child,
+form > .form-wrapper:first-child,
+form > [id*=ajax-wrapper]:first-child {
+  padding-top: 1.25rem;
+}
+form > .form--inline:last-of-type,
+form > .form-item:last-of-type,
+form > .form-wrapper:last-of-type,
+form > [id*=ajax-wrapper]:last-of-type {
+  padding-bottom: 1.25rem;
+}
+form .js-hide {
+  display: none !important;
+}
+form .form-textarea-wrapper,
+form .filter-wrapper {
+  background: var(--color-bg-fieldset);
+}
+form .form-textarea-wrapper .cke_top,
+form .form-textarea-wrapper .cke_contents,
+form .form-textarea-wrapper .cke_bottom,
+form .filter-wrapper .cke_top,
+form .filter-wrapper .cke_contents,
+form .filter-wrapper .cke_bottom {
+  background: var(--color-bg-fieldset);
+}
+form .form-textarea-wrapper .filter-guidelines-item,
+form .filter-wrapper .filter-guidelines-item {
+  margin: 0;
+}
+form .field-suffix .button {
+  margin-bottom: 1.25rem;
+}
+form fieldset,
+form fieldset.fieldgroup {
+  background: var(--color-bg-fieldset);
+  padding: 1.25rem;
+}
+form fieldset fieldset,
+form fieldset fieldset.fieldgroup,
+form fieldset.fieldgroup fieldset,
+form fieldset.fieldgroup fieldset.fieldgroup {
+  background: transparent;
+  padding: 0;
+}
+form .form-required:after {
+  background-image: none;
+  color: var(--color-danger);
+  content: "*";
+  vertical-align: text-top;
+}
+form .form--inline .form-item {
+  margin-top: 0;
+}
+
+.form-item label {
+  display: block;
+}
+.form-item label.option {
+  display: inline-block;
+}
+.form-item input,
+.form-item select,
+.form-item textarea {
+  padding: 0.5rem 1rem;
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-text);
+}
+.form-item input:focus,
+.form-item select:focus,
+.form-item textarea:focus {
+  border-bottom-color: var(--color-info);
+  box-shadow: 0 -3px 0 inset var(--color-info);
+}
+.form-item input .error,
+.form-item select .error,
+.form-item textarea .error {
+  border: 1px solid var(--color-danger);
+  box-shadow: 0 -3px 0 inset var(--color-danger);
+}
+.form-item input:-ms-input-placeholder, .form-item select:-ms-input-placeholder, .form-item textarea:-ms-input-placeholder {
+  color: var(--color-text-muted);
+  text-align: right;
+}
+.form-item input::placeholder,
+.form-item select::placeholder,
+.form-item textarea::placeholder {
+  color: var(--color-text-muted);
+  text-align: right;
+}
+.form-item input[disabled],
+.form-item select[disabled],
+.form-item textarea[disabled] {
+  opacity: 0.5;
+}
+.form-item input.form-autocomplete,
+.form-item select.form-autocomplete,
+.form-item textarea.form-autocomplete {
+  background-position: right 0.5rem center !important;
+  padding-right: 2rem;
+}
+.form-item select {
+  -moz-appearance: none;
+  /* Firefox */
+  -webkit-appearance: none;
+  /* Safari and Chrome */
+  appearance: none;
+  padding-right: 2rem;
+  position: relative;
+  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
+  background-size: 1em;
+}
+.form-item select.error {
+  border: 1px solid var(--color-text);
+  box-shadow: 0 -3px 0 inset var(--color-danger);
+}
+.form-item input[type=checkbox],
+.form-item input[type=radio] {
+  height: 1em;
+  margin-right: 0.5rem;
+  position: relative;
+  top: 0.1rem;
+  vertical-align: baseline;
+  width: 1em;
+}
+.form-item input[type=checkbox]:focus,
+.form-item input[type=radio]:focus {
+  box-shadow: none;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+  background-color: transparent;
+  border: 0;
+  color: var(--color-text);
+  display: block;
+}
+.ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper:focus {
+  background-color: var(--color-primary);
+  border: 0;
+  color: var(--color-text-inverted);
+}
+
+details {
+  border: 0;
+  border-top: 1px solid var(--color-divider-light);
+  padding: 0 1.25rem;
+}
+details.form-wrapper {
+  margin: 1.25rem 0 0;
+}
+details.form-wrapper:last-of-type {
+  padding-bottom: 0.5rem;
+}
+details:last-of-type {
+  border-bottom: 1px solid var(--color-divider-light);
+  margin-bottom: 1.25rem;
+}
+details > summary {
+  list-style: none;
+  padding: 0;
+}
+details > summary:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f078";
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary:before {
+  border-radius: 4px;
+  float: right;
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-top: 0.25em;
+  padding: 0 0.5em;
+  transition: transform 300ms ease;
+}
+details > summary:hover:before {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+details > summary:active:before {
+  background: transparent;
+  color: var(--color-interaction);
+  outline: var(--outline-active);
+}
+details > summary .details--title {
+  color: inherit;
+  display: inline-block;
+  line-height: 2;
+  margin: 0;
+  width: auto;
+}
+details > summary:hover, details > summary:focus {
+  color: var(--color-interaction);
+}
+details > summary.form-required:after {
+  font-size: var(--font-size-h3, 1.75rem);
+  line-height: 2;
+  vertical-align: top;
+}
+details > summary.form-required h2:after {
+  color: var(--color-danger);
+  content: "*";
+}
+details[open] > summary:before {
+  transform: rotate(-180deg);
+}
+details .details-wrapper {
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.vertical-tabs {
+  margin-left: 0;
+  display: flex;
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-light);
+}
+.vertical-tabs .vertical-tabs__menu {
+  margin: 0;
+  width: 12rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item {
+  border-color: var(--color-divider-light);
+  background: var(--color-bg-fieldset);
+  line-height: 1;
+  margin: 0;
+  padding: 0.2em;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected {
+  background: var(--color-bg-light);
+  pointer-events: none;
+}
+.vertical-tabs .vertical-tabs__menu .vertical-tabs__menu-item.is-selected a:focus {
+  background: transparent;
+  outline: var(--outline-active);
+}
+.vertical-tabs .vertical-tabs__panes {
+  flex-grow: 1;
+}
+.vertical-tabs > div {
+  margin-top: 1rem;
+  background: var(--color-bg-light);
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.button,
+button,
+input[type=button],
+input[type=submit] {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: inline-block;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  margin-left: 0;
+  margin-right: 1.25rem;
+  outline-offset: 0.25rem;
+  padding: 0.5rem 2rem;
+}
+.button:first-child,
+button:first-child,
+input[type=button]:first-child,
+input[type=submit]:first-child {
+  margin-right: 1.25rem;
+}
+.button:active, .button:focus, .button:hover,
+button:active,
+button:focus,
+button:hover,
+input[type=button]:active,
+input[type=button]:focus,
+input[type=button]:hover,
+input[type=submit]:active,
+input[type=submit]:focus,
+input[type=submit]:hover {
+  text-decoration: none;
+}
+.button:focus, .button:not([disabled]):hover,
+button:focus,
+button:not([disabled]):hover,
+input[type=button]:focus,
+input[type=button]:not([disabled]):hover,
+input[type=submit]:focus,
+input[type=submit]:not([disabled]):hover {
+  background: var(--color-interaction);
+  border-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.button:active,
+button:active,
+input[type=button]:active,
+input[type=submit]:active {
+  background: var(--color-text-inverted);
+  border-color: currentColor;
+  color: var(--color-interaction);
+  outline: var(--outline-active);
+}
+.button[disabled],
+button[disabled],
+input[type=button][disabled],
+input[type=submit][disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.form-submit,
+.view-header .button,
+input[type=submit],
+button[type=submit] {
+  color: var(--color-text-inverted);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+.form-submit:focus, .form-submit:hover,
+.view-header .button:focus,
+.view-header .button:hover,
+input[type=submit]:focus,
+input[type=submit]:hover,
+button[type=submit]:focus,
+button[type=submit]:hover {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+
+.form-submit.secondary,
+.button.secondary,
+a.button.secondary,
+input[type=submit].secondary,
+.button[data-drupal-selector$=cancel],
+.field-add-more-submit,
+.button--small,
+button[id*=remove] {
+  color: var(--color-interaction);
+  background: var(--color-bg-light);
+  border-color: var(--color-interaction);
+}
+
+.form-submit.danger,
+.button.danger,
+a.button.danger,
+input[type=submit].danger {
+  color: var(--color-danger);
+  background: var(--color-text-inverted);
+  border-color: var(--color-danger);
+}
+.form-submit.danger:before,
+.button.danger:before,
+a.button.danger:before,
+input[type=submit].danger:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f00d";
+  margin-right: 0.5rem;
+}
+.form-submit.danger:not([disabled]):hover, .form-submit.danger:focus,
+.button.danger:not([disabled]):hover,
+.button.danger:focus,
+a.button.danger:not([disabled]):hover,
+a.button.danger:focus,
+input[type=submit].danger:not([disabled]):hover,
+input[type=submit].danger:focus {
+  background: var(--color-danger);
+  color: var(--color-text-inverted);
+  border-color: var(--color-danger);
+}
+.form-submit.danger:active,
+.button.danger:active,
+a.button.danger:active,
+input[type=submit].danger:active {
+  background: var(--color-text-inverted);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/**
+ * Link style classes.
+ *
+ * Utility classes for setting the different default link styles.
+ * Since links in the main content, the offcanvas menu and footer behave differently because of different
+ * context / background, you can force the styling of any of those styles on any link by adding the respective following
+ * classes to it. Usually this should not be needed, because the context defines which link styling is appropiate.
+ */
+/**
+ * Text alignment classes.
+ *
+ * Utility classes for text-alignment.
+ * Can also be used in conjunction with .grid-inline-block to define the direction of the inline block elements.
+ */
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.pager .pager__item > a {
+  background: var(--color-primary);
+  border: 1px solid var(--color-text-inverted);
+  border-radius: 4px;
+  color: var(--color-text-inverted);
+  display: inline-block;
+  line-height: 1.8;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.pager .pager__item > a:focus, .pager .pager__item > a:hover {
+  background: var(--color-interaction);
+  border-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.pager .pager__item > a:active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-interaction);
+}
+
 .block-openculturas-custom-hero-image .field {
   margin: 0;
 }
@@ -11745,22 +11774,29 @@ input[type=submit].danger:active {
   line-height: 1;
   content: "\f0ac";
 }
-.block-social-media-links-block .block-social-media-links--wrapper .field__item a {
-  padding: 0.25rem 0;
+.block-social-media-links-block .block-social-media-links--wrapper .field__item > a {
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  padding-left: 2px;
   margin: 0.25rem 0;
   display: inline-block;
-  text-decoration: none;
   overflow: hidden;
   word-break: keep-all;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
-.block-social-media-links-block .block-social-media-links--wrapper .field__item a .platform-url {
+.block-social-media-links-block .block-social-media-links--wrapper .field__item > a:focus, .block-social-media-links-block .block-social-media-links--wrapper .field__item > a:hover {
+  color: var(--color-text-inverted);
+}
+.block-social-media-links-block .block-social-media-links--wrapper .field__item > a:active {
+  color: var(--color-interaction);
+}
+.block-social-media-links-block .block-social-media-links--wrapper .field__item > a .platform-url {
   display: none;
 }
-.block-social-media-links-block .block-social-media-links--wrapper .field__item a:before,
-.block-social-media-links-block .block-social-media-links--wrapper .field__item a i {
+.block-social-media-links-block .block-social-media-links--wrapper .field__item > a:before,
+.block-social-media-links-block .block-social-media-links--wrapper .field__item > a i {
   font-size: 1.5rem;
   vertical-align: bottom;
   margin-right: 0.5rem;
@@ -11793,10 +11829,7 @@ input[type=submit].danger:active {
   top: 0.1rem;
 }
 
-.flag {
-  position: relative;
-}
-.flag .flag--link {
+.flag--link {
   background-color: var(--color-primary);
   border-radius: 0 0 0.3em 0.3em;
   color: var(--color-text-inverted);
@@ -11806,7 +11839,8 @@ input[type=submit].danger:active {
   overflow: hidden;
   width: 1.5em;
 }
-.flag .flag--link:before {
+.flag--link:before {
+  color: inherit;
   display: block;
   height: 100%;
   line-height: 1.5;
@@ -11814,7 +11848,7 @@ input[type=submit].danger:active {
   vertical-align: bottom;
   width: 100%;
 }
-.flag .flag--link .offcanvas--visually-hidden {
+.flag--link .offcanvas--visually-hidden {
   position: absolute !important;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
@@ -11822,8 +11856,19 @@ input[type=submit].danger:active {
   height: 1px;
   word-wrap: normal;
 }
-.action-unflag .flag .flag--link {
-  background-color: var(--color-primary);
+.flag--link:focus, .flag--link:hover {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.flag--link:active {
+  background: var(--color-interaction);
+  color: var(--color-text-inverted);
+  outline: var(--outline-active);
+  outline-offset: 3px;
+}
+
+.flag {
+  position: relative;
 }
 .flag .js-flag-message {
   position: absolute;
@@ -11891,6 +11936,18 @@ input[type=submit].danger:active {
   margin-right: 0.5rem;
 }
 
+.media-library-views-form {
+  flex-wrap: wrap;
+}
+.media-library-views-form .views-field .form-type-checkbox {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+
 .breadcrumb {
   padding-bottom: 0;
 }
@@ -11933,6 +11990,10 @@ input[type=submit].danger:active {
   }
 }
 
+.contextual-region .contextual .contextual-links li a:hover {
+  background: var(--color-interaction) !important;
+}
+
 .contextual-region.focus {
   outline-color: var(--color-info);
 }
@@ -11957,21 +12018,20 @@ input[type=submit].danger:active {
   padding: 0.5rem 0rem 0.5rem 0;
   margin-right: 2.25rem;
   border-top: 1px solid var(--color-text-inverted);
+  color: var(--color-text);
 }
 .region-offcanvas-menu .menu-item a:hover, .region-offcanvas-menu .menu-item a:focus {
-  background: var(--color-divider-light);
-  padding-left: 0.5rem;
-  margin-left: -0.5rem;
+  color: var(--color-text-inverted);
 }
-.region-offcanvas-menu .menu-item a.is-active {
-  color: var(--color-primary);
+.region-offcanvas-menu .menu-item a:active {
+  background: transparent;
+  color: var(--color-interaction);
 }
 .region-offcanvas-menu .menu-item a.menu-item--toggle {
   position: absolute;
   right: -2.4rem;
   top: 0;
   padding: 0.425rem 0.5rem;
-  background-color: var(--color-divider-light);
   display: block;
   border-left: 1px solid var(--color-text-inverted);
   border-top: 1px solid var(--color-text-inverted);
@@ -11991,6 +12051,14 @@ input[type=submit].danger:active {
   vertical-align: middle;
   transition: transform 500ms ease;
 }
+.region-offcanvas-menu .menu-item a.menu-item--toggle:hover, .region-offcanvas-menu .menu-item a.menu-item--toggle:focus {
+  background: var(--color-primary);
+  color: var(--color-text-inverted);
+}
+.region-offcanvas-menu .menu-item a.menu-item--toggle:active {
+  background: transparent;
+  color: var(--color-interaction);
+}
 .region-offcanvas-menu .menu-item.menu-item--open > a.menu-item--toggle:before {
   transform: rotate(-180deg);
 }
@@ -12007,12 +12075,15 @@ input[type=submit].danger:active {
   margin: 0.5rem 0;
 }
 .tabs li a {
-  border-radius: 2px;
+  border-radius: 4px;
 }
-.tabs li a:hover {
-  text-decoration: none;
+.tabs li a:focus, .tabs li a:hover {
   background: var(--color-interaction);
   color: var(--color-text-inverted);
+}
+.tabs li a:active {
+  background: var(--color-text-inverted);
+  color: var(--color-interaction);
 }
 .tabs li a.is-active {
   display: none;
@@ -12207,7 +12278,7 @@ input[type=submit].danger:active {
 }
 
 .teaser h1, .teaser .h1,
-.teaser h2, .teaser .h2,
+.teaser h2, .teaser .h2, .teaser details > summary .details--title, details > summary .teaser .details--title,
 .teaser h3, .teaser .h3, .teaser blockquote,
 .teaser blockquote p,
 blockquote .teaser p,
@@ -12290,6 +12361,10 @@ h6.teaser {
   font-weight: bold;
   margin: 0;
 }
+.universal-teaser .teaser--author .teaser:hover,
+.universal-teaser .teaser--author .teaser a:hover {
+  color: var(--color-text-inverted);
+}
 .universal-teaser .teaser--author .profile--picture {
   height: 3rem;
   width: 3rem;
@@ -12334,15 +12409,11 @@ h6.teaser {
 .footer ul.menu a.is-active {
   color: var(--color-text-inverted);
 }
-.footer a:hover, .footer a:focus, .footer a:active,
-.footer .content a:hover,
-.footer .content a:focus,
+.footer a:active,
 .footer .content a:active,
-.footer ul.menu a:hover,
-.footer ul.menu a:focus,
 .footer ul.menu a:active {
-  color: var(--color-text-muted);
-  text-decoration: underline;
+  color: var(--color-text);
+  outline-color: var(--color-text-inverted);
 }
 .footer .region-footer {
   display: block;
@@ -12467,6 +12538,7 @@ h6.teaser {
   box-shadow: none;
   padding: 0.6rem 1rem 0.6rem 2.6rem;
   position: relative;
+  color: var(--color-text);
 }
 .messages:before {
   font-family: "Font Awesome 6 Free";
@@ -12483,10 +12555,14 @@ h6.teaser {
   font-weight: bold;
   text-decoration: underline;
 }
+.messages a:hover,
+.messages a:hover:hover {
+  background: transparent;
+  border-bottom: 2px solid currentColor;
+}
 .messages.messages--error {
   background-color: var(--color-bg-danger);
   border-color: var(--color-danger);
-  color: var(--color-danger);
 }
 .messages.messages--error:before {
   content: "\f057";
@@ -12494,13 +12570,11 @@ h6.teaser {
 .messages.messages--status {
   background-color: var(--color-bg-success);
   border-color: var(--color-success);
-  color: var(--color-success);
 }
 .messages.messages--status:before {
   content: "\f058";
 }
 .messages.messages--warning {
-  color: var(--color-warning);
   border-color: var(--color-warning);
   background-color: var(--color-bg-warning);
 }
@@ -12508,7 +12582,6 @@ h6.teaser {
   content: "\f071";
 }
 .messages.messages--info {
-  color: var(--color-info);
   border-color: var(--color-info);
   background-color: var(--color-bg-info);
 }
@@ -12583,13 +12656,6 @@ h6.teaser {
 }
 .header__offcanvas-menu--content .block a {
   color: var(--color-text);
-  text-decoration: none;
-}
-.header__offcanvas-menu--content .block a:visited {
-  color: var(--color-text);
-}
-.header__offcanvas-menu--content .block a:hover, .header__offcanvas-menu--content .block a:focus, .header__offcanvas-menu--content .block a:active {
-  color: var(--color-primary);
 }
 .header__offcanvas-menu--content ul.menu {
   margin: 0;
@@ -12606,11 +12672,6 @@ h6.teaser {
 .header__offcanvas-menu--content li.menu-item a {
   display: block;
   padding: 0.5rem 2.25rem 0.5rem 0;
-}
-.header__offcanvas-menu--content li.menu-item a:hover, .header__offcanvas-menu--content li.menu-item a:focus, .header__offcanvas-menu--content li.menu-item a:active {
-  background: var(--color-bg-slight-contrast);
-  padding-left: 0.5rem;
-  margin-left: -0.5rem;
 }
 .header__offcanvas-menu--content form {
   background: transparent;
@@ -12673,6 +12734,7 @@ h6.teaser {
 .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:hover {
   background: var(--color-interaction);
   color: var(--color-text-inverted);
+  border-color: var(--color-interaction);
 }
 .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit] span {
   position: absolute !important;
@@ -12695,7 +12757,8 @@ h6.teaser {
 
 .header__burger--link {
   background: var(--color-interaction);
-  border-radius: 0.5rem;
+  padding: 0;
+  border-radius: 4px;
   color: var(--color-text-inverted);
   display: block;
   font-size: 1.5rem;
@@ -12703,6 +12766,8 @@ h6.teaser {
   overflow: hidden;
   text-decoration: none;
   width: 1.5em;
+  outline-offset: 3px;
+  outline-width: 2px;
 }
 .header__burger--link:before {
   -webkit-font-smoothing: antialiased;
@@ -12740,7 +12805,6 @@ h6.teaser {
 .header__burger--link:hover, .header__burger--link:focus {
   background-color: var(--color-primary);
   color: var(--color-text-inverted);
-  text-decoration: none;
 }
 
 .layout-container {
@@ -12875,6 +12939,7 @@ h6.teaser {
   right: 1.25rem;
   width: 2.5rem;
   z-index: 2;
+  padding: 0;
 }
 .scroll-to-top:before {
   -webkit-font-smoothing: antialiased;
@@ -12896,8 +12961,11 @@ h6.teaser {
   text-align: center;
 }
 .scroll-to-top:hover, .scroll-to-top:focus {
-  color: var(--color-primary);
   text-decoration: none !important;
+  background: transparent;
+}
+.scroll-to-top:hover:before, .scroll-to-top:focus:before {
+  color: var(--color-primary);
 }
 .js .scroll-to-top {
   transition: opacity 1s ease-in-out;
@@ -12995,28 +13063,34 @@ h6.teaser {
   line-height: 1;
   content: "\f0ac";
 }
-.contact-data .field__item a {
-  padding: 0.25rem 0;
+.contact-data .field__item > a {
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  padding-left: 2px;
   margin: 0.25rem 0;
   display: inline-block;
-  text-decoration: none;
   overflow: hidden;
   word-break: keep-all;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
-.contact-data .field__item a .platform-url {
+.contact-data .field__item > a:focus, .contact-data .field__item > a:hover {
+  color: var(--color-text-inverted);
+}
+.contact-data .field__item > a:active {
+  color: var(--color-interaction);
+}
+.contact-data .field__item > a .platform-url {
   display: none;
 }
-.contact-data .field__item a:before,
-.contact-data .field__item a i {
+.contact-data .field__item > a:before,
+.contact-data .field__item > a i {
   font-size: 1.5rem;
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
 
-.reference--taxonomy_term .taxonomy-term,
 .reference--taxonomy_term > a,
 .taxonomy-term--tagwrapper .taxonomy-term--tag {
   background: var(--color-bg-slight-contrast);
@@ -13029,16 +13103,13 @@ h6.teaser {
   padding: 0.5rem 2rem;
   text-decoration: none;
 }
-.reference--taxonomy_term .taxonomy-term:hover, .reference--taxonomy_term .taxonomy-term:focus,
-.reference--taxonomy_term > a:hover,
-.reference--taxonomy_term > a:focus,
+.reference--taxonomy_term > a:hover, .reference--taxonomy_term > a:focus,
 .taxonomy-term--tagwrapper .taxonomy-term--tag:hover,
 .taxonomy-term--tagwrapper .taxonomy-term--tag:focus {
   background: var(--color-interaction);
   border-color: var(--color-interaction);
   color: var(--color-text-inverted);
 }
-.reference--taxonomy_term .taxonomy-term:active,
 .reference--taxonomy_term > a:active,
 .taxonomy-term--tagwrapper .taxonomy-term--tag:active {
   background: var(--color-text-inverted);

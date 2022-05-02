@@ -165,23 +165,6 @@
 }
 
 //
-//  Helper mixin for setting inverted link style with css vars.
-//
-@mixin link-inverted () {
-  color: $color-text-inverted;
-  text-decoration: none;
-
-  &.is-active {
-    color: $color-text-inverted;
-  }
-
-  &:hover, &:focus, &:active {
-    color: $color-text-muted;
-    text-decoration: underline;
-  }
-}
-
-//
 // Helper mixin for defining the profile image circle size and styling.
 //
 @mixin profile_circle() {
@@ -244,16 +227,26 @@
       @include icon(globe);
     }
 
-    a {
-      padding: 0.25rem 0;
+    > a {
+      padding-bottom: 0.25rem;
+      padding-top: 0.25rem;
+      padding-left: 2px; // A little nicer hover bg.
       margin: 0.25rem 0;
       display: inline-block;
-      text-decoration: none;
       overflow: hidden;
       word-break: keep-all;
       text-overflow: ellipsis;
       white-space: nowrap;
       max-width: 100%;
+
+      &:focus,
+      &:hover {
+        color: $color-text-inverted;
+      }
+
+      &:active {
+        color: $color-interaction;
+      }
 
       .platform-url {
         display: none;

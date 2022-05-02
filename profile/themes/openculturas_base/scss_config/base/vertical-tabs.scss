@@ -20,6 +20,11 @@
 
       &.is-selected {
         background: $color-bg-light;
+        pointer-events: none;
+        a:focus {
+          background: transparent;
+          outline: $outline-active;
+        }
       }
     }
   }
@@ -30,12 +35,8 @@
 
   // TODO This shouldn't be here check html template?
   // Combination vertical-Tabs/details? Why not replace?
-  .oc-details {
-    margin: 0;
-    padding: 0;
-  }
 
-  .details-wrapper {
+  >div {
     margin-top: 1rem;
     background: $color-bg-light;
     margin: 0.3rem 0.3rem 0.3rem 0;

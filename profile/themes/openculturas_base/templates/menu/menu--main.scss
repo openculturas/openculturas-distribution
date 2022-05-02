@@ -21,16 +21,16 @@
       padding: .5rem 0rem .5rem 0;
       margin-right: 2.25rem;
       border-top: 1px solid $color-text-inverted;
+      color: $color-text;
 
       &:hover,
       &:focus {
-        background: $color-divider-light;
-        padding-left: .5rem;
-        margin-left: -.5rem;
+        color: $color-text-inverted;
       }
 
-      &.is-active {
-        color: $color-primary;
+      &:active {
+        background: transparent;
+        color: $color-interaction;
       }
     }
 
@@ -39,7 +39,7 @@
       right: -2.4rem;
       top: 0;
       padding: .425rem .5rem;
-      background-color: $color-divider-light;
+
       display: block;
       border-left: 1px solid $color-text-inverted;
       border-top: 1px solid $color-text-inverted;
@@ -50,9 +50,20 @@
         vertical-align: middle;
         transition: transform 500ms ease;
       }
+
+      &:hover,
+      &:focus {
+        background: $color-primary;
+        color: $color-text-inverted;
+      }
+
+      &:active {
+        background: transparent;
+        color: $color-interaction;
+      }
     }
 
-    &.menu-item--open > a.menu-item--toggle:before {
+    &.menu-item--open a.menu-item--toggle:before {
       transform: rotate(-180deg);
     }
   }

@@ -1,47 +1,81 @@
 details {
+  // height of Heading and Chevron.
+  $line-height-details-header: 2;
+
   border: 0;
   border-top: 1px solid $color-divider-light;
-  margin: $grid-gutter 0 (2 * $grid-gutter);
-  padding: $grid-gutter 0 0 0;
+  padding: 0 $grid-gutter;
+
+  // Reverting form-wrapper default.
+  &.form-wrapper {
+    margin: $grid-gutter 0 0;
+    &:last-of-type {
+      padding-bottom: .5rem;
+    }
+  }
+  // Keep distance from non-details elements.
+  &:last-of-type {
+    border-bottom: 1px solid $color-divider-light;
+    margin-bottom: $grid-gutter;
+  }
 
   > summary {
+    @include icon(chevron-down, fas, before);
     list-style: none;
     padding: 0;
-    position: relative;
 
     // Disable default marker element on webkit browsers.
     &::-webkit-details-marker {
       display: none;
     }
 
-    > .h3 {
-      @include icon(chevron-down, fas, before);
+    // Chevron  ▲ and ▼.
+    &:before {
+      border-radius: $button-border-radius;
+      float: right;
+      font-size: 1.5rem;
+      line-height: $line-height-details-header;
+      margin-top: .25em;
+      padding: 0 .5em;
+      transition: transform 300ms ease;
+    }
+
+    &:hover:before {
+      background: $color-interaction;
+      color: $color-text-inverted;
+    }
+
+    &:active:before {
+      background: transparent;
+      color: $color-interaction;
+      outline: $outline-active;
+    }
+
+    .details--title {
+      @extend .h2;
+      color: inherit;
       display: inline-block;
-      margin: 0 2rem 0 0;
-      width: calc(100% - 2rem);
+      line-height: $line-height-details-header;
+      margin: 0;
+      width: auto;
+    }
 
-      &:hover,
-      &:focus {
-        color: $color-interaction;
-      }
-
-      &:before {
-        position: absolute;
-        right: 0;
-        top: 0.15em;
-        transition: transform 300ms ease;
-      }
+    &:hover,
+    &:focus {
+      color: $color-interaction;
     }
 
     &.form-required {
       &:after {
-        content: none;
+        font-size: $font-size-h3;
+        line-height: $line-height-details-header;
+        vertical-align: top;
       }
 
       h2 {
         &:after {
-          content: '*';
           color: $color-danger;
+          content: '*';
         }
       }
     }
@@ -49,23 +83,13 @@ details {
   }
 
   &[open] {
-    > summary {
-      > .h2,
-      > .h3,
-      > .h4,
-      > .h5,
-      > .h6 {
-        &:before {
-          transform: rotate(-180deg);
-        }
-      }
+    > summary:before {
+      transform: rotate(-180deg);
     }
   }
 
   .details-wrapper {
-    padding: 2 * $grid-gutter 0 0;
-    > *:first-child {
-      margin-top: 0;
-    }
+    margin: 0;
+    padding: .5rem 0 ;
   }
 }

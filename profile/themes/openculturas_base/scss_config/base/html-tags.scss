@@ -96,32 +96,28 @@ a,
 button.link {
   color: $color-link;
   text-decoration: none;
+  outline: 0;
 
-  &.is-active {
+  &.is-active,
+  &:visited {
+    // Keep our styles.
     color: $color-link;
   }
 
   &:hover,
-  &:focus{
-    //text-decoration: underline;
-    background: $color-link;
-    color: $color-text-inverted !important;
-  }
-
-  &:hover {
-    //color: $color-primary;
-  }
-
   &:focus {
-    //color: $color-interaction;
+    background: $color-link;
+    color: $color-text-inverted;
   }
 
   &:active {
     outline: $outline-active;
+    color: $color-interaction;
+    background: $color-text-inverted;
   }
 
-  &:visited {
-    color: $color-link;
+  .text-formatted & {
+    border-bottom: 1px solid currentColor;
   }
 }
 
@@ -192,8 +188,7 @@ table {
   }
 
   tr {
-    // TODO Is this OK?
-    border-bottom: 1px solid $color-primary;
+    border-bottom: 1px solid $color-divider-dark;
   }
 
   .field-multiple-drag {
@@ -208,6 +203,13 @@ table {
       position: absolute;
       top: calc(50% - 0.55rem);
       width: 2rem;
+      &:active,
+      &:hover {
+        background: transparent;
+      }
+      &:active {
+        outline: 0;
+      }
 
       .handle {
         height: 2rem;
@@ -305,7 +307,7 @@ abbr {
 kbd {
   background: $color-text-muted;
   border: thin solid $color-text;
-  border-radius: 2px;
+  border-radius: $button-border-radius;
   box-shadow: 1px 2px 2px $color-bg-light;
   font-family: inherit;
   font-size: 0.9em;
