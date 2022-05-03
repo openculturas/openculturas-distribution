@@ -12,7 +12,11 @@
   background: $color-bg-light;
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
-  font-size: $font-size-big;
+  font-size: $font-size-l;
+  // TODO : SOLLlaut theorie: 1.25rem. Was 1.125rem.
+  //  Sieht aber kacke aus und gerade beim Offcanvas
+  //  macht es sehr wenig Sinn die Browser default
+  //  zu überschreiben.
 
   .offcanvas-open & {
     transform: translate3d(0, 0, 0);
@@ -132,7 +136,7 @@
 
         button[type="submit"] {
           @include icon(search) {
-            font-size: 1.5rem;
+            font-size: $font-size-icon;
           };
           border-color: $color-divider-dark;
           border-left: 0;
@@ -177,7 +181,7 @@
   border-radius: $button-border-radius;
   color: $color-text-inverted;
   display: block;
-  font-size: 1.5rem;
+  font-size: $font-size-icon;
   height: 1.5em;
   overflow: hidden;
   text-decoration: none;
