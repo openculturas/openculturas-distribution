@@ -47,7 +47,7 @@ form {
   }
 
   fieldset,
-  fieldset.fieldgroup {
+  .fieldgroup {
     background: $color-bg-fieldset;
     padding: $grid-gutter;
 
@@ -55,6 +55,14 @@ form {
     legend {
       @extend %allcaps;
     }
+
+    &.error {
+      border: 2px solid $color-danger;
+      > legend {
+        color: $color-danger;
+      }
+    }
+
 
     fieldset,
     fieldset.fieldgroup {
