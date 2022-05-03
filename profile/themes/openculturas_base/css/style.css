@@ -10285,8 +10285,8 @@ body {
 .block .block--title,
 form fieldset summary,
 form fieldset legend,
-form fieldset.fieldgroup summary,
-form fieldset.fieldgroup legend,
+form .fieldgroup summary,
+form .fieldgroup legend,
 table caption {
   letter-spacing: 0.05rem;
   text-transform: uppercase;
@@ -10681,14 +10681,22 @@ form .field-suffix .button {
   margin-bottom: 1.25rem;
 }
 form fieldset,
-form fieldset.fieldgroup {
+form .fieldgroup {
   background: var(--color-bg-fieldset);
   padding: 1.25rem;
 }
+form fieldset.error,
+form .fieldgroup.error {
+  border: 2px solid var(--color-danger);
+}
+form fieldset.error > legend,
+form .fieldgroup.error > legend {
+  color: var(--color-danger);
+}
 form fieldset fieldset,
 form fieldset fieldset.fieldgroup,
-form fieldset.fieldgroup fieldset,
-form fieldset.fieldgroup fieldset.fieldgroup {
+form .fieldgroup fieldset,
+form .fieldgroup fieldset.fieldgroup {
   background: transparent;
   padding: 0;
 }
@@ -11827,6 +11835,16 @@ input[type=submit].danger:active {
   padding-right: 0.75rem;
   position: relative;
   top: 0.1rem;
+}
+
+.leaflet-marker-icon {
+  color: var(--color-primary);
+  position: relative;
+}
+.leaflet-marker-icon > i {
+  position: absolute;
+  left: -0.5rem;
+  bottom: 0.3rem;
 }
 
 .flag--link {
