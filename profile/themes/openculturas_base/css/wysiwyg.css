@@ -10314,7 +10314,7 @@ strong,
 }
 
 h1, .h1,
-h2, .h2, details > summary .details--title,
+h2, .h2, .details-title,
 h3, .h3, blockquote,
 blockquote p,
 h4, .h4,
@@ -10334,7 +10334,7 @@ h1,
 
 h2,
 .h2,
-details > summary .details--title {
+.details-title {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: var(--font-size-xl, 1.5rem);
@@ -10812,15 +10812,24 @@ form .form--inline .form-item {
   color: var(--color-text-inverted);
 }
 
+.details-title {
+  color: inherit;
+  display: inline-block;
+  line-height: 2.2;
+  margin: 0;
+  width: auto;
+}
+
 details {
   border: 0;
   border-top: 1px solid var(--color-divider-light);
   padding: 0 1.25rem;
 }
 details.form-wrapper {
-  margin: 1.25rem 0 0;
+  margin: 0;
 }
 details.form-wrapper:last-of-type {
+  border-bottom: 0;
   padding-bottom: 0.5rem;
 }
 details:last-of-type {
@@ -10848,10 +10857,15 @@ details > summary:before {
   border-radius: 4px;
   float: right;
   font-size: var(--font-size-icon, 1.5rem);
-  line-height: 2;
-  margin-top: 0.25em;
+  line-height: 1.98;
+  margin-top: 0.1em;
   padding: 0 0.5em;
   transition: transform 300ms ease;
+}
+@media screen and (min-width: 48rem) {
+  details > summary:before {
+    margin-top: 0.25em;
+  }
 }
 details > summary:hover:before {
   background: var(--color-interaction);
@@ -10862,19 +10876,12 @@ details > summary:active:before {
   color: var(--color-interaction);
   outline: var(--outline-active);
 }
-details > summary .details--title {
-  color: inherit;
-  display: inline-block;
-  line-height: 2;
-  margin: 0;
-  width: auto;
-}
 details > summary:hover, details > summary:focus {
   color: var(--color-interaction);
 }
 details > summary.form-required:after {
   font-size: var(--font-size-l, 1.25rem);
-  line-height: 2;
+  line-height: 2.2;
   vertical-align: top;
 }
 details > summary.form-required h2:after {
@@ -11135,11 +11142,12 @@ input[type=submit].danger:active {
   display: none;
 }
 
-.block-openculturas-custom-page-title h1 {
+.block-openculturas-custom-page-title .page-title {
   margin-bottom: 0.5rem;
 }
-.block-openculturas-custom-page-title h2 {
+.block-openculturas-custom-page-title .page-subtitle {
   font-family: var(--font-base);
+  font-size: var(--font-size-l, 1.25rem);
   margin-top: 0;
 }
 .block-openculturas-custom-page-title .field {
@@ -11181,10 +11189,10 @@ input[type=submit].danger:active {
     height: 8rem;
   }
 }
-.custom-page-title--with-image h1 {
+.custom-page-title--with-image .page-title {
   grid-area: text;
 }
-.custom-page-title--with-image h2 {
+.custom-page-title--with-image .page-subtitle {
   grid-area: text2;
 }
 
@@ -11784,7 +11792,7 @@ input[type=submit].danger:active {
 }
 
 .teaser h1, .teaser .h1,
-.teaser h2, .teaser .h2, .teaser details > summary .details--title, details > summary .teaser .details--title,
+.teaser h2, .teaser .h2, .teaser .details-title,
 .teaser h3, .teaser .h3, .teaser blockquote,
 .teaser blockquote p,
 blockquote .teaser p,

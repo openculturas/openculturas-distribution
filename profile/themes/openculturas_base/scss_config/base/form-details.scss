@@ -1,15 +1,28 @@
-details {
-  // height of Heading and Chevron.
-  $line-height-details-header: 2;
 
+// Height of Heading and Chevron.
+// Increase to get space around details closed.
+$line-height-details-header: 2.2;
+
+.details-title {
+  @extend .h2;
+  color: inherit;
+  display: inline-block;
+  line-height: $line-height-details-header;
+  margin: 0;
+  width: auto;
+}
+
+details {
   border: 0;
   border-top: 1px solid $color-divider-light;
   padding: 0 $grid-gutter;
 
   // Reverting form-wrapper default.
   &.form-wrapper {
-    margin: $grid-gutter 0 0;
+    margin: 0;
+
     &:last-of-type {
+      border-bottom: 0;
       padding-bottom: .5rem;
     }
   }
@@ -34,10 +47,14 @@ details {
       border-radius: $button-border-radius;
       float: right;
       font-size: $font-size-icon;
-      line-height: $line-height-details-header;
-      margin-top: .25em;
+      line-height: (0.9 * $line-height-details-header);
+      margin-top: .1em;
       padding: 0 .5em;
       transition: transform 300ms ease;
+      @include breakpoint(m) {
+        // h2.details-title is responsive at breakpoint.
+        margin-top: .25em;
+      }
     }
 
     &:hover:before {
@@ -49,15 +66,6 @@ details {
       background: transparent;
       color: $color-interaction;
       outline: $outline-active;
-    }
-
-    .details--title {
-      @extend .h2;
-      color: inherit;
-      display: inline-block;
-      line-height: $line-height-details-header;
-      margin: 0;
-      width: auto;
     }
 
     &:hover,
