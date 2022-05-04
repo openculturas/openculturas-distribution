@@ -78,23 +78,24 @@
   'profile-teaser'
 ]
 %}
+{% set wrapper_tag = 'article' %}
 {{ attach_library('classy/node') }}
-<article{{ attributes.addClass(classes) }}>
-
-  <div class="profile--picture">
-    {{ content.field_portrait }}
-  </div>
-  <div class="profile--content">
-    {{ title_prefix }}
-    {% if label %}
-      <h3{{ title_attributes.addClass('teaser') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h3>
-    {% endif %}
-    {{ title_suffix }}
-    <div{{ content_attributes.addClass('node__content') }}>
-      {{ content | without('field_portrait') }}
+ {% block content_wrapper %}
+  <{{ wrapper_tag }}{{ attributes.addClass(classes) }}>
+    <div class="profile--picture">
+      {{ content.field_portrait }}
     </div>
-  </div>
-
-</article>
+    <div class="profile--content">
+      {{ title_prefix }}
+      {% if label %}
+        <h3{{ title_attributes.addClass('teaser') }}>
+          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+        </h3>
+      {% endif %}
+      {{ title_suffix }}
+      <div{{ content_attributes.addClass('node__content') }}>
+        {{ content | without('field_portrait') }}
+      </div>
+    </div>
+  </{{ wrapper_tag }}>
+{% endblock %}
