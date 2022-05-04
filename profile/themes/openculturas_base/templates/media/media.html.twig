@@ -20,9 +20,13 @@
     view_mode ? 'media--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-<div{{ attributes.addClass(classes) }}>
+{% set wrapper_tag = 'div' %}
+{% block content_wrapper %}
+<{{ wrapper_tag }} {{ attributes.addClass(classes) }}>
   {{ title_suffix.contextual_links }}
   {% if content %}
     {{ content }}
   {% endif %}
-</div>
+</{{ wrapper_tag }}>
+{% endblock %}
+
