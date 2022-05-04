@@ -81,7 +81,7 @@
 {% set wrapper_tag = 'article' %}
 {{ attach_library('classy/node') }}
  {% block content_wrapper %}
-  <{{ wrapper_tag }}{{ attributes.addClass(classes) }}>
+  <{{ wrapper_tag }}{{ attributes.addClass(classes)|without('role') }}>
     <div class="profile--picture">
       {{ content.field_portrait }}
     </div>
