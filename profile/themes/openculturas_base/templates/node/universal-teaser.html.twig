@@ -81,10 +81,11 @@
 %}
 {% set mood_image = content.field_mood_image|render|trim is not empty %}
 {% set profile_image = content.field_portrait|render|trim is not empty %}
+{% set wrapper_tag = 'article' %}
 
 {{ attach_library('classy/node') }}
-<article{{ attributes.addClass(classes) }}>
-
+ {% block content_wrapper %}
+<{{ wrapper_tag }}{{ attributes.addClass(classes) }}>
   <div class="teaser--top">
     {% if mood_image %}
       {{ content.field_mood_image }}
@@ -117,4 +118,5 @@
     </div>
   </footer>
   {% endif %}
-</article>
+</wrapper_tag>
+{% endblock %}

@@ -1,0 +1,101 @@
+// Button base styles
+.button,
+button,
+input[type='button'],
+input[type='submit'] {
+  border: 1px solid transparent;
+  border-radius: $button-border-radius;
+  display: inline-block;
+  line-height: 1;
+  margin-bottom: $grid-gutter;
+  margin-left: 0;
+  margin-right: $grid-gutter;
+  outline-offset: .25rem;
+  padding: .5rem 2rem;
+
+  &:first-child {
+    margin-right: $grid-gutter;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus,
+  &:not([disabled]):hover {
+    background: $color-interaction;
+    border-color: $color-interaction;
+    color: $color-text-inverted;
+  }
+
+  &:active {
+    background: $color-text-inverted;
+    border-color: currentColor;
+    color: $color-interaction;
+    outline: $outline-active;
+  }
+
+  &[disabled] {
+    opacity: .5;
+    pointer-events: none; // Prevents hover&active changes.
+  }
+}
+
+// Primary Style.
+.form-submit,
+.view-header .button,
+input[type="submit"],
+button[type="submit"] {
+  color: $color-text-inverted;
+  background: $color-primary;
+  border: 1px solid $color-primary;
+
+  &:focus,
+  &:hover {
+    background: $color-interaction;
+    color: $color-text-inverted;
+  }
+}
+
+// Secondary.
+.form-submit.secondary,
+.button.secondary,
+a.button.secondary,
+input[type="submit"].secondary,
+.button[data-drupal-selector$=cancel],
+.field-add-more-submit,
+.button--small,
+button[id*=remove] {
+  color: $color-interaction;
+  background: $color-bg-light;
+  border-color: $color-interaction;
+}
+
+// Danger.
+.form-submit.danger,
+.button.danger,
+a.button.danger,
+input[type="submit"].danger {
+  color: $color-danger;
+  background: $color-text-inverted;
+  border-color: $color-danger;
+  @include icon(xmark) {
+    margin-right: .5rem;
+  };
+
+  &:not([disabled]):hover,
+  &:focus {
+    background: $color-danger;
+    color: $color-text-inverted;
+    border-color: $color-danger;
+  }
+
+  &:active {
+    background: $color-text-inverted;
+    border-color: $color-danger;
+    color: $color-danger;
+  }
+}
+

@@ -1,0 +1,103 @@
+
+// Height of Heading and Chevron.
+// Increase to get space around details closed.
+$line-height-details-header: 2.2;
+
+.details-title {
+  @extend .h2;
+  color: inherit;
+  display: inline-block;
+  line-height: $line-height-details-header;
+  margin: 0;
+  width: auto;
+}
+
+details {
+  border: 0;
+  border-top: 1px solid $color-divider-light;
+  padding: 0 $grid-gutter;
+
+  // Reverting form-wrapper default.
+  &.form-wrapper {
+    margin: 0;
+
+    &:last-of-type {
+      border-bottom: 0;
+      padding-bottom: .5rem;
+    }
+  }
+  // Keep distance from non-details elements.
+  &:last-of-type {
+    border-bottom: 1px solid $color-divider-light;
+    margin-bottom: $grid-gutter;
+  }
+
+  > summary {
+    @include icon(chevron-down, fas, before);
+    list-style: none;
+    padding: 0;
+
+    // Disable default marker element on webkit browsers.
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    // Chevron  ▲ and ▼.
+    &:before {
+      border-radius: $button-border-radius;
+      float: right;
+      font-size: $font-size-icon;
+      line-height: (0.9 * $line-height-details-header);
+      margin-top: .1em;
+      padding: 0 .5em;
+      transition: transform 300ms ease;
+      @include breakpoint(m) {
+        // h2.details-title is responsive at breakpoint.
+        margin-top: .25em;
+      }
+    }
+
+    &:hover:before {
+      background: $color-interaction;
+      color: $color-text-inverted;
+    }
+
+    &:active:before {
+      background: transparent;
+      color: $color-interaction;
+      outline: $outline-active;
+    }
+
+    &:hover,
+    &:focus {
+      color: $color-interaction;
+    }
+
+    &.form-required {
+      &:after {
+        font-size: $font-size-l;
+        line-height: $line-height-details-header;
+        vertical-align: top;
+      }
+
+      h2 {
+        &:after {
+          color: $color-danger;
+          content: '*';
+        }
+      }
+    }
+
+  }
+
+  &[open] {
+    > summary:before {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .details-wrapper {
+    margin: 0;
+    padding: .5rem 0 ;
+  }
+}

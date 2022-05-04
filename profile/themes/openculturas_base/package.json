@@ -3,17 +3,14 @@
   "version": "1.0.0",
   "description": "Frontend tooling for the openculturas_base theme",
   "scripts": {
-    "default": "gulp build",
-    "dev": "gulp dev",
-    "js": "gulp js",
-    "sass": "gulp sass",
-    "build": "gulp build",
-    "initConfig": "gulp initConfig",
-    "watch": "gulp watch"
+    "build":   "NODE_ENV=production && gulp build",
+    "serve": "set NODE_ENV=development && gulp watch",
+    "watch": "set NODE_ENV=development && gulp watch"
   },
   "author": "peter.gerken@erdfisch.de",
   "license": "GPL-2.0",
-  "dependencies": {
+  "devDependencies": {
+    "gulp-environments": "^1.0.1",
     "browser-sync": "^2.27.7",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",

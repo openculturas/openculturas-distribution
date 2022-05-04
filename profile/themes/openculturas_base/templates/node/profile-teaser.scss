@@ -21,6 +21,7 @@
       width: 100%;
       height: auto;
       position: relative;
+      background: $color-bg-light;
     }
   }
 
@@ -28,15 +29,6 @@
     .profile--picture {
       background: $color-bg-slight-contrast;
       @include icon(location-dot, fas, before);
-
-      &:before {
-        position: absolute;
-        top: 2rem;
-        left: 0;
-        width: 100%;
-        font-size: 4rem;
-        color: $color-text-inverted;
-      }
     }
   }
 }
@@ -49,13 +41,15 @@
   .profile--content {
     h4,
     h3 {
-      @include typo(teaser);
       margin: 0;
     }
 
-    .field--name-field-subtitle, .field--name-field-contact-data {
-      font-size: size(body);
-    }
+    //.field--name-field-subtitle,
+    //.field--name-field-contact-data {
+    //  //font-size: size(body);
+    //  // --> /my-test-view
+    //  outline: 2px solid red;
+    //}
   }
 }
 
@@ -92,9 +86,9 @@
   }
 
   .profile--content {
-    h4, h3 {
-      @include typo(teaser);
-      margin: 0 0 0.25rem 0;
+    h4,
+    h3 {
+      margin: 0 0 .25rem 0;
     }
 
     .field:first-child {

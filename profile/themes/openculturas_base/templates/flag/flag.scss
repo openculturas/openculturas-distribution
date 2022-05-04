@@ -1,72 +1,85 @@
-header {
-  .flag {
-    position: relative;
+.flag--link {
+  background-color: $color-primary;
+  border-radius: 0 0 .3em .3em;
+  color: $color-text-inverted;
+  display: block;
+  font-size: $font-size-icon;
+  height: 1.5em;
+  overflow: hidden;
+  width: 1.5em;
 
-    a {
-      @include offcanvas-button(false);
-      background-color: $color-primary;
-      color: $color-text-inverted;
-      font-size: 1.5rem;
-      border-radius: 0 0 0.3em 0.3em;
-      text-decoration: none;
-      @include breakpoint(m) {
-        font-size: 1.5rem;
-      }
-
-      &:before {
-        text-decoration: none;
-        text-align: center;
-        vertical-align: bottom;
-        line-height: 1.5;
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      .offcanvas--visually-hidden {
-        @include visually_hidden;
-      }
-
-    }
-    &.action-unflag a {
-      background-color: $color-primary;
-    }
-
-    .js-flag-message {
-      position: absolute;
-      right: calc(100% + #{$grid-gutter});
-      top: 0rem;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .ajax-progress-throbber {
-      position: absolute;
-      left: 0.25em;
-      top: 0;
-    }
+  &:before {
+    color: inherit;
+    display: block;
+    height: 100%;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: bottom;
+    width: 100%;
   }
 
-  .flag-bookmark-node,
-  .flag-bookmark-term {
-    a {
-      @include icon(bookmark);
-
-      &:before {
-        line-height: 1;
-      }
-    }
-
+  .offcanvas--visually-hidden {
+    @include visually_hidden;
   }
 
-  .flag-recommendation-node {
-    a {
-      @include icon(share-alt);
+  &:focus,
+  &:hover {
+    background: $color-interaction;
+    color: $color-text-inverted;
+  }
 
-      &:before {
-        line-height: 1.5;
-      }
+  &:active {
+    background: $color-interaction;
+    color: $color-text-inverted;
+    outline: $outline-active;
+    outline-offset: 3px;
+  }
 
+  //  .action-flag &  {
+  //}
+  //.action-unflag &  {
+  //}
+}
+
+
+.flag {
+  position: relative;
+
+  .js-flag-message {
+    position: absolute;
+    right: calc(100% + #{$grid-gutter});
+    text-align: right;
+    top: 0;
+    white-space: nowrap;
+  }
+
+  .ajax-progress-throbber {
+    left: .25em;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.flag-bookmark-node,
+.flag-bookmark-term {
+
+  .flag--link {
+    @include icon(bookmark);
+
+    &:before {
+      line-height: 1;
     }
   }
 }
+
+.flag-recommendation-node {
+
+  .flag--link {
+    @include icon(share-alt);
+
+    &:before {
+      line-height: 1.5;
+    }
+  }
+}
+

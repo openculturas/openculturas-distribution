@@ -12,12 +12,10 @@
   background: $color-bg-light;
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
-  font-size: size(bigger);
 
-  .offcanvas-open &{
+  .offcanvas-open & {
     transform: translate3d(0, 0, 0);
-    //box-shadow: 1rem 0 1rem var(----color-text);
-    box-shadow: 0 0.5rem 1.5rem -0.5rem $color-text;
+    box-shadow: 0 .5rem 1.5rem -.5rem $color-text;
   }
 
   &--grid {
@@ -46,21 +44,12 @@
         }
       }
     }
-
-    .header__offcanvas-menu--toggle {
-      padding: 0 0;
-      @include clearfix;
-
-      .header__offcanvas-menu--burger {
-        float: right;
-      }
-    }
   }
 
   &--content {
     @include content-grid-default;
     grid-row: 2;
-    margin: $grid-gutter*1 0 $grid-gutter*2 0;
+    margin: $grid-gutter 0 (2*$grid-gutter) 0;
 
     .block {
       border-top: 1px solid $color-divider-light;
@@ -71,19 +60,7 @@
       }
 
       a {
-        // @include link-offcanvas();
         color: $color-text;
-        text-decoration: none;
-
-        &:visited{
-          color: $color-text;
-        }
-
-        &:hover,
-        &:focus,
-        &:active {
-          color: $color-primary;
-        }
       }
     }
 
@@ -103,27 +80,23 @@
 
       a {
         display: block;
-        padding: 0.5rem 2.25rem 0.5rem 0;
-
-        &:hover,
-        &:focus,
-        &:active {
-          background: $color-bg-slight-contrast;
-          padding-left: 0.5rem;
-          margin-left: -0.5rem;
-        }
+        padding: .5rem 2.25rem .5rem 0;
       }
     }
 
     form {
+      background: transparent;
       padding: 0;
 
       &:before {
         content: none;
       }
+      .form--inline {
+        margin-left: 0;
+        margin-right: 0;
+      }
     }
 
-    // @TODO: FInd a better way to select the search form since it is fully defined by views and search backend.
     .block-views-exposed-filter-blocksearch-search-input {
       label {
         display: inline-block;
@@ -146,8 +119,9 @@
           width: 70%;
         }
 
-        input {
+        input.form-text {
           width: 100%;
+          line-height: 2;
         }
       }
 
@@ -155,13 +129,23 @@
         display: inline-block;
         margin: 0;
 
-        button.form-submit {
-          @include button-secondary;
-          height: 100%;
-          padding: 0 0.75rem;
+        button[type="submit"] {
           @include icon(search) {
-            font-size: 1.5rem;
+            font-size: $font-size-icon;
           };
+          border-color: $color-divider-dark;
+          border-left: 0;
+          background: transparent;
+          color: $color-interaction;
+          height: 100%;
+          padding: 0 .75rem;
+
+          &:hover {
+            background: $color-interaction;
+            color: $color-text-inverted;
+            border-color: $color-interaction;
+          }
+
           span {
             @include visually_hidden;
           }
@@ -184,7 +168,63 @@
   }
 }
 
-body.offcanvas-open {
-  width: 100%;
+.header__burger--link {
+  @include icon(bars);
+
+  background: $color-interaction;
+  padding: 0;
+  border-radius: $button-border-radius;
+  color: $color-text-inverted;
+  display: block;
+  font-size: $font-size-icon;
+  height: 1.5em;
   overflow: hidden;
+  text-decoration: none;
+  width: 1.5em;
+  outline-offset: 3px;
+  outline-width: 2px;
+
+  @include breakpoint(m) {
+    font-size: 1.75rem;
+  }
+
+  &:before,
+  &:after {
+    color: inherit;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    top: 0;
+    transition: top 300ms ease;
+    width: inherit;
+  }
+
+  &:after {
+    @extend %fa-icon;
+    @extend .fa-solid;
+    content: "\f00d"; // $fa-var-xmark
+  }
+
+  .offcanvas-open & {
+    &:before,
+    &:after {
+      top: -100%;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $color-primary;
+    color: $color-text-inverted;
+  }
 }
+
+// TODO: Remove note.
+// This should not be necessary or you have out of bound Elements (such as long pre-Elements)
+//body.offcanvas-open {
+//  width: 100%;
+//  overflow: hidden;
+//}

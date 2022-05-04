@@ -1,11 +1,12 @@
 // Drupal Messages system + info message in Blue.
 .messages {
-  border-width: 2px;
-  border-radius: .4rem;
-  box-shadow: none;
   background-image: none;
+  border-radius: .4rem;
+  border-width: 2px;
+  box-shadow: none;
   padding: .6rem 1rem .6rem 2.6rem;
   position: relative;
+  color: $color-text;
 
   &:before {
     //content: "\f058";
@@ -20,43 +21,52 @@
   a,
   a:hover {
     color: inherit;
+    display: inline;
     font-weight: bold;
     text-decoration: underline;
-    display: inline;
+    &:hover {
+      background: transparent;
+      border-bottom: 2px solid currentColor;
+    }
   }
 
   &.messages--error {
-    color: $color-danger;
-    border-color: $color-danger;
     background-color: $color-bg-danger;
+    border-color: $color-danger;
+    //color: $color-danger;
     &:before {
+      // @see https://fontawesome.com/v5/icons/times-circle
       content: "\f057";
     }
   }
 
   &.messages--status {
-    border-color: $color-success;
-    color: $color-success;
     background-color: $color-bg-success;
+    border-color: $color-success;
+    //color: $color-success;
+
     &:before {
+      // @see https://fontawesome.com/v5/icons/check-circle
       content: "\f058";
     }
   }
 
   &.messages--warning {
-    color: $color-warning;
+    //color: $color-warning;
     border-color: $color-warning;
     background-color: $color-bg-warning;
     &:before {
+      // @see https://fontawesome.com/icons/triangle-exclamation
       content: "\f071";
     }
   }
 
   &.messages--info {
-    color: $color-info;
+    //color: $color-info;
     border-color: $color-info;
     background-color: $color-bg-info;
     &:before {
+      // @see https://fontawesome.com/icons/circle-info
       content: "\f05a";
     }
   }
