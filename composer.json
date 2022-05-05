@@ -138,6 +138,7 @@
         "drupal/cookies": "^1.0",
         "drupal/css_color_variables": "1.0.x-dev",
         "drupal/date_range_formatter": "^9.0-dev",
+        "drupal/default_content": "^2.0@alpha",
         "drupal/duration_field": "^2.0",
         "drupal/elasticsearch_connector": "^7.0-dev",
         "drupal/entity_browser": "^2.6",
@@ -242,7 +243,18 @@
         }
     },
     "scripts": {
-        "update-config": "@php scripts/update_config.php"
+        "update-config": "@php scripts/update_config.php",
+        "export-content": [
+            "rm -rf profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references node --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references media --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references menu_link_content --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references taxonomy_term --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content"
+        ],
+        "si": [
+            "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
+            "drush site:install --yes"
+        ]
     },
     "extra": {
         "drupal-scaffold": {

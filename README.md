@@ -41,6 +41,12 @@ Cheatsheet:
 * Run composer commands `ddev composer COMMAND` e.g. `ddev composer install`
 * Run drush commands `ddev drush COMMAND` e. g. `ddev drush uli`
 
-### Update installation profile configuration
+### Composer scripts
+#### Update installation profile configuration
 This script copies and prepares the files from `config/sync` to `profile/config/install` to use it for a new installation.
 * `composer run update-config`
+
+#### Updating initial content
+* Fetch latest changes and install site: `git pull && composer install && composer run update-config && ddev composer run si`
+* Change content via UI
+* Export content `ddev composer run export-content`
