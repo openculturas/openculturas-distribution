@@ -216,7 +216,7 @@
         "drupal/core-recommended": "^9.3",
         "drupal/devel": "^4.1",
         "drupal/stage_file_proxy": "^1.2",
-        "drush/drush": "^10.6",
+        "drush/drush": "^11.0",
         "npm-asset/jquery-ui-touch-punch": "^0.2.3",
         "oomphinc/composer-installers-extender": "^2.0",
         "openculturas/openculturas-profile": "*",
@@ -245,11 +245,13 @@
     "scripts": {
         "update-config": "@php scripts/update_config.php",
         "export-content": [
+            "drush pm:install default_content --yes",
             "rm -rf profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
             "drush default-content:export-references node --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
             "drush default-content:export-references media --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
             "drush default-content:export-references menu_link_content --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
-            "drush default-content:export-references taxonomy_term --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content"
+            "drush default-content:export-references taxonomy_term --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush pm:uninstall default_content --yes"
         ],
         "si": [
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",

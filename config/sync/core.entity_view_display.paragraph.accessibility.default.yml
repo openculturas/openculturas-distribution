@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.paragraph.accessibility.field_a11y_features
     - field.field.paragraph.accessibility.field_a11y_info
+    - field.field.paragraph.accessibility.field_trigger_warnings
     - paragraphs.paragraphs_type.accessibility
   module:
+    - field_formatter_class
     - text
 id: paragraph.accessibility.default
 targetEntityType: paragraph
@@ -17,16 +19,28 @@ content:
     type: entity_reference_label
     label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
     region: content
   field_a11y_info:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
+    region: content
+  field_trigger_warnings:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
     region: content
 hidden:
   search_api_excerpt: true

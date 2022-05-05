@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.accessibility.field_a11y_features
     - field.field.paragraph.accessibility.field_a11y_info
+    - field.field.paragraph.accessibility.field_trigger_warnings
     - paragraphs.paragraphs_type.accessibility
   module:
     - text
@@ -14,16 +15,26 @@ mode: default
 content:
   field_a11y_features:
     type: options_buttons
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
   field_a11y_info:
     type: text_textarea
-    weight: 0
+    weight: 2
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_trigger_warnings:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
 hidden:
