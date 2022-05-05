@@ -1,0 +1,7 @@
+services:
+  default_content_fixes.normalizer:
+    class: Drupal\openculturas_content\Normalizer
+    public: false
+    decorates: default_content.content_entity_normalizer
+    decoration_priority: 9
+    arguments: [ '@default_content_fixes.normalizer.inner' ]
