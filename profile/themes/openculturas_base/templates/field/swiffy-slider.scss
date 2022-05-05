@@ -1,0 +1,54 @@
+.swiffy-slider {
+  text-align: center;
+
+  .slider-nav {
+    @include icon(angle-left, fas, after);
+    margin: 0;
+    opacity: 1;
+
+    &:after {
+      align-items: center;
+      background: transparent;
+      border-radius: $button-border-radius;
+      color: $color-interaction;
+      // Center Icon.
+      display: flex;
+      font-size: $font-size-icon;
+      justify-content: center;
+      // Disable defaults.
+      -webkit-mask: none;
+      mask: none;
+
+    }
+
+    &:focus,
+    &:hover {
+      background: transparent;
+      color: $color-text-inverted;
+
+      &:after {
+        background: $color-interaction;
+        color: $color-text-inverted;
+      }
+    }
+
+    &:active {
+      outline: 0;
+      &:after {
+        outline: $outline-active;
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  .slider-indicators {
+    &>* {
+      // @see swiffy-slider.css :/.
+      background: $color-interaction;
+
+      // Disable invert filter.
+      filter: none;
+      -webkit-filter: none;
+    }
+  }
+}
