@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\openculturas_content;
+namespace Drupal\openculturas_custom;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\default_content\Normalizer\ContentEntityNormalizer;

@@ -245,7 +245,7 @@
     "scripts": {
         "update-config": "@php scripts/update_config.php",
         "export-content": [
-            "rm -rf profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content && rm -rf web/sites/default/files && mkdit web/sites/default/files/translations",
+            "rm -rf profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content && rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush default-content:export-references node --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
             "drush default-content:export-references media --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
             "drush default-content:export-references menu_link_content --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
