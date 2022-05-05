@@ -18,7 +18,7 @@ function openculturas_install($is_syncing) {
     // We only want to import the content,
     // then we do not need the module anymore.
     $module_installer->install(['openculturas_content']);
-    $module_installer->uninstall(['openculturas_content']);
+    $module_installer->uninstall(['default_content', 'openculturas_content']);
 
     /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
     $entityRepository = \Drupal::service('entity.repository');
