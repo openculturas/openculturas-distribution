@@ -4,11 +4,12 @@ status: true
 dependencies:
   module:
     - cookies
+    - system
   theme:
     - openculturas_base
 id: cookiesui
 theme: openculturas_base
-region: footer
+region: below_footer
 weight: -10
 provider: null
 plugin: cookies_ui_block
@@ -17,4 +18,8 @@ settings:
   label: 'Cookies UI'
   label_display: '0'
   provider: cookies
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: /cookies/documentation

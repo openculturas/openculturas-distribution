@@ -1,8 +1,8 @@
-.layout-container {
-  max-width: $grid-layout-max-width;
-  margin: 0 auto;
-  @include grid();
-  background: $color-bg-light;
+ .layout-container {
+   @include grid();
+   background: $color-bg-light;
+   margin: 0 auto;
+   max-width: $grid-layout-max-width;
 
   .header {
     grid-column: 2 / 16;
@@ -23,6 +23,7 @@
       grid-column: 1 / 17;
       margin-bottom: -5rem;
     }
+
     @include breakpoint(l) {
       grid-column: 1 / 17;
       margin-bottom: -8.25rem;
@@ -41,7 +42,6 @@
       margin: 0 (-1 * $grid-gutter);
       background: $color-bg-light;
       position: relative;
-      z-index: 10;
       min-height: 2rem;
       padding: 0 $grid-gutter;
 
@@ -73,8 +73,8 @@
 
       .region-content {
         @include grid();
-        min-height: 20rem;
         margin-bottom: $grid-gutter;
+        min-height: 20rem;
 
         > .grid-child-fullwidth {
           grid-column: 1 / -1;
@@ -87,18 +87,18 @@
     }
   }
 
-  footer.footer {
-    position: relative;
+  .footer {
     grid-column: 2 / 16;
     grid-row: 5;
+    position: relative;
   }
 }
 
 // Basic layout for all blocks so they are not floating around.
 // This is as simple as possible on purpose, so it can be overridden easily.
 .region-content > .block {
-  margin: $grid-gutter 0;
   grid-column: 2 / 16;
+  margin: $grid-gutter 0;
   @include breakpoint(m) {
     grid-column: 4 / 14;
   }
