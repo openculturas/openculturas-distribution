@@ -70,7 +70,7 @@ body {
   --color-bg-cluster-icon: var(--color-link--opacity-64, #a1167fa3);
 }
 
-.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__burger--link:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before, .cookiesjsr-layer .cookiesjsr-service-group--tab:before, .cookiesjsr-layer .cookiesjsr-layer--close:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node .flag--link:before, .flag-bookmark-node .flag--link:before,
+.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__burger--link:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before, .cookiesjsr-layer .cookiesjsr-service-group--tab:before, .cookiesjsr-layer .cookiesjsr-layer--close:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .menu--call-to-action-menu .menu-item > a:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node .flag--link:before, .flag-bookmark-node .flag--link:before,
 .flag-bookmark-term .flag--link:before, .swiffy-slider .slider-nav:after, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before,
 .form-submit.danger:before,
 .button.danger:before,
@@ -12132,6 +12132,60 @@ input[type=submit].danger:active {
 
 .contextual-region.focus {
   outline-color: var(--color-info);
+}
+
+.menu--call-to-action-menu {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 48rem) {
+  .menu--call-to-action-menu {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+}
+.menu--call-to-action-menu .menu-item {
+  display: flex;
+  border: 2px solid transparent;
+}
+@media screen and (min-width: 48rem) {
+  .menu--call-to-action-menu .menu-item {
+    width: 50%;
+    min-height: 8rem;
+  }
+}
+.menu--call-to-action-menu .menu-item > a {
+  align-items: center;
+  background: linear-gradient(var(--color-link), var(--color-link--opacity-64));
+  border-color: transparent;
+  color: var(--color-text-inverted);
+  display: flex;
+  height: 100%;
+  padding: 1.25rem;
+  width: 100%;
+}
+.menu--call-to-action-menu .menu-item > a:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  color: inherit;
+  content: "+";
+  font-size: var(--font-size-icon);
+  padding-right: 1.25rem;
+}
+.menu--call-to-action-menu .menu-item > a:hover, .menu--call-to-action-menu .menu-item > a:focus {
+  background: var(--color-interaction);
+}
+.menu--call-to-action-menu .menu-item > a:active {
+  background: transparent;
+  border-color: var(--color-interaction);
+  color: var(--color-interaction);
 }
 
 /**
