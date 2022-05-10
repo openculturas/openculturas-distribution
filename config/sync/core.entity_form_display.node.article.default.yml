@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.article.field_author
     - field.field.node.article.field_category
     - field.field.node.article.field_column
+    - field.field.node.article.field_content_paragraphs
     - field.field.node.article.field_date_published
     - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
@@ -19,6 +20,7 @@ dependencies:
     - field_group
     - media_library
     - media_library_edit
+    - paragraphs
     - path
     - text
     - viewfield
@@ -33,7 +35,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -66,7 +68,7 @@ third_party_settings:
       label: 'Meta information'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -122,6 +124,25 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_content_paragraphs:
+    type: paragraphs
+    weight: 7
+    region: content
+    settings:
+      title: 'Content element'
+      title_plural: 'Content elements'
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_date_published:
     type: datetime_default
     weight: 9
@@ -150,13 +171,13 @@ content:
         show_edit: '1'
   field_recommended_by_view_ref:
     type: viewfield_select
-    weight: 51
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_references:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS
@@ -181,7 +202,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -194,7 +215,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 10
     region: content
     settings:
       display_label: true
@@ -225,7 +246,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
