@@ -35,9 +35,11 @@ function openculturas_base_preprocess_node(&$variables) {
   $node = $variables['node'];
 
   // Hide all flag fields on nodes because they get rendered in a seperated block.
-  foreach ($variables["content"] as $name => $render_array) {
-    if (strpos($name, 'flag_') === 0) {
-      $variables["content"][$name]['#access'] = FALSE;
+  if ($variables["view_mode"] === 'full') {
+    foreach ($variables["content"] as $name => $render_array) {
+      if (strpos($name, 'flag_') === 0) {
+        $variables["content"][$name]['#access'] = FALSE;
+      }
     }
   }
 
