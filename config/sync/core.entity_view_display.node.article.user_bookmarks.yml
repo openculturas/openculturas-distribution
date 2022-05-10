@@ -1,0 +1,54 @@
+uuid: d39d46b0-a20d-493a-9a07-b449a5fc5ed1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.user_bookmarks
+    - field.field.node.article.body
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_column
+    - field.field.node.article.field_date_published
+    - field.field.node.article.field_gallery
+    - field.field.node.article.field_mood_image
+    - field.field.node.article.field_recommended_by_view_ref
+    - field.field.node.article.field_references
+    - field.field.node.article.field_subtitle
+    - node.type.article
+  module:
+    - field_formatter_class
+    - text
+    - user
+id: node.article.user_bookmarks
+targetEntityType: node
+bundle: article
+mode: user_bookmarks
+content:
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  body: true
+  field_author: true
+  field_category: true
+  field_column: true
+  field_date_published: true
+  field_gallery: true
+  field_mood_image: true
+  field_recommended_by_view_ref: true
+  field_references: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
