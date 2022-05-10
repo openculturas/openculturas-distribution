@@ -1,0 +1,58 @@
+uuid: 90cdf585-fb80-44e4-9471-37f009403800
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_paragraphs
+    - node.type.article
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.view
+  module:
+    - entity_reference_revisions
+id: node.article.field_content_paragraphs
+field_name: field_content_paragraphs
+entity_type: node
+bundle: article
+label: 'Content elements'
+description: 'Add elements like a Galery, Media, Text or a view.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      gallery: gallery
+      media: media
+      text: text
+      view: view
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: 9
+        enabled: false
+      address_data:
+        weight: 10
+        enabled: false
+      contact_data:
+        weight: 11
+        enabled: false
+      gallery:
+        weight: 12
+        enabled: true
+      media:
+        weight: 13
+        enabled: true
+      member:
+        weight: 14
+        enabled: false
+      text:
+        weight: 15
+        enabled: true
+      view:
+        weight: 16
+        enabled: true
+field_type: entity_reference_revisions
