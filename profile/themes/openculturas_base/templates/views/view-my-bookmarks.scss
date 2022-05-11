@@ -15,21 +15,32 @@
 
 .view-my-bookmarks,
 .view-my-bookmarks-taxonomy {
-  //outline: 2px solid green;
-  //padding-top: $grid-gutter;
-  //padding-bottom: $grid-gutter / 2;
+
+  .view-header {
+    h3 {
+      font-family: var(--font-base);
+      letter-spacing: .05rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .teaser--top .field--name-field-subtitle {
+    font-weight: normal;
+    margin: 0;
+  }
 
   .views-table {
-    //outline: 1px dashed darkolivegreen;
-
     tr {
       border-color: transparent;
-      //&:last-child {
-      //  border-color: $color-divider-light;
-      //}
     }
 
+    td:last-child {
+      padding-left: $grid-gutter;
+    }
 
+    .flag {
+      float: right;
+    }
 
     @media screen and (max-width: 48rem) {
       tbody {
