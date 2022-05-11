@@ -71,12 +71,11 @@ body {
 }
 
 .contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__burger--link:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before, .cookiesjsr-layer .cookiesjsr-service-group--tab:before, .cookiesjsr-layer .cookiesjsr-layer--close:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .menu--call-to-action-menu .menu-item > a:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node .flag--link:before, .flag-bookmark-node .flag--link:before,
-.flag-bookmark-term .flag--link:before, .swiffy-slider .slider-nav:after, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before,
+.flag-bookmark-term .flag--link:before, .flag .ajax-spinner:before, .flag.action-flag .js-flag-message:before, .flag .js-flag-message:before, .swiffy-slider .slider-nav:after, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before,
 .form-submit.danger:before,
 .button.danger:before,
-.danger.flag--link:before,
+.flag .danger.flag--link:before,
 a.button.danger:before,
-a.danger.flag--link:before,
 input[type=submit].danger:before, details > summary:before, blockquote span:after, blockquote span:before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
@@ -10701,7 +10700,7 @@ form .form-textarea-wrapper .filter-guidelines-item,
 form .filter-wrapper .filter-guidelines-item {
   margin: 0;
 }
-form .field-suffix .button, form .field-suffix .flag--link {
+form .field-suffix .button, form .field-suffix .flag .flag--link, .flag form .field-suffix .flag--link {
   margin-bottom: 1.25rem;
 }
 form fieldset,
@@ -10950,7 +10949,7 @@ details .details-wrapper {
   padding: 0.5rem 1rem;
 }
 
-.button, .flag--link,
+.button, .flag .flag--link,
 button,
 input[type=button],
 input[type=submit] {
@@ -10964,13 +10963,13 @@ input[type=submit] {
   outline-offset: 0.25rem;
   padding: 0.5rem 2rem;
 }
-.button:first-child, .flag--link:first-child,
+.button:first-child, .flag .flag--link:first-child,
 button:first-child,
 input[type=button]:first-child,
 input[type=submit]:first-child {
   margin-right: 1.25rem;
 }
-.button:active, .flag--link:active, .button:focus, .flag--link:focus, .button:hover, .flag--link:hover,
+.button:active, .flag .flag--link:active, .button:focus, .flag .flag--link:focus, .button:hover, .flag .flag--link:hover,
 button:active,
 button:focus,
 button:hover,
@@ -10982,7 +10981,7 @@ input[type=submit]:focus,
 input[type=submit]:hover {
   text-decoration: none;
 }
-.button:focus, .flag--link:focus, .button:not([disabled]):hover, .flag--link:not([disabled]):hover,
+.button:focus, .flag .flag--link:focus, .button:not([disabled]):hover, .flag .flag--link:not([disabled]):hover,
 button:focus,
 button:not([disabled]):hover,
 input[type=button]:focus,
@@ -10993,7 +10992,7 @@ input[type=submit]:not([disabled]):hover {
   border-color: var(--color-interaction);
   color: var(--color-text-inverted);
 }
-.button:active, .flag--link:active,
+.button:active, .flag .flag--link:active,
 button:active,
 input[type=button]:active,
 input[type=submit]:active {
@@ -11002,7 +11001,7 @@ input[type=submit]:active {
   color: var(--color-interaction);
   outline: var(--outline-active);
 }
-.button[disabled], [disabled].flag--link,
+.button[disabled], .flag [disabled].flag--link,
 button[disabled],
 input[type=button][disabled],
 input[type=submit][disabled] {
@@ -11012,7 +11011,8 @@ input[type=submit][disabled] {
 
 .form-submit,
 .view-header .button,
-.view-header .flag--link,
+.view-header .flag .flag--link,
+.flag .view-header .flag--link,
 input[type=submit],
 button[type=submit] {
   color: var(--color-text-inverted);
@@ -11021,9 +11021,11 @@ button[type=submit] {
 }
 .form-submit:focus, .form-submit:hover,
 .view-header .button:focus,
-.view-header .flag--link:focus,
+.view-header .flag .flag--link:focus,
+.flag .view-header .flag--link:focus,
 .view-header .button:hover,
-.view-header .flag--link:hover,
+.view-header .flag .flag--link:hover,
+.flag .view-header .flag--link:hover,
 input[type=submit]:focus,
 input[type=submit]:hover,
 button[type=submit]:focus,
@@ -11034,11 +11036,11 @@ button[type=submit]:hover {
 
 .form-submit.secondary,
 .button.secondary,
-.secondary.flag--link,
+.flag .secondary.flag--link,
 a.button.secondary,
 input[type=submit].secondary,
 .button[data-drupal-selector$=cancel],
-[data-drupal-selector$=cancel].flag--link,
+.flag [data-drupal-selector$=cancel].flag--link,
 .field-add-more-submit,
 .button--small,
 button[id*=remove] {
@@ -11049,9 +11051,8 @@ button[id*=remove] {
 
 .form-submit.danger,
 .button.danger,
-.danger.flag--link,
+.flag .danger.flag--link,
 a.button.danger,
-a.danger.flag--link,
 input[type=submit].danger {
   color: var(--color-danger);
   background: var(--color-text-inverted);
@@ -11059,9 +11060,8 @@ input[type=submit].danger {
 }
 .form-submit.danger:before,
 .button.danger:before,
-.danger.flag--link:before,
+.flag .danger.flag--link:before,
 a.button.danger:before,
-a.danger.flag--link:before,
 input[type=submit].danger:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11076,9 +11076,9 @@ input[type=submit].danger:before {
 .form-submit.danger:not([disabled]):hover,
 .form-submit.danger:focus,
 .button.danger:not([disabled]):hover,
-.danger.flag--link:not([disabled]):hover,
+.flag .danger.flag--link:not([disabled]):hover,
 .button.danger:focus,
-.danger.flag--link:focus,
+.flag .danger.flag--link:focus,
 a.button.danger:not([disabled]):hover,
 a.button.danger:focus,
 input[type=submit].danger:not([disabled]):hover,
@@ -11089,7 +11089,7 @@ input[type=submit].danger:focus {
 }
 .form-submit.danger:active,
 .button.danger:active,
-.danger.flag--link:active,
+.flag .danger.flag--link:active,
 a.button.danger:active,
 input[type=submit].danger:active {
   background: var(--color-text-inverted);
@@ -11866,6 +11866,26 @@ input[type=submit].danger:active {
   font-size: var(--font-size-default);
 }
 
+.date {
+  background: var(--color-bg-slight-contrast);
+  display: inline-block;
+  padding: 0.1rem 0.2rem;
+}
+.date .datetime {
+  font-size: var(--font-size-s);
+}
+.date .smart-date--date {
+  font-weight: bold;
+  font-size: var(--font-size-default);
+}
+.date .item-list > ul {
+  margin: 0;
+  list-style-type: none;
+}
+.date .item-list > ul > li {
+  margin: 0;
+}
+
 .field--name-field-media-oembed-video .field__item {
   height: 0;
   overflow: hidden;
@@ -11983,44 +12003,115 @@ input[type=submit].danger:active {
   -webkit-filter: none;
 }
 
-.flag--link {
+.flag {
+  position: relative;
+}
+.flag .flag--link {
   background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   color: var(--color-text-inverted);
   display: inline-block;
   padding-left: 1rem;
   padding-right: 1rem;
   white-space: pre;
 }
-.flag--link:before {
+.flag .flag--link:first-child {
+  margin-right: 0;
+}
+.flag .flag--link:before {
   color: inherit;
   display: block;
   margin-right: 0.75rem;
 }
-.flag--link:focus, .flag--link:hover {
+.flag .flag--link:focus, .flag .flag--link:hover {
   background: var(--color-interaction);
+  border: 1px solid var(--color-interaction);
   color: var(--color-text-inverted);
 }
-.flag--link:active {
+.flag .flag--link:active {
   background: var(--color-interaction);
+  border-color: transparent;
   color: var(--color-text-inverted);
   outline: var(--outline-active);
   outline-offset: 3px;
 }
-
-.flag {
-  position: relative;
+.flag.action-flag .flag--link {
+  background: transparent;
+  border-color: var(--color-interaction);
+  color: var(--color-interaction);
 }
 .flag .js-flag-message {
+  background: var(--color-bg-success);
+  border: 1px solid var(--color-success);
+  border-radius: 4px;
+  color: var(--color-text);
+  display: block;
+  margin: 0;
+  padding: 0.75rem 1rem;
   position: absolute;
-  right: calc(100% + 1.25rem);
+  right: 0;
   text-align: right;
-  top: 0;
+  top: 3.5rem;
   white-space: nowrap;
 }
-.flag .ajax-progress-throbber {
-  left: 0.25em;
+.flag .js-flag-message:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f05a";
+}
+.flag .js-flag-message:before {
+  color: inherit;
+  padding-right: 0.75rem;
+}
+.flag.action-flag .js-flag-message {
+  border-color: var(--color-danger);
+  background-color: var(--color-bg-danger);
+}
+.flag.action-flag .js-flag-message:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f071";
+}
+.flag .ajax-spinner {
+  background-color: var(--color-bg-info);
+  border-color: var(--color-bg-info);
+  color: var(--color-info);
+  bottom: 0;
+  left: 0;
   position: absolute;
+  right: 0;
   top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: inherit;
+  overflow: hidden;
+  transition: opacity 2s linear;
+}
+.flag .ajax-spinner:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f05a";
+}
+.flag .ajax-spinner:before {
+  margin-right: 0.75rem;
+  color: inherit;
 }
 
 .flag-bookmark-node .flag--link,
@@ -12173,6 +12264,7 @@ input[type=submit].danger:active {
   align-items: center;
   background: linear-gradient(var(--color-link), var(--color-link--opacity-64));
   border-color: transparent;
+  border-radius: 4px;
   color: var(--color-text-inverted);
   display: flex;
   height: 100%;
@@ -12291,6 +12383,19 @@ input[type=submit].danger:active {
 }
 .tabs li a.is-active {
   display: none;
+}
+
+.node--type-date.view-mode-compact h3.teaser {
+  margin-bottom: 0;
+}
+.node--type-date.view-mode-compact h3.teaser > a {
+  display: inline-block;
+}
+.node--type-date.view-mode-compact h3.teaser .field {
+  margin: 0;
+}
+.node--type-date.view-mode-compact .date {
+  margin: 0;
 }
 
 .path-node .region-content > .block-system-main-block {
@@ -13571,9 +13676,28 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   border-bottom: 0;
 }
 
+.view-my-bookmarks .view-header h3,
+.view-my-bookmarks-taxonomy .view-header h3 {
+  font-family: var(--font-base);
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+.view-my-bookmarks .teaser--top .field--name-field-subtitle,
+.view-my-bookmarks-taxonomy .teaser--top .field--name-field-subtitle {
+  font-weight: normal;
+  margin: 0;
+}
 .view-my-bookmarks .views-table tr,
 .view-my-bookmarks-taxonomy .views-table tr {
   border-color: transparent;
+}
+.view-my-bookmarks .views-table td:last-child,
+.view-my-bookmarks-taxonomy .views-table td:last-child {
+  padding-left: 1.25rem;
+}
+.view-my-bookmarks .views-table .flag,
+.view-my-bookmarks-taxonomy .views-table .flag {
+  float: right;
 }
 @media screen and (max-width: 48rem) {
   .view-my-bookmarks .views-table tbody,
@@ -13608,4 +13732,9 @@ ul[data-drupal-views-infinite-scroll-pager] li {
 .view-my-bookmarks .views-table .taxonomy-term--tag,
 .view-my-bookmarks-taxonomy .views-table .taxonomy-term--tag {
   margin-bottom: 0;
+}
+
+.field--name-field-my-content-view-ref .teaser--top .field--name-field-subtitle {
+  font-weight: normal;
+  margin: 0;
 }
