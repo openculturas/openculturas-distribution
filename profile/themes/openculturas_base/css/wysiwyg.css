@@ -11503,10 +11503,11 @@ input[type=submit].danger:active {
   margin: 0;
   padding: 0.75rem 1rem;
   position: absolute;
-  right: 0;
+  left: 0;
   text-align: right;
-  top: 3.5rem;
+  top: -0.5rem;
   white-space: nowrap;
+  z-index: 9999;
 }
 .flag .js-flag-message:before {
   -webkit-font-smoothing: antialiased;
@@ -11522,9 +11523,12 @@ input[type=submit].danger:active {
   color: inherit;
   padding-right: 0.75rem;
 }
+.flag .js-flag-message {
+  transform: translateX(calc(-100% - 1.25rem));
+}
 .flag.action-flag .js-flag-message {
-  border-color: var(--color-danger);
-  background-color: var(--color-bg-danger);
+  border-color: var(--color-warning);
+  background-color: var(--color-bg-warning);
 }
 .flag.action-flag .js-flag-message:before {
   -webkit-font-smoothing: antialiased;
