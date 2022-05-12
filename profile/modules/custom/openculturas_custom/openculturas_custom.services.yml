@@ -6,3 +6,7 @@ services:
     parent: system.breadcrumb.default
     tags:
       - { name: breadcrumb_builder, priority: 1003 }
+  openculturas_custom.route_subscriber:
+    class: Drupal\openculturas_custom\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
