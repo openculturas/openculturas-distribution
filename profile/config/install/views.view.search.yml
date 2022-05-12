@@ -153,11 +153,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: search_api
-          order: ASC
+          order: DESC
           expose:
             label: Relevance
             field_identifier: relevance
-          exposed: true
+          exposed: false
         changed:
           id: changed
           table: search_api_index_content
@@ -166,11 +166,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: search_api
-          order: ASC
+          order: DESC
           expose:
             label: Changed
             field_identifier: changed
-          exposed: true
+          exposed: false
       arguments: {  }
       filters:
         search_api_fulltext:
@@ -187,7 +187,7 @@ display:
           exposed: true
           expose:
             operator_id: search_api_fulltext_op
-            label: ''
+            label: Keyword
             description: ''
             use_operator: false
             operator: search_api_fulltext_op
@@ -200,9 +200,13 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             expose_fields: false
-            placeholder: 'Do you search something?'
+            placeholder: 'Enter some keywords'
             searched_fields_id: search_api_fulltext_searched_fields
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
@@ -256,8 +260,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.content'
@@ -297,9 +299,13 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             expose_fields: false
-            placeholder: 'Do you search something?'
+            placeholder: 'Enter some keywords'
             searched_fields_id: search_api_fulltext_searched_fields
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
@@ -374,8 +380,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.content'
