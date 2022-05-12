@@ -41,8 +41,6 @@
  */
 #}
 <div class="layout-container">
-  <a id="top" class="visually-hidden"></a>
-
   <header role="banner" class="header">
     {% if page.branding %}
     <div class="header__branding">
@@ -61,8 +59,13 @@
     {% endif %}
     {% if page.offcanvas_menu %}
     <div class="header__burger">
-      <a href="#menu" id="menu-toggle" class="header__burger--link" role="button"
-         aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Open the menu'|t }}"></a>
+      <button
+        id="button-offcanvas-open"
+        class="header__burger--buttons"
+        aria-controls="offcanvas_menu"
+        aria-expanded="false"
+        aria-label="{{ 'Open the menu'|t }}">
+      </button>
     </div>
     <div class="header__offcanvas-menu" role="dialog" aria-hidden="true" id="offcanvas_menu">
       <div class="header__offcanvas-menu--grid">
@@ -73,8 +76,13 @@
             </div>
           {% endif %}
           <div class="header__offcanvas-menu--toggle">
-            <a href="#menu" id="menu-offcanvas-toggle" class="header__burger--link header__offcanvas-menu--burger"
-               role="button" aria-controls="offcanvas_menu" aria-expanded="false" aria-label="{{ 'Close the menu'|t }}"></a>
+            <button
+              id="button-offcanvas-close"
+              class="header__burger--buttons header__offcanvas-menu--burger"
+              aria-controls="offcanvas_menu"
+              aria-expanded="false"
+              aria-label="{{ 'Close the menu'|t }}">
+            </button>
           </div>
         </div>
         <div class="header__offcanvas-menu--content">
@@ -97,7 +105,7 @@
   {% endif %}
 
   <main role="main" class="main content">
-    <a id="main-content" tabindex="-1" class="visually-hidden"></a>
+    <a id="main-content" class="visually-hidden"></a>
 
     <div class="main__page-title">
       {{ page.pagetitle }}
@@ -105,7 +113,6 @@
     <div class="main__content">
       {{ page.content }}
     </div>
-
   </main>
 
 </div>

@@ -70,7 +70,7 @@ body {
   --color-bg-cluster-icon: var(--color-link--opacity-64, #a1167fa3);
 }
 
-.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__burger--link:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before, .cookiesjsr-layer .cookiesjsr-service-group--tab:before, .cookiesjsr-layer .cookiesjsr-layer--close:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .menu--call-to-action-menu .menu-item > a:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node .flag--link:before, .flag-bookmark-node .flag--link:before,
+.contact-data .field__item.field-url a:before, .contact-data .field__item.field-phone a:before, .contact-data .field__item.field-email a:before, .address-container--address:before, .scroll-to-top:before, .header__burger--buttons:before, .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before, .cookiesjsr-layer .cookiesjsr-service-group--tab:before, .cookiesjsr-layer .cookiesjsr-layer--close:before, .profile-teaser.node--type-location .profile--picture:before, .profile-teaser .profile--picture:before, .region-offcanvas-menu .menu-item a.menu-item--toggle:before, .menu--call-to-action-menu .menu-item > a:before, .media-library-selection button[id*=remove]:before, .flag-recommendation-node .flag--link:before, .flag-bookmark-node .flag--link:before,
 .flag-bookmark-term .flag--link:before, .flag .ajax-spinner:before, .flag.action-flag .js-flag-message:before, .flag .js-flag-message:before, .swiffy-slider .slider-nav:after, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before, .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before,
 .form-submit.danger:before,
 .button.danger:before,
@@ -155,7 +155,7 @@ input[type=submit].danger:before, details > summary:before, blockquote span:afte
 .fa,
 .fas,
 .fa-solid,
-.header__burger--link:after,
+.header__burger--buttons:after,
 .far,
 .fa-regular,
 .fal,
@@ -175,7 +175,7 @@ input[type=submit].danger:before, details > summary:before, blockquote span:afte
   text-rendering: auto;
 }
 
-.header__burger--link:after {
+.header__burger--buttons:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -8359,7 +8359,7 @@ readers do not read off random characters that represent icons */
 }
 .fas,
 .fa-solid,
-.header__burger--link:after {
+.header__burger--buttons:after {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
 }
@@ -11845,6 +11845,7 @@ input[type=submit].danger:active {
 
 .node--type-date.view-mode-compact h3.teaser {
   margin-bottom: 0;
+  margin-top: 0.25rem;
 }
 .node--type-date.view-mode-compact h3.teaser > a {
   display: inline-block;
@@ -12411,6 +12412,10 @@ h6.teaser {
 .header .header__branding img, .header .header__branding figure, .header .header__branding svg {
   height: 5rem;
 }
+.header .header__branding .site-logo {
+  display: inline-block;
+  outline-offset: 3px;
+}
 .header .header__branding .site-name {
   display: none;
 }
@@ -12663,8 +12668,8 @@ h6.teaser {
   display: none;
 }
 
-.header__burger--link {
-  background: var(--color-interaction);
+.header__burger--buttons {
+  background: var(--color-primary);
   padding: 0;
   border-radius: 4px;
   color: var(--color-text-inverted);
@@ -12677,7 +12682,7 @@ h6.teaser {
   outline-offset: 3px;
   outline-width: 2px;
 }
-.header__burger--link:before {
+.header__burger--buttons:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -12688,11 +12693,11 @@ h6.teaser {
   content: "\f0c9";
 }
 @media screen and (min-width: 48rem) {
-  .header__burger--link {
+  .header__burger--buttons {
     font-size: 1.75rem;
   }
 }
-.header__burger--link:before, .header__burger--link:after {
+.header__burger--buttons:before, .header__burger--buttons:after {
   color: inherit;
   align-items: center;
   display: flex;
@@ -12704,13 +12709,13 @@ h6.teaser {
   transition: top 300ms ease;
   width: inherit;
 }
-.header__burger--link:after {
+.header__burger--buttons:after {
   content: "\f00d";
 }
-.offcanvas-open .header__burger--link:before, .offcanvas-open .header__burger--link:after {
+.offcanvas-open .header__burger--buttons:before, .offcanvas-open .header__burger--buttons:after {
   top: -100%;
 }
-.header__burger--link:hover, .header__burger--link:focus {
+.header__burger--buttons:hover, .header__burger--buttons:focus {
   background-color: var(--color-primary);
   color: var(--color-text-inverted);
 }
@@ -12860,7 +12865,7 @@ h6.teaser {
 .scroll-to-top:before {
   background: var(--color-bg-light);
   border-radius: 1.5rem;
-  color: var(--color-interaction);
+  color: var(--color-primary);
   display: block;
   font-size: 2rem;
   line-height: 2.5rem;
@@ -12871,7 +12876,7 @@ h6.teaser {
   background: transparent;
 }
 .scroll-to-top:hover:before, .scroll-to-top:focus:before {
-  color: var(--color-primary);
+  color: var(--color-interaction);
 }
 .js .scroll-to-top {
   transition: opacity 1s ease-in-out;
