@@ -5,11 +5,8 @@ dependencies:
     - core.entity_form_mode.user.register
     - field.field.user.user.field_category
     - field.field.user.user.field_fullname
-    - field.field.user.user.field_last_password_reset
     - field.field.user.user.field_my_bookmarks_view_ref
     - field.field.user.user.field_my_content_view_ref
-    - field.field.user.user.field_password_expiration
-    - field.field.user.user.field_pending_expire_sent
   module:
     - field_group
     - user
@@ -18,23 +15,8 @@ third_party_settings:
     group_profile_information:
       children:
         - field_fullname
-        - field_category
-      label: 'Profile information'
-      region: content
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: true
-    group_account_details:
-      children:
         - account
-      label: 'Account details'
+      label: 'Profile information'
       region: content
       parent_name: ''
       weight: 0
@@ -52,28 +34,13 @@ bundle: user
 mode: register
 content:
   account:
-    weight: 1
+    weight: 4
     region: content
     settings: {  }
-    third_party_settings: {  }
-  contact:
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_category:
-    type: entity_reference_autocomplete
-    weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_fullname:
     type: string_textfield
-    weight: 2
+    weight: 3
     region: content
     settings:
       size: 60
@@ -85,15 +52,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   timezone:
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_last_password_reset: true
+  contact: true
+  field_category: true
   field_my_bookmarks_view_ref: true
   field_my_content_view_ref: true
-  field_password_expiration: true
-  field_pending_expire_sent: true
   langcode: true
   path: true

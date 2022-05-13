@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.article.field_column
     - field.field.node.article.field_content_paragraphs
     - field.field.node.article.field_date_published
-    - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
@@ -92,6 +91,16 @@ content:
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
+  co_authors:
+    type: entity_reference_autocomplete_tags
+    weight: 17
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 13
@@ -149,17 +158,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_gallery:
-    type: media_library_widget
-    weight: 7
-    region: content
-    settings:
-      media_types:
-        - image
-        - remote_video
-    third_party_settings:
-      media_library_edit:
-        show_edit: '1'
   field_mood_image:
     type: media_library_widget
     weight: 4
