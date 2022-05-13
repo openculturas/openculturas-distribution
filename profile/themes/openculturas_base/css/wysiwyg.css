@@ -10298,6 +10298,8 @@ body {
 
 /* %allcaps */
 .allcaps,
+.view-my-bookmarks .view-header h3,
+.view-my-bookmarks-taxonomy .view-header h3,
 .field > .field__label,
 .block .block--title,
 form fieldset summary,
@@ -11009,6 +11011,7 @@ input[type=submit][disabled] {
   pointer-events: none;
 }
 
+.button[data-drupal-views-infinite-scroll-pager], .flag [data-drupal-views-infinite-scroll-pager].flag--link,
 .form-submit,
 .view-header .button,
 .view-header .flag .flag--link,
@@ -11019,7 +11022,9 @@ button[type=submit] {
   background: var(--color-primary);
   border: 1px solid var(--color-primary);
 }
-.form-submit:focus, .form-submit:hover,
+.button[data-drupal-views-infinite-scroll-pager]:focus, .flag [data-drupal-views-infinite-scroll-pager].flag--link:focus, .button[data-drupal-views-infinite-scroll-pager]:hover, .flag [data-drupal-views-infinite-scroll-pager].flag--link:hover,
+.form-submit:focus,
+.form-submit:hover,
 .view-header .button:focus,
 .view-header .flag .flag--link:focus,
 .flag .view-header .flag--link:focus,
@@ -11320,22 +11325,34 @@ input[type=submit].danger:active {
   font-size: var(--font-size-default);
 }
 
+.calendar .teaser--date,
+.recurring-output--wrapper,
 .date {
   background: var(--color-bg-slight-contrast);
   display: inline-block;
   padding: 0.1rem 0.2rem;
-}
-.date .datetime {
+  line-height: 1;
   font-size: var(--font-size-s);
 }
+.calendar .teaser--date .smart-date--time,
+.recurring-output--wrapper .smart-date--time,
+.date .smart-date--time {
+  font-weight: normal;
+}
+.calendar .teaser--date .smart-date--date,
+.recurring-output--wrapper .smart-date--date,
 .date .smart-date--date {
   font-weight: bold;
   font-size: var(--font-size-default);
 }
+.calendar .teaser--date .item-list > ul,
+.recurring-output--wrapper .item-list > ul,
 .date .item-list > ul {
   margin: 0;
   list-style-type: none;
 }
+.calendar .teaser--date .item-list > ul > li,
+.recurring-output--wrapper .item-list > ul > li,
 .date .item-list > ul > li {
   margin: 0;
 }
@@ -11572,10 +11589,6 @@ input[type=submit].danger:active {
   color: inherit;
 }
 
-.flag-bookmark-node .flag--link,
-.flag-bookmark-term .flag--link {
-  margin: 0;
-}
 .flag-bookmark-node .flag--link:before,
 .flag-bookmark-term .flag--link:before {
   -webkit-font-smoothing: antialiased;
@@ -11587,17 +11600,7 @@ input[type=submit].danger:active {
   line-height: 1;
   content: "\f02e";
 }
-.flag-bookmark-node .flag--link:before,
-.flag-bookmark-term .flag--link:before {
-  line-height: 1;
-}
 
-.flag-recommendation-node {
-  margin-top: 1rem;
-}
-.flag-recommendation-node .flag--link {
-  margin: 0;
-}
 .flag-recommendation-node .flag--link:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11607,6 +11610,33 @@ input[type=submit].danger:active {
   font-weight: normal;
   line-height: 1;
   content: "\f1e0";
+}
+
+.block-openculturas-custom-bookmark-flag-icon .flag-recommendation-node .flag--link,
+.block-openculturas-custom-bookmark-flag-icon .flag-bookmark-node .flag--link,
+.block-openculturas-custom-bookmark-flag-icon .flag-bookmark-term .flag--link {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin: 0;
+  max-width: 2.8rem;
+  overflow: hidden;
+  transition: max-width 0.5s ease 1s;
+  transition-delay: 1s;
+}
+.block-openculturas-custom-bookmark-flag-icon .flag-recommendation-node .flag--link:before,
+.block-openculturas-custom-bookmark-flag-icon .flag-bookmark-node .flag--link:before,
+.block-openculturas-custom-bookmark-flag-icon .flag-bookmark-term .flag--link:before {
+  line-height: 1;
+  margin-right: 1rem;
+}
+.block-openculturas-custom-bookmark-flag-icon .flag-recommendation-node .flag--link:hover,
+.block-openculturas-custom-bookmark-flag-icon .flag-bookmark-node .flag--link:hover,
+.block-openculturas-custom-bookmark-flag-icon .flag-bookmark-term .flag--link:hover {
+  max-width: 100vw;
+  transition-delay: 0s;
+}
+.block-openculturas-custom-bookmark-flag-icon .action-flag .flag--link {
+  border-top-color: transparent;
 }
 
 #color-schema-ui {
@@ -13002,18 +13032,25 @@ h6.teaser {
   margin-right: 0.5rem;
 }
 
+.field--name-field-a11y-features .field__item,
 .taxonomy-term--tag,
 .reference--taxonomy_term > a,
 .taxonomy-term--tagwrapper .taxonomy-term--tag {
   background: var(--color-bg-slight-contrast);
   border: 1px solid var(--color-bg-slight-contrast);
   border-radius: 0.75rem;
-  color: var(--color-primary);
+  color: var(--color-text);
   display: inline-block;
   line-height: 1;
   margin: 0 1.25rem 1.25rem 0;
   padding: 0.5rem 2rem;
   text-decoration: none;
+}
+
+.taxonomy-term--tag,
+.reference--taxonomy_term > a,
+.taxonomy-term--tagwrapper .taxonomy-term--tag {
+  color: var(--color-primary);
 }
 .taxonomy-term--tag:hover, .taxonomy-term--tag:focus,
 .reference--taxonomy_term > a:hover,
@@ -13141,9 +13178,10 @@ ul[data-drupal-views-infinite-scroll-pager] li {
 
 .view-my-bookmarks .view-header h3,
 .view-my-bookmarks-taxonomy .view-header h3 {
+  font-size: var(--font-size-s);
+  line-height: 1.866;
   font-family: var(--font-base);
-  letter-spacing: 0.05rem;
-  text-transform: uppercase;
+  font-weight: bold;
 }
 .view-my-bookmarks .teaser--top .field--name-field-subtitle,
 .view-my-bookmarks-taxonomy .teaser--top .field--name-field-subtitle {
@@ -13203,4 +13241,36 @@ ul[data-drupal-views-infinite-scroll-pager] li {
 }
 .field--name-field-my-content-view-ref .views-row {
   margin-bottom: 2.5rem;
+}
+
+.view-related-date .views-row {
+  margin-bottom: 2.5rem;
+}
+.view-related-date .views-row .field--name-field-media-image {
+  margin-top: 0;
+}
+@media screen and (min-width: 30rem) {
+  .view-related-date .views-row {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .view-related-date .views-row .col--image {
+    align-self: center;
+    justify-self: flex-start;
+    margin-left: 2.5rem;
+    max-width: 10rem;
+  }
+  .view-related-date .views-row .col--content {
+    flex-grow: 1;
+  }
+}
+@media screen and (min-width: 48rem) {
+  .view-related-date .views-row .col--image {
+    max-width: 12rem;
+  }
+}
+@media screen and (min-width: 62rem) {
+  .view-related-date .views-row .col--image {
+    max-width: 14rem;
+  }
 }
