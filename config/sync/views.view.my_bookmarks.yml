@@ -307,18 +307,41 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: default
+        type: table
         options:
           grouping: {  }
           row_class: ''
-          default_row_class: true
+          default_row_class: false
+          columns:
+            rendered_entity: rendered_entity
+            link_flag: link_flag
+          default: '-1'
+          info:
+            rendered_entity:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            link_flag:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: compact
       query:
         type: views_query
         options:

@@ -27,9 +27,13 @@
   set classes = [
     'taxonomy-term',
     'vocabulary-' ~ term.bundle|clean_class,
-  ]
+    view_mode ? 'term--view-mode-' ~ view_mode|clean_class,
+    view_mode ? 'view-mode-' ~ view_mode|clean_class,
+]
 %}
-<div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
+{% set wrapper_tag = 'div' %}
+ {% block content_wrapper %}
+<{{ wrapper_tag }} {{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
   {{ title_prefix }}
   {% if name and not page %}
     <a class="taxonomy-term--tag" href="{{ url }}">{{ name }}</a>
@@ -38,4 +42,5 @@
   <div class="content">
     {{ content }}
   </div>
-</div>
+</{{ wrapper_tag }}>
+{% endblock %}

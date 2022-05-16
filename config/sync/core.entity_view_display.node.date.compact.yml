@@ -45,7 +45,7 @@ content:
   extra_field_event_subtitle:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
   field_date:
     type: smartdate_recurring
@@ -55,7 +55,7 @@ content:
       format_type: medium
       format: site_default_date
       force_chronological: true
-      add_classes: false
+      add_classes: true
       time_wrapper: true
       past_display: 0
       upcoming_display: 1
@@ -63,16 +63,18 @@ content:
       current_upcoming: '1'
     third_party_settings:
       field_formatter_class:
-        class: ''
-    weight: 0
+        class: 'date date--compact'
+    weight: 1
     region: content
   field_event_description:
     type: entity_reference_label
     label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
     region: content
 hidden:
   extra_field_event_body: true

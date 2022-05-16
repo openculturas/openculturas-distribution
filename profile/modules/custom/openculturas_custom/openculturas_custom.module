@@ -218,3 +218,18 @@ function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $
     }
   }
 }
+
+
+/**
+ * Implements hook_local_tasks_alter().
+ *
+ * @inheritdoc
+ */
+function openculturas_custom_local_tasks_alter(&$local_tasks) {
+
+  $local_tasks['entity.user.canonical']['title'] = t('My Content');
+  $local_tasks['entity.user.canonical']['weight'] = -3;
+
+  $local_tasks['entity.user.edit_form']['title'] = t('Account settings');
+  $local_tasks['entity.user.edit_form']['weight'] = -2;
+}

@@ -122,6 +122,9 @@ form {
     &.form-autocomplete {
       background-position: right 0.5rem center!important;
       padding-right: 2rem;
+
+      // Fix resppnsive.
+      width: 100%;
     }
   }
 
@@ -167,5 +170,16 @@ form {
     background-color: $color-primary;
     border: 0;
     color: $color-text-inverted;
+  }
+}
+
+// Autocomplete widget select Focus.
+.ui-autocomplete,
+.ui-dialog .ui-autocomplete {
+
+  .ui-menu-item-wrapper.ui-state-active {
+    margin: 0;
+    color: $color-text-inverted;
+    background-color: $color-primary;
   }
 }

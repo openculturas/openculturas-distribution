@@ -22,10 +22,26 @@ function openculturas_base_preprocess_html(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for page.html.twig.
+ * Remove flags.
+ *
+ * In view-mode full flags are rendered in a separate block.
  */
-function openculturas_base_preprocess_page(&$variables) {
+function _openculturas_base_remove_flag(&$variables) {
+  if (isset($variables["view_mode"]) && $variables["view_mode"] === 'full') {
+    foreach ($variables["content"] as $name => $render_array) {
+      if (strpos($name, 'flag_') === 0) {
+        $variables["content"][$name]['#access'] = FALSE;
+      }
+    }
+  }
+}
 
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function openculturas_base_preprocess_taxonomy_term(&$variables) {
+  // Hide flag fields on terms.
+  _openculturas_base_remove_flag($variables);
 }
 
 /**
@@ -34,12 +50,8 @@ function openculturas_base_preprocess_page(&$variables) {
 function openculturas_base_preprocess_node(&$variables) {
   $node = $variables['node'];
 
-  // Hide all flag fields on nodes because they get rendered in a seperated block.
-  foreach ($variables["content"] as $name => $render_array) {
-    if (strpos($name, 'flag_') === 0) {
-      $variables["content"][$name]['#access'] = FALSE;
-    }
-  }
+  // Hide all flag fields on nodes.
+  _openculturas_base_remove_flag($variables);
 
   // Hide all fields used by seperated blocks in different areas of the theme on full viewmode.
   // We don't hide them on other viewmodes because they could be needed there.

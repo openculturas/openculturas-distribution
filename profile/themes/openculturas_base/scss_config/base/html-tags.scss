@@ -183,11 +183,12 @@ table {
 
   td,
   th {
-    padding: .5em;
+    padding-bottom: .5em;
+    padding-top: .5em;
   }
 
   tr {
-    border-bottom: 1px solid $color-divider-dark;
+    border-bottom: 1px solid $color-divider-light;
   }
 
   .field-multiple-drag {
@@ -351,6 +352,10 @@ figcaption {
 // Responsive forms.
 input[size] {
   max-width: 100%;
+
+  @media screen and (max-width: 48rem) {
+    width: 100%;
+  }
 
   &[disabled] {
     opacity: .5;

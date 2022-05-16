@@ -1,20 +1,81 @@
-.view-my-bookmarks {
-  ul {
-    margin-left: 0;
-    padding-left: 0;
+
+// Spacing and border.
+.field--name-field-my-bookmarks-view-ref {
+  >.field__items
+  > .field__item {
+    border-bottom: 1px  solid $color-divider-light;
+    margin-bottom: (2 * $grid-gutter);
+
+    &:first-child,
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+.view-my-bookmarks,
+.view-my-bookmarks-taxonomy {
+
+  .view-header {
+    h3 {
+      @extend %allcaps;
+      font-size: $font-size-s;
+      line-height: 1.866;
+      font-family: var(--font-base);
+      font-weight: bold;
+    }
+  }
+
+  .teaser--top .field--name-field-subtitle {
+    font-weight: normal;
     margin: 0;
   }
-  li {
-    margin-bottom: $grid-gutter;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    border-top: 1px solid $color-primary;
-  }
-  .flag {
-    padding-left: .5rem;
-    a:before {
-      content: "X";
+
+  .views-table {
+    tr {
+      border-color: transparent;
+    }
+
+    td:last-child {
+      padding-left: $grid-gutter;
+    }
+
+    .flag {
+      float: right;
+    }
+
+    @media screen and (max-width: 48rem) {
+      tbody {
+        display: block;
+      }
+      tr {
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        justify-content: flex-start;
+      }
+      tr:not(:last-child) {
+        border:0;
+      }
+    }
+
+    a.taxonomy-term--tag {
+      white-space: pre;
+    }
+
+    td:first-child {
+      width: 100%;
+    }
+
+    td:last-child {
+      > a {
+        float: right;
+        vertical-align: baseline;
+      }
+    }
+
+    .taxonomy-term--tag {
+      margin-bottom: 0;
     }
   }
 }

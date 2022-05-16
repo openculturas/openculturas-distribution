@@ -1,85 +1,161 @@
-.flag--link {
-  background-color: $color-primary;
-  border-radius: 0 0 .3em .3em;
-  color: $color-text-inverted;
-  display: block;
-  font-size: $font-size-icon;
-  height: 1.5em;
-  overflow: hidden;
-  width: 1.5em;
-
-  &:before {
-    color: inherit;
-    display: block;
-    height: 100%;
-    line-height: 1.5;
-    text-align: center;
-    vertical-align: bottom;
-    width: 100%;
-  }
-
-  .offcanvas--visually-hidden {
-    @include visually_hidden;
-  }
-
-  &:focus,
-  &:hover {
-    background: $color-interaction;
-    color: $color-text-inverted;
-  }
-
-  &:active {
-    background: $color-interaction;
-    color: $color-text-inverted;
-    outline: $outline-active;
-    outline-offset: 3px;
-  }
-
-  //  .action-flag &  {
-  //}
-  //.action-unflag &  {
-  //}
-}
-
-
 .flag {
   position: relative;
 
+  .flag--link {
+    @extend .button;
+    background-color: $color-primary;
+    border: 1px solid $color-primary;
+    color: $color-text-inverted;
+    display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    white-space: pre;
+
+    &:first-child {
+      margin-right: 0;
+    }
+
+    &:before {
+      color: inherit;
+      display: block;
+      margin-right: .75rem;
+    }
+
+    &:focus,
+    &:hover {
+      background: $color-interaction;
+      border: 1px solid $color-interaction;
+      color: $color-text-inverted;
+    }
+
+    &:active {
+      background: $color-interaction;
+      border-color: transparent;
+      color: $color-text-inverted;
+      outline: $outline-active;
+      outline-offset: 3px;
+    }
+  }
+  &.action-flag .flag--link {
+    background: transparent;
+    border-color: $color-interaction;
+    color: $color-interaction;
+  }
+  //&.action-flag .flag--link  {
+  //}
+
   .js-flag-message {
+    @include icon(info-circle);
+    background: $color-bg-success;
+    border: 1px solid $color-success;
+    border-radius: $button-border-radius;
+    color: $color-text;
+    display: block;
+    margin: 0;
+    padding: .75rem 1rem;
     position: absolute;
-    right: calc(100% + #{$grid-gutter});
+    left: 0;
     text-align: right;
-    top: 0;
+    top: -.5rem;
     white-space: nowrap;
+    z-index: 9999;
+
+    &:before {
+      color: inherit;
+      padding-right: .75rem;
+    }
   }
 
-  .ajax-progress-throbber {
-    left: .25em;
+  .js-flag-message {
+    transform:translateX(calc(-100% - #{$grid-gutter}));
+  }
+
+  &.action-flag {
+    // Warn user when removing a bookmark.
+    .js-flag-message {
+      border-color: $color-warning;
+      background-color: $color-bg-warning;
+      @include icon(warning);
+    }
+  }
+
+  .ajax-spinner {
+    @include icon(info-circle);
+    background-color: $color-bg-info;
+    border-color: $color-bg-info;
+    color: $color-info;
+    bottom: 0;
+    left: 0;
     position: absolute;
+    right: 0;
     top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $button-border-radius;
+    width: inherit;
+    overflow: hidden;
+    transition: opacity 2s linear;
+
+    &:before {
+     margin-right: .75rem;
+      color: inherit;
+    }
   }
 }
 
+
+// Define Icons for Header
 .flag-bookmark-node,
 .flag-bookmark-term {
-
   .flag--link {
     @include icon(bookmark);
-
-    &:before {
-      line-height: 1;
-    }
   }
 }
 
 .flag-recommendation-node {
-
   .flag--link {
     @include icon(share-alt);
+  }
+}
 
-    &:before {
-      line-height: 1.5;
+.flag-bookmark-node,
+.flag-bookmark-term,
+.flag-recommendation-node {
+}
+
+
+// Header Block
+.block-openculturas-custom-bookmark-flag-icon {
+  .flag-recommendation-node,
+  .flag-bookmark-node,
+  .flag-bookmark-term {
+    //outline: 3px solid deeppink;
+
+    .flag--link {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin: 0;
+      max-width: 2.8rem;
+      overflow: hidden;
+      transition: max-width .5s ease 1s;
+      transition-delay: 1s;
+
+      &:before {
+        line-height: 1;
+        margin-right: 1rem;
+      }
+
+      &:hover {
+        max-width: 100vw;
+        transition-delay: 0s;
+      }
     }
+  }
+
+  // Transparent BG needs no top border here.
+  .action-flag .flag--link {
+    border-top-color: transparent;
   }
 }
 
