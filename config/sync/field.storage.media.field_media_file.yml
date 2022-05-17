@@ -1,21 +1,24 @@
-uuid: 3f1d5378-214e-4765-859d-52fa6e4e9373
+uuid: ed0504d1-13b4-437b-839a-1567f2dc8057
 langcode: en
 status: true
 dependencies:
   module:
     - field_permissions
+    - file
     - media
-    - paragraphs
 third_party_settings:
   field_permissions:
     permission_type: public
-id: paragraph.field_media
-field_name: field_media
-entity_type: paragraph
-type: entity_reference
+id: media.field_media_file
+field_name: field_media_file
+entity_type: media
+type: file
 settings:
-  target_type: media
-module: core
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+module: file
 locked: false
 cardinality: 1
 translatable: true
