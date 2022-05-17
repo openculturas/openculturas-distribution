@@ -1,33 +1,33 @@
-uuid: 66350c5d-7ca5-444e-8bba-b2188388c68c
+uuid: 0bb9718a-4df3-4c0a-b3b5-8bf0a6ddc881
 langcode: en
 status: true
 dependencies:
   module:
     - language
     - taxonomy
-id: categories
-label: Categories
+id: categories_de
+label: 'Categories DE'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'categories/[term:parents:join-path]/[term:name]'
+pattern: 'kategorien/[term:parents:join-path]/[term:name]'
 selection_criteria:
-  95898230-b3f3-4a9b-b927-3e9d18345d50:
+  f96d06c8-a802-4370-a3e5-48c64ba7c935:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 95898230-b3f3-4a9b-b927-3e9d18345d50
+    uuid: f96d06c8-a802-4370-a3e5-48c64ba7c935
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
       category: category
-  2b5a8242-f0a4-42ed-9ad0-4ea04ceebbfa:
+  3c258fbf-112c-4a09-8d41-3d7e46d85db0:
     id: language
     negate: false
-    uuid: 2b5a8242-f0a4-42ed-9ad0-4ea04ceebbfa
+    uuid: 3c258fbf-112c-4a09-8d41-3d7e46d85db0
     context_mapping:
       language: 'taxonomy_term:langcode:language'
     langcodes:
-      en: en
+      de: de
 selection_logic: and
-weight: -5
+weight: -10
 relationships:
   'taxonomy_term:langcode:language':
     label: Language
