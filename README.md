@@ -18,7 +18,7 @@ We recommend to use https://ddev.com for development.
 * Install dependencies
   * `ddev composer install`
 * Install OpenCulturas distribution
-  * `drush si --existing-config`
+  * `ddev composer run si:existing-config`
 
 ### Installation (without ddev)
 
@@ -31,7 +31,7 @@ We recommend to use https://ddev.com for development.
   * Make sure *config_sync_directory* points to *../config/sync*
     `$settings['config_sync_directory'] = '../config/sync';`
 * Install OpenCulturas distribution
-  * `drush si --existing-config`
+  * `composer run si:existing-config`
 
 ### ddev
 
