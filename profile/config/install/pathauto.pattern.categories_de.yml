@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: categories_de
+label: 'Categories DE'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'kategorien/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  f96d06c8-a802-4370-a3e5-48c64ba7c935:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: f96d06c8-a802-4370-a3e5-48c64ba7c935
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      category: category
+  3c258fbf-112c-4a09-8d41-3d7e46d85db0:
+    id: language
+    negate: false
+    uuid: 3c258fbf-112c-4a09-8d41-3d7e46d85db0
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -10
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Language

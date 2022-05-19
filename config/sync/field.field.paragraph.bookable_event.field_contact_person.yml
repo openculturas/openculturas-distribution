@@ -1,0 +1,29 @@
+uuid: 662e10f2-a25f-413d-8bba-fb92ce62b9ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_contact_person
+    - node.type.profile
+    - paragraphs.paragraphs_type.bookable_event
+id: paragraph.bookable_event.field_contact_person
+field_name: field_contact_person
+entity_type: paragraph
+bundle: bookable_event
+label: 'Contact person'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      profile: profile
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

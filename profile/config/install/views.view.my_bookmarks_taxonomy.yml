@@ -38,24 +38,42 @@ display:
           entity_field: name
           plugin_id: term_name
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
-            make_link: false
+            text: ''
+            make_link: true
+            path: ''
             absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: '{{ name__value }} '
+            rel: ''
+            link_class: taxonomy-term--tag
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
             word_boundary: false
             ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -63,7 +81,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -75,6 +93,59 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+        view_taxonomy_term:
+          id: view_taxonomy_term
+          table: taxonomy_term_data
+          field: view_taxonomy_term
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          plugin_id: entity_link
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ name }} '
+            make_link: true
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: '{{ name }} '
+            rel: ''
+            link_class: taxonomy-term--tag
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: 'Link Name (Replaced)'
+          output_url_as_text: false
+          absolute: false
         link_flag:
           id: link_flag
           table: flagging
@@ -279,18 +350,49 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: default
+        type: table
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
+          columns:
+            name: name
+            view_taxonomy_term: view_taxonomy_term
+            link_flag: link_flag
+          default: '-1'
+          info:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            view_taxonomy_term:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            link_flag:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
-        type: fields
+        type: 'entity:taxonomy_term'
         options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: default
       query:
         type: views_query
         options:
