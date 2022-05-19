@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.bookable_event.field_body
+    - field.field.paragraph.bookable_event.field_contact_person
+    - field.field.paragraph.bookable_event.field_media
+    - paragraphs.paragraphs_type.bookable_event
+  module:
+    - field_formatter_class
+    - text
+id: paragraph.bookable_event.default
+targetEntityType: paragraph
+bundle: bookable_event
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_contact_person:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: contact
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+  field_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: download
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true
