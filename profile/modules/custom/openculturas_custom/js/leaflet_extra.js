@@ -8,6 +8,15 @@
 (function ($, Drupal) {
   Drupal.behaviors.leaflet_extra = {
     attach: function attach() {
+      var $elements = $(once('leafletDetails', 'details'));
+      $elements.on('toggle', function (event) {
+        var $detail = $(event.currentTarget);
+        var $leaflet = $detail.find('.leaflet-container');
+
+        if ($leaflet) {
+          $leaflet.data('leaflet').lMap.invalidateSize();
+        }
+      });
       $(document).on('leafletMapInit', function (e, settings, lMap) {
         if (settings.settings.center && settings.settings.center.lat && settings.settings.center.lon) {
           var latlng = L.latLng(settings.settings.center.lat, settings.settings.center.lon);

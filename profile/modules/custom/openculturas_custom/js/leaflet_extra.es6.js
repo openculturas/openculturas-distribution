@@ -7,6 +7,14 @@
    */
   Drupal.behaviors.leaflet_extra = {
     attach: () => {
+      const $elements = $(once('leafletDetails', 'details'));
+      $elements.on('toggle', (event) => {
+        const $detail = $(event.currentTarget);
+        const $leaflet = $detail.find('.leaflet-container');
+        if ($leaflet) {
+          $leaflet.data('leaflet').lMap.invalidateSize();
+        }
+      });
       $(document).on('leafletMapInit', (e, settings, lMap) => {
         if (
           settings.settings.center &&
