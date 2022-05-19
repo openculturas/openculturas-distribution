@@ -1,40 +1,142 @@
 # OpenCulturas Base Theme
 
-This is the base theme for the openculturas distribution.
+Base theme for the openculturas distribution.
 
-You can use another theme or craft your own one, but it is strongly recommended that you use this theme or at least
-build a subtheme that depends on it.
-
-For creating your subtheme there is a starterkit you can copy (starterkits/THEMENAME), rename and change to your liking.
+You can use any theme, but we recommend to build a subtheme.
 
 ## Creating a subtheme
 
 To use the subtheme starterkit, follow these steps:
 
-1. Copy the whole `THEMENAME` directory found in `/starterkits` and paste it to your $PROJECT_ROOT/web/themes/custom directory (if the directory does not exist yet, you can simply create it).
-2. Rename the copied directory from `THEMENAME`  to the machine name you'd like for your custom theme.
-3. Replace all occurrences of `THEMENAME` with the machine name from step 2.
-4. Replace all occurrences of `THEMETITLE` with the human readable representation of your custom theme's name.
-5. Rename `THEMENAME.starterkit.yml` to `THEMENAME.info.yml` and replace `THEMENAME` with the machine name from step 2.
-6. Rename `THEMENAME.libraries.yml` and `THEMENAME.theme` and replace `THEMENAME` with the machine name from step 2.
-7. Optionally you can replace the `favicon.ico`, `logo.svg` and `screenshot.png` files with graphics of your liking.
+1. Copy the whole `STARTERKIT` directory and paste it to your $PROJECT_ROOT/web/themes/custom directory (if the directory does not exist yet, you can simply create it).
+2. Rename the copied directory from `STARTERKIT`  to the machine name you'd like for your custom theme.
+3. Replace all occurrences of `STARTERKIT` with the machine name from step 2.
+4. Replace all occurrences of `STARTERKIT_TITLE` with the human readable representation of your custom theme's name.
+5. Rename `STARTERKIT.info.yml`, `STARTERKIT.libraries.yml` and `STARTERKIT.theme`. Replace `STARTERKIT` with the machine name from step 2.
+6. Optionally you can replace the `favicon.ico`, `logo.svg` and `screenshot.png` files with graphics of your liking.
+
+Alternatively you can use a terminal:
+
+```
+export THEME_MACHINE_NAME="my_theme"
+export THEME_TITLE="My Theme"
+mkdir -p web/themes/custom
+cp -R web/profiles/contrib/openculturas-profile/themes/openculturas_base/STARTERKIT/ "web/themes/custom/$THEME_MACHINE_NAME"
+for f in web/themes/custom/$THEME_MACHINE_NAME/STARTERKIT.*; do mv -i -- "$f" "${f//STARTERKIT/$THEME_MACHINE_NAME}"; done
+sed -i "" "s/STARTERKIT_TITLE/$THEME_TITLE/" web/themes/custom/$THEME_MACHINE_NAME/*.yml
+sed -i "" "s/STARTERKIT/$THEME_MACHINE_NAME/" web/themes/custom/$THEME_MACHINE_NAME/*.yml
+```
 
 When all the above steps are completed, you should already be able to enable the theme in drupal's backend.
 
-## Overriding default colors
+## Changing colors
 
-This theme comes with a system for overriding the default colors without the need for any code changes
-(except the creation of the subtheme, but you could theoretically simply use the basetheme as default theme, if you do
-not need to override any templates / stylings and just want to use different colors).
+This theme comes with a system for overriding the default colors without the need for any code changes. Search for "Color Schema UI" at any *tab menu*. It will open an UI. If your screen is small you may need decrease font-size with STRG/Command + "-" in browser till you see the "Save" button.
 
-To do so, visit the following drupal backend sites:
 
-* `/admin/appearance/settings/openculturas_base`: If you do not plan to use a subtheme and want to use the basetheme as-is.
-* `/admin/appearance/settings/[THEMENAME]`: If you are using this subtheme starterkit. Replace `[THEMENAME]` with your
-  subtheme's machine name.
+## Chose your workflow
 
-There you should see some color fields. With those, you are able to change the colors of the whole theme to your liking,
-if you want to have some personalization, but do not want to write any code or build the frontend css for it.
+There a three approaches how to create and maintain and update openculturas your subtheme. All three have benefits and downsides, which depend on your design concept. Please read trough all options to decide which one you want to use. 
+
+### Plain CSS
+
+You will mainly use base theme delivered CSS and add your changes in plain CSS.
+
+**Pro**
+
+* very easy
+* Quick override of our CSS variables possible 
+    * Color variables (if you dont want to use css_color_variables_ui)
+    * Font-Sizes, but with a headache as we have some responsive font-size variables
+    * Font changes via variable: --font-base, --font-head
+    * Outline style: --outline-active
+* No install of node / compiling of any kind required
+* Easy upgrades: If base theme gets an update most likely all your custom styles will survive as we don't remove css classes if we can avoid it in upgrades
+
+
+**Contra**
+* Limited to only CSS variable changes 
+* No GRID variables available to change. No Layout changes
+* No Access to pre defined breakpoints (which can make overriding existing Breakpoints very hard.
+* Not really suitable for serious redesigning. If you do more than minimal changes you will most probably soon end up with a messy css file, whre you don't remember which line was meant for what. 
+* No browsersync for local development
+* No autoprefixer, Minification etc: You need to write your own browser-prefixed CSS. 
+
+
+**Howto**
+
+If you only want to use plain CSS/Javascript you may directly edit `css/custom_style.css`, `css/custom_wysiwyg.css` and `js/custom_scripts.js`. 
+That's it. 
+
+### SASS to compile your theme "addons"
+
+The geeneral question about two SASS approaches is, wheather you use **the compiled  culturas_base/css and Javascript**  and add some more in your subtheme. Or you recompile the whole **base theme code and your subtheme code** into your subtheme. 
+
+*SASS to compile your theme "addons"* would mean using the base theme defined variable set, which means you could still change all css variables like with plain CSS, but also use all sass variables to create new features or do overrides  to the basetheme.
+
+Main argument for this solution is that you don't need to recompile the subtheme if base Theme upgrades and will get every new feature themed immediately. 
+
+**pro**
+
+* browsersync for local development, autoprefixer, minification etc.
+* Easier to Upgrade: Base theme css is fully independend from your code. You don't need to recompile subtheme if base theme code changes.
+* Create your components and even rewrite base styles at your needs on top of base thme
+* No need to understand all of our SCSS code.
+*  To change a component you might just copy the base themes scss file to your subtheme and adopt it to your needs. 
+
+**contra**
+
+* Limited to only CSS variable changes 
+* No GRID variables available to change. Layout changes might be difficult
+* Overriding is alwas a little more challenging ad you may need to "undo" things set before. This also comes with a little browser performamce impact.
+
+**Howto**
+
+TODO 
+Use libraries-extend in youttheme.info.yml
+
+
+Chosing a SASS workflow requires you to have node installed. More see --> Compiling frontend.
+
+### SASS compile base- and subtheme together
+
+**pro**
+
+* you are able to change all sass Variables which allows you also to change the grid variables or use your own grid (and exclude ours)
+* You can Exclude base them components
+* browsersync for local development, autoprefixer, minification etc.
+*  To change a component you might just copy the base themes scss file to your subtheme and adopt it to your needs.
+* You may adapt the imports to exclude components. In this case you might require to replace the `@import "../templates/**/*.scss";` with your custom selective base theme imports
+* Better frontend performance and cleaner CSS because you can improve our components instead of overriding their CSS to your needs.
+
+
+**contra**
+* You are responsible for Upgrades. 
+* A base theme style update will require you to recompile your theme
+* Especially excluding base theme files from glob imports (templates/**/*.scss) will require you to review base theme SASS changes. 
+
+
+**Howto**
+
+TODO
+
+Add Exclude base theme `stylesheets-remove`
+
+Chosing a SASS workflow requires you to have node installed. More see --> Compiling frontend.
+
+
+### Recommend: 
+
+Make CSS VARS
+    * $grid-gutter
+    * $grid-layout-max-width
+    * $grid-column-count macht keinen Sinn, weil man den nicht ändern kann ohne dass alles kaputt aussieht.
+
+Consider removing Globs entirely:
+Das würde selektiven import erleichtern. Man sieht dann zb im code, wenn eine neue SASS Datei dazu gekommen ist und kann das im Subtheme leichter nachbauen. Zudem wird der Compiler dadurch schneller und es verhindert, dass ungeschickter SASS code durch File umbenennungen seinen Platz in der Hierarchie ändert.
+Die Alternative sind index files (z.B: penculturas_base/scss_config/base/_index.scss)
+
+Consider changing the Grid in Content Area so that Max-Width actually limits Max Width
 
 ## Creating own templates
 
@@ -67,23 +169,22 @@ Please install npm the way your OS needs it. We recommend using of a version man
 
 https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm
 
+Important: to use the the same node version we use (defined in .nvmrc) you must type `nvm use` in theme dir once, before runnning npm commands.
+
+
 For running the gulp tasks you also need to have the gulp-cli installed globally: `npm install --global gulp-cli`
 
 As a next step, you have to install all dependencies via npm: `npm install`
 
-Also for using the `watch` task (BrowserSync) you have to copy the `config.example.js` to `config.js` and insert your local host of the setup.
+Also for using the `watch` task (BrowserSync) you have to copy the `config.js.example` to `config.js` and insert your local host of the setup.
 Otherwise it will default to `openculturas.ddev.site` which is the host of the distro's default ddev configuration.
 
 After that you can run tasks via npm or gulp:
 
-* `npm run build` | `gulp build` Build CSS / JS for production.
-* `npm run watch` | `gulp watch` Build CSS / JS for development and start a BrowserSync instance for fast theming.
-* `npm run sass` | `gulp sass` Build CSS for production.
-* `npm run js` | `gulp js` Collect JS for production.
-* `npm run dev` | `gulp dev` Build CSS / JS for development.
+* `npm run build` Build CSS / JS for production. Always do this in the end, as 'production' task adds autoprefixes and minification.
+* `npm run serve` | `gulp watch` Build CSS / JS for development and start a BrowserSync instance for fast theming.
 
-Please note, that aside from the base config, all SCSS / JS Files are in the `templates` directory, on the same level as
-their respective component, to keep all elements of a component together.
+Please note, that aside from the base config, all SCSS / JS Files are in the `templates` directory, on the same level as their respective component, to keep all elements of a component together.
 
 On Building they will be picked up and compiled into the `css` and `js`directories.
 
