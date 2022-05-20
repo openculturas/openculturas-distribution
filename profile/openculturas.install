@@ -9,35 +9,49 @@ declare(strict_types=1);
 use Drupal\node\NodeInterface;
 
 /**
- * Implements hook_install().
+ * Implements hook_install_tasks().
  */
-function openculturas_install($is_syncing) {
-  if (!$is_syncing) {
-    /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
-    $module_installer = \Drupal::service('module_installer');
-    // We only want to import the content,
-    // then we do not need the module anymore.
-    $module_installer->install(['openculturas_content']);
-    $module_installer->uninstall(['default_content', 'openculturas_content']);
+function openculturas_install_tasks() {
+  $tasks = [
+    'openculturas_install_content' => [
+      'display_name' => t('Install default content'),
+      'type' => 'normal',
+    ]
+  ];
 
-    /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
-    $entityRepository = \Drupal::service('entity.repository');
+  return $tasks;
+}
 
-    $configFactory = \Drupal::configFactory();
-    $config = $configFactory->getEditable('system.site');
+/**
+ * Callback function to install default profile content.
+ *
+ * @see openculturas_install_tasks()
+ */
+function openculturas_install_content() {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  // We only want to import the content,
+  // then we do not need the module anymore.
+  $module_installer->install(['openculturas_content']);
+  $module_installer->uninstall(['default_content', 'openculturas_content']);
 
-    /** @var \Drupal\node\NodeInterface $node */
-    $node = $entityRepository->loadEntityByUuid('node', 'f971a5cd-960b-40ee-b059-173c366231af');
-    // File: profile/modules/custom/openculturas_content/content/node/f971a5cd-960b-40ee-b059-173c366231af.yml.
-    if ($node instanceof NodeInterface) {
-      $config->set('page.404', '/node/' . $node->id());
-    }
-    /** @var \Drupal\node\NodeInterface $node */
-    $node = $entityRepository->loadEntityByUuid('node', '34e5758c-997b-45cd-91ed-66a694a5fdd3');
-    // File: profile/modules/custom/openculturas_content/content/node/34e5758c-997b-45cd-91ed-66a694a5fdd3.yml
-    if ($node instanceof NodeInterface) {
-      $config->set('page.403', '/node/' . $node->id());
-    }
-    $config->save();
+  /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
+  $entityRepository = \Drupal::service('entity.repository');
+
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('system.site');
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $entityRepository->loadEntityByUuid('node', 'f971a5cd-960b-40ee-b059-173c366231af');
+  // File: profile/modules/custom/openculturas_content/content/node/f971a5cd-960b-40ee-b059-173c366231af.yml.
+  if ($node instanceof NodeInterface) {
+    $config->set('page.404', '/node/' . $node->id());
   }
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $entityRepository->loadEntityByUuid('node', '34e5758c-997b-45cd-91ed-66a694a5fdd3');
+  // File: profile/modules/custom/openculturas_content/content/node/34e5758c-997b-45cd-91ed-66a694a5fdd3.yml
+  if ($node instanceof NodeInterface) {
+    $config->set('page.403', '/node/' . $node->id());
+  }
+  $config->save();
 }

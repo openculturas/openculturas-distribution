@@ -257,11 +257,6 @@
         "si": [
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush site:install --yes"
-        ],
-        "si:existing-config": [
-            "if [ ! -f web/profiles/contrib/openculturas-profile/openculturas.install.bak ]; then mv web/profiles/contrib/openculturas-profile/openculturas.install web/profiles/contrib/openculturas-profile/openculturas.install.bak; fi",
-            "drush site:install --yes --existing-config",
-            "if [ -f web/profiles/contrib/openculturas-profile/openculturas.install.bak ]; then mv web/profiles/contrib/openculturas-profile/openculturas.install.bak web/profiles/contrib/openculturas-profile/openculturas.install; fi"
         ]
     },
     "extra": {
