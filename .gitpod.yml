@@ -8,6 +8,8 @@ tasks:
       cp .ddev/.gitpod/settings.local.php web/sites/default/ && \
       ddev drush site:install --yes --existing-config
     command: |
+      export DDEV_NONINTERACTIVE=true
+      (ddev restart || ddev start) && \
       gp await-port 8080 && sleep 1 && gp preview $(gp url 8080)
 
 ports:
