@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
+    - field_formatter_class
     - smart_date
     - user
 id: node.date.teaser
@@ -46,11 +47,13 @@ content:
     settings:
       timezone_override: ''
       format_type: medium
-      format: site_short_date
+      format: site_default_date_and_time
       force_chronological: true
       add_classes: false
       time_wrapper: true
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 0
     region: content
   field_event_description:
