@@ -4,10 +4,12 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_accessibility
+    - field.field.node.event.field_bookable_info
     - field.field.node.event.field_category
     - field.field.node.event.field_duration
     - field.field.node.event.field_gallery
     - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_is_bookable
     - field.field.node.event.field_mention_by_art_view_ref
     - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
@@ -27,13 +29,6 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
-  co_authors:
-    type: author
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_category:
     type: entity_reference_label
     label: above
@@ -51,10 +46,13 @@ content:
     region: content
 hidden:
   body: true
+  co_authors: true
   field_accessibility: true
+  field_bookable_info: true
   field_duration: true
   field_gallery: true
   field_inlanguage: true
+  field_is_bookable: true
   field_mention_by_art_view_ref: true
   field_min_age: true
   field_mood_image: true

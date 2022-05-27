@@ -168,6 +168,16 @@ display:
                 plugin_id: default
                 advanced:
                   placeholder_text: ''
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: true
+              field_is_bookable_value:
+                plugin_id: bef_single
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: true
       access:
@@ -449,6 +459,58 @@ display:
                   min: ''
                   max: ''
                   value: '18'
+        field_is_bookable_value:
+          id: field_is_bookable_value
+          table: node__field_is_bookable
+          field: field_is_bookable_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Is bookable?'
+            description: ''
+            use_operator: false
+            operator: field_is_bookable_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: is_bookable
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
+              administrator: '0'
+          is_grouped: true
+          group_info:
+            label: 'Is bookable'
+            description: ''
+            identifier: is_bookable
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes'
+                operator: '='
+                value: '1'
+              2:
+                title: 'No'
+                operator: '='
+                value: '0'
       style:
         type: default
       row:

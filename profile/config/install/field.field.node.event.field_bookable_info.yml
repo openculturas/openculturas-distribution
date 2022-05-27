@@ -1,0 +1,54 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bookable_info
+    - node.type.event
+    - paragraphs.paragraphs_type.bookable_event
+  module:
+    - entity_reference_revisions
+id: node.event.field_bookable_info
+field_name: field_bookable_info
+entity_type: node
+bundle: event
+label: 'Bookable event information'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      bookable_event: bookable_event
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: 10
+        enabled: false
+      address_data:
+        weight: 11
+        enabled: false
+      bookable_event:
+        weight: 12
+        enabled: true
+      contact_data:
+        weight: 13
+        enabled: false
+      gallery:
+        weight: 14
+        enabled: false
+      media:
+        weight: 15
+        enabled: false
+      member:
+        weight: 16
+        enabled: false
+      text:
+        weight: 17
+        enabled: false
+      view:
+        weight: 18
+        enabled: false
+field_type: entity_reference_revisions
