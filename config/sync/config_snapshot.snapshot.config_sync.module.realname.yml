@@ -1,0 +1,34 @@
+uuid: 9b04e00d-17b3-4dfb-85ee-51930f5a1de7
+langcode: en
+status: true
+dependencies:
+  module:
+    - realname
+id: config_sync.module.realname
+snapshotSet: config_sync
+extensionType: module
+extensionName: realname
+items:
+  -
+    collection: ''
+    name: realname.settings
+    data:
+      pattern: '[user:field_fullname]'
+      _core:
+        default_config_hash: WzD_Z6Vv9LGUyCgDZ78eFI2KWmDaF2uPOg2sEMgnC7o
+  -
+    collection: ''
+    name: system.action.realname_update_realname_action
+    data:
+      langcode: en
+      status: true
+      dependencies:
+        module:
+          - realname
+      id: realname_update_realname_action
+      label: 'Update real names of the selected user(s)'
+      type: user
+      plugin: realname_update_realname_action
+      configuration: {  }
+      _core:
+        default_config_hash: TcE108IBXo48rNn0ZnPcslwVnHBezO3myGqcXrqE5h0

@@ -41,6 +41,9 @@ function main() {
       $absoluteFilePath = $file->getRealPath();
       $fileNameWithExtension = $file->getRelativePathname();
       if (is_file('config/sync/' . $fileNameWithExtension)) {
+        if (strpos($file->getFilename(), 'config_snapshot.snapshot.config_sync.') !== FALSE) {
+          continue;
+        }
         $source_data = \Drupal\Core\Serialization\Yaml::decode($file->getContents());
         // Keep uuid to allows default values for viewfields.
         // Example config/sync/field.field.node.profile.field_performer_at_view_ref.yml -> default_value[0].target_uuid.
