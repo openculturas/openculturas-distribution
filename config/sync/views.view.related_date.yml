@@ -741,7 +741,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<b>{{'Event type' | t }}</b>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }} {{ 'co-attendance at'|t }} {{ field_location_virtual }}\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<b>{{'Event type' | t }}</b>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<b>{{'Event type' | t }}</b>: {{ field_attendance_mode_1 }} // {{ field_location_virtual }}\r\n{% endif %}\r\n\r\n\r\n"
+            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }} {{ 'co-attendance at'|t }} {{ field_location_virtual }}\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ field_location_virtual }}\r\n{% endif %}\r\n\r\n\r\n"
             make_link: false
             path: ''
             absolute: false
