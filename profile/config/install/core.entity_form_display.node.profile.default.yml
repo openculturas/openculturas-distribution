@@ -25,7 +25,7 @@ dependencies:
   module:
     - conditional_fields
     - content_moderation
-    - datetime
+    - datetime_extras
     - field_group
     - media_library
     - media_library_edit
@@ -305,10 +305,14 @@ content:
             effect_options: {  }
             selector: ''
   field_started:
-    type: datetime_default
+    type: datetime_datelist_no_time
     weight: 18
     region: content
-    settings: {  }
+    settings:
+      date_order: MY
+      time_type: none
+      increment: '15'
+      date_year_range: '1900:2050'
     third_party_settings:
       conditional_fields:
         ba61eda6-161a-4454-ba63-94b82fca3ea1:
