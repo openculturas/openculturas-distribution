@@ -18,6 +18,7 @@ dependencies:
   module:
     - datetime
     - field_formatter_class
+    - smart_trim
     - text
     - user
 id: node.article.teaser
@@ -26,11 +27,24 @@ bundle: article
 mode: teaser
 content:
   body:
-    type: text_summary_or_trimmed
+    type: smart_trim
     label: hidden
     settings:
       trim_length: 400
-    third_party_settings: {  }
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more_link: false
+      more_class: more-link
+      more_text: More
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 2
     region: content
   co_authors:
@@ -39,6 +53,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   field_author:
     type: entity_reference_entity_view
