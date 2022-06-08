@@ -21,7 +21,6 @@ dependencies:
     - user
     - views_autocomplete_filters
     - views_data_export
-    - views_infinite_scroll
 id: related_dates_export
 label: 'Related dates export'
 module: views
@@ -488,27 +487,9 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: infinite_scroll
+        type: none
         options:
           offset: 0
-          items_per_page: 4
-          total_pages: null
-          id: 0
-          tags:
-            next: ››
-            previous: ‹‹
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Show more'
-            automatically_load_content: false
-            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
@@ -845,7 +826,7 @@ display:
         - 'config:field.storage.node.field_subtitle'
   data_export_1:
     id: data_export_1
-    display_title: 'Data export'
+    display_title: 'Data export CSV'
     display_plugin: data_export
     position: 2
     display_options:
@@ -863,12 +844,107 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
+      display_description: ''
       display_extenders: {  }
       path: user/%user/export/dates-export.csv
       displays:
         page_1: page_1
         default: '0'
       filename: dates-export.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: page_1
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_subtitle'
+  data_export_2:
+    id: data_export_2
+    display_title: 'Data export JSON'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            json: json
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_description: ''
+      display_extenders: {  }
+      path: user/%user/export/dates-export.json
+      displays:
+        page_1: page_1
+        default: '0'
+      filename: dates-export.json
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: page_1
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_subtitle'
+  data_export_3:
+    id: data_export_3
+    display_title: 'Data export XML'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            xml: xml
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_description: ''
+      display_extenders: {  }
+      path: user/%user/export/dates-export.xml
+      displays:
+        page_1: page_1
+        default: '0'
+      filename: dates-export.xml
       automatic_download: true
       store_in_public_file_directory: null
       custom_redirect_path: false
