@@ -242,7 +242,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
   }
   if ($entity->bundle() === 'date' && $build['#view_mode'] === 'full') {
-    $build['field_location']['#title'] = t('More information about the location');
-    $build['field_event_description']['#title'] = t('See all about');
+    $build['field_location']['#title'] = t("Visit the location's profile");
+    #$build['field_event_description']['#title'] = t('See all about');
   }
 }
