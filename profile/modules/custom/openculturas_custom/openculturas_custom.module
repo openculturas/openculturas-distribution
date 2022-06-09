@@ -232,3 +232,15 @@ function openculturas_custom_local_tasks_alter(&$local_tasks) {
     $local_tasks['entity.user.edit_form']['weight'] = -2;
   }
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function openculturas_custom_node_view_alter(array &$build, NodeInterface $entity) {
+  if ($build['#view_mode'] === 'full' && isset($build['field_forfree'])) {
+    // Not for free then there should be a price and hide this field output.
+    $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
+  }
+  $build['field_location']['#title'] = t('More information about the location');
+  $build['field_event_description']['#title'] = t('See all about');
+}
