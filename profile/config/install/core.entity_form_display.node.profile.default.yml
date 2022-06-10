@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
+    - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
     - conditional_fields
@@ -32,7 +33,6 @@ dependencies:
     - paragraphs
     - path
     - text
-    - viewfield
 third_party_settings:
   field_group:
     group_profile_type:
@@ -182,18 +182,6 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
-  field_member_of_view_ref:
-    type: viewfield_select
-    weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_mention_by_art_view_ref:
-    type: viewfield_select
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
     weight: 15
@@ -233,18 +221,6 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
-  field_performer_at_view_ref:
-    type: viewfield_select
-    weight: 16
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_performer_event_view_ref:
-    type: viewfield_select
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_portrait:
     type: media_library_widget
     weight: 3
@@ -263,18 +239,6 @@ content:
   field_profile_type:
     type: options_buttons
     weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_recommendations:
-    type: viewfield_select
-    weight: 15
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_recommended_by_view_ref:
-    type: viewfield_select
-    weight: 51
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -403,4 +367,11 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_member_of_view_ref: true
+  field_mention_by_art_view_ref: true
+  field_performer_at_view_ref: true
+  field_performer_event_view_ref: true
+  field_recommendations: true
+  field_recommended_by_view_ref: true
+  field_upcoming_dates_by_profile: true
