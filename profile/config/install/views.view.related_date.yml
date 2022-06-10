@@ -675,7 +675,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<span class=\"label\">{{'Where?' | t }}</span> - {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }} {{ 'and'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Where?' | t }}</span> - {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Where?' | t }}</span> - {{ field_attendance_mode_1 }}\r\n{% endif %}\r\n\r\n\r\n"
+            text: "<br>\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }} // {{ title_1 }}, {{ field_address_data }} {{ 'or'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n\r\n\r\n"
             make_link: false
             path: ''
             absolute: false
