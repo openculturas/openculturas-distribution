@@ -663,73 +663,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_virtual:
-          id: field_location_virtual
-          table: node__field_location_virtual
-          field: field_location_virtual
-          relationship: none
-          group_type: group
-          admin_label: 'Plain Virtual location URL'
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: uri
-          type: link
-          settings:
-            trim_length: 80
-            url_only: true
-            url_plain: true
-            rel: nofollow
-            target: '0'
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         nothing:
           id: nothing
           table: views
@@ -742,7 +675,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }} {{ 'co-attendance at'|t }} {{ field_location_virtual }}\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ field_location_virtual }}\r\n{% endif %}\r\n\r\n\r\n"
+            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<span class=\"label\">{{'Where?' | t }}</span> - {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }} {{ 'and'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Where?' | t }}</span> - {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Where?' | t }}</span> - {{ field_attendance_mode_1 }}\r\n{% endif %}\r\n\r\n\r\n"
             make_link: false
             path: ''
             absolute: false
@@ -1027,7 +960,6 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   by_profile:
@@ -1212,7 +1144,6 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   related_date_alternative:
@@ -1363,7 +1294,6 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   related_date_event:
@@ -2397,7 +2327,6 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   related_date_organizer:
@@ -2612,7 +2541,6 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   upcoming_dates:
@@ -2752,6 +2680,5 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
