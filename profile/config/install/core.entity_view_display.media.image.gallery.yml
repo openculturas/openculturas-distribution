@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.gallery
+    - field.field.media.image.field_caption
     - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
     - image.style.gallery
@@ -10,17 +11,25 @@ dependencies:
   module:
     - attribution
     - svg_image
+    - text
 id: media.image.gallery
 targetEntityType: media
 bundle: image
 mode: gallery
 content:
+  field_caption:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_licenses:
     type: attribution_creative_commons_refined
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_media_image:
     type: image
