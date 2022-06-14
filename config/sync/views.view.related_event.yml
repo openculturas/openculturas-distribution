@@ -10,6 +10,7 @@ dependencies:
     - node
     - paragraphs
     - user
+    - views_add_button
 id: related_event
 label: 'Related events'
 module: views
@@ -483,6 +484,7 @@ display:
         arguments: false
         filters: true
         filter_groups: true
+        header: false
       relationships:
         field_people_reference:
           id: field_people_reference
@@ -504,6 +506,35 @@ display:
           plugin_id: entity_reverse
           required: true
       display_description: ''
+      header:
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 1
+          type: node+event
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: 'member_id={{ raw_arguments.field_member_target_id }}'
+          destination: 1
       display_extenders: {  }
     cache_metadata:
       max-age: -1

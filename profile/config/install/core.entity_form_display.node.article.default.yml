@@ -13,7 +13,9 @@ dependencies:
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
+    - workflows.workflow.magazine_article
   module:
+    - content_moderation
     - datetime
     - field_group
     - media_library
@@ -21,7 +23,6 @@ dependencies:
     - paragraphs
     - path
     - text
-    - viewfield
 third_party_settings:
   field_group:
     group_administrative:
@@ -30,10 +31,12 @@ third_party_settings:
         - created
         - promote
         - sticky
+        - url_redirects
+        - path
       label: Administrative
       region: content
       parent_name: ''
-      weight: 12
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -51,7 +54,7 @@ third_party_settings:
       label: 'Meta information'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -119,7 +122,7 @@ content:
     third_party_settings: {  }
   field_content_paragraphs:
     type: paragraphs
-    weight: 7
+    weight: 6
     region: content
     settings:
       title: 'Content element'
@@ -151,15 +154,9 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
-  field_recommended_by_view_ref:
-    type: viewfield_select
-    weight: 14
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_references:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 7
     region: content
     settings:
       match_operator: CONTAINS
@@ -184,13 +181,13 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -234,8 +231,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_recommended_by_view_ref: true

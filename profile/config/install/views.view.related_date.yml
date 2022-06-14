@@ -16,6 +16,7 @@ dependencies:
     - link
     - node
     - options
+    - paragraphs
     - smart_date
     - text
     - user
@@ -662,73 +663,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_virtual:
-          id: field_location_virtual
-          table: node__field_location_virtual
-          field: field_location_virtual
-          relationship: none
-          group_type: group
-          admin_label: 'Plain Virtual location URL'
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: uri
-          type: link
-          settings:
-            trim_length: 80
-            url_only: true
-            url_plain: true
-            rel: nofollow
-            target: '0'
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         nothing:
           id: nothing
           table: views
@@ -741,7 +675,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }} {{ 'co-attendance at'|t }} {{ field_location_virtual }}\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n<span class=\"label\">{{'Location' | t }}</span>: {{ field_attendance_mode_1 }} // {{ field_location_virtual }}\r\n{% endif %}\r\n\r\n\r\n"
+            text: "<div class=\"location\">\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }} // {{ title_1 }}, {{ field_address_data }} {{ 'or'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -790,7 +724,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div>{{ field_subtitle }}</div>\r\n<div>{{ nothing }}</div>"
+            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n{{ nothing }}"
             make_link: false
             path: ''
             absolute: false
@@ -1026,7 +960,190 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
+        - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_subtitle'
+  by_profile:
+    id: by_profile
+    display_title: 'By profile'
+    display_plugin: block
+    position: 5
+    display_options:
+      title: 'By profile'
+      arguments:
+        field_member_target_id:
+          id: field_member_target_id
+          table: paragraph__field_member
+          field: field_member_target_id
+          relationship: field_people_reference
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: node
+          default_argument_options: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: true
+          validate:
+            type: none
+            fail: empty
+          validate_options: {  }
+          break_phrase: false
+          not: false
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            date: date
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          operator: '>'
+          value:
+            min: ''
+            max: ''
+            value: now
+            type: offset
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        title: false
+        style: true
+        row: true
+        relationships: false
+        fields: true
+        arguments: false
+        filters: false
+        filter_groups: false
+      relationships:
+        field_people_reference:
+          id: field_people_reference
+          table: node__field_people_reference
+          field: field_people_reference
+          relationship: none
+          group_type: group
+          admin_label: 'By id: field_people_reference: Paragraph'
+          plugin_id: standard
+          required: true
+        reverse__node__field_people_reference:
+          id: reverse__node__field_people_reference
+          table: paragraphs_item_field_data
+          field: reverse__node__field_people_reference
+          relationship: field_people_reference
+          group_type: group
+          admin_label: 'By id:  field_people_reference'
+          entity_type: paragraph
+          plugin_id: entity_reverse
+          required: true
+        field_event_description:
+          id: field_event_description
+          table: node__field_event_description
+          field: field_event_description
+          relationship: none
+          group_type: group
+          admin_label: 'field_event_description: Content'
+          plugin_id: standard
+          required: true
+        field_location:
+          id: field_location
+          table: node__field_location
+          field: field_location
+          relationship: none
+          group_type: group
+          admin_label: 'field_location: Content'
+          plugin_id: standard
+          required: true
+      display_description: ''
+      display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      display_extenders: {  }
+      block_hide_empty: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_attendance_mode'
+        - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   related_date_alternative:
@@ -1177,14 +1294,13 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   related_date_event:
     id: related_date_event
     display_title: 'By event'
     display_plugin: block
-    position: 1
+    position: 3
     display_options:
       fields:
         field_mood_image:
@@ -2150,7 +2266,7 @@ display:
     id: related_date_location
     display_title: 'By location'
     display_plugin: block
-    position: 1
+    position: 4
     display_options:
       arguments:
         field_location_target_id:
@@ -2211,15 +2327,15 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   related_date_organizer:
     id: related_date_organizer
     display_title: 'By organizer'
     display_plugin: block
-    position: 1
+    position: 5
     display_options:
+      title: 'As an organizer'
       arguments:
         field_organizer_target_id:
           id: field_organizer_target_id
@@ -2372,7 +2488,7 @@ display:
         groups:
           1: AND
       defaults:
-        title: true
+        title: false
         style: true
         row: true
         relationships: false
@@ -2380,6 +2496,7 @@ display:
         arguments: false
         filters: false
         filter_groups: false
+        header: false
       relationships:
         field_organizer:
           id: field_organizer
@@ -2409,6 +2526,18 @@ display:
           plugin_id: standard
           required: true
       display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: 'View display title'
+          plugin_id: text_custom
+          empty: false
+          content: '<h3>[view:title]</h3>'
+          tokenize: false
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
       display_extenders: {  }
       block_hide_empty: true
@@ -2426,14 +2555,13 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'
   upcoming_dates:
     id: upcoming_dates
     display_title: 'Upcoming dates'
     display_plugin: block
-    position: 1
+    position: 2
     display_options:
       arguments: {  }
       filters:
@@ -2566,6 +2694,5 @@ display:
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
-        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
         - 'config:field.storage.node.field_subtitle'

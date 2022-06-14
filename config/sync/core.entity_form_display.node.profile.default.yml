@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
+    - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
     - conditional_fields
@@ -33,7 +34,6 @@ dependencies:
     - paragraphs
     - path
     - text
-    - viewfield
 third_party_settings:
   field_group:
     group_profile_type:
@@ -78,11 +78,11 @@ third_party_settings:
         - promote
         - sticky
         - path
-        - status
+        - url_redirects
       label: Administrative
       region: content
       parent_name: ''
-      weight: 14
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -134,13 +134,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 15
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_address_data:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 9
     region: content
     settings:
       title: Address
@@ -162,7 +162,7 @@ content:
     third_party_settings: {  }
   field_contact_data:
     type: entity_reference_paragraphs
-    weight: 9
+    weight: 8
     region: content
     settings:
       title: 'Contact data'
@@ -183,18 +183,6 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
-  field_member_of_view_ref:
-    type: viewfield_select
-    weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_mention_by_art_view_ref:
-    type: viewfield_select
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
     weight: 15
@@ -234,18 +222,6 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
-  field_performer_at_view_ref:
-    type: viewfield_select
-    weight: 16
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_performer_event_view_ref:
-    type: viewfield_select
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_portrait:
     type: media_library_widget
     weight: 3
@@ -264,18 +240,6 @@ content:
   field_profile_type:
     type: options_buttons
     weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_recommendations:
-    type: viewfield_select
-    weight: 15
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_recommended_by_view_ref:
-    type: viewfield_select
-    weight: 51
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -350,33 +314,33 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 18
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 16
+    weight: 15
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 19
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 17
+    weight: 16
     region: content
     settings:
       display_label: true
@@ -400,8 +364,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_member_of_view_ref: true
+  field_mention_by_art_view_ref: true
+  field_performer_at_view_ref: true
+  field_performer_event_view_ref: true
+  field_recommendations: true
+  field_recommended_by_view_ref: true
+  field_upcoming_dates_by_profile: true

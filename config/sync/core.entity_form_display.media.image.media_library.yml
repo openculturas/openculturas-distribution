@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_library
+    - field.field.media.image.field_caption
     - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
     - image.style.media_library
@@ -11,14 +12,23 @@ dependencies:
   module:
     - attribution
     - focal_point
+    - text
 id: media.image.media_library
 targetEntityType: media
 bundle: image
 mode: media_library
 content:
+  field_caption:
+    type: text_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_licenses:
     type: attribution_source_author_license
-    weight: 2
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
