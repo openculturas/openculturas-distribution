@@ -675,7 +675,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "<br>\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }} // {{ title_1 }}, {{ field_address_data }} {{ 'or'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n\r\n\r\n"
+            text: "<div class=\"location\">\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }} // {{ title_1 }}, {{ field_address_data }} {{ 'or'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -724,7 +724,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div>{{ field_subtitle }}</div>\r\n<div>{{ nothing }}</div>"
+            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n{{ nothing }}"
             make_link: false
             path: ''
             absolute: false
