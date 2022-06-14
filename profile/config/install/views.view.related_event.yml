@@ -10,6 +10,8 @@ dependencies:
     - node
     - paragraphs
     - user
+    - views_add_button
+    - views_infinite_scroll
 id: related_event
 label: 'Related events'
 module: views
@@ -428,6 +430,28 @@ display:
           empty_zero: false
           hide_alter_empty: true
           view_mode: teaser
+      pager:
+        type: infinite_scroll
+        options:
+          offset: 0
+          items_per_page: 4
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Show more'
+            automatically_load_content: false
+            initially_load_all_pages: false
       arguments:
         field_member_target_id:
           id: field_member_target_id
@@ -476,6 +500,7 @@ display:
           view_mode: teaser
       defaults:
         title: false
+        pager: false
         style: false
         row: false
         relationships: false
@@ -483,6 +508,7 @@ display:
         arguments: false
         filters: true
         filter_groups: true
+        header: false
       relationships:
         field_people_reference:
           id: field_people_reference
@@ -504,6 +530,35 @@ display:
           plugin_id: entity_reverse
           required: true
       display_description: ''
+      header:
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 1
+          type: node+event
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: 'member_id={{ raw_arguments.field_member_target_id }}'
+          destination: 1
       display_extenders: {  }
     cache_metadata:
       max-age: -1
