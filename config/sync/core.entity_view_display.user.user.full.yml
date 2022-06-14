@@ -20,7 +20,7 @@ third_party_settings:
       label: 'My Bookmarks'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 0
       format_type: details
       format_settings:
         classes: ''
@@ -35,7 +35,7 @@ third_party_settings:
       label: 'My content'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 1
       format_type: details
       format_settings:
         classes: ''
@@ -51,14 +51,6 @@ targetEntityType: user
 bundle: user
 mode: full
 content:
-  field_fullname:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_my_bookmarks_view_ref:
     type: viewfield_default
     label: hidden
@@ -83,6 +75,7 @@ content:
     region: content
 hidden:
   field_category: true
+  field_fullname: true
   langcode: true
   member_for: true
   realname: true
