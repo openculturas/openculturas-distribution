@@ -11,6 +11,7 @@ dependencies:
     - paragraphs
     - user
     - views_add_button
+    - views_infinite_scroll
 id: related_event
 label: 'Related events'
 module: views
@@ -429,6 +430,28 @@ display:
           empty_zero: false
           hide_alter_empty: true
           view_mode: teaser
+      pager:
+        type: infinite_scroll
+        options:
+          offset: 0
+          items_per_page: 4
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Show more'
+            automatically_load_content: false
+            initially_load_all_pages: false
       arguments:
         field_member_target_id:
           id: field_member_target_id
@@ -477,6 +500,7 @@ display:
           view_mode: teaser
       defaults:
         title: false
+        pager: false
         style: false
         row: false
         relationships: false
