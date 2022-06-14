@@ -10,7 +10,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use function rtrim;
 
 /**
  * Provides a page title with subtitle block.
@@ -70,7 +70,14 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
     $profile_image = NULL;
 
     if ($current_entity !== NULL) {
-      $this->setTitle($current_entity->label());
+      $title_markup = [];
+      if ($page_entity !== NULL && $page_entity->hasField('field_premiere')
+        && !$page_entity->get('field_premiere')->isEmpty()) {
+        $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
+        $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderPlain($field_premiere_render_array))) . ': '];
+      }
+      $title_markup[] = ['#plain_text' => $current_entity->label()];
+      $this->title = $title_markup;
       if ($current_entity->hasField('field_subtitle')
         && !$current_entity->get('field_subtitle')->isEmpty()) {
         $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);

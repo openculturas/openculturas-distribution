@@ -9,6 +9,7 @@ dependencies:
     - field.storage.node.field_date
     - field.storage.node.field_location_virtual
     - field.storage.node.field_mood_image
+    - field.storage.node.field_premiere
     - field.storage.node.field_subtitle
     - node.type.date
   module:
@@ -712,6 +713,130 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
+        field_premiere:
+          id: field_premiere
+          table: node__field_premiere
+          field: field_premiere
+          relationship: none
+          group_type: group
+          admin_label: 'Premiere - Value (used as row-class)'
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_key
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ' '
+          field_api_classes: false
+        field_premiere_1:
+          id: field_premiere_1
+          table: node__field_premiere
+          field: field_premiere
+          relationship: none
+          group_type: group
+          admin_label: 'Premiere - Label'
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: '<span>{{ field_premiere_1 }}</span>: '
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nothing_1:
           id: nothing_1
           table: views
@@ -724,7 +849,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n{{ nothing }}"
+            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ field_premiere_1 }}{{ view_node }}</div>\r\n</h3>\r\n<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n{{ nothing }}"
             make_link: false
             path: ''
             absolute: false
@@ -905,7 +1030,7 @@ display:
         type: default
         options:
           grouping: {  }
-          row_class: ''
+          row_class: '{{ field_premiere }}'
           default_row_class: true
       row:
         type: fields
@@ -961,6 +1086,7 @@ display:
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_subtitle'
   by_profile:
     id: by_profile
@@ -1145,6 +1271,7 @@ display:
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_subtitle'
   related_date_alternative:
     id: related_date_alternative
@@ -1295,6 +1422,7 @@ display:
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_subtitle'
   related_date_event:
     id: related_date_event
@@ -2328,6 +2456,7 @@ display:
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_subtitle'
   related_date_organizer:
     id: related_date_organizer
@@ -2556,6 +2685,7 @@ display:
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_subtitle'
   upcoming_dates:
     id: upcoming_dates
@@ -2695,4 +2825,5 @@ display:
         - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_subtitle'
