@@ -184,16 +184,12 @@ function openculturas_custom_flagging_update(\Drupal\flag\FlaggingInterface $ent
 }
 
 /**
- * Implements hook_entity_prepare_form().
+ * Implements hook_ENTITY_TYPE_prepare_form().
  */
-function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $operation, FormStateInterface $form_state) {
-  if (!$date_entity instanceof NodeInterface) {
-    return;
-  }
-  if ($date_entity->bundle() !== 'date' || !$date_entity->isNew()) {
-    return;
-  }
-  if (\Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('event_id')) {
+function openculturas_custom_node_prepare_form(NodeInterface $node, $operation, FormStateInterface $form_state) {
+
+  $is_data_entity = $node->bundle() === 'date' && $node->isNew();
+  if ($is_data_entity && \Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('event_id')) {
     $event_id = $request->get('event_id');
     if (empty($event_id)) {
       return;
@@ -205,7 +201,7 @@ function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $
     if ($event->bundle() !== 'event') {
       return;
     }
-    $date_entity->set('field_event_description', ['target_id' => $event->id()]);
+    $node->set('field_event_description', ['target_id' => $event->id()]);
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $source_data */
     $source_data = $event->get('field_people_reference');
     if ($source_data->isEmpty()) {
@@ -214,9 +210,28 @@ function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $
     foreach ($source_data as $index => $ref) {
       /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       $paragraph = clone $ref->entity;
-      $date_entity->get('field_people_reference')->set($index, $paragraph);
+      $node->get('field_people_reference')->set($index, $paragraph);
     }
   }
+  $is_event_entity = $node->bundle() === 'event' && $node->isNew();
+
+  if ($is_event_entity && \Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('member_id')) {
+    $member_id = $request->get('member_id');
+    if (empty($member_id)) {
+      return;
+    }
+    $profile = Node::load($member_id);
+    if (!$profile instanceof NodeInterface) {
+      return;
+    }
+    if ($profile->bundle() !== 'profile') {
+      return;
+    }
+    $p = \Drupal\paragraphs\Entity\Paragraph::create(['type' => 'member']);
+    $p->set('field_member', ['target_id' => $member_id]);
+    $node->set('field_people_reference', [$p]);
+  }
+
 }
 
 /**
