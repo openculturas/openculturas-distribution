@@ -675,7 +675,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "<br>\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }} // {{ title_1 }}, {{ field_address_data }} {{ 'or'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n\r\n\r\n"
+            text: "<div class=\"location\">\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }} // {{ title_1 }}, {{ field_address_data }} {{ 'or'|t }} online\r\n{% elseif field_attendance_mode == 'OfflineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ title_1 }}, {{ field_address_data }}\r\n{% elseif field_attendance_mode == 'OnlineEventAttendanceMode' and not arguments.field_location_target_id %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -724,7 +724,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div>{{ field_subtitle }}</div>\r\n<div>{{ nothing }}</div>"
+            text: "<h3 class=\"teaser\">\r\n  <div class=\"teaser--date\">{{ field_date }}</div>\r\n  <div class=\"teaser--title\">{{ view_node }}</div>\r\n</h3>\r\n<div class=\"subtitle\">{{ field_subtitle }}</div>\r\n{{ nothing }}"
             make_link: false
             path: ''
             absolute: false
@@ -2335,6 +2335,7 @@ display:
     display_plugin: block
     position: 5
     display_options:
+      title: 'As an organizer'
       arguments:
         field_organizer_target_id:
           id: field_organizer_target_id
@@ -2487,7 +2488,7 @@ display:
         groups:
           1: AND
       defaults:
-        title: true
+        title: false
         style: true
         row: true
         relationships: false
@@ -2495,6 +2496,7 @@ display:
         arguments: false
         filters: false
         filter_groups: false
+        header: false
       relationships:
         field_organizer:
           id: field_organizer
@@ -2524,6 +2526,18 @@ display:
           plugin_id: standard
           required: true
       display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: 'View display title'
+          plugin_id: text_custom
+          empty: false
+          content: '<h3>[view:title]</h3>'
+          tokenize: false
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
       display_extenders: {  }
       block_hide_empty: true
