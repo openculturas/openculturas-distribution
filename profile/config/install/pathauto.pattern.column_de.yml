@@ -4,29 +4,29 @@ dependencies:
   module:
     - language
     - taxonomy
-id: categories
-label: Categories
+id: column_de
+label: 'Column DE'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'categories/[term:parents:join-path]/[term:name]'
+pattern: 'magazin/rubriken/[term:parents:join-path]/[term:name]'
 selection_criteria:
-  95898230-b3f3-4a9b-b927-3e9d18345d50:
+  f8c2afe3-321d-4c7a-8467-7feb013c52b6:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 95898230-b3f3-4a9b-b927-3e9d18345d50
+    uuid: f8c2afe3-321d-4c7a-8467-7feb013c52b6
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
-      category: category
-  2b5a8242-f0a4-42ed-9ad0-4ea04ceebbfa:
+      column: column
+  b6ae3f3f-88d3-4a36-9828-f74ddd340db9:
     id: language
     negate: false
-    uuid: 2b5a8242-f0a4-42ed-9ad0-4ea04ceebbfa
+    uuid: b6ae3f3f-88d3-4a36-9828-f74ddd340db9
     context_mapping:
       language: 'taxonomy_term:langcode:language'
     langcodes:
-      en: en
+      de: de
 selection_logic: and
-weight: -10
+weight: -7
 relationships:
   'taxonomy_term:langcode:language':
     label: Language
