@@ -1,33 +1,33 @@
-uuid: 3b93e834-ec98-46aa-ae9c-ae976202280f
+uuid: 41b21ff4-ec14-45c2-8933-4d69576b094b
 langcode: en
 status: true
 dependencies:
   module:
     - language
     - node
-id: locations
-label: Locations
+id: dates_de
+label: 'Dates DE'
 type: 'canonical_entities:node'
-pattern: 'locations/[node:title]'
+pattern: 'kalender/[node:nid]-[node:field_event_description:entity:title]'
 selection_criteria:
-  808ae8b3-4e06-4cdb-826e-557d861f3d46:
+  1c2172a6-1a11-4e05-b8fb-8ca5ec0b2f92:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 808ae8b3-4e06-4cdb-826e-557d861f3d46
+    uuid: 1c2172a6-1a11-4e05-b8fb-8ca5ec0b2f92
     context_mapping:
       node: node
     bundles:
-      location: location
-  67692104-bc2b-448a-bc04-23e45a429919:
+      date: date
+  49007409-3db9-465d-b64b-81460eb9674d:
     id: language
     negate: false
-    uuid: 67692104-bc2b-448a-bc04-23e45a429919
+    uuid: 49007409-3db9-465d-b64b-81460eb9674d
     context_mapping:
       language: 'node:langcode:language'
     langcodes:
-      en: en
+      de: de
 selection_logic: and
-weight: -2
+weight: -5
 relationships:
   'node:langcode:language':
     label: Language

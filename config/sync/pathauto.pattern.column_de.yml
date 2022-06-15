@@ -1,33 +1,33 @@
-uuid: 41009d99-09a2-4f2a-baab-7556540fbdd8
+uuid: d2f60cf3-d88b-4952-8f90-d1557fb7466c
 langcode: en
 status: true
 dependencies:
   module:
     - language
     - taxonomy
-id: column
-label: Column
+id: column_de
+label: 'Column DE'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'magazine/columns/[term:parents:join-path]/[term:name]'
+pattern: 'magazin/rubriken/[term:parents:join-path]/[term:name]'
 selection_criteria:
-  786ceca6-d4ce-4c0d-a315-79f3bd42fbc0:
+  f8c2afe3-321d-4c7a-8467-7feb013c52b6:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 786ceca6-d4ce-4c0d-a315-79f3bd42fbc0
+    uuid: f8c2afe3-321d-4c7a-8467-7feb013c52b6
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
       column: column
-  bff1d042-da49-46f0-a536-11ce2a9bcb4f:
+  b6ae3f3f-88d3-4a36-9828-f74ddd340db9:
     id: language
     negate: false
-    uuid: bff1d042-da49-46f0-a536-11ce2a9bcb4f
+    uuid: b6ae3f3f-88d3-4a36-9828-f74ddd340db9
     context_mapping:
       language: 'taxonomy_term:langcode:language'
     langcodes:
-      en: en
+      de: de
 selection_logic: and
-weight: -8
+weight: -7
 relationships:
   'taxonomy_term:langcode:language':
     label: Language

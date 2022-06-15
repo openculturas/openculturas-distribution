@@ -1,33 +1,33 @@
-uuid: 3b93e834-ec98-46aa-ae9c-ae976202280f
+uuid: 3555305b-3b1c-4b07-ad58-f8dbb0a85127
 langcode: en
 status: true
 dependencies:
   module:
     - language
     - node
-id: locations
-label: Locations
+id: magazine_de
+label: 'Magazine DE'
 type: 'canonical_entities:node'
-pattern: 'locations/[node:title]'
+pattern: 'magazin/[node:title]'
 selection_criteria:
-  808ae8b3-4e06-4cdb-826e-557d861f3d46:
+  ba3569a5-49f5-4b42-a0e9-063be6656fc7:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 808ae8b3-4e06-4cdb-826e-557d861f3d46
+    uuid: ba3569a5-49f5-4b42-a0e9-063be6656fc7
     context_mapping:
       node: node
     bundles:
-      location: location
-  67692104-bc2b-448a-bc04-23e45a429919:
+      article: article
+  fde48d11-3e5e-4951-84af-b222e76f1b72:
     id: language
     negate: false
-    uuid: 67692104-bc2b-448a-bc04-23e45a429919
+    uuid: fde48d11-3e5e-4951-84af-b222e76f1b72
     context_mapping:
       language: 'node:langcode:language'
     langcodes:
-      en: en
+      de: de
 selection_logic: and
-weight: -2
+weight: 1
 relationships:
   'node:langcode:language':
     label: Language

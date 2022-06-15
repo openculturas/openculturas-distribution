@@ -1,33 +1,33 @@
-uuid: 3b93e834-ec98-46aa-ae9c-ae976202280f
+uuid: 5e7d1a83-404a-4819-812c-05aafa6fe408
 langcode: en
 status: true
 dependencies:
   module:
     - language
     - node
-id: locations
-label: Locations
+id: events_de
+label: 'Events DE'
 type: 'canonical_entities:node'
-pattern: 'locations/[node:title]'
+pattern: 'veranstaltungen/[node:title]'
 selection_criteria:
-  808ae8b3-4e06-4cdb-826e-557d861f3d46:
+  c6e65fbc-0330-4ce1-a317-95e56f3fa0ff:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 808ae8b3-4e06-4cdb-826e-557d861f3d46
+    uuid: c6e65fbc-0330-4ce1-a317-95e56f3fa0ff
     context_mapping:
       node: node
     bundles:
-      location: location
-  67692104-bc2b-448a-bc04-23e45a429919:
+      event: event
+  b989b7dc-0bd5-40c3-b25d-564b381c15cc:
     id: language
     negate: false
-    uuid: 67692104-bc2b-448a-bc04-23e45a429919
+    uuid: b989b7dc-0bd5-40c3-b25d-564b381c15cc
     context_mapping:
       language: 'node:langcode:language'
     langcodes:
-      en: en
+      de: de
 selection_logic: and
-weight: -2
+weight: -3
 relationships:
   'node:langcode:language':
     label: Language
