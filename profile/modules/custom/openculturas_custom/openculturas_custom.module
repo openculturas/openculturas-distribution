@@ -8,8 +8,10 @@ declare(strict_types=1);
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Implements hook_editor_js_settings_alter().
@@ -226,7 +228,7 @@ function openculturas_custom_node_prepare_form(NodeInterface $node, $operation, 
     if ($profile->bundle() !== 'profile') {
       return;
     }
-    $p = \Drupal\paragraphs\Entity\Paragraph::create(['type' => 'member']);
+    $p = Paragraph::create(['type' => 'member']);
     $p->set('field_member', ['target_id' => $member_id]);
     $node->set('field_people_reference', [$p]);
   }
@@ -259,4 +261,36 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\node\NodeForm $node_form */
+  $node_form = $form_state->getFormObject();
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $node_form->getEntity();
+  if ($node->bundle() === 'event') {
+    \Drupal::request()->query->remove('destination');
+    $form['#submit'][] = 'openculturas_custom_event_submit_handler';
+    $form['actions']['openculturas_custom_event_submit'] = $form['actions']['submit'];
+    $form['actions']['openculturas_custom_event_submit']['#value'] = t('Save and add date');
+    $form['actions']['openculturas_custom_event_submit']['#button_type'] = 'secondary';
+    $form['actions']['openculturas_custom_event_submit']['#submit'][] = 'openculturas_custom_event_submit_handler';
+  }
+}
+
+/**
+ * Submit handler to redirect the user to the date add form with the event id as parameter.
+ *
+ * @see openculturas_custom_form_node_form_alter
+ * @see openculturas_custom_node_prepare_form
+ */
+function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\node\NodeForm $node_form */
+  $node_form = $form_state->getFormObject();
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $node_form->getEntity();
+  $form_state->setRedirectUrl(Url::fromRoute('node.add', ['node_type' => 'date'], ['query' => ['event_id' => $node->id()]]));
 }
