@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.page.field_subtitle
     - node.type.page
   module:
+    - content_moderation
     - media_library
     - media_library_edit
     - paragraphs
@@ -28,6 +29,16 @@ content:
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
+  co_authors:
+    type: entity_reference_autocomplete_tags
+    weight: 17
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 8
@@ -45,7 +56,7 @@ content:
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
-      add_mode: modal
+      add_mode: button
       form_display_mode: default
       default_paragraph_type: _none
       features:
@@ -76,6 +87,12 @@ content:
     region: content
     settings:
       include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path

@@ -1,0 +1,33 @@
+uuid: d2f60cf3-d88b-4952-8f90-d1557fb7466c
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: column_de
+label: 'Column DE'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'magazin/rubriken/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  f8c2afe3-321d-4c7a-8467-7feb013c52b6:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: f8c2afe3-321d-4c7a-8467-7feb013c52b6
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      column: column
+  b6ae3f3f-88d3-4a36-9828-f74ddd340db9:
+    id: language
+    negate: false
+    uuid: b6ae3f3f-88d3-4a36-9828-f74ddd340db9
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -7
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Language

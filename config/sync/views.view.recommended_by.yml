@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.compact
     - flag.flag.recommendation_node
   module:
     - flag
     - node
     - user
+    - views_infinite_scroll
 id: recommended_by
 label: 'Recommended by'
 module: views
@@ -24,14 +26,15 @@ display:
     display_options:
       title: 'Recommended by'
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
+        rendered_entity:
+          id: rendered_entity
+          table: node
+          field: rendered_entity
           relationship: field_behalf
           group_type: group
           admin_label: ''
-          plugin_id: field
+          entity_type: node
+          plugin_id: rendered_entity
           label: ''
           exclude: false
           alter:
@@ -73,89 +76,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: field_behalf
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          view_mode: compact
       pager:
-        type: none
+        type: infinite_scroll
         options:
           offset: 0
+          items_per_page: 5
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Show More'
+            automatically_load_content: false
+            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
@@ -290,18 +233,11 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: html_list
+        type: default
         options:
-          grouping:
-            -
-              field: type
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
-          type: ul
-          wrapper_class: view--group
-          class: ''
       row:
         type: fields
         options:
@@ -339,19 +275,58 @@ display:
           admin_label: 'field_behalf: Content'
           plugin_id: standard
           required: false
-      css_class: 'recommendations grid-2-m grid-3-l grid-row-gap-2'
+      css_class: ''
       header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.node.article.compact'
+        - 'config:core.entity_view_display.node.article.default'
+        - 'config:core.entity_view_display.node.article.full'
+        - 'config:core.entity_view_display.node.article.search_index'
+        - 'config:core.entity_view_display.node.article.search_result'
+        - 'config:core.entity_view_display.node.article.teaser'
+        - 'config:core.entity_view_display.node.date.compact'
+        - 'config:core.entity_view_display.node.date.default'
+        - 'config:core.entity_view_display.node.date.full'
+        - 'config:core.entity_view_display.node.date.search_index'
+        - 'config:core.entity_view_display.node.date.search_result'
+        - 'config:core.entity_view_display.node.date.teaser'
+        - 'config:core.entity_view_display.node.event.compact'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.full'
+        - 'config:core.entity_view_display.node.event.search_index'
+        - 'config:core.entity_view_display.node.event.search_result'
+        - 'config:core.entity_view_display.node.event.teaser'
+        - 'config:core.entity_view_display.node.location.compact'
+        - 'config:core.entity_view_display.node.location.default'
+        - 'config:core.entity_view_display.node.location.full'
+        - 'config:core.entity_view_display.node.location.legal'
+        - 'config:core.entity_view_display.node.location.search_index'
+        - 'config:core.entity_view_display.node.location.search_result'
+        - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.full'
+        - 'config:core.entity_view_display.node.page.search_index'
+        - 'config:core.entity_view_display.node.page.search_result'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.profile.compact'
+        - 'config:core.entity_view_display.node.profile.contact'
+        - 'config:core.entity_view_display.node.profile.default'
+        - 'config:core.entity_view_display.node.profile.embedded_teaser'
+        - 'config:core.entity_view_display.node.profile.full'
+        - 'config:core.entity_view_display.node.profile.legal'
+        - 'config:core.entity_view_display.node.profile.search_index'
+        - 'config:core.entity_view_display.node.profile.search_result'
+        - 'config:core.entity_view_display.node.profile.teaser'
   recommended_by_block:
     id: recommended_by_block
     display_title: Block
@@ -362,9 +337,48 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.node.article.compact'
+        - 'config:core.entity_view_display.node.article.default'
+        - 'config:core.entity_view_display.node.article.full'
+        - 'config:core.entity_view_display.node.article.search_index'
+        - 'config:core.entity_view_display.node.article.search_result'
+        - 'config:core.entity_view_display.node.article.teaser'
+        - 'config:core.entity_view_display.node.date.compact'
+        - 'config:core.entity_view_display.node.date.default'
+        - 'config:core.entity_view_display.node.date.full'
+        - 'config:core.entity_view_display.node.date.search_index'
+        - 'config:core.entity_view_display.node.date.search_result'
+        - 'config:core.entity_view_display.node.date.teaser'
+        - 'config:core.entity_view_display.node.event.compact'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.full'
+        - 'config:core.entity_view_display.node.event.search_index'
+        - 'config:core.entity_view_display.node.event.search_result'
+        - 'config:core.entity_view_display.node.event.teaser'
+        - 'config:core.entity_view_display.node.location.compact'
+        - 'config:core.entity_view_display.node.location.default'
+        - 'config:core.entity_view_display.node.location.full'
+        - 'config:core.entity_view_display.node.location.legal'
+        - 'config:core.entity_view_display.node.location.search_index'
+        - 'config:core.entity_view_display.node.location.search_result'
+        - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.full'
+        - 'config:core.entity_view_display.node.page.search_index'
+        - 'config:core.entity_view_display.node.page.search_result'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.profile.compact'
+        - 'config:core.entity_view_display.node.profile.contact'
+        - 'config:core.entity_view_display.node.profile.default'
+        - 'config:core.entity_view_display.node.profile.embedded_teaser'
+        - 'config:core.entity_view_display.node.profile.full'
+        - 'config:core.entity_view_display.node.profile.legal'
+        - 'config:core.entity_view_display.node.profile.search_index'
+        - 'config:core.entity_view_display.node.profile.search_result'
+        - 'config:core.entity_view_display.node.profile.teaser'

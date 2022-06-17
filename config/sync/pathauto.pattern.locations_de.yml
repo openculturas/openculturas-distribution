@@ -1,0 +1,33 @@
+uuid: d90006b3-0d2a-4ec4-b8bb-ad5a0bc30886
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: locations_de
+label: 'Locations DE'
+type: 'canonical_entities:node'
+pattern: 'orte/[node:title]'
+selection_criteria:
+  49af7763-f2a1-4d0a-8e80-e223487f85fd:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 49af7763-f2a1-4d0a-8e80-e223487f85fd
+    context_mapping:
+      node: node
+    bundles:
+      location: location
+  b3ea489f-b57b-4456-a0bf-60a82ec3c3f0:
+    id: language
+    negate: false
+    uuid: b3ea489f-b57b-4456-a0bf-60a82ec3c3f0
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -1
+relationships:
+  'node:langcode:language':
+    label: Language

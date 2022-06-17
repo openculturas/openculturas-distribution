@@ -6,8 +6,8 @@ dependencies:
     - field.field.node.article.field_author
     - field.field.node.article.field_category
     - field.field.node.article.field_column
+    - field.field.node.article.field_content_paragraphs
     - field.field.node.article.field_date_published
-    - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
@@ -19,14 +19,21 @@ id: node.article.default
 targetEntityType: node
 bundle: article
 mode: default
-content: {  }
+content:
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   body: true
   field_author: true
   field_category: true
   field_column: true
+  field_content_paragraphs: true
   field_date_published: true
-  field_gallery: true
   field_mood_image: true
   field_recommended_by_view_ref: true
   field_references: true

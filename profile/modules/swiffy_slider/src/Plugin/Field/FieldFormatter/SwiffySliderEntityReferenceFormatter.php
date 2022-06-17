@@ -77,6 +77,9 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
    */
   public function view(FieldItemListInterface $items, $langcode = NULL) {
     $elements = parent::view($items, $langcode);
+    if ($items->isEmpty()) {
+      return $elements;
+    }
     $elements['#attached']['library'][] = 'swiffy_slider/swiffy_slider-lib';
     $attributes = new Attribute();
     if ($this->getSetting('swiffy_slider_permalink') !== '') {

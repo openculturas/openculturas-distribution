@@ -1,10 +1,10 @@
 // Move contextual links to right of element on large screens.
 .contextual {
-  width: 32px;
+  width: 2rem;
   top: 0;
 
   @include breakpoint(xl) {
-    right: -32px;
+    right: -2rem;
     border-radius: 0 1rem 1rem 0;
   }
 
@@ -25,6 +25,12 @@
       border-left: none;
       background-position: 2px center;
     }
+  }
+}
+
+.contextual-region .contextual .contextual-links li a {
+  &:hover {
+    background: $color-interaction !important;
   }
 }
 

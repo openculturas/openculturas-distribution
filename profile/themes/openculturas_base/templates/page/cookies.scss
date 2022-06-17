@@ -1,0 +1,186 @@
+#cookiesjsr {
+  --default-margin: #{$grid-gutter};
+  --layer-body-bg-color: #{ $color-bg-slight-contrast };
+
+  --layer-header-height: 3.5em;
+  --layer-header-bg-color: #{ $color-bg-slight-contrast };
+  --layer-header-font-color: #{ $color-text };
+
+  --layer-font-light: #{ $color-text };
+  --layer-font-dark:  #{ $color-text };
+  --layer-footer-bg-color: #{ $color-bg-slight-contrast };
+  --layer-footer-font-color:  #{ $color-text };
+  // --layer-footer-height: 4.5em;
+  // Unused. --layer-bg-dark:  #{ $color-bg-dark };
+
+  --layer-tab-active-bg-color: #{ $color-bg-light };
+  --layer-tab-active-font-color: #{ $color-text };
+
+  --layer-tab-font-color: #{ $color-text };
+  --layer-border-color: transparent;
+  --layer-tab-bg-color: #{ $color-bg-slight-contrast };
+
+  --btn-prime-inv-font-color: #{ $color-text-inverted };
+  --btn-prime-inv-bg-color: #{ $color-primary };
+  --btn-prime-inv-border-color: #{ $color-primary };
+
+  --btn-prime-font-color:  #{ $color-interaction };
+  --btn-prime-border-color: #{ $color-interaction };
+  --btn-prime-bg-color: #{ $color-text-inverted };
+
+  --btn-inv-border-color: #{ $color-interaction };
+  --btn-inv-font-color: #{ $color-interaction };
+  --btn-inv-bg-color: #{ $color-text-inverted };
+
+  --switch-border-color: #e4e5e6;
+  --switch-handle-color: #{ $color-text-inverted };
+  --switch-bg-off: #{ $color-bg-slight-contrast };
+  --switch-width: 2.82rem;
+  --switch-height: 1.25rem;
+  --switch-always-on-bg-color: #{ $color-text-inverted };
+
+  --link-list-font-color: #{ $color-text };
+  --link-list-separator-color: #{ $color-text-inverted };
+
+  // Banner
+  --banner-bg-color: #{ $color-bg-slight-contrast };
+  --banner-font-color: #{ $color-text };
+  //--banner-logo-offset: 100px; // max-height: calc(100vh - --banner-logo-offset);
+
+  --btn-font-color: #{ $color-text-inverted };
+  --btn-bg-color: #{ $color-primary };
+  --btn-border-color: #{ $color-primary };
+
+  --switch-always-on-font-color: #{ $color-success };
+  --switch-bg-on: #{ $color-success };
+}
+
+// Links under Text.
+.cookiesjsr-links.links--row li a {
+  text-decoration: underline;
+
+  &:focus,
+  &:hover {
+    color: $color-text-inverted;
+  }
+
+  &:active {
+    color: $color-interaction;
+  }
+}
+
+// Settings overlay.
+.cookiesjsr-layer {
+
+  .cookiesjsr-layer--close {
+    @include icon(xmark);
+    background: none;
+    color: $color-text;
+    height: 2rem;
+    margin: 0;
+    text-indent: 0;
+    width: 2rem;
+
+    &:before {
+      font-size: $font-size-icon;
+      line-height: 2rem;
+    }
+  }
+
+  .cookiesjsr-service-group--tab {
+    // Override Button default.
+    border-radius: 0;
+
+    &:active {
+      border: 1px dashed #{ $color-text-inverted };
+      outline: none;
+    }
+
+    // Add chevrons ▼ in mobile and add spacing.
+    @include icon(chevron-down);
+    &:before,
+    &[aria-selected="true"]:before{
+      display: none;
+    }
+    // Pixel defined: @see libraries/cookiesjsr/styles/_vars.scss
+    @media screen and (max-width: 767px ) {
+      line-height: 1.6;
+      background: $color-bg-light;
+
+      &:before {
+        display: block;
+        float: right;
+        font-size: $font-size-icon;
+        transition: transform 300ms ease;
+      }
+    }
+  }
+
+  // Add a little space in mobile.
+  .cookiesjsr-service-group {
+    // Pixel defined: @see libraries/cookiesjsr/styles/_vars.scss
+    @media screen and (max-width: 767px ) {
+      margin: 0 1.25rem 1.25rem;
+    }
+  }
+
+  // "Primarry-button"
+  .cookiesjsr-btn.important.invert {
+    &focus,
+    &:hover {
+      background: $color-interaction;
+      color: $color-text-inverted;
+      border-color: $color-interaction
+    }
+    &:active {
+      color: $color-text-inverted;
+      background: $color-interaction;
+    }
+  }
+}
+
+// Banner.
+.cookiesjsr-banner {
+
+  &.active {
+    padding: $grid-gutter;
+  }
+
+  .cookiesjsr-banner--info {
+    padding-top: $grid-gutter;
+  }
+
+  .links--row {
+    padding-bottom: .25rem; // Keep some space for active-outline.
+  }
+}
+
+// In Video-placeholder,when cookies off.
+.cookies-fallback {
+  border-color: $color-divider-light;
+
+  .cookies-fallback--btn {
+    background: $color-primary;
+
+    &:active {
+      background: transparent;
+      color: $color-interaction;
+    }
+  }
+  .cookies-fallback--link {
+    color: $color-primary;
+    &:focus,
+    &:hover {
+      color: $color-text-inverted;
+      background: $color-interaction;
+      text-decoration: none;
+    }
+
+    &:active {
+      color: $color-interaction;
+      background: transparent;
+      text-decoration: none;
+    }
+  }
+}
+

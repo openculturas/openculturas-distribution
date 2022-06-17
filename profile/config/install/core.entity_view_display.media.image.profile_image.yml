@@ -1,20 +1,16 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.media.profile_image
+    - field.field.media.image.field_caption
     - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
     - image.style.profile
     - media.type.image
   module:
     - field_formatter_class
-    - layout_builder
     - svg_image
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: media.image.profile_image
 targetEntityType: media
 bundle: image
@@ -30,6 +26,8 @@ content:
         width: null
         height: null
       svg_render_as_image: true
+      image_loading:
+        attribute: lazy
     third_party_settings:
       field_formatter_class:
         class: ''
@@ -37,6 +35,7 @@ content:
     region: content
 hidden:
   created: true
+  field_caption: true
   field_licenses: true
   langcode: true
   name: true

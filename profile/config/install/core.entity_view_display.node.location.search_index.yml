@@ -25,13 +25,8 @@ dependencies:
     - node.type.location
   module:
     - entity_reference_revisions
-    - layout_builder
     - text
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.location.search_index
 targetEntityType: node
 bundle: location
@@ -39,6 +34,13 @@ mode: search_index
 content:
   body:
     type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  co_authors:
+    type: author
     label: hidden
     settings: {  }
     third_party_settings: {  }

@@ -34,9 +34,9 @@
  *   - node--type-[type]: The current node type. For example, if the node is an
  *     "Article" it would result in "node--type-article". Note that the machine
  *     name will often be in a short form of the human readable label.
- *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
- *     teaser would result in: "node--view-mode-teaser", and
- *     full: "node--view-mode-full".
+ *   - view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "view-mode-teaser", and
+ *     full: "view-mode-full".
  *   The following are controlled through the node publishing options.
  *   - node--promoted: Appears on nodes promoted to the front page.
  *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
@@ -75,26 +75,28 @@
   node.isSticky() ? 'node--sticky',
   not node.isPublished() ? 'node--unpublished',
   view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  view_mode ? 'view-mode-' ~ view_mode|clean_class,
   'profile-teaser'
 ]
 %}
+{% set wrapper_tag = 'article' %}
 {{ attach_library('classy/node') }}
-<article{{ attributes.addClass(classes) }}>
-
-  <div class="profile--picture">
-    {{ content.field_portrait }}
-  </div>
-  <div class="profile--content">
-    {{ title_prefix }}
-    {% if label %}
-      <h3{{ title_attributes.addClass('teaser') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h3>
-    {% endif %}
-    {{ title_suffix }}
-    <div{{ content_attributes.addClass('node__content') }}>
-      {{ content | without('field_portrait') }}
+ {% block content_wrapper %}
+  <{{ wrapper_tag }}{{ attributes.addClass(classes)|without('role') }}>
+    <div class="profile--picture">
+      {{ content.field_portrait }}
     </div>
-  </div>
-
-</article>
+    <div class="profile--content">
+      {{ title_prefix }}
+      {% if label %}
+        <h3{{ title_attributes.addClass('teaser') }}>
+          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+        </h3>
+      {% endif %}
+      {{ title_suffix }}
+      <div{{ content_attributes.addClass('node__content') }}>
+        {{ content | without('field_portrait') }}
+      </div>
+    </div>
+  </{{ wrapper_tag }}>
+{% endblock %}

@@ -1,0 +1,39 @@
+.view-related-date {
+
+  .views-row {
+    margin-bottom: (2 * $grid-gutter);
+
+    .field--name-field-media-image {
+      margin-top: 0;
+    }
+
+    @include breakpoint(s) {
+      display: flex;
+      flex-direction: row-reverse;
+
+      .col--image {
+        align-self: center;
+        justify-self: flex-start;
+        margin-left: (2 * $grid-gutter);
+        max-width: 10rem;
+
+      }
+
+      .col--content {
+        flex-grow: 1;
+      }
+    }
+
+    @include breakpoint(m) {
+      .col--image {
+        max-width: 12rem;
+      }
+    }
+
+    @include breakpoint(l) {
+      .col--image {
+        max-width: 14rem;
+      }
+    }
+  }
+}

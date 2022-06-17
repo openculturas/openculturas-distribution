@@ -10,13 +10,8 @@ dependencies:
     - node.type.page
   module:
     - entity_reference_revisions
-    - layout_builder
     - text
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.page.search_index
 targetEntityType: node
 bundle: page
@@ -28,6 +23,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_content_paragraphs:
     type: entity_reference_revisions_entity_view

@@ -1,36 +1,36 @@
-.content .block-openculturas-custom-page-title {
+.block-openculturas-custom-page-title {
 
-  h1 {
-    margin-bottom: 0.5rem;
+  .page-title {
+    margin-bottom: .5rem;
   }
 
-  h2 {
-    @include typo(h6);
-    font-size: 1.5rem;
+  .page-subtitle {
+    font-family: $font-base;
+    font-size: $font-size-l;
     margin-top: 0;
   }
 
   .field {
     margin: 0;
   }
+}
 
-  .custom-page-title--with-image {
-    margin-bottom: 0.5rem;
+.custom-page-title--with-image {
+  @include grid(auto 1fr, 'image text' 'image text2');
+  margin-bottom: .5rem;
 
-    @include grid(auto 1fr, "image text" "image text2");
-    .field--name-field-portrait {
-      grid-area: image;
-      max-width: 8rem;
-      margin: $grid-gutter 0 0 0;
-      @include profile_circle;
-    }
+  .field--name-field-portrait {
+    @include profile_circle;
+    grid-area: image;
+    margin: $grid-gutter 0 0;
+    max-width: 8rem;
+  }
 
-    h1 {
-      grid-area: text;
-    }
+  .page-title {
+    grid-area: text;
+  }
 
-    h2 {
-      grid-area: text2;
-    }
+  .page-subtitle {
+    grid-area: text2;
   }
 }

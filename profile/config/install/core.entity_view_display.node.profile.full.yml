@@ -22,21 +22,18 @@ dependencies:
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
+    - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
     - datetime
     - entity_reference_revisions
     - field_formatter_class
     - field_group
-    - layout_builder
     - swiffy_slider
     - text
     - user
     - viewfield
 third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
   field_group:
     group_focus:
       children:
@@ -76,7 +73,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 8
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -119,7 +116,7 @@ third_party_settings:
       label: 'Additional information'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -133,7 +130,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 12
+      weight: 14
       format_type: details
       format_settings:
         classes: ''
@@ -148,7 +145,7 @@ third_party_settings:
       label: Recommendations
       parent_name: ''
       region: content
-      weight: 10
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -163,7 +160,7 @@ third_party_settings:
       label: 'Regular locations'
       parent_name: ''
       region: content
-      weight: 7
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -177,7 +174,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 13
+      weight: 15
       format_type: details
       format_settings:
         classes: ''
@@ -192,7 +189,22 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 11
+      weight: 13
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_upcoming_dates:
+      children:
+        - field_upcoming_dates_by_profile
+      label: 'Upcoming dates'
+      parent_name: ''
+      region: content
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -346,6 +358,16 @@ content:
         class: ''
     weight: 16
     region: content
+  field_upcoming_dates_by_profile:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 8
+    region: content
   flag_bookmark_node:
     settings: {  }
     third_party_settings: {  }
@@ -357,6 +379,7 @@ content:
     weight: 0
     region: content
 hidden:
+  co_authors: true
   field_mood_image: true
   field_portrait: true
   field_profile_role: true

@@ -4,29 +4,33 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.gallery
+    - field.field.media.image.field_caption
     - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
     - image.style.gallery
     - media.type.image
   module:
     - attribution
-    - layout_builder
     - svg_image
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
+    - text
 id: media.image.gallery
 targetEntityType: media
 bundle: image
 mode: gallery
 content:
+  field_caption:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_licenses:
     type: attribution_creative_commons_refined
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_media_image:
     type: image
@@ -38,6 +42,8 @@ content:
         width: null
         height: null
       svg_render_as_image: true
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content

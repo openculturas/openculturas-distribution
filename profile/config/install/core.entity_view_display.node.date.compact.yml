@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.date.field_attendance_mode
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
-    - field.field.node.date.field_door_time
+    - field.field.node.date.field_door_time_relative
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
     - field.field.node.date.field_event_status
@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.date.field_organizer
     - field.field.node.date.field_parent_date
     - field.field.node.date.field_people_reference
+    - field.field.node.date.field_premiere
     - field.field.node.date.field_pricing
     - field.field.node.date.field_related_date_view_ref
     - field.field.node.date.field_safety_info
@@ -26,22 +27,24 @@ dependencies:
     - node.type.date
   module:
     - field_formatter_class
-    - layout_builder
     - smart_date_recur
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.date.compact
 targetEntityType: node
 bundle: date
 mode: compact
 content:
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
   extra_field_event_subtitle:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
   field_date:
     type: smartdate_recurring
@@ -49,9 +52,9 @@ content:
     settings:
       timezone_override: ''
       format_type: medium
-      format: site_default_date
+      format: site_default_date_and_time
       force_chronological: true
-      add_classes: false
+      add_classes: true
       time_wrapper: true
       past_display: 0
       upcoming_display: 1
@@ -59,16 +62,18 @@ content:
       current_upcoming: '1'
     third_party_settings:
       field_formatter_class:
-        class: ''
-    weight: 0
+        class: 'date date--compact'
+    weight: 1
     region: content
   field_event_description:
     type: entity_reference_label
     label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
     region: content
 hidden:
   extra_field_event_body: true
@@ -79,7 +84,7 @@ hidden:
   field_accessibility: true
   field_attendance_mode: true
   field_body_addon: true
-  field_door_time: true
+  field_door_time_relative: true
   field_event_series: true
   field_event_status: true
   field_forfree: true
@@ -89,6 +94,7 @@ hidden:
   field_organizer: true
   field_parent_date: true
   field_people_reference: true
+  field_premiere: true
   field_pricing: true
   field_related_date_view_ref: true
   field_safety_info: true

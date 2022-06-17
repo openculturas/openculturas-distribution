@@ -10,25 +10,25 @@
     img {
       width: 100%;
     }
+  }
 
-    .field--type-attribution {
+  .field--type-attribution {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    transform: rotate(-90deg);
+    transform-origin: bottom right;
+    max-width: 50%;
+    text-align: right;
+    @extend %small;
+
+    @include breakpoint(m) {
+      display: block;
+    }
+
+    .field__label {
       display: none;
-      position: absolute;
-      right: 1rem;
-      top: 0rem;
-      transform: rotate(-90deg);
-      transform-origin: bottom right;
-      max-width: 50%;
-      text-align: right;
-      @include typo(small);
-
-      @include breakpoint(m) {
-        display: block;
-      }
-
-      .field__label {
-        display: none;
-      }
     }
   }
 }

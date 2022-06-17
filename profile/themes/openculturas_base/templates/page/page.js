@@ -7,7 +7,7 @@
    */
   Drupal.behaviors.pageHeaderOffcanvasMenu = {
     attach: function (context, settings) {
-      $('.header__burger--link', context).once('init-offcanvas').click(this.toggleOffcanvasMenu);
+      $('.header__burger--buttons', context).once('init-offcanvas').click(this.toggleOffcanvasMenu);
     },
     toggleOffcanvasMenu: function(e= null) {
       let $body = $('body');

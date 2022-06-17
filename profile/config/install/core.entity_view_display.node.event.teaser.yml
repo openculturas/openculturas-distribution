@@ -5,10 +5,12 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.body
     - field.field.node.event.field_accessibility
+    - field.field.node.event.field_bookable_info
     - field.field.node.event.field_category
     - field.field.node.event.field_duration
     - field.field.node.event.field_gallery
     - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_is_bookable
     - field.field.node.event.field_mention_by_art_view_ref
     - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
@@ -21,6 +23,8 @@ dependencies:
     - field.field.node.event.field_url
     - node.type.event
   module:
+    - field_formatter_class
+    - smart_trim
     - text
     - user
 id: node.event.teaser
@@ -29,12 +33,32 @@ bundle: event
 mode: teaser
 content:
   body:
-    type: text_summary_or_trimmed
+    type: smart_trim
     label: hidden
     settings:
-      trim_length: 180
-    third_party_settings: {  }
+      trim_length: 300
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more_link: false
+      more_class: more-link
+      more_text: More
+      summary_handler: trim
+      trim_options:
+        text: true
+        trim_zero: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 2
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_mood_image:
     type: entity_reference_entity_view
@@ -54,10 +78,12 @@ content:
     region: content
 hidden:
   field_accessibility: true
+  field_bookable_info: true
   field_category: true
   field_duration: true
   field_gallery: true
   field_inlanguage: true
+  field_is_bookable: true
   field_mention_by_art_view_ref: true
   field_min_age: true
   field_people_reference: true

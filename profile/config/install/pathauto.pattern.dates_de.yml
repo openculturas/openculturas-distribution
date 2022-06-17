@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: dates_de
+label: 'Dates DE'
+type: 'canonical_entities:node'
+pattern: 'kalender/[node:nid]-[node:field_event_description:entity:title]'
+selection_criteria:
+  1c2172a6-1a11-4e05-b8fb-8ca5ec0b2f92:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 1c2172a6-1a11-4e05-b8fb-8ca5ec0b2f92
+    context_mapping:
+      node: node
+    bundles:
+      date: date
+  49007409-3db9-465d-b64b-81460eb9674d:
+    id: language
+    negate: false
+    uuid: 49007409-3db9-465d-b64b-81460eb9674d
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -5
+relationships:
+  'node:langcode:language':
+    label: Language

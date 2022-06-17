@@ -23,20 +23,23 @@ dependencies:
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
+    - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
     - entity_reference_revisions
-    - layout_builder
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.profile.contact
 targetEntityType: node
 bundle: profile
 mode: contact
 content:
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_contact_data:
     type: entity_reference_revisions_entity_view
     label: hidden
@@ -73,6 +76,7 @@ hidden:
   field_reference_title: true
   field_started: true
   field_subtitle: true
+  field_upcoming_dates_by_profile: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true

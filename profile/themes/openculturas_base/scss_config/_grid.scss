@@ -1,0 +1,136 @@
+//
+// Utlity Class system.
+//
+// This utility class system is specially made for drupal sitebuilders, so they can add classes to multivalue fields
+// or views for setting layouts. So the utility classes respect the drupal views/field rendering and only work with them,
+// because when setting classes in the drupal backend they will most of the time be set on the container, not the values.
+//
+
+//
+// Grids
+//
+// The key of the map defines the selector and the value how many columns the grid should have.
+//
+// If you want to override this value, please do so in your _variables.scss file in the subtheme.
+//
+$utility_grids: (
+  'grid-1': 1,
+  'grid-2': 2,
+  'grid-3': 3,
+  'grid-4': 4
+)!default;
+
+//
+// Selectors for setting the grid on sub-elements.
+//
+// BEWARE: Unlike other systems like bootstrap f.e.
+// the grid will not be defined on the element containing the class directly.
+// Instead it will be set on the following selectors beneath the set class element.
+// You can add more selectors this setting if you need the grid to work on more elements.
+//
+// If you want to override this value, please do so in your _variables.scss file in the subtheme.
+//
+$utility_grids_container_selectors: '> .view-content, > .field__items, > .details-wrapper'!default;
+
+// Print grid utility classes without breakpoint limitations (f.e. 'grid-2').
+@each $utility_name, $count in $utility_grids {
+  .#{$utility_name} {
+    #{$utility_grids_container_selectors} {
+      @include grid(repeat($count, 1fr), $row-gap: $grid-gutter);
+    }
+  }
+}
+
+// Print grid utility classes for gaps without breakpoint limitations (f.e. 'grid-gap-2').
+@for $i from 0 through 3 {
+  .grid-gap-#{$i} {
+    #{$utility_grids_container_selectors} {
+      grid-gap: $grid_gutter * $i;
+    }
+  }
+  .grid-row-gap-#{$i} {
+    #{$utility_grids_container_selectors} {
+      grid-row-gap: $grid_gutter * $i;
+    }
+  }
+  .grid-column-gap-#{$i} {
+    #{$utility_grids_container_selectors} {
+      grid-column-gap: $grid_gutter * $i;
+    }
+  }
+}
+
+// Print grid utility classes with breakpoint limitations (f.e. 'grid-2-m').
+@each $bp_name, $query in $breakpoints {
+  @each $utility_name, $count in $utility_grids {
+    @include breakpoint($bp_name) {
+      .#{$utility_name}-#{$bp_name} {
+        #{$utility_grids_container_selectors} {
+          @include grid(repeat($count, 1fr), $row-gap: $grid-gutter);
+        }
+      }
+    }
+  }
+  // Print grid utility classes for gaps with breakpoint limitations (f.e. 'grid-gap-2-m').
+  @include breakpoint($bp_name) {
+    @for $i from 0 through 3 {
+      .grid-gap-#{$i}-#{$bp_name} {
+        #{$utility_grids_container_selectors} {
+          grid-gap: $grid_gutter * $i;
+        }
+      }
+      .grid-row-gap-#{$i}-#{$bp_name} {
+        #{$utility_grids_container_selectors} {
+          grid-row-gap: $grid_gutter * $i;
+        }
+      }
+      .grid-column-gap-#{$i}-#{$bp_name} {
+        #{$utility_grids_container_selectors} {
+          grid-column-gap: $grid_gutter * $i;
+        }
+      }
+    }
+  }
+}
+
+//
+// Fullwidth child class.
+//
+// If you want a certain grid-CHILD to ignore the grid layout and take the full width anyway,
+// you can add this class to the child. It will always take the full width of the parent grid.
+//
+.grid-child-fullwidth {
+  grid-column: 1 / -1;
+
+  @include breakpoint(m) {
+    grid-column: 1 / -1;
+  }
+}
+
+//
+// Inline-block layout class.
+//
+// If you do not need a "real" grid and are fine with placing the childs of a field or view as inline-blocks so they
+// behave like inline elements but with the ability to style their layouts, you can use this utility class instead of
+// the above. Useful f.e. for a list of buttons where their size should be determined by their text content.
+//
+.grid-inline-block {
+  #{$utility_grids_container_selectors} {
+    > * {
+      display: inline-block;
+    }
+  }
+}
+
+//
+// Flexbox layout class.
+//
+// If you do not need a "real" grid and are fine with placing the childs of a field or view inside if a flex container,
+// you can use this class instead of the above. Usually without any other styling this will lead to a forced
+// side-by-side view of the children all in one line.
+//
+.grid-flex {
+  #{$utility_grids_container_selectors} {
+    display: flex;
+  }
+}

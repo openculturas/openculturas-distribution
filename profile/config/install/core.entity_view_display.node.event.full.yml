@@ -5,10 +5,12 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.event.body
     - field.field.node.event.field_accessibility
+    - field.field.node.event.field_bookable_info
     - field.field.node.event.field_category
     - field.field.node.event.field_duration
     - field.field.node.event.field_gallery
     - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_is_bookable
     - field.field.node.event.field_mention_by_art_view_ref
     - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
@@ -27,7 +29,6 @@ dependencies:
     - field_formatter_class
     - field_group
     - languagefield
-    - layout_builder
     - link
     - options
     - swiffy_slider
@@ -35,9 +36,6 @@ dependencies:
     - user
     - viewfield
 third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
   field_group:
     group_tagging:
       children:
@@ -91,7 +89,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 10
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -106,7 +104,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 11
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -150,7 +148,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 13
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -165,13 +163,28 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
         open: true
+        description: ''
+        required_fields: false
+    group_book_this_event:
+      children:
+        - field_bookable_info
+      label: 'Book this event'
+      parent_name: ''
+      region: content
+      weight: 13
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
         description: ''
         required_fields: false
 id: node.event.full
@@ -194,6 +207,15 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 9
+    region: content
+  field_bookable_info:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 16
     region: content
   field_category:
     type: entity_reference_label
@@ -282,7 +304,7 @@ content:
     label: hidden
     settings:
       view_title: hidden
-      always_build_output: false
+      always_build_output: true
       empty_view_title: hidden
     third_party_settings:
       field_formatter_class:
@@ -328,6 +350,8 @@ content:
     weight: 0
     region: content
 hidden:
+  co_authors: true
+  field_is_bookable: true
   field_mood_image: true
   field_subtitle: true
   langcode: true

@@ -42,7 +42,12 @@ function main() {
       $fileNameWithExtension = $file->getRelativePathname();
       if (is_file('config/sync/' . $fileNameWithExtension)) {
         $source_data = \Drupal\Core\Serialization\Yaml::decode($file->getContents());
-        unset($source_data['uuid'], $source_data['_core']);
+        // Keep uuid to allows default values for viewfields.
+        // Example config/sync/field.field.node.profile.field_performer_at_view_ref.yml -> default_value[0].target_uuid.
+        if (strpos($file->getFilename(), 'views.view.') === FALSE) {
+          unset($source_data['uuid']);
+        }
+        unset($source_data['_core']);
         $target_file_contents = \Drupal\Core\Serialization\Yaml::encode($source_data);
 
         echo 'config/sync/' . $fileNameWithExtension;

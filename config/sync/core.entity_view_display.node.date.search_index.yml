@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.date.field_attendance_mode
     - field.field.node.date.field_body_addon
     - field.field.node.date.field_date
-    - field.field.node.date.field_door_time
+    - field.field.node.date.field_door_time_relative
     - field.field.node.date.field_event_description
     - field.field.node.date.field_event_series
     - field.field.node.date.field_event_status
@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.date.field_organizer
     - field.field.node.date.field_parent_date
     - field.field.node.date.field_people_reference
+    - field.field.node.date.field_premiere
     - field.field.node.date.field_pricing
     - field.field.node.date.field_related_date_view_ref
     - field.field.node.date.field_safety_info
@@ -26,17 +27,19 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
-    - layout_builder
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.date.search_index
 targetEntityType: node
 bundle: date
 mode: search_index
-content: {  }
+content:
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   extra_field_event_body: true
   extra_field_event_category: true
@@ -47,7 +50,7 @@ hidden:
   field_attendance_mode: true
   field_body_addon: true
   field_date: true
-  field_door_time: true
+  field_door_time_relative: true
   field_event_description: true
   field_event_series: true
   field_event_status: true
@@ -58,6 +61,7 @@ hidden:
   field_organizer: true
   field_parent_date: true
   field_people_reference: true
+  field_premiere: true
   field_pricing: true
   field_related_date_view_ref: true
   field_safety_info: true

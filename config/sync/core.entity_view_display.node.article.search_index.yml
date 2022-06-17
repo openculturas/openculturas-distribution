@@ -8,21 +8,16 @@ dependencies:
     - field.field.node.article.field_author
     - field.field.node.article.field_category
     - field.field.node.article.field_column
+    - field.field.node.article.field_content_paragraphs
     - field.field.node.article.field_date_published
-    - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
   module:
-    - layout_builder
     - text
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.article.search_index
 targetEntityType: node
 bundle: article
@@ -34,6 +29,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_subtitle:
     type: text_default
@@ -51,8 +53,8 @@ hidden:
   field_author: true
   field_category: true
   field_column: true
+  field_content_paragraphs: true
   field_date_published: true
-  field_gallery: true
   field_mood_image: true
   field_recommended_by_view_ref: true
   field_references: true

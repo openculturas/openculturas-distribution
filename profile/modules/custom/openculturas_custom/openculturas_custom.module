@@ -7,10 +7,11 @@ declare(strict_types=1);
  * Primary module hooks for OpenCulturas Base module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Implements hook_editor_js_settings_alter().
@@ -47,7 +48,7 @@ function openculturas_custom_theme() {
  * Implements hook_preprocess_HOOK() for leaflet-map.html.twig.
  */
 function openculturas_custom_preprocess_leaflet_map(&$variables) {
-  $variables['#attached']['library'][] =  'openculturas_custom/leaflet_extra';
+  $variables['#attached']['library'][] = 'openculturas_custom/leaflet_extra';
 }
 
 /**
@@ -184,16 +185,12 @@ function openculturas_custom_flagging_update(\Drupal\flag\FlaggingInterface $ent
 }
 
 /**
- * Implements hook_entity_prepare_form().
+ * Implements hook_ENTITY_TYPE_prepare_form().
  */
-function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $operation, FormStateInterface $form_state) {
-  if (!$date_entity instanceof NodeInterface) {
-    return;
-  }
-  if ($date_entity->bundle() !== 'date' || !$date_entity->isNew()) {
-    return;
-  }
-  if (\Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('event_id')) {
+function openculturas_custom_node_prepare_form(NodeInterface $node, $operation, FormStateInterface $form_state) {
+
+  $is_data_entity = $node->bundle() === 'date' && $node->isNew();
+  if ($is_data_entity && \Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('event_id')) {
     $event_id = $request->get('event_id');
     if (empty($event_id)) {
       return;
@@ -205,7 +202,7 @@ function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $
     if ($event->bundle() !== 'event') {
       return;
     }
-    $date_entity->set('field_event_description', ['target_id' => $event->id()]);
+    $node->set('field_event_description', ['target_id' => $event->id()]);
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $source_data */
     $source_data = $event->get('field_people_reference');
     if ($source_data->isEmpty()) {
@@ -214,7 +211,86 @@ function openculturas_custom_entity_prepare_form(EntityInterface $date_entity, $
     foreach ($source_data as $index => $ref) {
       /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       $paragraph = clone $ref->entity;
-      $date_entity->get('field_people_reference')->set($index, $paragraph);
+      $node->get('field_people_reference')->set($index, $paragraph);
     }
   }
+  $is_event_entity = $node->bundle() === 'event' && $node->isNew();
+
+  if ($is_event_entity && \Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('member_id')) {
+    $member_id = $request->get('member_id');
+    if (empty($member_id)) {
+      return;
+    }
+    $profile = Node::load($member_id);
+    if (!$profile instanceof NodeInterface) {
+      return;
+    }
+    if ($profile->bundle() !== 'profile') {
+      return;
+    }
+    $p = Paragraph::create(['type' => 'member']);
+    $p->set('field_member', ['target_id' => $member_id]);
+    $node->set('field_people_reference', [$p]);
+  }
+
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function openculturas_custom_local_tasks_alter(&$local_tasks) {
+  if (isset($local_tasks['entity.user.canonical'])) {
+    $local_tasks['entity.user.canonical']['title'] = t('My Content');
+    $local_tasks['entity.user.canonical']['weight'] = -3;
+  }
+  if (isset($local_tasks['entity.user.edit_form'])) {
+    $local_tasks['entity.user.edit_form']['title'] = t('Account settings');
+    $local_tasks['entity.user.edit_form']['weight'] = -2;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function openculturas_custom_node_view_alter(array &$build, NodeInterface $entity) {
+  if ($build['#view_mode'] === 'full' && isset($build['field_forfree'])) {
+    // Not for free then there should be a price and hide this field output.
+    $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
+  }
+  if ($entity->bundle() === 'date' && $build['#view_mode'] === 'full') {
+    $build['field_location']['#title'] = t("Visit the location's profile");
+    $build['field_event_description']['#title'] = t('See all about');
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\node\NodeForm $node_form */
+  $node_form = $form_state->getFormObject();
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $node_form->getEntity();
+  if ($node->bundle() === 'event') {
+    \Drupal::request()->query->remove('destination');
+    $form['#submit'][] = 'openculturas_custom_event_submit_handler';
+    $form['actions']['openculturas_custom_event_submit'] = $form['actions']['submit'];
+    $form['actions']['openculturas_custom_event_submit']['#value'] = t('Save and add date');
+    $form['actions']['openculturas_custom_event_submit']['#button_type'] = 'secondary';
+    $form['actions']['openculturas_custom_event_submit']['#submit'][] = 'openculturas_custom_event_submit_handler';
+  }
+}
+
+/**
+ * Submit handler to redirect the user to the date add form with the event id as parameter.
+ *
+ * @see openculturas_custom_form_node_form_alter
+ * @see openculturas_custom_node_prepare_form
+ */
+function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\node\NodeForm $node_form */
+  $node_form = $form_state->getFormObject();
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $node_form->getEntity();
+  $form_state->setRedirectUrl(Url::fromRoute('node.add', ['node_type' => 'date'], ['query' => ['event_id' => $node->id()]]));
 }

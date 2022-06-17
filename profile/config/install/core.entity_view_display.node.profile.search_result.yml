@@ -22,18 +22,14 @@ dependencies:
     - field.field.node.profile.field_reference_title
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
+    - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
     - datetime
     - entity_reference_revisions
-    - layout_builder
     - options
     - text
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.profile.search_result
 targetEntityType: node
 bundle: profile
@@ -45,6 +41,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_address_data:
     type: entity_reference_revisions_entity_view
@@ -158,5 +161,6 @@ hidden:
   field_performer_event_view_ref: true
   field_recommendations: true
   field_recommended_by_view_ref: true
+  field_upcoming_dates_by_profile: true
   langcode: true
   search_api_excerpt: true

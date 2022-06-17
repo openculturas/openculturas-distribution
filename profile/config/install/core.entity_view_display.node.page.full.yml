@@ -11,13 +11,8 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_formatter_class
-    - layout_builder
     - text
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: node.page.full
 targetEntityType: node
 bundle: page
@@ -29,6 +24,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_content_paragraphs:
     type: entity_reference_revisions_entity_view

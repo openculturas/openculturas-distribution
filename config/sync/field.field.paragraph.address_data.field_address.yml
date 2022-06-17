@@ -17,7 +17,7 @@ required: false
 translatable: false
 default_value:
   -
-    langcode: ''
+    langcode: en
     country_code: DE
     administrative_area: null
     locality: ''
@@ -27,9 +27,9 @@ default_value:
     address_line1: ''
     address_line2: ''
     organization: ''
-    given_name: ''
+    given_name: null
     additional_name: null
-    family_name: ''
+    family_name: null
 default_value_callback: ''
 settings:
   available_countries: {  }
@@ -37,7 +37,25 @@ settings:
   field_overrides:
     givenName:
       override: hidden
+    additionalName:
+      override: hidden
     familyName:
       override: hidden
+    organization:
+      override: optional
+    addressLine1:
+      override: optional
+    addressLine2:
+      override: optional
+    postalCode:
+      override: optional
+    sortingCode:
+      override: optional
+    dependentLocality:
+      override: optional
+    locality:
+      override: required
+    administrativeArea:
+      override: optional
   fields: {  }
 field_type: address

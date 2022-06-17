@@ -6,21 +6,23 @@ dependencies:
     - field.field.node.article.field_author
     - field.field.node.article.field_category
     - field.field.node.article.field_column
+    - field.field.node.article.field_content_paragraphs
     - field.field.node.article.field_date_published
-    - field.field.node.article.field_gallery
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
+    - workflows.workflow.magazine_article
   module:
+    - content_moderation
     - datetime
     - field_group
     - media_library
     - media_library_edit
+    - paragraphs
     - path
     - text
-    - viewfield
 third_party_settings:
   field_group:
     group_administrative:
@@ -29,10 +31,12 @@ third_party_settings:
         - created
         - promote
         - sticky
+        - url_redirects
+        - path
       label: Administrative
       region: content
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -42,21 +46,6 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
-    group_gallery:
-      children:
-        - field_gallery
-      label: Gallery
-      region: content
-      parent_name: ''
-      weight: 6
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
     group_meta_information:
       children:
         - field_date_published
@@ -88,6 +77,16 @@ content:
       summary_rows: 3
       placeholder: ''
       show_summary: false
+    third_party_settings: {  }
+  co_authors:
+    type: entity_reference_autocomplete_tags
+    weight: 17
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -121,23 +120,31 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_content_paragraphs:
+    type: paragraphs
+    weight: 6
+    region: content
+    settings:
+      title: 'Content element'
+      title_plural: 'Content elements'
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_date_published:
     type: datetime_default
     weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_gallery:
-    type: media_library_widget
-    weight: 7
-    region: content
-    settings:
-      media_types:
-        - image
-        - remote_video
-    third_party_settings:
-      media_library_edit:
-        show_edit: '1'
   field_mood_image:
     type: media_library_widget
     weight: 4
@@ -147,12 +154,6 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
-  field_recommended_by_view_ref:
-    type: viewfield_select
-    weight: 51
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_references:
     type: entity_reference_autocomplete
     weight: 7
@@ -178,9 +179,15 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -193,7 +200,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 10
     region: content
     settings:
       display_label: true
@@ -224,8 +231,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_recommended_by_view_ref: true
