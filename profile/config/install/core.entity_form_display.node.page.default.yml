@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.page.field_subtitle
     - node.type.page
   module:
+    - allowed_formats
     - content_moderation
     - media_library
     - media_library_edit
@@ -24,11 +25,14 @@ content:
     weight: 4
     region: content
     settings:
-      rows: 9
+      rows: 5
       summary_rows: 3
       placeholder: ''
-      show_summary: false
-    third_party_settings: {  }
+      show_summary: true
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
   co_authors:
     type: entity_reference_autocomplete_tags
     weight: 17
@@ -106,6 +110,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox

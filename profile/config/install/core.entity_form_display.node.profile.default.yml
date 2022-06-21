@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
+    - allowed_formats
     - conditional_fields
     - content_moderation
     - datetime_extras
@@ -116,11 +117,14 @@ content:
     weight: 16
     region: content
     settings:
-      rows: 9
+      rows: 5
       summary_rows: 3
       placeholder: ''
       show_summary: false
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
   co_authors:
     type: entity_reference_autocomplete
     weight: 17
@@ -303,7 +307,10 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
   langcode:
     type: language_select
     weight: 0
@@ -329,6 +336,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox

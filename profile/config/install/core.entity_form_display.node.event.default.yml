@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.event.field_url
     - node.type.event
   module:
+    - allowed_formats
     - conditional_fields
     - content_moderation
     - datetime
@@ -133,11 +134,14 @@ content:
     weight: 3
     region: content
     settings:
-      rows: 9
+      rows: 5
       summary_rows: 3
       placeholder: ''
       show_summary: false
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
   co_authors:
     type: entity_reference_autocomplete_tags
     weight: 14
@@ -325,6 +329,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
