@@ -3,17 +3,26 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.body
     - field.storage.node.field_address_data
+    - field.storage.node.field_attendance_mode
     - field.storage.node.field_date
+    - field.storage.node.field_location_virtual
     - field.storage.node.field_mood_image
+    - field.storage.node.field_organizer
     - field.storage.node.field_people_reference
+    - field.storage.node.field_pricing
     - field.storage.node.field_subtitle
+    - field.storage.node.field_ticketing
+    - image.style.teaser
     - node.type.date
   module:
     - csv_serialization
     - entity_reference_revisions
+    - link
     - media
     - node
+    - options
     - rest
     - serialization
     - smart_date
@@ -216,8 +225,10 @@ display:
           click_sort_column: target_id
           type: media_thumbnail
           settings:
-            image_link: ''
-            image_style: ''
+            image_link: media
+            image_style: teaser
+            image_loading:
+              attribute: lazy
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -281,7 +292,7 @@ display:
           type: smartdate_default
           settings:
             timezone_override: ''
-            format: site_default_date
+            format: site_default_date_and_time
             force_chronological: true
             add_classes: true
             time_wrapper: true
@@ -293,6 +304,68 @@ display:
           delta_reversed: false
           delta_first_last: false
           multi_type: ul
+          separator: ', '
+          field_api_classes: false
+        field_attendance_mode:
+          id: field_attendance_mode
+          table: node__field_attendance_mode
+          field: field_attendance_mode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Art des Orts'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
           separator: ', '
           field_api_classes: false
         title_1:
@@ -360,6 +433,73 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_location_virtual:
+          id: field_location_virtual
+          table: node__field_location_virtual
+          field: field_location_virtual
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'URL des virtuellen Veranstaltungsorts'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: uri
+          type: link_separate
+          settings:
+            trim_length: 80
+            url_only: false
+            url_plain: false
+            rel: '0'
+            target: '0'
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_address_data:
           id: field_address_data
           table: node__field_address_data
@@ -412,8 +552,70 @@ display:
           click_sort_column: target_id
           type: entity_reference_revisions_entity_view
           settings:
-            view_mode: default
+            view_mode: address_block
           group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        body:
+          id: body
+          table: node__body
+          field: body
+          relationship: field_event_description
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Veranstaltungsbeschreibung
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -458,7 +660,7 @@ display:
             more_link_path: ''
             strip_tags: true
             trim: false
-            preserve_tags: ''
+            preserve_tags: '<br><br />'
             html: false
           element_type: ''
           element_class: ''
@@ -475,8 +677,201 @@ display:
           click_sort_column: target_id
           type: entity_reference_revisions_entity_view
           settings:
-            view_mode: default
+            view_mode: address_line
           group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_pricing:
+          id: field_pricing
+          table: node__field_pricing
+          field: field_pricing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Eintrittspreise
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_ticketing:
+          id: field_ticketing
+          table: node__field_ticketing
+          field: field_ticketing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Ticket-/Reservierungslink
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: uri
+          type: link
+          settings:
+            trim_length: 80
+            url_only: false
+            url_plain: false
+            rel: '0'
+            target: '0'
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_organizer:
+          id: field_organizer
+          table: node__field_organizer
+          field: field_organizer
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Veranstaltet von'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -819,11 +1214,17 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_ticketing'
   data_export_1:
     id: data_export_1
     display_title: 'Data export CSV'
@@ -866,11 +1267,17 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_ticketing'
   data_export_2:
     id: data_export_2
     display_title: 'Data export JSON'
@@ -913,11 +1320,17 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_ticketing'
   data_export_3:
     id: data_export_3
     display_title: 'Data export XML'
@@ -960,11 +1373,17 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_ticketing'
   page_1:
     id: page_1
     display_title: Export
@@ -993,8 +1412,14 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
+        - 'config:field.storage.node.field_attendance_mode'
         - 'config:field.storage.node.field_date'
+        - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_mood_image'
+        - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
+        - 'config:field.storage.node.field_ticketing'
