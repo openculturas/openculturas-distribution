@@ -12,6 +12,7 @@ use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_editor_js_settings_alter().
@@ -293,4 +294,26 @@ function openculturas_custom_event_submit_handler(array &$form, FormStateInterfa
   /** @var \Drupal\node\NodeInterface $node */
   $node = $node_form->getEntity();
   $form_state->setRedirectUrl(Url::fromRoute('node.add', ['node_type' => 'date'], ['query' => ['event_id' => $node->id()]]));
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function openculturas_custom_views_pre_render(ViewExecutable $view) {
+  // Only doing this for media library widget view.
+  // Background: https://www.drupal.org/project/drupal/issues/3283692#comment-14544647
+  if ($view->id() === 'media_library') {
+    $current_user = \Drupal::currentUser();
+    $result = [];
+
+    // Display only media authored by the current user or can edit.
+    foreach ($view->result as $key => $row) {
+      /** @var \Drupal\media\MediaInterface $entity */
+      $entity = $row->_entity;
+      if ($entity->getOwnerId() == $current_user->id() || $entity->access('edit')) {
+        $result[$key] = $row;
+      }
+    }
+    $view->result = $result;
+  }
 }
