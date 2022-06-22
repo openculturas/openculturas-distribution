@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
+    - a11y_autocomplete_element
     - allowed_formats
     - content_moderation
     - field_group
@@ -222,14 +223,10 @@ content:
       default_paragraph_type: address_data
     third_party_settings: {  }
   field_category:
-    type: entity_reference_autocomplete_tags
+    type: a11y_autocomplete
     weight: 16
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: 'Use the comma to seperate the multiple categories. Category (ID), Category (ID), ..'
+    settings: {  }
     third_party_settings: {  }
   field_contact_data:
     type: entity_reference_paragraphs
