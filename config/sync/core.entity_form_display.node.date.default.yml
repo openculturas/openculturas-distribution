@@ -26,7 +26,9 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
+    - a11y_autocomplete_element
     - allowed_formats
+    - conditional_fields
     - content_moderation
     - field_group
     - link
@@ -192,7 +194,7 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
   field_attendance_mode:
-    type: options_buttons
+    type: a11y_autocomplete
     weight: 5
     region: content
     settings: {  }
@@ -202,7 +204,7 @@ content:
     weight: 3
     region: content
     settings:
-      rows: 4
+      rows: 5
       placeholder: ''
     third_party_settings:
       allowed_formats:
@@ -240,14 +242,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_event_description:
-    type: entity_reference_autocomplete
+    type: a11y_autocomplete
     weight: 2
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_event_series:
     type: options_select
@@ -323,24 +321,16 @@ content:
             effect_options: {  }
             selector: ''
   field_organizer:
-    type: entity_reference_autocomplete
+    type: a11y_autocomplete
     weight: 10
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_parent_date:
-    type: entity_reference_autocomplete
+    type: a11y_autocomplete
     weight: 16
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings:
       conditional_fields:
         6411c823-b7a1-4590-a7d3-f0685efd64b5:
@@ -391,7 +381,7 @@ content:
     weight: 13
     region: content
     settings:
-      rows: 4
+      rows: 5
       placeholder: ''
     third_party_settings:
       allowed_formats:

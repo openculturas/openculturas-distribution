@@ -8,6 +8,7 @@ dependencies:
     - field.field.paragraph.bookable_event.field_media_multiple
     - paragraphs.paragraphs_type.bookable_event
   module:
+    - a11y_autocomplete_element
     - allowed_formats
     - media_library
     - text
@@ -21,21 +22,17 @@ content:
     weight: 3
     region: content
     settings:
-      rows: 4
+      rows: 5
       placeholder: ''
     third_party_settings:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
   field_contact_person:
-    type: entity_reference_autocomplete
+    type: a11y_autocomplete
     weight: 0
     region: content
-    settings:
-      match_operator: STARTS_WITH
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_media_multiple:
     type: media_library_widget
