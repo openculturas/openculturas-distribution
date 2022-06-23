@@ -28,7 +28,6 @@ dependencies:
   module:
     - a11y_autocomplete_element
     - allowed_formats
-    - conditional_fields
     - content_moderation
     - field_group
     - link
@@ -331,10 +330,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_parent_date:
-    type: a11y_autocomplete
+    type: entity_reference_autocomplete
     weight: 16
     region: content
-    settings: {  }
+    settings:
+      match_operator: STARTS_WITH
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings:
       conditional_fields:
         6411c823-b7a1-4590-a7d3-f0685efd64b5:
