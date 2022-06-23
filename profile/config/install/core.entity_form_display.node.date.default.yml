@@ -193,7 +193,7 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
   field_attendance_mode:
-    type: a11y_autocomplete
+    type: options_select
     weight: 5
     region: content
     settings: {  }
@@ -320,10 +320,14 @@ content:
             effect_options: {  }
             selector: ''
   field_organizer:
-    type: a11y_autocomplete
+    type: entity_reference_autocomplete
     weight: 10
     region: content
-    settings: {  }
+    settings:
+      match_operator: STARTS_WITH
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_parent_date:
     type: a11y_autocomplete
