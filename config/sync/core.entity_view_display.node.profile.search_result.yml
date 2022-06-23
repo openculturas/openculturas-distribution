@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.search_result
     - field.field.node.profile.body
     - field.field.node.profile.field_address_data
+    - field.field.node.profile.field_allow_claiming
     - field.field.node.profile.field_category
     - field.field.node.profile.field_contact_data
     - field.field.node.profile.field_gallery
@@ -57,7 +58,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 16
+    weight: 14
     region: content
   field_category:
     type: entity_reference_label
@@ -155,6 +156,7 @@ content:
     weight: 2
     region: content
 hidden:
+  field_allow_claiming: true
   field_member_of_view_ref: true
   field_mention_by_art_view_ref: true
   field_mood_image: true
@@ -163,5 +165,6 @@ hidden:
   field_recommendations: true
   field_recommended_by_view_ref: true
   field_upcoming_dates_by_profile: true
+  flag_claim_ownership: true
   langcode: true
   search_api_excerpt: true

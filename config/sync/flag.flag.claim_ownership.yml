@@ -1,0 +1,39 @@
+uuid: b0adf189-558e-44a2-94a4-5d8cf96f5a37
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: claim_ownership
+label: 'Claim ownership'
+bundles:
+  - event
+  - location
+  - profile
+entity_type: node
+global: true
+flag_short: 'Claim ownership'
+flag_long: ''
+flag_message: 'Ownership request was send'
+unflag_short: 'Claim ownership withdraw'
+unflag_long: ''
+unflag_message: 'Ownership request was withdrawn'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: field_entry
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig:
+  flag_confirmation: 'Claim ownership details'
+  edit_flagging: 'Edit claim ownership details'
+  unflag_confirmation: 'Claim ownership withdraw?'
+  flag_create_button: 'Claim ownership'
+  flag_delete_button: Withdraw
+  flag_update_button: 'Update ownership request'
+  form_behavior: modal
