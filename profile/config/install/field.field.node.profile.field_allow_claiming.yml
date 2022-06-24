@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_allow_claiming
+    - node.type.profile
+id: node.profile.field_allow_claiming
+field_name: field_allow_claiming
+entity_type: node
+bundle: profile
+label: 'Allow claiming'
+description: 'Someone else should be responsible for this content, I do not claim it'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

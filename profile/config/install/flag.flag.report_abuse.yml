@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: report_abuse
+label: 'Report abuse'
+bundles:
+  - profile
+entity_type: node
+global: true
+flag_short: 'Report abuse'
+flag_long: ''
+flag_message: 'Report abuse was send'
+unflag_short: 'Report abuse withdraw'
+unflag_long: ''
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: field_entry
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig:
+  flag_confirmation: 'Report content'
+  edit_flagging: 'Edit report details'
+  unflag_confirmation: 'Remove abuse report?'
+  flag_create_button: 'Report abuse'
+  flag_delete_button: Withdraw
+  flag_update_button: 'Update report'
+  form_behavior: modal
