@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
     - field.field.node.location.field_address_data
+    - field.field.node.location.field_allow_claiming
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -61,7 +62,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -79,7 +80,7 @@ third_party_settings:
       label: 'Address and contact'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -91,6 +92,7 @@ third_party_settings:
     group_about:
       children:
         - field_subtitle
+        - field_allow_claiming
         - field_mood_image
         - field_logo
         - body
@@ -114,7 +116,7 @@ third_party_settings:
       label: 'Additional information'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -130,7 +132,7 @@ third_party_settings:
       label: Featuring
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -145,7 +147,7 @@ third_party_settings:
       label: Gallery
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -161,7 +163,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 8
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -223,6 +225,13 @@ content:
       form_display_mode: default
       default_paragraph_type: address_data
     third_party_settings: {  }
+  field_allow_claiming:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_category:
     type: a11y_autocomplete
     weight: 16
@@ -231,7 +240,7 @@ content:
     third_party_settings: {  }
   field_contact_data:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 13
     region: content
     settings:
       title: 'Contact information'
@@ -254,7 +263,7 @@ content:
         show_edit: '1'
   field_logo:
     type: media_library_widget
-    weight: 7
+    weight: 8
     region: content
     settings:
       media_types: {  }
@@ -263,7 +272,7 @@ content:
         show_edit: '1'
   field_mood_image:
     type: media_library_widget
-    weight: 6
+    weight: 7
     region: content
     settings:
       media_types: {  }
@@ -272,7 +281,7 @@ content:
         show_edit: '1'
   field_opening_hours:
     type: text_textarea
-    weight: 14
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -345,13 +354,13 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 11
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -363,20 +372,20 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true

@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_additional_information
     - field.field.node.location.field_address_data
+    - field.field.node.location.field_allow_claiming
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -25,7 +26,6 @@ dependencies:
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
-    - entity_reference_revisions
     - text
     - user
 id: node.location.search_result
@@ -40,48 +40,20 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_address_data:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: address_line
-      link: ''
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_category:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_portrait:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: profile_image
-      link: false
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
-    region: content
-  search_api_excerpt:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
+    weight: 0
     region: content
 hidden:
   body: true
   field_accessibility: true
   field_additional_information: true
+  field_address_data: true
+  field_allow_claiming: true
+  field_category: true
   field_contact_data: true
   field_gallery: true
   field_logo: true
@@ -89,6 +61,7 @@ hidden:
   field_mood_image: true
   field_opening_hours: true
   field_people_reference: true
+  field_portrait: true
   field_recommendations: true
   field_recommended_by_view_ref: true
   field_reference_title: true
@@ -97,5 +70,7 @@ hidden:
   flag_bookmark_node: true
   flag_claim_ownership: true
   flag_recommendation_node: true
+  flag_report_abuse: true
   langcode: true
   links: true
+  search_api_excerpt: true

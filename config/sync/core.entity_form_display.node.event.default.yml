@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_accessibility
+    - field.field.node.event.field_allow_claiming
     - field.field.node.event.field_bookable_info
     - field.field.node.event.field_category
     - field.field.node.event.field_duration
@@ -45,7 +46,7 @@ third_party_settings:
       label: Focus
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -65,7 +66,7 @@ third_party_settings:
       label: Details
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -85,7 +86,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 11
+      weight: 13
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -101,7 +102,7 @@ third_party_settings:
       label: Gallery
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -117,7 +118,7 @@ third_party_settings:
       label: Bookings
       region: content
       parent_name: ''
-      weight: 10
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -133,7 +134,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 3
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -162,7 +163,7 @@ content:
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 11
+    weight: 16
     region: content
     settings:
       title: 'Accessibility information'
@@ -171,6 +172,13 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: _none
+    third_party_settings: {  }
+  field_allow_claiming:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_bookable_info:
     type: paragraphs
@@ -216,7 +224,7 @@ content:
     third_party_settings: {  }
   field_duration:
     type: duration_widget
-    weight: 9
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -233,7 +241,7 @@ content:
         show_edit: '1'
   field_inlanguage:
     type: languagefield_select
-    weight: 8
+    weight: 13
     region: content
     settings:
       format:
@@ -248,14 +256,14 @@ content:
     third_party_settings: {  }
   field_min_age:
     type: number
-    weight: 7
+    weight: 12
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 5
+    weight: 6
     region: content
     settings:
       media_types: {  }
@@ -264,7 +272,7 @@ content:
         show_edit: '1'
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 9
+    weight: 10
     region: content
     settings:
       title: Member
@@ -276,13 +284,13 @@ content:
     third_party_settings: {  }
   field_started:
     type: datetime_default
-    weight: 6
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   field_status:
     type: options_buttons
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -296,7 +304,7 @@ content:
     third_party_settings: {  }
   field_url:
     type: link_default
-    weight: 10
+    weight: 15
     region: content
     settings:
       placeholder_url: ''
@@ -311,7 +319,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 13
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -329,13 +337,13 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 12
+    weight: 14
     region: content
     settings:
       display_label: true

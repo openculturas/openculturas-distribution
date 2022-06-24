@@ -6,13 +6,15 @@ dependencies:
 id: report_abuse
 label: 'Report abuse'
 bundles:
+  - event
+  - location
   - profile
 entity_type: node
 global: true
 flag_short: 'Report abuse'
 flag_long: ''
-flag_message: 'Report abuse was send'
-unflag_short: 'Report abuse withdraw'
+flag_message: ''
+unflag_short: 'Edit abuse report'
 unflag_long: ''
 unflag_message: ''
 unflag_denied_text: ''
@@ -29,8 +31,8 @@ flagTypeConfig:
 linkTypeConfig:
   flag_confirmation: 'Report content'
   edit_flagging: 'Edit report details'
-  unflag_confirmation: 'Remove abuse report?'
-  flag_create_button: 'Report abuse'
-  flag_delete_button: Withdraw
-  flag_update_button: 'Update report'
+  unflag_confirmation: 'Delete abuse report?'
+  flag_create_button: Submit
+  flag_delete_button: Delete
+  flag_update_button: Update
   form_behavior: modal
