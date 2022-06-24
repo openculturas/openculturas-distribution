@@ -1,6 +1,6 @@
 uuid: b9e542d1-a280-4920-b580-62eda9f72688
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.storage.flagging.field_comment
@@ -1068,11 +1068,11 @@ display:
         - 'config:field.storage.flagging.field_resolved'
   abuse_report:
     id: abuse_report
-    display_title: 'Abuse report'
+    display_title: 'Abuse reports'
     display_plugin: page
     position: 2
     display_options:
-      title: 'Abuse report'
+      title: 'Abuse reports'
       defaults:
         title: false
         relationships: false
@@ -1106,12 +1106,12 @@ display:
       path: admin/content/abuse-reports
       menu:
         type: tab
-        title: 'Abuse report'
+        title: 'Abuse reports'
         description: ''
-        weight: 0
+        weight: -8
         expanded: false
         menu_name: admin
-        parent: ''
+        parent: system.admin_content
         context: '0'
       tab_options:
         type: none
@@ -1146,10 +1146,10 @@ display:
         weight: -9
         expanded: false
         menu_name: admin
-        parent: ''
+        parent: system.admin_content
         context: '0'
       tab_options:
-        type: tab
+        type: none
         title: 'Flagged content'
         description: ''
         weight: 0
