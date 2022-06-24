@@ -27,8 +27,9 @@ function openculturas_base_preprocess_html(&$variables) {
  */
 function _openculturas_base_remove_flag(&$variables) {
   if (isset($variables["view_mode"]) && $variables["view_mode"] === 'full') {
+    $flag_to_remove = ['flag_bookmark_node', 'flag_bookmark_term', 'flag_recommendation_node'];
     foreach ($variables["content"] as $name => $render_array) {
-      if (strpos($name, 'flag_') === 0 && $name !== 'flag_claim_ownership') {
+      if (in_array($name, $flag_to_remove, true)) {
         $variables["content"][$name]['#access'] = FALSE;
       }
     }

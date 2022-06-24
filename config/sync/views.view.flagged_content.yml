@@ -1,18 +1,17 @@
 uuid: b9e542d1-a280-4920-b580-62eda9f72688
 langcode: en
-status: true
+status: false
 dependencies:
   config:
-    - field.storage.flagging.field_claim_ownership_comment
-    - field.storage.flagging.field_claim_ownership_resolved
-    - field.storage.node.field_profile_type
+    - field.storage.flagging.field_comment
+    - field.storage.flagging.field_resolved
     - flag.flag.claim_ownership
+    - flag.flag.report_abuse
     - user.role.administrator
     - user.role.oc_admin
   module:
     - flag
     - node
-    - options
     - user
     - views_autocomplete_filters
 id: flagged_content
@@ -143,19 +142,21 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_profile_type:
-          id: field_profile_type
-          table: node__field_profile_type
-          field: field_profile_type
+        type:
+          id: type
+          table: node_field_data
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
           plugin_id: field
-          label: Type
+          label: ''
           exclude: false
           alter:
             alter_text: true
-            text: '({{ field_profile_type }})'
+            text: '({{ type }})'
             make_link: false
             path: ''
             absolute: false
@@ -184,7 +185,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -192,72 +193,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_claim_ownership_comment:
-          id: field_claim_ownership_comment
-          table: flagging__field_claim_ownership_comment
-          field: field_claim_ownership_comment
-          relationship: flag_relationship
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Comment
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: basic_string
-          settings: {  }
-          group_column: value
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -334,10 +274,72 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_claim_ownership_resolved:
-          id: field_claim_ownership_resolved
-          table: flagging__field_claim_ownership_resolved
-          field: field_claim_ownership_resolved
+        field_comment:
+          id: field_comment
+          table: flagging__field_comment
+          field: field_comment
+          relationship: flag_relationship
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Comment
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_resolved:
+          id: field_resolved
+          table: flagging__field_resolved
+          field: field_resolved
           relationship: flag_relationship
           group_type: group
           admin_label: ''
@@ -386,7 +388,7 @@ display:
           click_sort_column: value
           type: boolean
           settings:
-            format: yes-no
+            format: default
             format_custom_false: ''
             format_custom_true: ''
           group_column: value
@@ -678,7 +680,7 @@ display:
           entity_type: flagging
           entity_field: created
           plugin_id: date
-          order: DESC
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
@@ -807,52 +809,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_claim_ownership_resolved_value:
-          id: field_claim_ownership_resolved_value
-          table: flagging__field_claim_ownership_resolved
-          field: field_claim_ownership_resolved_value
-          relationship: flag_relationship
-          group_type: group
-          admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Resolved (field_claim_ownership_resolved)'
-            description: null
-            use_operator: false
-            operator: field_claim_ownership_resolved_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_claim_ownership_resolved_value
-            required: true
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: true
-          group_info:
-            label: Resolved
-            description: ''
-            identifier: resolved
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: 'Yes'
-                operator: '='
-                value: '1'
-              2:
-                title: 'No'
-                operator: '='
-                value: '0'
         default_langcode:
           id: default_langcode
           table: node_field_data
@@ -893,6 +849,52 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_resolved_value:
+          id: field_resolved_value
+          table: flagging__field_resolved
+          field: field_resolved_value
+          relationship: flag_relationship
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Resolved (field_resolved)'
+            description: null
+            use_operator: false
+            operator: field_resolved_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_resolved_value
+            required: true
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: true
+          group_info:
+            label: Resolved
+            description: ''
+            identifier: resolved
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes'
+                operator: '='
+                value: '1'
+              2:
+                title: 'No'
+                operator: '='
+                value: '0'
       style:
         type: table
         options:
@@ -902,10 +904,14 @@ display:
           columns:
             uid: uid
             title: title
-            field_profile_type: title
+            type: title
             field_claim_ownership_comment: field_claim_ownership_comment
             created: created
             field_claim_ownership_resolved: field_claim_ownership_resolved
+            edit_node: edit_node
+            link_flag: link_flag
+            edit_user: edit_user
+            dropbutton: dropbutton
           default: '-1'
           info:
             uid:
@@ -922,7 +928,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_profile_type:
+            type:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -945,6 +951,34 @@ display:
               responsive: ''
             field_claim_ownership_resolved:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            link_flag:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_user:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            dropbutton:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1003,28 +1037,60 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.flagging.field_claim_ownership_comment'
-        - 'config:field.storage.flagging.field_claim_ownership_resolved'
-        - 'config:field.storage.node.field_profile_type'
-  claiming_ownership:
-    id: claiming_ownership
-    display_title: Ownership
+        - 'config:field.storage.flagging.field_comment'
+        - 'config:field.storage.flagging.field_resolved'
+  abuse_report:
+    id: abuse_report
+    display_title: 'Abuse report'
     display_plugin: page
-    position: 1
+    position: 2
     display_options:
+      title: 'Abuse reports'
+      defaults:
+        title: false
+        relationships: false
+      relationships:
+        flag_relationship:
+          id: flag_relationship
+          table: node_field_data
+          field: flag_relationship
+          relationship: none
+          group_type: group
+          admin_label: Flags
+          entity_type: node
+          plugin_id: flag_relationship
+          required: true
+          flag: report_abuse
+          user_scope: any
+        uid:
+          id: uid
+          table: flagging
+          field: uid
+          relationship: flag_relationship
+          group_type: group
+          admin_label: User
+          entity_type: flagging
+          entity_field: uid
+          plugin_id: standard
+          required: true
       display_description: ''
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
-      path: admin/content/flagged
+      path: admin/content/abuse-reports
       menu:
         type: tab
-        title: 'Flagged content'
+        title: 'Abuse reports'
         description: ''
-        weight: 0
+        weight: -8
         expanded: false
         menu_name: admin
-        parent: system.admin_content
+        parent: ''
         context: '0'
+      tab_options:
+        type: none
+        title: ''
+        description: ''
+        weight: 0
     cache_metadata:
       max-age: -1
       contexts:
@@ -1034,6 +1100,40 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.flagging.field_claim_ownership_comment'
-        - 'config:field.storage.flagging.field_claim_ownership_resolved'
-        - 'config:field.storage.node.field_profile_type'
+        - 'config:field.storage.flagging.field_comment'
+        - 'config:field.storage.flagging.field_resolved'
+  claiming_ownership:
+    id: claiming_ownership
+    display_title: Ownership
+    display_plugin: page
+    position: 1
+    display_options:
+      display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
+      path: admin/content/claimed-ownership
+      menu:
+        type: tab
+        title: Ownership
+        description: ''
+        weight: 0
+        expanded: false
+        menu_name: admin
+        parent: ''
+        context: '0'
+      tab_options:
+        type: tab
+        title: 'Flagged content'
+        description: ''
+        weight: 0
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.flagging.field_comment'
+        - 'config:field.storage.flagging.field_resolved'

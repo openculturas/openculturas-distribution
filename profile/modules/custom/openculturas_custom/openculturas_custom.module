@@ -322,16 +322,17 @@ function openculturas_custom_views_pre_render(ViewExecutable $view) {
  * Implements hook_flag_action_access().
  */
 function openculturas_custom_flag_action_access(string $action, \Drupal\flag\FlagInterface $flag, \Drupal\Core\Session\AccountInterface $account, \Drupal\Core\Entity\EntityInterface $flaggable = NULL) {
-  if ($flag->id() !== 'claim_ownership' || $account->isAnonymous()) {
+  if ($account->isAnonymous()) {
     return \Drupal\Core\Access\AccessResult::neutral();
   }
   /** @var NodeInterface $entity */
   $entity = $flaggable;
-  if ($entity->hasField('field_allow_claiming')) {
+  if ($flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming')) {
     $allowed = (bool) $entity->get('field_allow_claiming')->value;
     if (!$allowed) {
       return \Drupal\Core\Access\AccessResult::forbidden();
     }
   }
+
   return \Drupal\Core\Access\AccessResult::neutral();
 }
