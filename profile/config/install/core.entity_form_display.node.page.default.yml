@@ -10,11 +10,38 @@ dependencies:
   module:
     - allowed_formats
     - content_moderation
+    - field_group
     - media_library
     - media_library_edit
     - paragraphs
     - path
     - text
+third_party_settings:
+  field_group:
+    group_administrative:
+      children:
+        - langcode
+        - translation
+        - uid
+        - created
+        - promote
+        - sticky
+        - path
+        - url_redirects
+        - simple_sitemap
+      label: Administrative
+      region: content
+      parent_name: ''
+      weight: 12
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -22,7 +49,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 4
+    weight: 3
     region: content
     settings:
       rows: 6
@@ -45,13 +72,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   field_content_paragraphs:
     type: paragraphs
-    weight: 5
+    weight: 4
     region: content
     settings:
       title: 'Content element'
@@ -70,7 +97,7 @@ content:
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 3
+    weight: 2
     region: content
     settings:
       media_types: {  }
@@ -79,7 +106,7 @@ content:
         show_edit: '1'
   field_subtitle:
     type: text_textfield
-    weight: 2
+    weight: 1
     region: content
     settings:
       size: 60
@@ -87,60 +114,65 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 0
+    weight: 6
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
     type: boolean_checkbox
     weight: 9
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
-  simple_sitemap:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 12
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 10
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  translation:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS

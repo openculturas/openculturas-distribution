@@ -29,16 +29,18 @@ third_party_settings:
   field_group:
     group_administrative:
       children:
+        - langcode
         - uid
         - created
         - promote
         - sticky
         - url_redirects
         - path
+        - simple_sitemap
       label: Administrative
       region: content
       parent_name: ''
-      weight: 9
+      weight: 2
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -50,19 +52,70 @@ third_party_settings:
         weight: 0
     group_meta_information:
       children:
+        - field_column
+        - field_category
         - field_date_published
         - field_author
-        - field_category
       label: 'Meta information'
       region: content
-      parent_name: ''
-      weight: 8
-      format_type: details
+      parent_name: group_magazine_tabs_container
+      weight: 21
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: true
+        id: group-meta
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_magazine_tabs_container:
+      children:
+        - group_magazine_tab_basics
+        - group_meta_information
+        - group_magazine_tab_mentioned
+      label: Tabs
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: groups-container
+        direction: horizontal
+        width_breakpoint: 640
+    group_magazine_tab_basics:
+      children:
+        - title
+        - field_subtitle
+        - field_mood_image
+        - body
+        - field_content_paragraphs
+      label: Basics
+      region: content
+      parent_name: group_magazine_tabs_container
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-basics
+        formatter: open
+        description: ''
+        required_fields: true
+    group_magazine_tab_mentioned:
+      children:
+        - field_references
+      label: Mentions
+      region: content
+      parent_name: group_magazine_tabs_container
+      weight: 22
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-mentions
+        formatter: closed
         description: ''
         required_fields: true
 id: node.article.default
@@ -95,13 +148,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_author:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -111,7 +164,7 @@ content:
     third_party_settings: {  }
   field_category:
     type: a11y_autocomplete
-    weight: 11
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -142,7 +195,7 @@ content:
     third_party_settings: {  }
   field_date_published:
     type: datetime_default
-    weight: 9
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -157,7 +210,7 @@ content:
         show_edit: '1'
   field_references:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 5
     region: content
     settings:
       match_operator: STARTS_WITH
@@ -182,38 +235,38 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 11
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 17
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 14
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 15
+    weight: 4
     region: content
     settings:
       display_label: true
@@ -228,7 +281,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -237,7 +290,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 16
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }

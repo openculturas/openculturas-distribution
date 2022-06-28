@@ -9,20 +9,36 @@ dependencies:
     - media.type.image
   module:
     - attribution
+    - field_group
     - focal_point
-    - path
     - text
+third_party_settings:
+  field_group:
+    group_administrative:
+      children:
+        - langcode
+        - uid
+        - created
+        - path
+        - status
+      label: Administrative
+      region: hidden
+      parent_name: ''
+      weight: 4
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
 id: media.image.default
 targetEntityType: media
 bundle: image
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_caption:
     type: text_textfield
     weight: 2
@@ -33,7 +49,7 @@ content:
     third_party_settings: {  }
   field_licenses:
     type: attribution_source_author_license
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -51,13 +67,6 @@ content:
         teaser: teaser
         teaser_big: teaser_big
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 3
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -66,27 +75,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 8
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 5
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

@@ -6,7 +6,30 @@ dependencies:
     - image.style.media_library
     - media.type.logo_image
   module:
+    - field_group
     - focal_point
+third_party_settings:
+  field_group:
+    group_administrative:
+      children:
+        - langcode
+        - uid
+        - created
+        - path
+        - status
+      label: Administrative
+      region: hidden
+      parent_name: ''
+      weight: 2
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
 id: media.logo_image.default
 targetEntityType: media
 bundle: logo_image
