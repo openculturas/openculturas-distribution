@@ -34,59 +34,25 @@ dependencies:
     - languagefield
     - link
     - media_library
-    - media_library_edit
     - paragraphs
     - path
     - text
 third_party_settings:
   field_group:
-    group_tagging:
-      children:
-        - field_category
-      label: Focus
-      region: content
-      parent_name: ''
-      weight: 7
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: true
-    group_details:
-      children:
-        - field_started
-        - field_min_age
-        - field_inlanguage
-        - field_duration
-        - field_url
-        - field_accessibility
-      label: Details
-      region: content
-      parent_name: ''
-      weight: 8
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: true
     group_administrative:
       children:
+        - langcode
         - uid
         - created
         - promote
         - sticky
         - path
         - url_redirects
+        - simple_sitemap
       label: Administrative
       region: content
       parent_name: ''
-      weight: 13
+      weight: 1
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -96,35 +62,109 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
-    group_gallery:
+    group_event_tabs_container:
       children:
-        - field_gallery
-      label: Gallery
+        - group_event_tab_basics
+        - group_event_tab_artists
+        - group_event_tab_media
+        - group_event_tab_advanced
+        - group_event_tab_bookable
+      label: Tabs
       region: content
       parent_name: ''
-      weight: 9
-      format_type: details
+      weight: 0
+      format_type: tabs
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: true
+        id: groups-container
+        direction: horizontal
+        width_breakpoint: 640
+    group_event_tab_basics:
+      children:
+        - title
+        - field_subtitle
+        - field_allow_claiming
+        - field_category
+        - body
+        - field_url
+      label: Basics
+      region: content
+      parent_name: group_event_tabs_container
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-basics
+        formatter: open
         description: ''
         required_fields: true
-    group_bookings:
+    group_event_tab_media:
+      children:
+        - field_mood_image
+        - field_gallery
+      label: Media
+      region: content
+      parent_name: group_event_tabs_container
+      weight: 22
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-media
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_event_tab_artists:
+      children:
+        - field_people_reference
+      label: Artists
+      region: content
+      parent_name: group_event_tabs_container
+      weight: 21
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-artists
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_event_tab_bookable:
       children:
         - field_is_bookable
         - field_bookable_info
-      label: Bookings
+      label: Bookable
       region: content
-      parent_name: ''
-      weight: 12
-      format_type: details
+      parent_name: group_event_tabs_container
+      weight: 24
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: false
+        id: group-bookable
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_event_tab_advanced:
+      children:
+        - field_accessibility
+        - field_min_age
+        - field_status
+        - field_started
+        - field_duration
+        - field_inlanguage
+      label: Advanced
+      region: content
+      parent_name: group_event_tabs_container
+      weight: 23
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-advanced
+        formatter: closed
         description: ''
         required_fields: true
 id: node.event.default
@@ -134,7 +174,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 4
+    weight: 25
     region: content
     settings:
       rows: 5
@@ -157,17 +197,17 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 16
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 16
+    weight: 11
     region: content
     settings:
       title: 'Accessibility information'
-      title_plural: 'Accessibility informations'
+      title_plural: 'Accessibility information'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -175,18 +215,18 @@ content:
     third_party_settings: {  }
   field_allow_claiming:
     type: boolean_checkbox
-    weight: 3
+    weight: 23
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_bookable_info:
     type: paragraphs
-    weight: 11
+    weight: 23
     region: content
     settings:
       title: Information
-      title_plural: Informations
+      title_plural: Information
       edit_mode: open
       closed_mode: summary
       autocollapse: none
@@ -218,19 +258,19 @@ content:
             selector: ''
   field_category:
     type: a11y_autocomplete
-    weight: 8
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
   field_duration:
     type: duration_widget
-    weight: 14
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   field_gallery:
     type: media_library_widget
-    weight: 8
+    weight: 23
     region: content
     settings:
       media_types:
@@ -238,10 +278,10 @@ content:
         - remote_video
     third_party_settings:
       media_library_edit:
-        show_edit: '1'
+        show_edit: 0
   field_inlanguage:
     type: languagefield_select
-    weight: 13
+    weight: 17
     region: content
     settings:
       format:
@@ -249,30 +289,28 @@ content:
     third_party_settings: {  }
   field_is_bookable:
     type: boolean_checkbox
-    weight: 10
+    weight: 22
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_min_age:
     type: number
-    weight: 12
+    weight: 13
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 6
+    weight: 22
     region: content
     settings:
       media_types: {  }
-    third_party_settings:
-      media_library_edit:
-        show_edit: '1'
+    third_party_settings: {  }
   field_people_reference:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 26
     region: content
     settings:
       title: Member
@@ -284,19 +322,19 @@ content:
     third_party_settings: {  }
   field_started:
     type: datetime_default
-    weight: 11
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
   field_status:
     type: options_buttons
-    weight: 5
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_subtitle:
     type: text_textfield
-    weight: 2
+    weight: 22
     region: content
     settings:
       size: 60
@@ -304,7 +342,7 @@ content:
     third_party_settings: {  }
   field_url:
     type: link_default
-    weight: 15
+    weight: 26
     region: content
     settings:
       placeholder_url: ''
@@ -312,52 +350,52 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 0
+    weight: 1
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 15
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 19
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 17
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 11
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 14
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 18
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 21
     region: content
     settings:
       size: 60
@@ -365,7 +403,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 15
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -374,7 +412,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 21
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -36,33 +36,20 @@ dependencies:
     - text
 third_party_settings:
   field_group:
-    group_tagging:
-      children:
-        - field_category
-      label: Focus
-      region: content
-      parent_name: ''
-      weight: 4
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
     group_administrative:
       children:
+        - langcode
         - uid
         - created
         - promote
         - sticky
         - path
         - url_redirects
+        - simple_sitemap
       label: Administrative
       region: content
       parent_name: ''
-      weight: 10
+      weight: 1
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -72,88 +59,109 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
-    group_address_contact:
-      children:
-        - field_address_data
-        - field_opening_hours
-        - field_contact_data
-      label: 'Address and contact'
-      region: content
-      parent_name: ''
-      weight: 6
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
     group_about:
       children:
+        - body
+        - field_contact_data
+      label: Profile
+      region: content
+      parent_name: group_location_tabs_container
+      weight: 21
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-profile
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_location_tabs_container:
+      children:
+        - group_location_tab_basics
+        - group_about
+        - group_location_tab_performer
+        - group_location_tab_media
+        - group_location_tab_advanced
+      label: Tabs
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: groups-container
+        direction: horizontal
+        width_breakpoint: 640
+    group_location_tab_basics:
+      children:
+        - title
         - field_subtitle
         - field_allow_claiming
-        - field_mood_image
-        - field_logo
-        - body
-      label: About
+        - field_category
+        - field_address_data
+      label: Basics
       region: content
-      parent_name: ''
-      weight: 3
-      format_type: details
+      parent_name: group_location_tabs_container
+      weight: 20
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: true
+        id: group-basics
+        formatter: open
         description: ''
         required_fields: true
-    group_further_info:
+    group_location_tab_media:
       children:
+        - field_mood_image
+        - field_portrait
+        - field_logo
+        - field_gallery
+      label: Media
+      region: content
+      parent_name: group_location_tabs_container
+      weight: 23
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-media
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_location_tab_advanced:
+      children:
+        - field_accessibility
+        - field_opening_hours
         - field_safety_info
         - field_additional_information
-        - field_accessibility
-      label: 'Additional information'
+      label: Advanced
       region: content
-      parent_name: ''
-      weight: 7
-      format_type: details
+      parent_name: group_location_tabs_container
+      weight: 24
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: false
+        id: group-advanced
+        formatter: closed
         description: ''
         required_fields: true
-    group_featuring:
+    group_location_tab_performer:
       children:
         - field_reference_title
         - field_people_reference
-      label: Featuring
+      label: 'Regular performers'
       region: content
-      parent_name: ''
-      weight: 8
-      format_type: details
+      parent_name: group_location_tabs_container
+      weight: 22
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-    group_gallery:
-      children:
-        - field_gallery
-      label: Gallery
-      region: content
-      parent_name: ''
-      weight: 9
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
+        id: group-performers
+        formatter: closed
         description: ''
         required_fields: true
 id: node.location.default
@@ -163,7 +171,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 9
+    weight: 5
     region: content
     settings:
       rows: 5
@@ -186,17 +194,17 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 9
     region: content
     settings:
       title: 'Accessibility information'
-      title_plural: 'Accessibility informations'
+      title_plural: 'Accessibility information'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -204,7 +212,7 @@ content:
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 9
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -215,11 +223,11 @@ content:
         hide_guidelines: '1'
   field_address_data:
     type: entity_reference_paragraphs
-    weight: 11
+    weight: 7
     region: content
     settings:
       title: 'Address information'
-      title_plural: 'Address informations'
+      title_plural: 'Address information'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -227,24 +235,24 @@ content:
     third_party_settings: {  }
   field_allow_claiming:
     type: boolean_checkbox
-    weight: 6
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_category:
     type: a11y_autocomplete
-    weight: 16
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   field_contact_data:
     type: entity_reference_paragraphs
-    weight: 13
+    weight: 6
     region: content
     settings:
       title: 'Contact information'
-      title_plural: 'Contact informations'
+      title_plural: 'Contact information'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -252,7 +260,7 @@ content:
     third_party_settings: {  }
   field_gallery:
     type: media_library_widget
-    weight: 10
+    weight: 13
     region: content
     settings:
       media_types:
@@ -263,7 +271,7 @@ content:
         show_edit: '1'
   field_logo:
     type: media_library_widget
-    weight: 8
+    weight: 12
     region: content
     settings:
       media_types: {  }
@@ -272,7 +280,7 @@ content:
         show_edit: '1'
   field_mood_image:
     type: media_library_widget
-    weight: 7
+    weight: 10
     region: content
     settings:
       media_types: {  }
@@ -281,7 +289,7 @@ content:
         show_edit: '1'
   field_opening_hours:
     type: text_textarea
-    weight: 12
+    weight: 10
     region: content
     settings:
       rows: 5
@@ -311,7 +319,7 @@ content:
     third_party_settings: {  }
   field_portrait:
     type: media_library_widget
-    weight: 2
+    weight: 11
     region: content
     settings:
       media_types: {  }
@@ -328,7 +336,7 @@ content:
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 8
+    weight: 11
     region: content
     settings:
       rows: 5
@@ -339,7 +347,7 @@ content:
         hide_guidelines: '1'
   field_subtitle:
     type: text_textfield
-    weight: 5
+    weight: 2
     region: content
     settings:
       size: 60
@@ -354,38 +362,38 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 13
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 5
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 12
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 11
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 7
+    weight: 4
     region: content
     settings:
       display_label: true
@@ -400,7 +408,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -409,7 +417,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 9
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -38,23 +38,6 @@ dependencies:
     - text
 third_party_settings:
   field_group:
-    group_attendance:
-      children:
-        - field_attendance_mode
-        - field_location
-        - field_location_virtual
-      label: Attendance
-      region: content
-      parent_name: ''
-      weight: 5
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: true
     group_tickets:
       children:
         - field_forfree
@@ -62,44 +45,29 @@ third_party_settings:
         - field_ticketing
       label: Tickets
       region: content
-      parent_name: ''
-      weight: 6
-      format_type: details
+      parent_name: group_date_tab_attendance
+      weight: 22
+      format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: true
-    group_event_series:
-      children:
-        - field_event_series
-        - field_parent_date
-      label: 'Event series'
-      region: content
-      parent_name: ''
-      weight: 9
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
+        id: group-tickets
         description: ''
         required_fields: true
     group_administrative:
       children:
+        - langcode
         - uid
         - created
         - promote
         - sticky
         - path
         - url_redirects
+        - simple_sitemap
       label: Administrative
       region: content
       parent_name: ''
-      weight: 10
+      weight: 1
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -109,54 +77,122 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
-    group_people_groups:
+    group_date_tabs_container:
+      children:
+        - group_date_tab_basics
+        - group_date_tab_attendance
+        - group_date_tab_people
+        - group_date_tab_advanced
+      label: Tabs
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: groups-container
+        direction: horizontal
+        width_breakpoint: 640
+    group_date_tab_basics:
+      children:
+        - field_event_description
+        - group_date_group_location
+        - field_event_status
+        - field_date
+      label: Basics
+      region: content
+      parent_name: group_date_tabs_container
+      weight: 8
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-basics
+        formatter: open
+        description: ''
+        required_fields: true
+    group_date_tab_attendance:
+      children:
+        - field_accessibility
+        - group_tickets
+        - field_door_time_relative
+        - field_safety_info
+      label: 'Attendance and Tickets'
+      region: content
+      parent_name: group_date_tabs_container
+      weight: 9
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-attendance
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_date_group_location:
+      children:
+        - field_attendance_mode
+        - field_location
+        - field_location_virtual
+      label: Location
+      region: content
+      parent_name: group_date_tab_basics
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-location
+        description: ''
+        required_fields: true
+    group_date_tab_advanced:
+      children:
+        - field_premiere
+        - title
+        - field_body_addon
+        - group_date_group_event_series
+      label: Advanced
+      region: content
+      parent_name: group_date_tabs_container
+      weight: 12
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-advanced
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_date_group_event_series:
+      children:
+        - field_event_series
+        - field_parent_date
+      label: 'Event Series'
+      region: content
+      parent_name: group_date_tab_advanced
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-event-series
+        description: ''
+        required_fields: true
+    group_date_tab_people:
       children:
         - field_organizer
         - field_people_reference
-      label: 'People/groups involved'
+      label: People
       region: content
-      parent_name: ''
-      weight: 7
-      format_type: details
+      parent_name: group_date_tabs_container
+      weight: 10
+      format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: true
-    group_further_information:
-      children:
-        - field_safety_info
-        - field_accessibility
-      label: 'Further information'
-      region: content
-      parent_name: ''
-      weight: 8
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-    group_date:
-      children:
-        - field_event_status
-        - field_premiere
-        - field_date
-        - field_door_time_relative
-      label: Date
-      region: content
-      parent_name: ''
-      weight: 4
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
+        id: group-people
+        formatter: closed
         description: ''
         required_fields: true
 id: node.date.default
@@ -176,17 +212,17 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_accessibility:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 21
     region: content
     settings:
       title: 'Accessibility information'
-      title_plural: 'Accessibility informations'
+      title_plural: 'Accessibility information'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -200,7 +236,7 @@ content:
     third_party_settings: {  }
   field_body_addon:
     type: text_textarea
-    weight: 3
+    weight: 8
     region: content
     settings:
       rows: 5
@@ -211,7 +247,7 @@ content:
         hide_guidelines: '1'
   field_date:
     type: smartdate_inline
-    weight: 5
+    weight: 9
     region: content
     settings:
       show_extra: 0
@@ -236,13 +272,13 @@ content:
           YEARLY: '0'
   field_door_time_relative:
     type: options_select
-    weight: 6
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
   field_event_description:
     type: a11y_autocomplete
-    weight: 2
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -254,7 +290,7 @@ content:
     third_party_settings: {  }
   field_event_status:
     type: options_select
-    weight: 3
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -295,7 +331,7 @@ content:
             selector: ''
   field_location_virtual:
     type: link_default
-    weight: 8
+    weight: 7
     region: content
     settings:
       placeholder_url: ''
@@ -371,7 +407,7 @@ content:
     third_party_settings: {  }
   field_premiere:
     type: options_buttons
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -385,7 +421,7 @@ content:
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 13
+    weight: 25
     region: content
     settings:
       rows: 5
@@ -411,45 +447,45 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 12
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 17
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 15
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 11
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 16
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 7
     region: content
     settings:
       size: 60
@@ -457,7 +493,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -466,7 +502,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 18
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
