@@ -27,7 +27,7 @@ dependencies:
     - a11y_autocomplete_element
     - allowed_formats
     - content_moderation
-    - datetime
+    - datetime_extras
     - duration_field
     - field_group
     - languagefield
@@ -334,10 +334,14 @@ content:
         duplicate: duplicate
     third_party_settings: {  }
   field_started:
-    type: datetime_default
+    type: datetime_datelist_no_time
     weight: 15
     region: content
-    settings: {  }
+    settings:
+      date_order: MY
+      time_type: none
+      increment: '15'
+      date_year_range: '1900:2050'
     third_party_settings: {  }
   field_status:
     type: options_buttons

@@ -25,7 +25,6 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
-    - a11y_autocomplete_element
     - allowed_formats
     - content_moderation
     - field_group
@@ -283,10 +282,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_event_description:
-    type: a11y_autocomplete
+    type: entity_reference_autocomplete
     weight: 6
     region: content
-    settings: {  }
+    settings:
+      match_operator: STARTS_WITH
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_event_series:
     type: options_select
