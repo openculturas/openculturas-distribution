@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.media.field_media_image
     - field.storage.node.body
     - field.storage.node.field_address_data
     - field.storage.node.field_attendance_mode
@@ -14,7 +15,6 @@ dependencies:
     - field.storage.node.field_pricing
     - field.storage.node.field_subtitle
     - field.storage.node.field_ticketing
-    - image.style.teaser
     - node.type.date
   module:
     - csv_serialization
@@ -26,6 +26,7 @@ dependencies:
     - rest
     - serialization
     - smart_date
+    - svg_image
     - text
     - user
     - views_autocomplete_filters
@@ -173,11 +174,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_mood_image:
-          id: field_mood_image
-          table: node__field_mood_image
-          field: field_mood_image
-          relationship: field_event_description
+        field_media_image:
+          id: field_media_image
+          table: media__field_media_image
+          field: field_media_image
+          relationship: field_mood_image
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -210,26 +211,23 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: '0'
+          element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: div
-          element_wrapper_class: col--image
-          element_default_classes: false
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: media_thumbnail
+          type: image_url
           settings:
-            image_link: media
-            image_style: teaser
-            image_loading:
-              attribute: lazy
-          group_column: target_id
+            image_style: ''
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -881,6 +879,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_mood_image_1:
+          id: field_mood_image_1
+          table: node__field_mood_image
+          field: field_mood_image
+          plugin_id: field
       pager:
         type: none
         options:
@@ -1198,6 +1201,15 @@ display:
           admin_label: 'field_location: Content'
           plugin_id: standard
           required: false
+        field_mood_image:
+          id: field_mood_image
+          table: node__field_mood_image
+          field: field_mood_image
+          relationship: field_event_description
+          group_type: group
+          admin_label: 'field_mood_image: Media'
+          plugin_id: standard
+          required: false
       css_class: calendar
       use_ajax: true
       header: {  }
@@ -1214,6 +1226,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
@@ -1267,6 +1280,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
@@ -1320,6 +1334,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
@@ -1373,6 +1388,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
@@ -1412,6 +1428,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_address_data'
         - 'config:field.storage.node.field_attendance_mode'
