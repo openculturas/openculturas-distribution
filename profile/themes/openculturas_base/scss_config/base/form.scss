@@ -18,145 +18,130 @@ form {
       padding-bottom: $grid-gutter;
     }
   }
+}
 
-  .description {
-    @extend %small;
-  }
+.description {
+  @extend %small;
+}
 
-  .js-hide {
-    display: none !important;
-  }
+//.js-hide {
+//  display: none !important;
+//}
 
 
-  .form-textarea-wrapper,
-  .filter-wrapper {
+.form-textarea-wrapper,
+.filter-wrapper {
+  background: $color-bg-fieldset;
+
+  .cke_top,
+  .cke_contents,
+  .cke_bottom {
     background: $color-bg-fieldset;
-
-    .cke_top,
-    .cke_contents,
-    .cke_bottom {
-      background: $color-bg-fieldset;
-    }
-    .filter-guidelines-item {
-      margin: 0;
-    }
   }
-
-  .field-suffix .button {
-    margin-bottom: $grid-gutter;
+  .filter-guidelines-item {
+    margin: 0;
   }
+}
 
-  fieldset,
-  .fieldgroup {
-    background: $color-bg-fieldset;
-    padding: $grid-gutter;
+.field-suffix .button {
+  margin-bottom: $grid-gutter;
+}
 
-    summary,
-    legend {
+fieldset {
+  background: $color-bg-fieldset;
+  padding: $grid-gutter;
+
+  summary,
+  legend {
       @extend %allcaps;
     }
 
-    &.error {
-      border: 2px solid $color-danger;
-      > legend {
-        color: $color-danger;
-      }
+  &.error {
+    border: 2px solid $color-danger;
+    > legend {
+      color: $color-danger;
     }
+  }  
+}
 
+fieldset fieldset {
+  background: transparent;
+  padding: 0;
+}
 
-    fieldset,
-    fieldset.fieldgroup {
-      background: transparent;
-      padding: 0;
-    }
-  }
+.form-required:after {
+  background-image: none;
+  color: $color-danger;
+  content: '*';
+  vertical-align: text-top;
+}
 
-  .form-required:after {
-    background-image: none;
-    color: $color-danger;
-    content: '*';
-    vertical-align: text-top;
-  }
-
-  .form--inline {
-    .form-item {
-      margin-top: 0;
-    }
+.form--inline {
+  .form-item {
+    margin-top: 0;
   }
 }
 
-.form-item {
-  label {
-    display: block;
-    &.option {
-      display: inline-block;
-    }
-  }
-
-  input,
-  select,
-  textarea {
-    padding: 0.5rem 1rem;
-    background: $color-bg-light;
-    border: 1px solid $color-text;
-
-    &:focus {
-      border-bottom-color: $color-info;
-      box-shadow: 0 -3px 0 inset $color-info;
-    }
-
-    .error {
-      border: 1px solid $color-danger;
-      box-shadow: 0 -3px 0 inset $color-danger;
-    }
-
-    &::placeholder {
-      color: $color-text-muted;
-      text-align: right;
-    }
-
-    &[disabled] {
-      opacity: .5;
-    }
-
-    &.form-autocomplete {
-      background-position: right 0.5rem center!important;
-      padding-right: 2rem;
-
-      // Fix resppnsive.
-      width: 100%;
-    }
-  }
-
-  select {
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    appearance:none;
-    padding-right: 2rem;
-    position: relative;
-    background: $color-bg-light url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
-    background-size: 1em;
-
-    &.error {
-      border: 1px solid $color-text;
-      box-shadow: 0 -3px 0 inset $color-danger;
-    }
-  }
-
-  input[type="checkbox"],
-  input[type="radio"] {
-    height: 1em;
-    margin-right: .5rem;
-    position: relative;
-    top: .1rem;
-    vertical-align: baseline;
-    width: 1em;
-
-    &:focus {
-      box-shadow: none;
-    }
+label {
+  display: block;
+  &.option {
+    display: inline-block;
   }
 }
+
+input,
+select,
+textarea {
+  padding: 0.5rem 1rem;
+  background: $color-bg-light;
+  border: 1px solid $color-divider-dark;
+
+  &:focus {
+    border-bottom-color: $color-info;
+    box-shadow: 0 3px 2px 0 $color-info;
+  }
+
+  &.error {
+    border-bottom-color: $color-danger;
+    box-shadow: 0 3px 2px 0 $color-info;
+  }
+}
+
+*::placeholder {
+  color: $color-text-muted;
+  text-align: right;
+}
+
+.form-autocomplete {
+  background-position: right 0.5rem center!important;
+  padding-right: 2rem;
+
+  // Fix resppnsive.
+    width: 100%;
+  }
+}
+
+select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  padding-right: 2rem;
+  position: relative;
+  background: $color-bg-light url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
+  background-size: 1em;
+
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  height: 1em;
+  margin-right: .5rem;
+  position: relative;
+  top: .1rem;
+  vertical-align: baseline;
+  width: 1em;
+}
+
 
 // Autocomplete widget select.
 .ui-menu .ui-menu-item-wrapper {
@@ -167,7 +152,7 @@ form {
 
   &:hover,
   &:focus {
-    background-color: $color-primary;
+    background-color: $color-link;
     border: 0;
     color: $color-text-inverted;
   }
@@ -180,7 +165,7 @@ form {
   .ui-menu-item-wrapper.ui-state-active {
     margin: 0;
     color: $color-text-inverted;
-    background-color: $color-primary;
+    background-color: $color-interaction;
   }
 }
 
