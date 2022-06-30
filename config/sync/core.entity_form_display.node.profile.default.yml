@@ -69,7 +69,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -82,8 +82,8 @@ third_party_settings:
     group_profile_tabs_container:
       children:
         - group_profile_tab_basics
+        - group_profile
         - group_profile_tab_media
-        - group_profile_tab_advanced
       label: Tabs
       region: content
       parent_name: ''
@@ -101,8 +101,6 @@ third_party_settings:
         - field_subtitle
         - field_allow_claiming
         - group_profile_type
-        - field_category
-        - body
       label: Basics
       region: content
       parent_name: group_profile_tabs_container
@@ -123,7 +121,7 @@ third_party_settings:
       label: Media
       region: content
       parent_name: group_profile_tabs_container
-      weight: 2
+      weight: 3
       format_type: tab
       format_settings:
         classes: ''
@@ -133,14 +131,11 @@ third_party_settings:
         description: ''
         required_fields: true
     group_profile_tab_advanced:
-      children:
-        - field_started
-        - field_contact_data
-        - field_address_data
+      children: {  }
       label: Advanced
-      region: content
-      parent_name: group_profile_tabs_container
-      weight: 3
+      region: hidden
+      parent_name: ''
+      weight: 12
       format_type: tab
       format_settings:
         classes: ''
@@ -149,6 +144,26 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
+    group_profile:
+      children:
+        - field_category
+        - body
+        - field_contact_data
+        - field_address_data
+        - field_started
+      label: Profile
+      region: content
+      parent_name: group_profile_tabs_container
+      weight: 2
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+        open: true
 id: node.profile.default
 targetEntityType: node
 bundle: profile
@@ -179,13 +194,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_address_data:
     type: paragraphs
-    weight: 23
+    weight: 8
     region: content
     settings:
       title: Address
@@ -217,7 +232,7 @@ content:
     third_party_settings: {  }
   field_contact_data:
     type: paragraphs
-    weight: 22
+    weight: 7
     region: content
     settings:
       title: 'Contact data'
@@ -293,7 +308,7 @@ content:
             selector: ''
   field_portrait:
     type: media_library_widget
-    weight: 17
+    weight: 16
     region: content
     settings:
       media_types: {  }
@@ -340,7 +355,7 @@ content:
             selector: ''
   field_started:
     type: datetime_datelist_no_time
-    weight: 21
+    weight: 9
     region: content
     settings:
       date_order: MY
@@ -386,38 +401,38 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -441,7 +456,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
