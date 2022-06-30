@@ -8,6 +8,7 @@ dependencies:
     - image.style.media_library
     - media.type.image
   module:
+    - allowed_formats
     - attribution
     - field_group
     - focal_point
@@ -17,10 +18,10 @@ third_party_settings:
     group_administrative:
       children:
         - langcode
+        - status
         - uid
         - created
         - path
-        - status
       label: Administrative
       region: hidden
       parent_name: ''
@@ -46,7 +47,10 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '0'
   field_licenses:
     type: attribution_source_author_license
     weight: 3
