@@ -18,10 +18,12 @@
     <div class="custom-page-title--with-image">
   {% endif %}
     {{ profile_image }}
-    <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
-  {%  if subtitle.0 %}
-    <h2 class="page-subtitle">{{ subtitle.0 }}</h2>
-    {% endif %}
+    <div class="headlines-wrapper">
+      <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
+      {% if subtitle.0 %}
+      <h2 class="page-subtitle">{{ subtitle.0 }}</h2>
+      {% endif %}
+    </div>
   {% if profile_image %}
   </div>
   {% endif %}
