@@ -2007,6 +2007,24 @@ display:
     display_plugin: block
     position: 6
     display_options:
+      pager:
+        type: mini
+        options:
+          offset: 0
+          items_per_page: 6
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
       exposed_form:
         type: bef
         options:
@@ -2206,7 +2224,7 @@ display:
           exposed: true
           expose:
             operator_id: field_date_value_1_op
-            label: 'Date - Start'
+            label: 'Start date'
             description: ''
             use_operator: false
             operator: field_date_value_1_op
@@ -2226,7 +2244,7 @@ display:
               administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
-            placeholder: TT.MM.YYYY
+            placeholder: dd/mm/yyyy
           is_grouped: false
           group_info:
             label: ''
@@ -2257,7 +2275,7 @@ display:
           exposed: true
           expose:
             operator_id: field_date_end_value_op
-            label: 'Date - End'
+            label: 'End date'
             description: ''
             use_operator: false
             operator: field_date_end_value_op
@@ -2277,7 +2295,7 @@ display:
               administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
-            placeholder: TT.MM.YYYY
+            placeholder: dd/mm/yyyy
           is_grouped: false
           group_info:
             label: ''
@@ -2412,6 +2430,7 @@ display:
           1: AND
       defaults:
         title: true
+        pager: false
         exposed_form: false
         style: true
         row: true
@@ -2649,10 +2668,127 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_date:
+          id: field_date
+          table: node__field_date
+          field: field_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: smartdate_default
+          settings:
+            timezone_override: ''
+            format: site_default_date_and_time
+            force_chronological: true
+            add_classes: false
+            time_wrapper: true
+          group_column: value
+          group_columns: {  }
+          group_rows: false
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: 'Map title'
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ title_1 }} - {{ field_date }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
       pager:
-        type: none
+        type: some
         options:
           offset: 0
+          items_per_page: 6
       empty: {  }
       filters:
         status:
@@ -3010,8 +3146,8 @@ display:
             field_address_location: field_address_location
           entity_source: field_location
           entity_source_submit: 'Update Entity Source'
-          name_field: title_1
-          description_field: title_1
+          name_field: field_address_location
+          description_field: nothing
           view_mode: full
           leaflet_map: 'OSM Mapnik'
           height: '400'
@@ -3056,7 +3192,7 @@ display:
             html_class: leaflet-map-divicon
             circle_marker_options: '{"radius":100,"color":"red","fillColor":"#f03","fillOpacity":0.5}'
           leaflet_markercluster:
-            control: false
+            control: true
             options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":false,"removeOutsideVisibleBounds":false}'
             include_path: false
           fullscreen:
@@ -3135,6 +3271,8 @@ display:
       displays:
         upcoming_dates: upcoming_dates
       inherit_exposed_filters: true
+      inherit_pager: true
+      render_pager: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -3145,4 +3283,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_date'
         - 'config:field.storage.paragraph.field_address_location'

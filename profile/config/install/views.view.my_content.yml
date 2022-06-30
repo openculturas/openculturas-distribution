@@ -10,6 +10,7 @@ dependencies:
   module:
     - node
     - user
+    - views_infinite_scroll
 id: my_content
 label: 'My content'
 module: views
@@ -78,10 +79,27 @@ display:
           hide_alter_empty: true
           view_mode: compact
       pager:
-        type: some
+        type: infinite_scroll
         options:
           offset: 0
-          items_per_page: 20
+          items_per_page: 6
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Show more'
+            automatically_load_content: false
+            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
@@ -196,6 +214,7 @@ display:
           query_tags: {  }
       relationships: {  }
       css_class: content
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -204,6 +223,7 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
+        - url.query_args
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -525,6 +545,7 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
+        - url.query_args
         - 'user.node_grants:view'
         - user.roles
       tags:
