@@ -3,24 +3,24 @@
 button,
 input[type='button'],
 input[type='submit'] {
-  border: 1px solid transparent;
+  background: $color-bg-light;
+  border: 1px solid $color-interaction;
   border-radius: $button-border-radius;
-  display: inline-block;
-  line-height: 1;
+  //display: inline-block;
+  //line-height: 1;
   margin-bottom: $grid-gutter;
-  margin-left: 0;
-  margin-right: $grid-gutter;
-  outline-offset: .25rem;
+  //margin-left: 0;
+  //margin-right: $grid-gutter;
+  //outline-offset: .25rem;
   padding: .5rem 2rem;
+  text-decoration: none;
 
-  &:first-child {
-    margin-right: $grid-gutter;
-  }
+  //&:first-child {
+  //  margin-right: $grid-gutter;
+  //}
 
-  &:active,
-  &:focus,
-  &:hover {
-    text-decoration: none;
+  .inverted & {
+    border-color: $color-text-inverted;
   }
 
   &:focus,
@@ -31,16 +31,12 @@ input[type='submit'] {
   }
 
   &:active {
-    background: $color-text-inverted;
-    border-color: currentColor;
+    background: $color-bg-light;
     color: $color-interaction;
+    border-color: $color-bg-light;
     outline: $outline-active;
   }
 
-  &[disabled] {
-    opacity: .5;
-    pointer-events: none; // Prevents hover&active changes.
-  }
 }
 
 // Primary Style.
@@ -52,29 +48,9 @@ button[type="submit"] {
   color: $color-text-inverted;
   background: $color-primary;
   border: 1px solid $color-primary;
-
-  &:focus,
-  &:hover {
-    background: $color-interaction;
-    color: $color-text-inverted;
-  }
 }
 
-// Secondary.
-.form-submit.secondary,
-.button.secondary,
-a.button.secondary,
-input[type="submit"].secondary,
-.button[data-drupal-selector$=cancel],
-.field-add-more-submit,
-.button--small,
-button[id*=remove] {
-  color: $color-interaction;
-  background: $color-bg-light;
-  border-color: $color-interaction;
-}
-
-// Danger.
+// Danger/alert buttons (potentially destructive function).
 %button-danger,
 .form-submit.danger,
 .button.danger,
@@ -83,23 +59,17 @@ a.button.danger,
 input[type="submit"].danger,
 button[type="submit"].button--danger {
   color: $color-danger;
-  background: $color-text-inverted;
+  background: $color-bg-light;
   border-color: $color-danger;
   @include icon(xmark) {
     margin-right: .5rem;
   };
 
-  &:not([disabled]):hover,
-  &:focus {
+  &:focus,
+  &:not([disabled]):hover {
     background: $color-danger;
+    border-color: $color-danger;
     color: $color-text-inverted;
-    border-color: $color-danger;
-  }
-
-  &:active {
-    background: $color-text-inverted;
-    border-color: $color-danger;
-    color: $color-danger;
   }
 }
 

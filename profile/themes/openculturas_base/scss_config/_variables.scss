@@ -31,10 +31,10 @@ $utility_grids: (
 //
 //  Selectors for setting the grid on sub-elements with utility classes.
 //
-//  BEWARE: Unlike other systems like bootstrap f.e.
+//  BEWARE: Unlike other systems like e. g. bootstrap
 //  the grid will not be defined on the element containing the class directly.
-//  Instead it will be set on the following selectors beneath the set class element.
-//  You can add more selectors this setting if you need the grid to work on more elements.
+//  Instead, it will be set on the following selectors beneath the set class element.
+//  You can add more selectors to this setting if you need the grid to work on more elements.
 //
 $utility_grids_container_selectors: '> .view-content, > .field__items, > .details-wrapper';
 
@@ -46,9 +46,9 @@ $utility_grids_container_selectors: '> .view-content, > .field__items, > .detail
 //  Have a look at the 'breakpoint' mixin in mixins.scss for more info on how to use it.
 //
 //  You can change the values to match your design better, by changing the media selectors.
-//  Also you can add new breakpoints if you need them.
+//  Add new breakpoints if you need them.
 //
-//  But BEWARE: It is NOT recommended to DELETE any of the default breakpoint definitions below.
+//  CAUTION: It is NOT recommended to DELETE any of the default breakpoint definitions below.
 //  Since they are used by the scss files, this would most likely result in a broken compilation process.
 //
 $breakpoints: (                // Size at default font size 16px;
@@ -63,7 +63,7 @@ $breakpoints: (                // Size at default font size 16px;
 // Colors.
 //
 // CAUTION:
-//   Do not change CSS color variable names (in base theme)
+//   Do not change CSS color variable names (in openculturas_base theme)
 //
 // This would lead to inconsistent results when changing the colors with
 // css_color_variables_ui module.
@@ -112,15 +112,12 @@ $breakpoints: (                // Size at default font size 16px;
 //
 // SASS-color-variables containing CSS-variables
 //
-// Why we reasign CSS vars to SASS variables?
-// + Basetheme uses strict SASS based color Schema (vs Undefined CSS vars fail silently).
-// + A clearly defined set of CSS Variables keeps Subthemes working.
-// + Easy subtheming with UI configurable base and easy to define derivate colors.
-// + Better readability and support in IDE for SSASS variables.
-// + No need to write var(--bla) everywhere.
+// Why we reassign CSS vars to SASS variables?
+// + Base theme uses SASS-based color scheme (undefined CSS vars would fail silently).
+// + A clearly defined set of CSS variables keeps sub-themes working.
+// + Easy sub-theming with UI-configurable base and easy to define color derivates.
 // Disadvantage:
-// - SASS color functions do not work.
-//   They are disabled and throw error when used.
+// - Native SASS color functions are disabled and throw errors when used.
 //   --> Prefer css_color_variables_dependant variables like:
 //    --color-danger-lighten-85
 //    --color-danger-darken-25
@@ -151,8 +148,8 @@ $color-info: var(--color-info);
 $color-success: var(--color-success);
 $color-warning: var(--color-warning);
 
-// Derivate Colors
-// can not directly be changed in UI / Color module.
+// Color derivates
+// cannot directly be changed in UI / Color module.
 $color-bg-danger: var(--color-bg-danger);
 $color-danger-dark: var(--color-danger-dark);
 $color-bg-info: var(--color-bg-info);
@@ -168,13 +165,13 @@ $color-box-shaddow: var(--color-interaction--opacity-64);
 $color-bg-link-transparent: var(--color-link--opacity-64);
 
 /**
- * Default derivated colors
+ * Default color derivates
  *
- * are changed when base colors are changed by css_color_variables or Color Module settings.
+ * are changed when base colors are changed by css_color_variables or Color module settings.
  *
  * NOTE:
- *  CSS variables should be reasigned here.
-*   If you do it in :root, they will not change with Color UI changes
+ *  CSS variables should be reassigned here.
+*   If you do it in :root they will not change with Color UI changes
  */
 body {
   /* Alerts */
@@ -218,13 +215,13 @@ $button-border-radius: 4px !default;
 //
 //  Fontawesome 6.
 //
-//  This theme comes with a copy of fontawesome 6 free version.
-//  You can use fontawesome like the official documentation with setting <i> elements or via scss mixins.
+//  openculturas_base theme comes with a copy of Fontawesome 6 free version.
+//  You can use fontawesome like the official documentation with setting <i> elements or via SCSS mixins.
 //
 //  Have a look for the 'icon' mixin in mixins.scss for more info on how to use it.
 //
-//  The fontawesome package lives in 'themes/openculturas_base/fontawesome6', so we need to tell the fontawesome
-//  scss config, that our copy is in another directory relative to the compiled css file, for the font paths to resolve.
+//  The Fontawesome package lives in 'themes/openculturas_base/fontawesome6', so we need to tell the Fontawesome
+//  scss config that our copy is in another directory relative to the compiled CSS file, for the font paths to resolve.
 //
 $fa-font-path: '../fontawesome6/webfonts';
 
@@ -232,9 +229,9 @@ $fa-font-path: '../fontawesome6/webfonts';
 //  Fontawesome extend-only selectors for webfont names.
 //
 //  As long as you are using fontawesome 6 this should not need a change.
-//  These selectors work as a mapping for the 'icon' mixin so it will map icons to the right webfonts.
+//  These selectors work as a mapping for the 'icon' mixin so it will map icons to the right web fonts.
 //
-//  If for any reason, fontawesome decides they want to rename their webfonts, this is the place to adapt the new names.
+//  If for any reason Fontawesome decides to rename their web fonts, this is the place to adapt the new names.
 //
 %fas,
 %fa-solid {
