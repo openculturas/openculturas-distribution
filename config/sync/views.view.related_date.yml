@@ -2026,7 +2026,7 @@ display:
               autosubmit_textfield_delay: 500
               autosubmit_hide: false
               input_required: false
-              allow_secondary: false
+              allow_secondary: true
               secondary_label: 'Advanced options'
               secondary_open: false
               reset_button_always_show: false
@@ -2038,20 +2038,7 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
-                  is_secondary: false
-              field_a11y_features_target_id:
-                plugin_id: default
-                advanced:
-                  sort_options: false
-                  rewrite:
-                    filter_rewrite_values: ''
-                  collapsible: false
-                  is_secondary: false
-              field_address_location_proximity:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: false
+                  is_secondary: true
               field_date_value_1:
                 plugin_id: bef_datepicker
                 advanced:
@@ -2062,6 +2049,19 @@ display:
                 plugin_id: bef_datepicker
                 advanced:
                   placeholder_text: ''
+                  collapsible: false
+                  is_secondary: false
+              field_a11y_features_target_id:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: true
+              field_address_location_proximity:
+                plugin_id: default
+                advanced:
                   collapsible: false
                   is_secondary: false
       arguments: {  }
@@ -2088,6 +2088,7 @@ display:
           plugin_id: bundle
           value:
             date: date
+          group: 1
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -2187,6 +2188,108 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        field_date_value_1:
+          id: field_date_value_1
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_value_1_op
+            label: 'Date - Start'
+            description: ''
+            use_operator: false
+            operator: field_date_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: date_start
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: TT.MM.YYYY
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_date_end_value:
+          id: field_date_end_value
+          table: node__field_date
+          field: field_date_end_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_end_value_op
+            label: 'Date - End'
+            description: ''
+            use_operator: false
+            operator: field_date_end_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: date_end
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: TT.MM.YYYY
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         field_a11y_features_target_id:
           id: field_a11y_features_target_id
           table: paragraph__field_a11y_features
@@ -2303,108 +2406,6 @@ display:
                 min_terms: 4
                 delay: 800
                 address_format: default_formatted_address
-        field_date_value_1:
-          id: field_date_value_1
-          table: node__field_date
-          field: field_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: date
-          operator: '>='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_date_value_1_op
-            label: 'Date - Start'
-            description: ''
-            use_operator: false
-            operator: field_date_value_1_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: date_start
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              oc_member: '0'
-              oc_organizer: '0'
-              magazine_editor: '0'
-              oc_admin: '0'
-              administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_date_end_value:
-          id: field_date_end_value
-          table: node__field_date
-          field: field_date_end_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: date
-          operator: '<='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_date_end_value_op
-            label: 'Date - End'
-            description: ''
-            use_operator: false
-            operator: field_date_end_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: date_end
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              oc_member: '0'
-              oc_organizer: '0'
-              magazine_editor: '0'
-              oc_admin: '0'
-              administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -3033,15 +3034,15 @@ display:
           weight: ''
           icon:
             iconType: marker
-            iconUrl: ''
+            iconUrl: /profiles/contrib/openculturas-profile/themes/openculturas_base/images/map_marker.png
             shadowUrl: ''
             className: ''
             iconSize:
-              x: ''
-              'y': ''
+              x: '25'
+              'y': '34'
             iconAnchor:
-              x: ''
-              'y': ''
+              x: '12'
+              'y': '34'
             shadowSize:
               x: ''
               'y': ''
@@ -3056,10 +3057,10 @@ display:
             circle_marker_options: '{"radius":100,"color":"red","fillColor":"#f03","fillOpacity":0.5}'
           leaflet_markercluster:
             control: false
-            options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":true,"removeOutsideVisibleBounds":false}'
+            options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":false,"removeOutsideVisibleBounds":false}'
             include_path: false
           fullscreen:
-            control: false
+            control: true
             options: '{"position":"topleft","pseudoFullscreen":false}'
           path: '{"color":"#3388ff","opacity":"1.0","stroke":true,"weight":3,"fill":"depends","fillColor":"*","fillOpacity":"0.2","radius":"6"}'
           geocoder:
