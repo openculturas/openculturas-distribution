@@ -657,9 +657,7 @@ display:
           entity_type: node
           plugin_id: moderation_state_filter
           operator: in
-          value:
-            editorial-draft: editorial-draft
-            editorial-archived: editorial-archived
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -677,8 +675,12 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
-            reduce: true
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
