@@ -24,6 +24,10 @@ body {
   padding: 0;
 }
 
+div {
+  position: relative;
+}
+
 /* %allcaps */
 .allcaps,
 %allcaps {
@@ -68,8 +72,7 @@ h3,
 
 h4,
 .h4 {
-  color: var(--color-interaction);
-  font-family: var(--font-base);
+  color: var(--color-text);
   font-size: $font-size-default;
   letter-spacing: .05rem;
   text-transform: uppercase;
@@ -77,16 +80,13 @@ h4,
 
 h5,
 .h5 {
-  font-family: var(--font-base);
+  font-weight: bold;
   font-size: $font-size-default;
-  letter-spacing: .05rem;
-  text-transform: uppercase;
 }
 
 h6,
 .h6 {
   font-size: $font-size-default;
-  font-weight: bold;
 }
 
 /* %link-default */
@@ -95,7 +95,6 @@ a,
 button.link {
   color: $color-link;
   text-decoration: none;
-  outline: 0;
 
   &.is-active,
   &:visited {
@@ -111,7 +110,7 @@ button.link {
 
   &:active {
     outline: $outline-active;
-    color: $color-interaction;
+    color: $color-link;
     background: $color-text-inverted;
   }
 
@@ -129,7 +128,7 @@ p {
 }
 
 ul {
-  list-style: disc outside;
+  list-style: square outside;
   margin-left: $grid-gutter;
 
   ul {
@@ -137,7 +136,7 @@ ul {
     margin-bottom: $grid-gutter;
 
     ul {
-      list-style-type: square;
+      list-style-type: disc;
     }
   }
 
@@ -172,23 +171,8 @@ table {
   max-width: 100%;
   overflow-x: auto;
 
-  caption {
-    @extend %allcaps;
-  }
-
-  th {
-    color: $color-text-muted;
-    text-align: left;
-  }
-
-  td,
-  th {
-    padding-bottom: .5em;
-    padding-top: .5em;
-  }
-
-  tr {
-    border-bottom: 1px solid $color-divider-light;
+  code, pre {
+    max-width: 15rem;
   }
 
   .field-multiple-drag {
@@ -219,6 +203,24 @@ table {
   }
 }
 
+caption {
+  @extend %allcaps;
+}
+
+tr {
+  border-bottom: 1px solid $color-divider-light;
+}
+
+th {
+  text-align: left;
+}
+
+td,
+th {
+  padding-bottom: .5em;
+  padding-top: .5em;
+}
+
 dl {
   margin-bottom: 1em;
   margin-left: $grid-gutter;
@@ -246,35 +248,14 @@ hr {
   border-color: $color-divider-dark;
 }
 
-// Disabled styles which repeat browser Defaults.
-//strong,
-//b {
-//  font-weight: bold;
-//}
-
-//em,
-//i,
-//cite,
-//dfn {
-//  font-style: italic;
-//}
-
-// Manybe fontawesome?
-//i.far,
-//i.fa,
-//i.fab,
-//i.fal,
-//i.fad {
-//  font-style: normal;
-//}
-
-//u {
-//  text-decoration: underline;
-//}
-
-//del {
-//  text-decoration: line-through;
-//}
+//Fontawesome
+i.far,
+i.fa,
+i.fab,
+i.fal,
+i.fad {
+  font-style: normal;
+}
 
 sub {
   font-size: .75em;
@@ -288,11 +269,8 @@ sup {
   top: -0.5em;
 }
 
-.tiny {
-  font-size: $font-size-s;
-}
-
 /* %small */
+.tiny,
 small,
 .small,
 %small {
@@ -347,19 +325,6 @@ figure {
 
 figcaption {
   @extend %small;
-}
-
-// Responsive forms.
-input[size] {
-  max-width: 100%;
-
-  @media screen and (max-width: 48rem) {
-    width: 100%;
-  }
-
-  &[disabled] {
-    opacity: .5;
-  }
 }
 
 blockquote  {
