@@ -61,6 +61,7 @@ third_party_settings:
         weight: 0
     group_about:
       children:
+        - field_category
         - body
         - field_contact_data
       label: Profile
@@ -98,7 +99,6 @@ third_party_settings:
         - title
         - field_subtitle
         - field_allow_claiming
-        - field_category
         - field_address_data
       label: Basics
       region: content
@@ -373,7 +373,10 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '0'
   langcode:
     type: language_select
     weight: 0
