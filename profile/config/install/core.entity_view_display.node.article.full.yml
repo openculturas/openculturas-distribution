@@ -29,7 +29,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 10
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -43,7 +43,7 @@ third_party_settings:
       label: 'Mentioned in this article'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -57,7 +57,7 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 11
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -66,6 +66,26 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_interact:
+      children:
+        - flag_bookmark_node
+        - flag_recommendation_node
+      label: Interact
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: html_element
+      format_settings:
+        classes: interact
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.article.full
 targetEntityType: node
 bundle: article
@@ -85,6 +105,11 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_author:
     type: entity_reference_entity_view
     label: visually_hidden
@@ -94,7 +119,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 9
+    weight: 8
     region: content
   field_category:
     type: entity_reference_label
@@ -110,7 +135,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_content_paragraphs:
     type: entity_reference_revisions_entity_view
@@ -139,7 +164,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 2
+    weight: 1
     region: content
   field_recommended_by_view_ref:
     type: viewfield_default
@@ -165,17 +190,17 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   flag_bookmark_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   flag_recommendation_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 4
     region: content
 hidden:
   langcode: true

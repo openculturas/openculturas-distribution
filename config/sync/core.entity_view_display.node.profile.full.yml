@@ -43,7 +43,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 4
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -59,7 +59,7 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 7
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -75,7 +75,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 11
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -89,7 +89,7 @@ third_party_settings:
       label: 'Involved in'
       parent_name: ''
       region: content
-      weight: 8
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -103,7 +103,7 @@ third_party_settings:
       label: 'Member of'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -118,7 +118,7 @@ third_party_settings:
       label: 'Additional information'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -132,7 +132,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 15
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -147,7 +147,7 @@ third_party_settings:
       label: Recommendations
       parent_name: ''
       region: content
-      weight: 13
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -162,7 +162,7 @@ third_party_settings:
       label: 'Regular locations'
       parent_name: ''
       region: content
-      weight: 10
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -176,7 +176,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 16
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
@@ -191,7 +191,7 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 14
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -206,7 +206,7 @@ third_party_settings:
       label: 'Upcoming dates'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -217,20 +217,26 @@ third_party_settings:
         required_fields: false
     group_interact:
       children:
+        - flag_bookmark_node
+        - flag_recommendation_node
         - flag_claim_ownership
         - flag_report_abuse
       label: Interact
       parent_name: ''
       region: content
-      weight: 5
-      format_type: details
+      weight: 0
+      format_type: html_element
       format_settings:
-        classes: ''
+        classes: interact
         show_empty_fields: false
         id: ''
-        open: false
-        description: ''
-        required_fields: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.profile.full
 targetEntityType: node
 bundle: profile
@@ -241,7 +247,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   field_address_data:
     type: entity_reference_revisions_entity_view
@@ -394,17 +400,17 @@ content:
   flag_claim_ownership:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   flag_recommendation_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   flag_report_abuse:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
 hidden:
   co_authors: true
