@@ -187,20 +187,28 @@ third_party_settings:
         required_fields: false
     group_interact:
       children:
+        - flag_bookmark_node
+        - flag_recommendation_node
         - flag_claim_ownership
         - flag_report_abuse
       label: Interact
       parent_name: ''
       region: content
       weight: 4
-      format_type: details
+      format_type: html_element
       format_settings:
-        classes: ''
+        classes: interact
         show_empty_fields: false
         id: ''
-        open: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         description: ''
-        required_fields: false
+        open: 0
 id: node.location.full
 targetEntityType: node
 bundle: location
@@ -378,17 +386,17 @@ content:
   flag_claim_ownership:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   flag_recommendation_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   flag_report_abuse:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
 hidden:
   field_allow_claiming: true

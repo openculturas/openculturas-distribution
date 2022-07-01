@@ -12,8 +12,31 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_formatter_class
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_interact:
+      children:
+        - flag_bookmark_node
+        - flag_recommendation_node
+      label: Interact
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: html_element
+      format_settings:
+        classes: interact
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 _core:
   default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
 id: node.page.full
@@ -26,7 +49,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   co_authors:
     type: author
@@ -42,7 +65,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_mood_image:
     type: entity_reference_entity_view
@@ -53,14 +76,14 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 2
+    weight: 0
     region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   flag_bookmark_node:
     settings: {  }
@@ -70,7 +93,7 @@ content:
   flag_recommendation_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
 hidden:
   langcode: true

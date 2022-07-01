@@ -10,12 +10,14 @@ dependencies:
     - field.storage.node.field_location_virtual
     - field.storage.node.field_organizer
     - field.storage.node.field_people_reference
+    - field.storage.node.field_premiere
     - field.storage.node.field_pricing
     - field.storage.node.field_subtitle
     - field.storage.node.field_ticketing
     - node.type.date
   module:
     - address
+    - better_exposed_filters
     - csv_serialization
     - entity_reference_revisions
     - link
@@ -47,6 +49,68 @@ display:
     display_options:
       title: 'Upcoming dates'
       fields:
+        field_premiere:
+          id: field_premiere
+          table: node__field_premiere
+          field: field_premiere
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         title:
           id: title
           table: node_field_data
@@ -57,11 +121,11 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: Veranstaltungstitel
+          label: Titel
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '{% if field_premiere %}{{ field_premiere }}: {% endif %}{{ title }} '
             make_link: false
             path: ''
             absolute: false
@@ -120,7 +184,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Untertitel
+          label: Sutitle
           exclude: false
           alter:
             alter_text: false
@@ -182,12 +246,12 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Veranstaltungsbild
+          label: Image
           exclude: false
           alter:
-            alter_text: true
+            alter_text: false
             text: ''
-            make_link: true
+            make_link: false
             path: '{{ field_media_image }}'
             absolute: true
             external: false
@@ -207,7 +271,7 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: true
+            strip_tags: false
             trim: false
             preserve_tags: ''
             html: false
@@ -245,8 +309,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Datum
-          exclude: false
+          label: Date
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -318,7 +382,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          label: 'Zeitpunkt - Beginn'
+          label: 'Date -Start'
           exclude: false
           alter:
             alter_text: false
@@ -360,7 +424,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           date_format: custom
-          custom_date_format: 'H:m:s'
+          custom_date_format: 'd.m.Y H:m:s'
           timezone: ''
         field_date_end_value:
           id: field_date_end_value
@@ -370,7 +434,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          label: 'Zeitpunkt - Ende'
+          label: 'Date - End'
           exclude: false
           alter:
             alter_text: false
@@ -412,7 +476,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           date_format: custom
-          custom_date_format: 'H:m:s'
+          custom_date_format: 'd.m.Y H:m:s'
           timezone: ''
         field_attendance_mode:
           id: field_attendance_mode
@@ -422,7 +486,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Art des Orts'
+          label: 'Location type'
           exclude: false
           alter:
             alter_text: false
@@ -486,7 +550,7 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: 'Physischer Veranstaltungsort'
+          label: 'Physical Location'
           exclude: false
           alter:
             alter_text: false
@@ -549,7 +613,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: Organisation
+          label: Organization
           exclude: false
           alter:
             alter_text: false
@@ -598,7 +662,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: 'Adresszeile 1'
+          label: 'Address line 1'
           exclude: false
           alter:
             alter_text: false
@@ -647,7 +711,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: 'Adresszeile 2'
+          label: 'Address line 2'
           exclude: false
           alter:
             alter_text: false
@@ -696,7 +760,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: subdivision
-          label: Ort
+          label: Locality
           exclude: false
           alter:
             alter_text: false
@@ -746,7 +810,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: PLZ
+          label: 'Postal code'
           exclude: false
           alter:
             alter_text: false
@@ -795,7 +859,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'URL des virtuellen Veranstaltungsorts'
+          label: 'Virtual location URL'
           exclude: false
           alter:
             alter_text: false
@@ -862,7 +926,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Veranstaltungsbeschreibung
+          label: Description
           exclude: false
           alter:
             alter_text: false
@@ -887,9 +951,9 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: false
+            strip_tags: true
             trim: false
-            preserve_tags: ''
+            preserve_tags: '<p> <br>'
             html: false
           element_type: ''
           element_class: ''
@@ -920,7 +984,7 @@ display:
           id: field_people_reference
           table: node__field_people_reference
           field: field_people_reference
-          relationship: none
+          relationship: field_event_description
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -935,7 +999,7 @@ display:
             external: false
             replace_spaces: false
             path_case: none
-            trim_whitespace: false
+            trim_whitespace: true
             alt: ''
             rel: ''
             link_class: ''
@@ -951,7 +1015,7 @@ display:
             more_link_path: ''
             strip_tags: true
             trim: false
-            preserve_tags: '<br><br />'
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -968,7 +1032,7 @@ display:
           click_sort_column: target_id
           type: entity_reference_revisions_entity_view
           settings:
-            view_mode: address_line
+            view_mode: plain_name
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -987,7 +1051,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Eintrittspreise
+          label: Pricing
           exclude: false
           alter:
             alter_text: false
@@ -1050,7 +1114,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Ticket-/Reservierungslink
+          label: 'Ticket shop/reservation link'
           exclude: false
           alter:
             alter_text: false
@@ -1117,7 +1181,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Veranstalter:in'
+          label: Organizer
           exclude: false
           alter:
             alter_text: false
@@ -1142,9 +1206,9 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: false
+            strip_tags: true
             trim: false
-            preserve_tags: ''
+            preserve_tags: '<p> <br>'
             html: false
           element_type: ''
           element_class: ''
@@ -1159,9 +1223,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: entity_reference_label
+          type: entity_reference_entity_view
           settings:
-            link: false
+            view_mode: legal
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -1177,15 +1241,40 @@ display:
         options:
           offset: 0
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: minimal_html
+          bef:
+            general:
+              autosubmit: false
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: true
+              secondary_label: 'Advanced options'
+              secondary_open: true
+              reset_button_always_show: false
+            filter:
+              field_date_value_1:
+                plugin_id: bef_datepicker
+                advanced:
+                  collapsible: false
+                  is_secondary: false
+              field_address_locality:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  is_secondary: true
       access:
         type: perm
         options:
@@ -1237,7 +1326,7 @@ display:
           operator: '='
           value: '1'
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: ''
             label: 'Published status'
@@ -1328,29 +1417,78 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: field_event_description
+        field_date_value_1:
+          id: field_date_value_1
+          table: node__field_date
+          field: field_date_value
+          relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
+          plugin_id: date
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_value_1_op
+            label: 'Date - Start'
+            description: ''
+            use_operator: false
+            operator: field_date_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_address_locality:
+          id: field_address_locality
+          table: paragraph__field_address
+          field: field_address_locality
+          relationship: field_address_data
+          group_type: group
+          admin_label: ''
           plugin_id: views_autocomplete_filters_string
-          operator: allwords
+          operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: title_op
-            label: Title
+            operator_id: field_address_locality_op
+            label: 'Address (field_address:locality)'
             description: ''
             use_operator: false
-            operator: title_op
+            operator: field_address_locality_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: title
+            identifier: field_address_locality
             required: false
             remember: false
             multiple: false
@@ -1366,7 +1504,7 @@ display:
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
             autocomplete_items: '10'
-            autocomplete_field: title
+            autocomplete_field: field_address_locality_1
             autocomplete_raw_suggestion: 1
             autocomplete_raw_dropdown: 1
             autocomplete_dependent: 0
@@ -1602,6 +1740,15 @@ display:
           admin_label: 'By id: field_address_data: Seitenabschnitt'
           plugin_id: standard
           required: false
+        field_people_reference:
+          id: field_people_reference
+          table: node__field_people_reference
+          field: field_people_reference
+          relationship: reverse__node__field_organizer
+          group_type: group
+          admin_label: 'By id: field_people_reference: Paragraph'
+          plugin_id: standard
+          required: false
       css_class: calendar
       use_ajax: true
       header: {  }
@@ -1625,6 +1772,7 @@ display:
         - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
         - 'config:field.storage.node.field_ticketing'
@@ -1677,6 +1825,7 @@ display:
         - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
         - 'config:field.storage.node.field_ticketing'
@@ -1729,6 +1878,7 @@ display:
         - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
         - 'config:field.storage.node.field_ticketing'
@@ -1781,6 +1931,7 @@ display:
         - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
         - 'config:field.storage.node.field_ticketing'
@@ -1819,6 +1970,7 @@ display:
         - 'config:field.storage.node.field_location_virtual'
         - 'config:field.storage.node.field_organizer'
         - 'config:field.storage.node.field_people_reference'
+        - 'config:field.storage.node.field_premiere'
         - 'config:field.storage.node.field_pricing'
         - 'config:field.storage.node.field_subtitle'
         - 'config:field.storage.node.field_ticketing'
