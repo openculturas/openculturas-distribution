@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.plain_name
+    - field.field.paragraph.member.field_member
+    - field.field.paragraph.member.field_member_function
+    - paragraphs.paragraphs_type.member
+id: paragraph.member.plain_name
+targetEntityType: paragraph
+bundle: member
+mode: plain_name
+content:
+  field_member:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: embedded_teaser
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_member_function: true
+  search_api_excerpt: true
