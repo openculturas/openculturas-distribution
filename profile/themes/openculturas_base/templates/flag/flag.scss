@@ -5,8 +5,8 @@
 .flag--link {
   @extend .button;
   display: inline-block;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  //padding-left: 1rem;
+  //padding-right: 1rem;
   white-space: pre;
 
   //&:first-child {
@@ -20,11 +20,11 @@
   }
 }
 
-.action-flag .flag--link {
-  background: transparent;
-  border-color: $color-interaction;
-  color: $color-interaction;
-}
+//.action-flag .flag--link {
+//  background: transparent;
+//  border-color: $color-interaction;
+//  color: $color-interaction;
+//}
 
 .js-flag-message {
   @include icon(info-circle);
@@ -97,6 +97,19 @@
 .flag-recommendation-node {
   .flag--link {
     @include icon(share-alt);
+  }
+}
+
+.flag-report-abuse {
+  .flag-link {
+    @extend .button-danger;
+    @include icon(hand)
+  }
+}
+
+.flag-claim-ownership {
+  .flag-link {
+    @include icon(people-arrows-left-right)
   }
 }
 
