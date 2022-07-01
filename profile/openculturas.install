@@ -43,9 +43,6 @@ function openculturas_install_content() {
   if (!in_array('hal', $core_extension_config->get('module'), TRUE)) {
     $module_installer->uninstall(['hal']);
   }
-  if (!in_array('serialization', $core_extension_config->get('module'), TRUE)) {
-    $module_installer->uninstall(['serialization']);
-  }
 
   $config = $configFactory->getEditable('system.site');
 
