@@ -1,4 +1,5 @@
-.menu {
+ul.menu,
+ul.links {
   margin: 0;
   padding: 0;
 
@@ -7,7 +8,8 @@
   }
 }
 
-.menu-item {
+.menu-item,
+ul.links li {
   list-style: none;
   position: relative;
   padding: 0;
@@ -62,5 +64,15 @@
 
   &.menu-item--open a.menu-item--toggle:before {
     transform: rotate(-180deg);
+  }
+}
+
+.inverted {
+  .menu-item,
+  ul.links li {
+    a:link,
+    a:active {
+      color: $color-text-inverted;
+    }
   }
 }
