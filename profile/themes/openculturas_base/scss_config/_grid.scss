@@ -138,6 +138,12 @@ $utility_grids_container_selectors: '> .view-content, > .field__items, > .detail
 .flex,
 %flex {
   display: flex;
-  flex-flow: row wrap;
-  gap: (2*$grid-gutter);
+  flex-flow: column;
+  gap: (.5*$grid-gutter);
+
+  @include breakpoint(l) {
+    flex-flow: row wrap;
+    gap: (2*$grid-gutter);
+  }
+
 }
