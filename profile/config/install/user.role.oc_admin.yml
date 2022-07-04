@@ -5,10 +5,16 @@ dependencies:
     - filter.format.advanced_html
     - filter.format.full_html
     - media.type.audio
+    - node.type.page
+    - taxonomy.vocabulary.accessibility
+    - taxonomy.vocabulary.category
+    - taxonomy.vocabulary.column
+    - taxonomy.vocabulary.trigger_warnings
     - workflows.workflow.magazine_article
   module:
     - coffee
     - content_moderation
+    - content_translation
     - contextual
     - entity_reference_revisions
     - field_permissions
@@ -18,6 +24,7 @@ dependencies:
     - licenses
     - locale
     - media
+    - menu_link_content
     - node
     - paragraphs
     - path
@@ -28,11 +35,13 @@ dependencies:
     - system
     - taxonomy
     - toolbar
+    - tour
 id: oc_admin
 label: 'OC admin'
 weight: -5
 is_admin: null
 permissions:
+  - 'access administration pages'
   - 'access coffee'
   - 'access content overview'
   - 'access contextual links'
@@ -40,8 +49,10 @@ permissions:
   - 'access media overview'
   - 'access site in maintenance mode'
   - 'access site licenses'
+  - 'access site reports'
   - 'access taxonomy overview'
   - 'access toolbar'
+  - 'access tour'
   - 'access user profiles'
   - 'administer media'
   - 'administer menu'
@@ -50,6 +61,7 @@ permissions:
   - 'administer redirects'
   - 'administer taxonomy'
   - 'administer url aliases'
+  - 'administer users'
   - 'assign magazine_editor role'
   - 'assign oc_admin role'
   - 'assign oc_member role'
@@ -57,6 +69,7 @@ permissions:
   - 'bypass node access'
   - 'cancel smart date recur instances'
   - 'create audio media'
+  - 'create content translations'
   - 'create field_claim_ownership_resolved'
   - 'create field_report_abuse_resolved'
   - 'create field_resolved'
@@ -64,6 +77,7 @@ permissions:
   - 'create url aliases'
   - 'customize shortcut links'
   - 'delete all revisions'
+  - 'delete content translations'
   - 'delete orphan revisions'
   - 'edit field_claim_ownership_resolved'
   - 'edit field_report_abuse_resolved'
@@ -78,8 +92,17 @@ permissions:
   - 'reschedule smart date recur instances'
   - 'revert all revisions'
   - 'select account cancellation method'
+  - 'translate accessibility taxonomy_term'
+  - 'translate any entity'
+  - 'translate category taxonomy_term'
+  - 'translate column taxonomy_term'
+  - 'translate editable entities'
   - 'translate interface'
+  - 'translate menu_link_content'
+  - 'translate page node'
+  - 'translate trigger_warnings taxonomy_term'
   - 'unflag recommendation_node'
+  - 'update content translations'
   - 'use magazine_article transition create_new_draft'
   - 'use magazine_article transition publish'
   - 'use magazine_article transition review'
