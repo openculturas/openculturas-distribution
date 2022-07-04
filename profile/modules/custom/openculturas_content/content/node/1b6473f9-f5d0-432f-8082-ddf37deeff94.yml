@@ -26,9 +26,6 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   content_translation_source:
     -
       value: und
@@ -59,15 +56,29 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
+          content_translation_source:
             -
-              value: true
+              value: und
+          content_translation_outdated:
+            -
+              value: false
           field_view:
             -
               target_id: vocabulary
               display_id: block_term_grid_columns
               arguments: ''
               items_to_display: ''
+        translations:
+          de:
+            revision_translation_affected:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
     -
       entity:
         _meta:
@@ -86,13 +97,31 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
+          content_translation_source:
             -
-              value: true
+              value: und
+          content_translation_outdated:
+            -
+              value: false
           field_body:
             -
               value: "<h2>Latest article</h2>\r\n"
               format: basic_html
+        translations:
+          de:
+            revision_translation_affected:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+            field_body:
+              -
+                value: "<h2>Neueste Artikel</h2>\r\n"
+                format: basic_html
     -
       entity:
         _meta:
@@ -111,15 +140,29 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
+          content_translation_source:
             -
-              value: true
+              value: und
+          content_translation_outdated:
+            -
+              value: false
           field_view:
             -
               target_id: related_article
               display_id: related_article_latest
               arguments: ''
               items_to_display: ''
+        translations:
+          de:
+            revision_translation_affected:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
   path:
     -
       alias: /magazine
@@ -132,7 +175,7 @@ translations:
         value: true
     title:
       -
-        value: Magazine
+        value: Magazin
     revision_translation_affected:
       -
         value: true
