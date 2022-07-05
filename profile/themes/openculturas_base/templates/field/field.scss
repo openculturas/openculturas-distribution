@@ -1,24 +1,35 @@
 .field {
   margin: 1rem 0;
   max-width: 100%; // Required by ff.
+}
 
-  .field__item {
-    > p:first-child {
-      margin-top: 0;
-    }
+.field__item {
+  > p:first-child {
+    margin-top: 0;
+  }
+}
+
+.field__label {
+  @extend %allcaps;
+  font-size: $font-size-s;
+  line-height: 1.866;
+}
+
+.field--label-inline {
+  .field__label {
+    padding-right: .75rem;
+    position: relative;
+    top: -.05em;
   }
 
-  > .field__label {
-    @extend %allcaps;
-    font-size: $font-size-s;
-    line-height: 1.866;
+  .field__items,
+  .field__item,
+  p {
+    display: inline;
   }
 
-  &.field--label-inline {
-    .field__label {
-      padding-right: .75rem;
-      position: relative;
-      top: -.1rem;
-    }
+  .field__item:not(:last-child):after {
+    content: "//";
   }
+
 }
