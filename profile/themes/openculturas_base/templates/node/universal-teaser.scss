@@ -33,15 +33,15 @@ h6.teaser {
     @include clearfix;
   }
 
-  .field--name-field-mood-image,
-  .field--name-field-portrait {
+  //.field--name-field-portrait,
+  .field--name-field-mood-image {
     display: block;
     width: 100%;
 
     @include breakpoint(m) {
       max-width: 30%;
       float: right;
-      margin: 0 0 .5rem .5rem;
+      margin: 0 0 .5rem (2*$grid-gutter);
     }
 
     .field {
@@ -94,10 +94,11 @@ h6.teaser {
     .profile--picture {
       height: 3rem;
       width: 3rem;
+      min-width: 3rem;
 
       &:before {
-        font-size: $font-size-icon;
-        top: .75rem;
+        font-size: 1.5rem;
+        //top: .75rem;
       }
     }
   }
