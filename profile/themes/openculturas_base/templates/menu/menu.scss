@@ -37,52 +37,50 @@ ul.menu a.is-active {
       background: transparent;
       color: $color-interaction;
     }
-
-    a.is-active {
-      border-bottom-color: $color-primary;
-    }
-
-    &:first-child a {
-      border-top: 1px solid $color-divider-light;
-    }
-    &:last-child a {
-      border-bottom-width: 0;
-    }
-
   }
 
+  a.is-active {
+    border-bottom-color: $color-primary;
+  }
 
-  a.menu-item--toggle {
-    border-left: 1px solid $color-text-inverted;
-    border-radius: $button-border-radius;
-    border-top: 1px solid $color-text-inverted;
-    display: block;
-    padding: .5rem .75rem;
-    position: absolute;
-    right: -2.5rem;
-    @include icon(chevron-down);
+  &:first-child a {
+    border-top: 1px solid $color-divider-light;
+  }
+  &:last-child a {
+    border-bottom-width: 0;
+  }
+}
+
+a.menu-item--toggle {
+  border-left: 1px solid $color-text-inverted;
+  border-radius: $button-border-radius;
+  border-top: 1px solid $color-text-inverted;
+  display: block;
+  padding: .5rem .75rem;
+  position: absolute;
+  right: -2.5rem;
+  @include icon(chevron-down);
+  font-size: $font-size-default;
+  top: 0;
+
+  &:before {
     font-size: $font-size-default;
-    top: 0;
-
-    &:before {
-      font-size: $font-size-default;
-      vertical-align: middle;
-      transition: transform 500ms ease;
-    }
-
-    &:hover,
-    &:focus {
-      background: $color-primary;
-      color: $color-text-inverted;
-    }
-
-    &:active {
-      background: transparent;
-      color: $color-interaction;
-    }
+    vertical-align: middle;
+    transition: transform 500ms ease;
   }
 
-  &.menu-item--open a.menu-item--toggle:before {
+  &:hover,
+  &:focus {
+    background: $color-primary;
+    color: $color-text-inverted;
+  }
+
+  &:active {
+    background: transparent;
+    color: $color-interaction;
+  }
+
+  .menu-item--open a.menu-item--toggle:before {
     transform: rotate(-180deg);
   }
 }
