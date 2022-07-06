@@ -66,5 +66,14 @@ function openculturas_install_content() {
   if ($node instanceof NodeInterface) {
     $config->set('page.403', '/node/' . $node->id());
   }
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $entityRepository->loadEntityByUuid('node', '9af42cc9-30a8-46a4-9432-dfcde34cd259');
+  // File: profile/modules/custom/openculturas_content/content/node/9af42cc9-30a8-46a4-9432-dfcde34cd259.yml.
+  if ($node instanceof NodeInterface) {
+    $config->set('page.front', '/node/' . $node->id());
+  }
+
   $config->save();
+
 }
