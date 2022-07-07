@@ -27,7 +27,6 @@
 
   &.node--type-location {
     .profile--picture {
-      background: $color-bg-slight-contrast;
       @include icon(location-dot, fas, before);
     }
   }
@@ -57,8 +56,7 @@
 
 
 .profile-teaser.view-mode-teaser,
-.profile-teaser.view-mode-compact,
-.profile-teaser.view-mode-legal {
+.profile-teaser.view-mode-compact {
   text-align: left;
   //@include grid(auto 1fr);
   @extend %flex !optional;
@@ -127,4 +125,55 @@
       }
     }
   }
+}
+
+.profile-teaser.view-mode-legal {
+  text-align: left;
+  //@include grid(auto 1fr);
+  @extend %flex !optional;
+  align-items: left;
+  //width: fit-content;
+  //margin: 0 auto;
+
+  .profile--picture {
+    text-align: center;
+    width: 4rem;
+    height: 4rem;
+    min-width: 4rem;
+
+    //@include breakpoint(m) {
+    //  width: 7rem;
+    //  height: 7rem;
+    //  min-width: 7rem;
+    //}
+
+    &:before {
+      font-size: 2rem;
+
+      //@include breakpoint(m) {
+      //  font-size: 4rem;
+      //}
+    }
+  }
+
+  .contact-data {
+    column-count: 2;
+  }
+  .contact-data--inner {
+    colunm-count: 2;
+  }
+
+  //.profile--content {
+  //  h4,
+  //  h3 {
+  //    margin: 0 0 .25rem 0;
+  //  }
+  //
+  //  .field:first-child {
+  //    margin-top: 0;
+  //  }
+  //  .field:last-child {
+  //    margin-bottom: 0;
+  //  }
+  //}
 }
