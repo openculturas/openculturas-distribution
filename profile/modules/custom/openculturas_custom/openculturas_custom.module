@@ -355,3 +355,17 @@ function openculturas_custom_flag_action_access(string $action, \Drupal\flag\Fla
 
   return \Drupal\Core\Access\AccessResult::neutral();
 }
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function openculturas_custom_locale_translation_projects_alter(&$projects) {
+  /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
+  $module_handler = \Drupal::service('module_handler');
+  $projects['openculturas_custom'] = [
+    'info' => [
+      'name' => 'OpenCulturas Customizing',
+      'interface translation server pattern' => $module_handler->getModule('openculturas_custom')->getPath() . '/translations/%language.po'
+    ],
+  ];
+}
