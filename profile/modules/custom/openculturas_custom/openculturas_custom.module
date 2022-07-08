@@ -369,3 +369,26 @@ function openculturas_custom_locale_translation_projects_alter(&$projects) {
     ],
   ];
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function openculturas_custom_node_presave(NodeInterface $node) {
+  $tags = [];
+  if ($node->hasField('field_references')) {
+    $refs = $node->get('field_references')->getValue();
+    foreach ($refs as $ref) {
+      $tags[] = 'node:' . $ref['target_id'];
+    }
+  }
+  // If the field changes, also invalidate the original value
+  if (isset($node->original) && $node->original->hasField('field_references')) {
+    $refs = $node->get('field_references')->getValue();
+    foreach ($refs as $ref) {
+      $tags[] = 'node:' . $ref['target_id'];
+    }
+  }
+  if ($tags !== []) {
+    \Drupal\Core\Cache\Cache::invalidateTags(array_unique($tags));
+  }
+}
