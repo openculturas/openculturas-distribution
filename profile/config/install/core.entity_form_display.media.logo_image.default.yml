@@ -7,16 +7,16 @@ dependencies:
     - media.type.logo_image
   module:
     - field_group
-    - focal_point
+    - svg_image
 third_party_settings:
   field_group:
     group_administrative:
       children:
         - langcode
+        - status
         - uid
         - created
         - path
-        - status
       label: Administrative
       region: hidden
       parent_name: ''
@@ -36,16 +36,12 @@ bundle: logo_image
 mode: default
 content:
   field_media_image:
-    type: image_focal_point
+    type: image_image
     weight: 1
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: media_library
-      preview_link: true
-      offsets: '50,50'
-      preview_styles:
-        profile: profile
     third_party_settings: {  }
   name:
     type: string_textfield
