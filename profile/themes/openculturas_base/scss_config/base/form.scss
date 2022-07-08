@@ -202,44 +202,46 @@ input[type="radio"] {
 
 // Gin overrides modals
 
-.ui-dialog,
-.ui-dialog .ui-dialog-content {
-  font-family: inherit;
-  color: inherit;
-}
+#drupal-modal {
+  .ui-dialog,
+  .ui-dialog .ui-dialog-content {
+    font-family: inherit;
+    color: inherit;
+  }
 
-.ui-dialog:not(.ui-dialog-off-canvas) {
-  border-radius: 2px;
-}
-
-.ui-dialog {
-  .ui-dialog-titlebar {
+  .ui-dialog:not(.ui-dialog-off-canvas) {
     border-radius: 2px;
-    padding: .5rem 1.25rem;
-    background-color: var(--color-interaction);
   }
 
-  .ui-dialog-title {
-    font-size: var(--font-size-l);
+  .ui-dialog {
+    .ui-dialog-titlebar {
+      border-radius: 2px;
+      padding: .5rem 1.25rem;
+      background-color: var(--color-interaction);
+    }
+
+    .ui-dialog-title {
+      font-size: var(--font-size-l);
+    }
+
+    .ui-dialog-titlebar-close {
+      top: .5rem;
+    }
+
+    .ui-widget-content.ui-dialog-content {
+      padding: 1.25rem;
+      background: var(--color-bg-light);
+    }
+
+    .ui-dialog-content .form-actions {
+      margin: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
   }
 
-  .ui-dialog-titlebar-close {
-    top: .5rem;
+  .ui-widget select, 
+  .ui-widget input,
+  .ui-widget button {
+    font-family: inherit;
   }
-
-  .ui-widget-content.ui-dialog-content {
-    padding: 1.25rem;
-    background: var(--color-bg-light);
-  }
-
-  .ui-dialog-content .form-actions {
-    margin: 1.25rem;
-    padding-bottom: 1.25rem;
-  }
-}
-
-.ui-widget select, 
-.ui-widget input,
-.ui-widget button {
-  font-family: inherit;
 }
