@@ -197,7 +197,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: 'profiles grid-1 grid-2-m grid-2-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
+      css_class: profiles
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -966,6 +966,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           view_mode: teaser
+      pager:
+        type: none
+        options:
+          offset: 0
       arguments:
         field_member_target_id:
           id: field_member_target_id
@@ -1038,6 +1042,8 @@ display:
           1: AND
       defaults:
         title: false
+        css_class: false
+        pager: false
         style: true
         row: true
         relationships: false
@@ -1065,6 +1071,7 @@ display:
           entity_type: paragraph
           plugin_id: entity_reverse
           required: true
+      css_class: 'profiles grid-1 grid-2-m grid-row-gap-2'
       display_description: ''
       display_extenders: {  }
     cache_metadata:
@@ -1072,7 +1079,6 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1186,6 +1192,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+      pager:
+        type: none
+        options:
+          offset: 0
       arguments:
         nid:
           id: nid
@@ -1278,6 +1288,8 @@ display:
       defaults:
         query: false
         title: false
+        css_class: false
+        pager: false
         style: false
         row: false
         relationships: false
@@ -1295,6 +1307,7 @@ display:
           admin_label: 'field_people_reference: Paragraph'
           plugin_id: standard
           required: true
+      css_class: 'profiles grid-1 grid-2-m grid-row-gap-2'
       display_description: ''
       display_extenders: {  }
     cache_metadata:
@@ -1303,7 +1316,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:

@@ -268,6 +268,10 @@ display:
     display_plugin: block
     position: 2
     display_options:
+      pager:
+        type: none
+        options:
+          offset: 0
       arguments:
         field_member_target_id:
           id: field_member_target_id
@@ -310,6 +314,7 @@ display:
           not: false
       defaults:
         css_class: false
+        pager: false
         relationships: false
         arguments: false
       relationships:
@@ -332,7 +337,7 @@ display:
           entity_type: paragraph
           plugin_id: entity_reverse
           required: true
-      css_class: 'locations grid-1 grid-2-m grid-2-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
+      css_class: 'locations grid-1 grid-2-m grid-row-gap-2'
       display_description: ''
       display_extenders: {  }
       block_hide_empty: true
@@ -342,7 +347,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
