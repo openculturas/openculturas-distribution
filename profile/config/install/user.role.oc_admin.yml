@@ -10,6 +10,8 @@ dependencies:
     - taxonomy.vocabulary.category
     - taxonomy.vocabulary.column
     - taxonomy.vocabulary.trigger_warnings
+    - workflows.workflow.draften
+    - workflows.workflow.draften_member
     - workflows.workflow.magazine_article
   module:
     - coffee
@@ -103,12 +105,17 @@ permissions:
   - 'translate trigger_warnings taxonomy_term'
   - 'unflag recommendation_node'
   - 'update content translations'
+  - 'use draften transition publish'
+  - 'use draften transition review'
+  - 'use draften_member transition publish'
+  - 'use draften_member transition to_review'
   - 'use magazine_article transition create_new_draft'
   - 'use magazine_article transition publish'
   - 'use magazine_article transition review'
   - 'use text format advanced_html'
   - 'use text format full_html'
   - 'view all revisions'
+  - 'view any unpublished content'
   - 'view field_claim_ownership_resolved'
   - 'view field_report_abuse_resolved'
   - 'view field_resolved'

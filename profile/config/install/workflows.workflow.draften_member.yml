@@ -2,11 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.article
+    - node.type.location
+    - node.type.profile
   module:
     - content_moderation
-id: magazine_article
-label: 'Magazine article'
+id: draften_member
+label: 'Draften Member'
 type: content_moderation
 type_settings:
   states:
@@ -20,7 +21,7 @@ type_settings:
       weight: 0
       published: true
       default_revision: true
-    to_review:
+    review:
       label: 'In review'
       weight: -1
       published: false
@@ -31,7 +32,7 @@ type_settings:
       from:
         - draft
         - published
-        - to_review
+        - review
       to: draft
       weight: -2
     publish:
@@ -39,18 +40,19 @@ type_settings:
       from:
         - draft
         - published
-        - to_review
+        - review
       to: published
       weight: 0
-    review:
+    to_review:
       label: 'To review'
       from:
         - draft
         - published
-        - to_review
-      to: to_review
+        - review
+      to: review
       weight: -1
   entity_types:
     node:
-      - article
+      - location
+      - profile
   default_moderation_state: draft

@@ -22,7 +22,7 @@ type_settings:
       published: true
       default_revision: true
     to_review:
-      label: 'To review'
+      label: 'In review'
       weight: -1
       published: false
       default_revision: false
@@ -32,6 +32,7 @@ type_settings:
       from:
         - draft
         - published
+        - to_review
       to: draft
       weight: -2
     publish:
@@ -43,7 +44,7 @@ type_settings:
       to: published
       weight: 0
     review:
-      label: Review
+      label: 'To review'
       from:
         - draft
         - published

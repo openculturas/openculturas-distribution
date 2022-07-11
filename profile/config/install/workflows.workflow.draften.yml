@@ -2,11 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.article
+    - node.type.date
+    - node.type.event
   module:
     - content_moderation
-id: magazine_article
-label: 'Magazine article'
+id: draften
+label: Draften
 type: content_moderation
 type_settings:
   states:
@@ -52,5 +53,6 @@ type_settings:
       weight: -1
   entity_types:
     node:
-      - article
+      - date
+      - event
   default_moderation_state: draft
