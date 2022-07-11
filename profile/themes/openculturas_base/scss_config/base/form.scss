@@ -4,6 +4,8 @@ form {
   >.form--inline,
   >.form-item,
   >.form-wrapper,
+  >details.form-wrapper,
+  >p,
   >[id*=ajax-wrapper] {
     // Padding without adding padding to FORM Tag (which would mess up button positioning).
     margin-left: $grid-gutter;
@@ -84,6 +86,7 @@ fieldset fieldset {
 
 label {
   display: block;
+  padding: .25rem;
   &.option {
     display: inline-block;
   }
@@ -178,5 +181,67 @@ input[type="radio"] {
 *[disabled] {
   opacity: .5;
   pointer-events: none;
+}
+
+// Views exposed forms
+
+.bef-exposed-form {
+  border-width: 0 0 1px;
+
+  > div,
+  .form--inline .details-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: last baseline;
+  }
+
+  .bef--secondary {
+    order: -1;
+  }
+}
+
+// Gin overrides modals
+
+
+.ui-dialog.ui-widget,
+.ui-dialog.ui-widget .ui-dialog-content {
+  font-family: inherit;
+  color: inherit;
+}
+
+.ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
+  border-radius: 2px;
+}
+
+.ui-dialog.ui-widget {
+  .ui-dialog-titlebar {
+    border-radius: 2px 2px 0 0;
+    padding: .5rem $grid-gutter;
+    background-color: var(--color-interaction);
+  }
+
+  .ui-dialog-title {
+    font-size: var(--font-size-l);
+  }
+
+  .ui-dialog-titlebar-close {
+    top: .5rem;
+  }
+
+  .ui-widget-content.ui-dialog-content {
+    padding: $grid-gutter;
+    background: var(--color-bg-light);
+  }
+
+  .ui-dialog-content .form-actions {
+    margin: $grid-gutter;
+    padding-bottom: $grid-gutter;
+  }
+
+  select, 
+  input,
+  button {
+    font-family: inherit;
+  }
 }
 

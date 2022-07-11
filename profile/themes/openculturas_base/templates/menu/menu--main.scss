@@ -1,70 +1,8 @@
 /**
  * "Main-Menu" consists of multiple menues within offcanvas.
+ * see menu.scss for basic menu styling. 
+ * Add specific overrides for off-canvans menu here.
 **/
+
 .region-offcanvas-menu {
-  .menu {
-    margin: 0;
-    padding: 0;
-
-    > li > ul {
-      margin-left: $grid-gutter;
-    }
-  }
-
-  .menu-item {
-    list-style: none;
-    position: relative;
-    padding: 0;
-
-    a {
-      display: block;
-      padding: .5rem 0rem .5rem 0;
-      margin-right: 2.25rem;
-      border-top: 1px solid $color-text-inverted;
-      color: $color-text;
-
-      &:hover,
-      &:focus {
-        color: $color-text-inverted;
-      }
-
-      &:active {
-        background: transparent;
-        color: $color-interaction;
-      }
-    }
-
-    a.menu-item--toggle {
-      border-left: 1px solid $color-text-inverted;
-      border-radius: $button-border-radius;
-      border-top: 1px solid $color-text-inverted;
-      display: block;
-      padding: .425rem .5rem;
-      position: absolute;
-      right: -2.4rem;
-      @include icon(chevron-down);
-      top: 0;
-
-      &:before {
-        font-size: $font-size-icon;
-        vertical-align: middle;
-        transition: transform 500ms ease;
-      }
-
-      &:hover,
-      &:focus {
-        background: $color-primary;
-        color: $color-text-inverted;
-      }
-
-      &:active {
-        background: transparent;
-        color: $color-interaction;
-      }
-    }
-
-    &.menu-item--open a.menu-item--toggle:before {
-      transform: rotate(-180deg);
-    }
-  }
 }

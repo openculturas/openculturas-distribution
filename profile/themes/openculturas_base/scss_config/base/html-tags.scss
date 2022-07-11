@@ -31,7 +31,7 @@ div {
 /* %allcaps */
 .allcaps,
 %allcaps {
-  letter-spacing: .05rem;
+  letter-spacing: .05em;
   text-transform: uppercase;
 }
 
@@ -217,8 +217,12 @@ th {
 
 td,
 th {
-  padding-bottom: .5em;
-  padding-top: .5em;
+  padding: .5em 2em .5em 0;
+}
+
+td:last-child,
+th:last-child {
+  padding-right: 0;
 }
 
 dl {
@@ -316,6 +320,12 @@ var {
   font-family: monospace;
 }
 
+audio,
+video {
+  width: 100%;
+  max-width: 100%;
+}
+
 img,
 figure {
   height: auto;
@@ -323,8 +333,14 @@ figure {
   vertical-align: bottom;
 }
 
+figure {
+  margin: (2*$grid-gutter) 0;
+  text-align: center;
+}
+
 figcaption {
-  @extend %small;
+  font-weight: bold;
+  font-size: $font-size-default;
 }
 
 blockquote  {
@@ -361,3 +377,4 @@ blockquote  {
     margin-top: 0;
   }
 }
+

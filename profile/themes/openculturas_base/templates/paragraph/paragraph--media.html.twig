@@ -1,0 +1,17 @@
+{% extends 'paragraph.html.twig' %}
+
+{% block paragraph %}
+  <article{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <figure>
+      {{ content|without('field_caption') }}
+      {% if content.field_caption is not empty %}
+        <figcaption>
+          {{ content.field_caption }}
+        </figcaption>
+      {% endif %}
+      </figure>
+    {% endblock %}
+  </article>
+{% endblock paragraph %}
+

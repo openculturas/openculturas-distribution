@@ -16,6 +16,8 @@ details {
   border: 0;
   border-top: 1px solid $color-divider-light;
   padding: 0;
+  margin-left: $grid-gutter; // form has no padding, see form.scss
+  margin-right: $grid-gutter;
   width: 100%; // Required by ff.
 
   // Reverting form-wrapper default.
@@ -58,6 +60,7 @@ details {
       }
     }
 
+    &:focus:before,
     &:hover:before {
       background: $color-interaction;
       color: $color-text-inverted;
@@ -69,8 +72,8 @@ details {
       outline: $outline-active;
     }
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
       color: $color-interaction;
     }
 
@@ -99,6 +102,22 @@ details {
 
   .details-wrapper {
     margin: 0;
-    padding: .5rem 0 ;
+    padding: $grid-gutter 0 (2*$grid-gutter);
+  }
+}
+
+/* Views exposed forms, secondary options */
+details.bef--secondary {
+  border-width: 0 0 1px;
+
+  > summary .details-title {
+    font-size: $font-size-default;
+    font-family: $font-base;
+    text-align: right;
+    margin-right: 1rem;
+  }
+
+  > summary:before {
+    font-size: $font-size-default;
   }
 }

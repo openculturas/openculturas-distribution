@@ -1,0 +1,87 @@
+//.view-filters {
+//  @include grid();
+//
+//  form {
+//    grid-column: 2 / 16;
+//  }
+//}
+
+.views-row {
+    margin-bottom: (2*$grid-gutter);
+}
+
+.terms .views-row {
+  margin-bottom: 0;
+}
+
+.view-header {
+  h3 {
+    @extend %allcaps;
+    font-size: $font-size-s;
+    line-height: 1.866;
+    font-family: var(--font-base);
+    font-weight: bold;
+  }
+}
+
+.field--type-viewfield {
+  > .field__items > .field__item {
+    border-top: 1px solid $color-divider-light;
+    margin-top: $grid-gutter;
+    margin-bottom: $grid-gutter;
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+}
+
+.views-table {
+  tr {
+    border-color: transparent;
+  }
+
+  //td:last-child {
+  //    padding-left: $grid-gutter;
+  //}
+
+  .flag {
+    float: right;
+    vertical-align: baseline;
+  }
+
+  td:first-child {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 48rem) {
+    tbody {
+      display: block;
+    }
+    tr {
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+      justify-content: flex-start;
+      margin-bottom: $grid-gutter;
+    }
+    tr:not(:last-child) {
+      border:0;
+    }
+    td {
+      align-self: center;
+    }
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .taxonomy-term--tag {
+    white-space: pre;
+    margin-bottom: 0;
+  }
+}
+
+.view-header > .button {
+  margin-top: (2*$grid-gutter);
+}

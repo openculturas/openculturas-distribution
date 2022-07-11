@@ -9,18 +9,19 @@
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: $color-bg-light;
   transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
 
   .offcanvas-open & {
     transform: translate3d(0, 0, 0);
+    background: $color-bg-light;
     box-shadow: 0 .5rem 1.5rem -.5rem $color-text;
   }
 
   &--grid {
     @include grid();
     margin: 0 auto;
+    background: $color-bg-light;
   }
 
   &--heading {
@@ -52,15 +53,11 @@
     margin: $grid-gutter 0 (2*$grid-gutter) 0;
 
     .block {
-      border-top: 1px solid $color-divider-light;
+      border-top: 1px solid $color-divider-dark;
       padding: $grid-gutter 0;
 
       &:first-child {
         border-top: none;
-      }
-
-      a {
-        color: $color-text;
       }
     }
 
@@ -70,18 +67,26 @@
 
       > li > ul {
         margin-left: $grid-gutter;
+        column-count: 1;
       }
+
+      @include breakpoint(l) {
+        column-count: 2;
+
+        .menu-item a {
+          border-width: 0;
+        }
+        .menu-item a.is-active {
+          border-bottom-color: $color-primary;
+        }
+      }
+
     }
 
     li.menu-item {
       list-style: none;
       position: relative;
       padding: 0;
-
-      a {
-        display: block;
-        padding: .5rem 2.25rem .5rem 0;
-      }
     }
 
     form {
@@ -166,11 +171,17 @@
       }
     }
   }
+
+  a {
+    color: $color-text;
+  }
+
 }
 
 .header__burger--buttons {
   @include icon(bars);
   background: $color-primary;
+  border-color: $color-primary;
   padding: 0;
   border-radius: $button-border-radius;
   color: $color-text-inverted;

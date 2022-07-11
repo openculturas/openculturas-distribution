@@ -1,0 +1,112 @@
+// Re-usable classes
+
+.inverted {
+  background: $color-bg-dark;
+  color: $color-text-inverted;
+
+  a,
+  a.is-active,
+  a:visited,
+  h2, 
+  h3, 
+  h4 {
+  color: $color-text-inverted;
+  }
+}
+
+// maps
+.leaflet-container {
+  margin-bottom: (2*$grid-gutter)
+}
+
+// media attribution aka. copyright info
+.attribution {
+  font-size: $font-size-s;
+}
+figcaption .attribution {
+  font-weight: normal;
+}
+
+// Editor-embedded media 
+.field--name-body,
+.field--name-field-body {
+  .caption .media,
+  figure {
+    .field {
+      margin: 1rem 0; // use .field default, unset filter.caption's unset
+    }
+  }
+}
+
+
+.leaflet-popup-content-wrapper {
+  border-radius: 2px;
+}
+
+.leaflet-popup-content {
+  font-family: var(--font-base);
+  font-size: var(--font-size-s);
+
+  a {
+    @extend %link-default;
+    font-weight: bold;
+  }
+}
+
+.leaflet-container {
+  a.leaflet-popup-close-button {
+    width: auto;
+    height: auto;
+    color: unset;
+    font: unset;
+    top: .25em;
+    right: .25em;
+    @extend %button;
+    font-size: var(--font-size-s);
+    padding: 0 .5em;
+  }
+}
+
+
+// Form tips in front-end
+
+.formtip {
+  background-color: var(--color-info);
+  border: 2px solid var(--color-info);
+  color: var(--color-text-inverted);
+
+  &:before {
+    color: var(--color-text-inverted);
+  }
+
+  &:focus, 
+  &:hover,
+  &:active {
+    background-color: var(--color-text-inverted);
+    border-color: var(--color-info);
+
+    &:before {
+      color: var(--color-info);
+    }
+  }
+}
+
+
+.formtips-processed {
+  padding: 1.25rem;
+  border-radius: 2px;
+
+  &:before {
+    border: 6px solid transparent;
+    border-bottom-color: var(--color-info);
+  }
+
+}
+
+div.description.formtips-processed,
+.formtips-processed.filter-guidelines, 
+.form-item .description.formtips-processed, 
+.form-item__description.formtips-processed {
+  background-color: var(--color-info);
+}
+

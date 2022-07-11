@@ -5,8 +5,8 @@
 .flag a {
   @extend %button;
   display: inline-block;
-  //padding-left: 1rem;
-  //padding-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   white-space: pre;
 
   &:focus, &:hover {
@@ -22,6 +22,15 @@
     color: inherit;
     display: block;
     margin-right: .75rem;
+  }
+}
+
+.flag.action-unflag a {
+  @extend %button-active;
+
+  &:focus::before,
+  &:hover::before {
+    //@include icon(xmark);
   }
 }
 
@@ -106,14 +115,14 @@
 }
 
 .flag-report-abuse {
-  .flag-link {
+  .flag--link {
     @extend %button-danger;
     @include icon(hand);
   }
 }
 
 .flag-claim-ownership {
-  .flag-link {
+  .flag--link {
     @include icon(people-arrows-left-right);
   }
 }

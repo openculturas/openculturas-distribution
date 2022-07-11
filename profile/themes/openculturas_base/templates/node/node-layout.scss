@@ -23,7 +23,7 @@
   }
 }
 
-.node {
+body:not(.path-frontpage) .node {
   &.view-mode-full {
     > .node__content {
       @include grid;
@@ -39,13 +39,12 @@
           }
         }
       }
-
-      > .interact {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-      }
-
     }
   }
+}
+
+.interact {
+  @extend %flex !optional;
+  justify-content: center;
+  flex-flow: row wrap;
 }

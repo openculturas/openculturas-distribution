@@ -22,7 +22,8 @@
       // disable defaults.
       -webkit-mask: none;
       mask: none;
-
+      position: relative;
+      top: -4rem;
     }
 
     &:focus,
@@ -48,11 +49,25 @@
   .slider-indicators {
     &>* {
       // @see swiffy-slider.css :/.
-      background: $color-interaction;
+      // border provides a larger touch space
+      background: transparent;
+      border: .5rem solid transparent;
+      margin: 1rem .25rem;
+
+      &:before {
+        content: '';
+        display: block;
+        border-top: 3px solid $color-interaction;
+      }
 
       // disable invert filter.
       filter: none;
       -webkit-filter: none;
     }
   }
+
+  .field--name-name {
+    font-weight: bold;
+  }
+
 }

@@ -10,10 +10,10 @@
 
     &:before {
       position: absolute;
-      top: 2rem;
+      top: 25%;
       left: 0;
       width: 100%;
-      font-size: 4rem;
+      font-size: 3.5rem;
       color: $color-text-inverted;
     }
 
@@ -27,9 +27,13 @@
 
   &.node--type-location {
     .profile--picture {
-      background: $color-bg-slight-contrast;
       @include icon(location-dot, fas, before);
     }
+  }
+  
+  .field--name-field-subtitle {
+    font-weight: normal;
+    margin: 0;
   }
 }
 
@@ -38,25 +42,24 @@
   text-align: center;
   margin: 0;
 
-  .profile--content {
-    h4,
-    h3 {
-      margin: 0;
-    }
+  //.profile--content {
+  //  h4,
+  //  h3 {
+  //    margin: 0;
+  //  }
 
     //.field--name-field-subtitle,
     //.field--name-field-contact-data {
     //}
-  }
+  //}
 }
 
 
 .profile-teaser.view-mode-teaser,
-.profile-teaser.view-mode-compact,
-.profile-teaser.view-mode-legal {
+.profile-teaser.view-mode-compact {
   text-align: left;
-
-  @include grid(auto 1fr);
+  //@include grid(auto 1fr);
+  @extend %flex !optional;
   align-items: center;
   //width: fit-content;
   //margin: 0 auto;
@@ -65,18 +68,18 @@
     text-align: center;
     width: 4rem;
     height: 4rem;
+    min-width: 4rem;
 
     @include breakpoint(m) {
       width: 7rem;
       height: 7rem;
+      min-width: 7rem;
     }
 
     &:before {
-      top: 1rem;
       font-size: 2rem;
 
       @include breakpoint(m) {
-        top: 2rem;
         font-size: 4rem;
       }
     }
@@ -99,23 +102,89 @@
 
 .profile-teaser.view-mode-compact {
 
-    .profile--picture {
+  gap: $grid-gutter;
+
+  .profile--picture {
     width: 4rem;
     height: 4rem;
+    min-width: 4rem;
 
     @include breakpoint(m) {
       width: 4rem;
       height: 4rem;
+      min-width: 4rem;
     }
 
     &:before {
-      top: 1rem;
+      top: .5rem;
       font-size: 2rem;
 
       @include breakpoint(m) {
-        top: 1rem;
+        top: .5rem;
         font-size: 2rem;
       }
     }
+  }
+}
+
+.profile-teaser.view-mode-legal {
+  text-align: left;
+  //@include grid(auto 1fr);
+  @extend %flex !optional;
+  align-items: left;
+  //width: fit-content;
+  //margin: 0 auto;
+
+  .profile--picture {
+    text-align: center;
+    width: 4rem;
+    height: 4rem;
+    min-width: 4rem;
+
+    //@include breakpoint(m) {
+    //  width: 7rem;
+    //  height: 7rem;
+    //  min-width: 7rem;
+    //}
+
+    &:before {
+      font-size: 2rem;
+
+      //@include breakpoint(m) {
+      //  font-size: 4rem;
+      //}
+    }
+  }
+
+  .contact-data {
+    column-count: 2;
+  }
+  .contact-data--inner {
+    colunm-count: 2;
+  }
+
+  //.profile--content {
+  //  h4,
+  //  h3 {
+  //    margin: 0 0 .25rem 0;
+  //  }
+  //
+  //  .field:first-child {
+  //    margin-top: 0;
+  //  }
+  //  .field:last-child {
+  //    margin-bottom: 0;
+  //  }
+  //}
+}
+
+.node--type-article.view-mode-teaser .teaser--author .field--name-field-subtitle {
+  display: none;
+}
+
+div[class*="grid"] .profile-teaser.view-mode-teaser {
+  @include breakpoint(m) {
+    flex-flow: column;
+    text-align: center;
   }
 }

@@ -15,62 +15,76 @@
   @include breakpoint(l) {
     grid-column: 3 / 15;
   }
+}
 
-  .header__utilities {
-    grid-area: utilities;
-    text-align: right;
+.header__utilities {
+  grid-area: utilities;
+  text-align: right;
 
-    .flag {
-      display: inline-block;
-      margin-left: $grid-gutter;
-    }
+  .flag {
+    display: inline-block;
+    margin-left: $grid-gutter;
+  }
+}
+
+.header__branding {
+  grid-area: branding;
+  align-self: center;
+
+  img, figure, svg {
+    height: 5rem;
+  }
+}
+
+.site-logo {
+  // Ensure focus outline in Firefox.
+  display: inline-block;
+  outline-offset: 3px;
+}
+
+.site-name {
+  //display: inline-block;
+  //position: relative;
+  //top: .25rem;
+  //left: $grid-gutter;
+  //font-size: var(--font-size-xl);
+  display: none;
+}
+
+.site-slogan {
+  top: 1rem;
+}
+
+
+.header__highlights-menu {
+  grid-area: highlights;
+  align-self: end;
+  display: none;
+
+  @include breakpoint(m) {
+    display: block;
   }
 
-  .header__branding {
-    grid-area: branding;
-    align-self: center;
-
-    img, figure, svg {
-      height: 5rem;
-    }
-     .site-logo {
-       // Ensure focus outline in Firefox.
-       display: inline-block;
-       outline-offset: 3px;
-     }
-
-    .site-name {
-      display: none;
-    }
+  ul.menu {
+    margin: 0;
+    padding: 0;
   }
 
-  .header__highlights-menu {
-    grid-area: highlights;
-    align-self: center;
-    display: none;
-
-    @include breakpoint(m) {
-      display: block;
-    }
-
-    ul.menu {
-      margin: 0;
-      padding: 0;
-
-      li {
-        display: inline-block;
-
-        a {
-          @extend %link-default;
-          text-decoration: none;
-          padding: .5rem 1rem;
-        }
-      }
-    }
+  li {
+    display: inline-block;
   }
 
-  .header__burger {
-    grid-area: burger;
-    align-self: center;
+  a {
+    @extend %link-default;
+    color: $color-link;
+    text-decoration: none;
+    font-weight: bold;
+    border-width: 0;
+    padding: .5rem 1rem;
   }
+}
+
+.header__burger {
+  grid-area: burger;
+  align-self: center;
 }

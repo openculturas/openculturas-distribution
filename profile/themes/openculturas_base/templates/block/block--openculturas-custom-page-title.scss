@@ -1,4 +1,8 @@
 .block-openculturas-custom-page-title {
+  margin-bottom: (2*$grid-gutter);
+  @include breakpoint(m) {
+    margin-bottom: (3*$grid-gutter);
+  }
 
   .page-title {
     margin-bottom: .5rem;
@@ -16,23 +20,32 @@
 }
 
 .custom-page-title--with-image {
-  //@include grid(auto 1fr, 'image text' 'image text2');
   display: flex;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 0rem;
+  //margin-bottom: 2rem;
 
   .field--name-field-portrait {
     @include profile_circle;
-    //grid-area: image;
-    margin: $grid-gutter $grid-gutter 0 0;
-    //max-width: 7rem;
+    position: absolute;
+    top: -3rem;
+    margin: 0;
   }
 
-  //.page-title {
-  //  grid-area: text;
-  //}
+  @include breakpoint(m) {
+    margin-top: 1rem;
+    //margin-bottom: 4rem;
+    flex-flow: row nowrap;
+    align-items: normal;
+    text-align: left;
 
-  //.page-subtitle {
-  //  grid-area: text2;
-  //}
+    .field--name-field-portrait {
+      position: relative;
+      top: $grid-gutter;
+      margin-right: $grid-gutter;
+    }
+  }
+
 }

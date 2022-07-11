@@ -1,12 +1,14 @@
-// Drupal Messages system + info message in Blue.
+// Drupal messages (error, warning, success)
+
 .messages {
   background-image: none;
-  border-radius: .4rem;
-  border-width: 2px;
+  //border-radius: .4rem;
+  border-width: 1px;
   box-shadow: none;
   padding: .6rem 1rem .6rem 2.6rem;
   position: relative;
   color: $color-text;
+  margin-bottom: (2*$grid-gutter);
 
   &:before {
     //content: "\f058";
@@ -37,6 +39,7 @@
     &:before {
       // @see https://fontawesome.com/v5/icons/times-circle
       content: "\f057";
+      color: $color-danger;
     }
   }
 
@@ -48,6 +51,7 @@
     &:before {
       // @see https://fontawesome.com/v5/icons/check-circle
       content: "\f058";
+      color: $color-success;
     }
   }
 
@@ -58,6 +62,7 @@
     &:before {
       // @see https://fontawesome.com/icons/triangle-exclamation
       content: "\f071";
+      color: $color-warning;
     }
   }
 
@@ -70,4 +75,24 @@
       content: "\f05a";
     }
   }
+}
+
+// Unpublished nodes highlighting
+
+.node--unpublished {
+  background-color: var(--color-danger--opacity-8);
+}
+
+.node--unpublished:before {
+  content: "Unpublished";
+  font-weight: bold;
+  display: block;
+  width: auto;
+  padding: 1.25rem 2.5rem;
+  color: var(--color-danger);
+  background-color: var(--color-danger--opacity-8);
+}
+
+html[lang="de"] .node--unpublished:before {
+  content: "Unveröffentlicht";
 }

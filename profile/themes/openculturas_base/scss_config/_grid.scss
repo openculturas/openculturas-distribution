@@ -134,3 +134,16 @@ $utility_grids_container_selectors: '> .view-content, > .field__items, > .detail
     display: flex;
   }
 }
+
+.flex,
+%flex {
+  display: flex;
+  flex-flow: column;
+  gap: (.5*$grid-gutter);
+
+  @include breakpoint(m) {
+    flex-flow: row nowrap;
+    gap: (.5*$grid-gutter) (2*$grid-gutter);
+  }
+
+}

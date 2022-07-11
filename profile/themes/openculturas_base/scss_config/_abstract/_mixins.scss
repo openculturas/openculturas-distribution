@@ -171,6 +171,7 @@
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
+  border: 1px solid $color-bg-light;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -198,26 +199,26 @@
 //
 @mixin social_links() {
   margin: 0 auto $grid-gutter auto;
-  width: fit-content;
+  //width: fit-content;
   max-width: 100%;
 
-  @include breakpoint(l) {
-    @include grid(repeat(10, 1fr));
-  }
+  //@include breakpoint(l) {
+    //@include grid(repeat(10, 1fr));
+  //}
 
   .field__item {
     display: block;
-    width: fit-content;
-    max-width: 100%;
+    //width: fit-content;
+    //max-width: 100%;
 
-    @include breakpoint(l) {
-      &:nth-child(odd) {
-        grid-column: 1/6;
-      }
-      &:nth-child(even) {
-        grid-column: 7/11;
-      }
-    }
+    //@include breakpoint(l) {
+      //&:nth-child(odd) {
+        //grid-column: 1/6;
+      //}
+      //&:nth-child(even) {
+        //grid-column: 7/11;
+      //}
+    //}
 
     &.field-email a {
       @include icon(envelope);
@@ -228,18 +229,22 @@
     &.field-url a {
       @include icon(globe);
     }
+    &.field-legal-url a {
+      @include icon(section);
+    }
 
     > a {
-      padding-bottom: 0.25rem;
-      padding-top: 0.25rem;
-      padding-left: 2px; // A little nicer hover bg.
+      padding: .5rem 1rem;
+      //padding-bottom: 0.25rem;
+      //padding-top: 0.25rem;
+      //padding-left: 2px; // A little nicer hover bg.
       margin: 0.25rem 0;
       display: inline-block;
-      overflow: hidden;
+      //overflow: hidden;
       word-break: keep-all;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 100%;
+      //text-overflow: ellipsis;
+      //white-space: nowrap;
+      //max-width: 100%;
 
       &:focus,
       &:hover {
