@@ -1,0 +1,27 @@
+uuid: 2feaee62-f659-4a7c-be0e-1b8f247122ee
+langcode: en
+status: true
+dependencies:
+  module:
+    - http_client_error_status
+    - user
+  theme:
+    - openculturas_base
+id: userlogin
+theme: openculturas_base
+region: content
+weight: 0
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: '0'
+  provider: user
+visibility:
+  http_client_error_status:
+    id: http_client_error_status
+    negate: false
+    request_401: false
+    request_403: true
+    request_404: false

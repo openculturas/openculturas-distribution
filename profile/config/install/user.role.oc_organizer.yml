@@ -2,10 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.date
-    - node.type.event
-    - node.type.location
+    - workflows.workflow.draften
   module:
+    - content_moderation
     - flag
     - node
     - smart_date_recur
@@ -15,11 +14,10 @@ weight: -7
 is_admin: null
 permissions:
   - 'cancel smart date recur instances'
-  - 'create date content'
-  - 'create event content'
-  - 'create location content'
   - 'flag recommendation_node'
   - 'make smart dates recur'
   - 'reschedule smart date recur instances'
   - 'unflag recommendation_node'
+  - 'use draften transition publish'
+  - 'use draften transition review'
   - 'view own unpublished content'

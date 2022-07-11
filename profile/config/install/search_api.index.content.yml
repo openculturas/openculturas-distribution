@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_category
     - field.storage.node.field_accessibility
     - field.storage.paragraph.field_a11y_features
-    - field.storage.node.field_category
     - search_api.server.content
     - core.entity_view_mode.node.search_index
   module:
-    - paragraphs
     - taxonomy
     - node
+    - paragraphs
     - search_api
 id: content
 name: Content
@@ -52,7 +52,7 @@ field_settings:
     type: text
     configuration:
       roles:
-        anonymous: anonymous
+        - anonymous
       view_mode:
         'entity:node':
           article: search_index

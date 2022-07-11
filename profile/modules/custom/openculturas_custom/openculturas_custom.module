@@ -355,3 +355,41 @@ function openculturas_custom_flag_action_access(string $action, \Drupal\flag\Fla
 
   return \Drupal\Core\Access\AccessResult::neutral();
 }
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function openculturas_custom_locale_translation_projects_alter(&$projects) {
+  /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
+  $module_handler = \Drupal::service('module_handler');
+  $projects['openculturas_custom'] = [
+    'info' => [
+      'name' => 'OpenCulturas Customizing',
+      'interface translation server pattern' => $module_handler->getModule('openculturas_custom')->getPath() . '/translations/%language.po'
+    ],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function openculturas_custom_node_presave(NodeInterface $node) {
+  $tags = [];
+  // Invalidate cache for CT profile -> Magazine -> Mention by
+  if ($node->hasField('field_references')) {
+    $refs = $node->get('field_references')->getValue();
+    foreach ($refs as $ref) {
+      $tags[] = 'node:' . $ref['target_id'];
+    }
+  }
+  // If the field changes, also invalidate the original value
+  if (isset($node->original) && $node->original->hasField('field_references')) {
+    $refs = $node->get('field_references')->getValue();
+    foreach ($refs as $ref) {
+      $tags[] = 'node:' . $ref['target_id'];
+    }
+  }
+  if ($tags !== []) {
+    \Drupal\Core\Cache\Cache::invalidateTags(array_unique($tags));
+  }
+}
