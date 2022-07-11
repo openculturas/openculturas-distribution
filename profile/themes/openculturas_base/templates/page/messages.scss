@@ -1,4 +1,5 @@
-// Drupal Messages system + info message in Blue.
+// Drupal messages (error, warning, success)
+
 .messages {
   background-image: none;
   //border-radius: .4rem;
@@ -74,4 +75,24 @@
       content: "\f05a";
     }
   }
+}
+
+// Unpublished nodes highlighting
+
+.node--unpublished {
+  background-color: var(--color-danger--opacity-8);
+}
+
+.node--unpublished:before {
+  content: "Unpublished";
+  font-weight: bold;
+  display: block;
+  width: auto;
+  padding: 1.25rem 2.5rem;
+  color: var(--color-danger);
+  background-color: var(--color-danger--opacity-8);
+}
+
+html[lang="de"] .node--unpublished:before {
+  content: "Unveröffentlicht";
 }

@@ -66,3 +66,47 @@ figcaption .attribution {
     padding: 0 .5em;
   }
 }
+
+
+// Form tips in front-end
+
+.formtip {
+  background-color: var(--color-info);
+  border: 2px solid var(--color-info);
+  color: var(--color-text-inverted);
+
+  &:before {
+    color: var(--color-text-inverted);
+  }
+
+  &:focus, 
+  &:hover,
+  &:active {
+    background-color: var(--color-text-inverted);
+    border-color: var(--color-info);
+
+    &:before {
+      color: var(--color-info);
+    }
+  }
+}
+
+
+.formtips-processed {
+  padding: 1.25rem;
+  border-radius: 2px;
+
+  &:before {
+    border: 6px solid transparent;
+    border-bottom-color: var(--color-info);
+  }
+
+}
+
+div.description.formtips-processed,
+.formtips-processed.filter-guidelines, 
+.form-item .description.formtips-processed, 
+.form-item__description.formtips-processed {
+  background-color: var(--color-info);
+}
+
