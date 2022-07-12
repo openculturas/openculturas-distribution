@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.profile.field_category
     - field.field.node.profile.field_contact_data
     - field.field.node.profile.field_gallery
+    - field.field.node.profile.field_logo
     - field.field.node.profile.field_member_of_view_ref
     - field.field.node.profile.field_mention_by_art_view_ref
     - field.field.node.profile.field_mood_image
@@ -25,6 +26,7 @@ dependencies:
     - field.field.node.profile.field_subtitle
     - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
+    - workflows.workflow.draften_member
   module:
     - a11y_autocomplete_element
     - allowed_formats
@@ -117,6 +119,7 @@ third_party_settings:
       children:
         - field_mood_image
         - field_portrait
+        - field_logo
         - field_gallery
       label: Media
       region: content
@@ -194,13 +197,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
   field_address_data:
     type: paragraphs
-    weight: 8
+    weight: 9
     region: content
     settings:
       title: Address
@@ -260,6 +263,13 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_logo:
+    type: media_library_widget
+    weight: 17
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
     weight: 15
@@ -355,7 +365,7 @@ content:
             selector: ''
   field_started:
     type: datetime_datelist_no_time
-    weight: 9
+    weight: 10
     region: content
     settings:
       date_order: MY
@@ -394,7 +404,7 @@ content:
         hide_guidelines: '0'
   langcode:
     type: language_select
-    weight: 0
+    weight: 27
     region: content
     settings:
       include_locked: true
@@ -407,19 +417,19 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 32
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 30
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 8
+    weight: 34
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -432,7 +442,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 31
     region: content
     settings:
       display_label: true
@@ -447,7 +457,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 28
     region: content
     settings:
       match_operator: CONTAINS
@@ -456,7 +466,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 33
     region: content
     settings: {  }
     third_party_settings: {  }

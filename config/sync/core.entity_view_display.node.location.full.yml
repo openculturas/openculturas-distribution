@@ -23,9 +23,11 @@ dependencies:
     - field.field.node.location.field_reference_title
     - field.field.node.location.field_related_date_view_ref
     - field.field.node.location.field_safety_info
+    - field.field.node.location.field_started
     - field.field.node.location.field_subtitle
     - node.type.location
   module:
+    - datetime
     - entity_reference_revisions
     - field_formatter_class
     - field_group
@@ -85,6 +87,7 @@ third_party_settings:
     group_additional_information:
       children:
         - field_additional_information
+        - field_started
       label: 'Additional information'
       parent_name: ''
       region: content
@@ -229,6 +232,11 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   field_accessibility:
     type: entity_reference_revisions_entity_view
     label: hidden
@@ -340,7 +348,7 @@ content:
       always_build_output: false
       empty_view_title: hidden
     third_party_settings: {  }
-    weight: 16
+    weight: 1
     region: content
   field_recommended_by_view_ref:
     type: viewfield_default
@@ -378,6 +386,17 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 24
+    region: content
+  field_started:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'F Y'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 13
     region: content
   flag_bookmark_node:
     settings: {  }
