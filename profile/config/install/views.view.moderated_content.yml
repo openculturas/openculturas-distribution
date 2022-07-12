@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - workflows.workflow.draften
+    - workflows.workflow.draften_member
     - workflows.workflow.magazine_article
   module:
     - content_moderation
@@ -745,6 +747,8 @@ display:
           plugin_id: moderation_state_filter
           operator: 'not in'
           value:
+            draften-published: draften-published
+            draften_member-published: draften_member-published
             magazine_article-published: magazine_article-published
           group: 1
           exposed: false
@@ -869,7 +873,7 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: standard
-          required: false
+          required: true
         uid:
           id: uid
           table: node_field_revision
