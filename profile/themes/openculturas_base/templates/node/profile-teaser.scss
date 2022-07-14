@@ -129,11 +129,17 @@
 
 .profile-teaser.view-mode-legal {
   text-align: left;
+  flex-flow: column;
   //@include grid(auto 1fr);
   @extend %flex !optional;
   align-items: left;
   //width: fit-content;
   //margin: 0 auto;
+
+  .profile-basics {
+    @extend %flex !optional;
+    align-items: left;
+  }
 
   .profile--picture {
     text-align: center;
@@ -156,12 +162,9 @@
     }
   }
 
-  .contact-data {
-    column-count: 2;
-  }
-  .contact-data--inner {
-    colunm-count: 2;
-  }
+  //.contact-data .contact-info {
+  //  column-count: 2;
+  //}
 
   //.profile--content {
   //  h4,

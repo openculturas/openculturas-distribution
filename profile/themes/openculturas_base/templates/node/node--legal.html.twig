@@ -1,0 +1,27 @@
+{% extends "@openculturas_base/node/profile-teaser.html.twig" %}
+
+{% set wrapper_tag = 'div' %}
+{% block content_wrapper %}
+  <{{ wrapper_tag }}{{ attributes.addClass(classes)|without('role') }}>
+    <div class="profile-basics">
+      <div class="profile--picture">
+        {{ content.field_portrait }}
+      </div>
+      <div class="profile--content">
+        {{ title_prefix }}
+        {% if label %}
+          <h3{{ title_attributes.addClass('teaser') }}>
+            <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+          </h3>
+        {% endif %}
+        {{ title_suffix }}
+      </div>
+    </div>
+    <div class="profile--attachment">
+      <div{{ content_attributes.addClass('node__content') }}>
+        {{ content | without('field_portrait') }}
+      </div>
+    </div>
+  </{{ wrapper_tag }}>
+{% endblock %}
+

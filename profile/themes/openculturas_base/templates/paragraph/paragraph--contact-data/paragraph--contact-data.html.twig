@@ -43,14 +43,18 @@
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished',
-    'contact-data'
+    not paragraph.isPublished() ? 'paragraph--unpublished'
   ]
 %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+      <div class="contact-data">
+      {{ content | without('field_legal_info') }}
+      </div>
+      <div class="legal-info">
+        {{ content.field_legal_info }}
+      </div>
     {% endblock %}
   </div>
 {% endblock paragraph %}
