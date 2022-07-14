@@ -1,0 +1,53 @@
+uuid: 7490e440-72e5-445e-90bf-98ed893b1182
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: oc_gin_theme_overrides
+label: 'OC Gin theme overrides'
+code: |-
+  .formtip {
+    background-color: var(--colorGinPrimary);
+    border: 2px solid var(--colorGinPrimary);
+    color: var(--colorGinButtonText);
+  }
+
+  .formtip::before {
+    color: var(--colorGinButtonText);
+  }
+
+  .formtip:focus, 
+  .formtip:hover,
+  .formtip:active {
+    background-color: var(--colorGinPrimaryLightHover);
+    border-color: var(--colorGinFocus);
+  }
+
+  .formtip:focus:before,
+  .formtip:hover:before,
+  .formtip:active::before {
+    color: var(--colorGinInfoLight);
+  }
+
+  .formtips-processed.filter-guidelines, 
+  div.description.formtips-processed, 
+  .form-item .description.formtips-processed, 
+  .form-item__description.formtips-processed {
+  	background-color: var(--colorGinInfoBackground);
+  }
+
+  .formtips-processed::before {
+  	border: 6px solid transparent;
+  	border-bottom-color: var(--colorGinInfoBackground);
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      gin: gin
+    negate: false
+contexts: {  }
+conditions_require_all: true
