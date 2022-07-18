@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.profile.field_member_of_view_ref
     - field.field.node.profile.field_mention_by_art_view_ref
     - field.field.node.profile.field_mood_image
+    - field.field.node.profile.field_my_article_view_ref
     - field.field.node.profile.field_people_reference
     - field.field.node.profile.field_performer_at_view_ref
     - field.field.node.profile.field_performer_event_view_ref
@@ -129,6 +130,7 @@ third_party_settings:
         description: ''
     group_magazine:
       children:
+        - field_my_article_view_ref
         - field_mention_by_art_view_ref
       label: Magazine
       parent_name: ''
@@ -325,7 +327,17 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 0
+    weight: 2
+    region: content
+  field_my_article_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view
