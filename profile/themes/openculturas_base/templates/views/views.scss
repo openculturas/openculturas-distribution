@@ -1,11 +1,3 @@
-//.view-filters {
-//  @include grid();
-//
-//  form {
-//    grid-column: 2 / 16;
-//  }
-//}
-
 .views-row {
     margin-bottom: (2*$grid-gutter);
 }
@@ -15,6 +7,8 @@
 }
 
 .view-header {
+  padding: 0 $grid-gutter;
+
   h3 {
     @extend %allcaps;
     font-size: $font-size-s;
@@ -22,6 +16,21 @@
     font-family: var(--font-base);
     font-weight: bold;
   }
+
+  .button {
+    margin-top: (2*$grid-gutter);
+  }
+
+}
+
+
+.view-filters {
+  margin-bottom: (2*$grid-gutter);
+
+  .form-actions {
+    margin-bottom: 0;
+  }
+
 }
 
 .field--type-viewfield {
@@ -82,6 +91,3 @@
   }
 }
 
-.view-header > .button {
-  margin-top: (2*$grid-gutter);
-}

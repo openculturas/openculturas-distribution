@@ -1,0 +1,77 @@
+article.layout-wide > .node__content {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: auto;
+  max-width: 68.75rem;
+  grid-column-gap: 1.25rem;
+  grid-row-gap: 0;
+  margin-bottom: 1.25rem;
+  min-height: 20rem;
+}
+
+body .block-system-main-block > article.layout-wide.view-mode-full {
+  > .node__content > div.field--name-field-content-paragraphs {
+    grid-column: 1/17;
+  }
+
+  .view {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: auto;
+    max-width: 68.75rem;
+    grid-column-gap: 1.25rem;
+    grid-row-gap: 0;
+  }
+
+  .view-header {
+    grid-row: 1;
+  }
+
+  .view-filters {
+    grid-row: 2;
+  }
+
+  .attachment-before {
+    grid-row: 3;
+  }
+
+  .view-content {
+    grid-row: 4;
+  }
+
+  .pager {
+    grid-row: 5;
+  }
+
+  .view-footer {
+    grid-row: 6;
+  }
+
+  .view-header,
+  .view-filters,
+  .attachment-before {
+    grid-column: 1 / 17;
+
+    @include breakpoint(m) {
+      grid-column: 2 / 16;
+    }
+  }
+
+  .view-content,
+  .pager,
+  .view-footer {
+    grid-column: 2 / 16;
+
+    @include breakpoint(l) {
+      grid-column: 4 / 14;
+    }
+  }
+
+  .attachment .view-content {
+    grid-column: 1 / -1;
+  }
+
+}
+
+// @todo: possible further paragraphs on same page would need extra grid handling
+

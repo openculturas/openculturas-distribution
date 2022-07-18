@@ -7,30 +7,17 @@ display:
         title:
           expose:
             label: 'Nach Name suchen'
-        field_category_target_id:
-          expose:
-            label: Fokus
         field_address_location_proximity:
           expose:
             label: Entfernung
-      pager:
-        options:
-          expose:
-            items_per_page_label: 'Einträge je Seite'
       exposed_form:
         options:
-          submit_button: Anwenden
+          submit_button: Filtern
           bef:
             general:
-              secondary_label: 'Erweiterte Optionen'
-  attachment_map:
-    display_options:
-      empty:
-        area:
-          content:
-            value: "<p>Keine Ergebnisse.</p>\r\n"
-            format: basic_html
-      fields:
-        rendered_entity:
-          alter:
-            text: ''
+              secondary_label: 'Erweiterte Filter'
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortieren
+          sort_asc_label: aufsteigend
+          sort_desc_label: absteigend
+          text_input_required: 'Filter wählen Schaltfläche klicken, um Ergebnisse zu sehen'

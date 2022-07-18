@@ -69,6 +69,7 @@ fieldset {
 fieldset fieldset {
   background: transparent;
   padding: 0;
+  border-width: 0;
 }
 
 .form-required:after {
@@ -124,9 +125,12 @@ textarea {
 input[size] {
   max-width: 100%;
 
-  //@media screen and (max-width: 48rem) {
-  //  width: 100%;
-  //}
+input[size='30'] {
+  @include breakpoint(l) {
+    max-width: 15rem;
+  }
+}
+
 
 }
 
@@ -205,8 +209,8 @@ input[type="radio"] {
 
 .ui-dialog.ui-widget,
 .ui-dialog.ui-widget .ui-dialog-content {
-  font-family: inherit;
-  color: inherit;
+  font-family: unset;
+  color: unset;
 }
 
 .ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
@@ -245,3 +249,56 @@ input[type="radio"] {
   }
 }
 
+.ui-datepicker {
+  border-color: var(--color-interaction--lighten-75);
+
+  .ui-widget-header {
+    background-color: var(--color-interaction--lighten-75);
+    border-color: var(--color-interaction--lighten-75);
+  }
+  
+  td {
+    min-width: 11%;
+    color: var(--color-text);
+  }
+
+  .ui-state-default {
+  background-color: var(--color-interaction--lighten-95);
+  border-color: var(--color-interaction--lighten-75);
+  text-align: center;
+  }
+}
+
+/* @todo: add more robust identifier to fieldset */
+fieldset[id^="edit-radius-wrapper"] {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  legend {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  .fieldset-wrapper {
+    display: flex;
+  }
+
+  .form-number {
+    max-width: 7.5rem;
+  }
+
+  .address-input {
+    @include breakpoint (l) {
+      max-width: 32.75rem;
+    }
+  }
+
+  .form--inline:last-of-type {
+    padding-bottom: 0;
+  }
+
+}

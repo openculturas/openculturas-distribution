@@ -2008,15 +2008,17 @@ display:
     position: 6
     display_options:
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
-          items_per_page: 6
+          items_per_page: 12
           total_pages: null
           id: 0
           tags:
             next: ››
             previous: ‹‹
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -2025,6 +2027,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
         type: bef
         options:
@@ -2384,7 +2387,7 @@ display:
             operator: field_address_location_proximity_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: proximity
+            identifier: radius
             required: false
             remember: false
             multiple: false

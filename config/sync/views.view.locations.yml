@@ -318,23 +318,26 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
-          items_per_page: 0
+          items_per_page: 6
           total_pages: null
           id: 0
           tags:
-            next: ››
-            previous: ‹‹
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
           expose:
-            items_per_page: true
+            items_per_page: false
             items_per_page_label: 'Items per page'
-            items_per_page_options: '25, 50, 100, 150'
+            items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
         type: bef
         options:
@@ -355,13 +358,9 @@ display:
               autosubmit_hide: false
               input_required: false
               allow_secondary: true
-              secondary_label: 'Advanced options'
+              secondary_label: 'Advanced filters'
               secondary_open: false
               reset_button_always_show: false
-            pager:
-              plugin_id: default
-              advanced:
-                is_secondary: false
             filter:
               title:
                 plugin_id: default
@@ -369,10 +368,10 @@ display:
                   placeholder_text: ''
                   collapsible: false
                   is_secondary: true
-              field_category_target_id:
+              field_category_target_id_1:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
@@ -486,8 +485,8 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_category_target_id:
-          id: field_category_target_id
+        field_category_target_id_1:
+          id: field_category_target_id_1
           table: node__field_category
           field: field_category_target_id
           relationship: none
@@ -499,21 +498,24 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_category_target_id_op
-            label: Category
+            operator_id: field_category_target_id_1_op
+            label: Focus
             description: ''
             use_operator: false
-            operator: field_category_target_id_op
+            operator: field_category_target_id_1_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: category
+            identifier: focus
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
               magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             reduce: false
           is_grouped: false
@@ -530,7 +532,7 @@ display:
             group_items: {  }
           reduce_duplicates: false
           vid: category
-          type: textfield
+          type: select
           hierarchy: true
           limit: true
           error_message: true
@@ -809,9 +811,42 @@ display:
         - 'config:field.storage.paragraph.field_address_location'
   attachment_map:
     id: attachment_map
-    display_title: 'Locations Map - attachment list'
+    display_title: 'Locations map attachment'
     display_plugin: attachment
     position: 2
+    display_options:
+      pager:
+        type: none
+        options:
+          offset: 0
+      empty: {  }
+      defaults:
+        empty: false
+        exposed_form: true
+        header: false
+      display_description: ''
+      header: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
+      display_extenders: {  }
+      displays:
+        locations_block_map: locations_block_map
+      inherit_exposed_filters: true
+      inherit_pager: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.paragraph.field_address_location'
+  locations_block_map:
+    id: locations_block_map
+    display_title: 'Locations block filterable'
+    display_plugin: block
+    position: 1
     display_options:
       fields:
         counter:
@@ -1240,19 +1275,47 @@ display:
         style: false
         row: false
         fields: false
+        header: false
+        footer: false
       display_description: ''
+      header:
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 0
+          type: node+location
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: ''
+          destination: 0
+      footer: {  }
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
-      displays:
-        locations_block_map: locations_block_map
-      attachment_position: after
-      inherit_exposed_filters: true
-      inherit_pager: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_interface'
         - url
+        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions
@@ -1296,58 +1359,4 @@ display:
         - 'config:core.entity_view_display.node.profile.search_index'
         - 'config:core.entity_view_display.node.profile.search_result'
         - 'config:core.entity_view_display.node.profile.teaser'
-        - 'config:field.storage.paragraph.field_address_location'
-  locations_block_map:
-    id: locations_block_map
-    display_title: 'Locations Map (block)'
-    display_plugin: block
-    position: 1
-    display_options:
-      empty: {  }
-      defaults:
-        empty: false
-        exposed_form: true
-        header: false
-      display_description: ''
-      header:
-        views_add_button:
-          id: views_add_button
-          table: views
-          field: views_add_button
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: views_add_button_area
-          empty: false
-          tokenize: 0
-          type: node+location
-          render_plugin: views_add_button_node
-          access_plugin: views_add_button_node
-          context: ''
-          button_text: ''
-          button_classes: button
-          button_attributes: ''
-          button_access_denied:
-            value: ''
-            format: minimal_html
-          button_prefix:
-            value: ''
-            format: minimal_html
-          button_suffix:
-            value: ''
-            format: minimal_html
-          query_string: ''
-          destination: 1
-      rendering_language: '***LANGUAGE_language_interface***'
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
         - 'config:field.storage.paragraph.field_address_location'
