@@ -13,12 +13,12 @@
         var $detail = $(event.currentTarget);
         var $leaflet = $detail.find('.leaflet-container');
 
-        if ($leaflet) {
+        if ($leaflet.length) {
           $leaflet.data('leaflet').lMap.invalidateSize();
         }
       });
       $(document).on('leafletMapInit', function (e, settings, lMap) {
-        if (settings.settings.center && settings.settings.center.lat && settings.settings.center.lon) {
+        if (settings.settings.center && settings.settings.center.lat && settings.settings.center.lon && settings.settings.radius) {
           var latlng = L.latLng(settings.settings.center.lat, settings.settings.center.lon);
           var circle = L.circle(latlng, {
             radius: parseInt(settings.settings.radius, 10) * 1000

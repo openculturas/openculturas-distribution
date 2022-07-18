@@ -11,7 +11,7 @@
       $elements.on('toggle', (event) => {
         const $detail = $(event.currentTarget);
         const $leaflet = $detail.find('.leaflet-container');
-        if ($leaflet) {
+        if ($leaflet.length) {
           $leaflet.data('leaflet').lMap.invalidateSize();
         }
       });
@@ -19,7 +19,8 @@
         if (
           settings.settings.center &&
           settings.settings.center.lat &&
-          settings.settings.center.lon
+          settings.settings.center.lon &&
+          settings.settings.radius
         ) {
           const latlng = L.latLng(
             settings.settings.center.lat,
