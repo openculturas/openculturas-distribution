@@ -683,18 +683,36 @@ display:
               oc_admin: '0'
               administrator: '0'
             reduce: false
-          is_grouped: false
+          is_grouped: true
           group_info:
-            label: ''
+            label: 'Moderation state'
             description: ''
-            identifier: ''
+            identifier: moderation_state
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: Draft
+                operator: in
+                value:
+                  draften-draft: draften-draft
+                  draften_member-draft: draften_member-draft
+                  magazine_article-draft: magazine_article-draft
+              2:
+                title: 'In review'
+                operator: in
+                value:
+                  draften-to_review: draften-to_review
+                  draften_member-review: draften_member-review
+                  magazine_article-to_review: magazine_article-to_review
+              3:
+                title: ''
+                operator: in
+                value: {  }
         langcode:
           id: langcode
           table: node_field_revision
