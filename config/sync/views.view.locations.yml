@@ -20,6 +20,7 @@ dependencies:
     - user
     - views_add_button
     - views_autocomplete_filters
+    - views_infinite_scroll
 id: locations
 label: Locations
 module: views
@@ -318,10 +319,27 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: some
+        type: infinite_scroll
         options:
           offset: 0
           items_per_page: 12
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Load More'
+            automatically_load_content: false
+            initially_load_all_pages: false
       exposed_form:
         type: bef
         options:
@@ -352,10 +370,10 @@ display:
                   placeholder_text: ''
                   collapsible: false
                   is_secondary: true
-              field_category_target_id:
+              field_category_target_id_1:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
@@ -469,8 +487,8 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_category_target_id:
-          id: field_category_target_id
+        field_category_target_id_1:
+          id: field_category_target_id_1
           table: node__field_category
           field: field_category_target_id
           relationship: none
@@ -482,21 +500,24 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_category_target_id_op
-            label: Category
+            operator_id: field_category_target_id_1_op
+            label: Focus
             description: ''
             use_operator: false
-            operator: field_category_target_id_op
+            operator: field_category_target_id_1_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: category
+            identifier: focus
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
               magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             reduce: false
           is_grouped: false
@@ -514,7 +535,7 @@ display:
           reduce_duplicates: false
           vid: category
           type: select
-          hierarchy: false
+          hierarchy: true
           limit: true
           error_message: true
         field_address_location_proximity:
@@ -784,21 +805,36 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:field.storage.paragraph.field_address_location'
-  attachment_1:
-    id: attachment_1
+  attachment_map:
+    id: attachment_map
     display_title: 'Locations map attachment'
     display_plugin: attachment
     position: 2
     display_options:
       pager:
-        type: none
+        type: mini
         options:
           offset: 0
+          items_per_page: 0
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
       empty: {  }
       defaults:
         empty: false
@@ -809,459 +845,7 @@ display:
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       displays:
-        block_1: block_1
-      inherit_exposed_filters: true
-      inherit_pager: true
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_interface'
-        - url
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
-        - 'config:field.storage.paragraph.field_address_location'
-  attachment_map:
-    id: attachment_map
-    display_title: 'Locations attachment list'
-    display_plugin: attachment
-    position: 4
-    display_options:
-      enabled: false
-      fields:
-        counter:
-          id: counter
-          table: views
-          field: counter
-          relationship: none
-          group_type: group
-          admin_label: 'Target link'
-          plugin_id: counter
-          label: ''
-          exclude: false
-          alter:
-            alter_text: true
-            text: '<a class="visually-hidden" id="result-{{ counter }}"></a>'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          counter_start: 1
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: false
-            ellipsis: false
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_address_location:
-          id: field_address_location
-          table: paragraph__field_address_location
-          field: field_address_location
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: geofield_latlon
-          settings:
-            output_format: decimal
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_address_locality:
-          id: field_address_locality
-          table: paragraph__field_address
-          field: field_address_locality
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: subdivision
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          display_name: true
-        field_address_postal_code:
-          id: field_address_postal_code
-          table: paragraph__field_address
-          field: field_address_postal_code
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-        rendered_entity:
-          id: rendered_entity
-          table: node
-          field: rendered_entity
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: rendered_entity
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: "\r\n"
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          view_mode: teaser
-        field_address_location_proximity:
-          id: field_address_location_proximity
-          table: paragraph__field_address_location
-          field: field_address_location_proximity
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: geofield_proximity_field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          set_precision: true
-          precision: 1
-          decimal: .
-          separator: ','
-          format_plural: false
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: km
-          units: GEOFIELD_KILOMETERS
-          source: geofield_origin_from_proximity_filter
-          source_configuration:
-            source_proximity_filter: field_address_location_proximity
-      pager:
-        type: none
-        options:
-          offset: 0
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: true
-          content:
-            value: 'No results.'
-            format: basic_html
-          tokenize: false
-      style:
-        type: default
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-      row:
-        type: fields
-        options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
-      defaults:
-        empty: false
-        title: true
-        style: false
-        row: false
-        fields: false
-      display_description: deprecated
-      rendering_language: '***LANGUAGE_language_interface***'
-      display_extenders: {  }
-      displays:
         locations_block_map: locations_block_map
-      attachment_position: after
       inherit_exposed_filters: true
       inherit_pager: true
     cache_metadata:
@@ -1269,53 +853,15 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
+        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:core.entity_view_display.node.article.compact'
-        - 'config:core.entity_view_display.node.article.default'
-        - 'config:core.entity_view_display.node.article.full'
-        - 'config:core.entity_view_display.node.article.search_index'
-        - 'config:core.entity_view_display.node.article.search_result'
-        - 'config:core.entity_view_display.node.article.teaser'
-        - 'config:core.entity_view_display.node.date.compact'
-        - 'config:core.entity_view_display.node.date.default'
-        - 'config:core.entity_view_display.node.date.full'
-        - 'config:core.entity_view_display.node.date.search_index'
-        - 'config:core.entity_view_display.node.date.search_result'
-        - 'config:core.entity_view_display.node.date.teaser'
-        - 'config:core.entity_view_display.node.event.compact'
-        - 'config:core.entity_view_display.node.event.default'
-        - 'config:core.entity_view_display.node.event.full'
-        - 'config:core.entity_view_display.node.event.search_index'
-        - 'config:core.entity_view_display.node.event.search_result'
-        - 'config:core.entity_view_display.node.event.teaser'
-        - 'config:core.entity_view_display.node.location.compact'
-        - 'config:core.entity_view_display.node.location.default'
-        - 'config:core.entity_view_display.node.location.full'
-        - 'config:core.entity_view_display.node.location.legal'
-        - 'config:core.entity_view_display.node.location.search_index'
-        - 'config:core.entity_view_display.node.location.search_result'
-        - 'config:core.entity_view_display.node.location.teaser'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.full'
-        - 'config:core.entity_view_display.node.page.search_index'
-        - 'config:core.entity_view_display.node.page.search_result'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.profile.compact'
-        - 'config:core.entity_view_display.node.profile.contact'
-        - 'config:core.entity_view_display.node.profile.default'
-        - 'config:core.entity_view_display.node.profile.embedded_teaser'
-        - 'config:core.entity_view_display.node.profile.full'
-        - 'config:core.entity_view_display.node.profile.legal'
-        - 'config:core.entity_view_display.node.profile.search_index'
-        - 'config:core.entity_view_display.node.profile.search_result'
-        - 'config:core.entity_view_display.node.profile.teaser'
         - 'config:field.storage.paragraph.field_address_location'
-  block_1:
-    id: block_1
-    display_title: 'Locations Block filterable'
+  locations_block_map:
+    id: locations_block_map
+    display_title: 'Locations block filterable'
     display_plugin: block
     position: 1
     display_options:
@@ -1786,6 +1332,7 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
+        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions
@@ -1829,58 +1376,4 @@ display:
         - 'config:core.entity_view_display.node.profile.search_index'
         - 'config:core.entity_view_display.node.profile.search_result'
         - 'config:core.entity_view_display.node.profile.teaser'
-        - 'config:field.storage.paragraph.field_address_location'
-  locations_block_map:
-    id: locations_block_map
-    display_title: 'Locations Map (block)'
-    display_plugin: block
-    position: 3
-    display_options:
-      enabled: false
-      empty: {  }
-      defaults:
-        empty: false
-        exposed_form: true
-        header: false
-      display_description: deprecated
-      header:
-        views_add_button:
-          id: views_add_button
-          table: views
-          field: views_add_button
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: views_add_button_area
-          empty: false
-          tokenize: 0
-          type: node+location
-          render_plugin: views_add_button_node
-          access_plugin: views_add_button_node
-          context: ''
-          button_text: ''
-          button_classes: button
-          button_attributes: ''
-          button_access_denied:
-            value: ''
-            format: minimal_html
-          button_prefix:
-            value: ''
-            format: minimal_html
-          button_suffix:
-            value: ''
-            format: minimal_html
-          query_string: ''
-          destination: 1
-      rendering_language: '***LANGUAGE_language_interface***'
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_interface'
-        - url
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
         - 'config:field.storage.paragraph.field_address_location'

@@ -1,1 +1,130 @@
-!function(e,n){"use strict";n.behaviors.mainMenu={attach:function(n,a){e(".menu-item--toggle",n).once("init-main-menu").click(this.toggleMenuItem),e(".region-offcanvas-menu ul").each(function(){e(this).parent().hasClass("menu-item--active-trail")?(e(this).slideDown(),e(this).parent().addClass("menu-item--open")):e(this).parent().hasClass("block-menu")||e(this).slideUp()})},toggleMenuItem:function(n=null){let a=e(this).parent();e(".region-offcanvas-menu li.menu-item");a.hasClass("menu-item--open")?a.removeClass("menu-item--open").children("ul").slideUp():(a.siblings().removeClass("menu-item--open").children("ul").slideUp(),a.addClass("menu-item--open").children("ul").slideDown())}}}(jQuery,Drupal),function(e,n){n.theme.ajaxProgressThrobber=function(){return'<div class="ajax-spinner ajax-spinner--inline"><span class="ajax-spinner__label">'+n.t("Loading&nbsp;&hellip;",{},{context:"Loading text for Drupal cores Ajax throbber (inline)"})+"</span></div>"},n.theme.ajaxProgressIndicatorFullscreen=function(){return'<div class="ajax-spinner ajax-spinner--fullscreen"><span class="ajax-spinner__label">'+n.t("Loading&nbsp;&hellip;",{},{context:"Loading text for Drupal cores Ajax throbber (fullscreen)"})+"</span></div>"}}(jQuery,Drupal),function(e,n){"use strict";n.behaviors.pageHeaderOffcanvasMenu={attach:function(n,a){e(".header__burger--buttons",n).once("init-offcanvas").click(this.toggleOffcanvasMenu)},toggleOffcanvasMenu:function(n=null){let a=e("body"),s=e("#offcanvas_menu"),t=e(".header__burger--link"),i=a.hasClass("offcanvas-open");a.toggleClass("offcanvas-open"),t.each(function(){e(this).attr("aria-expanded",!("true"===e(this).attr("aria-expanded")))}),s.attr("aria-hidden",!("true"===s.attr("aria-hidden"))),i||e(".header__offcanvas-menu--content").children().eq(0).focus()}}}(jQuery,Drupal),function(e){Drupal.behaviors.scrollToTop={attach(n,a){e(n).find("body").once("scroll-class").each(function(){const a=e(".navbar-secondary",n).outerHeight(),s=e(this),t=e(window);t.scroll(function(e){const n=t.scrollTop(),i=s.height()-(n+t.height());s.toggleClass("is-scrolling-past-navbar",n>a),s.toggleClass("is-scrolling",n>t.height()/4),s.toggleClass("is-scrolled-bottom",i<30)})}),e(n).find(".scroll-to-top").click(function(){e("html, body").animate({scrollTop:0},500)})}}}(jQuery);
+(function ($, Drupal) {
+
+  'use strict';
+
+  /**
+   * Opening / Closing logic for the main menu inside of offcanvas menu.
+   */
+  Drupal.behaviors.mainMenu = {
+    attach: function (context, settings) {
+      $('.menu-item--toggle', context).once('init-main-menu').click(this.toggleMenuItem);
+      // Toggle initial states.
+      $('.region-offcanvas-menu ul').each(function() {
+        if ($(this).parent().hasClass('menu-item--active-trail')) {
+          $(this).slideDown();
+          $(this).parent().addClass('menu-item--open');
+        } else {
+          if (!$(this).parent().hasClass('block-menu')) {
+            $(this).slideUp();
+          }
+        }
+      });
+    },
+    toggleMenuItem: function(e= null) {
+      let $menuItem = $(this).parent();
+      let $allMenuItems = $('.region-offcanvas-menu li.menu-item');
+      let wasOpen = $menuItem.hasClass('menu-item--open');
+
+      if (wasOpen) {
+        $menuItem.removeClass('menu-item--open').children('ul').slideUp();
+      } else {
+        $menuItem.siblings().removeClass('menu-item--open').children('ul').slideUp();
+        $menuItem.addClass('menu-item--open').children('ul').slideDown();
+      }
+    }
+  };
+} (jQuery, Drupal));
+
+/**
+ * @file
+ * Replaced Drupal cores ajax throbber(s), see: https://www.drupal.org/node/2974681
+ *
+ */
+(function ($, Drupal) {
+  Drupal.theme.ajaxProgressThrobber = function () {
+    return "<div class=\"ajax-spinner ajax-spinner--inline\"><span class=\"ajax-spinner__label\">" + Drupal.t('Loading&nbsp;&hellip;', {}, {
+      context: "Loading text for Drupal cores Ajax throbber (inline)"
+    }) + "</span></div>";
+  };
+
+  Drupal.theme.ajaxProgressIndicatorFullscreen = function () {
+    return "<div class=\"ajax-spinner ajax-spinner--fullscreen\"><span class=\"ajax-spinner__label\">" + Drupal.t('Loading&nbsp;&hellip;', {}, {
+      context: "Loading text for Drupal cores Ajax throbber (fullscreen)"
+    }) + "</span></div>";
+  };
+  // You can also customize only throbber message:
+  // Drupal.theme.ajaxProgressMessage = message => '<div class="my-message">' + message + '</div>';
+})(jQuery, Drupal);
+
+(function ($, Drupal) {
+
+  'use strict';
+
+  /**
+   * Opening / Closing logic for the offcanvas burger menu.
+   */
+  Drupal.behaviors.pageHeaderOffcanvasMenu = {
+    attach: function (context, settings) {
+      $('.header__burger--buttons', context).once('init-offcanvas').click(this.toggleOffcanvasMenu);
+    },
+    toggleOffcanvasMenu: function(e= null) {
+      let $body = $('body');
+      let $offcanvasMenu = $('#offcanvas_menu');
+      let $burgerButtons = $('.header__burger--link');
+      let wasOpen = $body.hasClass('offcanvas-open');
+
+      $body.toggleClass('offcanvas-open');
+
+      // Accessibility tweaks.
+      $burgerButtons.each(function() {
+        $(this).attr('aria-expanded', !($(this).attr('aria-expanded') === 'true'));
+      });
+      $offcanvasMenu.attr('aria-hidden', !($offcanvasMenu.attr('aria-hidden') === 'true'));
+
+      if (!wasOpen) {
+        $('.header__offcanvas-menu--content').children().eq(0).focus();
+      }
+    }
+  };
+} (jQuery, Drupal));
+
+(function ($) {
+
+  // Add body class on scroll.
+  Drupal.behaviors.scrollToTop = {
+    // eslint-disable-next-line no-unused-vars
+    attach(context, settings) {
+      $(context)
+        .find('body')
+        .once('scroll-class')
+        .each(function() {
+          const headerOffset = $('.navbar-secondary', context).outerHeight();
+          const $body = $(this);
+          const $window = $(window);
+
+          $window.scroll(function(event) {
+            const scrollPos = $window.scrollTop();
+            const pxToBottom = $body.height() - (scrollPos + $window.height());
+
+            $body.toggleClass(
+              'is-scrolling-past-navbar',
+              scrollPos > headerOffset,
+            );
+            $body.toggleClass('is-scrolling', scrollPos > $window.height() / 4);
+            $body.toggleClass('is-scrolled-bottom', pxToBottom < 30);
+          });
+        });
+      $(context)
+        .find('.scroll-to-top')
+        .click(function() {
+          $('html, body').animate(
+            {
+              scrollTop: 0,
+            },
+            500,
+          );
+        });
+    },
+  };
+
+} (jQuery));
