@@ -20,7 +20,6 @@ dependencies:
     - user
     - views_add_button
     - views_autocomplete_filters
-    - views_infinite_scroll
 id: locations
 label: Locations
 module: views
@@ -319,15 +318,17 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: infinite_scroll
+        type: full
         options:
           offset: 0
-          items_per_page: 12
+          items_per_page: 6
           total_pages: null
           id: 0
           tags:
             next: 'Next ›'
             previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -336,10 +337,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load More'
-            automatically_load_content: false
-            initially_load_all_pages: false
+          quantity: 9
       exposed_form:
         type: bef
         options:
@@ -818,23 +816,9 @@ display:
     position: 2
     display_options:
       pager:
-        type: mini
+        type: none
         options:
           offset: 0
-          items_per_page: 0
-          total_pages: null
-          id: 0
-          tags:
-            next: ››
-            previous: ‹‹
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
       empty: {  }
       defaults:
         empty: false
@@ -853,7 +837,6 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
-        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions
