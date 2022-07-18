@@ -14,14 +14,15 @@
 
   .offcanvas-open & {
     transform: translate3d(0, 0, 0);
-    background: $color-bg-light;
-    box-shadow: 0 .5rem 1.5rem -.5rem $color-text;
+    //background: $color-bg-light;
+    //box-shadow: 0 .5rem 1.5rem -.5rem $color-text;
   }
 
   &--grid {
     @include grid();
     margin: 0 auto;
     background: $color-bg-light;
+    box-shadow: 0 .5rem 1.5rem -.5rem $color-text;
   }
 
   &--heading {
@@ -230,6 +231,11 @@
     background-color: $color-primary;
     color: $color-text-inverted;
   }
+}
+
+/* Adjust position when Gin vertical toolbar is present */
+body.gin--vertical-toolbar.offcanvas-open .header__offcanvas-menu--grid  {
+  left: calc(var(--ginVerticalToolbarOffset) / 2);
 }
 
 // TODO: Remove note.
