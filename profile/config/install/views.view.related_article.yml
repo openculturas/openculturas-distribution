@@ -305,11 +305,109 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
+  by_author:
+    id: by_author
+    display_title: 'By author'
+    display_plugin: block
+    position: 6
+    display_options:
+      title: 'By author'
+      arguments:
+        field_author_target_id:
+          id: field_author_target_id
+          table: node__field_author
+          field: field_author_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: node
+          default_argument_options: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: true
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+      defaults:
+        title: false
+        arguments: false
+        header: false
+      display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: '<h3>Magazine articles written</h3>'
+          tokenize: false
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 0
+          type: node+article
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: ''
+          destination: 0
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
   mention_by_article:
     id: mention_by_article
     display_title: 'Mention by'
     display_plugin: block
-    position: 3
+    position: 5
     display_options:
       title: 'Mentioned in this article'
       fields:
@@ -482,6 +580,7 @@ display:
         arguments: false
         filters: false
         filter_groups: false
+        header: false
       relationships:
         field_references:
           id: field_references
@@ -493,6 +592,46 @@ display:
           plugin_id: standard
           required: true
       display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: '<h3>Mention in</h3>'
+          tokenize: false
+        views_add_button:
+          id: views_add_button
+          table: views
+          field: views_add_button
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_add_button_area
+          empty: false
+          tokenize: 0
+          type: node+article
+          render_plugin: views_add_button_node
+          access_plugin: views_add_button_node
+          context: ''
+          button_text: ''
+          button_classes: button
+          button_attributes: ''
+          button_access_denied:
+            value: ''
+            format: minimal_html
+          button_prefix:
+            value: ''
+            format: minimal_html
+          button_suffix:
+            value: ''
+            format: minimal_html
+          query_string: ''
+          destination: 0
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -579,7 +718,7 @@ display:
     id: related_article_latest
     display_title: Latest
     display_plugin: block
-    position: 5
+    position: 4
     display_options:
       title: 'Latest articles'
       arguments: {  }
@@ -601,7 +740,7 @@ display:
     id: related_article_node
     display_title: 'by category - On node page'
     display_plugin: block
-    position: 1
+    position: 2
     display_options:
       arguments:
         field_category_target_id:
@@ -662,7 +801,7 @@ display:
     id: related_article_term
     display_title: 'by category - On term page'
     display_plugin: block
-    position: 1
+    position: 3
     display_options:
       display_description: ''
       display_extenders: {  }
