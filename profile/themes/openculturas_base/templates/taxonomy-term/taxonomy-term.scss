@@ -1,8 +1,10 @@
-// Term base style (with and without links).
+// Term base style (with and without links), Facets
+
 .field--name-field-a11y-features .field__item,
 .taxonomy-term--tag,
 .reference--taxonomy_term > a, // Tag-Links
-.taxonomy-term--tagwrapper .taxonomy-term--tag { // Buttons in Teasers
+.taxonomy-term--tagwrapper .taxonomy-term--tag, // Buttons in image teasers
+.facet-item a {
   background: $color-bg-slight-contrast;
   border: 1px solid $color-bg-slight-contrast;
   border-radius: .75rem;
@@ -18,18 +20,20 @@
 // Term-Links design
 .taxonomy-term--tag,
 .reference--taxonomy_term > a, // Tag-Links
-.taxonomy-term--tagwrapper .taxonomy-term--tag { // Buttons in Teasers
+.taxonomy-term--tagwrapper .taxonomy-term--tag, // Buttons in image teasers
+.facet-item a {
   color: $color-primary;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &.is-active {
     background: $color-interaction;
     border-color: $color-interaction;
     color: $color-text-inverted;
   }
 
   &:active {
-    background: $color-text-inverted;
+    background: $color-bg-light;
     border-color: transparent;
     outline: $outline-active;
     color: $color-interaction !important;
@@ -135,4 +139,9 @@
   }
 }
 
+// Facets 
 
+.facet-item a {
+  background-color: var(--color-bg-light);
+  border-color: var(--color-link);
+}
