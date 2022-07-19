@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
@@ -26,16 +25,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Block\BlockManagerInterface
    */
-  protected $entityTypeManager;
+  protected $pluginManager;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
-    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->pluginManager = $container->get('plugin.manager.block');
     return $instance;
   }
 
@@ -43,8 +42,9 @@ class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements Conta
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity): array {
-    $block = Block::create(['id' => 'shariff_block']);
-    return $this->entityTypeManager->getViewBuilder('block')->view($block);
+    /** @var \Drupal\shariff\Plugin\Block\ShariffBlock $block */
+    $block = $this->pluginManager->createInstance('shariff_block');
+    return $block->build();
   }
 
 }
