@@ -5,6 +5,7 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.page.body
     - field.field.node.page.field_content_paragraphs
+    - field.field.node.page.field_layout_switcher
     - field.field.node.page.field_mood_image
     - field.field.node.page.field_subtitle
     - node.type.page
@@ -20,6 +21,7 @@ third_party_settings:
       children:
         - flag_bookmark_node
         - flag_recommendation_node
+        - extra_field_social_media_buttons
       label: Interact
       parent_name: ''
       region: content
@@ -54,6 +56,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  extra_field_social_media_buttons:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_content_paragraphs:
     type: entity_reference_revisions_entity_view
@@ -93,6 +100,8 @@ content:
     weight: 2
     region: content
 hidden:
+  field_layout_switcher: true
   langcode: true
   links: true
   search_api_excerpt: true
+  shariff_field: true

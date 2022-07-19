@@ -1,6 +1,15 @@
 image: drud/ddev-gitpod-base:latest
 
 tasks:
+  - name: Install theme development dependencies
+    before: |
+      cd web/profiles/contrib/openculturas-profile/themes/openculturas_base
+    init: |
+      echo npm install --global gulp-cli && \
+      echo npm install
+    command: |
+      sudo npm install --global gulp-cli && \
+      npm install
   - name: ddev-gitpod-launcher
     init: |
       export DDEV_NONINTERACTIVE=true
