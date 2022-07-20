@@ -16,6 +16,8 @@ dependencies:
     - field.storage.node.field_subtitle
     - field.storage.node.field_ticketing
     - node.type.date
+    - user.role.administrator
+    - user.role.oc_admin
   module:
     - address
     - better_exposed_filters
@@ -1493,9 +1495,11 @@ display:
                   collapsible: false
                   is_secondary: true
       access:
-        type: perm
+        type: role
         options:
-          perm: 'administer users'
+          role:
+            oc_admin: oc_admin
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -2136,7 +2140,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
@@ -2192,7 +2196,7 @@ display:
         - request_format
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
@@ -2248,7 +2252,7 @@ display:
         - request_format
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
@@ -2304,7 +2308,7 @@ display:
         - request_format
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
@@ -3721,7 +3725,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.media.field_media_image'
         - 'config:field.storage.node.body'
