@@ -1,0 +1,19 @@
+{% extends 'paragraph.html.twig' %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <figure>
+        <blockquote>
+          {{ content|without('field_media_mention_source_name', 'field_media_mention_link_source') }}
+        </blockquote>
+        {% if content.field_media_mention_source_name is not empty %}
+          <figcaption>
+            {{ content.field_media_mention_source_name }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
+
