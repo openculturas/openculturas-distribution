@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.profile.field_performer_at_view_ref
     - field.field.node.profile.field_performer_event_view_ref
     - field.field.node.profile.field_portrait
+    - field.field.node.profile.field_press_quotes
     - field.field.node.profile.field_profile_role
     - field.field.node.profile.field_profile_type
     - field.field.node.profile.field_recommendations
@@ -134,7 +135,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 14
+      weight: 15
       format_type: details
       format_settings:
         classes: ''
@@ -149,7 +150,7 @@ third_party_settings:
       label: Recommendations
       parent_name: ''
       region: content
-      weight: 12
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
@@ -178,7 +179,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 15
+      weight: 16
       format_type: details
       format_settings:
         classes: ''
@@ -193,7 +194,7 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 13
+      weight: 14
       format_type: details
       format_settings:
         classes: ''
@@ -240,6 +241,21 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+    group_press_quotes:
+      children:
+        - field_press_quotes
+      label: 'Press quotes'
+      parent_name: ''
+      region: content
+      weight: 12
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
 id: node.profile.full
 targetEntityType: node
 bundle: profile
@@ -377,6 +393,15 @@ content:
         class: ''
     weight: 7
     region: content
+  field_press_quotes:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_recommendations:
     type: viewfield_default
     label: hidden
@@ -457,3 +482,4 @@ hidden:
   langcode: true
   links: true
   search_api_excerpt: true
+  shariff_field: true

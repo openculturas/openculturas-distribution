@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.profile.field_performer_at_view_ref
     - field.field.node.profile.field_performer_event_view_ref
     - field.field.node.profile.field_portrait
+    - field.field.node.profile.field_press_quotes
     - field.field.node.profile.field_profile_role
     - field.field.node.profile.field_profile_type
     - field.field.node.profile.field_recommendations
@@ -71,7 +72,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -86,6 +87,7 @@ third_party_settings:
         - group_profile_tab_basics
         - group_profile
         - group_profile_tab_media
+        - group_profile_tab_advanced
       label: Tabs
       region: content
       parent_name: ''
@@ -134,17 +136,18 @@ third_party_settings:
         description: ''
         required_fields: true
     group_profile_tab_advanced:
-      children: {  }
+      children:
+        - field_press_quotes
       label: Advanced
-      region: hidden
-      parent_name: ''
-      weight: 12
+      region: content
+      parent_name: group_profile_tabs_container
+      weight: 4
       format_type: tab
       format_settings:
         classes: ''
         show_empty_fields: false
         id: group-advanced
-        formatter: closed
+        formatter: open
         description: ''
         required_fields: true
     group_profile:
@@ -197,7 +200,7 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 29
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -325,6 +328,25 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_press_quotes:
+    type: paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: 'Press quote'
+      title_plural: 'Press quotes'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: all
+      closed_mode_threshold: 3
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_profile_role:
     type: options_buttons
     weight: 11
@@ -404,45 +426,45 @@ content:
         hide_guidelines: '0'
   langcode:
     type: language_select
-    weight: 27
+    weight: 6
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 32
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 30
+    weight: 10
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 34
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 31
+    weight: 11
     region: content
     settings:
       display_label: true
@@ -457,7 +479,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 28
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS
@@ -466,7 +488,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 33
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -1,0 +1,58 @@
+uuid: 79edbd98-94c9-4e3f-9db7-e82b9cdbcf4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_press_quotes
+    - node.type.profile
+    - paragraphs.paragraphs_type.media_mention
+  module:
+    - entity_reference_revisions
+id: node.profile.field_press_quotes
+field_name: field_press_quotes
+entity_type: node
+bundle: profile
+label: 'Press quotes'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      media_mention: media_mention
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: 12
+        enabled: false
+      address_data:
+        weight: 13
+        enabled: false
+      bookable_event:
+        weight: 14
+        enabled: false
+      contact_data:
+        weight: 15
+        enabled: false
+      gallery:
+        weight: 16
+        enabled: false
+      media:
+        weight: 17
+        enabled: false
+      media_mention:
+        weight: 11
+        enabled: true
+      member:
+        weight: 18
+        enabled: false
+      text:
+        weight: 19
+        enabled: false
+      view:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

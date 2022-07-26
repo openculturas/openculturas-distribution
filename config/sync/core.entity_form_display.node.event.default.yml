@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
     - field.field.node.event.field_people_reference
+    - field.field.node.event.field_press_quotes
     - field.field.node.event.field_recommended_by_view_ref
     - field.field.node.event.field_related_date_view_ref
     - field.field.node.event.field_started
@@ -51,7 +52,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -154,6 +155,7 @@ third_party_settings:
         - field_started
         - field_duration
         - field_inlanguage
+        - field_press_quotes
       label: Advanced
       region: content
       parent_name: group_event_tabs_container
@@ -270,7 +272,7 @@ content:
     third_party_settings: {  }
   field_duration:
     type: duration_widget
-    weight: 16
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -287,7 +289,7 @@ content:
         show_edit: 0
   field_inlanguage:
     type: languagefield_select
-    weight: 17
+    weight: 16
     region: content
     settings:
       format:
@@ -302,7 +304,7 @@ content:
     third_party_settings: {  }
   field_min_age:
     type: number
-    weight: 13
+    weight: 12
     region: content
     settings:
       placeholder: ''
@@ -333,9 +335,28 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
+  field_press_quotes:
+    type: paragraphs
+    weight: 17
+    region: content
+    settings:
+      title: 'Press quote'
+      title_plural: 'Press quotes'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: all
+      closed_mode_threshold: 3
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: add_above
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_started:
     type: datetime_datelist_no_time
-    weight: 15
+    weight: 14
     region: content
     settings:
       date_order: MY
@@ -345,7 +366,7 @@ content:
     third_party_settings: {  }
   field_status:
     type: options_buttons
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -377,7 +398,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -401,7 +422,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true

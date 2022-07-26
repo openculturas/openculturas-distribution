@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
     - field.field.node.event.field_people_reference
+    - field.field.node.event.field_press_quotes
     - field.field.node.event.field_recommended_by_view_ref
     - field.field.node.event.field_related_date_view_ref
     - field.field.node.event.field_started
@@ -45,7 +46,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -59,7 +60,7 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -76,7 +77,7 @@ third_party_settings:
       label: Details
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -91,7 +92,7 @@ third_party_settings:
       label: Contact
       parent_name: ''
       region: content
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -106,7 +107,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         classes: ''
@@ -121,7 +122,7 @@ third_party_settings:
       label: 'Upcoming dates'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -135,7 +136,7 @@ third_party_settings:
       label: Accessibility
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -150,7 +151,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 11
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
@@ -165,7 +166,7 @@ third_party_settings:
       label: 'Recommended by'
       parent_name: ''
       region: content
-      weight: 10
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -180,7 +181,7 @@ third_party_settings:
       label: 'Book this event'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 14
       format_type: details
       format_settings:
         classes: ''
@@ -199,7 +200,7 @@ third_party_settings:
       label: Interact
       parent_name: ''
       region: content
-      weight: 0
+      weight: 1
       format_type: html_element
       format_settings:
         classes: interact
@@ -214,6 +215,21 @@ third_party_settings:
         speed: fast
         description: ''
         open: 0
+    group_press_quotes:
+      children:
+        - field_press_quotes
+      label: 'Press quotes'
+      parent_name: ''
+      region: content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
 id: node.event.full
 targetEntityType: node
 bundle: event
@@ -224,12 +240,12 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
   extra_field_social_media_buttons:
     settings: {  }
@@ -328,6 +344,15 @@ content:
         class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
     weight: 9
     region: content
+  field_press_quotes:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_recommended_by_view_ref:
     type: viewfield_default
     label: hidden
@@ -364,7 +389,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_url:
     type: link
@@ -407,3 +432,4 @@ hidden:
   langcode: true
   links: true
   search_api_excerpt: true
+  shariff_field: true
