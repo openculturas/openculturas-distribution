@@ -1,4 +1,4 @@
-image: drud/ddev-gitpod-base:latest
+image: drud/ddev-gitpod-base:20220718
 
 tasks:
   - name: Install theme development dependencies
@@ -19,7 +19,7 @@ tasks:
     command: |
       export DDEV_NONINTERACTIVE=true
       (ddev restart || ddev start) && \
-      gp await-port 8080 && sleep 1 && gp preview $(gp url 8080)
+      gp ports await 8080 && sleep 1 && gp preview $(gp url 8080)
 
 ports:
   # Ignore direct-build https port
