@@ -1,15 +1,22 @@
 {% extends 'paragraph.html.twig' %}
 
+
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      <figure>
+      <figure> <!-- To Do: add lang="[lang]" to figure -->
         <blockquote>
           {{ content|without('field_media_mention_source_name', 'field_media_mention_link_source') }}
         </blockquote>
-        {% if content.field_media_mention_source_name is not empty %}
+        {% if content.field_media_mention_source_name is not empty or content.field_media_mention_link_source is not empty %}
           <figcaption>
-            {{ content.field_media_mention_source_name }}
+            {% if content.field_media_mention_link_source is not empty %}
+              <a href="{{ content.field_media_mention_link_source.href }}">
+            {% endif %}
+            {{ content.field_media_mention_source_name.value }}
+            {% if content.field_media_mention_link_source is not empty %}
+              </a>
+            {% endif %}
           </figcaption>
         {% endif %}
       </figure>
