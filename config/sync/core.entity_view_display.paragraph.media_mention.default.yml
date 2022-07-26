@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.media_mention.field_media_mention_language
     - field.field.paragraph.media_mention.field_media_mention_link_source
     - field.field.paragraph.media_mention.field_media_mention_quotation
     - field.field.paragraph.media_mention.field_media_mention_source_name
@@ -17,7 +18,7 @@ mode: default
 content:
   field_media_mention_link_source:
     type: link
-    label: above
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
@@ -29,18 +30,19 @@ content:
     region: content
   field_media_mention_quotation:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
   field_media_mention_source_name:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
+  field_media_mention_language: true
   search_api_excerpt: true
