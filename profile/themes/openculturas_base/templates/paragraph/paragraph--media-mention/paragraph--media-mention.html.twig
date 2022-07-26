@@ -4,21 +4,17 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      <figure> <!-- To Do: add lang="[lang]" to figure -->
+      <figure lang="{{ content.field_media_mention_language.0 }}">
         <blockquote>
-          {{ content|without('field_media_mention_source_name', 'field_media_mention_link_source') }}
+          {{ content|without('field_media_mention_source_name', 'field_media_mention_link_source', 'field_media_mention_language') }}
         </blockquote>
-        {% if content.field_media_mention_source_name is not empty or content.field_media_mention_link_source is not empty %}
           <figcaption>
-            {% if content.field_media_mention_link_source is not empty %}
-              <a href="{{ content.field_media_mention_link_source.href }}">
+            {% if content.field_media_mention_link_source|render is not empty %}
+              <a href="{{ content.field_media_mention_link_source.0['#url'] }}">
             {% endif %}
-            {{ content.field_media_mention_source_name.value }}
-            {% if content.field_media_mention_link_source is not empty %}
+                {{ content.field_media_mention_source_name.0 }}
               </a>
-            {% endif %}
           </figcaption>
-        {% endif %}
       </figure>
     {% endblock %}
   </div>
