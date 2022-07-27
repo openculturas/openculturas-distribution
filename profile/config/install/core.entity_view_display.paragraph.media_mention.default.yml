@@ -9,12 +9,20 @@ dependencies:
     - paragraphs.paragraphs_type.media_mention
   module:
     - link
+    - options
     - text
 id: paragraph.media_mention.default
 targetEntityType: paragraph
 bundle: media_mention
 mode: default
 content:
+  field_media_mention_language:
+    type: list_key
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_media_mention_link_source:
     type: link
     label: hidden
@@ -43,5 +51,4 @@ content:
     weight: 1
     region: content
 hidden:
-  field_media_mention_language: true
   search_api_excerpt: true
