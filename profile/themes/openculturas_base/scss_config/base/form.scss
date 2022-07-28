@@ -126,6 +126,13 @@ textarea {
 // Responsive forms.
 input[size] {
   max-width: 100%;
+  width: 100%;
+
+  @include breakpoint(m) {
+    width: auto;
+  }
+
+}
 
 input[size='30'] {
   @include breakpoint(l) {
@@ -133,8 +140,6 @@ input[size='30'] {
   }
 }
 
-
-}
 
 select {
   -moz-appearance:none; /* Firefox */
@@ -326,3 +331,29 @@ fieldset[id^="edit-radius-wrapper"] {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+
+/* View password module fix */
+
+button:not([disabled]).shwpd {
+  display: block;
+  position: absolute;
+  left: auto;
+  padding: .5rem .25rem;
+  right: 1rem;
+  top: 2.75rem;
+
+  &:focus,
+  &:hover {
+    background-color: var(--color-bg-light);
+  }
+  &:focus,
+  &:active {
+    border: 2px dashed var(--color-interaction);  
+  }
+}
+
+input[type="password"],
+.form-type-password input[type="text"] {
+  padding-right: 3rem;
+}
+
