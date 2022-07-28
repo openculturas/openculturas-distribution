@@ -1,14 +1,18 @@
 // Height of Heading and Chevron.
 // Increase to get space around details closed.
 
+
+// @todo: does not work for longer titles, rethink variable maths
 $line-height-details-header: 2.2;
 
 .details-title {
   @extend .h2;
   color: inherit;
   display: inline-block;
-  line-height: $line-height-details-header;
-  padding-top: .75rem;
+  //line-height: $line-height-details-header;
+  line-height: inherit;
+  padding-top: .5rem;
+  padding-bottom: .75rem;
   margin: 0;
   width: calc(100% - 2 * var(--font-size-icon));
 }

@@ -3,8 +3,14 @@
  * This file defines the order in which scss components are loaded.
  */
 
-// Load all base systems / partials and variables.
-@import "includes";
+// Load mixins and helper functions.
+@import "_abstract/index";
 
-// Load all scss files in the template subfolders.
-@import "../templates/**/*.scss";
+// Load variables
+@import "_variables.scss";
+
+// Load text and icon fonts
+@import "_fonts";
+
+// Load basic styling from base folder.
+@import "base/*.scss";
