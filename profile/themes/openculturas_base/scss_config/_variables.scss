@@ -73,7 +73,7 @@ $breakpoints: (                // Size at default font size 16px;
   /**
    * Default colors
    *
-   * Changeable by css_color_variables or Color Module settings.
+   * Changeable by Color Module settings. (@todo Is this still true?)
   **/
   --color-primary: #a1167f;
   --color-interaction:  #483d8b; // Secondary
@@ -82,13 +82,14 @@ $breakpoints: (                // Size at default font size 16px;
   --color-text-inverted: #ffffff;
   --color-headline: #1f1f1f;
   --color-link: #a1167f;
-  --color-danger: #d51317 ;
+  --color-link--opacity: #a1167f5c; // 64% transparent link color
+  --color-danger: #d51317;
   --color-info: #1f71b8;
   --color-success: #188009;
   --color-warning: #ffc400;
   --color-neutral-canvas: #F6F6F6;
   --color-bg-dark: #303236;
-  --color-bg-slight-contrast: #b1b2b5;
+  --color-bg-slight-contrast: #e8e9eb;
   --color-bg-light: #ffffff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
@@ -115,18 +116,11 @@ $breakpoints: (                // Size at default font size 16px;
 // Why we reassign CSS vars to SASS variables?
 // + Base theme uses SASS-based color scheme (undefined CSS vars would fail silently).
 // + A clearly defined set of CSS variables keeps sub-themes working.
-// + Easy sub-theming with UI-configurable base and easy to define color derivates.
 // Disadvantage:
 // - Native SASS color functions are disabled and throw errors when used.
-//   --> Prefer css_color_variables_dependant variables like:
-//    --color-danger-lighten-85
-//    --color-danger-darken-25
-//    --color-primary--opacity-16
 //   --> Make use of Hexadecimal opacity:
 //       #0000007F not rgba(0, 0, 0, 0.5)
-//   --> Check out openculturas_base/color/css_color_variables_dependants.yml
-//       and the UI at /css_color_variables_demopage to check out colors and derivate-variants.
-//
+
 $color-primary: var(--color-primary);
 $color-interaction: var(--color-interaction);
 $color-text: var(--color-text);
@@ -149,7 +143,6 @@ $color-success: var(--color-success);
 $color-warning: var(--color-warning);
 
 // Color derivates
-// cannot directly be changed in UI / Color module.
 $color-bg-danger: var(--color-bg-danger);
 $color-danger-dark: var(--color-danger-dark);
 $color-bg-info: var(--color-bg-info);
@@ -161,20 +154,16 @@ $color-warning-dark: var(--color-warning-dark);
 
 $color-bg-form: var(--color-bg-form);
 $color-bg-fieldset: var(--color-bg-fieldset);
-$color-box-shaddow: var(--color-interaction--opacity-64);
-$color-bg-link-transparent: var(--color-link--opacity-64);
+$color-bg-link--opacity: var(--color-link--opacity);
 
 /**
  * Default color derivates
- *
  * are changed when base colors are changed by css_color_variables or Color module settings.
- *
- * NOTE:
- *  CSS variables should be reassigned here.
-*   If you do it in :root they will not change with Color UI changes
+ * NOTE: CSS variables should be reassigned here.
  */
+
 body {
-  /* Alerts */
+  /* Messages (system feedback) */
   --color-bg-danger: var(--color-danger-lighten-85, #f9dcdd);
   --color-danger-dark: var(--color-danger-darken-25, #a00f12);
   --color-bg-info: var(--color-info-lighten-85, #deeaf5);
@@ -187,7 +176,6 @@ body {
   /* Form & other colors */
   --color-bg-form: var(--color-interaction--lighten-95, #f6f6fa);
   --color-bg-fieldset: var(--color-interaction--opacity-4, #483d8b07);
-  --color-box-shaddow: var(--color-box-shaddow, #483d8ba3);
   --outline-active: 2px dashed var(--color-interaction, #483d8b);
   --color-bg-cluster-icon: var(--color-link--opacity-64, #a1167fa3);
 }
