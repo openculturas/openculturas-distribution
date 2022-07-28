@@ -1,15 +1,6 @@
 image: drud/ddev-gitpod-base:20220718
 
 tasks:
-  - name: Install theme development dependencies
-    before: |
-      cd web/profiles/contrib/openculturas-profile/themes/openculturas_base
-    init: |
-      echo npm install --global gulp-cli && \
-      echo npm install
-    command: |
-      sudo npm install --global gulp-cli && \
-      npm install
   - name: ddev-gitpod-launcher
     init: |
       export DDEV_NONINTERACTIVE=true
@@ -20,6 +11,15 @@ tasks:
       export DDEV_NONINTERACTIVE=true
       (ddev restart || ddev start) && \
       gp ports await 8080 && sleep 1 && gp preview $(gp url 8080)
+  - name: Theme development dependencies
+    before: |
+      cd web/profiles/contrib/openculturas-profile/themes/openculturas_base
+    init: |
+      echo npm install --global gulp-cli && \
+      echo npm install
+    command: |
+      sudo npm install --global gulp-cli && \
+      npm install
 
 ports:
   # Ignore direct-build https port
