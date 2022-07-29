@@ -37,6 +37,13 @@
 
 {# Set nofollow to prevent search bots from crawling anonymous flag links #}
 {% set attributes = attributes.setAttribute('rel', 'nofollow').setAttribute('title', title).addClass('flag--link') %}
-
-<div class="{{classes|join(' ')}}"><a{{ attributes }}><span>{{ title }}</span></a></div>
+  {% if title or unflag_denied_text %}
+  <div class="{{classes|join(' ')}}">
+    {% if title %}
+      <a{{ attributes }}>{{ title }}</a>
+    {% else %}
+      <button disabled="disabled">{{ unflag_denied_text }}</button>
+    {% endif %}
+  </div>
+  {% endif %}
 {% endspaceless %}
