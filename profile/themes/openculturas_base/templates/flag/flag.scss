@@ -13,17 +13,15 @@
     border-width: 1px;
     border-style: solid;
   }
-
-  //&:first-child {
-  //  margin-right: 0;
-  //}
-
-  &:before {
-    color: inherit;
-    display: block;
-    margin-right: .75rem;
-  }
 }
+
+.flag a:before,
+.flag button:before {
+  color: inherit;
+  display: block;
+  margin-right: .75rem;
+}
+
 
 .flag.action-unflag a {
   @extend %button-active;
@@ -34,21 +32,14 @@
   }
 }
 
-//.action-flag .flag--link {
-//  background: transparent;
-//  border-color: $color-interaction;
-//  color: $color-interaction;
-//}
-
 .js-flag-message {
   @include icon(info-circle);
   background: $color-bg-success;
   border: 1px solid $color-success;
-  border-radius: $button-border-radius;
   color: $color-text;
   display: block;
   margin: 0;
-  padding: .75rem 1rem;
+  padding: .5rem 1rem;
   position: absolute;
   left: 0;
   text-align: right;
