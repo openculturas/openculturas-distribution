@@ -44,6 +44,7 @@ details {
     @include icon(chevron-down, fas, before);
     list-style: none;
     padding: 0;
+    position: relative;
 
     // Disable default marker element on webkit browsers.
     &::-webkit-details-marker {
@@ -85,8 +86,11 @@ details {
     &.form-required {
       &:after {
         font-size: $font-size-l;
-        line-height: $line-height-details-header;
-        vertical-align: top;
+        //line-height: $line-height-details-header;
+        //vertical-align: top;
+        position: absolute;
+        right: 3rem;
+        top: .5rem;
       }
 
       h2 {
