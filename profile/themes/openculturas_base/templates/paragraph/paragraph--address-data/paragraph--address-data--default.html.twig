@@ -56,8 +56,8 @@
       <div class="address-container--map">
         {{ content.field_address_location }}
       </div>
-      {% if address_links %}
-        {# @TODO: Navigation and PT-Planner links preprocess / rendering #}
+      {% if address_links is not empty %}
+        {# @TODO: PT-Planner links preprocess / rendering #}
         <div class="address-container--links">
           {{ address_links }}
         </div>
