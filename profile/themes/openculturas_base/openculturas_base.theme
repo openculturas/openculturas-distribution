@@ -43,6 +43,9 @@ function openculturas_base_preprocess_node(&$variables) {
     if ($node->hasField('field_layout_switcher') && !$node->get('field_layout_switcher')->isEmpty()) {
       $variables['attributes']['class'][] = $node->get('field_layout_switcher')->value;
     }
+    if ($node->hasField('field_event_status') && !$node->get('field_event_status')->isEmpty()) {
+      $variables['attributes']['class'][] = $node->get('field_event_status')->value;
+    }
   }
 
   // Override details title with user-set value and hide original field rendering.
