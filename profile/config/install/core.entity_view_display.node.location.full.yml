@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_started
     - field.field.node.location.field_subtitle
+    - field.field.node.location.field_supporters
     - node.type.location
   module:
     - datetime
@@ -229,6 +230,25 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_sponsors:
+      children:
+        - field_supporters
+      label: Sponsors
+      parent_name: ''
+      region: content
+      weight: 16
+      format_type: html_element
+      format_settings:
+        classes: sponsors
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.location.full
 targetEntityType: node
 bundle: location
@@ -427,6 +447,17 @@ content:
       field_formatter_class:
         class: ''
     weight: 13
+    region: content
+  field_supporters:
+    type: swiffy_slider_entity_reference
+    label: above
+    settings:
+      view_mode: logo
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale&preview-style=preview-images'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 17
     region: content
   flag_bookmark_node:
     settings: {  }
