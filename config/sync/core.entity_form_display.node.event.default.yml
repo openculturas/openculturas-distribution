@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.event.field_started
     - field.field.node.event.field_status
     - field.field.node.event.field_subtitle
+    - field.field.node.event.field_supporters
     - field.field.node.event.field_url
     - node.type.event
     - workflows.workflow.draften
@@ -104,6 +105,7 @@ third_party_settings:
       children:
         - field_mood_image
         - field_gallery
+        - field_supporters
       label: Media
       region: content
       parent_name: group_event_tabs_container
@@ -272,7 +274,7 @@ content:
     third_party_settings: {  }
   field_duration:
     type: duration_widget
-    weight: 15
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -289,7 +291,7 @@ content:
         show_edit: 0
   field_inlanguage:
     type: languagefield_select
-    weight: 16
+    weight: 17
     region: content
     settings:
       format:
@@ -304,7 +306,7 @@ content:
     third_party_settings: {  }
   field_min_age:
     type: number
-    weight: 12
+    weight: 13
     region: content
     settings:
       placeholder: ''
@@ -337,7 +339,7 @@ content:
     third_party_settings: {  }
   field_press_quotes:
     type: paragraphs
-    weight: 17
+    weight: 18
     region: content
     settings:
       title: 'Press quote'
@@ -356,7 +358,7 @@ content:
     third_party_settings: {  }
   field_started:
     type: datetime_datelist_no_time
-    weight: 14
+    weight: 15
     region: content
     settings:
       date_order: MY
@@ -366,7 +368,7 @@ content:
     third_party_settings: {  }
   field_status:
     type: options_buttons
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -381,6 +383,13 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '0'
+  field_supporters:
+    type: media_library_widget
+    weight: 24
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   field_url:
     type: link_default
     weight: 26

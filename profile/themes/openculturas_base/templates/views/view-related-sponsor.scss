@@ -1,0 +1,52 @@
+.view-related-sponsor {
+  text-align: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
+  min-height: 190px; /* max logo image height */
+
+  .view-content {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .pager {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    top: (2 * $grid-gutter);
+    position: relative;
+  }
+
+  ul.pager__items {
+    display: grid;
+    justify-content: space-between;
+    width: calc(100% + 4rem);
+    margin-left: -2rem;
+    margin-right: -2rem;
+    padding: 0;
+
+    span[aria-hidden] {
+      display: none;
+    }
+
+  }
+  .pager__item.is-active {
+    display: none;
+  }
+  .pager__item--previous {
+    grid-column: 1;
+    a {
+      @include icon(angle-left, fas, after);
+    }
+  }
+  .pager__item--next {
+    grid-column: 3;
+    a {
+      @include icon(angle-right, fas, after);
+    }
+  }
+}

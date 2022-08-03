@@ -3,10 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - media.type.sponsor
     - workflows.workflow.draften
   module:
     - content_moderation
+    - field_permissions
     - flag
+    - media
     - node
     - smart_date_recur
 id: oc_organizer
@@ -15,6 +18,10 @@ weight: -7
 is_admin: null
 permissions:
   - 'cancel smart date recur instances'
+  - 'create field_supporters'
+  - 'create sponsor media'
+  - 'edit own field_supporters'
+  - 'edit own sponsor media'
   - 'flag recommendation_node'
   - 'make smart dates recur'
   - 'reschedule smart date recur instances'

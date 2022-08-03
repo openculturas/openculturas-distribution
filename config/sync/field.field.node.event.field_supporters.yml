@@ -1,0 +1,29 @@
+uuid: 292a4251-030d-4481-9087-7e7a62e9de8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_supporters
+    - media.type.sponsor
+    - node.type.event
+id: node.event.field_supporters
+field_name: field_supporters
+entity_type: node
+bundle: event
+label: 'Supported by'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      sponsor: sponsor
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
