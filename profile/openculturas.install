@@ -38,11 +38,7 @@ function openculturas_install_content() {
   // then we do not need the module anymore.
   $module_installer->install(['openculturas_content']);
   $module_installer->uninstall(['default_content', 'openculturas_content']);
-
-  // When not required. uninstall the modules again.
-  if (!in_array('hal', $core_extension_config->get('module'), TRUE)) {
-    $module_installer->uninstall(['hal']);
-  }
+  
 
   $config = $configFactory->getEditable('system.site');
 
