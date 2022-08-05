@@ -83,21 +83,11 @@ class Date extends SmartDateDate {
     }
     $start_field = str_replace('_end_value', '_value', $field);
     $end_field = str_replace('_value', '_end_value', $start_field);
-    $is_end_field = $end_field === $field;
-
-
-    if ($is_end_field === FALSE && $this->operator === '>=') {
+    
+    if ($this->operator === '<=' || $this->operator === '>=') {
       $orCondition = (new Condition('OR'));
       $orCondition
         ->condition($start_field, $value->format('U'), $this->operator)
-        ->condition($end_field, $value->format('U'), '>=');
-      $this->query->addWhere($this->options['group'], $orCondition);
-      return;
-    }
-    if ($is_end_field === TRUE && $this->operator === '<=') {
-      $orCondition = (new Condition('OR'));
-      $orCondition
-        ->condition($start_field, $value->format('U'), '<=')
         ->condition($end_field, $value->format('U'), $this->operator);
       $this->query->addWhere($this->options['group'], $orCondition);
       return;
