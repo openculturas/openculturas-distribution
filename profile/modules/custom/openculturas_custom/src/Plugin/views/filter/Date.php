@@ -7,7 +7,6 @@ use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Database\Query\Condition;
 use Drupal\smart_date\Plugin\views\filter\Date as SmartDateDate;
 use function str_replace;
-use function strpos;
 use function substr;
 
 /**
@@ -19,9 +18,29 @@ use function substr;
 class Date extends SmartDateDate {
 
   /**
-   * Override parent method, to a filter for start date < end date.
+   * {@inheritdoc}
    */
-  protected function opSimple($field) {
+  public function operators() {
+    $operators = parent::operators();
+    $operators['starts_on_after'] = [
+      'title' => $this->t('Starts on or after'),
+      'short' => $this->t('Starts on or after'),
+      'method' => 'startsOrEndOnOrAfter',
+      'values' => 1,
+    ];
+    $operators['ends_on_after'] = [
+      'title' => $this->t('Ends on or after'),
+      'short' => $this->t('Ends on or after'),
+      'method' => 'startsOrEndOnOrAfter',
+      'values' => 1,
+    ];
+    return $operators;
+  }
+
+  /**
+   * Adding starts/ends on or after filter to the query.
+   */
+  protected function startsOrEndOnOrAfter(string $field) {
     $timezone = $this->getTimezone();
     $granularity = $this->options['value']['granularity'];
 
@@ -60,39 +79,22 @@ class Date extends SmartDateDate {
           $min['second'] = '00';
           $max['second'] = '59';
       }
-
-      // Additional, operator-specific logic.
-      if (substr($this->operator, 0, 1) === '>') {
-        $value = $value::createFromArray($min, $timezone);
-      }
-      elseif (substr($this->operator, 0, 1) === '<') {
-        $value = $value::createFromArray($max, $timezone);
-      }
-      else {
-        $min_value = $value::createFromArray($min, $timezone)->format('U');
-        $max_value = $value::createFromArray($max, $timezone)->format('U');
-        if ($this->operator === '=') {
-          $operator = 'BETWEEN';
-        }
-        elseif ($this->operator === '!=') {
-          $operator = 'NOT BETWEEN';
-        }
-        $this->query->addWhereExpression($this->options['group'], "$field $operator $min_value AND $max_value");
-        return;
-      }
     }
     $start_field = str_replace('_end_value', '_value', $field);
     $end_field = str_replace('_value', '_end_value', $start_field);
-    
-    if ($this->operator === '<=' || $this->operator === '>=') {
-      $orCondition = (new Condition('OR'));
-      $orCondition
-        ->condition($start_field, $value->format('U'), $this->operator)
-        ->condition($end_field, $value->format('U'), $this->operator);
-      $this->query->addWhere($this->options['group'], $orCondition);
-      return;
+    $operator = $field === $end_field ? '<=' : '>=';
+    if ($operator === '>=') {
+      $value = $value::createFromArray($min, $timezone);
     }
-    $this->query->addWhereExpression($this->options['group'], "$field $this->operator " . $value->format('U'));
+    elseif ($operator === '<=') {
+      $value = $value::createFromArray($max, $timezone);
+    }
+
+    $orCondition = (new Condition('OR'));
+    $orCondition
+      ->condition($start_field, $value->format('U'), $operator)
+      ->condition($end_field, $value->format('U'), $operator);
+    $this->query->addWhere($this->options['group'], $orCondition);
   }
 
 }
