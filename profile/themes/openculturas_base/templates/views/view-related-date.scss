@@ -36,4 +36,29 @@
       }
     }
   }
+
+  div[class*="Event"].views-row .field--name-field-event-status .field__item {
+    background-color: var(--color-bg-dark);
+    font-size: var(--font-size-default);
+    font-weight: normal;
+  }
+
+  .EventCancelled.views-row {
+    border-left: 3px solid var(--color-danger);
+    padding-left: .5rem;
+  }
+
+  div.EventCancelled,
+  div.EventPostponed {
+    &.views-row {
+      .field--name-field-event-status .field__item {
+        background-color: var(--color-danger);
+      }
+    }
+  }
+
+  .EventScheduled .field--name-field-event-status {
+    display: none;
+  }
+
 }
