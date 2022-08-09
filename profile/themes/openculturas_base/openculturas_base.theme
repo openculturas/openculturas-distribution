@@ -110,4 +110,11 @@ function openculturas_base_preprocess_paragraph(&$variables) {
     ];
     $variables['address_links'] = $render_array;
   }
+  if ($paragraph->bundle() === 'member' && $paragraph->hasField('field_member') && !$paragraph->get('field_member')->isEmpty()) {
+    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $entityReferenceItem */
+    $entityReferenceItem = $paragraph->get('field_member')->first();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $entityReferenceItem->entity;
+    $variables['member_is_published'] = $node->isPublished();
+  }
 }
