@@ -1,9 +1,19 @@
 {% extends 'paragraph.html.twig' %}
 
 {% block paragraph %}
+  {% if member_is_published %}
   <article{{ attributes.addClass(classes) }}>
     {% block content %}
       {{ content }}
     {% endblock %}
   </article>
+  {% else %}
+    <div class="paragraph--type--member">
+      <div class="field profile-teaser view-mode-embedded-teaser node--unpublished unpublished-placeholder">
+        <div class="profile--picture-placeholder">
+        </div>
+        {{ content }}
+      </div>
+    </div>
+  {% endif %}
 {% endblock paragraph %}

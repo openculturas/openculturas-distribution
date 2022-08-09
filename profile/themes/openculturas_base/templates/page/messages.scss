@@ -80,8 +80,11 @@
 // Unpublished nodes highlighting
 
 .node--unpublished {
-  background-color: var(--color-danger--opacity-8);
+  background-color: transparent;
 }
+//.node--unpublished .node--unpublished {
+//  border: 0 none;
+//}
 
 .node--unpublished:before {
   content: "Unpublished";
@@ -90,9 +93,20 @@
   width: auto;
   padding: 1.25rem 2.5rem;
   color: var(--color-danger);
-  background-color: var(--color-danger--opacity-8);
+  background-color: var(--color-bg-danger-light);
+}
+
+.node--unpublished .node--unpublished:before {
+  display: none;
 }
 
 html[lang="de"] .node--unpublished:before {
   content: "Unveröffentlicht";
+}
+
+.profile-teaser.node--unpublished::before {
+  position: absolute;
+  z-index: +1;
+  width: 100%;
+  top: 1.5rem;
 }
