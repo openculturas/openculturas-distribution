@@ -1,0 +1,45 @@
+uuid: 6c1e0cc3-59c3-4d92-9c8d-97f4c64a7582
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.token
+    - field.field.media.image.field_caption
+    - field.field.media.image.field_licenses
+    - field.field.media.image.field_media_image
+    - image.style.header_image
+    - media.type.image
+  module:
+    - field_formatter_class
+    - svg_image
+id: media.image.token
+targetEntityType: media
+bundle: image
+mode: token
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: header_image
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+      image_loading:
+        attribute: lazy
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_caption: true
+  field_licenses: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true
