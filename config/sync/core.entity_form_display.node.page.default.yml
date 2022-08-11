@@ -6,15 +6,18 @@ dependencies:
     - field.field.node.page.body
     - field.field.node.page.field_content_paragraphs
     - field.field.node.page.field_layout_switcher
+    - field.field.node.page.field_meta_tags
     - field.field.node.page.field_mood_image
     - field.field.node.page.field_subtitle
     - field.field.node.page.field_supporters
     - node.type.page
+    - workflows.workflow.magazine_article
   module:
     - allowed_formats
     - content_moderation
     - field_group
     - media_library
+    - metatag
     - paragraphs
     - path
     - text
@@ -104,6 +107,14 @@ content:
     weight: 6
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_meta_tags:
+    type: metatag_firehose
+    weight: 26
+    region: content
+    settings:
+      sidebar: true
+      use_details: true
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
