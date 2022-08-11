@@ -316,12 +316,30 @@ function openculturas_custom_views_pre_render(ViewExecutable $view) {
     foreach ($view->result as $key => $row) {
       /** @var \Drupal\media\MediaInterface $entity */
       $entity = $row->_entity;
-      if ($entity->getOwnerId() == $current_user->id() || $entity->access('edit')) {
+      if ($entity->getOwnerId() == $current_user->id() || $entity->access('edit') || _media_is_cc($entity)) {
         $result[$key] = $row;
       }
     }
     $view->result = $result;
   }
+}
+
+/**
+ * Helper function to check the licenses for Creative-Commons.
+ *
+ * @param \Drupal\media\MediaInterface $media
+ *
+ * @return bool
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function _media_is_cc(\Drupal\media\MediaInterface $media) {
+  if ($media->hasField('field_licenses') && !$media->get('field_licenses')->isEmpty()) {
+    $value = $media->get('field_licenses')->first()->getValue();
+    if (isset($value['license']) || array_key_exists('license', $value)) {
+      return $value['license'] === 'all_rights_reserved';
+    }
+  }
+  return FALSE;
 }
 
 /**
