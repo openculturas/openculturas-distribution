@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.page.body
     - field.field.node.page.field_content_paragraphs
     - field.field.node.page.field_layout_switcher
+    - field.field.node.page.field_meta_tags
     - field.field.node.page.field_mood_image
     - field.field.node.page.field_subtitle
     - field.field.node.page.field_supporters
@@ -23,7 +24,7 @@ content:
     type: text_summary_or_trimmed
     label: hidden
     settings:
-      trim_length: 160
+      trim_length: 200
     third_party_settings:
       field_formatter_class:
         class: ''
@@ -44,9 +45,11 @@ content:
     weight: 0
     region: content
 hidden:
+  content_moderation_control: true
   extra_field_social_media_buttons: true
   field_content_paragraphs: true
   field_layout_switcher: true
+  field_meta_tags: true
   field_mood_image: true
   field_supporters: true
   flag_bookmark_node: true

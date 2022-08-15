@@ -9,12 +9,15 @@ dependencies:
     - field.field.node.article.field_column
     - field.field.node.article.field_content_paragraphs
     - field.field.node.article.field_date_published
+    - field.field.node.article.field_meta_tags
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
     - field.field.node.article.field_subtitle
     - node.type.article
   module:
+    - entity_reference_revisions
+    - field_formatter_class
     - text
     - user
 id: node.article.search_index
@@ -36,6 +39,45 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_author:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 5
+    region: content
+  field_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 4
+    region: content
+  field_column:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+  field_content_paragraphs:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_subtitle:
     type: text_default
     label: hidden
@@ -46,11 +88,8 @@ content:
 hidden:
   content_moderation_control: true
   extra_field_social_media_buttons: true
-  field_author: true
-  field_category: true
-  field_column: true
-  field_content_paragraphs: true
   field_date_published: true
+  field_meta_tags: true
   field_mood_image: true
   field_recommended_by_view_ref: true
   field_references: true
