@@ -104,16 +104,34 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: Title
+          label: Content
           exclude: false
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
             word_boundary: false
             ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -216,7 +234,7 @@ display:
           entity_type: flagging
           entity_field: created
           plugin_id: field
-          label: 'Claim date'
+          label: Date
           exclude: false
           alter:
             alter_text: false
@@ -385,7 +403,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'edit content'
+          text: 'Edit content'
           output_url_as_text: false
           absolute: false
         link_flag:
@@ -999,7 +1017,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: 'Workflow: 1. Check reported content (Title) - 2. When critical, edit content (Operations) and unpublish content, check content''s author - 3. Edit abuse report: delete'
+            value: 'Workflow: 1. Check reported content (Content) - 2. When critical, click Edit content (Operations) and unpublish content, check content''s author - 3. click Edit abuse report (Operations): delete'
             format: minimal_html
           tokenize: false
       rendering_language: '***LANGUAGE_language_interface***'
@@ -1049,7 +1067,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: 'Workflow: 1. Check claimed content (Title), compare with claimer (User reporting) - 2. When approved, edit user (Operations) to check for required role - 3. edit content (Operations) to set user as author + switch Claim toggle - 4. When disapproved, just switch Claim toggle.'
+            value: 'Workflow: 1. Check claimed content (Content), compare with claimer (User reporting) - 2. When approved, edit user (Operations) to check for required role - 3. edit content (Operations) to set user as author + switch Claim toggle - 4. When disapproved, just switch Claim toggle.'
             format: minimal_html
           tokenize: false
       rendering_language: '***LANGUAGE_language_interface***'
