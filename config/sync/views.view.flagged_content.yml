@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.storage.flagging.field_comment
-    - field.storage.flagging.field_resolved
     - flag.flag.claim_ownership
     - flag.flag.report_abuse
     - user.role.administrator
@@ -336,71 +335,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_resolved:
-          id: field_resolved
-          table: flagging__field_resolved
-          field: field_resolved
-          relationship: flag_relationship
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Resolved
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: default
-            format_custom_false: ''
-            format_custom_true: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         edit_node:
           id: edit_node
           table: node
@@ -464,7 +398,7 @@ display:
           entity_type: flagging
           plugin_id: flag_link
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -609,14 +543,13 @@ display:
           destination: true
           fields:
             edit_node: edit_node
+            link_flag: link_flag
             edit_user: edit_user
             uid: '0'
             title: '0'
-            field_profile_type: '0'
-            field_claim_ownership_comment: '0'
+            type: '0'
             created: '0'
-            field_claim_ownership_resolved: '0'
-            link_flag: '0'
+            field_comment: '0'
       pager:
         type: full
         options:
@@ -876,52 +809,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_resolved_value:
-          id: field_resolved_value
-          table: flagging__field_resolved
-          field: field_resolved_value
-          relationship: flag_relationship
-          group_type: group
-          admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Resolved (field_resolved)'
-            description: null
-            use_operator: false
-            operator: field_resolved_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_resolved_value
-            required: true
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: true
-          group_info:
-            label: Resolved
-            description: ''
-            identifier: resolved
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: 'Yes'
-                operator: '='
-                value: '1'
-              2:
-                title: 'No'
-                operator: '='
-                value: '0'
       style:
         type: table
         options:
@@ -1065,7 +952,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.flagging.field_comment'
-        - 'config:field.storage.flagging.field_resolved'
   abuse_report:
     id: abuse_report
     display_title: 'Abuse reports'
@@ -1076,6 +962,7 @@ display:
       defaults:
         title: false
         relationships: false
+        header: false
       relationships:
         flag_relationship:
           id: flag_relationship
@@ -1101,6 +988,20 @@ display:
           plugin_id: standard
           required: true
       display_description: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'Workflow: 1. Check reported content (Title) - 2. When critical, edit content (Operations) and unpublish content, check content''s author - 3. Edit abuse report: delete'
+            format: minimal_html
+          tokenize: false
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       path: admin/content/reports
@@ -1128,14 +1029,29 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.flagging.field_comment'
-        - 'config:field.storage.flagging.field_resolved'
   claiming_ownership:
     id: claiming_ownership
     display_title: 'Ownership claims'
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        header: false
       display_description: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'Workflow: 1. Check claimed content (Title), compare with claimer (User reporting) - 2. When approved, edit user (Operations) to check for required role - 3. edit content (Operations) to set user as author + switch Claim toggle - 4. When disapproved, just switch Claim toggle.'
+            format: minimal_html
+          tokenize: false
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       path: admin/content/claims
@@ -1163,4 +1079,3 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.flagging.field_comment'
-        - 'config:field.storage.flagging.field_resolved'
