@@ -336,7 +336,7 @@ function _media_is_cc(\Drupal\media\MediaInterface $media) {
   if ($media->hasField('field_licenses') && !$media->get('field_licenses')->isEmpty()) {
     $value = $media->get('field_licenses')->first()->getValue();
     if (isset($value['license']) || array_key_exists('license', $value)) {
-      return $value['license'] === 'all_rights_reserved';
+      return $value['license'] !== 'all_rights_reserved';
     }
   }
   return FALSE;
