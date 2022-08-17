@@ -651,6 +651,27 @@ display:
     display_plugin: block
     position: 1
     display_options:
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 6
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
       arguments:
         term_node_tid_depth:
           id: term_node_tid_depth
@@ -700,6 +721,7 @@ display:
           use_taxonomy_term_path: false
       defaults:
         query: true
+        pager: false
         relationships: false
         arguments: false
       relationships: {  }
@@ -722,9 +744,31 @@ display:
     position: 4
     display_options:
       title: 'Latest articles'
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 6
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
       arguments: {  }
       defaults:
         title: false
+        pager: false
         arguments: false
       display_description: ''
       display_extenders: {  }
@@ -741,7 +785,7 @@ display:
     id: related_article_node
     display_title: 'by category - On node page'
     display_plugin: block
-    position: 2
+    position: 3
     display_options:
       arguments:
         field_category_target_id:
@@ -802,8 +846,31 @@ display:
     id: related_article_term
     display_title: 'by category - On term page'
     display_plugin: block
-    position: 3
+    position: 2
     display_options:
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 6
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      defaults:
+        pager: false
       display_description: ''
       display_extenders: {  }
     cache_metadata:
