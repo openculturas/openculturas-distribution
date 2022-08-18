@@ -30,6 +30,7 @@ dependencies:
     - link
     - media
     - node
+    - openculturas_custom
     - options
     - paragraphs
     - rest
@@ -681,8 +682,8 @@ display:
           label: 'Date-specific description'
           exclude: false
           alter:
-            alter_text: true
-            text: '{{ field_body_addon|striptags(''<br><p>'')|trim }}'
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -703,9 +704,9 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: false
+            strip_tags: true
             trim: false
-            preserve_tags: ''
+            preserve_tags: '<br><p>'
             html: false
           element_type: ''
           element_class: ''
@@ -1121,8 +1122,8 @@ display:
           label: 'General event description'
           exclude: false
           alter:
-            alter_text: true
-            text: '{{ body|striptags(''<br><p>'')|trim }}'
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -1143,9 +1144,9 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: false
+            strip_tags: true
             trim: false
-            preserve_tags: ''
+            preserve_tags: '<br><p>'
             html: false
           element_type: ''
           element_class: ''
@@ -1876,8 +1877,8 @@ display:
           label: 'Legal information'
           exclude: false
           alter:
-            alter_text: true
-            text: '{{ field_legal_info|striptags(''<br><p>'')|trim }}'
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -1898,9 +1899,9 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: false
+            strip_tags: true
             trim: false
-            preserve_tags: ''
+            preserve_tags: '<br><p>'
             html: false
           element_type: ''
           element_class: ''
@@ -2306,13 +2307,13 @@ display:
           exposed: true
           expose:
             operator_id: field_address_locality_op
-            label: 'Address (field_address:locality)'
+            label: Address
             description: ''
             use_operator: false
             operator: field_address_locality_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_address_locality
+            identifier: address_locality
             required: false
             remember: false
             multiple: false
@@ -2763,7 +2764,7 @@ display:
             delimiter: ','
             enclosure: '"'
             escape_char: \
-            strip_tags: true
+            strip_tags: false
             trim: true
             encoding: utf8
             utf8_bom: '0'
