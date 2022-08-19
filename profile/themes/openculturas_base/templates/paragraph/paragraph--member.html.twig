@@ -1,7 +1,7 @@
 {% extends 'paragraph.html.twig' %}
 
 {% block paragraph %}
-  {% if member_is_published %}
+  {% if member_is_published or user_has_edit_access %}
   <article{{ attributes.addClass(classes) }}>
     {% block content %}
       {{ content }}
@@ -12,7 +12,6 @@
       <div class="field profile-teaser view-mode-embedded-teaser node--unpublished unpublished-placeholder">
         <div class="profile--picture-placeholder">
         </div>
-        {{ content }}
       </div>
     </div>
   {% endif %}

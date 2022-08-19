@@ -116,5 +116,6 @@ function openculturas_base_preprocess_paragraph(&$variables) {
     /** @var \Drupal\node\NodeInterface $node */
     $node = $entityReferenceItem->entity;
     $variables['member_is_published'] = $node->isPublished();
+    $variables['user_has_edit_access'] = $node->access('edit');
   }
 }
