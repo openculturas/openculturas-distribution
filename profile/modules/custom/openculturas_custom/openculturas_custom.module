@@ -351,7 +351,7 @@ function openculturas_custom_flag_action_access(string $action, \Drupal\flag\Fla
   }
   /** @var NodeInterface $entity */
   $entity = $flaggable;
-  if ($flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming')) {
+  if ($flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')->isEmpty()) {
     $allowed = (bool) $entity->get('field_allow_claiming')->value;
     if (!$allowed) {
       return \Drupal\Core\Access\AccessResult::forbidden();
