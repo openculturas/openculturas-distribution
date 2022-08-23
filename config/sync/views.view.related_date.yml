@@ -2304,7 +2304,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          operator: '>='
+          operator: starts_on_after
           value:
             min: ''
             max: ''
@@ -2356,7 +2356,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          operator: '<='
+          operator: ends_on_after
           value:
             min: ''
             max: ''
@@ -2524,7 +2524,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          operator: '>'
+          operator: '>='
           value:
             min: ''
             max: ''
@@ -2570,13 +2570,13 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          operator: '>'
+          operator: '>='
           value:
             min: ''
             max: ''
             value: now
             type: offset
-            granularity: second
+            granularity: day
           group: 2
           exposed: false
           expose:
@@ -2999,54 +2999,10 @@ display:
           plugin_id: bundle
           value:
             date: date
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-        field_date_value:
-          id: field_date_value
-          table: node__field_date
-          field: field_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: date
-          operator: '>'
-          value:
-            min: ''
-            max: ''
-            value: now
-            type: offset
           group: 1
-          exposed: false
           expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
             operator_limit_selection: false
             operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         field_category_target_id:
           id: field_category_target_id
           table: node__field_category
@@ -3222,7 +3178,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          operator: '>='
+          operator: starts_on_after
           value:
             min: ''
             max: ''
@@ -3274,7 +3230,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          operator: '<='
+          operator: ends_on_after
           value:
             min: ''
             max: ''
@@ -3318,10 +3274,103 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: now
+            type: offset
+            granularity: day
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_date_end_value_1:
+          id: field_date_end_value_1
+          table: node__field_date
+          field: field_date_end_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: now
+            type: offset
+            granularity: day
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
           1: AND
+          2: OR
       style:
         type: leaflet_map
         options:
