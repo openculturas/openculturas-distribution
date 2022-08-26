@@ -86,7 +86,8 @@
 //  border: 0 none;
 //}
 
-.node--unpublished:before {
+.node--unpublished:before,
+.node--workflow-pending:before {
   content: "Unpublished";
   font-weight: bold;
   display: block;
@@ -96,6 +97,11 @@
   background-color: var(--color-bg-danger-light);
 }
 
+.node--workflow-pending:before {
+  color: var(--color-warning);
+  background-color: var(--color-bg-warning);
+}
+
 .node--unpublished .node--unpublished:before {
   display: none;
 }
@@ -103,10 +109,28 @@
 html[lang="de"] .node--unpublished:before {
   content: "Unveröffentlicht";
 }
+html[lang="de"] .node--workflow-pending:before {
+  content: "Freigabe ausstehend";
+}
 
-.profile-teaser.node--unpublished::before {
+.profile-teaser.node--unpublished:before,
+.profile-teaser.node--workflow-pending:before {
+  font-size: var(--font-size-s);
+  padding: 0.5*$grid-gutter $grid-gutter;
+}
+
+.profile-teaser.view-mode-embedded-teaser.node--unpublished:before,
+.profile-teaser.view-mode-embedded-teaser.node--workflow-pending:before {
   position: absolute;
   z-index: +1;
   width: 100%;
-  top: 1.5rem;
+  top: 2rem;
+  opacity: .8;
+}
+
+.node--unpublished.view-mode-compact.profile-teaser:before {
+  position: absolute;
+  top: -.75em;
+  z-index: +1;
+  padding: 0 .25rem;
 }
