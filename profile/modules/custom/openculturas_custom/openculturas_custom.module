@@ -12,6 +12,8 @@ use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\taxonomy\TermInterface;
+use Drupal\views\Entity\View;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -157,6 +159,23 @@ function openculturas_custom_flagging_insert(\Drupal\flag\FlaggingInterface $ent
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
     $flagged_entity = $entity->getFlaggable();
     $cacheInvalidator->invalidateTags($flagged_entity->getCacheTagsToInvalidate());
+  }
+  elseif (in_array($entity->getFlagId(), ['bookmark_node', 'bookmark_term'], TRUE)) {
+    /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
+    $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
+    $flagged_entity = $entity->getFlaggable();
+    if ($flagged_entity instanceof NodeInterface) {
+      $view = View::load('my_bookmarks');
+      if ($view !== NULL) {
+        $cacheInvalidator->invalidateTags($view->getCacheTagsToInvalidate());
+      }
+    }
+    elseif ($flagged_entity instanceof TermInterface) {
+      $view = View::load('my_bookmarks_taxonomy');
+      if ($view !== NULL) {
+        $cacheInvalidator->invalidateTags($view->getCacheTagsToInvalidate());
+      }
+    }
   }
 }
 
