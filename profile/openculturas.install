@@ -38,7 +38,6 @@ function openculturas_install_content() {
   // then we do not need the module anymore.
   $module_installer->install(['openculturas_content']);
   $module_installer->uninstall(['default_content', 'openculturas_content']);
-  
 
   $config = $configFactory->getEditable('system.site');
 
@@ -69,7 +68,24 @@ function openculturas_install_content() {
   if ($node instanceof NodeInterface) {
     $config->set('page.front', '/node/' . $node->id());
   }
-
   $config->save();
 
+  // Fix path to marker, when installed as a dependency.
+  if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.png')) {
+    $config = $configFactory->getEditable('views.view.locations');
+    $config->set('display.default.display_options.style.options.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.png');
+    $config->save();
+
+    $config = $configFactory->getEditable('views.view.related_date');
+    $config->set('display.upcoming_dates_map.display_options.style.options.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.png');
+    $config->save();
+
+    $config = $configFactory->getEditable('core.entity_view_display.paragraph.address_data.default');
+    $config->set('content.field_address_location.settings.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.png');
+    $config->save();
+
+    $config = $configFactory->getEditable('core.entity_view_display.paragraph.address_data.map');
+    $config->set('content.field_address_location.settings.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.png');
+    $config->save();
+  }
 }
