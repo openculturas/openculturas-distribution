@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\flag\Entity\Flag;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -284,6 +285,25 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
           'full'
         )->getComponent('field_date');
         $build['field_date'] = $field->view($display_settings);
+      }
+    }
+  }
+  if ($entity->hasField('field_event_description') && !$entity->get('field_event_description')->isEmpty()) {
+    $event = $entity->get('field_event_description')->first()->entity;
+    $flag_bundles = ['bookmark_node', 'recommendation_node'];
+    foreach ($flag_bundles as $flag_bundle) {
+      $flag = Flag::load($flag_bundle);
+      if ($event instanceof NodeInterface && $flag !== NULL) {
+        $build_key = 'flag_' . $flag->id();
+        if (isset($build[$build_key])) {
+          $build[$build_key] = array_merge($build[$build_key], [
+            '#lazy_builder' => ['flag.link_builder:build', [
+              $event->getEntityTypeId(),
+              $event->id(),
+              $flag->id(),
+            ]],
+          ]);
+        }
       }
     }
   }
