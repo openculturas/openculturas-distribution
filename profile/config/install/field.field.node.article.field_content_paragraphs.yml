@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_content_paragraphs
     - node.type.article
+    - paragraphs.paragraphs_type.block
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.text
@@ -24,6 +25,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
+      block: block
       gallery: gallery
       media: media
       text: text
@@ -36,6 +38,12 @@ settings:
       address_data:
         weight: 10
         enabled: false
+      block:
+        weight: 12
+        enabled: true
+      bookable_event:
+        weight: 15
+        enabled: false
       contact_data:
         weight: 11
         enabled: false
@@ -45,6 +53,9 @@ settings:
       media:
         weight: 13
         enabled: true
+      media_mention:
+        weight: 19
+        enabled: false
       member:
         weight: 14
         enabled: false
