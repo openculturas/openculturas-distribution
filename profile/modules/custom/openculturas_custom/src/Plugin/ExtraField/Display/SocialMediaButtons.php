@@ -41,6 +41,21 @@ class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements Conta
   /**
    * {@inheritdoc}
    */
+  public function getLabelDisplay() {
+    return 'above';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLabel() {
+
+    return t('Share');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function viewElements(ContentEntityInterface $entity): array {
     /** @var \Drupal\shariff\Plugin\Block\ShariffBlock $block */
     $block = $this->pluginManager->createInstance('shariff_block');
