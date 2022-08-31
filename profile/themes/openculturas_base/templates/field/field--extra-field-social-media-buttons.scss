@@ -1,0 +1,64 @@
+//Adjust parent layout for this solution
+body .interact {
+  justify-content: left;
+}
+
+.field--name-extra-field-social-media-buttons {
+
+  position: relative;
+  height: 3.5rem;
+  overflow: hidden;
+
+  .field__label {
+    @extend %button;
+    font-weight: unset;
+    font-size: unset;
+    line-height: unset;
+    text-transform: unset;
+    letter-spacing: unset;
+    @include icon(share-alt);
+    &:before {
+      margin-right: .75rem;
+    }
+  }
+
+  .field__items {
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .field__label {
+      display: none;
+      margin: 0;
+    }
+
+    .field__items {
+      //height: auto;
+      overflow: unset;
+      visibility: visible;
+    }
+
+    ul {
+      margin-top: 0;
+    //  background-color: #ffffffbf;
+    //  z-index: +1;
+    }
+  }
+
+  .button-style-icon {
+    a {
+      background-color: $color-text-inverted;
+      margin: .125rem .5rem .25rem;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.field.field--name-extra-field-social-media-buttons {
+  margin-top: 0;
+}
+
+.interact .field.field--name-extra-field-social-media-buttons {
+  flex-basis: auto;
+}
