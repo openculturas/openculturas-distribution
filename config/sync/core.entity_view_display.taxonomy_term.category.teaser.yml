@@ -13,6 +13,8 @@ dependencies:
     - field.field.taxonomy_term.category.field_related_organizer_view_ref
     - field.field.taxonomy_term.category.field_term_children_view_ref
     - taxonomy.vocabulary.category
+  module:
+    - field_formatter_class
 id: taxonomy_term.category.teaser
 targetEntityType: taxonomy_term
 bundle: category
@@ -22,9 +24,11 @@ content:
     type: entity_reference_entity_view
     label: hidden
     settings:
-      view_mode: teaser_image
+      view_mode: teaser_image_big
       link: false
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 0
     region: content
 hidden:
