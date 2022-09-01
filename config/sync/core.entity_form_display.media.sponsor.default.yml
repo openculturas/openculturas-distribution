@@ -26,7 +26,7 @@ content:
     third_party_settings: {  }
   field_sponsor_global:
     type: boolean_checkbox
-    weight: 26
+    weight: 3
     region: content
     settings:
       display_label: true
@@ -47,9 +47,18 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   langcode: true
   path: true
   status: true
-  uid: true
