@@ -29,8 +29,6 @@ function openculturas_install_tasks() {
  */
 function openculturas_install_content() {
   $configFactory = \Drupal::configFactory();
-  // default_content needs hal and serialization, store the current config for later.
-  $core_extension_config = $configFactory->getEditable('core.extension');
 
   /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
   $module_installer = \Drupal::service('module_installer');
