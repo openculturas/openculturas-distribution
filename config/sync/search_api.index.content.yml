@@ -3,15 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_category
     - field.storage.node.field_accessibility
     - field.storage.paragraph.field_a11y_features
+    - field.storage.node.field_category
+    - field.storage.node.field_subtitle
     - search_api.server.content
     - core.entity_view_mode.node.search_index
   module:
+    - paragraphs
     - taxonomy
     - node
-    - paragraphs
     - search_api
 id: content
 name: Content
@@ -40,13 +41,22 @@ field_settings:
     label: 'Accessibility information » Paragraph » Accessibility Features'
     datasource_id: 'entity:node'
     property_path: 'field_accessibility:entity:field_a11y_features'
-    type: integer
+    type: string
     dependencies:
       config:
         - field.storage.node.field_accessibility
         - field.storage.paragraph.field_a11y_features
       module:
         - paragraphs
+  field_subtitle:
+    label: Subtitle
+    datasource_id: 'entity:node'
+    property_path: field_subtitle
+    type: text
+    boost: 1.5
+    dependencies:
+      config:
+        - field.storage.node.field_subtitle
   rendered_item:
     label: 'Rendered HTML output'
     property_path: rendered_item
@@ -62,11 +72,25 @@ field_settings:
           location: search_index
           page: search_index
           profile: search_index
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 3
+    dependencies:
+      module:
+        - node
 datasource_settings:
   'entity:node':
     bundles:
-      default: true
-      selected: {  }
+      default: false
+      selected:
+        - article
+        - event
+        - location
+        - page
+        - profile
     languages:
       default: true
       selected: {  }
@@ -108,7 +132,7 @@ processor_settings:
       - rendered_item
 tracker_settings:
   default:
-    indexing_order: fifo
+    indexing_order: lifo
 options:
   cron_limit: 50
   index_directly: true
