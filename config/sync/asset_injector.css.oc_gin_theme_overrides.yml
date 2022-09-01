@@ -6,7 +6,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |
+code: |-
   .formtip {
     background-color: var(--colorGinPrimary);
     border: 2px solid var(--colorGinPrimary);
@@ -140,6 +140,14 @@ code: |
 
   .choices__item--selectable[data-value="_none"] {
     display: none;
+  }
+
+  /* Attribution license in media library */
+  .media-library-item .media-library-item__preview .field--type-attribution {
+    position: absolute;
+    top: auto;
+    bottom: calc(-.5em + 1px);
+    left: .5em;
   }
 media: all
 preprocess: true
