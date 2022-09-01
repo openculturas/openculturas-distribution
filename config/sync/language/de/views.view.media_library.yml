@@ -10,7 +10,6 @@ display:
           action_title: Aktion
       pager:
         options:
-          tags: {  }
           expose:
             items_per_page_label: 'Elemente pro Seite'
             items_per_page_options_all_label: '- Alle -'
@@ -29,10 +28,6 @@ display:
         created:
           expose:
             label: 'Neueste zuerst'
-        name:
-          expose: {  }
-        name_1:
-          expose: {  }
       filters:
         status:
           expose:
@@ -45,8 +40,6 @@ display:
                 title: Veröffentlicht
               2:
                 title: 'Nicht veröffentlicht'
-        name:
-          expose: {  }
         bundle:
           expose:
             label: Medientyp
@@ -57,21 +50,22 @@ display:
           expose:
             label: Sprache
         field_licenses_license:
-          expose:
-            description: ''
-            placeholder: ''
           group_info:
             label: Lizenz
             group_items:
               2:
                 title: 'Lizenzfreie Medien'
+              3:
+                title: 'Ohne Lizenzinformation'
+          expose:
+            description: ''
+            placeholder: ''
   page:
     display_title: Seite
     display_options:
       fields:
         media_bulk_form:
           action_title: Aktion
-        name: {  }
         edit_media:
           alter:
             text: '{{ name }} bearbeiten'
@@ -90,17 +84,17 @@ display:
           exception:
             title: Alle
       filters:
-        name:
-          expose: {  }
         field_licenses_license:
-          expose:
-            description: ''
-            placeholder: ''
           group_info:
             label: Lizenz
             group_items:
               2:
                 title: 'Lizenzfreie Medien'
+              3:
+                title: 'Ohne Lizenzinformation'
+          expose:
+            description: ''
+            placeholder: ''
       header:
         display_link_grid:
           label: Raster
@@ -112,7 +106,6 @@ display:
       fields:
         thumbnail__target_id:
           label: Miniaturbild
-        name: {  }
         uid:
           label: Autor
         changed:
@@ -122,17 +115,17 @@ display:
           exception:
             title: Alle
       filters:
-        name:
-          expose: {  }
         field_licenses_license:
-          expose:
-            description: ''
-            placeholder: ''
           group_info:
             label: Lizenz
             group_items:
               2:
                 title: 'Lizenzfreie Medien'
+              3:
+                title: 'Ohne Lizenzinformation'
+          expose:
+            description: ''
+            placeholder: ''
       header:
         display_link_grid:
           label: Raster

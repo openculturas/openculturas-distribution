@@ -8,25 +8,18 @@ display:
       fields:
         thumbnail__target_id:
           label: Miniaturbild
-          separator: ', '
         name:
           label: Medienname
-          separator: ', '
         bundle:
           label: Typ
-          separator: ', '
         uid:
           label: Autor
-          separator: ', '
         status:
-          label: Status
           settings:
             format_custom_false: 'Nicht veröffentlicht'
             format_custom_true: Veröffentlicht
-          separator: ', '
         changed:
           label: Aktualisiert
-          separator: ', '
         operations:
           label: Aktionen
       pager:
@@ -42,7 +35,6 @@ display:
             offset_label: Versatz
       exposed_form:
         options:
-          submit_button: Filter
           reset_button_label: Zurücksetzen
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
@@ -60,6 +52,7 @@ display:
         status:
           expose:
             label: Wahr
+            description: ''
           group_info:
             label: Veröffentlichungsstatus
             group_items:
@@ -70,6 +63,17 @@ display:
         langcode:
           expose:
             label: Sprache
+        field_licenses_license:
+          group_info:
+            label: Lizenz
+            group_items:
+              2:
+                title: 'Lizenzfreie Medien'
+              3:
+                title: 'Ohne Lizenzinformation'
+          expose:
+            description: ''
+            placeholder: ''
   media_page_list:
     display_title: Medien
     display_options:
