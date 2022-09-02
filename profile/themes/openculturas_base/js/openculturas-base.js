@@ -70,7 +70,7 @@
     toggleOffcanvasMenu: function(e= null) {
       let $body = $('body');
       let $offcanvasMenu = $('#offcanvas_menu');
-      let $burgerButtons = $('.header__burger--buttons');
+      let $burgerButtons = $('.header__burger--link');
       let wasOpen = $body.hasClass('offcanvas-open');
 
       $body.toggleClass('offcanvas-open');
