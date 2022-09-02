@@ -8,18 +8,26 @@ display:
           bef:
             general:
               secondary_label: 'Erweiterte Optionen'
+          submit_button: Filtern
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: aufsteigend
+          sort_desc_label: absteigend
       sorts:
         title:
           expose:
-            label: Titel
+            label: 'Alphabetisch (Titel)'
+        field_started_value:
+          expose:
+            label: 'Aktiv seit'
       filters:
         title:
           expose:
-            label: 'Nach Titel suchen'
-            placeholder: 'enthält Suchbegriff ...'
+            label: Titel
+            placeholder: 'enthält ...'
         field_category_target_id:
           expose:
-            label: 'Nach Fokusthema filtern'
+            label: Fokus
         field_is_bookable_value:
           group_info:
             label: 'Ist buchbar'
@@ -28,6 +36,13 @@ display:
                 title: ja
               2:
                 title: Nein
+          expose:
+            label: 'Ist buchbar?'
+        field_min_age_value:
+          expose:
+            label: Mindestalter
+          group_info:
+            label: Mindestalter
       pager:
         options:
           tags:
@@ -35,6 +50,27 @@ display:
             previous: '‹ Vorige'
             first: '« Zum Anfang'
             last: 'Zum Ende »'
+          expose:
+            items_per_page_label: Anzahl/Seite
+            items_per_page_options_all_label: '- Alle -'
+      empty:
+        area:
+          content:
+            value: 'Leider ist momentan kein Inhalt dieses Typs verfügbar.'
+            format: minimal_html
   block_archive:
     display_options:
       title: Veranstaltungsarchiv
+      filters:
+        title:
+          expose:
+            label: Titel
+            placeholder: 'Enthält ...'
+        field_category_target_id:
+          expose:
+            label: Fokus
+        field_min_age_value:
+          expose:
+            label: Mindestalter
+          group_info:
+            label: Mindestalter
