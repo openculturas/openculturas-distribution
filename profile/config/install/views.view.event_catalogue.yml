@@ -226,7 +226,7 @@ display:
           plugin_id: standard
           order: DESC
           expose:
-            label: Title
+            label: 'Alphabetically (title)'
             field_identifier: title
           exposed: true
       arguments: {  }
@@ -272,7 +272,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: 'Find by title'
+            label: Title
             description: ''
             use_operator: false
             operator: title_op
@@ -285,7 +285,10 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
               magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             placeholder: 'contains keyword...'
             autocomplete_filter: 0
@@ -321,7 +324,7 @@ display:
           exposed: true
           expose:
             operator_id: field_category_target_id_op
-            label: 'Filter by focus'
+            label: Focus
             description: ''
             use_operator: false
             operator: field_category_target_id_op

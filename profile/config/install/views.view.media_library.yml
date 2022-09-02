@@ -229,6 +229,48 @@ display:
             field_identifier: name_1
           exposed: true
       filters:
+        name:
+          id: name
+          table: media_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: media
+          entity_field: name
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         status:
           id: status
           table: media_field_data
@@ -277,48 +319,6 @@ display:
                 title: Unpublished
                 operator: '='
                 value: '0'
-        name:
-          id: name
-          table: media_field_data
-          field: name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: media
-          entity_field: name
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: name_op
-            label: Name
-            description: ''
-            use_operator: false
-            operator: name_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: name
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         bundle:
           id: bundle
           table: media_field_data
@@ -420,7 +420,7 @@ display:
           exposed: true
           expose:
             operator_id: langcode_op
-            label: Language
+            label: 'Translation language'
             description: ''
             use_operator: false
             operator: langcode_op
@@ -433,6 +433,10 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             reduce: false
           is_grouped: false
@@ -447,6 +451,68 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_licenses_license:
+          id: field_licenses_license
+          table: media__field_licenses
+          field: field_licenses_license
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_autocomplete_filters_string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_licenses_license_op
+            label: 'Attribution (field_licenses:license)'
+            description: null
+            use_operator: false
+            operator: field_licenses_license_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_licenses_license
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+            autocomplete_filter: 0
+            autocomplete_min_chars: '0'
+            autocomplete_items: '10'
+            autocomplete_field: ''
+            autocomplete_raw_suggestion: 1
+            autocomplete_raw_dropdown: 1
+            autocomplete_dependent: 0
+          is_grouped: true
+          group_info:
+            label: License
+            description: ''
+            identifier: license
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'All rights reserved'
+                operator: '='
+                value: all_rights_reserved
+              2:
+                title: 'Royalty-free media'
+                operator: '!='
+                value: all_rights_reserved
+              3:
+                title: 'No license information'
+                operator: empty
+                value: ''
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: default
         options:
@@ -500,6 +566,7 @@ display:
         - 'config:core.entity_view_display.media.image.profile_image'
         - 'config:core.entity_view_display.media.image.teaser_image'
         - 'config:core.entity_view_display.media.image.teaser_image_big'
+        - 'config:core.entity_view_display.media.image.token'
         - 'config:core.entity_view_display.media.logo_image.default'
         - 'config:core.entity_view_display.media.logo_image.logo'
         - 'config:core.entity_view_display.media.logo_image.media_library'
@@ -507,6 +574,9 @@ display:
         - 'config:core.entity_view_display.media.remote_video.default'
         - 'config:core.entity_view_display.media.remote_video.gallery'
         - 'config:core.entity_view_display.media.remote_video.media_library'
+        - 'config:core.entity_view_display.media.sponsor.default'
+        - 'config:core.entity_view_display.media.sponsor.gallery'
+        - 'config:core.entity_view_display.media.sponsor.media_library'
         - 'config:core.entity_view_display.media.user_profile_picture.default'
         - 'config:core.entity_view_display.media.user_profile_picture.header_image'
         - 'config:core.entity_view_display.media.user_profile_picture.media_library'
@@ -823,6 +893,7 @@ display:
         - 'config:core.entity_view_display.media.image.profile_image'
         - 'config:core.entity_view_display.media.image.teaser_image'
         - 'config:core.entity_view_display.media.image.teaser_image_big'
+        - 'config:core.entity_view_display.media.image.token'
         - 'config:core.entity_view_display.media.logo_image.default'
         - 'config:core.entity_view_display.media.logo_image.logo'
         - 'config:core.entity_view_display.media.logo_image.media_library'
@@ -830,6 +901,9 @@ display:
         - 'config:core.entity_view_display.media.remote_video.default'
         - 'config:core.entity_view_display.media.remote_video.gallery'
         - 'config:core.entity_view_display.media.remote_video.media_library'
+        - 'config:core.entity_view_display.media.sponsor.default'
+        - 'config:core.entity_view_display.media.sponsor.gallery'
+        - 'config:core.entity_view_display.media.sponsor.media_library'
         - 'config:core.entity_view_display.media.user_profile_picture.default'
         - 'config:core.entity_view_display.media.user_profile_picture.header_image'
         - 'config:core.entity_view_display.media.user_profile_picture.media_library'
@@ -1111,6 +1185,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_licenses_license:
+          id: field_licenses_license
+          table: media__field_licenses
+          field: field_licenses_license
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_autocomplete_filters_string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_licenses_license_op
+            label: 'Attribution (field_licenses:license)'
+            description: null
+            use_operator: false
+            operator: field_licenses_license_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_licenses_license
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+            autocomplete_filter: 0
+            autocomplete_min_chars: '0'
+            autocomplete_items: '10'
+            autocomplete_field: ''
+            autocomplete_raw_suggestion: 1
+            autocomplete_raw_dropdown: 1
+            autocomplete_dependent: 0
+          is_grouped: true
+          group_info:
+            label: License
+            description: ''
+            identifier: license
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'All rights reserved'
+                operator: '='
+                value: all_rights_reserved
+              2:
+                title: 'Royalty-free media'
+                operator: '!='
+                value: all_rights_reserved
+              3:
+                title: 'No license information'
+                operator: empty
+                value: ''
       filter_groups:
         operator: AND
         groups:
@@ -1169,6 +1301,7 @@ display:
         - 'config:core.entity_view_display.media.image.profile_image'
         - 'config:core.entity_view_display.media.image.teaser_image'
         - 'config:core.entity_view_display.media.image.teaser_image_big'
+        - 'config:core.entity_view_display.media.image.token'
         - 'config:core.entity_view_display.media.logo_image.default'
         - 'config:core.entity_view_display.media.logo_image.logo'
         - 'config:core.entity_view_display.media.logo_image.media_library'
@@ -1176,6 +1309,9 @@ display:
         - 'config:core.entity_view_display.media.remote_video.default'
         - 'config:core.entity_view_display.media.remote_video.gallery'
         - 'config:core.entity_view_display.media.remote_video.media_library'
+        - 'config:core.entity_view_display.media.sponsor.default'
+        - 'config:core.entity_view_display.media.sponsor.gallery'
+        - 'config:core.entity_view_display.media.sponsor.media_library'
         - 'config:core.entity_view_display.media.user_profile_picture.default'
         - 'config:core.entity_view_display.media.user_profile_picture.header_image'
         - 'config:core.entity_view_display.media.user_profile_picture.media_library'
@@ -1419,6 +1555,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_licenses_license:
+          id: field_licenses_license
+          table: media__field_licenses
+          field: field_licenses_license
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_autocomplete_filters_string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_licenses_license_op
+            label: 'Attribution (field_licenses:license)'
+            description: null
+            use_operator: false
+            operator: field_licenses_license_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_licenses_license
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+            autocomplete_filter: 0
+            autocomplete_min_chars: '0'
+            autocomplete_items: '10'
+            autocomplete_field: ''
+            autocomplete_raw_suggestion: 1
+            autocomplete_raw_dropdown: 1
+            autocomplete_dependent: 0
+          is_grouped: true
+          group_info:
+            label: License
+            description: ''
+            identifier: license
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'All rights reserved'
+                operator: '='
+                value: all_rights_reserved
+              2:
+                title: 'Royalty-free media'
+                operator: '!='
+                value: all_rights_reserved
+              3:
+                title: 'No license information'
+                operator: empty
+                value: ''
       filter_groups:
         operator: AND
         groups:

@@ -13,14 +13,13 @@ third_party_settings:
     group_administrative:
       children:
         - langcode
-        - uid
+        - status
         - created
         - path
-        - status
       label: Administrative
       region: hidden
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -55,9 +54,18 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   langcode: true
   path: true
   status: true
-  uid: true

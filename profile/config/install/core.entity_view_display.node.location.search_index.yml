@@ -28,6 +28,8 @@ dependencies:
     - field.field.node.location.field_supporters
     - node.type.location
   module:
+    - entity_reference_revisions
+    - field_formatter_class
     - text
     - user
 id: node.location.search_index
@@ -40,7 +42,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   co_authors:
     type: author
@@ -49,34 +51,78 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_accessibility:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
   field_additional_information:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 4
+    region: content
+  field_address_data:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: address_block
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 2
+    region: content
+  field_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 5
+    region: content
+  field_press_quotes:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_reference_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_safety_info:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
 hidden:
   content_moderation_control: true
   extra_field_social_media_buttons: true
-  field_accessibility: true
-  field_address_data: true
   field_allow_claiming: true
-  field_category: true
   field_contact_data: true
   field_gallery: true
   field_logo: true
@@ -85,10 +131,8 @@ hidden:
   field_opening_hours: true
   field_people_reference: true
   field_portrait: true
-  field_press_quotes: true
   field_recommendations: true
   field_recommended_by_view_ref: true
-  field_reference_title: true
   field_related_date_view_ref: true
   field_started: true
   field_supporters: true
