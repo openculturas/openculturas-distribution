@@ -26,19 +26,19 @@ class BookmarkFlagIconBlock extends BlockBase {
     $build = [];
     $current_entity = CurrentEntityHelper::get_current_page_entity();
     if ($current_entity instanceof FieldableEntityInterface
-      && ($current_entity->getEntityTypeId() == 'node'
-        || $current_entity->getEntityTypeId() == 'taxonomy_term')
+      && ($current_entity->getEntityTypeId() === 'node'
+        || $current_entity->getEntityTypeId() === 'taxonomy_term')
       ) {
       $build['flag_bookmark_' . $current_entity->getEntityTypeId()] = [
         '#lazy_builder' => ['flag.link_builder:build', [
           $current_entity->getEntityTypeId(),
           $current_entity->id(),
-          ($current_entity->getEntityTypeId() == 'taxonomy_term') ? 'bookmark_term' : 'bookmark_' . $current_entity->getEntityTypeId(),
+          ($current_entity->getEntityTypeId() === 'taxonomy_term') ? 'bookmark_term' : 'bookmark_' . $current_entity->getEntityTypeId(),
         ]],
         '#create_placeholder' => TRUE,
       ];
 
-      if ($current_entity->getEntityTypeId() == 'node') {
+      if ($current_entity->getEntityTypeId() === 'node') {
         $build['flag_recommendation_node'] = [
           '#lazy_builder' => ['flag.link_builder:build', [
             $current_entity->getEntityTypeId(),

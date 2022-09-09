@@ -42,6 +42,9 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $build = [];
     $page_entity = CurrentEntityHelper::get_current_page_entity();
     $current_entity = CurrentEntityHelper::getEventReference($page_entity);
+    if ($current_entity !== NULL && !$current_entity->hasField('field_mood_image')) {
+      return $build;
+    }
     if ($current_entity !== NULL
       && $current_entity->hasField('field_mood_image')
       && !$current_entity->get('field_mood_image')->isEmpty()) {
