@@ -418,7 +418,9 @@ function openculturas_custom_locale_translation_projects_alter(&$projects) {
  * Implements hook_ENTITY_TYPE_presave().
  */
 function openculturas_custom_node_presave(NodeInterface $node) {
-  $tags = [];
+  $account = \Drupal::currentUser();
+  // Refresh my_content view etc.
+  $tags = ['user:' . $account->id()];
   // Invalidate cache for CT profile -> Magazine -> Mention by
   if ($node->hasField('field_references')) {
     $refs = $node->get('field_references')->getValue();
