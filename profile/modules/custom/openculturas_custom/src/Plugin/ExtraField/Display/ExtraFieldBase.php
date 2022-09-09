@@ -87,7 +87,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
     if ($entity->hasField($this->referenceField) && !$entity->get($this->referenceField)->isEmpty()) {
       /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
       $this->eventEntity = $entity->get($this->referenceField)->first()->entity;
-      if ($this->fieldname !== NULL && (!$this->eventEntity->hasField($this->fieldname) || $this->eventEntity->get($this->fieldname)->isEmpty())) {
+      if (!$this->eventEntity instanceof ContentEntityInterface || !$this->eventEntity->hasField($this->fieldname) || $this->eventEntity->get($this->fieldname)->isEmpty()) {
         return $build;
       }
       $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
