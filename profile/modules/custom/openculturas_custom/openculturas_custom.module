@@ -164,19 +164,9 @@ function openculturas_custom_flagging_insert(\Drupal\flag\FlaggingInterface $ent
   elseif (in_array($entity->getFlagId(), ['bookmark_node', 'bookmark_term'], TRUE)) {
     /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
-    $flagged_entity = $entity->getFlaggable();
-    if ($flagged_entity instanceof NodeInterface) {
-      $view = View::load('my_bookmarks');
-      if ($view !== NULL) {
-        $cacheInvalidator->invalidateTags($view->getCacheTagsToInvalidate());
-      }
-    }
-    elseif ($flagged_entity instanceof TermInterface) {
-      $view = View::load('my_bookmarks_taxonomy');
-      if ($view !== NULL) {
-        $cacheInvalidator->invalidateTags($view->getCacheTagsToInvalidate());
-      }
-    }
+    $id = \Drupal::currentUser()->id();
+    $tags = ['entity_view_user_' . $id . '_full'];
+    $cacheInvalidator->invalidateTags($tags);
   }
 }
 
@@ -310,6 +300,17 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function openculturas_custom_user_view_alter(array &$build, \Drupal\user\UserInterface $entity) {
+  if ($build['#view_mode'] === 'full') {
+    // Used to clear cache of user page.
+    // See openculturas_custom_node_presave()/openculturas_custom_flagging_insert().
+    $build['#cache']['tags'][] = 'entity_view_user_' . $entity->id() . '_full';
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state) {
@@ -418,9 +419,8 @@ function openculturas_custom_locale_translation_projects_alter(&$projects) {
  * Implements hook_ENTITY_TYPE_presave().
  */
 function openculturas_custom_node_presave(NodeInterface $node) {
-  $account = \Drupal::currentUser();
-  // Refresh my_content view etc.
-  $tags = ['user:' . $account->id()];
+  $owner_id = $node->getOwner()->id();
+  $tags = ['entity_view_user_' . $owner_id . '_full'];
   // Invalidate cache for CT profile -> Magazine -> Mention by
   if ($node->hasField('field_references')) {
     $refs = $node->get('field_references')->getValue();
@@ -435,6 +435,7 @@ function openculturas_custom_node_presave(NodeInterface $node) {
       $tags[] = 'node:' . $ref['target_id'];
     }
   }
+
   if ($tags !== []) {
     \Drupal\Core\Cache\Cache::invalidateTags(array_unique($tags));
   }
