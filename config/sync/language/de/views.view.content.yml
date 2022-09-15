@@ -1,29 +1,9 @@
+label: Inhalt
+description: 'Inhalte finden und verwalten.'
 display:
   default:
+    display_title: Standard
     display_options:
-      filters:
-        uid:
-          expose:
-            label: 'Verfasst von'
-        title:
-          expose:
-            label: Titel
-        type:
-          expose:
-            label: Inhaltstyp
-        status:
-          expose:
-            label: Status
-          group_info:
-            label: Veröffentlichungsstatus
-            group_items:
-              1:
-                title: Veröffentlicht
-              2:
-                title: 'Nicht veröffentlicht'
-        langcode:
-          expose:
-            label: Sprache
       title: Inhalt
       fields:
         title:
@@ -59,7 +39,29 @@ display:
       empty:
         area_text_custom:
           content: 'Kein Inhalt verfügbar.'
-    display_title: Standard
+      filters:
+        title:
+          expose:
+            label: Titel
+        type:
+          expose:
+            label: Inhaltstyp
+        status:
+          expose:
+            label: Status
+          group_info:
+            label: Veröffentlichungsstatus
+            group_items:
+              1:
+                title: Veröffentlicht
+              2:
+                title: 'Nicht veröffentlicht'
+        langcode:
+          expose:
+            label: Sprache
+        uid:
+          expose:
+            label: 'Geschrieben von'
   page_1:
     display_title: Seite
     display_options:
@@ -68,5 +70,3 @@ display:
       tab_options:
         title: Inhalt
         description: 'Inhalte finden und verwalten'
-label: Inhalt
-description: 'Inhalte finden und verwalten.'
