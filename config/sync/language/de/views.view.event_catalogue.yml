@@ -8,11 +8,12 @@ display:
           bef:
             general:
               secondary_label: 'Erweiterte Optionen'
-          submit_button: Filtern
+          submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+          text_input_required: 'Wählen Sie einen beliebigen Filter und klicken Sie auf Anwenden, um Ergebnisse zu sehen'
       sorts:
         title:
           expose:
@@ -24,7 +25,7 @@ display:
         title:
           expose:
             label: Titel
-            placeholder: 'enthält ...'
+            placeholder: 'enthält Suchbegriff ...'
         field_category_target_id:
           expose:
             label: Fokus
@@ -33,7 +34,7 @@ display:
             label: 'Ist buchbar'
             group_items:
               1:
-                title: ja
+                title: Ja
               2:
                 title: Nein
           expose:
@@ -53,24 +54,27 @@ display:
           expose:
             items_per_page_label: Anzahl/Seite
             items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
       empty:
         area:
           content:
             value: 'Leider ist momentan kein Inhalt dieses Typs verfügbar.'
             format: minimal_html
+    display_title: Standard
   block_archive:
     display_options:
       title: Veranstaltungsarchiv
       filters:
         title:
           expose:
-            label: Titel
-            placeholder: 'Enthält ...'
+            label: 'Nach Titel suchen'
+            placeholder: 'enthält Suchbegriff ...'
         field_category_target_id:
           expose:
-            label: Fokus
+            label: 'Nach Kategorie filtern'
         field_min_age_value:
           expose:
             label: Mindestalter
           group_info:
             label: Mindestalter
+label: Veranstaltungskatalog
