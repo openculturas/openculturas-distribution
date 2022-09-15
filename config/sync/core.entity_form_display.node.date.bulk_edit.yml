@@ -1,0 +1,271 @@
+uuid: 78b50839-d80f-4ee6-8f04-4733e8f144c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.date.field_accessibility
+    - field.field.node.date.field_attendance_mode
+    - field.field.node.date.field_body_addon
+    - field.field.node.date.field_date
+    - field.field.node.date.field_door_time_relative
+    - field.field.node.date.field_event_description
+    - field.field.node.date.field_event_series
+    - field.field.node.date.field_event_status
+    - field.field.node.date.field_forfree
+    - field.field.node.date.field_location
+    - field.field.node.date.field_location_virtual
+    - field.field.node.date.field_mention_by_art_view_ref
+    - field.field.node.date.field_organizer
+    - field.field.node.date.field_parent_date
+    - field.field.node.date.field_people_reference
+    - field.field.node.date.field_premiere
+    - field.field.node.date.field_pricing
+    - field.field.node.date.field_related_date_view_ref
+    - field.field.node.date.field_safety_info
+    - field.field.node.date.field_sub_dates
+    - field.field.node.date.field_ticketing
+    - node.type.date
+    - workflows.workflow.draften
+  module:
+    - content_moderation
+    - field_group
+third_party_settings:
+  field_group:
+    group_tickets:
+      children:
+        - field_forfree
+        - field_pricing
+        - field_ticketing
+      label: Tickets
+      region: hidden
+      parent_name: group_date_tab_attendance
+      weight: 22
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-tickets
+        description: ''
+        required_fields: true
+    group_administrative:
+      children:
+        - path
+        - url_redirects
+        - simple_sitemap
+      label: Administrative
+      region: hidden
+      parent_name: ''
+      weight: 11
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
+    group_date_tabs_container:
+      children:
+        - group_date_tab_basics
+        - group_date_tab_attendance
+        - group_date_tab_people
+        - group_date_tab_advanced
+      label: Tabs
+      region: hidden
+      parent_name: ''
+      weight: 10
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: groups-container
+        direction: horizontal
+        width_breakpoint: 640
+    group_date_tab_basics:
+      children:
+        - field_event_description
+        - field_date
+        - field_event_status
+        - group_date_group_location
+      label: Basics
+      region: hidden
+      parent_name: group_date_tabs_container
+      weight: 8
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-basics
+        formatter: open
+        description: ''
+        required_fields: true
+    group_date_tab_attendance:
+      children:
+        - field_accessibility
+        - field_door_time_relative
+        - field_safety_info
+        - group_tickets
+      label: 'Attendance and Tickets'
+      region: hidden
+      parent_name: group_date_tabs_container
+      weight: 9
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-attendance
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_date_group_location:
+      children:
+        - field_attendance_mode
+        - field_location
+        - field_location_virtual
+      label: Location
+      region: hidden
+      parent_name: group_date_tab_basics
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-location
+        description: ''
+        required_fields: true
+    group_date_tab_advanced:
+      children:
+        - field_body_addon
+        - title
+        - field_premiere
+        - group_date_group_event_series
+      label: Advanced
+      region: hidden
+      parent_name: group_date_tabs_container
+      weight: 12
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-advanced
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_date_group_event_series:
+      children:
+        - field_event_series
+        - field_parent_date
+      label: 'Event Series'
+      region: hidden
+      parent_name: group_date_tab_advanced
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-event-series
+        description: ''
+        required_fields: true
+    group_date_tab_people:
+      children:
+        - field_organizer
+        - field_people_reference
+      label: People
+      region: hidden
+      parent_name: group_date_tabs_container
+      weight: 10
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-people
+        formatter: closed
+        description: ''
+        required_fields: true
+id: node.date.bulk_edit
+targetEntityType: node
+bundle: date
+mode: bulk_edit
+content:
+  co_authors:
+    type: entity_reference_autocomplete_tags
+    weight: 17
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_accessibility: true
+  field_attendance_mode: true
+  field_body_addon: true
+  field_date: true
+  field_door_time_relative: true
+  field_event_description: true
+  field_event_series: true
+  field_event_status: true
+  field_forfree: true
+  field_location: true
+  field_location_virtual: true
+  field_mention_by_art_view_ref: true
+  field_organizer: true
+  field_parent_date: true
+  field_people_reference: true
+  field_premiere: true
+  field_pricing: true
+  field_related_date_view_ref: true
+  field_safety_info: true
+  field_sub_dates: true
+  field_ticketing: true
+  path: true
+  simple_sitemap: true
+  status: true
+  title: true
+  url_redirects: true

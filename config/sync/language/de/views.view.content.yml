@@ -10,11 +10,9 @@ display:
           label: Titel
         type:
           label: Inhaltstyp
-          separator: ', '
         name:
           label: Autor
         status:
-          label: Status
           settings:
             format_custom_false: 'Nicht veröffentlicht'
             format_custom_true: Veröffentlicht
@@ -31,11 +29,11 @@ display:
             last: 'Ende »'
       exposed_form:
         options:
-          submit_button: Filter
           reset_button_label: Zurücksetzen
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
+          submit_button: Filtern
       empty:
         area_text_custom:
           content: 'Kein Inhalt verfügbar.'
@@ -47,8 +45,7 @@ display:
           expose:
             label: Inhaltstyp
         status:
-          expose:
-            label: Status
+          expose: {  }
           group_info:
             label: Veröffentlichungsstatus
             group_items:
@@ -59,6 +56,9 @@ display:
         langcode:
           expose:
             label: Sprache
+        uid:
+          expose:
+            label: ' Verfasst von'
   page_1:
     display_title: Seite
     display_options:

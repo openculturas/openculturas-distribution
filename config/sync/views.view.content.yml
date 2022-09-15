@@ -94,6 +94,11 @@ display:
               action_id: node_promote_action
               preconfiguration:
                 add_confirmation: false
+            14:
+              action_id: views_bulk_edit
+              preconfiguration:
+                add_confirmation: true
+                get_bundles_from_results: true
             15:
               action_id: views_bulk_operations_delete_entity
             18:
@@ -496,6 +501,53 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: uid
+          plugin_id: user_name
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: uid_op
+            label: 'Authored by'
+            description: ''
+            use_operator: false
+            operator: uid_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: uid
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
             reduce: false
           is_grouped: false

@@ -1,0 +1,254 @@
+uuid: b6b9672b-da0e-49e6-a376-6b9627cfb18b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.event.body
+    - field.field.node.event.field_accessibility
+    - field.field.node.event.field_allow_claiming
+    - field.field.node.event.field_bookable_info
+    - field.field.node.event.field_category
+    - field.field.node.event.field_duration
+    - field.field.node.event.field_gallery
+    - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_is_bookable
+    - field.field.node.event.field_mention_by_art_view_ref
+    - field.field.node.event.field_min_age
+    - field.field.node.event.field_mood_image
+    - field.field.node.event.field_people_reference
+    - field.field.node.event.field_press_quotes
+    - field.field.node.event.field_recommended_by_view_ref
+    - field.field.node.event.field_related_date_view_ref
+    - field.field.node.event.field_started
+    - field.field.node.event.field_status
+    - field.field.node.event.field_subtitle
+    - field.field.node.event.field_supporters
+    - field.field.node.event.field_url
+    - node.type.event
+    - workflows.workflow.draften
+  module:
+    - content_moderation
+    - field_group
+third_party_settings:
+  field_group:
+    group_administrative:
+      children:
+        - status
+        - path
+        - url_redirects
+        - simple_sitemap
+      label: Administrative
+      region: hidden
+      parent_name: ''
+      weight: 11
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
+    group_event_tabs_container:
+      children:
+        - group_event_tab_basics
+        - group_event_tab_artists
+        - group_event_tab_media
+        - group_event_tab_advanced
+        - group_event_tab_bookable
+      label: Tabs
+      region: hidden
+      parent_name: ''
+      weight: 12
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: groups-container
+        direction: horizontal
+        width_breakpoint: 640
+    group_event_tab_basics:
+      children:
+        - title
+        - body
+        - field_category
+        - field_subtitle
+        - field_url
+      label: Basics
+      region: hidden
+      parent_name: group_event_tabs_container
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-basics
+        formatter: open
+        description: ''
+        required_fields: true
+    group_event_tab_media:
+      children:
+        - field_gallery
+        - field_mood_image
+        - field_supporters
+      label: Media
+      region: hidden
+      parent_name: group_event_tabs_container
+      weight: 22
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-media
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_event_tab_artists:
+      children:
+        - field_people_reference
+      label: People
+      region: hidden
+      parent_name: group_event_tabs_container
+      weight: 21
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-artists
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_event_tab_bookable:
+      children:
+        - field_bookable_info
+        - field_is_bookable
+      label: Bookable
+      region: hidden
+      parent_name: group_event_tabs_container
+      weight: 24
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-bookable
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_event_tab_advanced:
+      children:
+        - field_accessibility
+        - field_duration
+        - field_inlanguage
+        - field_min_age
+        - field_press_quotes
+        - field_started
+      label: Advanced
+      region: hidden
+      parent_name: group_event_tabs_container
+      weight: 23
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-advanced
+        formatter: closed
+        description: ''
+        required_fields: true
+id: node.event.bulk_edit
+targetEntityType: node
+bundle: event
+mode: bulk_edit
+content:
+  co_authors:
+    type: entity_reference_autocomplete_tags
+    weight: 14
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_allow_claiming:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_status:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_accessibility: true
+  field_bookable_info: true
+  field_category: true
+  field_duration: true
+  field_gallery: true
+  field_inlanguage: true
+  field_is_bookable: true
+  field_mention_by_art_view_ref: true
+  field_min_age: true
+  field_mood_image: true
+  field_people_reference: true
+  field_press_quotes: true
+  field_recommended_by_view_ref: true
+  field_related_date_view_ref: true
+  field_started: true
+  field_subtitle: true
+  field_supporters: true
+  field_url: true
+  path: true
+  simple_sitemap: true
+  status: true
+  title: true
+  url_redirects: true
