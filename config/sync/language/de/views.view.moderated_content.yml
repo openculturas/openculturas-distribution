@@ -8,18 +8,24 @@ display:
       fields:
         title:
           label: Titel
+          separator: ', '
         type:
           label: Inhaltstyp
+          separator: ', '
         name:
           label: Autor
+          separator: ', '
         moderation_state:
           label: Moderationsstatus
+          separator: ', '
         changed:
           label: Aktualisiert
+          separator: ', '
         operations:
           label: Aktionen
         revision_log:
           label: 'Protokollnachricht der Revision'
+          separator: ', '
       pager:
         options:
           tags:
@@ -28,7 +34,7 @@ display:
             first: '« Anfang'
             last: 'Ende »'
           expose:
-            items_per_page_label: 'Elemente pro Seite'
+            items_per_page_label: Anzahl/Seite
             items_per_page_options_all_label: '- Alle -'
             offset_label: Versatz
       exposed_form:
@@ -49,6 +55,8 @@ display:
           expose:
             label: Inhaltstyp
         moderation_state:
+          expose:
+            label: Moderationsstatus
           group_info:
             label: Moderationsstatus
             group_items:
@@ -56,6 +64,8 @@ display:
                 title: Entwurf
               2:
                 title: 'Bitte um Freigabe'
+              3:
+                title: 'Nicht veröffentlicht'
         langcode:
           expose:
             label: Sprache
