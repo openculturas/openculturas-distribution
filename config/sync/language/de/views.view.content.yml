@@ -1,43 +1,10 @@
-label: Inhalt
-description: 'Inhalte finden und verwalten.'
 display:
   default:
-    display_title: Standard
     display_options:
-      title: Inhalt
-      fields:
-        title:
-          label: Titel
-        type:
-          label: Inhaltstyp
-        name:
-          label: Autor
-        status:
-          settings:
-            format_custom_false: 'Nicht veröffentlicht'
-            format_custom_true: Veröffentlicht
-        changed:
-          label: Aktualisiert
-        operations:
-          label: Aktionen
-      pager:
-        options:
-          tags:
-            next: 'Nächste Seite ›'
-            previous: '‹ Vorherige Seite'
-            first: '« Anfang'
-            last: 'Ende »'
-      exposed_form:
-        options:
-          reset_button_label: Zurücksetzen
-          exposed_sorts_label: 'Sortieren nach'
-          sort_asc_label: Aufsteigend
-          sort_desc_label: Absteigend
-          submit_button: Filtern
-      empty:
-        area_text_custom:
-          content: 'Kein Inhalt verfügbar.'
       filters:
+        uid:
+          expose:
+            label: 'Verfasst von'
         title:
           expose:
             label: Titel
@@ -45,7 +12,8 @@ display:
           expose:
             label: Inhaltstyp
         status:
-          expose: {  }
+          expose:
+            label: Status
           group_info:
             label: Veröffentlichungsstatus
             group_items:
@@ -56,9 +24,42 @@ display:
         langcode:
           expose:
             label: Sprache
-        uid:
-          expose:
-            label: 'Verfasst von'
+      title: Inhalt
+      fields:
+        title:
+          label: Titel
+        type:
+          label: Inhaltstyp
+          separator: ', '
+        name:
+          label: Autor
+        status:
+          label: Status
+          settings:
+            format_custom_false: 'Nicht veröffentlicht'
+            format_custom_true: Veröffentlicht
+        changed:
+          label: Aktualisiert
+        operations:
+          label: Aktionen
+      pager:
+        options:
+          tags:
+            next: 'Nächste ›'
+            previous: '‹ Vorherige Seite'
+            first: '« Anfang'
+            last: 'Ende »'
+      exposed_form:
+        options:
+          submit_button: Filtern
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area_text_custom:
+          content: 'Kein Inhalt verfügbar.'
+    display_title: Standard
   page_1:
     display_title: Seite
     display_options:
@@ -67,3 +68,5 @@ display:
       tab_options:
         title: Inhalt
         description: 'Inhalte finden und verwalten'
+label: Inhalt
+description: 'Inhalte finden und verwalten.'
