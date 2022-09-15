@@ -12,7 +12,7 @@ display:
             label: Relevanz
         changed:
           expose:
-            label: Aktualität
+            label: Geändert
       filters:
         search_api_fulltext:
           expose:
@@ -26,7 +26,9 @@ display:
           exposed_sorts_label: Sortieren
           sort_asc_label: aufsteigend
           sort_desc_label: absteigend
-          text_input_required: ''
+          bef:
+            general:
+              secondary_label: 'Erweiterte Optionen'
       pager:
         options:
           tags:
@@ -35,13 +37,16 @@ display:
           expose:
             items_per_page_label: Ergebnisse/Seite
             items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
   search_page:
     display_options:
       menu:
         title: Suche
+    display_title: Seite
   search_input:
     display_options:
       filters:
         search_api_fulltext:
           expose:
             placeholder: 'Suchbegriff eingeben'
+    display_title: Sucheingabe
