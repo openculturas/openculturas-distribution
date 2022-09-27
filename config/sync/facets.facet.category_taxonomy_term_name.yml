@@ -34,7 +34,7 @@ widget:
 empty_behavior:
   behavior: none
 only_visible_when_facet_source_is_visible: true
-show_only_one_result: false
+show_only_one_result: true
 show_title: false
 processor_configs:
   active_widget_order:
@@ -59,6 +59,11 @@ processor_configs:
     processor_id: hide_1_result_facet
     weights:
       build: 50
+    settings: {  }
+  hierarchy_processor:
+    processor_id: hierarchy_processor
+    weights:
+      build: 100
     settings: {  }
   url_processor_handler:
     processor_id: url_processor_handler
