@@ -3272,7 +3272,7 @@ display:
               autosubmit_hide: false
               input_required: false
               allow_secondary: true
-              secondary_label: 'Advanced options'
+              secondary_label: 'Advanced filters'
               secondary_open: false
               reset_button_always_show: false
             filter:
@@ -3547,15 +3547,15 @@ display:
           id: field_address_location_proximity
           table: paragraph__field_address_location
           field: field_address_location_proximity
-          relationship: field_accessibility
+          relationship: field_address_data_target_id
           group_type: group
           admin_label: ''
           plugin_id: geofield_proximity_filter
           operator: '<='
           value:
-            min: null
-            max: null
-            value: 25
+            min: ''
+            max: ''
+            value: '25'
           group: 1
           exposed: true
           expose:
@@ -3737,6 +3737,15 @@ display:
           admin_label: 'field_location: Content'
           plugin_id: standard
           required: false
+        field_address_data_target_id:
+          id: field_address_data_target_id
+          table: node__field_address_data
+          field: field_address_data_target_id
+          relationship: field_location
+          group_type: group
+          admin_label: 'field_address_data: Paragraph'
+          plugin_id: standard
+          required: false
         field_accessibility:
           id: field_accessibility
           table: node__field_accessibility
@@ -3744,15 +3753,6 @@ display:
           relationship: none
           group_type: group
           admin_label: 'By id: field_accessibility: Paragraph'
-          plugin_id: standard
-          required: false
-        field_location_1:
-          id: field_location_1
-          table: node__field_location
-          field: field_location
-          relationship: field_location
-          group_type: group
-          admin_label: 'field_location: Content'
           plugin_id: standard
           required: false
       display_description: ''
@@ -4116,7 +4116,7 @@ display:
         type: some
         options:
           offset: 0
-          items_per_page: 6
+          items_per_page: 12
       empty: {  }
       filters:
         status:
@@ -4196,122 +4196,6 @@ display:
           hierarchy: true
           limit: true
           error_message: true
-        field_a11y_features_target_id:
-          id: field_a11y_features_target_id
-          table: paragraph__field_a11y_features
-          field: field_a11y_features_target_id
-          relationship: field_accessibility
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_a11y_features_target_id_op
-            label: Accessibility
-            description: ''
-            use_operator: false
-            operator: field_a11y_features_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: a11y_features
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              oc_member: '0'
-              oc_organizer: '0'
-              magazine_editor: '0'
-              oc_admin: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: accessibility
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-        field_address_location_proximity:
-          id: field_address_location_proximity
-          table: paragraph__field_address_location
-          field: field_address_location_proximity
-          relationship: field_address_data_target_id
-          group_type: group
-          admin_label: ''
-          plugin_id: geofield_proximity_filter
-          operator: '<='
-          value:
-            min: null
-            max: null
-            value: 25
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_address_location_proximity_op
-            label: Distance
-            description: ''
-            use_operator: false
-            operator: field_address_location_proximity_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: proximity
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              oc_member: '0'
-              oc_organizer: '0'
-              magazine_editor: '0'
-              oc_admin: '0'
-              administrator: '0'
-            placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          units: GEOFIELD_KILOMETERS
-          source: geofield_geocode_origin
-          source_configuration:
-            exposed_summary: false
-            origin_address: ''
-            plugins:
-              openstreetmap:
-                checked: true
-                weight: 0
-            use_autocomplete: false
-            settings:
-              autocomplete:
-                min_terms: 4
-                delay: 800
-                address_format: default_formatted_address
         field_date_value_1:
           id: field_date_value_1
           table: node__field_date
@@ -4416,6 +4300,122 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_a11y_features_target_id:
+          id: field_a11y_features_target_id
+          table: paragraph__field_a11y_features
+          field: field_a11y_features_target_id
+          relationship: field_accessibility
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_a11y_features_target_id_op
+            label: Accessibility
+            description: ''
+            use_operator: false
+            operator: field_a11y_features_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: a11y_features
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: accessibility
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_address_location_proximity:
+          id: field_address_location_proximity
+          table: paragraph__field_address_location
+          field: field_address_location_proximity
+          relationship: field_address_data_target_id
+          group_type: group
+          admin_label: ''
+          plugin_id: geofield_proximity_filter
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: '25'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_address_location_proximity_op
+            label: Distance
+            description: ''
+            use_operator: false
+            operator: field_address_location_proximity_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: radius
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
+              administrator: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          units: GEOFIELD_KILOMETERS
+          source: geofield_geocode_origin
+          source_configuration:
+            exposed_summary: false
+            origin_address: ''
+            plugins:
+              openstreetmap:
+                checked: true
+                weight: 0
+            use_autocomplete: false
+            settings:
+              autocomplete:
+                min_terms: 4
+                delay: 800
+                address_format: default_formatted_address
         field_date_value:
           id: field_date_value
           table: node__field_date

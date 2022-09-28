@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_category
     - field.storage.node.field_accessibility
     - field.storage.paragraph.field_a11y_features
-    - field.storage.node.field_category
     - field.storage.node.field_subtitle
     - search_api.server.content
     - core.entity_view_mode.node.search_index
   module:
-    - paragraphs
     - taxonomy
     - node
+    - paragraphs
     - search_api
 id: content
 name: Content
@@ -96,6 +96,7 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  entity_status: {  }
   entity_type: {  }
   html_filter:
     weights:
@@ -127,7 +128,6 @@ processor_settings:
       preprocess_query: -47
     all_fields: false
     fields:
-      - category_name
       - rendered_item
 tracker_settings:
   default:

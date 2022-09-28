@@ -546,9 +546,9 @@ display:
           plugin_id: geofield_proximity_filter
           operator: '<='
           value:
-            min: null
-            max: null
-            value: 25
+            min: ''
+            max: ''
+            value: '25'
           group: 1
           exposed: true
           expose:
@@ -587,7 +587,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           units: GEOFIELD_KILOMETERS
-          source: geofield_geocode_origin_combine
+          source: geofield_geocode_origin
           source_configuration:
             exposed_summary: false
             origin_address: ''
@@ -595,14 +595,12 @@ display:
               openstreetmap:
                 checked: true
                 weight: 0
-            use_autocomplete: false
+            use_autocomplete: true
             settings:
               autocomplete:
                 min_terms: 4
                 delay: 800
                 address_format: default_formatted_address
-            geocode_origin_combine_filter: geofield_proximity_filter_extra_combine
-            show_find_my_button: 0
         geofield_proximity_filter_extra_combine:
           id: geofield_proximity_filter_extra_combine
           table: views
@@ -816,9 +814,10 @@ display:
     position: 2
     display_options:
       pager:
-        type: none
+        type: some
         options:
           offset: 0
+          items_per_page: 6
       empty: {  }
       defaults:
         empty: false
