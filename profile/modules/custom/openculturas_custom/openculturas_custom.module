@@ -419,18 +419,22 @@ function openculturas_custom_locale_translation_projects_alter(&$projects) {
 function openculturas_custom_node_presave(NodeInterface $node) {
   $owner_id = $node->getOwner()->id();
   $tags = ['entity_view_user_' . $owner_id . '_full'];
-  // Invalidate cache for CT profile -> Magazine -> Mention by
-  if ($node->hasField('field_references')) {
-    $refs = $node->get('field_references')->getValue();
-    foreach ($refs as $ref) {
-      $tags[] = 'node:' . $ref['target_id'];
+
+  $node_reference_fields = ['field_location', 'field_references'];
+
+  foreach ($node_reference_fields as $field_name) {
+    if ($node->hasField($field_name)) {
+      $refs = $node->get($field_name)->getValue();
+      foreach ($refs as $ref) {
+        $tags[] = 'node:' . $ref['target_id'];
+      }
     }
-  }
-  // If the field changes, also invalidate the original value
-  if (isset($node->original) && $node->original->hasField('field_references')) {
-    $refs = $node->get('field_references')->getValue();
-    foreach ($refs as $ref) {
-      $tags[] = 'node:' . $ref['target_id'];
+    // If the field changes, also invalidate the original value
+    if (isset($node->original) && $node->original->hasField($field_name)) {
+      $refs = $node->get($field_name)->getValue();
+      foreach ($refs as $ref) {
+        $tags[] = 'node:' . $ref['target_id'];
+      }
     }
   }
 
