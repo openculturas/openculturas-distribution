@@ -1,0 +1,148 @@
+langcode: en
+status: true
+dependencies: {  }
+id: oc-profile
+label: 'OC Profile'
+module: tour
+routes:
+  -
+    route_name: node.add
+    route_params:
+      node_type: profile
+tips:
+  welcome-to-the-tour:
+    id: welcome-to-the-tour
+    plugin: text
+    label: 'Welcome to the tour'
+    weight: -100
+    position: auto
+    selector: ''
+    body: "A profile allows people and groups to be visible on the site. Profiles can be referenced in other content such as events (e.g. as contributor or organiser:in) or places (e.g. as regular guests). \r\n<br>\r\nFields marked with a red asterisk are mandatory, all other fields are optional.\r\n<br>\r\nLet's go!"
+  display-name:
+    id: display-name
+    plugin: text
+    label: 'Display name'
+    weight: 1
+    position: bottom
+    selector: '#edit-title-wrapper'
+    body: 'Enter the name for the profile here...'
+  tagline:
+    id: tagline
+    plugin: text
+    label: Tagline
+    weight: 2
+    position: bottom
+    selector: '#edit-field-subtitle-wrapper'
+    body: "... and add a slogan here, which is displayed under the title.\r\n"
+  allow-claiming:
+    id: allow-claiming
+    plugin: text
+    label: 'Allow claiming'
+    weight: 3
+    position: bottom
+    selector: '#edit-field-allow-claiming-wrapper'
+    body: 'If you are not creating the profile for yourself but for someone else, activate this switch. Other users can then claim the content later.'
+  role:
+    id: role
+    plugin: text
+    label: Role
+    weight: 4
+    position: bottom
+    selector: '#edit-field-profile-role-wrapper'
+    body: 'What roles does this profile fulfil? Is it a person who is simply interested in culture, is artistically active themselves, or organises events?'
+  type:
+    id: type
+    plugin: text
+    label: Type
+    weight: 5
+    position: bottom
+    selector: '#edit-field-profile-type--wrapper'
+    body: 'Does the profile refer to an individual or several people? Group profiles can reference other profiles.'
+  focus:
+    id: focus
+    plugin: text
+    label: Focus
+    weight: 6
+    position: bottom
+    selector: '#edit-field-category-wrapper'
+    body: 'In which areas is the person or group active or what do they offer? Select one or more categories here so that the profile is listed in the category overview.'
+  profile-text:
+    id: profile-text
+    plugin: text
+    label: 'Profile text'
+    weight: 7
+    position: bottom
+    selector: '#edit-body-wrapper'
+    body: 'Here the person or group can be described in more detail. What distinguishes them? What do they offer? Why is it worthwhile to look at their art?'
+  contact-data:
+    id: contact-data
+    plugin: text
+    label: 'Contact data'
+    weight: 8
+    position: bottom
+    selector: '#field-contact-data-add-more-wrapper'
+    body: 'How can I get in touch with the person or group? Enter an email address, phone number, website and social media channels.'
+  address-data:
+    id: address-data
+    plugin: text
+    label: 'Address data'
+    weight: 9
+    position: bottom
+    selector: '#field-address-data-add-more-wrapper'
+    body: 'Complete address data or only the location can be entered here.'
+  media:
+    id: media
+    plugin: text
+    label: Media
+    weight: 10
+    position: bottom
+    selector: '#field_mood_image-media-library-wrapper'
+    body: 'You can add pictures and videos to your profile in the Media tab. Please always respect the copyrights and indicate them! We pay attention to the accessibility of our site, therefore it is possible to indicate alt texts for visually impaired people for all pictures. Please help us to make the page usable for these people by briefly describing the content of the image.'
+  main-image:
+    id: main-image
+    plugin: text
+    label: 'Main image'
+    weight: 11
+    position: bottom
+    selector: '#field_mood_image-media-library-wrapper'
+    body: 'The main image is prominently displayed in the header of the page and is the first impression you get of the page. Upload it via the button "Add media" or select an already uploaded image there.'
+  profile-image:
+    id: profile-image
+    plugin: text
+    label: 'Profile image'
+    weight: 12
+    position: bottom
+    selector: '#field_portrait-media-library-wrapper'
+    body: 'Use the "Add media" button to add a profile picture that will be displayed on the page and in teasers. '
+  logo:
+    id: logo
+    plugin: text
+    label: Logo
+    weight: 13
+    position: bottom
+    selector: '#field_logo-media-library-wrapper'
+    body: 'Independently of the profile picture, a logo can be selected or uploaded, which is displayed on the location page.'
+  gallery:
+    id: gallery
+    plugin: text
+    label: Gallery
+    weight: 14
+    position: bottom
+    selector: '#field_gallery-media-library-wrapper'
+    body: 'Pictures and videos (e.g. from Youtube or Vimeo) can give a great insight into what a place is like and why you should visit it! You can add them to a gallery here. Please pay attention to the copyright here as well!'
+  press-quotes:
+    id: press-quotes
+    plugin: text
+    label: 'Press quotes'
+    weight: 15
+    position: bottom
+    selector: '#field-press-quotes-add-more-wrapper'
+    body: 'The person or group was mentioned in the press? That''s great! Here you can insert press quotes and link to their source.'
+  save-the-profile:
+    id: save-the-profile
+    plugin: text
+    label: 'Save the profile'
+    weight: 16
+    position: bottom
+    selector: '#edit-submit--2--gin-edit-form'
+    body: 'That''s it! Now you can save the profile. In order for it to be published, you must submit it for approval or (if you have the appropriate rights) publish it yourself. You can toggle the publication status in the sidebar or, in the case of unpublished profiles, in the content view to which you are directed after saving.'
