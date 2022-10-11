@@ -1,0 +1,180 @@
+langcode: en
+status: true
+dependencies: {  }
+id: oc-event
+label: 'OC Event'
+module: tour
+routes:
+  -
+    route_name: node.add
+    route_params:
+      node_type: event
+tips:
+  welcome-to-the-tour:
+    id: welcome-to-the-tour
+    plugin: text
+    label: 'Welcome to the tour'
+    weight: -100
+    position: auto
+    selector: null
+    body: "On our site we distinguish between events and dates. The information that is created as an event can be used again and again. Especially for events that are performed several times (e.g. plays), this saves an enormous amount of time, especially if information needs to be added or changed later. After an event has been created, dates can be added that contain information about the time and place.\r\n\r\nFields marked with a red asterisk are mandatory, all other fields are optional.\r\n\r\nLet's go!"
+  title:
+    id: title
+    plugin: text
+    label: Title
+    weight: 1
+    position: bottom
+    selector: '#edit-title-wrapper'
+    body: 'Enter the title of the event here...'
+  subtitle:
+    id: subtitle
+    plugin: text
+    label: Subtitle
+    weight: 2
+    position: bottom
+    selector: '#edit-field-subtitle-wrapper'
+    body: '... and add a subtitle here if needed.'
+  allow-claiming:
+    id: allow-claiming
+    plugin: text
+    label: 'Allow claiming'
+    weight: 3
+    position: bottom
+    selector: '#edit-field-allow-claiming-wrapper'
+    body: 'If you are not running the event yourself, but creating it for someone else, activate this switch. Other users can then request to take over the content later.'
+  focus:
+    id: focus
+    plugin: text
+    label: Focus
+    weight: 4
+    position: auto
+    selector: '#edit-field-category-wrapper'
+    body: 'To which categories can the event be assigned? Select one or more categories here, so that the event is listed in the category overview.'
+  event-description:
+    id: event-description
+    plugin: text
+    label: 'Event description'
+    weight: 5
+    position: bottom
+    selector: '#edit-body-wrapper'
+    body: 'Here you can describe the event in more detail. What is there to see? What should interested people know about the event? Why is the event worth attending?'
+  website:
+    id: website
+    plugin: text
+    label: Website
+    weight: 6
+    position: auto
+    selector: '#field-url-add-more-wrapper'
+    body: 'Where can interested people find out more about the event?'
+  performer-artist:
+    id: performer-artist
+    plugin: text
+    label: 'Performer / Artist'
+    weight: 7
+    position: bottom
+    selector: '#field-people-reference-add-more-wrapper'
+    body: 'Which artists can be seen? Profiles of the role artist can be referenced here, the event will then also be displayed on their profile.'
+  media:
+    id: media
+    plugin: text
+    label: Media
+    weight: 8
+    position: bottom
+    selector: '#field_mood_image-media-library-wrapper'
+    body: 'In the tab Media you can enrich the profile with pictures and videos. Please always respect the copyrights and indicate them! We pay attention to the accessibility of our site, therefore it is possible to indicate alt-texts for visually impaired people for all pictures. Please help us to make the page usable for these people by briefly describing the content of the image.'
+  main-image:
+    id: main-image
+    plugin: text
+    label: 'Main image'
+    weight: 8
+    position: bottom
+    selector: '#field_mood_image-media-library-wrapper'
+    body: 'The main image is prominently displayed in the header of the page and is the first impression people get of the page. Upload it via the button "Add media" or select an already uploaded image there.'
+  gallery:
+    id: gallery
+    plugin: text
+    label: Gallery
+    weight: 9
+    position: bottom
+    selector: '#field_gallery-media-library-wrapper'
+    body: 'Pictures and videos (e.g. from Youtube or Vimeo) can give a great insight into what a place is like and why you should visit it! You can add them to a gallery here. Again, please be aware of copyright!'
+  sponsors-supported-by:
+    id: sponsors-supported-by
+    plugin: text
+    label: 'Sponsors /  Supported by'
+    weight: 10
+    position: bottom
+    selector: '#field_supporters-media-library-wrapper'
+    body: 'Here you can highlight supporters and sponsors of the event by including their logos. Please check before uploading a logo if it does not already exist.'
+  accessibility-information-and-warnings:
+    id: accessibility-information-and-warnings
+    plugin: text
+    label: 'Accessibility information and warnings'
+    weight: 11
+    position: bottom
+    selector: '#field-accessibility-add-more-wrapper'
+    body: 'Add information about the accessibility of the events and warnings about content that might disturb people.'
+  minimum-age:
+    id: minimum-age
+    plugin: text
+    label: 'Minimum age'
+    weight: 12
+    position: bottom
+    selector: '#edit-field-min-age-wrapper'
+    body: 'What age group is the event aimed at?'
+  archive:
+    id: archive
+    plugin: text
+    label: Archive
+    weight: 13
+    position: bottom
+    selector: '#edit-field-status-wrapper'
+    body: 'If the event is no longer listed, it can be archived. This way it can still be found.'
+  first-performed:
+    id: first-performed
+    plugin: text
+    label: 'First performed'
+    weight: 14
+    position: bottom
+    selector: '#edit-field-started-0'
+    body: 'When could the event be attended for the first time?'
+  duration:
+    id: duration
+    plugin: text
+    label: Duration
+    weight: 15
+    position: bottom
+    selector: '#edit-field-duration-wrapper'
+    body: 'How long does the event last?'
+  event-language:
+    id: event-language
+    plugin: text
+    label: 'Event language'
+    weight: 16
+    position: bottom
+    selector: '#edit-field-inlanguage-wrapper'
+    body: 'In which language is the event held? Multiple entries can be added here.'
+  press-quotes:
+    id: press-quotes
+    plugin: text
+    label: 'Press quotes'
+    weight: 17
+    position: bottom
+    selector: '#field-press-quotes-add-more-wrapper'
+    body: 'The event was mentioned in the press? That''s great! Here you can add press quotes and link to their source.'
+  bookable-event:
+    id: bookable-event
+    plugin: text
+    label: 'Bookable event'
+    weight: 18
+    position: auto
+    selector: '#edit-field-is-bookable-wrapper'
+    body: 'Can the event be booked by other organisers (e.g. as a guest performance)? If yes, activate the checkbox to add contact information, further information and files (e.g. on technical requirements).'
+  save-and-add-dates:
+    id: save-and-add-dates
+    plugin: text
+    label: 'Save and add Dates'
+    weight: 19
+    position: bottom
+    selector: '#edit-openculturas-custom-event-submit--2--gin-edit-form'
+    body: "That's it! Now you can save the event and add dates.\r\nIn order for the event to be published, you must submit it for approval or (if you have the appropriate rights) publish it yourself. Please change the publication status in the sidebar before saving."
