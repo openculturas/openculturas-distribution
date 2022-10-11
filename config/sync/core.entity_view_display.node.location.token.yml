@@ -1,0 +1,84 @@
+uuid: 3cf38189-603e-43f4-899f-134c7ca4b6ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.location.body
+    - field.field.node.location.field_accessibility
+    - field.field.node.location.field_additional_information
+    - field.field.node.location.field_address_data
+    - field.field.node.location.field_allow_claiming
+    - field.field.node.location.field_category
+    - field.field.node.location.field_contact_data
+    - field.field.node.location.field_gallery
+    - field.field.node.location.field_logo
+    - field.field.node.location.field_mention_by_art_view_ref
+    - field.field.node.location.field_mood_image
+    - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_people_reference
+    - field.field.node.location.field_portrait
+    - field.field.node.location.field_press_quotes
+    - field.field.node.location.field_recommendations
+    - field.field.node.location.field_recommended_by_view_ref
+    - field.field.node.location.field_reference_title
+    - field.field.node.location.field_related_date_view_ref
+    - field.field.node.location.field_safety_info
+    - field.field.node.location.field_started
+    - field.field.node.location.field_subtitle
+    - field.field.node.location.field_supporters
+    - node.type.location
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+    - user
+id: node.location.token
+targetEntityType: node
+bundle: location
+mode: token
+content:
+  field_address_data:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: address_line_complete
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  body: true
+  co_authors: true
+  content_moderation_control: true
+  extra_field_social_media_buttons: true
+  field_accessibility: true
+  field_additional_information: true
+  field_allow_claiming: true
+  field_category: true
+  field_contact_data: true
+  field_gallery: true
+  field_logo: true
+  field_mention_by_art_view_ref: true
+  field_mood_image: true
+  field_opening_hours: true
+  field_people_reference: true
+  field_portrait: true
+  field_press_quotes: true
+  field_recommendations: true
+  field_recommended_by_view_ref: true
+  field_reference_title: true
+  field_related_date_view_ref: true
+  field_safety_info: true
+  field_started: true
+  field_subtitle: true
+  field_supporters: true
+  flag_bookmark_node: true
+  flag_claim_ownership: true
+  flag_recommendation_node: true
+  flag_report_abuse: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

@@ -256,8 +256,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
   if ($entity->bundle() === 'date' && $build['#view_mode'] === 'full') {
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
-    if ((\Drupal::hasRequest() && $request = \Drupal::request()) && $request->query->has('date_delta') && $entity->hasField('field_date')) {
-      $delta = $request->get('date_delta');
+    if ((\Drupal::hasRequest() && $request = \Drupal::request()) && $request->query->has('date_delta') && $entity->hasField('field_date') && ($delta = $request->get('date_delta'))) {
       $cloned_entity = clone $entity;
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
       $field = $cloned_entity->get('field_date');
@@ -460,4 +459,12 @@ function openculturas_custom_module_implements_alter(&$implementations, $hook) {
 function openculturas_custom_views_plugins_filter_alter(array &$plugins) {
   $plugins['date']['class'] = \Drupal\openculturas_custom\Plugin\views\filter\Date::class;
   $plugins['date']['provider'] = 'openculturas_custom';
+}
+
+/**
+ * Implements hook_date_augmenter_plugin_info_alter(().
+ */
+function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins) {
+  $plugins['addtocal']['class'] = \Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal::class;
+  $plugins['addtocal']['provider'] = 'openculturas_custom';
 }
