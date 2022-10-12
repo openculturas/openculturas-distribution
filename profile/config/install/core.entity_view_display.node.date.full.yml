@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
+    - date_augmenter
     - entity_reference_revisions
     - field_formatter_class
     - field_group
@@ -288,6 +289,43 @@ content:
       show_next: true
       current_upcoming: '1'
     third_party_settings:
+      date_augmenter:
+        instances:
+          status:
+            addtocal: '1'
+          weights:
+            order:
+              addtocal:
+                weight: '0'
+          settings:
+            addtocal:
+              label: 'Add to Calendar'
+              event_title: '[node:field_premiere] [node:field_event_description:entity:title]'
+              location: '[node:field_location:entity:field_address_data]'
+              description: "[node:field_event_description:entity:field_subtitle]\r\n[node:field_body_addon]\r\n[node:field_event_description:entity:body]\r\n\r\n[current-page:url]?date_delta=[current-page:query:date_delta]"
+              max_desc: '0'
+              target: modal
+              past_events: 0
+          augmenter_settings:
+            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__instances__augmenter_settings__active_tab: ''
+        rule:
+          weights:
+            order:
+              addtocal:
+                weight: '0'
+          settings:
+            addtocal:
+              label: 'Add to Calendar'
+              event_title: ''
+              location: ''
+              description: ''
+              max_desc: '60'
+              target: ''
+              past_events: 0
+          status:
+            addtocal: 0
+          augmenter_settings:
+            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__rule__augmenter_settings__active_tab: ''
       field_formatter_class:
         class: ''
     weight: 4

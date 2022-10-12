@@ -1,0 +1,77 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.address_line_complete
+    - field.field.paragraph.address_data.field_address
+    - field.field.paragraph.address_data.field_address_location
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - address_display
+    - field_formatter_class
+id: paragraph.address_data.address_line_complete
+targetEntityType: paragraph
+bundle: address_data
+mode: address_line_complete
+content:
+  field_address:
+    type: address_display_formatter
+    label: hidden
+    settings:
+      address_display:
+        organization:
+          glue: ','
+          weight: -10
+          display: true
+        address_line1:
+          glue: ','
+          weight: -9
+          display: true
+        address_line2:
+          glue: ','
+          weight: -8
+          display: true
+        postal_code:
+          glue: ' '
+          weight: -7
+          display: true
+        locality:
+          glue: ','
+          weight: -6
+          display: true
+        country_code:
+          glue: ','
+          weight: -5
+          display: true
+        langcode:
+          glue: ','
+          weight: -4
+          display: false
+        administrative_area:
+          glue: ','
+          weight: -3
+          display: false
+        dependent_locality:
+          glue: ','
+          weight: -2
+          display: false
+        sorting_code:
+          glue: ','
+          weight: -1
+          display: false
+        given_name:
+          glue: ''
+          weight: 0
+          display: false
+        family_name:
+          glue: ','
+          weight: 1
+          display: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  field_address_location: true
+  search_api_excerpt: true
