@@ -1,0 +1,26 @@
+# Schema for the configuration files of the OpenCulturas calendar widget module.
+openculturas_calendar_widget.settings:
+  type: config_object
+  label: 'OpenCulturas calendar widget settings'
+  mapping:
+    limit_access:
+      type: boolean
+    host_list:
+      type: sequence
+      sequence:
+        type: sequence
+        sequence:
+          type: mapping
+          mapping:
+            hostname:
+              type: uri
+              label: Hostname
+            iframe_src:
+              type: uri
+              label: 'iFrame Source'
+    header:
+      type: text_format
+      label: 'Header of iframe'
+    footer:
+      type: text_format
+      label: 'Footer of iframe'

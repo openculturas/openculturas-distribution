@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+use Drupal\openculturas_calendar_widget\Form\EmbedCodeWidget;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_views_post_build().
+ */
+function openculturas_calendar_widget_views_post_build(ViewExecutable $view) {
+  if ($view->id() === 'related_date' && $view->current_display === 'upcoming_dates') {
+    $access = (\Drupal::currentUser()->hasPermission('access openculturas_calendar_widget embed') || \Drupal::currentUser()->hasPermission('administer openculturas_calendar_widget configuration'));
+    if ($access) {
+      $target_uri = $view->exposed_widgets['#action'];
+      $exposed_input = $view->getExposedInput();
+      unset($exposed_input['date_start'], $exposed_input['date_end']);
+      $exposed_input['source_uri'] = Url::fromUserInput($target_uri)->setOption('query', $exposed_input)->setAbsolute()->toString();
+      $url = Url::fromRoute('openculturas_calendar_widget.embed')
+        ->setOption('query', $exposed_input)
+        ->setAbsolute();
+      $view->attachment_before[] = \Drupal::formBuilder()->getForm(EmbedCodeWidget::class, $url);
+    }
+  }
+}

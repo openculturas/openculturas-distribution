@@ -1,0 +1,275 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\openculturas_calendar_widget\Form;
+
+use Drupal\Component\Utility\Crypt;
+use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use function count;
+use function in_array;
+use function is_array;
+use function trim;
+
+
+/**
+ * Settings form for the OpenCulturas configuration.
+ */
+class SettingsForm extends ConfigFormBase {
+
+  /**
+   * @inheritDoc
+   */
+  public static function create(ContainerInterface $container) {
+    $instance = parent::create($container);
+    $instance->setMessenger($container->get('messenger'));
+    return $instance;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'openculturas_calendar_widget_settings';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['openculturas_calendar_widget.settings'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#tree'] = TRUE;
+    $form['limit_access'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Limit access'),
+      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('limit_access')
+    ];
+
+    $items = [];
+    if ($form_state->hasTemporaryValue('host_list')) {
+      $items = $form_state->getTemporaryValue('host_list');
+    }
+    else if (!$form_state->getValues()) {
+      $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
+    }
+    if (count($items) === 0 || !is_array($items)) {
+      $items = !is_array($items) ? [] : $items;
+      $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => $this->getRequest()->get('iframe_src')];
+    }
+    $form['host_list'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Hosts'),
+      '#open' => count($items) < 10,
+      '#states' => [
+        'visible' => [
+          ':input[name="limit_access"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['host_list']['items'] = [
+      '#type' => 'table',
+      '#header' => [
+        $this->t('Hostname'),
+        $this->t('Public access token'),
+        $this->t('Url'),
+        $this->t('Embed code'),
+        $this->t('Operations'),
+      ],
+      '#prefix' => '<div id="host_list">',
+      '#suffix' => '</div>',
+    ];
+    foreach ($items as $token => $values) {
+      $form['host_list']['items'][$token]['hostname'] = [
+        '#title' => $this->t('Hostname'),
+        '#title_display' => 'invisible',
+        '#type' => 'url',
+        '#size' => 3,
+        '#default_value' => $values['hostname'],
+        '#placeholder' => 'https://example.org',
+        '#states' => [
+          'required' => [
+            ':input[name="limit_access"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+      $form['host_list']['items'][$token]['token'] = [
+        '#plain_text' => $token,
+      ];
+      $form['host_list']['items'][$token]['iframe_src'] = [
+        '#title' => $this->t('Url'),
+        '#title_display' => 'invisible',
+        '#type' => 'url',
+        '#size' => 5,
+        '#maxlength' => 500,
+        '#default_value' => $values['iframe_src'],
+        '#states' => [
+          'required' => [
+            ':input[name="limit_access"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+      $iframe_src = $values['iframe_src'] ?? '';
+      if ($iframe_src) {
+        $url = Url::fromUri($iframe_src);
+        $query = $url->getOption('query');
+        $query['access_token'] = $token;
+        $url->setOption('query', $query);
+        $iframe_src = $url->toString();
+      }
+      EmbedCodeWidget::embedCodeWidgetElement($form['host_list']['items'][$token], $iframe_src);
+      $form['host_list']['items'][$token]['remove'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Remove'),
+        '#submit' => [[$this, 'removeRowSubmit']],
+        '#name' => 'host_remove'. $token,
+        '#ajax' => [
+          'callback' => [__CLASS__, 'ajaxRefreshCallback'],
+          'wrapper' => 'host_list',
+          'id' => $token
+        ],
+      ];
+
+      $form['host_list']['actions'] = [
+        '#type' => 'actions',
+      ];
+
+      $form['host_list']['actions']['add'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Add one more'),
+        '#submit' => [[$this, 'addRowSubmit']],
+        '#name' => 'add_host',
+        '#ajax' => [
+          'callback' => [__CLASS__, 'ajaxRefreshCallback'],
+          'wrapper' => 'host_list',
+        ],
+      ];
+    }
+    $form['header'] = [
+      '#type' => 'text_format',
+      '#format' => $this->config('openculturas_calendar_widget.settings')->get('header')['format'] ?? NULL,
+      '#title' => $this->t('Header'),
+      '#description' => $this->t('Will be displayed above of the calendar'),
+      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('header')['value'] ?? NULL,
+    ];
+    $form['footer'] = [
+      '#type' => 'text_format',
+      '#format' => $this->config('openculturas_calendar_widget.settings')->get('footer')['format'] ?? NULL,
+      '#title' => $this->t('Footer'),
+      '#description' => $this->t('Will be displayed underneath of the calendar'),
+      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('footer')['value'] ?? NULL,
+    ];
+    $form['#attached']['library'][] = 'openculturas_calendar_widget/widget';
+    return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * Ajax callback reloading the items table.
+   */
+  public static function ajaxRefreshCallback(array &$form, FormStateInterface $form_state) {
+    return $form['host_list']['items'];
+  }
+
+  /**
+   * Adds an empty item to the table.
+   */
+  public function addRowSubmit(array &$form, FormStateInterface $form_state) {
+    if ($form_state->hasTemporaryValue('host_list')) {
+      $items = $form_state->getTemporaryValue('host_list');
+      $items[Crypt::randomBytesBase64()] = '';
+      $form_state->setTemporaryValue('host_list', $items);
+      $form_state->setRebuild();
+      $this->messenger->addWarning($this->t('You have unsaved changes.'));
+    }
+  }
+
+  /**
+   * Removes an item from the table.
+   */
+  public function removeRowSubmit(array &$form, FormStateInterface $form_state) {
+    $triggering_element = $form_state->getTriggeringElement();
+    $id = $triggering_element['#ajax']['id'];
+    if ($form_state->hasTemporaryValue('host_list')) {
+      $items = $form_state->getTemporaryValue('host_list');
+      unset($items[$id]);
+      $form_state->setTemporaryValue('host_list', $items);
+      $form_state->setRebuild();
+      $this->messenger->addWarning($this->t('You have unsaved changes.'));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $button = $form_state->getTriggeringElement()['#name'];
+    if ($form_state->getValue('limit_access')) {
+      $host_list = $form_state->getValue(['host_list', 'items']) ?? [];
+      $hostnames = [];
+      if (!is_array($host_list)) {
+        return;
+      }
+      foreach ($host_list as $token => $values) {
+        $hostname = trim($values['hostname']);
+        if (empty($hostname) && isset($form['host_list']['items'][$token]['hostname'])) {
+          unset($host_list[$token]);
+        }
+        if ($button === 'add_host' && !empty($hostname) && in_array($hostname, $hostnames, TRUE)) {
+          $form_state->setError($form['host_list']['items'][$token]['hostname'], $this->t('Duplicated hostname'));
+          return;
+        }
+        $hostnames[] = $hostname;
+      }
+      $form_state->setTemporaryValue('host_list', $host_list);
+    }
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $config = $this->config('openculturas_calendar_widget.settings');
+    if ($form_state->getTriggeringElement()['#name'] !== 'op') {
+      return;
+    }
+
+    if ($form_state->getValue('limit_access')) {
+      $host_list = $form_state->getValue(['host_list', 'items']) ?? [];
+      $host_list = is_array($host_list) ? $host_list : [];
+      $host_list_new = [];
+
+      foreach ($host_list as $token => $input_values) {
+        if (empty($input_values)) {
+          continue;
+        }
+        $values = [];
+        $values['hostname'] = trim($input_values['hostname']);
+        $values['iframe_src'] = trim($input_values['iframe_src']);
+        if (empty($values['hostname']) || empty($values['iframe_src'])) {
+          continue;
+        }
+        $host_list_new[$token] = $values;
+      }
+      $config->set('host_list', $host_list_new);
+    }
+    else {
+      $config->set('host_list', []);
+    }
+
+    $config->set('footer', $form_state->getValue('footer'));
+    $config->set('header', $form_state->getValue('header'));
+    $config->set('limit_access', $form_state->getValue('limit_access'));
+    $config->save();
+    parent::submitForm($form, $form_state);
+  }
+}
