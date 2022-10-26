@@ -63,11 +63,11 @@ class SettingsForm extends ConfigFormBase {
     }
     if (count($items) === 0 || !is_array($items)) {
       $items = !is_array($items) ? [] : $items;
-      $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => $this->getRequest()->get('iframe_src')];
+      $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => ''];
     }
     $form['host_list'] = [
       '#type' => 'details',
-      '#title' => $this->t('Hosts'),
+      '#title' => $this->t('Websites'),
       '#open' => count($items) < 10,
       '#states' => [
         'visible' => [
@@ -79,18 +79,20 @@ class SettingsForm extends ConfigFormBase {
     $form['host_list']['items'] = [
       '#type' => 'table',
       '#header' => [
-        $this->t('Hostname'),
+        $this->t('Website'),
         $this->t('Public access token'),
         $this->t('Url'),
         $this->t('Embed code'),
+        $this->t('Css'),
         $this->t('Operations'),
       ],
+      '#empty' => $this->t('There are currently no items.'),
       '#prefix' => '<div id="host_list">',
       '#suffix' => '</div>',
     ];
     foreach ($items as $token => $values) {
       $form['host_list']['items'][$token]['hostname'] = [
-        '#title' => $this->t('Hostname'),
+        '#title' => $this->t('Website'),
         '#title_display' => 'invisible',
         '#type' => 'url',
         '#size' => 3,
@@ -112,6 +114,7 @@ class SettingsForm extends ConfigFormBase {
         '#size' => 5,
         '#maxlength' => 500,
         '#default_value' => $values['iframe_src'],
+        '#placeholder' => Url::fromRoute('openculturas_calendar_widget.embed')->setAbsolute()->toString(),
         '#states' => [
           'required' => [
             ':input[name="limit_access"]' => ['checked' => TRUE],
@@ -127,6 +130,15 @@ class SettingsForm extends ConfigFormBase {
         $iframe_src = $url->toString();
       }
       EmbedCodeWidget::embedCodeWidgetElement($form['host_list']['items'][$token], $iframe_src);
+      $form['host_list']['items'][$token]['css'] = [
+        '#title' => $this->t('Css'),
+        '#title_display' => 'invisible',
+        '#type' => 'textarea',
+        '#rows' => 2,
+        '#cols' => 2,
+        '#resizable' => 'none',
+        '#default_value' => $values['css'] ?? '',
+      ];
       $form['host_list']['items'][$token]['remove'] = [
         '#type' => 'submit',
         '#value' => $this->t('Remove'),
@@ -255,6 +267,7 @@ class SettingsForm extends ConfigFormBase {
         $values = [];
         $values['hostname'] = trim($input_values['hostname']);
         $values['iframe_src'] = trim($input_values['iframe_src']);
+        $values['css'] = trim($input_values['css']);
         if (empty($values['hostname']) || empty($values['iframe_src'])) {
           continue;
         }

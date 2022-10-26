@@ -29,6 +29,9 @@ function main() {
     ->exclude('language')
     ->notName(['core.extension.yml', 'update.settings.yml', 'file.setting.yml', 'system.site.yml']);
 
+  $destination_override = [
+    'views.view.openculturas_calendar_widget.yml' => 'profile/modules/custom/openculturas_calendar_widget/config/install/'
+  ];
 
   $counter = 0;
   if ($finder->hasResults()) {
@@ -48,18 +51,28 @@ function main() {
           unset($source_data['uuid']);
         }
         unset($source_data['_core']);
-        $target_file_contents = \Drupal\Core\Serialization\Yaml::encode($source_data);
 
         echo 'config/sync/' . $fileNameWithExtension;
         echo '=> ';
-        echo 'profile/config/install/' . $fileNameWithExtension;
+        $destination =  'profile/config/install/';
+        if (isset($destination_override[$fileNameWithExtension])) {
+          $destination = $destination_override[$fileNameWithExtension];
+          if (isset($source_data['dependencies']) && !isset($source_data['dependencies']['enforced']['module'])) {
+            $source_data['dependencies']['enforced']['module'] = [basename(dirname($destination_override[$fileNameWithExtension],
+              2))];
+          }
+        }
+        $destination = $destination . $fileNameWithExtension;
+        echo $destination;
         echo PHP_EOL;
-        file_put_contents('profile/config/install/' . $fileNameWithExtension, $target_file_contents);
+        $target_file_contents = \Drupal\Core\Serialization\Yaml::encode($source_data);
+        file_put_contents($destination, $target_file_contents);
       }
     }
     $source_data = \Drupal\Core\Serialization\Yaml::decode(file_get_contents('config/sync/core.extension.yml'));
     $target_data = \Drupal\Core\Serialization\Yaml::decode(file_get_contents('profile/openculturas.info.yml'));
     unset($source_data['module']['openculturas']);
+    unset($source_data['module']['openculturas_calendar_widget']);
     $module_list = array_keys($source_data['module']);
     sort($module_list);
     $target_data['install'] = $module_list;
