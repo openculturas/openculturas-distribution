@@ -99,7 +99,6 @@ final class EmbedCodeWidget extends FormBase {
       '#type' => 'textarea',
       '#rows' => 2,
       '#cols' => 2,
-      '#resizable' => 'none',
       '#id' => $code_html_id,
       '#suffix' => Markup::create(sprintf('<button data-source-id="%s" class="button openculturas-calendar-widget-copy-button">%s</button>', $code_html_id, t('Copy text'))),
       '#value' => ''

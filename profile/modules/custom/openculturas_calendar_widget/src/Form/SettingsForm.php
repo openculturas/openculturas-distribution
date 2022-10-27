@@ -136,7 +136,6 @@ class SettingsForm extends ConfigFormBase {
         '#type' => 'textarea',
         '#rows' => 2,
         '#cols' => 2,
-        '#resizable' => 'none',
         '#default_value' => $values['css'] ?? '',
       ];
       $form['host_list']['items'][$token]['remove'] = [
