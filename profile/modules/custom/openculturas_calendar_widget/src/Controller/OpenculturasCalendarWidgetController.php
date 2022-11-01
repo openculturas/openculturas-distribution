@@ -11,9 +11,12 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\Url;
 use Drupal\views\Element\View;
+use Drupal\views\ViewExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use function array_key_exists;
+use function in_array;
 use function is_array;
 use function sprintf;
 
@@ -52,6 +55,19 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
   public function build() {
     $config = $this->config('openculturas_calendar_widget.settings');
     $limit_access = $config->get('limit_access');
+    $display = $this->request->get('display');
+    $displays = [
+      'related_date_organizer',
+      'upcoming_dates',
+      'related_date_location'
+    ];
+    if (!in_array($display, $displays)) {
+      $response = new Response();
+      $response->setContent('');
+      $response->setStatusCode(404);
+      $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
+      return $response;
+    }
 
     $build['container'] = [
       '#type' => 'container',
@@ -68,8 +84,9 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
     ];
     $build['container']['view'] = [
       '#type' => 'view',
-      '#name' => 'openculturas_calendar_widget',
-      '#display_id' => 'embed_calendar',
+      '#name' => 'related_date',
+      '#display_id' => $this->request->get('display'),
+      '#arguments' => $this->request->get('args'),
       '#pre_render' => [[View::class, 'preRenderViewElement'], [static::class, 'preRenderViewElement']]
     ];
     $build['container']['link'] = [
@@ -117,7 +134,11 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
   public static function preRenderViewElement($element) {
     /** @var \Drupal\views\ViewExecutable $view */
     $view = &$element['view_build']['#view'];
-    $view->exposed_widgets = [];
+    if ($view instanceof ViewExecutable) {
+      $view->exposed_widgets = [];
+      $view->attachment_before = [];
+      $view->attachment_after = [];
+    }
     return $element;
   }
 

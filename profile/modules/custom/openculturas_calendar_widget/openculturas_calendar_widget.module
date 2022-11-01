@@ -7,16 +7,52 @@ use Drupal\openculturas_calendar_widget\Form\EmbedCodeWidget;
 use Drupal\views\ViewExecutable;
 
 /**
+ * Implements hook_views_pre_view().
+ */
+function openculturas_calendar_widget_views_pre_view(ViewExecutable $view) {
+  $displays = [
+    'related_date_organizer',
+    'upcoming_dates',
+    'related_date_location'
+  ];
+  $routeMatch = \Drupal::routeMatch();
+  if ($routeMatch->getRouteName() !== 'openculturas_calendar_widget.embed') {
+    return;
+  }
+  if ($view->id() === 'related_date' && in_array($view->current_display, $displays)) {
+    $view->exposed_widgets = [];
+    $pager = $view->display_handler->getOption('pager');
+    $pager['type'] = 'some';
+    $view->display_handler->setOption('pager', $pager);
+    $view->setItemsPerPage(12);
+    $view->display_handler->setOption('header', []);
+    $css_class = $view->display_handler->getOption('css_class');
+    $view->display_handler->setOption('css_class', "$css_class calendar--embed");
+  }
+}
+
+/**
  * Implements hook_views_post_build().
  */
 function openculturas_calendar_widget_views_post_build(ViewExecutable $view) {
-  if ($view->id() === 'related_date' && $view->current_display === 'upcoming_dates') {
+  $displays = [
+    'related_date_organizer',
+    'upcoming_dates',
+    'related_date_location'
+  ];
+  $routeMatch = \Drupal::routeMatch();
+  if ($routeMatch->getRouteName() === 'openculturas_calendar_widget.embed') {
+    return;
+  }
+  if ($view->id() === 'related_date' && in_array($view->current_display, $displays)) {
     $access = (\Drupal::currentUser()->hasPermission('access openculturas_calendar_widget embed') || \Drupal::currentUser()->hasPermission('administer openculturas_calendar_widget configuration'));
     if ($access) {
-      $target_uri = $view->exposed_widgets['#action'];
+      $target_uri = $view->exposed_widgets['#action'] ?? \Drupal::request()->getRequestUri();
       $exposed_input = $view->getExposedInput();
       unset($exposed_input['date_start'], $exposed_input['date_end']);
       $exposed_input['source_uri'] = Url::fromUserInput($target_uri)->setOption('query', $exposed_input)->setAbsolute()->toString();
+      $exposed_input['display'] = $view->current_display;
+      $exposed_input['args'] = $view->args;
       $url = Url::fromRoute('openculturas_calendar_widget.embed')
         ->setOption('query', $exposed_input)
         ->setAbsolute();
