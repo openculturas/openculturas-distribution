@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.date.field_forfree
     - field.field.node.date.field_location
     - field.field.node.date.field_location_virtual
-    - field.field.node.date.field_mention_by_art_view_ref
     - field.field.node.date.field_organizer
     - field.field.node.date.field_parent_date
     - field.field.node.date.field_people_reference
@@ -23,7 +22,6 @@ dependencies:
     - field.field.node.date.field_pricing
     - field.field.node.date.field_related_date_view_ref
     - field.field.node.date.field_safety_info
-    - field.field.node.date.field_sub_dates
     - field.field.node.date.field_sub_dates_view_ref
     - field.field.node.date.field_ticketing
     - node.type.date
@@ -129,21 +127,6 @@ third_party_settings:
         id: ''
         open: true
         description: ''
-    group_magazine:
-      children:
-        - field_mention_by_art_view_ref
-      label: Magazine
-      parent_name: ''
-      region: hidden
-      weight: 29
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
     group_alternative_dates:
       children:
         - field_related_date_view_ref
@@ -524,10 +507,9 @@ content:
     region: content
 hidden:
   co_authors: true
+  extra_field_event_mood_image: true
   extra_field_event_subtitle: true
   field_event_series: true
-  field_mention_by_art_view_ref: true
-  field_sub_dates: true
   langcode: true
   links: true
   search_api_excerpt: true

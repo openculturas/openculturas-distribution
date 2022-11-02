@@ -7,33 +7,33 @@ namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
- * Body field via field_event_description reference.
+ * field_mood_image via field_event_description reference
  *
  * @ExtraFieldDisplay(
- *   id = "event_body",
- *   label = @Translation("Body"),
- *   description = "Body field via field_event_description reference",
+ *   id = "event_mood_image",
+ *   label = "Main image",
+ *   description = "field_mood_image via field_event_description reference",
  *   visible = FALSE,
  *   bundles = {
  *     "node.date",
  *   }
  * )
  */
-class EventBody extends ExtraFieldBase {
+final class EventMoodImage extends ExtraFieldBase {
 
   /**
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-    $this->setFieldname('body');
+    $this->setFieldname('field_mood_image');
     $this->setReferenceField('field_event_description');
+
     $build = parent::viewElements($entity);
     if ($build !== []) {
-      $renderArray = $this->eventEntity->get('body')->view($this->referenceViewFormatterSettings);
+      $renderArray = $this->eventEntity->get('field_mood_image')->view($this->referenceViewFormatterSettings);
       $build['#markup'] = $this->renderer->render($renderArray);
     }
 
     return $build;
   }
-
 }

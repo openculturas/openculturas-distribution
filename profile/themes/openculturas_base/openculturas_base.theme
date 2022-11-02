@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
@@ -23,7 +24,8 @@ function openculturas_base_preprocess_html(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
-function openculturas_base_preprocess_node(&$variables) {
+function openculturas_base_preprocess_node(array &$variables) {
+  /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
   // Hide all fields used by seperated blocks in different areas of the theme on full viewmode.
@@ -55,6 +57,18 @@ function openculturas_base_preprocess_node(&$variables) {
     $reference_title = $node->get('field_reference_title')->value;
     $variables['elements']['#fieldgroups']['group_featuring']->label = $reference_title;
     $variables['content']['field_reference_title']['#access'] = FALSE;
+  }
+  if ($node->bundle() === 'date' && $node->hasField('field_event_description') && !$node->get('field_event_description')->isEmpty()) {
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
+    $list = $node->get('field_event_description');
+    $events = $list->referencedEntities();
+    if ($events !== []) {
+      $event = reset($events);
+      if ($event instanceof NodeInterface) {
+        $variables['label'] = $event->label();
+      }
+    }
+
   }
 }
 

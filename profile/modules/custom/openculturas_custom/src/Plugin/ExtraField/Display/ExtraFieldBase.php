@@ -7,7 +7,9 @@ namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
+use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function reset;
 
 abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface {
 
@@ -85,9 +87,17 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
       return $build;
     }
     if ($entity->hasField($this->referenceField) && !$entity->get($this->referenceField)->isEmpty()) {
-      /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-      $this->eventEntity = $entity->get($this->referenceField)->first()->entity;
-      if (!$this->eventEntity instanceof ContentEntityInterface || !$this->eventEntity->hasField($this->fieldname) || $this->eventEntity->get($this->fieldname)->isEmpty()) {
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
+      $list = $entity->get($this->referenceField);
+      if ($list->isEmpty()) {
+        return $build;
+      }
+      $events = $list->referencedEntities();
+      if ($events === []) {
+        return $build;
+      }
+      $this->eventEntity = reset($events);
+      if (!$this->eventEntity instanceof NodeInterface || !$this->eventEntity->hasField($this->fieldname) || $this->eventEntity->get($this->fieldname)->isEmpty()) {
         return $build;
       }
       $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
