@@ -42,8 +42,8 @@ third_party_settings:
   field_group:
     group_part_of_event_series:
       children:
-        - field_parent_date
-        - field_sub_dates_view_ref
+        - group_part_of_event_series_info
+        - group_dates_in_this_series_info
       label: 'Event series'
       parent_name: ''
       region: content
@@ -78,7 +78,7 @@ third_party_settings:
       label: 'Tickets and pricing'
       parent_name: ''
       region: content
-      weight: 15
+      weight: 16
       format_type: details
       format_settings:
         classes: ''
@@ -92,7 +92,7 @@ third_party_settings:
       label: Accessibility
       parent_name: ''
       region: content
-      weight: 16
+      weight: 17
       format_type: details
       format_settings:
         classes: ''
@@ -106,7 +106,7 @@ third_party_settings:
       label: Organizer
       parent_name: ''
       region: content
-      weight: 17
+      weight: 18
       format_type: details
       format_settings:
         classes: ''
@@ -121,7 +121,7 @@ third_party_settings:
       label: Focus
       parent_name: ''
       region: content
-      weight: 18
+      weight: 19
       format_type: details
       format_settings:
         classes: ''
@@ -135,7 +135,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: hidden
-      weight: 21
+      weight: 29
       format_type: details
       format_settings:
         classes: ''
@@ -150,7 +150,7 @@ third_party_settings:
       label: 'Alternative dates'
       parent_name: ''
       region: content
-      weight: 19
+      weight: 20
       format_type: details
       format_settings:
         classes: ''
@@ -165,7 +165,7 @@ third_party_settings:
       label: Gallery
       parent_name: ''
       region: content
-      weight: 20
+      weight: 21
       format_type: details
       format_settings:
         classes: ''
@@ -214,6 +214,44 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+    group_part_of_event_series_info:
+      children:
+        - field_parent_date
+      label: 'Part of event series'
+      parent_name: group_part_of_event_series
+      region: content
+      weight: 17
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_dates_in_this_series_info:
+      children:
+        - field_sub_dates_view_ref
+      label: 'Dates in this series'
+      parent_name: group_part_of_event_series
+      region: content
+      weight: 18
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.date.full
 targetEntityType: node
 bundle: date
@@ -232,7 +270,7 @@ content:
   extra_field_event_category:
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 21
     region: content
   extra_field_event_gallery:
     settings: {  }
@@ -407,7 +445,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 14
+    weight: 18
     region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view
@@ -443,7 +481,7 @@ content:
       always_build_output: false
       empty_view_title: hidden
     third_party_settings: {  }
-    weight: 14
+    weight: 21
     region: content
   field_safety_info:
     type: text_default
@@ -460,7 +498,7 @@ content:
       always_build_output: false
       empty_view_title: hidden
     third_party_settings: {  }
-    weight: 15
+    weight: 19
     region: content
   field_ticketing:
     type: link
