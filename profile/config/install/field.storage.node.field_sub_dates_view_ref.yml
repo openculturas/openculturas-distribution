@@ -4,24 +4,18 @@ dependencies:
   module:
     - field_permissions
     - node
-    - options
+    - viewfield
+    - views
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_event_series
-field_name: field_event_series
+id: node.field_sub_dates_view_ref
+field_name: field_sub_dates_view_ref
 entity_type: node
-type: list_string
+type: viewfield
 settings:
-  allowed_values:
-    -
-      value: 'no'
-      label: 'No'
-    -
-      value: is_sub_event_of
-      label: 'is sub-event of'
-  allowed_values_function: ''
-module: options
+  target_type: view
+module: viewfield
 locked: false
 cardinality: 1
 translatable: true
