@@ -104,7 +104,7 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
       }
     }
     $this->renderer->addCacheableDependency($build, $config);
-    $response = $this->bareHtmlPageRenderer->renderBarePage($build, $this->t('Upcoming dates'), 'markup');
+    $response = $this->bareHtmlPageRenderer->renderBarePage($build, $this->t('Upcoming dates'), NULL);
     if ($limit_access) {
       $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
       if ($hostname !== NULL) {
