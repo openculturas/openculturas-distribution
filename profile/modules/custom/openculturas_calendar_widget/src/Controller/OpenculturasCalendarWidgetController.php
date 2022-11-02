@@ -14,9 +14,7 @@ use Drupal\views\Element\View;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use function array_key_exists;
-use function in_array;
 use function is_array;
 use function sprintf;
 
@@ -55,20 +53,6 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
   public function build() {
     $config = $this->config('openculturas_calendar_widget.settings');
     $limit_access = $config->get('limit_access');
-    $display = $this->request->get('display');
-    $displays = [
-      'related_date_organizer',
-      'upcoming_dates',
-      'related_date_location'
-    ];
-    if (!in_array($display, $displays)) {
-      $response = new Response();
-      $response->setContent('');
-      $response->setStatusCode(404);
-      $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
-      return $response;
-    }
-
     $build['container'] = [
       '#type' => 'container',
       '#attributes' => [
@@ -85,8 +69,7 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
     $build['container']['view'] = [
       '#type' => 'view',
       '#name' => 'related_date',
-      '#display_id' => $this->request->get('display'),
-      '#arguments' => $this->request->get('args'),
+      '#display_id' => 'upcoming_dates',
       '#pre_render' => [[View::class, 'preRenderViewElement'], [static::class, 'preRenderViewElement']]
     ];
     $build['container']['link'] = [
