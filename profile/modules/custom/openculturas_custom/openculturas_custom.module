@@ -421,6 +421,16 @@ function openculturas_custom_node_presave(NodeInterface $node) {
 
   $node_reference_fields = ['field_location', 'field_references'];
 
+  if ($node->hasField('field_event_series') && $node->hasField('field_parent_date')) {
+    if ($node->get('field_event_series')->isEmpty() || $node->get('field_event_series')->first()->getString() === 'no') {
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
+      $list = $node->get('field_parent_date');
+      if (!$list->isEmpty()) {
+        $list->setValue([]);
+      }
+    }
+  }
+
   foreach ($node_reference_fields as $field_name) {
     if ($node->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
