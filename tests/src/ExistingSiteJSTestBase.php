@@ -13,7 +13,7 @@ abstract class ExistingSiteJSTestBase extends OriginExistingSiteSelenium2DriverT
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Cause tests to fail if an error is sent to Drupal logs.

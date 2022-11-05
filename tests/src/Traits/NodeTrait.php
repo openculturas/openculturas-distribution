@@ -6,9 +6,8 @@ namespace Drupal\Tests\openculturas\Traits;
 
 use Drupal\node\NodeInterface;
 
-
 /**
- * Trait NodeTrait
+ * Trait NodeTrait.
  */
 trait NodeTrait {
 

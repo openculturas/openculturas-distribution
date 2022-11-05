@@ -70,10 +70,10 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
         'view_args' => $view_args,
       ];
       if (!isset($this->configuration['show_find_my_button'])) {
-          return;
+        return;
       }
       if (!$this->configuration['show_find_my_button']) {
-          return;
+        return;
       }
       // Workaround for https://www.drupal.org/project/drupal/issues/289240.
       $form['find_my_location'] = [
@@ -82,7 +82,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
         '#value' => $this->t('Find my location'),
         '#attributes' => [
           'type' => 'button',
-          'class' => ['button', 'button--locate_me']
+          'class' => ['button', 'button--locate_me'],
         ],
         '#after_build' => [[$this, 'findMyLocationAfterBuild']],
       ];

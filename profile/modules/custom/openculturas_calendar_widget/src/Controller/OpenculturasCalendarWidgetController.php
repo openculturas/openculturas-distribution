@@ -28,7 +28,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
 
   protected BareHtmlPageRendererInterface $bareHtmlPageRenderer;
 
-  protected ?Request $request = null;
+  protected ?Request $request = NULL;
 
   protected RendererInterface $renderer;
 
@@ -70,18 +70,18 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     $build['container']['header'] = [
       '#type' => 'processed_text',
       '#text' => $config->get('header')['value'] ?? '',
-      '#format' => $config->get('header')['format'] ?? NULL
+      '#format' => $config->get('header')['format'] ?? NULL,
     ];
     $build['container']['view'] = [
       '#type' => 'view',
       '#name' => 'related_date',
       '#display_id' => 'upcoming_dates',
-      '#pre_render' => [[View::class, 'preRenderViewElement'], [self::class, 'preRenderViewElement']]
+      '#pre_render' => [[View::class, 'preRenderViewElement'], [self::class, 'preRenderViewElement']],
     ];
     $build['container']['link'] = [
       '#type' => 'more_link',
       '#title' => $this->t('More dates'),
-      '#url' => $this->request !== null ? Url::fromUri($this->request->query->get('source_uri')) : Url::fromUri('<front>'),
+      '#url' => $this->request !== NULL ? Url::fromUri($this->request->query->get('source_uri')) : Url::fromUri('<front>'),
     ];
     $build['container']['footer'] = [
       '#type' => 'processed_text',
@@ -106,7 +106,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
           $build['container']['css'] = [
             '#type' => 'html_tag',
             '#tag' => 'style',
-            '#value' => Html::decodeEntities(strip_tags((string) $css))
+            '#value' => Html::decodeEntities(strip_tags((string) $css)),
           ];
         }
       }

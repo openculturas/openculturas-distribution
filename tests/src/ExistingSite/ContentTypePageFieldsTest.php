@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Drupal\Tests\openculturas\ExistingSite;
@@ -17,7 +18,7 @@ class ContentTypePageFieldsTest extends ExistingSiteBase {
     $this->drupalGet('node/add/page');
     $this->assertSession()->statusCodeEquals(403);
     $this->loginWithRole('magazine_editor');
-    // english
+    // English.
     $this->drupalGet('node/add/page');
     $this->assertSession()->statusCodeEquals(200);
     $session = $this->assertSession();
@@ -28,7 +29,7 @@ class ContentTypePageFieldsTest extends ExistingSiteBase {
     $session->fieldExists('Body');
     $session->buttonExists('Add Content element');
 
-    // german
+    // German.
     $this->drupalGet('/de/node/add/page');
     $this->assertSession()->statusCodeEquals(200);
     $session = $this->assertSession();

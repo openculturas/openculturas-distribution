@@ -9,6 +9,7 @@ use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
+ * phpcs:ignore
  * field_address_data from field_location reference.
  *
  * @ExtraFieldDisplay(
@@ -48,4 +49,5 @@ final class LocationAddressData extends ExtraFieldBase {
   public function getFieldNameInEntityReference(): string {
     return 'field_address_data';
   }
+
 }

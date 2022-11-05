@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Social media buttons
+ * Social media buttons.
  *
  * @ExtraFieldDisplay(
  *   id = "social_media_buttons",
@@ -58,6 +58,7 @@ final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements
 
   /**
    * {@inheritdoc}
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function viewElements(ContentEntityInterface $entity): array {

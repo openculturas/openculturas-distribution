@@ -22,7 +22,7 @@ use function rtrim;
  *   category = @Translation("Openculturas")
  * )
  */
-final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,ContainerFactoryPluginInterface {
+final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface, ContainerFactoryPluginInterface {
 
   protected RendererInterface $renderer;
 
@@ -52,6 +52,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
 
   /**
    * {@inheritdoc}
+   *
    * @return array{label_display: false}
    */
   public function defaultConfiguration(): array {
@@ -85,7 +86,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
         $display_options = [
           'type' => 'entity_reference_entity_view',
           'label' => 'hidden',
-          'settings' => ['view_mode' => 'profile_image',]
+          'settings' => ['view_mode' => 'profile_image'],
         ];
         $profile_image = $current_entity->get('field_portrait')->view($display_options);
       }
@@ -95,7 +96,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
       '#theme' => 'page_title_custom',
       '#title' => $this->title,
       '#subtitle' => $subtitle,
-      '#profile_image' => $profile_image
+      '#profile_image' => $profile_image,
     ];
     $this->renderer->addCacheableDependency($build, $current_entity);
     $this->renderer->addCacheableDependency($build, $page_entity);
@@ -107,9 +108,8 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
    */
   public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), [
-      'route'
+      'route',
     ]);
   }
-
 
 }

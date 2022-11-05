@@ -26,13 +26,13 @@ final class CurrentEntityHelper {
     $route = \Drupal::routeMatch();
     $params = $route->getParameters()->all();
     foreach ($types as $type) {
-        if (empty($params[$type])) {
-            continue;
-        }
-        if (!$params[$type] instanceof ContentEntityInterface) {
-            continue;
-        }
-        return $params[$type];
+      if (empty($params[$type])) {
+        continue;
+      }
+      if (!$params[$type] instanceof ContentEntityInterface) {
+        continue;
+      }
+      return $params[$type];
     }
     return NULL;
   }
@@ -46,6 +46,7 @@ final class CurrentEntityHelper {
    * @see \Drupal\openculturas_custom\Plugin\Block\PageTitleBlock::build()
    *
    * @return \Drupal\Core\Entity\ContentEntityInterface|null
+   *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public static function getEventReference(?ContentEntityInterface $entity): ?ContentEntityInterface {

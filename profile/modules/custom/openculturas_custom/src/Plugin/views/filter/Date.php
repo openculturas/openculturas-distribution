@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\views\filter;

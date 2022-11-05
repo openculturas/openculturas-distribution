@@ -9,7 +9,8 @@ use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * field_mood_image via field_event_description reference
+ * phpcs:ignore
+ * field_mood_image via field_event_description reference.
  *
  * @ExtraFieldDisplay(
  *   id = "event_mood_image",
@@ -49,4 +50,5 @@ final class EventMoodImage extends ExtraFieldBase {
   public function getFieldNameInEntityReference(): string {
     return 'field_mood_image';
   }
+
 }

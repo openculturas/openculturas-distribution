@@ -12,7 +12,6 @@ use function sprintf;
 use function str_repeat;
 use function str_replace;
 
-
 class AddToCal extends AddToCalOrigin {
 
   /**
@@ -23,7 +22,7 @@ class AddToCal extends AddToCalOrigin {
     // Use provided settings if they exist, otherwise look for plugin config.
     $config = $options['settings'] ?? $this->getConfiguration();
     if (empty($config['event_title']) && !isset($options['entity'])) {
-      // TODO: log some kind of warning that we can't work without the entity
+      // @todo log some kind of warning that we can't work without the entity
       // or a provided title?
       return;
     }
@@ -32,7 +31,7 @@ class AddToCal extends AddToCalOrigin {
     $now = $this->getCurrentDate();
     // For a recurring date, determine if the last instance is in the past.
     $upcoming_instance = FALSE;
-    // TODO: Validate that if set, $options['ends'] is DrupalDateTime.
+    // @todo Validate that if set, $options['ends'] is DrupalDateTime.
     if (!empty($options['repeats']) && (empty($options['ends']) || $options['ends'] > $now)) {
       $upcoming_instance = TRUE;
     }
@@ -40,7 +39,7 @@ class AddToCal extends AddToCalOrigin {
       return;
     }
     $entity = $options['entity'] ?? NULL;
-    if ($end === null) {
+    if ($end === NULL) {
       $end = $start;
     }
     if ($start instanceof DrupalDateTime && $tz = $start->getTimezone()) {
@@ -83,8 +82,8 @@ class AddToCal extends AddToCalOrigin {
 
       $max_length = $config['max_desc'] ?? 60;
       if ($max_length) {
-        // TODO: Use Smart Trim if available.
-        // TODO: Make the use of ellipsis configurable?
+        // @todo Use Smart Trim if available.
+        // @todo Make the use of ellipsis configurable?
         $description = trim(substr($description, 0, $max_length)) . '...';
       }
     }
@@ -171,7 +170,7 @@ class AddToCal extends AddToCalOrigin {
    * @param bool $keep_line_breaks
    *   Whether or not to keep line breaks. e. g. for descriptions.
    * @param string $allowed_tags
-   *   Allowed tags. e. g. google description
+   *   Allowed tags. e. g. google description.
    *
    * @return string
    *   The manipulated value, prepared for use in a link href.

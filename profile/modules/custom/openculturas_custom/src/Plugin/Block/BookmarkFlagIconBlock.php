@@ -19,6 +19,7 @@ use Drupal\openculturas_custom\CurrentEntityHelper;
 class BookmarkFlagIconBlock extends BlockBase {
 
   use UncacheableDependencyTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -34,7 +35,8 @@ class BookmarkFlagIconBlock extends BlockBase {
           $current_entity->getEntityTypeId(),
           $current_entity->id(),
           ($current_entity->getEntityTypeId() === 'taxonomy_term') ? 'bookmark_term' : 'bookmark_' . $current_entity->getEntityTypeId(),
-        ]],
+        ],
+        ],
         '#create_placeholder' => TRUE,
       ];
 
@@ -44,13 +46,14 @@ class BookmarkFlagIconBlock extends BlockBase {
             $current_entity->getEntityTypeId(),
             $current_entity->id(),
             'recommendation_node',
-          ]],
+          ],
+          ],
           '#create_placeholder' => TRUE,
         ];
       }
 
       $build['#cache'] = [
-        'max-age' => 0
+        'max-age' => 0,
       ];
       return $build;
     }

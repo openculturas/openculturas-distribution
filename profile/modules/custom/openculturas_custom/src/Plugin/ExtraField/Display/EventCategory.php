@@ -9,6 +9,7 @@ use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
+ * phpcs:ignore
  * field_category field via field_event_description reference.
  *
  * @ExtraFieldDisplay(

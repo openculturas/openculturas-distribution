@@ -15,4 +15,5 @@ interface InheritFieldInterface {
    * Name of the field which we inherit.
    */
   public function getFieldNameInEntityReference() : string;
+
 }

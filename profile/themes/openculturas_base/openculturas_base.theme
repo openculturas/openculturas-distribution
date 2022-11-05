@@ -38,7 +38,7 @@ function openculturas_base_preprocess_node(array &$variables): void {
       'field_subtitle',
       'field_mood_image',
       'field_portrait',
-      'field_premiere'
+      'field_premiere',
     ];
     foreach ($hidden_fields as $name) {
       if (isset($variables['content'][$name])) {
@@ -104,7 +104,7 @@ function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggest
   $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
 }
 
-/*
+/**
  * Implements hook_preprocess_HOOK() for paragraph.html.twig.
  */
 function openculturas_base_preprocess_paragraph(array &$variables): void {

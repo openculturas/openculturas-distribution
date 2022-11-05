@@ -43,7 +43,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   public function defaultConfiguration(): array {
     return [
       'enabled' => FALSE,
-      'only_for_owner' => TRUE
+      'only_for_owner' => TRUE,
     ] + parent::defaultConfiguration();
   }
 
@@ -125,6 +125,5 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
     $contexts[] = 'user';
     return $contexts;
   }
-
 
 }

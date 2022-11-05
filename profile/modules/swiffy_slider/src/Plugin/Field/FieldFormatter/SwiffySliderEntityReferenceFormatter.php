@@ -60,6 +60,7 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
 
   /**
    * {@inheritdoc}
+   *
    * @return string[]
    */
   public function settingsSummary(): array {
@@ -96,6 +97,5 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
     $elements['#swiffy_slider_attributes'] = $attributes;
     return $elements;
   }
+
 }
-
-

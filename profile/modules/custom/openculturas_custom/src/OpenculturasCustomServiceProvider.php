@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use function is_array;
 
 /**
- * Service Provider for Openculturas
+ * Service Provider for Openculturas.
  */
 class OpenculturasCustomServiceProvider extends ServiceProviderBase {
 
@@ -30,7 +30,7 @@ class OpenculturasCustomServiceProvider extends ServiceProviderBase {
       $service_definition = new Definition(Normalizer::class, [
         new Reference('default_content_fixes.normalizer.inner'),
       ]);
-      $service_definition->setDecoratedService('default_content.content_entity_normalizer', null, 9);
+      $service_definition->setDecoratedService('default_content.content_entity_normalizer', NULL, 9);
       $container->setDefinition('default_content_fixes.normalizer', $service_definition);
     }
   }

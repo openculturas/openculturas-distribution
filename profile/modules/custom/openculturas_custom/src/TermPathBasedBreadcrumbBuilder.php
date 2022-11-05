@@ -42,5 +42,4 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
     return $breadcrumb_by_term;
   }
 
-
 }

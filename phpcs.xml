@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+  <description>PHP CodeSniffer configuration.</description>
+  <!-- Check all files in the current directory and below. -->
+  <file>profile</file>
+  <file>tests</file>
+  <exclude-pattern>web/modules/custom/dgap_invitations/config/*</exclude-pattern>
+  <exclude-pattern>web/modules/custom/dgap_invitations/src/InvitationType/*</exclude-pattern>
+  <exclude-pattern>web/modules/custom/dgap_invitations/src/InvitationClient.php</exclude-pattern>
+  <exclude-pattern>web/modules/custom/dgap_invitations/src/InvitationClassmap.php</exclude-pattern>
+  <exclude-pattern>web/modules/custom/dgap_invitations/src/InvitationClientFactory.php</exclude-pattern>
+  <arg name="extensions" value="php,module,inc,install,profile,theme,info"/>
+  <arg name="colors"/>
+  <arg name="parallel" value="75"/>
+  <config name="drupal_core_version" value="9"/>
+
+  <!-- If you have Coder installed locally then you can reference the Drupal
+  standards with relative paths. Otherwise, simply use "Drupal" and
+  "DrupalPractice. -->
+  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+    <exclude name="Drupal.Commenting.DocComment.MissingShort" />
+    <exclude name="Drupal.Commenting.FunctionComment.Missing" />
+    <exclude name="Drupal.Commenting.ClassComment.Missing" />
+    <exclude name="Drupal.Commenting.FileComment.Missing" />
+  </rule>
+  <rule ref="vendor/drupal/coder/coder_sniffer/DrupalPractice"/>
+  <!-- Example how you would disable an external rule you do not like:
+  <rule ref="PEAR.Functions.ValidDefaultValue.NotAtEnd">
+    <severity>0</severity>
+  </rule>
+  -->
+</ruleset>

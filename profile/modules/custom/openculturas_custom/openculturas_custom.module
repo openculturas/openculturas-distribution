@@ -146,7 +146,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
     catch (\Exception $exception) {
       return;
     }
-    $property->setAccessible(true);
+    $property->setAccessible(TRUE);
     /** @var \Drupal\geofield\Plugin\GeofieldProximitySourceInterface $source_plugin */
     $source_plugin = $property->getValue($proximityFilter);
     $value = $proximityFilter->value;
@@ -317,7 +317,8 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
               $event->getEntityTypeId(),
               $event->id(),
               $flag->id(),
-            ]],
+            ],
+            ],
           ]);
         }
       }
@@ -401,10 +402,10 @@ function _media_is_cc(MediaInterface $media): bool {
     $field_item = $field->first();
     $value = $field_item->getValue();
     if (isset($value['license'])) {
-        return $value['license'] !== 'all_rights_reserved';
+      return $value['license'] !== 'all_rights_reserved';
     }
     if (array_key_exists('license', $value)) {
-        return $value['license'] !== 'all_rights_reserved';
+      return $value['license'] !== 'all_rights_reserved';
     }
   }
   return FALSE;
@@ -438,7 +439,7 @@ function openculturas_custom_locale_translation_projects_alter(array &$projects)
   $projects['openculturas_custom'] = [
     'info' => [
       'name' => 'OpenCulturas Customizing',
-      'interface translation server pattern' => $module_handler->getModule('openculturas_custom')->getPath() . '/translations/%language.po'
+      'interface translation server pattern' => $module_handler->getModule('openculturas_custom')->getPath() . '/translations/%language.po',
     ],
   ];
 }
@@ -472,8 +473,8 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
         $tags[] = 'node:' . $ref['target_id'];
       }
     }
-    // If the field changes, also invalidate the original value
-    if ($node->original !== null && $node->original->hasField($field_name)) {
+    // If the field changes, also invalidate the original value.
+    if ($node->original !== NULL && $node->original->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
       foreach ($refs as $ref) {
         $tags[] = 'node:' . $ref['target_id'];

@@ -195,6 +195,7 @@
     "require-dev": {
         "composer/installers": "^2.2",
         "cweagans/composer-patches": "^1.7.2",
+        "drupal/coder": "^8.3",
         "drupal/config_inspector": "^2.1.0",
         "drupal/core-composer-scaffold": "^9.4.8",
         "drupal/core-dev": "^9.4.8",
@@ -250,6 +251,8 @@
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush site:install --yes"
         ],
+        "php:cs": "phpcs -p -s --warning-severity=0",
+        "php:cs-fix": "phpcbf",
         "php:phpstan": "phpstan",
         "php:rc-dry": "rector process --dry-run",
         "php:rc": "rector process"

@@ -36,7 +36,7 @@ return static function (RectorConfig $rectorConfig): void {
   $parameters->set('drupal_rector_notices_as_comments', true);
 
   $rectorConfig->paths([
-    __DIR__ . '/profile/',
+    __DIR__ . '/profile/'
   ]);
   $rectorConfig->phpstanConfig(
     __DIR__ . '/phpstan.neon'

@@ -8,7 +8,8 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\node\NodeInterface;
 
 /**
- * Body field via field_event_description reference.
+ * phpcs:ignore
+ * body field via field_event_description reference.
  *
  * @ExtraFieldDisplay(
  *   id = "event_body",

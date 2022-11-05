@@ -9,7 +9,8 @@ use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * Subtitle field from field_event_description.
+ * phpcs:ignore
+ * field_subtitle field from field_event_description.
  *
  * @ExtraFieldDisplay(
  *   id = "event_subtitle",
@@ -34,7 +35,7 @@ final class EventSubtitle extends ExtraFieldBase {
     }
     return $build;
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -48,4 +49,5 @@ final class EventSubtitle extends ExtraFieldBase {
   public function getFieldNameInEntityReference(): string {
     return 'field_subtitle';
   }
+
 }

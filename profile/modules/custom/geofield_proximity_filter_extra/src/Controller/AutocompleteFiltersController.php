@@ -19,13 +19,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Returns autocomplete for input field in GeocodeOriginFromCombine
+ * Returns autocomplete for input field in GeocodeOriginFromCombine.
+ *
  * @see GeocodeOriginFromCombine
  */
 class AutocompleteFiltersController implements ContainerInjectionInterface {
 
   protected LoggerInterface $logger;
-
 
   /**
    * ViewsAutocompleteFiltersController constructor.
@@ -35,7 +35,6 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
   public function __construct(LoggerInterface $logger) {
     $this->logger = $logger;
   }
-
 
   /**
    * {@inheritdoc}
@@ -62,14 +61,15 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
     // this sets the display handler if it hasn't been.
     $view = Views::getView($view_name);
     if (!$view instanceof ViewExecutable) {
-        return AccessResult::forbidden();
+      return AccessResult::forbidden();
     }
     if (!$view->access($view_display)) {
-        return AccessResult::forbidden();
+      return AccessResult::forbidden();
     }
     return AccessResult::allowed();
   }
-    /**
+
+  /**
    * Retrieves suggestions for taxonomy term autocompletion.
    *
    * This function outputs text suggestions in response to Ajax requests
@@ -167,8 +167,10 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
     $display_handler = $view->display_handler;
 
     // Render field on each row and fill matches array.
-    $use_raw_suggestion = FALSE;#!empty($expose_options['autocomplete_raw_suggestion']);
-    $use_raw_dropdown = FALSE;#!empty($expose_options['autocomplete_raw_dropdown']);
+    // !empty($expose_options['autocomplete_raw_suggestion']);.
+    $use_raw_suggestion = FALSE;
+    // !empty($expose_options['autocomplete_raw_dropdown']);
+    $use_raw_dropdown = FALSE;
 
     $view->row_index = 0;
     foreach (array_keys($view->result) as $index) {
@@ -226,10 +228,9 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
     }
     unset($view->row_index);
 
-    // @ToDo: No results message
+    // @todo No results message
     // Follow https://www.drupal.org/node/2346973 issue when Drupal core will
     // provide a solution for such messages.
-
     if (!empty($matches)) {
       $matches = array_values(array_unique($matches, SORT_REGULAR));
     }

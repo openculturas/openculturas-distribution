@@ -33,5 +33,4 @@ final class GeocodeOriginCombine extends Combine {
     parent::query();
   }
 
-
 }

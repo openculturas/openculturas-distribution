@@ -9,11 +9,12 @@ use Drupal\user\UserInterface;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 
 /**
- * Trait UserTrait
+ * Trait UserTrait.
  */
 trait UserTrait {
   use UserCreationTrait;
   use LoginTrait;
+
   /**
    * Creates a user with the given role.
    *
@@ -49,8 +50,6 @@ trait UserTrait {
     }
   }
 
-
-
   /**
    * To login existing user we need set a new password.
    *
@@ -71,6 +70,5 @@ trait UserTrait {
     // Support BrowserTestBase as well.
     $user->passRaw = $user->pass_raw;
   }
-
 
 }

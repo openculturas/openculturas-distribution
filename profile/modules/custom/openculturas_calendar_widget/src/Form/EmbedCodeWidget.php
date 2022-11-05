@@ -42,7 +42,7 @@ final class EmbedCodeWidget extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, Url $url = NULL): array {
     $config = $this->configFactory()->getEditable('openculturas_calendar_widget.settings');
-    $iframe_src = $url !== null ? $url->toString() : '';
+    $iframe_src = $url !== NULL ? $url->toString() : '';
     $form['container'] = [
       '#type' => 'details',
       '#title' => t('Embed code'),
@@ -57,18 +57,18 @@ final class EmbedCodeWidget extends FormBase {
       $list_items = [];
       if (!$config->get('limit_access')) {
         $list_items[] = $this->t('Enable <em>Limit access</em> in the %link a new browser window', [
-          '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'), 'openculturas_calendar_widget.settings')->toString()
+          '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'), 'openculturas_calendar_widget.settings')->toString(),
         ]);
       }
       $list_items[] = $this->t('Configure the filter, copy the url and paste it as url in the %link', [
         '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'),
-          'openculturas_calendar_widget.settings')->toString()
+          'openculturas_calendar_widget.settings')->toString(),
       ]);
 
       $form['container']['help'] = [
         '#theme' => 'item_list',
         '#items' => $list_items,
-        '#title' => $this->t('OpenCulturas calender widget configuration')
+        '#title' => $this->t('OpenCulturas calender widget configuration'),
       ];
       $code_html_id = Html::getUniqueId('openculturas-calendar-widget-iframe-src');
       $form['container']['iframe_src'] = [
@@ -101,7 +101,7 @@ final class EmbedCodeWidget extends FormBase {
       '#cols' => 2,
       '#id' => $code_html_id,
       '#suffix' => Markup::create(sprintf('<button data-source-id="%s" class="button openculturas-calendar-widget-copy-button">%s</button>', $code_html_id, t('Copy text'))),
-      '#value' => ''
+      '#value' => '',
     ];
     if (!empty($iframe_src)) {
       $element['code']['#value'] = <<<EOF

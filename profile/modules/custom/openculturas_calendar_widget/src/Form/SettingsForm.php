@@ -15,7 +15,6 @@ use function is_array;
 use function is_string;
 use function trim;
 
-
 /**
  * Settings form for the OpenCulturas configuration.
  */
@@ -52,14 +51,15 @@ final class SettingsForm extends ConfigFormBase {
     $form['limit_access'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Limit access'),
-      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('limit_access')
+      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('limit_access'),
     ];
 
     $items = [];
     if ($form_state->hasTemporaryValue('host_list')) {
-        $items = $form_state->getTemporaryValue('host_list');
-    } elseif (!$form_state->getValues()) {
-        $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
+      $items = $form_state->getTemporaryValue('host_list');
+    }
+    elseif (!$form_state->getValues()) {
+      $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
     }
     if ((is_countable($items) ? count($items) : 0) === 0 || !is_array($items)) {
       $items = is_array($items) ? $items : [];
@@ -142,11 +142,11 @@ final class SettingsForm extends ConfigFormBase {
         '#type' => 'submit',
         '#value' => $this->t('Remove'),
         '#submit' => [[$this, 'removeRowSubmit']],
-        '#name' => 'host_remove'. $token,
+        '#name' => 'host_remove' . $token,
         '#ajax' => [
           'callback' => [self::class, 'ajaxRefreshCallback'],
           'wrapper' => 'host_list',
-          'id' => $token
+          'id' => $token,
         ],
       ];
 
@@ -282,10 +282,10 @@ final class SettingsForm extends ConfigFormBase {
         $values['iframe_src'] = trim($input_values['iframe_src']);
         $values['css'] = trim($input_values['css']);
         if (empty($values['hostname'])) {
-            continue;
+          continue;
         }
         if (empty($values['iframe_src'])) {
-            continue;
+          continue;
         }
         $host_list_new[$token] = $values;
       }
@@ -301,4 +301,5 @@ final class SettingsForm extends ConfigFormBase {
     $config->save();
     parent::submitForm($form, $form_state);
   }
+
 }

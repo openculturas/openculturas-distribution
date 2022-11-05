@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Install, update and uninstall functions for the standard installation profile.
@@ -16,7 +17,7 @@ function openculturas_install_tasks(): array {
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
       'type' => 'normal',
-    ]
+    ],
   ];
 }
 
@@ -53,7 +54,7 @@ function openculturas_install_content(): void {
   }
   /** @var \Drupal\node\NodeInterface $node */
   $node = $entityRepository->loadEntityByUuid('node', '34e5758c-997b-45cd-91ed-66a694a5fdd3');
-  // File: profile/modules/custom/openculturas_content/content/node/34e5758c-997b-45cd-91ed-66a694a5fdd3.yml
+  // File: profile/modules/custom/openculturas_content/content/node/34e5758c-997b-45cd-91ed-66a694a5fdd3.yml.
   if ($node instanceof NodeInterface) {
     $config->set('page.403', '/node/' . $node->id());
   }
