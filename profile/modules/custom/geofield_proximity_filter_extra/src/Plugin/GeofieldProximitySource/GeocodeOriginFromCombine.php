@@ -41,10 +41,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
       $form['settings']['#access'] = FALSE;
       $form['use_autocomplete']['#access'] = FALSE;
 
-      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), function(
-        FilterPluginBase $filter) {
-        return $filter instanceof GeocodeOriginCombine;
-      });
+      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), fn(FilterPluginBase $filter): bool => $filter instanceof GeocodeOriginCombine);
       $filter_options = [];
       foreach ($filters as $id => $filter) {
         $filter_options[$id] = $filter->adminLabel();
@@ -63,7 +60,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
 
     }
     else {
-      $view_args = !empty(array_filter($this->viewHandler->view->args)) ? implode('||', $this->viewHandler->view->args) : 0;
+      $view_args = empty(array_filter($this->viewHandler->view->args)) ? 0 : implode('||', $this->viewHandler->view->args);
       unset($form['origin_address']['#attributes']['class']);
       $form['origin_address']['#autocomplete_route_name'] = 'geofield_geocode_origin_combine.autocomplete';
       $form['origin_address']['#autocomplete_route_parameters'] = [
@@ -72,19 +69,23 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
         'filter_name' => $this->configuration['geocode_origin_combine_filter'] ?? NULL,
         'view_args' => $view_args,
       ];
-      if (isset($this->configuration['show_find_my_button']) && $this->configuration['show_find_my_button']) {
-        // Workaround for https://www.drupal.org/project/drupal/issues/289240.
-        $form['find_my_location'] = [
-          '#type' => 'html_tag',
-          '#tag' => 'button',
-          '#value' => $this->t('Find my location'),
-          '#attributes' => [
-            'type' => 'button',
-            'class' => ['button', 'button--locate_me']
-          ],
-          '#after_build' => [[$this, 'findMyLocationAfterBuild']],
-        ];
+      if (!isset($this->configuration['show_find_my_button'])) {
+          return;
       }
+      if (!$this->configuration['show_find_my_button']) {
+          return;
+      }
+      // Workaround for https://www.drupal.org/project/drupal/issues/289240.
+      $form['find_my_location'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'button',
+        '#value' => $this->t('Find my location'),
+        '#attributes' => [
+          'type' => 'button',
+          'class' => ['button', 'button--locate_me']
+        ],
+        '#after_build' => [[$this, 'findMyLocationAfterBuild']],
+      ];
     }
   }
 

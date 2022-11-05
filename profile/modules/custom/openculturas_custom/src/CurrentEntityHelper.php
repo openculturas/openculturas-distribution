@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom;
 
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\node\NodeInterface;
 use function assert;
@@ -25,9 +26,13 @@ final class CurrentEntityHelper {
     $route = \Drupal::routeMatch();
     $params = $route->getParameters()->all();
     foreach ($types as $type) {
-      if (!empty($params[$type]) && $params[$type] instanceof ContentEntityInterface) {
+        if (empty($params[$type])) {
+            continue;
+        }
+        if (!$params[$type] instanceof ContentEntityInterface) {
+            continue;
+        }
         return $params[$type];
-      }
     }
     return NULL;
   }
@@ -58,9 +63,8 @@ final class CurrentEntityHelper {
     }
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
     $event_list = $entity->get('field_event_description');
-    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $event_item */
     $event_item = $event_list->first();
-    if ($event_item === NULL) {
+    if (!$event_item instanceof EntityReferenceItem) {
       return $entity;
     }
     assert($event_item->entity instanceof NodeInterface);

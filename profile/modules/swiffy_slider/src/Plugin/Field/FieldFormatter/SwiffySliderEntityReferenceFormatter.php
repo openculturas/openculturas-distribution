@@ -86,12 +86,8 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
     if ($this->getSetting('swiffy_slider_permalink') !== '') {
       $parsed_url = UrlHelper::parse($this->getSetting('swiffy_slider_permalink'));
       if (isset($parsed_url['query'])) {
-        $attributes['class'] = array_filter($parsed_url['query'], function (string $key) {
-          return substr($key, 0, 4) !== 'data';
-        }, ARRAY_FILTER_USE_KEY);
-        $data_attributes = array_filter($parsed_url['query'], function (string $key) {
-          return substr($key, 0, 4) === 'data';
-        }, ARRAY_FILTER_USE_KEY);
+        $attributes['class'] = array_filter($parsed_url['query'], fn(string $key): bool => substr($key, 0, 4) !== 'data', ARRAY_FILTER_USE_KEY);
+        $data_attributes = array_filter($parsed_url['query'], fn(string $key): bool => substr($key, 0, 4) === 'data', ARRAY_FILTER_USE_KEY);
         $attributes = array_merge($attributes->toArray(), $data_attributes);
         $attributes = new Attribute($attributes);
       }

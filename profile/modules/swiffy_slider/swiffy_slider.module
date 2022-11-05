@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Drupal\Core\Template\Attribute;
 
 /**
  * @file
@@ -38,7 +39,7 @@ function swiffy_slider_theme_suggestions_field(array $variables): array {
 function swiffy_slider_preprocess_field(array &$variables): void {
   $element = $variables['element'];
   if ($element['#formatter'] === 'swiffy_slider_entity_reference') {
-    $variables['swiffy_slider_attributes'] = (new \Drupal\Core\Template\Attribute())->addClass('swiffy-slider');
+    $variables['swiffy_slider_attributes'] = (new Attribute())->addClass('swiffy-slider');
     if (!empty($element['#swiffy_slider_attributes'])) {
       $variables['swiffy_slider_attributes'] = AttributeHelper::mergeCollections($variables['swiffy_slider_attributes'], $element['#swiffy_slider_attributes']);
     }

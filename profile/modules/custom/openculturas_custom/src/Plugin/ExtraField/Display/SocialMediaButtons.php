@@ -36,7 +36,7 @@ final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SocialMediaButtons {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->pluginManager = $container->get('plugin.manager.block');
     $instance->setStringTranslation($container->get('string_translation'));
     return $instance;

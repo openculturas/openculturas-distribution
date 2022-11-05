@@ -57,13 +57,12 @@ final class SettingsForm extends ConfigFormBase {
 
     $items = [];
     if ($form_state->hasTemporaryValue('host_list')) {
-      $items = $form_state->getTemporaryValue('host_list');
+        $items = $form_state->getTemporaryValue('host_list');
+    } elseif (!$form_state->getValues()) {
+        $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
     }
-    else if (!$form_state->getValues()) {
-      $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
-    }
-    if (count($items) === 0 || !is_array($items)) {
-      $items = !is_array($items) ? [] : $items;
+    if ((is_countable($items) ? count($items) : 0) === 0 || !is_array($items)) {
+      $items = is_array($items) ? $items : [];
       $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => ''];
     }
     $form['host_list'] = [
@@ -145,7 +144,7 @@ final class SettingsForm extends ConfigFormBase {
         '#submit' => [[$this, 'removeRowSubmit']],
         '#name' => 'host_remove'. $token,
         '#ajax' => [
-          'callback' => [__CLASS__, 'ajaxRefreshCallback'],
+          'callback' => [self::class, 'ajaxRefreshCallback'],
           'wrapper' => 'host_list',
           'id' => $token
         ],
@@ -161,7 +160,7 @@ final class SettingsForm extends ConfigFormBase {
         '#submit' => [[$this, 'addRowSubmit']],
         '#name' => 'add_host',
         '#ajax' => [
-          'callback' => [__CLASS__, 'ajaxRefreshCallback'],
+          'callback' => [self::class, 'ajaxRefreshCallback'],
           'wrapper' => 'host_list',
         ],
       ];
@@ -282,8 +281,11 @@ final class SettingsForm extends ConfigFormBase {
         $values['hostname'] = trim($input_values['hostname']);
         $values['iframe_src'] = trim($input_values['iframe_src']);
         $values['css'] = trim($input_values['css']);
-        if (empty($values['hostname']) || empty($values['iframe_src'])) {
-          continue;
+        if (empty($values['hostname'])) {
+            continue;
+        }
+        if (empty($values['iframe_src'])) {
+            continue;
         }
         $host_list_new[$token] = $values;
       }

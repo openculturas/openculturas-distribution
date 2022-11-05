@@ -19,6 +19,7 @@ class AddToCal extends AddToCalOrigin {
    * {@inheritdoc}
    */
   public function buildLinks(array $output, DrupalDateTime $start, DrupalDateTime $end = NULL, array $options = []) {
+    $google_link = [];
     // Use provided settings if they exist, otherwise look for plugin config.
     $config = $options['settings'] ?? $this->getConfiguration();
     if (empty($config['event_title']) && !isset($options['entity'])) {
@@ -39,7 +40,7 @@ class AddToCal extends AddToCalOrigin {
       return;
     }
     $entity = $options['entity'] ?? NULL;
-    if (!$end) {
+    if ($end === null) {
       $end = $start;
     }
     if ($start instanceof DrupalDateTime && $tz = $start->getTimezone()) {
@@ -58,7 +59,7 @@ class AddToCal extends AddToCalOrigin {
     }
     else {
       $date_format = "Ymd\\THi00";
-      if ($timezone) {
+      if ($timezone !== '' && $timezone !== '0') {
         $prefix = ';TZID=' . $timezone . ':';
       }
       else {
@@ -80,7 +81,7 @@ class AddToCal extends AddToCalOrigin {
       $google_link['details'] = $this->parseField($config['description'], $entity, TRUE, TRUE, '<br><p><b><u><a><ul><ol>');
       $google_link['details'] = str_replace('</p>' . PHP_EOL . PHP_EOL . '<p>', '</p><p>', $google_link['details']);
 
-      $max_length = isset($config['max_desc']) ? $config['max_desc'] : 60;
+      $max_length = $config['max_desc'] ?? 60;
       if ($max_length) {
         // TODO: Use Smart Trim if available.
         // TODO: Make the use of ellipsis configurable?
@@ -96,7 +97,7 @@ class AddToCal extends AddToCalOrigin {
     // Build output.
     $ical_link = ['data:text/calendar;charset=utf8,BEGIN:VCALENDAR'];
     $ical_link[] = 'PRODID:' . $this->configFactory->get('system.site')->get('name');
-    if ($timezone) {
+    if ($timezone !== '' && $timezone !== '0') {
       $offset_from = $start->format('O', $timezone);
       $offset_to = $end->format('O', $timezone);
 
@@ -151,9 +152,7 @@ class AddToCal extends AddToCalOrigin {
      *
      * @link https://icalendar.org/iCalendar-RFC-5545/3-1-content-lines.html
      */
-    $ical_link = array_map(function($content) {
-      return mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content;
-    }, $ical_link);
+    $ical_link = array_map(fn($content): ?string => mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
     return [
       'ical' => $ical_link,
       'google' => $google_link,
@@ -177,7 +176,7 @@ class AddToCal extends AddToCalOrigin {
    * @return string
    *   The manipulated value, prepared for use in a link href.
    */
-  public function parseField($field_value, $entity, $strip_markup = FALSE, $keep_line_breaks = FALSE, $allowed_tags = NULL) {
+  public function parseField($field_value, $entity, $strip_markup = FALSE, $keep_line_breaks = FALSE, $allowed_tags = NULL): string {
     if (\Drupal::hasService('token') && $entity) {
       $token_service = \Drupal::service('token');
       $token_data = [

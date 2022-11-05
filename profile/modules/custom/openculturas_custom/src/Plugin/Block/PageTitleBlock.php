@@ -37,11 +37,10 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): PageTitleBlock {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     return $instance;
   }
-
 
   /**
    * {@inheritdoc}
@@ -53,6 +52,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
 
   /**
    * {@inheritdoc}
+   * @return array{label_display: false}
    */
   public function defaultConfiguration(): array {
     return ['label_display' => FALSE];

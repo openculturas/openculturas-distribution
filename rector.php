@@ -13,10 +13,10 @@ use Rector\Set\ValueObject\SetList;
 return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->sets([
     Drupal9SetList::DRUPAL_9,
-    SetList::CODE_QUALITY,
+    LevelSetList::UP_TO_PHP_74,
     SetList::TYPE_DECLARATION_STRICT,
+    SetList::CODE_QUALITY,
     SetList::EARLY_RETURN,
-    LevelSetList::UP_TO_PHP_74
   ]);
 
   $parameters = $rectorConfig->parameters();
@@ -27,7 +27,6 @@ return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->autoloadPaths([
     $drupalRoot . '/core',
     $drupalRoot . '/modules',
-    $drupalRoot . '/profiles',
     $drupalRoot . '/themes'
   ]);
 
@@ -45,7 +44,6 @@ return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->phpVersion(
     PhpVersion::PHP_74
   );
-
 
   $rectorConfig->skip([
       \Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class => [

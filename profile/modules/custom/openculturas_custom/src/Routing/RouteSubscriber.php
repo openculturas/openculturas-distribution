@@ -17,15 +17,15 @@ class RouteSubscriber extends RouteSubscriberBase {
    */
   protected function alterRoutes(RouteCollection $collection): void {
     // Display account edit in frontend theme.
-    if ($route = $collection->get('entity.user.edit_form')) {
+    if (($route = $collection->get('entity.user.edit_form')) !== null) {
       $route->setOption('_admin_route', FALSE);
       return;
     }
-    if ($route = $collection->get('entity.user.cancel_form')) {
+    if (($route = $collection->get('entity.user.cancel_form')) !== null) {
       $route->setOption('_admin_route', FALSE);
       return;
     }
-    if ($route = $collection->get('user.register')) {
+    if (($route = $collection->get('user.register')) !== null) {
       $route->setRequirement('_user_is_logged_in', 'FALSE');
     }
   }

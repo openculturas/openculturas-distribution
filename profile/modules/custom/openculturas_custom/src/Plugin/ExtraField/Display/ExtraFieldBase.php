@@ -23,7 +23,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
 
   protected EntityDisplayRepositoryInterface $entityDisplayRepository;
 
-  protected ?EntityInterface $eventEntity;
+  protected ?EntityInterface $eventEntity = null;
 
   protected ?array $referenceViewFormatterSettings;
 
@@ -56,8 +56,14 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
         return $build;
       }
       $this->eventEntity = reset($events);
-      if (!$this->eventEntity instanceof NodeInterface || !$this->eventEntity->hasField($fieldname_in_reference) || $this->eventEntity->get($fieldname_in_reference)->isEmpty()) {
-        return $build;
+      if (!$this->eventEntity instanceof NodeInterface) {
+          return $build;
+      }
+      if (!$this->eventEntity->hasField($fieldname_in_reference)) {
+          return $build;
+      }
+      if ($this->eventEntity->get($fieldname_in_reference)->isEmpty()) {
+          return $build;
       }
       $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
         $this->eventEntity->getEntityTypeId(),

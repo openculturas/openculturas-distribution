@@ -108,6 +108,7 @@ function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggest
  * Implements hook_preprocess_HOOK() for paragraph.html.twig.
  */
 function openculturas_base_preprocess_paragraph(array &$variables): void {
+  $render_array = [];
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
   if ($paragraph->bundle() === 'address_data' && $paragraph->hasField('field_address_location') && !$paragraph->get('field_address_location')->isEmpty()) {

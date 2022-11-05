@@ -7,6 +7,7 @@ namespace Drupal\openculturas_calendar_widget\Controller;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Render\BareHtmlPageRendererInterface;
+use Drupal\Core\Render\HtmlResponse;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\Url;
@@ -14,7 +15,6 @@ use Drupal\views\Element\View;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use function array_key_exists;
 use function is_array;
 use function is_string;
@@ -28,7 +28,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
 
   protected BareHtmlPageRendererInterface $bareHtmlPageRenderer;
 
-  protected ?Request $request;
+  protected ?Request $request = null;
 
   protected RendererInterface $renderer;
 
@@ -55,7 +55,8 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
   /**
    * Builds the response.
    */
-  public function build(): Response {
+  public function build(): HtmlResponse {
+    $build = [];
     $config = $this->config('openculturas_calendar_widget.settings');
     $limit_access = $config->get('limit_access');
     $build['container'] = [
@@ -75,12 +76,12 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#type' => 'view',
       '#name' => 'related_date',
       '#display_id' => 'upcoming_dates',
-      '#pre_render' => [[View::class, 'preRenderViewElement'], [__CLASS__, 'preRenderViewElement']]
+      '#pre_render' => [[View::class, 'preRenderViewElement'], [self::class, 'preRenderViewElement']]
     ];
     $build['container']['link'] = [
       '#type' => 'more_link',
       '#title' => $this->t('More dates'),
-      '#url' => $this->request ? Url::fromUri($this->request->query->get('source_uri')) : Url::fromUri('<front>'),
+      '#url' => $this->request !== null ? Url::fromUri($this->request->query->get('source_uri')) : Url::fromUri('<front>'),
     ];
     $build['container']['footer'] = [
       '#type' => 'processed_text',

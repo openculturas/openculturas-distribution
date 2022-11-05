@@ -32,7 +32,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
     return $instance;
   }

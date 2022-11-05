@@ -24,10 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class AutocompleteFiltersController implements ContainerInjectionInterface {
 
-  /**
-   * @var \Psr\Log\LoggerInterface
-   */
-  protected $logger;
+  protected LoggerInterface $logger;
 
 
   /**
@@ -43,7 +40,7 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): self {
     return new static(
       $container->get('logger.factory')->get('views_autocomplete_filters')
     );
@@ -64,10 +61,13 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
     // Determine if the given user has access to the view. Note that
     // this sets the display handler if it hasn't been.
     $view = Views::getView($view_name);
-    if ($view && $view->access($view_display)) {
-      return AccessResult::allowed();
+    if (!$view instanceof ViewExecutable) {
+        return AccessResult::forbidden();
     }
-    return AccessResult::forbidden();
+    if (!$view->access($view_display)) {
+        return AccessResult::forbidden();
+    }
+    return AccessResult::allowed();
   }
     /**
    * Retrieves suggestions for taxonomy term autocompletion.
@@ -92,12 +92,12 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
    *   autocomplete suggestions for searched strings. Otherwise a normal response
    *   containing a failure message.
    */
-  public function autocomplete(Request $request, $view_name, $view_display, $filter_name, $view_args) {
+  public function autocomplete(Request $request, $view_name, $view_display, $filter_name, $view_args): JsonResponse {
     $matches = $field_names = [];
     $string = $request->query->get('q');
     // Get view and execute.
     $view = Views::getView($view_name);
-    if ($view === NULL) {
+    if (!$view instanceof ViewExecutable) {
       throw new NotFoundHttpException();
     }
     $view->setDisplay($view_display);
@@ -171,13 +171,13 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
     $use_raw_dropdown = FALSE;#!empty($expose_options['autocomplete_raw_dropdown']);
 
     $view->row_index = 0;
-    foreach ($view->result as $index => $row) {
+    foreach (array_keys($view->result) as $index) {
       $view->row_index = $index;
       /** @var \Drupal\views\Plugin\views\style\StylePluginBase $style_plugin */
       $style_plugin = $display_handler->getPlugin('style');
 
       foreach ($field_names as $field_name) {
-        $rendered_field = $raw_field = '';
+        $rendered_field = $raw_field = [];
         // Render field only if suggestion or dropdown item not in RAW format.
         if (!$use_raw_suggestion || !$use_raw_dropdown) {
           $rendered_field = $style_plugin->getField($index, $field_name);

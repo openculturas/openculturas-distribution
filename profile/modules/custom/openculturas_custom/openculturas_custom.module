@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 
 /**
  * @file
@@ -136,10 +137,8 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
   $filters = $view_style->displayHandler->getHandlers('filter');
 
   /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
-  $proximityFilters = array_filter($filters, function ($filter) {
-    return ($filter instanceof GeofieldProximityFilter);
-  });
-  if (is_countable($proximityFilters) && count($proximityFilters) > 0) {
+  $proximityFilters = array_filter($filters, fn($filter) => $filter instanceof GeofieldProximityFilter);
+  if (is_countable($proximityFilters) && $proximityFilters !== []) {
     $proximityFilter = reset($proximityFilters);
     try {
       $property = new ReflectionProperty($proximityFilter, 'sourcePlugin');
@@ -301,9 +300,8 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
   if ($entity->hasField('field_event_description') && !$entity->get('field_event_description')->isEmpty()) {
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
     $event_list = $entity->get('field_event_description');
-    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $event_item */
     $event_item = $event_list->first();
-    if ($event_item === NULL) {
+    if (!$event_item instanceof EntityReferenceItem) {
       return;
     }
     $event = $event_item->entity;
@@ -402,8 +400,11 @@ function _media_is_cc(MediaInterface $media): bool {
     /** @var \Drupal\Core\Field\FieldItemInterface $field_item */
     $field_item = $field->first();
     $value = $field_item->getValue();
-    if (isset($value['license']) || array_key_exists('license', $value)) {
-      return $value['license'] !== 'all_rights_reserved';
+    if (isset($value['license'])) {
+        return $value['license'] !== 'all_rights_reserved';
+    }
+    if (array_key_exists('license', $value)) {
+        return $value['license'] !== 'all_rights_reserved';
     }
   }
   return FALSE;
@@ -472,7 +473,7 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
       }
     }
     // If the field changes, also invalidate the original value
-    if (isset($node->original) && $node->original->hasField($field_name)) {
+    if ($node->original !== null && $node->original->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
       foreach ($refs as $ref) {
         $tags[] = 'node:' . $ref['target_id'];

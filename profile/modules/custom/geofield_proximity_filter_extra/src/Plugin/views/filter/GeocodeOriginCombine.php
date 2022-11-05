@@ -18,14 +18,14 @@ final class GeocodeOriginCombine extends Combine {
   /**
    * {@inheritdoc}
    */
-  public function canExpose() {
+  public function canExpose(): bool {
     return FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function query() {
+  public function query(): void {
     // Without a value, do not query.
     if (empty($this->value)) {
       return;

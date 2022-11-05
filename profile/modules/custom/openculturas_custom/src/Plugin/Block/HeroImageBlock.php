@@ -7,6 +7,7 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -21,16 +22,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
+  protected RendererInterface $renderer;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): HeroImageBlock {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     return $instance;
   }

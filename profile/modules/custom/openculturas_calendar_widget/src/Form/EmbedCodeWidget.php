@@ -42,7 +42,7 @@ final class EmbedCodeWidget extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, Url $url = NULL): array {
     $config = $this->configFactory()->getEditable('openculturas_calendar_widget.settings');
-    $iframe_src = $url ? $url->toString() : '';
+    $iframe_src = $url !== null ? $url->toString() : '';
     $form['container'] = [
       '#type' => 'details',
       '#title' => t('Embed code'),

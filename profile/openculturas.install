@@ -12,14 +12,12 @@ use Drupal\node\NodeInterface;
  * Implements hook_install_tasks().
  */
 function openculturas_install_tasks(): array {
-  $tasks = [
+  return [
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
       'type' => 'normal',
     ]
   ];
-
-  return $tasks;
 }
 
 /**
