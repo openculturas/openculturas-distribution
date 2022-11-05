@@ -7,12 +7,27 @@ declare(strict_types=1);
  * Primary module hooks for OpenCulturas Base module.
  */
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\flag\Entity\Flag;
+use Drupal\flag\FlaggingInterface;
+use Drupal\flag\FlagInterface;
+use Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter;
+use Drupal\leaflet_views\Plugin\views\style\LeafletMap;
+use Drupal\media\MediaInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
+use Drupal\openculturas_custom\Plugin\views\filter\Date;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
+use Drupal\user\UserInterface;
+use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -20,7 +35,7 @@ use Drupal\views\ViewExecutable;
  *
  * Adds a .content class to the CKEditor body so CSS from frontend will work.
  */
-function openculturas_custom_editor_js_settings_alter(array &$settings) {
+function openculturas_custom_editor_js_settings_alter(array &$settings): void {
   if (!empty($settings['editor']['formats'])) {
     foreach ($settings['editor']['formats'] as &$config) {
       if ($config['editor'] === 'ckeditor') {
@@ -33,7 +48,7 @@ function openculturas_custom_editor_js_settings_alter(array &$settings) {
 /**
  * Implements hook_theme().
  */
-function openculturas_custom_theme() {
+function openculturas_custom_theme(): array {
   return [
     'page_title_custom' => [
       'variables' => [
@@ -49,14 +64,14 @@ function openculturas_custom_theme() {
 /**
  * Implements hook_preprocess_HOOK() for leaflet-map.html.twig.
  */
-function openculturas_custom_preprocess_leaflet_map(&$variables) {
+function openculturas_custom_preprocess_leaflet_map(array &$variables): void {
   $variables['#attached']['library'][] = 'openculturas_custom/leaflet_extra';
 }
 
 /**
  * Implements hook_library_info_alter().
  */
-function openculturas_custom_library_info_alter(&$libraries, $extension) {
+function openculturas_custom_library_info_alter(array &$libraries, string $extension): void {
 
   if ($extension === 'leaflet_markercluster') {
     /** @var \Drupal\Core\Asset\LibrariesDirectoryFileFinder $library_file_finder */
@@ -117,16 +132,21 @@ function openculturas_custom_library_info_alter(&$libraries, $extension) {
 /**
  * Implements hook_leaflet_map_view_style_alter().
  */
-function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, \Drupal\leaflet_views\Plugin\views\style\LeafletMap $view_style) {
+function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, LeafletMap $view_style): void {
   $filters = $view_style->displayHandler->getHandlers('filter');
 
   /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
   $proximityFilters = array_filter($filters, function ($filter) {
-    return ($filter instanceof \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter);
+    return ($filter instanceof GeofieldProximityFilter);
   });
-  if (count($proximityFilters) > 0) {
+  if (is_countable($proximityFilters) && count($proximityFilters) > 0) {
     $proximityFilter = reset($proximityFilters);
-    $property = new ReflectionProperty($proximityFilter, 'sourcePlugin');
+    try {
+      $property = new ReflectionProperty($proximityFilter, 'sourcePlugin');
+    }
+    catch (\Exception $exception) {
+      return;
+    }
     $property->setAccessible(true);
     /** @var \Drupal\geofield\Plugin\GeofieldProximitySourceInterface $source_plugin */
     $source_plugin = $property->getValue($proximityFilter);
@@ -136,7 +156,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
       $origin_marker = $origin;
       $origin_marker['type'] = 'point';
       $origin_marker['label'] = t('Origin');
-      $origin_marker['popup'] = \Drupal\views\Render\ViewsRenderPipelineMarkup::create(t('Origin'));
+      $origin_marker['popup'] = ViewsRenderPipelineMarkup::create(t('Origin'));
       $origin_marker['icon'] = [
         'iconType' => 'circle_marker',
         'options' => '{"radius":9,"color":"#fff","fillColor":"#2A93EE","fillOpacity":1,"opacity":1}',
@@ -152,7 +172,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
-function openculturas_custom_flagging_insert(\Drupal\flag\FlaggingInterface $entity) {
+function openculturas_custom_flagging_insert(FlaggingInterface $entity): void {
   if ($entity->getFlagId() === 'recommendation_node') {
     /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
@@ -171,7 +191,7 @@ function openculturas_custom_flagging_insert(\Drupal\flag\FlaggingInterface $ent
 /**
  * Implements hook_ENTITY_TYPE_update().
  */
-function openculturas_custom_flagging_update(\Drupal\flag\FlaggingInterface $entity) {
+function openculturas_custom_flagging_update(FlaggingInterface $entity): void {
   if ($entity->getFlagId() === 'recommendation_node') {
     /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
@@ -183,10 +203,11 @@ function openculturas_custom_flagging_update(\Drupal\flag\FlaggingInterface $ent
 /**
  * Implements hook_ENTITY_TYPE_prepare_form().
  */
-function openculturas_custom_node_prepare_form(NodeInterface $node, $operation, FormStateInterface $form_state) {
+function openculturas_custom_node_prepare_form(NodeInterface $node): void {
 
-  $is_data_entity = $node->bundle() === 'date' && $node->isNew();
-  if ($is_data_entity && \Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('event_id')) {
+  $is_date_entity = $node->bundle() === 'date' && $node->isNew();
+  $request = \Drupal::request();
+  if ($is_date_entity && $request->query->has('event_id')) {
     $event_id = $request->get('event_id');
     if (empty($event_id)) {
       return;
@@ -204,15 +225,16 @@ function openculturas_custom_node_prepare_form(NodeInterface $node, $operation, 
     if ($source_data->isEmpty()) {
       return;
     }
-    foreach ($source_data as $index => $ref) {
-      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
-      $paragraph = clone $ref->entity;
-      $node->get('field_people_reference')->set($index, $paragraph);
+    $cloned_paragraphs = [];
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+    foreach ($source_data->referencedEntities() as $paragraph) {
+      $cloned_paragraphs[] = clone $paragraph;
     }
+    $node->set('field_people_reference', $cloned_paragraphs);
   }
-  $is_event_entity = $node->bundle() === 'event' && $node->isNew();
 
-  if ($is_event_entity && \Drupal::hasRequest() && ($request = \Drupal::request()) && $request->query->has('member_id')) {
+  $is_event_entity = $node->bundle() === 'event' && $node->isNew();
+  if ($is_event_entity && $request->query->has('member_id')) {
     $member_id = $request->get('member_id');
     if (empty($member_id)) {
       return;
@@ -224,17 +246,16 @@ function openculturas_custom_node_prepare_form(NodeInterface $node, $operation, 
     if ($profile->bundle() !== 'profile') {
       return;
     }
-    $p = Paragraph::create(['type' => 'member']);
-    $p->set('field_member', ['target_id' => $member_id]);
-    $node->set('field_people_reference', [$p]);
+    $paragraph = Paragraph::create(['type' => 'member']);
+    $paragraph->set('field_member', ['target_id' => $member_id]);
+    $node->set('field_people_reference', [$paragraph]);
   }
-
 }
 
 /**
  * Implements hook_local_tasks_alter().
  */
-function openculturas_custom_local_tasks_alter(&$local_tasks) {
+function openculturas_custom_local_tasks_alter(array &$local_tasks): void {
   if (isset($local_tasks['entity.user.canonical'])) {
     $local_tasks['entity.user.canonical']['title'] = t('My Content');
     $local_tasks['entity.user.canonical']['weight'] = -3;
@@ -248,22 +269,22 @@ function openculturas_custom_local_tasks_alter(&$local_tasks) {
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
-function openculturas_custom_node_view_alter(array &$build, NodeInterface $entity) {
+function openculturas_custom_node_view_alter(array &$build, NodeInterface $entity): void {
   if ($build['#view_mode'] === 'full' && isset($build['field_forfree'])) {
     // Not for free then there should be a price and hide this field output.
     $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
   }
   if ($entity->bundle() === 'date' && $build['#view_mode'] === 'full') {
+    $request = \Drupal::request();
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
-    if ((\Drupal::hasRequest() && $request = \Drupal::request()) && $request->query->has('date_delta') && $entity->hasField('field_date') && ($delta = $request->get('date_delta'))) {
+    if ($request->query->has('date_delta') && $entity->hasField('field_date') && ($delta = $request->get('date_delta'))) {
       $cloned_entity = clone $entity;
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
       $field = $cloned_entity->get('field_date');
-
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem $delta_item */
       $delta_item = $field->get($delta);
-      if ($delta_item instanceof \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem) {
+      if ($delta_item instanceof SmartDateItem) {
         $field->setValue(array_slice($field->getValue(), (int) $delta));
 
         $display_settings = \Drupal::service('entity_display.repository')->getViewDisplay(
@@ -271,12 +292,22 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
           'date',
           'full'
         )->getComponent('field_date');
-        $build['field_date'] = $field->view($display_settings);
+        if (is_array($display_settings)) {
+          $build['field_date'] = $field->view($display_settings);
+        }
       }
     }
   }
   if ($entity->hasField('field_event_description') && !$entity->get('field_event_description')->isEmpty()) {
-    $event = $entity->get('field_event_description')->first()->entity;
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
+    $event_list = $entity->get('field_event_description');
+    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $event_item */
+    $event_item = $event_list->first();
+    if ($event_item === NULL) {
+      return;
+    }
+    $event = $event_item->entity;
+    assert($event instanceof NodeInterface);
     $flag_bundles = ['bookmark_node', 'recommendation_node'];
     foreach ($flag_bundles as $flag_bundle) {
       $flag = Flag::load($flag_bundle);
@@ -299,18 +330,18 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
-function openculturas_custom_user_view_alter(array &$build, \Drupal\user\UserInterface $entity) {
+function openculturas_custom_user_view_alter(array &$build, UserInterface $user): void {
   if ($build['#view_mode'] === 'full') {
     // Used to clear cache of user page.
     // See openculturas_custom_node_presave()/openculturas_custom_flagging_insert().
-    $build['#cache']['tags'][] = 'entity_view_user_' . $entity->id() . '_full';
+    $build['#cache']['tags'][] = 'entity_view_user_' . $user->id() . '_full';
   }
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state) {
+function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state): void {
   /** @var \Drupal\node\NodeForm $node_form */
   $node_form = $form_state->getFormObject();
   /** @var \Drupal\node\NodeInterface $node */
@@ -331,7 +362,7 @@ function openculturas_custom_form_node_form_alter(array &$form, FormStateInterfa
  * @see openculturas_custom_form_node_form_alter
  * @see openculturas_custom_node_prepare_form
  */
-function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state) {
+function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state): void {
   /** @var \Drupal\node\NodeForm $node_form */
   $node_form = $form_state->getFormObject();
   /** @var \Drupal\node\NodeInterface $node */
@@ -342,7 +373,7 @@ function openculturas_custom_event_submit_handler(array &$form, FormStateInterfa
 /**
  * Implements hook_views_pre_render().
  */
-function openculturas_custom_views_pre_render(ViewExecutable $view) {
+function openculturas_custom_views_pre_render(ViewExecutable $view): void {
   // Only doing this for media library widget view.
   // Background: https://www.drupal.org/project/drupal/issues/3283692#comment-14544647
   if ($view->id() === 'media_library') {
@@ -353,7 +384,7 @@ function openculturas_custom_views_pre_render(ViewExecutable $view) {
     foreach ($view->result as $key => $row) {
       /** @var \Drupal\media\MediaInterface $entity */
       $entity = $row->_entity;
-      if ($entity->getOwnerId() == $current_user->id() || $entity->access('edit') || _media_is_cc($entity)) {
+      if ((int) $entity->getOwnerId() === $current_user->id() || $entity->access('edit') || _media_is_cc($entity)) {
         $result[$key] = $row;
       }
     }
@@ -363,15 +394,14 @@ function openculturas_custom_views_pre_render(ViewExecutable $view) {
 
 /**
  * Helper function to check the licenses for Creative-Commons.
- *
- * @param \Drupal\media\MediaInterface $media
- *
- * @return bool
- * @throws \Drupal\Core\TypedData\Exception\MissingDataException
  */
-function _media_is_cc(\Drupal\media\MediaInterface $media) {
+function _media_is_cc(MediaInterface $media): bool {
   if ($media->hasField('field_licenses') && !$media->get('field_licenses')->isEmpty()) {
-    $value = $media->get('field_licenses')->first()->getValue();
+    /** @var \Drupal\Core\Field\FieldItemListInterface $field */
+    $field = $media->get('field_licenses');
+    /** @var \Drupal\Core\Field\FieldItemInterface $field_item */
+    $field_item = $field->first();
+    $value = $field_item->getValue();
     if (isset($value['license']) || array_key_exists('license', $value)) {
       return $value['license'] !== 'all_rights_reserved';
     }
@@ -382,26 +412,26 @@ function _media_is_cc(\Drupal\media\MediaInterface $media) {
 /**
  * Implements hook_flag_action_access().
  */
-function openculturas_custom_flag_action_access(string $action, \Drupal\flag\FlagInterface $flag, \Drupal\Core\Session\AccountInterface $account, \Drupal\Core\Entity\EntityInterface $flaggable = NULL) {
+function openculturas_custom_flag_action_access(string $action, FlagInterface $flag, AccountInterface $account, EntityInterface $flaggable = NULL): AccessResultInterface {
   if ($account->isAnonymous()) {
-    return \Drupal\Core\Access\AccessResult::neutral();
+    return AccessResult::neutral();
   }
-  /** @var NodeInterface $entity */
+  /** @var \Drupal\node\NodeInterface $entity */
   $entity = $flaggable;
   if ($flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')->isEmpty()) {
     $allowed = (bool) $entity->get('field_allow_claiming')->value;
     if (!$allowed) {
-      return \Drupal\Core\Access\AccessResult::forbidden();
+      return AccessResult::forbidden();
     }
   }
 
-  return \Drupal\Core\Access\AccessResult::neutral();
+  return AccessResult::neutral();
 }
 
 /**
  * Implements hook_locale_translation_projects_alter().
  */
-function openculturas_custom_locale_translation_projects_alter(&$projects) {
+function openculturas_custom_locale_translation_projects_alter(array &$projects): void {
   /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
   $module_handler = \Drupal::service('module_handler');
   $projects['openculturas_custom'] = [
@@ -415,22 +445,25 @@ function openculturas_custom_locale_translation_projects_alter(&$projects) {
 /**
  * Implements hook_ENTITY_TYPE_presave().
  */
-function openculturas_custom_node_presave(NodeInterface $node) {
+function openculturas_custom_node_presave(NodeInterface $node): void {
   $owner_id = $node->getOwner()->id();
   $tags = ['entity_view_user_' . $owner_id . '_full'];
 
-  $node_reference_fields = ['field_location', 'field_references'];
-
   if ($node->hasField('field_event_series') && $node->hasField('field_parent_date')) {
-    if ($node->get('field_event_series')->isEmpty() || $node->get('field_event_series')->first()->getString() === 'no') {
-      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
-      $list = $node->get('field_parent_date');
-      if (!$list->isEmpty()) {
-        $list->setValue([]);
+    /** @var \Drupal\Core\Field\FieldItemListInterface $field */
+    $field = $node->get('field_event_series');
+    /** @var \Drupal\Core\Field\FieldItemInterface $field_item */
+    $field_item = $field->first();
+    if ($field->isEmpty() || $field_item->getString() === 'no') {
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+      $field = $node->get('field_parent_date');
+      if (!$field->isEmpty()) {
+        $field->setValue([]);
       }
     }
   }
 
+  $node_reference_fields = ['field_location', 'field_references'];
   foreach ($node_reference_fields as $field_name) {
     if ($node->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
@@ -448,14 +481,14 @@ function openculturas_custom_node_presave(NodeInterface $node) {
   }
 
   if ($tags !== []) {
-    \Drupal\Core\Cache\Cache::invalidateTags(array_unique($tags));
+    Cache::invalidateTags(array_unique($tags));
   }
 }
 
 /**
  * Implements hook_module_implements_alter().
  */
-function openculturas_custom_module_implements_alter(&$implementations, $hook) {
+function openculturas_custom_module_implements_alter(array &$implementations, string $hook): void {
   if ($hook === 'views_plugins_filter_alter') {
     $group = $implementations['openculturas_custom'];
     unset($implementations['openculturas_custom']);
@@ -466,15 +499,15 @@ function openculturas_custom_module_implements_alter(&$implementations, $hook) {
 /**
  * Implements hook_views_plugins_filter_alter().
  */
-function openculturas_custom_views_plugins_filter_alter(array &$plugins) {
-  $plugins['date']['class'] = \Drupal\openculturas_custom\Plugin\views\filter\Date::class;
+function openculturas_custom_views_plugins_filter_alter(array &$plugins): void {
+  $plugins['date']['class'] = Date::class;
   $plugins['date']['provider'] = 'openculturas_custom';
 }
 
 /**
  * Implements hook_date_augmenter_plugin_info_alter(().
  */
-function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins) {
-  $plugins['addtocal']['class'] = \Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal::class;
+function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins): void {
+  $plugins['addtocal']['class'] = AddToCal::class;
   $plugins['addtocal']['provider'] = 'openculturas_custom';
 }

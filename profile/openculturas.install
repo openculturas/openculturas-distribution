@@ -11,7 +11,7 @@ use Drupal\node\NodeInterface;
 /**
  * Implements hook_install_tasks().
  */
-function openculturas_install_tasks() {
+function openculturas_install_tasks(): array {
   $tasks = [
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
@@ -27,7 +27,7 @@ function openculturas_install_tasks() {
  *
  * @see openculturas_install_tasks()
  */
-function openculturas_install_content() {
+function openculturas_install_content(): void {
   $configFactory = \Drupal::configFactory();
 
   /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */

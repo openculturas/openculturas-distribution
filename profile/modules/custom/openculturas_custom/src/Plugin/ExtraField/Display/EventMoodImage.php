@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\node\NodeInterface;
+use function is_array;
 
 /**
  * field_mood_image via field_event_description reference
@@ -24,16 +26,27 @@ final class EventMoodImage extends ExtraFieldBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $entity) {
-    $this->setFieldname('field_mood_image');
-    $this->setReferenceField('field_event_description');
-
+  public function viewElements(ContentEntityInterface $entity): array {
     $build = parent::viewElements($entity);
-    if ($build !== []) {
-      $renderArray = $this->eventEntity->get('field_mood_image')->view($this->referenceViewFormatterSettings);
+    if ($build !== [] && $this->eventEntity instanceof NodeInterface && is_array($this->referenceViewFormatterSettings)) {
+      $renderArray = $this->eventEntity->get($this->getFieldNameInEntityReference())->view($this->referenceViewFormatterSettings);
       $build['#markup'] = $this->renderer->render($renderArray);
     }
 
     return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInheritEntityReferenceFieldName(): string {
+    return 'field_event_description';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldNameInEntityReference(): string {
+    return 'field_mood_image';
   }
 }

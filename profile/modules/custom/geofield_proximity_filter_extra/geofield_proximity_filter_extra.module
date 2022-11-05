@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Implements hook_views_data_alter().
  */
-function geofield_proximity_filter_extra_views_data_alter(array &$data) {
+function geofield_proximity_filter_extra_views_data_alter(array &$data): void {
   $data['views']['geofield_proximity_filter_extra_combine'] = [
     'title' => t('Geofield proximity_filter'),
     'help' => t('Combine multiple fields together and search by them.'),

@@ -12,7 +12,7 @@ use Drupal\Core\Template\AttributeHelper;
 /**
  * Implements hook_theme().
  */
-function swiffy_slider_theme($existing, $type, $theme, $path): array {
+function swiffy_slider_theme(): array {
   return [
     'field__swiffy_slider_entity_reference' => [
        'base hook' => 'field',
@@ -35,7 +35,7 @@ function swiffy_slider_theme_suggestions_field(array $variables): array {
 /**
  * Implements hook_preprocess_HOOK() for field.html.twig.
  */
-function swiffy_slider_preprocess_field(&$variables): void {
+function swiffy_slider_preprocess_field(array &$variables): void {
   $element = $variables['element'];
   if ($element['#formatter'] === 'swiffy_slider_entity_reference') {
     $variables['swiffy_slider_attributes'] = (new \Drupal\Core\Template\Attribute())->addClass('swiffy-slider');

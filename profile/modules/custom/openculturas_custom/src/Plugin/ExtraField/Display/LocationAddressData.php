@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\node\NodeInterface;
+use function is_array;
 
 /**
  * field_address_data from field_location reference.
@@ -24,15 +26,26 @@ final class LocationAddressData extends ExtraFieldBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $entity) {
-    $this->setFieldname('field_address_data');
-    $this->setReferenceField('field_location');
+  public function viewElements(ContentEntityInterface $entity): array {
     $build = parent::viewElements($entity);
-    if ($build !== []) {
-      $renderArray = $this->eventEntity->get('field_address_data')->view($this->referenceViewFormatterSettings);
+    if ($build !== [] && $this->eventEntity instanceof NodeInterface && is_array($this->referenceViewFormatterSettings)) {
+      $renderArray = $this->eventEntity->get($this->getFieldNameInEntityReference())->view($this->referenceViewFormatterSettings);
       $build['#markup'] = $this->renderer->render($renderArray);
     }
     return $build;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getInheritEntityReferenceFieldName(): string {
+    return 'field_location';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldNameInEntityReference(): string {
+    return 'field_address_data';
+  }
 }

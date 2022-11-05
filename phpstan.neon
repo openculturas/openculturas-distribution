@@ -1,0 +1,44 @@
+includes:
+    -  phpstan-baseline.neon
+parameters:
+  level: 8
+  scanDirectories:
+    - web/
+    - tests/
+  paths:
+    - profile/
+  checkMissingIterableValueType: false
+  checkGenericClassInNonGenericObjectType: false
+  phpVersion: 74000
+  ignoreErrors:
+    - "#^Method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:getForm\\(\\) invoked with 2 parameters, 1 required\\.$#"
+  excludePaths:
+    - '*/node_modules/*'
+    - 'profile/modules/custom/geofield_proximity_filter_extra/**'
+    - profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php
+  drupal:
+    entityMapping:
+      node:
+        class: Drupal\node\Entity\Node
+        storage: Drupal\node\NodeStorage
+      taxonomy_term:
+        class: Drupal\taxonomy\Entity\Term
+        storage: Drupal\taxonomy\TermStorage
+      user:
+        class: Drupal\user\Entity\User
+        storage: Drupal\user\UserStorage
+      menu_link_content:
+        class: Drupal\menu_link_content\Entity\MenuLinkContent
+        storage: Drupal\menu_link_content\MenuLinkContentStorage
+      file:
+        class: Drupal\file\Entity\File
+        storage: Drupal\file\FileStorage
+      media:
+        class: Drupal\media\Entity\Media
+        storage: Drupal\media\MediaStorage
+      path_alias:
+        class: Drupal\path_alias\Entity\PathAlias
+        storage: Drupal\path_alias\PathAliasStorage
+      flag:
+        class: Drupal\flag\Entity\Flag
+        storage: Drupal\flag\Entity\Storage\FlaggingStorage

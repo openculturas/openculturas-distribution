@@ -6,8 +6,8 @@ namespace Drupal\openculturas_custom\Plugin\views\filter;
 use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Database\Query\Condition;
 use Drupal\smart_date\Plugin\views\filter\Date as SmartDateDate;
+use function is_array;
 use function str_replace;
-use function substr;
 
 /**
  *
@@ -20,7 +20,7 @@ class Date extends SmartDateDate {
   /**
    * {@inheritdoc}
    */
-  public function operators() {
+  public function operators(): array {
     $operators = parent::operators();
     $operators['starts_on_after'] = [
       'title' => $this->t('Starts on or after'),
@@ -40,7 +40,7 @@ class Date extends SmartDateDate {
   /**
    * Adding starts/ends on or after filter to the query.
    */
-  protected function startsOrEndOnOrAfter(string $field) {
+  protected function startsOrEndOnOrAfter(string $field): void {
     $timezone = $this->getTimezone();
     $granularity = $this->options['value']['granularity'];
 
@@ -83,10 +83,10 @@ class Date extends SmartDateDate {
     $start_field = str_replace('_end_value', '_value', $field);
     $end_field = str_replace('_value', '_end_value', $start_field);
     $operator = $field === $end_field ? '<=' : '>=';
-    if ($operator === '>=') {
+    if (isset($min) && is_array($min) && $operator === '>=') {
       $value = $value::createFromArray($min, $timezone);
     }
-    elseif ($operator === '<=') {
+    elseif (isset($max) && is_array($max) && $operator === '<=') {
       $value = $value::createFromArray($max, $timezone);
     }
 

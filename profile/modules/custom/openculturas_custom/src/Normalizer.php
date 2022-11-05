@@ -7,16 +7,14 @@ namespace Drupal\openculturas_custom;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\default_content\Normalizer\ContentEntityNormalizer;
 use Drupal\default_content\Normalizer\ContentEntityNormalizerInterface;
+use function is_callable;
 
 /**
  * Disables pathauto on exported/imported path aliases.
  */
 class Normalizer implements ContentEntityNormalizerInterface {
 
-  /**
-   * @var \Drupal\default_content\Normalizer\ContentEntityNormalizer
-   */
-  private $inner;
+  private ContentEntityNormalizer $inner;
 
   public function __construct(ContentEntityNormalizer $entityNormalizer) {
     $this->inner = $entityNormalizer;
@@ -24,7 +22,7 @@ class Normalizer implements ContentEntityNormalizerInterface {
 
   public function normalize(ContentEntityInterface $entity) {
     $data = $this->inner->normalize($entity);
-    $path = $entity->path;
+    $path = $entity->path ?? NULL;
     if(!$entity->isNew() && $path) {
       foreach($path as $item) {
         if(!$item->pathauto && $item->pid) {
@@ -42,7 +40,16 @@ class Normalizer implements ContentEntityNormalizerInterface {
     return $this->inner->denormalize($data);
   }
 
+  /**
+   * @param string $method
+   * @param mixed $args
+   *
+   * @return mixed
+   */
   public function __call($method, $args) {
-    return call_user_func_array([$this->inner, $method], $args);
+    if (is_callable([$this->inner, $method])) {
+      return ($this->inner->{$method})(...$args);
+    }
+    return NULL;
   }
 }

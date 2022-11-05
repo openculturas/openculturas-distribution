@@ -36,7 +36,7 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
+  public static function defaultSettings(): array {
     $settings = parent::defaultSettings();
     unset($settings['link']);
     $settings['swiffy_slider_permalink'] = '';
@@ -46,7 +46,7 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements = parent::settingsForm($form, $form_state);
     $elements['swiffy_slider_permalink'] = [
       '#type' => 'url',
@@ -60,22 +60,23 @@ class SwiffySliderEntityReferenceFormatter extends EntityReferenceEntityFormatte
 
   /**
    * {@inheritdoc}
+   * @return string[]
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = parent::settingsSummary();
     $suffix = $this->t('Default');
     if ($this->getSetting('swiffy_slider_permalink') !== '') {
       $uri = Url::fromUri($this->getSetting('swiffy_slider_permalink'));
       $suffix = Link::fromTextAndUrl($this->t('Perma link'), $uri)->toString();
     }
-    $summary[] = Markup::create(sprintf('%s: %s', $this->t('Swiffy slider'), $suffix));
+    $summary[] = (string) Markup::create(sprintf('%s: %s', $this->t('Swiffy slider'), $suffix));
     return $summary;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function view(FieldItemListInterface $items, $langcode = NULL) {
+  public function view(FieldItemListInterface $items, $langcode = NULL): array {
     $elements = parent::view($items, $langcode);
     if ($items->isEmpty()) {
       return $elements;

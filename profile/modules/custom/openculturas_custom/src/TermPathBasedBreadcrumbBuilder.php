@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom;
 
+use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\system\PathBasedBreadcrumbBuilder;
 use Drupal\taxonomy\TermBreadcrumbBuilder;
@@ -13,12 +14,9 @@ use Drupal\taxonomy\TermBreadcrumbBuilder;
  */
 class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
 
-  /**
-   * @var \Drupal\taxonomy\TermBreadcrumbBuilder
-   */
-  protected $breadcrumbBuilder;
+  protected TermBreadcrumbBuilder $breadcrumbBuilder;
 
-  public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $breadcrumbBuilder ) {
+  public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $breadcrumbBuilder): void {
     $this->breadcrumbBuilder = $breadcrumbBuilder;
   }
 
@@ -32,7 +30,7 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
   /**
    * {@inheritdoc}
    */
-  public function build(RouteMatchInterface $route_match) {
+  public function build(RouteMatchInterface $route_match): Breadcrumb {
     $breadcrumb_by_path = parent::build($route_match);
     $breadcrumb_by_term = $this->breadcrumbBuilder->build($route_match);
 

@@ -6,12 +6,15 @@
  */
 
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
+use Drupal\Core\Url;
+use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
  */
-function openculturas_base_preprocess_html(&$variables) {
+function openculturas_base_preprocess_html(array &$variables): void {
   // Set entity type for adding a class to the body.
   foreach (\Drupal::routeMatch()->getParameters()->all() as $parameter) {
     if ($parameter instanceof FieldableEntityInterface) {
@@ -24,7 +27,7 @@ function openculturas_base_preprocess_html(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
-function openculturas_base_preprocess_node(array &$variables) {
+function openculturas_base_preprocess_node(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
@@ -77,7 +80,7 @@ function openculturas_base_preprocess_node(array &$variables) {
  *
  * Adds a class depending on referenced entity to links of entity_reference fields.
  */
-function openculturas_base_preprocess_field(array &$variables) {
+function openculturas_base_preprocess_field(array &$variables): void {
   if ($variables['field_type'] === 'entity_reference') {
     foreach ($variables["items"] as $item) {
       if (isset($item['content']['#options']['entity_type']) && isset($item['content']['#options']['entity'])) {
@@ -91,7 +94,7 @@ function openculturas_base_preprocess_field(array &$variables) {
 /**
  * Implements hook_theme_suggestions_taxonomy_term_alter().
  */
-function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables) {
+function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables): void {
   /** @var \Drupal\taxonomy\TermInterface $term */
   $term = $variables['elements']['#taxonomy_term'];
   $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
@@ -104,31 +107,38 @@ function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggest
 /*
  * Implements hook_preprocess_HOOK() for paragraph.html.twig.
  */
-function openculturas_base_preprocess_paragraph(&$variables) {
+function openculturas_base_preprocess_paragraph(array &$variables): void {
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
   if ($paragraph->bundle() === 'address_data' && $paragraph->hasField('field_address_location') && !$paragraph->get('field_address_location')->isEmpty()) {
-    $render_array['wrapper'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'address-navigation',
+    $item = $paragraph->get('field_address_location')->first();
+    assert($item instanceof GeofieldItem);
+    $values = $item->getValue();
+    $variables['address_links'] = NULL;
+    if (is_array($values) && isset($values['latlon'])) {
+      $render_array['wrapper'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => [
+            'address-navigation',
+          ],
         ],
-      ],
-    ];
-    $values = $paragraph->get('field_address_location')->first()->getValue();
-    $render_array['wrapper']['link'] = [
-      '#type' => 'link',
-      '#title' => t('Navigation'),
-      '#url' => \Drupal\Core\Url::fromUri(sprintf('geo:%s', $values['latlon'])),
-    ];
-    $variables['address_links'] = $render_array;
+      ];
+      $render_array['wrapper']['link'] = [
+        '#type' => 'link',
+        '#title' => t('Navigation'),
+        '#url' => Url::fromUri(sprintf('geo:%s', $values['latlon'])),
+      ];
+      $variables['address_links'] = $render_array;
+    }
   }
   if ($paragraph->bundle() === 'member' && $paragraph->hasField('field_member') && !$paragraph->get('field_member')->isEmpty()) {
     /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $entityReferenceItem */
     $entityReferenceItem = $paragraph->get('field_member')->first();
+    assert($entityReferenceItem instanceof EntityReferenceItem);
     /** @var \Drupal\node\NodeInterface $node */
     $node = $entityReferenceItem->entity;
+    assert($node instanceof NodeInterface);
     $variables['member_is_published'] = $node->isPublished();
     $variables['user_has_edit_access'] = $node->access('edit');
   }

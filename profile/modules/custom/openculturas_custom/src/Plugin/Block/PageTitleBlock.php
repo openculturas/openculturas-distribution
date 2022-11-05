@@ -8,6 +8,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function rtrim;
@@ -21,12 +22,9 @@ use function rtrim;
  *   category = @Translation("Openculturas")
  * )
  */
-class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,ContainerFactoryPluginInterface {
+final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,ContainerFactoryPluginInterface {
 
-  /**
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
+  protected RendererInterface $renderer;
 
   /**
    * The page title: a string (plain title) or a render array (formatted title).
@@ -38,7 +36,7 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): PageTitleBlock {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     return $instance;
@@ -48,7 +46,7 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
   /**
    * {@inheritdoc}
    */
-  public function setTitle($title) {
+  public function setTitle($title): PageTitleBlock {
     $this->title = $title;
     return $this;
   }
@@ -56,14 +54,14 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return ['label_display' => FALSE];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     $page_entity = CurrentEntityHelper::get_current_page_entity();
     $current_entity = CurrentEntityHelper::getEventReference($page_entity);
     $subtitle = NULL;
@@ -107,7 +105,7 @@ class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface,Cont
   /**
    * {@inheritdoc}
    */
-  public function getCacheContexts() {
+  public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), [
       'route'
     ]);

@@ -15,7 +15,7 @@ class RouteSubscriber extends RouteSubscriberBase {
   /**
    * {@inheritdoc}
    */
-  protected function alterRoutes(RouteCollection $collection) {
+  protected function alterRoutes(RouteCollection $collection): void {
     // Display account edit in frontend theme.
     if ($route = $collection->get('entity.user.edit_form')) {
       $route->setOption('_admin_route', FALSE);
@@ -28,7 +28,6 @@ class RouteSubscriber extends RouteSubscriberBase {
     if ($route = $collection->get('user.register')) {
       $route->setRequirement('_user_is_logged_in', 'FALSE');
     }
-
   }
 
 }

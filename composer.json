@@ -197,7 +197,7 @@
         "cweagans/composer-patches": "^1.7.2",
         "drupal/config_inspector": "^2.1.0",
         "drupal/core-composer-scaffold": "^9.4.8",
-        "drupal/core-dev-pinned": "^9.4.8",
+        "drupal/core-dev": "^9.4.8",
         "drupal/core-recommended": "^9.4.8",
         "drupal/devel": "^5.0",
         "drupal/stage_file_proxy": "^1.2",
@@ -205,6 +205,8 @@
         "drush/drush": "^11.3.2",
         "oomphinc/composer-installers-extender": "^2.0.1",
         "openculturas/openculturas-profile": "*",
+        "palantirnet/drupal-rector": "^0.13.1",
+        "phpstan/extension-installer": "^1.2",
         "weitzman/drupal-test-traits": "^1.6"
     },
     "autoload-dev": {
@@ -226,7 +228,8 @@
             "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
             "oomphinc/composer-installers-extender": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         },
         "platform": {
             "php": "7.4.21"
@@ -246,7 +249,10 @@
         "si": [
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush site:install --yes"
-        ]
+        ],
+        "php:phpstan": "phpstan",
+        "php:rc-dry": "rector process --dry-run",
+        "php:rc": "rector process"
     },
     "extra": {
         "drupal-scaffold": {

@@ -22,7 +22,7 @@ class BookmarkFlagIconBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): ?array {
     $build = [];
     $current_entity = CurrentEntityHelper::get_current_page_entity();
     if ($current_entity instanceof FieldableEntityInterface

@@ -5,72 +5,32 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function reset;
 
-abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface {
+abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface, InheritFieldInterface {
 
-  /**
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
+  protected RendererInterface $renderer;
 
-  /**
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
-  /**
-   * @var \Drupal\Core\Entity\EntityDisplayRepository
-   */
-  protected $entityDisplayRepository;
+  protected EntityDisplayRepositoryInterface $entityDisplayRepository;
 
-  /**
-   * @var \Drupal\Core\Entity\ContentEntityInterface|null
-   */
-  protected $eventEntity;
+  protected ?EntityInterface $eventEntity;
 
-  /**
-   * @var array
-   */
-  protected $referenceViewFormatterSettings;
-
-  /**
-   * @var string
-   */
-  private $fieldname;
-
-  /**
-   * @var string
-   */
-  private $referenceField;
-
-  /**
-   * @param string $fieldname
-   */
-  public function setFieldname(string $fieldname): void {
-    $this->fieldname = $fieldname;
-  }
-
-  /**
-   * @param string $referenceField
-   */
-  public function setReferenceField(string $referenceField): void {
-    $this->referenceField = $referenceField;
-  }
+  protected ?array $referenceViewFormatterSettings;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(
-    ContainerInterface $container,
-    array $configuration,
-    $plugin_id,
-    $plugin_definition
-  ) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -81,14 +41,13 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $entity) {
+  public function viewElements(ContentEntityInterface $entity): array {
     $build = [];
-    if ($this->fieldname === NULL || $this->referenceField === NULL) {
-      return $build;
-    }
-    if ($entity->hasField($this->referenceField) && !$entity->get($this->referenceField)->isEmpty()) {
+    $reference_field = $this->getInheritEntityReferenceFieldName();
+    $fieldname_in_reference = $this->getFieldNameInEntityReference();
+    if ($entity->hasField($reference_field) && !$entity->get($reference_field)->isEmpty()) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
-      $list = $entity->get($this->referenceField);
+      $list = $entity->get($reference_field);
       if ($list->isEmpty()) {
         return $build;
       }
@@ -97,14 +56,14 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
         return $build;
       }
       $this->eventEntity = reset($events);
-      if (!$this->eventEntity instanceof NodeInterface || !$this->eventEntity->hasField($this->fieldname) || $this->eventEntity->get($this->fieldname)->isEmpty()) {
+      if (!$this->eventEntity instanceof NodeInterface || !$this->eventEntity->hasField($fieldname_in_reference) || $this->eventEntity->get($fieldname_in_reference)->isEmpty()) {
         return $build;
       }
       $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
         $this->eventEntity->getEntityTypeId(),
         $this->eventEntity->bundle(),
         $this->viewMode
-      )->getComponent($this->fieldname);
+      )->getComponent($fieldname_in_reference);
       $this->renderer->addCacheableDependency($build, $this->eventEntity);
     }
 

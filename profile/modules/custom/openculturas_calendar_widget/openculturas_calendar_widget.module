@@ -9,7 +9,7 @@ use Drupal\views\ViewExecutable;
 /**
  * Implements hook_views_pre_view().
  */
-function openculturas_calendar_widget_views_pre_view(ViewExecutable $view) {
+function openculturas_calendar_widget_views_pre_view(ViewExecutable $view): void {
   $routeMatch = \Drupal::routeMatch();
   if ($routeMatch->getRouteName() !== 'openculturas_calendar_widget.embed') {
     return;
@@ -29,7 +29,7 @@ function openculturas_calendar_widget_views_pre_view(ViewExecutable $view) {
 /**
  * Implements hook_views_post_build().
  */
-function openculturas_calendar_widget_views_post_build(ViewExecutable $view) {
+function openculturas_calendar_widget_views_post_build(ViewExecutable $view): void {
   $routeMatch = \Drupal::routeMatch();
   if ($routeMatch->getRouteName() === 'openculturas_calendar_widget.embed') {
     return;

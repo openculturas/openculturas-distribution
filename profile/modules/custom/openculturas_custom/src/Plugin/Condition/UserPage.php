@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Condition;
 
+use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,12 +21,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-final class UserPage extends \Drupal\Core\Condition\ConditionPluginBase implements ContainerFactoryPluginInterface {
+final class UserPage extends ConditionPluginBase implements ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\Core\Routing\RouteMatchInterface
    */
-  protected $routeMatch;
+  protected RouteMatchInterface $routeMatch;
 
   /**
    * {@inheritdoc}
@@ -38,14 +40,17 @@ final class UserPage extends \Drupal\Core\Condition\ConditionPluginBase implemen
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
-    return ['enabled' => FALSE, 'only_for_owner' => TRUE] + parent::defaultConfiguration();
+  public function defaultConfiguration(): array {
+    return [
+      'enabled' => FALSE,
+      'only_for_owner' => TRUE
+    ] + parent::defaultConfiguration();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form['enabled'] = [
       '#title' => $this->t('Enable condition'),
       '#type' => 'checkbox',
@@ -62,7 +67,7 @@ final class UserPage extends \Drupal\Core\Condition\ConditionPluginBase implemen
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     $this->configuration['enabled'] = (bool) $form_state->getValue('enabled');
     $this->configuration['only_for_owner'] = (bool) $form_state->getValue('only_for_owner');
     parent::submitConfigurationForm($form, $form_state);
@@ -97,23 +102,21 @@ final class UserPage extends \Drupal\Core\Condition\ConditionPluginBase implemen
   /**
    * {@inheritdoc}
    */
-  public function summary() {
+  public function summary(): string {
     if (empty($this->configuration['enabled'])) {
-      return $this->t('Not enabled');
+      return (string) $this->t('Not enabled');
     }
 
     if (!$this->isNegated()) {
-      return $this
-        ->t('Do not return true on user page');
+      return (string) $this->t('Do not return true on user page');
     }
-    return $this
-      ->t('Return true on user page');
+    return (string) $this->t('Return true on user page');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getCacheContexts() {
+  public function getCacheContexts(): array {
     $contexts = parent::getCacheContexts();
     if (empty($this->configuration['enabled'])) {
       return $contexts;

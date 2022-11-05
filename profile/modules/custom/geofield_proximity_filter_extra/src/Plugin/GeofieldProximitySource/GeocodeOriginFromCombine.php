@@ -7,6 +7,8 @@ namespace Drupal\geofield_proximity_filter_extra\Plugin\GeofieldProximitySource;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geocoder\Plugin\GeofieldProximitySource\GeocodeOrigin;
+use Drupal\geofield_proximity_filter_extra\Plugin\views\filter\GeocodeOriginCombine;
+use Drupal\views\Plugin\views\filter\FilterPluginBase;
 use function array_filter;
 use function array_key_exists;
 use function array_keys;
@@ -31,7 +33,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
   /**
    * {@inheritdoc}
    */
-  public function buildOptionsForm(array &$form, FormStateInterface $form_state, array $options_parents, $is_exposed = FALSE) {
+  public function buildOptionsForm(array &$form, FormStateInterface $form_state, array $options_parents, $is_exposed = FALSE): void {
     parent::buildOptionsForm($form, $form_state, $options_parents, $is_exposed);
 
     if (!$is_exposed) {
@@ -39,8 +41,9 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
       $form['settings']['#access'] = FALSE;
       $form['use_autocomplete']['#access'] = FALSE;
 
-      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), function(\Drupal\views\Plugin\views\filter\FilterPluginBase $filter) {
-        return $filter instanceof \Drupal\geofield_proximity_filter_extra\Plugin\views\filter\GeocodeOriginCombine;
+      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), function(
+        FilterPluginBase $filter) {
+        return $filter instanceof GeocodeOriginCombine;
       });
       $filter_options = [];
       foreach ($filters as $id => $filter) {
@@ -82,11 +85,10 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
           '#after_build' => [[$this, 'findMyLocationAfterBuild']],
         ];
       }
-
     }
   }
 
-  public function findMyLocationAfterBuild(array $element, FormStateInterface $form_state) {
+  public function findMyLocationAfterBuild(array $element, FormStateInterface $form_state): array {
     $form = $form_state->getCompleteForm();
     array_pop($element['#array_parents']);
     $key_exists = NULL;

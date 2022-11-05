@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\node\NodeInterface;
+use function assert;
 
 /**
  * Helper class for getting the current entity regardless of entity type.
  */
-class CurrentEntityHelper {
+final class CurrentEntityHelper {
 
   /**
    * Gets current page entity regardless of entity type.
-   *
-   * @return \Drupal\Core\Entity\ContentEntityInterface|null
    */
-  public static function get_current_page_entity() {
+  public static function get_current_page_entity(): ?ContentEntityInterface {
     $page_entity = &drupal_static(__FUNCTION__);
     if (!empty($page_entity)) {
       return $page_entity;
@@ -35,7 +35,6 @@ class CurrentEntityHelper {
   /**
    * The date bundle takes the values from the referenced event bundle entity.
    *
-   *
    * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
    *
    * @see \Drupal\openculturas_custom\Plugin\Block\HeroImageBlock::build()
@@ -45,12 +44,27 @@ class CurrentEntityHelper {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public static function getEventReference(?ContentEntityInterface $entity): ?ContentEntityInterface {
-    if ($entity !== NULL && $entity->bundle() === 'date'
-      && $entity->hasField('field_event_description')
-      && !$entity->get('field_event_description')->isEmpty()) {
-      return $entity->get('field_event_description')->first()->entity;
+    if ($entity === NULL) {
+      return $entity;
     }
-    return $entity;
+    if ($entity->bundle() !== 'date') {
+      return $entity;
+    }
+    if (!$entity->hasField('field_event_description')) {
+      return $entity;
+    }
+    if ($entity->get('field_event_description')->isEmpty()) {
+      return $entity;
+    }
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
+    $event_list = $entity->get('field_event_description');
+    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $event_item */
+    $event_item = $event_list->first();
+    if ($event_item === NULL) {
+      return $entity;
+    }
+    assert($event_item->entity instanceof NodeInterface);
+    return $event_item->entity ?? NULL;
   }
 
 }

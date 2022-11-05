@@ -12,12 +12,12 @@ use Drupal\Core\Block\BlockBase;
  *   admin_label = @Translation("Powered by")
  * )
  */
-class PoweredByOpenCulturasBlock extends BlockBase {
+final class PoweredByOpenCulturasBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     return ['#markup' => '<span>' . $this->t('<a href=":poweredby_oc">OpenCulturas</a> based on <a href=":poweredby">Drupal</a>', [':poweredby_oc' => 'https://www.openculturas.org', ':poweredby' => 'https://www.drupal.org']) . '</span>'];
   }
 

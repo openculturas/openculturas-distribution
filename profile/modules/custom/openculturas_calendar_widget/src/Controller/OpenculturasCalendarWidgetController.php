@@ -14,14 +14,17 @@ use Drupal\views\Element\View;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use function array_key_exists;
 use function is_array;
+use function is_string;
 use function sprintf;
+use function strip_tags;
 
 /**
  * Returns responses for OpenCulturas calendar widget routes.
  */
-class OpenculturasCalendarWidgetController extends ControllerBase implements TrustedCallbackInterface {
+final class OpenculturasCalendarWidgetController extends ControllerBase implements TrustedCallbackInterface {
 
   protected BareHtmlPageRendererInterface $bareHtmlPageRenderer;
 
@@ -32,10 +35,12 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): OpenculturasCalendarWidgetController {
     $instance = parent::create($container);
     $instance->bareHtmlPageRenderer = $container->get('bare_html_page_renderer');
-    $instance->request = $container->get('request_stack')->getCurrentRequest();
+    /** @var \Drupal\Core\Http\RequestStack $request_stack */
+    $request_stack = $container->get('request_stack');
+    $instance->request = $request_stack->getCurrentRequest();
     $instance->renderer = $container->get('renderer');
     return $instance;
   }
@@ -43,14 +48,14 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
   /**
    * {@inheritdoc}
    */
-  public static function trustedCallbacks() {
+  public static function trustedCallbacks(): array {
     return ['preRenderViewElement'];
   }
 
   /**
    * Builds the response.
    */
-  public function build() {
+  public function build(): Response {
     $config = $this->config('openculturas_calendar_widget.settings');
     $limit_access = $config->get('limit_access');
     $build['container'] = [
@@ -70,12 +75,12 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
       '#type' => 'view',
       '#name' => 'related_date',
       '#display_id' => 'upcoming_dates',
-      '#pre_render' => [[View::class, 'preRenderViewElement'], [static::class, 'preRenderViewElement']]
+      '#pre_render' => [[View::class, 'preRenderViewElement'], [__CLASS__, 'preRenderViewElement']]
     ];
     $build['container']['link'] = [
       '#type' => 'more_link',
       '#title' => $this->t('More dates'),
-      '#url' => Url::fromUri($this->request->query->get('source_uri'))
+      '#url' => $this->request ? Url::fromUri($this->request->query->get('source_uri')) : Url::fromUri('<front>'),
     ];
     $build['container']['footer'] = [
       '#type' => 'processed_text',
@@ -89,32 +94,34 @@ class OpenculturasCalendarWidgetController extends ControllerBase implements Tru
       '#attributes' => ['target' => '_blank'],
     ];
     $build['#attached']['html_head'][] = [$head, 'oc_iframe_base'];
-    if ($limit_access) {
+    if ($limit_access && $this->request) {
       $token = $this->request->get('access_token');
       $host_list = $config->get('host_list');
       $hostname = NULL;
       if (!empty($token) && is_array($host_list) && array_key_exists($token, $host_list)) {
         $hostname = $config->get('host_list')[$token]['hostname'] ?? NULL;
         $css = $config->get('host_list')[$token]['css'] ?? NULL;
-        $build['container']['css'] = [
-          '#type' => 'html_tag',
-          '#tag' => 'style',
-          '#value' => Html::decodeEntities(strip_tags((string) $css))
-        ];
+        if ($css) {
+          $build['container']['css'] = [
+            '#type' => 'html_tag',
+            '#tag' => 'style',
+            '#value' => Html::decodeEntities(strip_tags((string) $css))
+          ];
+        }
       }
     }
     $this->renderer->addCacheableDependency($build, $config);
-    $response = $this->bareHtmlPageRenderer->renderBarePage($build, $this->t('Upcoming dates'), NULL);
+    $response = $this->bareHtmlPageRenderer->renderBarePage($build, (string) $this->t('Upcoming dates'), NULL);
     if ($limit_access) {
       $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
-      if ($hostname !== NULL) {
-        $response->headers->set('Content-Security-Policy', [sprintf("frame-ancestors %s", $hostname)]);
+      if (isset($hostname) && is_string($hostname)) {
+        $response->headers->set('Content-Security-Policy', [sprintf('frame-ancestors %s', $hostname)]);
       }
     }
     return $response;
   }
 
-  public static function preRenderViewElement($element) {
+  public static function preRenderViewElement(array $element): array {
     /** @var \Drupal\views\ViewExecutable $view */
     $view = &$element['view_build']['#view'];
     if ($view instanceof ViewExecutable) {

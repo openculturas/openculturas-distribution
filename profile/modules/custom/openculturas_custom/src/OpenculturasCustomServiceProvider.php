@@ -18,7 +18,7 @@ class OpenculturasCustomServiceProvider extends ServiceProviderBase {
   /**
    * {@inheritdoc}
    */
-  public function alter(ContainerBuilder $container) {
+  public function alter(ContainerBuilder $container): void {
     $filter_protocols = $container->getParameter('filter_protocols');
     if (is_array($filter_protocols)) {
       $filter_protocols[] = 'geo';
@@ -26,10 +26,10 @@ class OpenculturasCustomServiceProvider extends ServiceProviderBase {
     }
 
     $modules = $container->getParameter('container.modules');
-    if (isset($modules['default_content'])) {
-      $service_definition = new Definition('Drupal\openculturas_custom\Normalizer', array(
+    if (is_array($modules) && isset($modules['default_content'])) {
+      $service_definition = new Definition('Drupal\openculturas_custom\Normalizer', [
         new Reference('default_content_fixes.normalizer.inner'),
-      ));
+      ]);
       $service_definition->setDecoratedService('default_content.content_entity_normalizer', null, 9);
       $container->setDefinition('default_content_fixes.normalizer', $service_definition);
     }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\geofield_proximity_filter_extra\Plugin\views\filter;
 
+use Drupal\views\Plugin\views\filter\Combine;
+
 /**
  * Filter handler which allows to search on multiple fields.
  *
@@ -11,7 +13,7 @@ namespace Drupal\geofield_proximity_filter_extra\Plugin\views\filter;
  *
  * @ViewsFilter("geofield_proximity_filter_extra_combine")
  */
-class GeocodeOriginCombine extends \Drupal\views\Plugin\views\filter\Combine {
+final class GeocodeOriginCombine extends Combine {
 
   /**
    * {@inheritdoc}

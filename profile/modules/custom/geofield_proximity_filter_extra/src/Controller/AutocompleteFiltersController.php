@@ -8,13 +8,14 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -58,14 +59,12 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
    *   The View name.
    * @param string $view_display
    *   The View display.
-   *
-   * @return bool.
    */
-  public function access($view_name, $view_display) {
+  public function access($view_name, $view_display): AccessResultInterface {
     // Determine if the given user has access to the view. Note that
     // this sets the display handler if it hasn't been.
     $view = Views::getView($view_name);
-    if ($view->access($view_display)) {
+    if ($view && $view->access($view_display)) {
       return AccessResult::allowed();
     }
     return AccessResult::forbidden();
@@ -98,6 +97,9 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
     $string = $request->query->get('q');
     // Get view and execute.
     $view = Views::getView($view_name);
+    if ($view === NULL) {
+      throw new NotFoundHttpException();
+    }
     $view->setDisplay($view_display);
     if (!empty($view_args)) {
       $view->setArguments(explode('||', $view_args));

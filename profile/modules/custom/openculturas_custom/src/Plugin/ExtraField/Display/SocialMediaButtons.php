@@ -6,6 +6,7 @@ namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,7 +23,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface {
+final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface {
+
+  use StringTranslationTrait;
 
   /**
    * @var \Drupal\Core\Block\BlockManagerInterface
@@ -32,29 +35,30 @@ class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements Conta
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SocialMediaButtons {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->pluginManager = $container->get('plugin.manager.block');
+    $instance->setStringTranslation($container->get('string_translation'));
     return $instance;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLabelDisplay() {
+  public function getLabelDisplay(): string {
     return 'above';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLabel() {
-
-    return t('Share');
+  public function getLabel(): string {
+    return (string) $this->t('Share');
   }
 
   /**
    * {@inheritdoc}
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function viewElements(ContentEntityInterface $entity): array {
     /** @var \Drupal\shariff\Plugin\Block\ShariffBlock $block */

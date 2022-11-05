@@ -23,7 +23,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): EmbedCodeWidget {
     $instance = parent::create($container);
     $instance->renderer = $container->get('renderer');
     $instance->setConfigFactory($container->get('config.factory'));
@@ -33,14 +33,14 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'openculturas_calendar_embed_code_widget';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, Url $url = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, Url $url = NULL): array {
     $config = $this->configFactory()->getEditable('openculturas_calendar_widget.settings');
     $iframe_src = $url ? $url->toString() : '';
     $form['container'] = [
@@ -88,10 +88,10 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
   }
 
-  public static function embedCodeWidgetElement(array &$element, ?string $iframe_src) {
+  public static function embedCodeWidgetElement(array &$element, ?string $iframe_src): void {
     $code_html_id = Html::getUniqueId('openculturas-calendar-widget-embed-code');
     $element['code'] = [
       '#title' => t('Embed code'),

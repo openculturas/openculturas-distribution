@@ -2,6 +2,7 @@
 
 namespace Drupal\openculturas_custom\Plugin\DateAugmenter;
 
+use Drupal\addtocal_augment\Plugin\DateAugmenter\AddToCal as AddToCalOrigin;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
 use function array_map;
@@ -10,7 +11,6 @@ use function preg_replace;
 use function sprintf;
 use function str_repeat;
 use function str_replace;
-use Drupal\addtocal_augment\Plugin\DateAugmenter\AddToCal as AddToCalOrigin;
 
 
 class AddToCal extends AddToCalOrigin {

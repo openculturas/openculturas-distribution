@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   category = @Translation("Openculturas")
  * )
  */
-class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
+final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\Core\Render\RendererInterface
@@ -29,7 +29,7 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): HeroImageBlock {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     return $instance;
@@ -38,7 +38,7 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     $build = [];
     $page_entity = CurrentEntityHelper::get_current_page_entity();
     $current_entity = CurrentEntityHelper::getEventReference($page_entity);
@@ -51,7 +51,9 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
       $display_options = [
         'type' => 'entity_reference_entity_view',
         'label' => 'hidden',
-        'settings' => ['view_mode' => 'header_image',]
+        'settings' => [
+          'view_mode' => 'header_image',
+        ],
       ];
       $build = $current_entity->get('field_mood_image')->view($display_options);
     }
@@ -63,7 +65,7 @@ class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function getCacheContexts() {
+  public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), [
       'route',
     ]);
