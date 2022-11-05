@@ -29,8 +29,6 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
 
   /**
    * ViewsAutocompleteFiltersController constructor.
-   *
-   * @param \Psr\Log\LoggerInterface $logger
    */
   public function __construct(LoggerInterface $logger) {
     $this->logger = $logger;

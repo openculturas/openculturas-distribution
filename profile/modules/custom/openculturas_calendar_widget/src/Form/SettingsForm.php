@@ -124,10 +124,11 @@ final class SettingsForm extends ConfigFormBase {
       $iframe_src = $values['iframe_src'] ?? NULL;
       if (is_string($iframe_src)) {
         $url = Url::fromUri($iframe_src);
-        $query = $url->getOption('query');
+        $query = $url->getOption('query') ?? [];
         $query['access_token'] = $token;
         $url->setOption('query', $query);
-        $iframe_src = (string) $url->toString();
+        /** @var string $iframe_src */
+        $iframe_src = $url->toString();
       }
       EmbedCodeWidget::embedCodeWidgetElement($form['host_list']['items'][$token], $iframe_src);
       $form['host_list']['items'][$token]['css'] = [

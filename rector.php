@@ -17,6 +17,7 @@ return static function (RectorConfig $rectorConfig): void {
     SetList::TYPE_DECLARATION_STRICT,
     SetList::CODE_QUALITY,
     SetList::EARLY_RETURN,
+    SetList::DEAD_CODE
   ]);
 
   $parameters = $rectorConfig->parameters();
@@ -51,7 +52,9 @@ return static function (RectorConfig $rectorConfig): void {
       ],
       \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class => [
         __DIR__ . '/profile/'
-      ]
+      ],
+      __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
+      __DIR__ . '/profile/modules/custom/geofield_proximity_filter_extra/src/Controller/AutocompleteFiltersController.php'
   ]);
 
 };

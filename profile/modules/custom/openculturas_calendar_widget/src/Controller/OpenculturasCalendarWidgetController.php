@@ -123,7 +123,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
   }
 
   public static function preRenderViewElement(array $element): array {
-    /** @var \Drupal\views\ViewExecutable $view */
+    /** @var \Drupal\views\ViewExecutable|mixed|null $view */
     $view = &$element['view_build']['#view'];
     if ($view instanceof ViewExecutable) {
       $view->exposed_widgets = [];

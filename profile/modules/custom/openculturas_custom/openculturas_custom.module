@@ -1,17 +1,18 @@
 <?php
 
-declare(strict_types=1);
-use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
-
 /**
  * @file
  * Primary module hooks for OpenCulturas Base module.
  */
 
+declare(strict_types=1);
+
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
@@ -281,7 +282,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
       $cloned_entity = clone $entity;
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
       $field = $cloned_entity->get('field_date');
-      /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem $delta_item */
+      /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem|null $delta_item */
       $delta_item = $field->get($delta);
       if ($delta_item instanceof SmartDateItem) {
         $field->setValue(array_slice($field->getValue(), (int) $delta));
@@ -398,8 +399,10 @@ function _media_is_cc(MediaInterface $media): bool {
   if ($media->hasField('field_licenses') && !$media->get('field_licenses')->isEmpty()) {
     /** @var \Drupal\Core\Field\FieldItemListInterface $field */
     $field = $media->get('field_licenses');
-    /** @var \Drupal\Core\Field\FieldItemInterface $field_item */
     $field_item = $field->first();
+    if (!$field_item instanceof FieldItemInterface) {
+      return FALSE;
+    }
     $value = $field_item->getValue();
     if (isset($value['license'])) {
       return $value['license'] !== 'all_rights_reserved';
@@ -418,9 +421,9 @@ function openculturas_custom_flag_action_access(string $action, FlagInterface $f
   if ($account->isAnonymous()) {
     return AccessResult::neutral();
   }
-  /** @var \Drupal\node\NodeInterface $entity */
+  /** @var \Drupal\node\NodeInterface|null $entity */
   $entity = $flaggable;
-  if ($flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')->isEmpty()) {
+  if ($entity && $flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')->isEmpty()) {
     $allowed = (bool) $entity->get('field_allow_claiming')->value;
     if (!$allowed) {
       return AccessResult::forbidden();
@@ -454,9 +457,9 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
   if ($node->hasField('field_event_series') && $node->hasField('field_parent_date')) {
     /** @var \Drupal\Core\Field\FieldItemListInterface $field */
     $field = $node->get('field_event_series');
-    /** @var \Drupal\Core\Field\FieldItemInterface $field_item */
+    /** @var \Drupal\Core\Field\FieldItemInterface|null $field_item */
     $field_item = $field->first();
-    if ($field->isEmpty() || $field_item->getString() === 'no') {
+    if ($field->isEmpty() || ($field_item !== NULL && $field_item->getString() === 'no')) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
       $field = $node->get('field_parent_date');
       if (!$field->isEmpty()) {
@@ -482,9 +485,7 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
     }
   }
 
-  if ($tags !== []) {
-    Cache::invalidateTags(array_unique($tags));
-  }
+  Cache::invalidateTags(array_unique($tags));
 }
 
 /**

@@ -46,20 +46,20 @@ function openculturas_install_content(): void {
   /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
   $entityRepository = \Drupal::service('entity.repository');
 
-  /** @var \Drupal\node\NodeInterface $node */
+  /** @var \Drupal\node\NodeInterface|null $node */
   $node = $entityRepository->loadEntityByUuid('node', 'f971a5cd-960b-40ee-b059-173c366231af');
   // File: profile/modules/custom/openculturas_content/content/node/f971a5cd-960b-40ee-b059-173c366231af.yml.
   if ($node instanceof NodeInterface) {
     $config->set('page.404', '/node/' . $node->id());
   }
-  /** @var \Drupal\node\NodeInterface $node */
+  /** @var \Drupal\node\NodeInterface|null $node */
   $node = $entityRepository->loadEntityByUuid('node', '34e5758c-997b-45cd-91ed-66a694a5fdd3');
   // File: profile/modules/custom/openculturas_content/content/node/34e5758c-997b-45cd-91ed-66a694a5fdd3.yml.
   if ($node instanceof NodeInterface) {
     $config->set('page.403', '/node/' . $node->id());
   }
 
-  /** @var \Drupal\node\NodeInterface $node */
+  /** @var \Drupal\node\NodeInterface|null $node */
   $node = $entityRepository->loadEntityByUuid('node', '9af42cc9-30a8-46a4-9432-dfcde34cd259');
   // File: profile/modules/custom/openculturas_content/content/node/9af42cc9-30a8-46a4-9432-dfcde34cd259.yml.
   if ($node instanceof NodeInterface) {

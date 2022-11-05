@@ -40,12 +40,10 @@ final class CurrentEntityHelper {
   /**
    * The date bundle takes the values from the referenced event bundle entity.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
    *
    * @see \Drupal\openculturas_custom\Plugin\Block\HeroImageBlock::build()
    * @see \Drupal\openculturas_custom\Plugin\Block\PageTitleBlock::build()
    *
-   * @return \Drupal\Core\Entity\ContentEntityInterface|null
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */

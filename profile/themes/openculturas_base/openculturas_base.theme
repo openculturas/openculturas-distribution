@@ -57,8 +57,7 @@ function openculturas_base_preprocess_node(array &$variables): void {
   if ($node->hasField('field_reference_title')
     && !$node->get('field_reference_title')->isEmpty()
     && isset($variables['elements']['#fieldgroups']['group_featuring'])) {
-    $reference_title = $node->get('field_reference_title')->value;
-    $variables['elements']['#fieldgroups']['group_featuring']->label = $reference_title;
+    $variables['elements']['#fieldgroups']['group_featuring']->label = $node->get('field_reference_title')->value;
     $variables['content']['field_reference_title']['#access'] = FALSE;
   }
   if ($node->bundle() === 'date' && $node->hasField('field_event_description') && !$node->get('field_event_description')->isEmpty()) {
@@ -71,7 +70,6 @@ function openculturas_base_preprocess_node(array &$variables): void {
         $variables['label'] = $event->label();
       }
     }
-
   }
 }
 
@@ -112,8 +110,11 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
   if ($paragraph->bundle() === 'address_data' && $paragraph->hasField('field_address_location') && !$paragraph->get('field_address_location')->isEmpty()) {
+    /** @var \Drupal\geofield\Plugin\Field\FieldType\GeofieldItem|null $item */
     $item = $paragraph->get('field_address_location')->first();
-    assert($item instanceof GeofieldItem);
+    if (!$item instanceof GeofieldItem) {
+      return;
+    }
     $values = $item->getValue();
     $variables['address_links'] = NULL;
     if (is_array($values) && isset($values['latlon'])) {
@@ -134,12 +135,18 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
     }
   }
   if ($paragraph->bundle() === 'member' && $paragraph->hasField('field_member') && !$paragraph->get('field_member')->isEmpty()) {
-    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $entityReferenceItem */
+    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $entityReferenceItem */
     $entityReferenceItem = $paragraph->get('field_member')->first();
-    assert($entityReferenceItem instanceof EntityReferenceItem);
-    /** @var \Drupal\node\NodeInterface $node */
-    $node = $entityReferenceItem->entity;
-    assert($node instanceof NodeInterface);
+    if (!$entityReferenceItem instanceof EntityReferenceItem) {
+      return;
+    }
+    $variables['member_is_published'] = FALSE;
+    $variables['user_has_edit_access'] = FALSE;
+    /** @var \Drupal\node\NodeInterface|null $node */
+    $node = $entityReferenceItem->entity ?? NULL;
+    if (!$node instanceof NodeInterface) {
+      return;
+    }
     $variables['member_is_published'] = $node->isPublished();
     $variables['user_has_edit_access'] = $node->access('edit');
   }
