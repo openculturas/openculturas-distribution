@@ -20,8 +20,6 @@ trait UserTrait {
    *
    * The role will also used as suffix for the username.
    *
-   * @param string $role_name
-   *
    * @return void
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -34,11 +32,12 @@ trait UserTrait {
     /** @var \Drupal\user\RoleStorageInterface $role_storage */
     $role_storage = $entity_manager->getStorage('user_role');
     $role = $role_storage->load($role_name);
+    $user_name = 'user_' . $role_name;
     if ($role instanceof RoleInterface) {
-      $users = $entity_manager->getStorage('user')->loadByProperties(['name' => 'user_' . $role_name]);
+      $users = $entity_manager->getStorage('user')->loadByProperties(['name' => $user_name]);
       if ($users === []) {
         $values = ['roles' => [$role->id()]];
-        $account = $this->createUser([], 'user_' . $role_name, $values);
+        $account = $this->createUser([], $user_name, $values);
       }
       else {
         $account = reset($users);

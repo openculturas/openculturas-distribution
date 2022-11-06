@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\openculturas\Traits;
 
+use Behat\Mink\Exception\ElementNotFoundException;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AnonymousUserSession;
@@ -30,7 +31,12 @@ trait LoginTrait {
     $account = User::load($account->id());
     $login = $this->user_pass_reset_url($account) . '/login';
     $this->getSession()->visit($login);
-    $this->submitForm(['extras-1' => TRUE, 'legal_accept' => TRUE], 'Confirm');
+    try {
+      $this->assertSession()->fieldExists('legal_accept');
+      $this->submitForm(['legal_accept' => TRUE], 'Confirm');
+    } catch (ElementNotFoundException $elementNotFoundException) {
+      // Need to check this only once.
+    }
     // @see ::drupalUserIsLoggedIn()
     $account->sessionId = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);
     $this->assertTrue($this->drupalUserIsLoggedIn($account), (string) new FormattableMarkup('User %name successfully logged in.', ['%name' => $account->getAccountName()]));
