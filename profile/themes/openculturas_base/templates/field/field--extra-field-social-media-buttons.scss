@@ -1,0 +1,41 @@
+//Adjust parent layout for this solution
+body .interact {
+  justify-content: left;
+}
+
+.extra-field-social-media-buttons {
+  position: relative;
+  text-align: left;
+  button {
+    @include icon(share-alt);
+    &:before {
+      margin-right: .75rem;
+    }
+    padding-left: 1rem; // like flag buttons
+    padding-right: 1rem;
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    ul {
+      margin-top: 0;
+    }
+  }
+
+  .shariff .button-style-icon {
+    a {
+      font-size: 1rem;
+      //background-color: $color-text-inverted;
+      margin: .125rem .5rem .125rem;
+    }
+  }
+}
+
+.field.field--name-extra-field-social-media-buttons {
+  margin-top: 0;
+}
+
+.interact .field.field--name-extra-field-social-media-buttons {
+  flex-basis: auto;
+}

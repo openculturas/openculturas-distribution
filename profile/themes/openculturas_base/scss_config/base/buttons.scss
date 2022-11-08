@@ -11,17 +11,9 @@ input[type='submit'] {
   border-color: $color-interaction;
   border-radius: $button-border-radius;
   display: inline-block;
-  //line-height: 1;
   margin-bottom: $grid-gutter;
-  //margin-left: 0;
-  //margin-right: $grid-gutter;
-  //outline-offset: .25rem;
   padding: .5rem 2rem;
   text-decoration: none;
-
-  //&:first-child {
-  //  margin-right: $grid-gutter;
-  //}
 
   .inverted & {
     border-color: $color-text-inverted;
@@ -33,32 +25,12 @@ input[type='submit'] {
     color: $color-text-inverted;
   }
 
-  &:visited {
-    color: $color-interaction;
-  }
-
-  &:active {
-    background-color: $color-bg-light;
-    color: $color-interaction;
-    border-color: $color-bg-light;
-    outline: $outline-active;
-  }
-
 }
 
-// Primary Style.
-//.button[data-drupal-views-infinite-scroll-pager],
-//input[type="submit"],
-//button[type="submit"],
-//.view-header .button, 
 .form-submit {
   color: $color-text-inverted;
   background-color: $color-link;
   border-color: $color-link;
-
-  &:visited {
-    color: $color-text-inverted;
-  }
 
 }
 
@@ -88,10 +60,6 @@ button[type="submit"].button--danger {
   border-color: $color-danger;
   @include icon(xmark) {
     margin-right: .5rem;
-  }
-
-  &:visited {
-    color: $color-danger;
   }
 
   &:focus,
@@ -127,5 +95,20 @@ button[type="submit"].button--danger {
     border-radius: 50%;
     padding: .5em;
     text-align: center;
+  }
+}
+
+
+// active pseudo class must be declared last
+%button,
+.button,
+button,
+input[type='button'],
+input[type='submit'] {
+  &:active {
+    background-color: $color-bg-light;
+    color: $color-interaction;
+    border-color: $color-bg-light;
+    outline: $outline-active;
   }
 }

@@ -1,0 +1,15 @@
+{% for item in items %}
+<div class="mobile-buttons" data-drupal-selector="mobile-buttons">
+  <div{{ item.attributes.addClass('field__item').addClass(field_name|clean_class) }}>
+    {% if not label_hidden %}
+      <button class="button button--share" id="oc--social-share--button" data-toggle="dropwown" aria-haspopup="true" aria-expanded="false">
+        {{ label }}
+      </button>
+
+    {% endif %}
+    <div id="oc--social-share--layer">
+      {{ item.content }}
+    </div>
+  </div>
+</div>
+{% endfor %}

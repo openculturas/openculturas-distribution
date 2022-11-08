@@ -3,7 +3,7 @@
   'use strict';
 
   /**
-   * Opening / Closing logic for the offcanvas burger menu.
+   * Opening / Closing logic for menu toggles (e. g. offcanvas burger menu).
    */
   Drupal.behaviors.pageHeaderOffcanvasMenu = {
     attach: function (context, settings) {
@@ -28,4 +28,5 @@
       }
     }
   };
+
 } (jQuery, Drupal));
