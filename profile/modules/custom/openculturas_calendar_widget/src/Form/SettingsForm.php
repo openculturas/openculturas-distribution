@@ -63,7 +63,7 @@ final class SettingsForm extends ConfigFormBase {
     }
     if ((is_countable($items) ? count($items) : 0) === 0 || !is_array($items)) {
       $items = is_array($items) ? $items : [];
-      $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => ''];
+      $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => NULL];
     }
     $form['host_list'] = [
       '#type' => 'details',

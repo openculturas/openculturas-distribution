@@ -82,6 +82,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#type' => 'more_link',
       '#title' => $this->t('More dates'),
       '#url' => $this->request !== NULL ? Url::fromUri($this->request->query->get('source_uri')) : Url::fromUri('<front>'),
+      '#attributes' => ['class' => 'button']
     ];
     $build['container']['footer'] = [
       '#type' => 'processed_text',
