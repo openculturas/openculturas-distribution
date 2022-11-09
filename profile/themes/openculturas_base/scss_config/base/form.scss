@@ -219,7 +219,13 @@ input[type="radio"] {
 //  }
 }
 
-// Gin overrides modals
+// Modals
+// please note: Gin admin theme interfers by design
+
+.ui-widget-overlay.ui-front {
+  background: var(--color-neutral-canvas);
+  opacity: .8;
+}
 
 .ui-dialog.ui-widget,
 .ui-dialog.ui-widget .ui-dialog-content {
@@ -229,6 +235,10 @@ input[type="radio"] {
 
 .ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
   border-radius: 2px;
+}
+
+.ui-dialog {
+  box-shadow: 0 0 .5rem .25rem rgba(0, 0, 0, .2);
 }
 
 .ui-dialog.ui-widget {
@@ -252,6 +262,7 @@ input[type="radio"] {
   .ui-widget-content.ui-dialog-content {
     padding: $grid-gutter;
     background: var(--color-bg-light);
+    border: 1px solid var(--color-interaction);
   }
 
   .ui-dialog-content .form-actions {
