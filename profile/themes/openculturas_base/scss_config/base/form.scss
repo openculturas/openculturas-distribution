@@ -202,18 +202,21 @@ input[type="radio"] {
 // Views exposed forms
 
 .bef-exposed-form {
-  border-width: 0 0 1px;
+  border-width: 1px 0 0;
+  margin-top: $grid-gutter;
 
   > div,
   .form--inline .details-wrapper {
     display: flex;
     flex-flow: row wrap;
     align-items: last baseline;
+    padding-bottom: .5rem;
   }
 
-  .bef--secondary {
-    order: -1;
-  }
+// /* Secondary filters above default exposed form */
+//  .bef--secondary {
+//    order: -1;
+//  }
 }
 
 // Gin overrides modals
@@ -301,13 +304,14 @@ fieldset[id^="edit-radius-wrapper"] {
     display: flex;
   }
 
-  .form-number {
-    max-width: 7.5rem;
+  .form-item-radius-value {
+    max-width: 9rem;
+    order: +1;
   }
 
   .address-input {
     @include breakpoint (l) {
-      max-width: 32.75rem;
+      max-width: 31.25rem;
     }
   }
 

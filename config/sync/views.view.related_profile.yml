@@ -18,7 +18,7 @@ dependencies:
     - views_autocomplete_filters
     - views_infinite_scroll
 id: related_profile
-label: 'Related profile'
+label: 'Related profiles'
 module: views
 description: 'OpenCulturas: list of related profiles'
 tag: OpenCulturas
@@ -744,8 +744,9 @@ display:
               autosubmit_hide: false
               input_required: false
               allow_secondary: true
-              secondary_label: 'Advanced options'
+              secondary_label: 'Advanced filters'
               secondary_open: false
+              reset_button_always_show: false
             filter:
               field_profile_role_value:
                 plugin_id: default
@@ -754,13 +755,13 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
-                  is_secondary: false
+                  is_secondary: true
               title:
                 plugin_id: default
                 advanced:
                   placeholder_text: ''
                   collapsible: false
-                  is_secondary: true
+                  is_secondary: false
               field_category_target_id:
                 plugin_id: default
                 advanced:
@@ -768,7 +769,7 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
-                  is_secondary: true
+                  is_secondary: false
       filters:
         status:
           id: status
@@ -869,7 +870,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: 'Name contains'
+            label: Name
             description: ''
             use_operator: false
             operator: title_op
@@ -882,9 +883,12 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
               magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
-            placeholder: ''
+            placeholder: contains...
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
             autocomplete_items: '10'
@@ -1174,6 +1178,7 @@ display:
         - 'config:core.entity_view_display.node.location.search_index'
         - 'config:core.entity_view_display.node.location.search_result'
         - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.location.token'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.full'
         - 'config:core.entity_view_display.node.page.search_index'

@@ -342,7 +342,7 @@ display:
         type: bef
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -352,12 +352,12 @@ display:
           text_input_required_format: minimal_html
           bef:
             general:
-              autosubmit: true
+              autosubmit: false
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_hide: false
               input_required: false
-              allow_secondary: true
+              allow_secondary: false
               secondary_label: 'Advanced filters'
               secondary_open: false
               reset_button_always_show: false
@@ -451,7 +451,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: 'Find by name'
+            label: Name
             description: ''
             use_operator: false
             operator: title_op
@@ -464,8 +464,12 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              oc_member: '0'
+              oc_organizer: '0'
+              magazine_editor: '0'
+              oc_admin: '0'
               administrator: '0'
-            placeholder: ''
+            placeholder: contains...
             autocomplete_filter: 1
             autocomplete_min_chars: '2'
             autocomplete_items: '10'
