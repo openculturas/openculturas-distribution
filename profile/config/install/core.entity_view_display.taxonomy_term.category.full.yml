@@ -11,6 +11,7 @@ dependencies:
     - field.field.taxonomy_term.category.field_related_location_view_ref
     - field.field.taxonomy_term.category.field_related_organizer_view_ref
     - field.field.taxonomy_term.category.field_term_children_view_ref
+    - field.field.taxonomy_term.category.field_upcoming_dates_view_ref
     - taxonomy.vocabulary.category
   module:
     - field_group
@@ -39,7 +40,7 @@ third_party_settings:
       label: 'Event catalogue'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -53,7 +54,7 @@ third_party_settings:
       label: Locations
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -68,7 +69,7 @@ third_party_settings:
       label: Artists
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -83,7 +84,7 @@ third_party_settings:
       label: Magazine
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -98,7 +99,7 @@ third_party_settings:
       label: Organizers
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -126,6 +127,21 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+    group_upcoming_dates:
+      children:
+        - field_upcoming_dates_view_ref
+      label: 'Upcoming dates'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
 id: taxonomy_term.category.full
 targetEntityType: taxonomy_term
 bundle: category
@@ -165,7 +181,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 8
+    weight: 21
     region: content
   field_related_event_view_ref:
     type: viewfield_default
@@ -210,6 +226,16 @@ content:
       empty_view_title: hidden
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_upcoming_dates_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 0
     region: content
   flag_bookmark_term:
     settings: {  }
