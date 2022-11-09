@@ -17,7 +17,6 @@ dependencies:
     - media_library
     - path
     - text
-    - viewfield
 id: taxonomy_term.category.default
 targetEntityType: taxonomy_term
 bundle: category
@@ -33,58 +32,10 @@ content:
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 2
+    weight: 3
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_related_article_view_ref:
-    type: viewfield_select
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_related_artist_view_ref:
-    type: viewfield_select
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_related_date_view_ref:
-    type: viewfield_select
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_related_event_view_ref:
-    type: viewfield_select
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_related_location_view_ref:
-    type: viewfield_select
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_related_organizer_view_ref:
-    type: viewfield_select
-    weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_term_children_view_ref:
-    type: viewfield_select
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_upcoming_dates_view_ref:
-    type: viewfield_select
-    weight: 14
-    region: content
-    settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -103,25 +54,33 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   translation:
-    weight: 10
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_related_article_view_ref: true
+  field_related_artist_view_ref: true
+  field_related_date_view_ref: true
+  field_related_event_view_ref: true
+  field_related_location_view_ref: true
+  field_related_organizer_view_ref: true
+  field_term_children_view_ref: true
+  field_upcoming_dates_view_ref: true
