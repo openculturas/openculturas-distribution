@@ -46,6 +46,7 @@ final class EmbedCodeWidget extends FormBase {
     $form['container'] = [
       '#type' => 'details',
       '#title' => t('Embed code'),
+      '#description' => t('To embed the upcoming dates based on the above configured filters, copy and past this code into a website.'),
     ];
     $form['container']['status'] = [
       '#markup' => '<div id="openculturas-calendar-widget-messages"></div>',
@@ -56,14 +57,20 @@ final class EmbedCodeWidget extends FormBase {
     if ($this->currentUser()->hasPermission('administer openculturas_calendar_widget configuration')) {
       $list_items = [];
       if (!$config->get('limit_access')) {
-        $list_items[] = $this->t('Enable <em>Limit access</em> in the %link a new browser window', [
+        $list_items[] = $this->t('To limit the access to embed the calendar use the %link and add at least one website that is allowed to embed the calendar and add a corresponding url.', [
           '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'), 'openculturas_calendar_widget.settings')->toString(),
         ]);
+        $list_items[] = $this->t('To add more calendars configure the filter, copy the url and paste it as url in the %link.', [
+          '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'),
+            'openculturas_calendar_widget.settings')->toString(),
+        ]);
       }
-      $list_items[] = $this->t('Configure the filter, copy the url and paste it as url in the %link', [
-        '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'),
-          'openculturas_calendar_widget.settings')->toString(),
-      ]);
+      else {
+        $list_items[] = $this->t('Configure the filter, copy the url and paste it as url in the %link.', [
+          '%link' => Link::createFromRoute($this->t('OpenCulturas calendar widget settings'),
+            'openculturas_calendar_widget.settings')->toString(),
+        ]);
+      }
 
       $form['container']['help'] = [
         '#theme' => 'item_list',
