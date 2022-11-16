@@ -86,3 +86,26 @@ function openculturas_install_content(): void {
     $config->save();
   }
 }
+
+/**
+ * Install update_helper_checklist.
+ */
+function openculturas_update_9001(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['update_helper_checklist']);
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('formtips.settings');
+  if (!$config->isNew()) {
+    $new_selectors = '';
+    $current_selectors = $config->get('formtips_selectors');
+    if (is_string($current_selectors)) {
+      $current_selectors = explode("\r\n", $current_selectors);
+      $current_selectors[] = '.checklistapi-checklist-form .form-item__description';
+      $new_selectors = implode("\r\n", $current_selectors);
+    }
+    $config
+      ->set('formtips_selectors', $new_selectors)
+      ->save();
+  }
+}

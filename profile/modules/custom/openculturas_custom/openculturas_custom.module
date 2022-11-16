@@ -14,6 +14,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\flag\Entity\Flag;
@@ -28,6 +29,7 @@ use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
 use Drupal\openculturas_custom\Plugin\views\filter\Date;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
+use Drupal\update_helper_checklist\Entity\Update;
 use Drupal\user\UserInterface;
 use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
@@ -514,4 +516,43 @@ function openculturas_custom_views_plugins_filter_alter(array &$plugins): void {
 function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins): void {
   $plugins['addtocal']['class'] = AddToCal::class;
   $plugins['addtocal']['provider'] = 'openculturas_custom';
+}
+
+
+/**
+ * Implements hook_checklistapi_checklist_info_alter().
+ */
+function openculturas_custom_checklistapi_checklist_info_alter(array &$definitions) {
+  if (isset($definitions['update_helper_checklist']['#title'])) {
+    $definitions['update_helper_checklist']['#title'] = t('OpenCulturas update instructions');
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Inspired by https://git.drupalcode.org/project/varbase_core/-/blob/9.0.x/modules/varbase_update_helper/varbase_update_helper.module <3.
+  if ($form_id == "checklistapi_checklist_form") {
+    if ($form['#checklist']->id == 'update_helper_checklist') {
+      $checklist = $form['#checklist'];
+      $groups = $checklist->items;
+      // Prevent the user from Clearing checklist progress.
+      $form['actions']['clear'] ['#access']= FALSE;
+
+      foreach (Element::children($groups) as $group_key) {
+        $group = &$groups[$group_key];
+
+        foreach (Element::children($group) as $item_key) {
+          $update_key = str_replace('.', '_', $item_key);
+          $entity = Update::load($update_key);
+
+          $entityStatus = ($entity && $entity->wasSuccessfulByHook()) ? TRUE : FALSE;
+          if ($entityStatus) {
+            $form[$group_key][$item_key]['#disabled'] = TRUE;
+          }
+        }
+      }
+    }
+  }
 }
