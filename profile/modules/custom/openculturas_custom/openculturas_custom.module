@@ -384,7 +384,8 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
     foreach ($view->result as $key => $row) {
       /** @var \Drupal\media\MediaInterface $entity */
       $entity = $row->_entity;
-      if ((int) $entity->getOwnerId() === $current_user->id() || $entity->access('edit') || _media_is_cc($entity)) {
+      // Do not remove type casting. current user id is a string-int!
+      if ((int) $entity->getOwnerId() === (int) $current_user->id() || $entity->access('update') || _media_is_cc($entity)) {
         $result[$key] = $row;
       }
     }
