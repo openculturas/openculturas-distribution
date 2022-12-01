@@ -1,20 +1,14 @@
 .calendar .teaser--date,
 .recurring-output--wrapper,
 .date {
-  background: $color_bg-slight-contrast;
   display: inline-block;
-  padding: .25rem .5rem .25rem 2.5rem;
-  margin-left: -2.5rem;
-  line-height: 1;
+  //line-height: 1;
   font-size: $font-size-s;
+  font-weight: normal;
 
   .smart-date--time {
+    font-size: $font-size-s;
     font-weight: normal;
-  }
-
-  .smart-date--date {
-    font-weight: bold;
-    font-size: $font-size-l;
   }
 
   .item-list > ul {
@@ -26,21 +20,37 @@
   }
 }
 
-.recurring-output--wrapper {
-  background: transparent;
-  padding: 0;
-  margin-left: 0;
+.smart-date--date .datetime,
+.datetime .smart-date--date {
+  //background: $color_bg-slight-contrast;
+  //margin-left: -.25rem;
+  //padding: 0 .25rem;
+  padding-right: .25rem;
+  font-size: $font-size-l;
+  font-weight: bold;
+}
 
-  .smart-date--date {
-    background: $color_bg-slight-contrast;
-    padding: .25rem .5rem .25rem 2.5rem;
-    margin-left: -2.5rem;
-  }
+.recurring-output--wrapper {
+  display: block; 
+  width: 100%;
+  padding-right: 3rem;
+
 
   button {
+    position: absolute; 
+    left: auto;
+    right: -3rem;
     font-size: $font-size-default;
-    @include icon(calendar-days) {
-      margin-right: .5rem;
+    overflow: hidden;
+    width: 2.5rem;
+    height: 2rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    @include icon(calendar-plus) {
+      margin-right: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      top: -.25rem;
     }
   }
 
@@ -53,3 +63,4 @@
     margin-right: 1rem;
   }
 }
+
