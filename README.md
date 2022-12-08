@@ -12,9 +12,6 @@
 
 OpenCulturas is built as a pre-configured platform for cultural-focused communities, empowering actors in the cultural field to own their data and make their information accessible to a wide audience.
 
-Do not use this project/code to start a new project. Go to https://github.com/openculturas/openculturas-project
-and use this.
-
 ## Requirements
 * https://www.drupal.org/docs/system-requirements for Drupal 9
   * PHP 7.4
@@ -27,7 +24,7 @@ We provide a composer project to install OpenCulturas. For more information go t
 
 Q: How can I ignore patches?
 
-A: The package which we use to patch Dependencies allows to ignore patches. For more information go to https://github.com/cweagans/composer-patches#ignoring-patches.
+A: The package which we use to patch dependencies allows to ignore patches. For more information go to https://github.com/cweagans/composer-patches#ignoring-patches.
 
 ## Development
 
