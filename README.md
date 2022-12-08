@@ -1,4 +1,16 @@
-# OpenCulturas distribution
+# OpenCulturas
+
+## Table of contents
+
+- Introduction
+- Requirements
+- Installation
+- FAQ
+- Development
+
+## Introduction
+
+OpenCulturas is built as a pre-configured platform for cultural-focused communities, empowering actors in the cultural field to own their data and make their information accessible to a wide audience.
 
 Do not use this project/code to start a new project. Go to https://github.com/openculturas/openculturas-project
 and use this.
@@ -7,10 +19,23 @@ and use this.
 * https://www.drupal.org/docs/system-requirements for Drupal 9
   * PHP 7.4
 
+## Installation
+
+We provide a composer project to install OpenCulturas. For more information go to https://www.drupal.org/project/openculturas_project.
+
+## FAQ
+
+Q: How can I ignore patches?
+
+A: The package which we use to patch Dependencies allows to ignore patches. For more information go to https://github.com/cweagans/composer-patches#ignoring-patches.
 
 ## Development
 
 We recommend to use https://ddev.com for development.
+
+The source code is privately hosted and mirrored to https://github.com/openculturas/openculturas-distribution.
+To create a new release on drupal.org we push the used Branch/Tag to https://git.drupalcode.org/project/openculturas.
+
 
 ### Installation (with ddev)
 
@@ -29,6 +54,7 @@ We recommend to use https://ddev.com for development.
   * `if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/ && ln -sf ../../../.ddev/settings.php;fi`
   * Override values (DB etc.) in `web/sites/default/settings.local.php`
   * Make sure *config_sync_directory* points to *../config/sync*
+
     `$settings['config_sync_directory'] = '../config/sync';`
 * Install OpenCulturas distribution
   * `drush site:install --yes --existing-config`
