@@ -15,6 +15,7 @@ OpenCulturas is built as a pre-configured platform for cultural-focused communit
 ## Requirements
 * https://www.drupal.org/docs/system-requirements for Drupal 9
   * PHP 7.4
+* A bunch of drupal modules and external libraries.
 
 ## Installation
 
@@ -30,9 +31,9 @@ A: The package which we use to patch dependencies allows to ignore patches. For 
 
 We recommend to use https://ddev.com for development.
 
-The source code is privately hosted and mirrored to https://github.com/openculturas/openculturas-distribution.
-To create a new release on drupal.org we push the used Branch/Tag to https://git.drupalcode.org/project/openculturas.
-
+At the moment the source code is privately hosted and mirrored to https://github.com/openculturas/openculturas-distribution.
+To create a new release on drupal.org we push the used git branch/tag to https://git.drupalcode.org/project/openculturas.
+Someday when the issue https://www.drupal.org/project/project_composer/issues/3252534 is fixed we can directly work on drupal.org git repository.
 
 ### Installation (with ddev)
 
@@ -50,7 +51,7 @@ To create a new release on drupal.org we push the used Branch/Tag to https://git
 * Prepare a setting.php, you can use the [settings.php](.ddev/settings.php)
   * `if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/ && ln -sf ../../../.ddev/settings.php;fi`
   * Override values (DB etc.) in `web/sites/default/settings.local.php`
-  * Make sure *config_sync_directory* points to *../config/sync*
+  * Make sure **config_sync_directory** points to **../config/sync**
 
     `$settings['config_sync_directory'] = '../config/sync';`
 * Install OpenCulturas distribution
@@ -63,6 +64,8 @@ Cheatsheet:
 * Start project `ddev start`
 * Run composer commands `ddev composer COMMAND` e.g. `ddev composer install`
 * Run drush commands `ddev drush COMMAND` e. g. `ddev drush uli`
+
+More information about ddev cli command https://ddev.readthedocs.io/en/stable/users/basics/cli-usage/.
 
 ### Composer scripts
 #### Update installation profile configuration
