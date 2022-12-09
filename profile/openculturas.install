@@ -109,3 +109,17 @@ function openculturas_update_9001(): void {
       ->save();
   }
 }
+
+/**
+ * Fix label of the roles anonymous/authenticated.
+ */
+function openculturas_update_9002() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9002');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
