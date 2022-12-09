@@ -12,6 +12,30 @@ function removeDirectory(string $path): void {
 }
 
 function main() {
+  $exclude_list = [
+    'automated_cron.settings.yml',
+    'claro.settings.yml',
+    'coffee.configuration.yml',
+    'comment.settings.yml',
+    'comment.type.comment.yml',
+    'composer_deploy.settings.yml',
+    'contact.settings.yml',
+    'cookies.cookies_service.base.yml',
+    'cookies.cookies_service.video.yml',
+    'cookies.cookies_service_group.default.yml',
+    'cookies.cookies_service_group.performance.yml',
+    'cookies.cookies_service_group.social.yml',
+    'cookies.cookies_service_group.tracking.yml',
+    'cookies.cookies_service_group.video.yml',
+    'contact.form.feedback.yml',
+    'contact.form.personal.yml',
+    'cookies.texts.yml',
+    'core.extension.yml',
+    'update.settings.yml',
+    'file.setting.yml',
+    'system.site.yml'
+  ];
+
   if (!is_dir('config/sync/')) {
     exit(sprintf('%s is not a directory', 'config/sync') . PHP_EOL);
   }
@@ -27,10 +51,10 @@ function main() {
   $finder->files()->in('config/sync/')
     ->name('*.yml')
     ->exclude('language')
-    ->notName(['core.extension.yml', 'update.settings.yml', 'file.setting.yml', 'system.site.yml']);
+    ->notName($exclude_list);
 
   $destination_override = [
-    'views.view.openculturas_calendar_widget.yml' => 'profile/modules/custom/openculturas_calendar_widget/config/install/'
+
   ];
 
   $counter = 0;
