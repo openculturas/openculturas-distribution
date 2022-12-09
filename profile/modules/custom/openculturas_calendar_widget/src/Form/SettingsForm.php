@@ -250,7 +250,7 @@ final class SettingsForm extends ConfigFormBase {
           unset($host_list[$token]);
         }
         if ($form_state->getTriggeringElement()['#name'] === 'add_host' && !empty($hostname) && in_array($hostname, $hostnames, TRUE)) {
-          $form_state->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicated hostname'));
+          $form_state->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicate hostname'));
           return;
         }
         $hostnames[] = $hostname;
