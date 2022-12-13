@@ -49,3 +49,17 @@ function openculturas_post_update_0002() {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Adds missing unpublish moderation state option in bulk edit
+ */
+function openculturas_post_update_0003() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0003');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
