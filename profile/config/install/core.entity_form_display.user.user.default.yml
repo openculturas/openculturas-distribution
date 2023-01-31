@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.user.user.field_category
     - field.field.user.user.field_fullname
+    - field.field.user.user.field_main_profile
     - field.field.user.user.field_my_bookmarks_view_ref
     - field.field.user.user.field_my_content_view_ref
   module:
@@ -15,6 +16,7 @@ third_party_settings:
       children:
         - account
         - field_fullname
+        - field_main_profile
       label: 'Account information'
       region: content
       parent_name: ''
@@ -33,7 +35,7 @@ third_party_settings:
       label: 'My interests'
       region: hidden
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -60,8 +62,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_main_profile:
+    type: options_select
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   language:
-    weight: 1
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -71,13 +79,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   timezone:
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   contact: true
   field_category: true
+  field_main_profile: true
   field_my_bookmarks_view_ref: true
   field_my_content_view_ref: true
   langcode: true

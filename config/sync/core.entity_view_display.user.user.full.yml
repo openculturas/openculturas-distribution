@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.user.full
     - field.field.user.user.field_category
     - field.field.user.user.field_fullname
+    - field.field.user.user.field_main_profile
     - field.field.user.user.field_my_bookmarks_view_ref
     - field.field.user.user.field_my_content_view_ref
   module:
@@ -20,7 +21,7 @@ third_party_settings:
       label: 'My Bookmarks'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -35,7 +36,7 @@ third_party_settings:
       label: 'My content'
       parent_name: ''
       region: content
-      weight: 0
+      weight: 1
       format_type: details
       format_settings:
         classes: ''
@@ -50,6 +51,14 @@ targetEntityType: user
 bundle: user
 mode: full
 content:
+  field_main_profile:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_my_bookmarks_view_ref:
     type: viewfield_default
     label: hidden
@@ -75,6 +84,7 @@ content:
 hidden:
   field_category: true
   field_fullname: true
+  field_main_profile: true
   langcode: true
   member_for: true
   realname: true

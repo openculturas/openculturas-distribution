@@ -255,6 +255,24 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_prepare_form().
+ */
+function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity) {
+  if ($entity->isNew() && $entity->hasField('field_behalf') && $entity->get('field_behalf')->isEmpty()) {
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $main_profile_non_empty = $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
+    if ($main_profile_non_empty) {
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+      $field = $user->get('field_main_profile');
+      $main_profile = current($field->referencedEntities());
+      if ($main_profile instanceof NodeInterface) {
+        $entity->set('field_behalf', ['target_id' => $main_profile->id()]);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_local_tasks_alter().
  */
 function openculturas_custom_local_tasks_alter(array &$local_tasks): void {

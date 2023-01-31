@@ -1,0 +1,164 @@
+__global_actions:
+  import_configs:
+    - field.storage.user.field_main_profile
+    - field.field.user.user.field_main_profile
+core.entity_form_display.user.user.default:
+  expected_config:
+    content:
+      language:
+        weight: 1
+      timezone:
+        weight: 2
+    third_party_settings:
+      field_group:
+        group_my_interests:
+          weight: 11
+  update_actions:
+    add:
+      content:
+        field_main_profile:
+          region: content
+          settings: {  }
+          third_party_settings: {  }
+          type: options_select
+          weight: 7
+      hidden:
+        field_main_profile: true
+      third_party_settings:
+        field_group:
+          group_profile_information:
+            children:
+              - field_main_profile
+    change:
+      content:
+        language:
+          weight: 2
+        timezone:
+          weight: 3
+      third_party_settings:
+        field_group:
+          group_my_interests:
+            weight: 9
+core.entity_form_display.user.user.register:
+  expected_config: {  }
+  update_actions:
+    add:
+      hidden:
+        field_main_profile: true
+core.entity_view_display.user.user.compact:
+  expected_config: {  }
+  update_actions:
+    add:
+      hidden:
+        field_main_profile: true
+core.entity_view_display.user.user.default:
+  expected_config: {  }
+  update_actions:
+    add:
+      content:
+        field_main_profile:
+          label: above
+          region: content
+          settings:
+            link: true
+          third_party_settings: {  }
+          type: entity_reference_label
+          weight: 1
+      hidden:
+        field_main_profile: true
+core.entity_view_display.user.user.full:
+  expected_config:
+    third_party_settings:
+      field_group:
+        group_my_bookmarks:
+          weight: 1
+        group_my_content:
+          weight: 0
+  update_actions:
+    add:
+      content:
+        field_main_profile:
+          label: hidden
+          region: content
+          settings:
+            link: true
+          third_party_settings: {  }
+          type: entity_reference_label
+          weight: 0
+      hidden:
+        field_main_profile: true
+    change:
+      third_party_settings:
+        field_group:
+          group_my_bookmarks:
+            weight: 2
+          group_my_content:
+            weight: 1
+field.storage.flagging.field_behalf:
+  expected_config: {  }
+  update_actions:
+    add:
+      third_party_settings:
+        field_permissions:
+          permission_type: public
+views.view.my_content:
+  expected_config:
+    display:
+      default:
+        display_options:
+          relationships: {  }
+      entity_reference_behalf_of:
+        display_options:
+          fields:
+            type:
+              exclude: false
+  update_actions:
+    add:
+      display:
+        default:
+          cache_metadata:
+            tags:
+              - 'config:core.entity_view_display.node.location.token'
+          display_options:
+            sorts:
+              field_main_profile_target_id:
+                admin_label: ''
+                expose:
+                  field_identifier: ''
+                  label: ''
+                exposed: false
+                field: field_main_profile_target_id
+                group_type: group
+                id: field_main_profile_target_id
+                order: DESC
+                plugin_id: standard
+                relationship: reverse__user__field_main_profile
+                table: user__field_main_profile
+        entity_reference_behalf_of:
+          display_options:
+            defaults:
+              relationships: true
+        my_content_block:
+          cache_metadata:
+            tags:
+              - 'config:core.entity_view_display.node.location.token'
+    change:
+      display:
+        default:
+          display_options:
+            relationships:
+              reverse__user__field_main_profile:
+                admin_label: field_main_profile
+                entity_type: node
+                field: reverse__user__field_main_profile
+                group_type: group
+                id: reverse__user__field_main_profile
+                plugin_id: entity_reverse
+                relationship: none
+                required: false
+                table: node_field_data
+        entity_reference_behalf_of:
+          display_options:
+            fields:
+              type:
+                exclude: true

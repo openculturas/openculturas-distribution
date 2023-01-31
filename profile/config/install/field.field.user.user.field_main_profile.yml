@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_main_profile
+  module:
+    - user
+id: user.user.field_main_profile
+field_name: field_main_profile
+entity_type: user
+bundle: user
+label: 'Main profile'
+description: 'Once you have created at least one <a href="/en/node/add/profile">profile</a> or <a href="/en/node/add/location">location</a> you can select it here as your main profile.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: my_content
+      display_name: entity_reference_behalf_of
+      arguments: {  }
+field_type: entity_reference

@@ -136,6 +136,19 @@ display:
             field_identifier: ''
           exposed: false
           granularity: second
+        field_main_profile_target_id:
+          id: field_main_profile_target_id
+          table: user__field_main_profile
+          field: field_main_profile_target_id
+          relationship: reverse__user__field_main_profile
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments:
         uid:
           id: uid
@@ -212,7 +225,17 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        reverse__user__field_main_profile:
+          id: reverse__user__field_main_profile
+          table: node_field_data
+          field: reverse__user__field_main_profile
+          relationship: none
+          group_type: group
+          admin_label: field_main_profile
+          entity_type: node
+          plugin_id: entity_reverse
+          required: false
       css_class: content
       use_ajax: true
       header: {  }
@@ -252,6 +275,7 @@ display:
         - 'config:core.entity_view_display.node.location.search_index'
         - 'config:core.entity_view_display.node.location.search_result'
         - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.location.token'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.full'
         - 'config:core.entity_view_display.node.page.search_index'
@@ -347,7 +371,7 @@ display:
           entity_field: type
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -516,6 +540,7 @@ display:
           hide_empty: false
       defaults:
         css_class: false
+        relationships: true
         fields: false
         arguments: false
         filters: false
@@ -623,6 +648,7 @@ display:
         - 'config:core.entity_view_display.node.location.search_index'
         - 'config:core.entity_view_display.node.location.search_result'
         - 'config:core.entity_view_display.node.location.teaser'
+        - 'config:core.entity_view_display.node.location.token'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.full'
         - 'config:core.entity_view_display.node.page.search_index'
