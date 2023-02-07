@@ -39,16 +39,15 @@ body .block-system-main-block > article.layout-wide.view-mode-full {
     grid-row: 4;
   }
 
-  .pager {
+  .view-footer {
     grid-row: 5;
+  }
+
+  .pager {
+    grid-row: 6;
     grid-column: 1 / -1;
   }
 
-  .view-footer {
-    grid-row: 6;
-  }
-
-  .view-header,
   .view-filters,
   .attachment-before {
     grid-column: 1 / 17;
@@ -56,6 +55,10 @@ body .block-system-main-block > article.layout-wide.view-mode-full {
     @include breakpoint(m) {
       grid-column: 2 / 16;
     }
+  }
+
+  .view-header {
+    grid-column: 2 / 16;
   }
 
   .view-content,
@@ -68,8 +71,14 @@ body .block-system-main-block > article.layout-wide.view-mode-full {
     }
   }
 
-  .attachment .view-content {
-    grid-column: 1 / -1;
+  .attachment {
+    .view-content {
+      grid-column: 1 / -1;
+    }
+    .view-header,
+    .view-footer {
+      grid-column: 2 / 16;
+    }
   }
 
 }
