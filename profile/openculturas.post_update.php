@@ -5,7 +5,9 @@
  * Install, update and uninstall module functions.
  */
 
+use Drupal\user\Entity\Role;
 use Drupal\views\Views;
+use Drupal\workflows\Entity\Workflow;
 
 /**
  * Views: Replaces the Content: publish filter with Content: Published status or admin user
@@ -90,4 +92,79 @@ function openculturas_post_update_0005() {
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
+}
+
+/**
+ * deprecate wrong machine name for state (to_review)/transition (review) and add new one
+ */
+function openculturas_post_update_0006() {
+  $workflows = ['draften', 'magazine_article'];
+  foreach ($workflows as $id) {
+    /** @var \Drupal\workflows\WorkflowInterface $workflow */
+    $workflow = Workflow::load($id);
+    if ($workflow) {
+      $workflow->getTypePlugin()->setStateWeight('draft', -2);
+      $workflow->getTypePlugin()->addState('review', 'In review');
+      $workflow->getTypePlugin()->setStateWeight('review', -1);
+      $workflow->getTypePlugin()->setStateWeight('published', 0);
+      $workflow->getTypePlugin()->setStateWeight('unpublished', 1);
+      if ($workflow->getTypePlugin()->hasState('to_review')) {
+        $workflow->getTypePlugin()->setStateLabel('to_review', 'In review (deprecated)');
+        $workflow->getTypePlugin()->setStateWeight('to_review', 2);
+      }
+
+      $workflow->getTypePlugin()->addTransition('to_review', 'To review', ['draft', 'published', 'review', 'to_review', 'unpublished'], 'review');
+      $workflow->getTypePlugin()->deleteTransition('review');
+      $workflow->getTypePlugin()->setTransitionFromStates('create_new_draft', ['draft', 'published', 'review', 'to_review']);
+      $workflow->getTypePlugin()->setTransitionFromStates('publish', ['draft', 'published', 'review', 'to_review', 'unpublished']);
+      $workflow->getTypePlugin()->setTransitionFromStates('unpublish', ['draft', 'published', 'review', 'to_review']);
+      $workflow->getTypePlugin()->setTransitionWeight('create_new_draft', -2);
+      $workflow->getTypePlugin()->setTransitionWeight('to_review', -1);
+      $workflow->getTypePlugin()->setTransitionWeight('publish', 0);
+      $workflow->getTypePlugin()->setTransitionWeight('unpublish', 1);
+      $workflow->save();
+    }
+  }
+
+  $role = Role::load('authenticated');
+  $role->grantPermission('use draften transition to_review');
+  $role->revokePermission('use draften transition review');
+  $role->save();
+
+  $role = Role::load('oc_organizer');
+  $role->revokePermission('use draften transition review');
+  $role->save();
+
+  $role = Role::load('magazine_editor');
+  $role->grantPermission('use magazine_article transition to_review');
+  $role->save();
+
+  $role = Role::load('oc_admin');
+  $role->grantPermission('use magazine_article transition to_review');
+  $role->save();
+
+  $view = Views::getView('moderated_content');
+  if ($view) {
+    if (($handler_configuration = $view->getHandler('default', 'filter', 'moderation_state'))) {
+      foreach ($handler_configuration['group_info']['group_items'] as &$group_item) {
+        $value = &$group_item['value'];
+        if (isset($value['draften-to_review'])) {
+          unset($value['draften-to_review']);
+          $value['draften-review'] = 'draften-review';
+        }
+        if (isset($value['magazine_article-to_review'])) {
+          unset($value['magazine_article-to_review']);
+          $value['magazine_article-review'] = 'magazine_article-review';
+        }
+      }
+      unset($group_item);
+      $handler_configuration['group_info']['group_items'][] = [
+        'operator' => 'in',
+        'title' => 'In review (deprecated)',
+        'value' => ['draften-to_review' => 'draften-to_review', 'magazine_article-to_review' => 'magazine_article-to_review'],
+      ];
+      $view->setHandler('default', 'filter', 'moderation_state', $handler_configuration);
+      $view->save();
+    }
+  }
 }

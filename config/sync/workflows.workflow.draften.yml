@@ -22,9 +22,12 @@ type_settings:
       weight: 0
       published: true
       default_revision: true
-    to_review:
+    review:
       label: 'In review'
       weight: -1
+    to_review:
+      label: 'In review (deprecated)'
+      weight: 2
       published: false
       default_revision: false
     unpublished:
@@ -38,6 +41,7 @@ type_settings:
       from:
         - draft
         - published
+        - review
         - to_review
       to: draft
       weight: -2
@@ -46,25 +50,28 @@ type_settings:
       from:
         - draft
         - published
+        - review
         - to_review
         - unpublished
       to: published
       weight: 0
-    review:
+    to_review:
       label: 'To review'
       from:
         - draft
         - published
+        - review
         - to_review
         - unpublished
-      to: to_review
+      to: review
       weight: -1
     unpublish:
       label: Unpublish
       from:
-        - published
-        - to_review
         - draft
+        - published
+        - review
+        - to_review
       to: unpublished
       weight: 1
   entity_types:
