@@ -4,16 +4,13 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function (Drupal, drupalSettings) {
   Drupal.behaviors.locate_me = {
     attach: function attach() {
       var messages = new Drupal.Message();
-
       if ('geolocation' in navigator) {
         var $selector = '[data-target-selector-id]';
         var $buttons = once('locate_me', $selector);
-
         if ($buttons) {
           $buttons.forEach(function (button) {
             button.addEventListener('click', function () {
@@ -31,7 +28,6 @@
                   type: 'error'
                 });
               }
-
               return false;
             });
           });
@@ -58,7 +54,6 @@
         var $value = data[0].formatted_address;
         var $selector = "[data-drupal-selector=".concat(Drupal.behaviors.locate_me.target_id, "]");
         var $element = document.querySelector($selector);
-
         if ($element) {
           $element.value = $value;
         }

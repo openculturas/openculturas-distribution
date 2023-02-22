@@ -4,7 +4,6 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function ($, Drupal) {
   Drupal.behaviors.leaflet_extra = {
     attach: function attach() {
@@ -12,7 +11,6 @@
       $elements.on('toggle', function (event) {
         var $detail = $(event.currentTarget);
         var $leaflet = $detail.find('.leaflet-container');
-
         if ($leaflet.length) {
           $leaflet.data('leaflet').lMap.invalidateSize();
         }
