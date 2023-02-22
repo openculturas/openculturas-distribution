@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>devops/renovate-config"
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "config/**"
+  ],
+  "rangeStrategy": "replace",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "ajaxorg/ace-builds",
+        "choices-js/choices.js",
+        "dynamicweb/swiffy-slider",
+        "elmarquis/leaflet.gesture-handling",
+        "heiseonline/shariff",
+        "leaflet/leaflet.fullscreen",
+        "leaflet/leaflet.markercluster",
+        "openculturas/openculturas-profile"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "seleniarm/standalone-chromium"
+      ],
+      "pinDigests": false
+    }
+  ]
+}
