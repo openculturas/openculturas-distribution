@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\openculturas_custom\Entity\EcaNotificationRecipient;
+use function in_array;
 
 /**
  * ECA notification recipient form.
@@ -51,6 +52,9 @@ class EcaNotificationRecipientForm extends EntityForm {
     /** @var \Drupal\eca\Entity\Eca[] $entities */
     $entities = $this->entityTypeManager->getStorage('eca')->loadMultiple();
     foreach ($entities as $entity) {
+      if (!in_array('notification', $entity->getModel()->getTags(), TRUE)) {
+        continue;
+      }
       $options[$entity->id()] = $entity->label();
     }
     $models = $this->entity->get('eca_model') ?? [];

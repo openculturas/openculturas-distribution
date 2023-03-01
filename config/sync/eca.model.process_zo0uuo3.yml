@@ -1,0 +1,231 @@
+uuid: 4778866d-945e-4536-a16d-16fe2217d8f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.process_zo0uuo3
+id: process_zo0uuo3
+label: 'Moderation state (published) was set'
+tags:
+  - ''
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="Process_zO0uuO3" name="Moderation state (published) was set" isExecutable="true" camunda:versionTag="1.0.0">
+      <bpmn2:extensionElements />
+      <bpmn2:startEvent id="Event_1y89lfy" name="Mod-State to published" camunda:modelerTemplate="org.drupal.event.workflow:transition">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="workflow:transition" />
+          </camunda:properties>
+          <camunda:field name="type">
+            <camunda:string>node _all</camunda:string>
+          </camunda:field>
+          <camunda:field name="from_state">
+            <camunda:string>review</camunda:string>
+          </camunda:field>
+          <camunda:field name="to_state">
+            <camunda:string>published</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_00gp4vn</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="Activity_1ljuc7j" name="Send email" camunda:modelerTemplate="org.drupal.action.action_send_email_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_send_email_action" />
+          </camunda:properties>
+          <camunda:field name="recipient">
+            <camunda:string>[node:author:mail]</camunda:string>
+          </camunda:field>
+          <camunda:field name="subject">
+            <camunda:string>Published: [node:title] on [site:name]</camunda:string>
+          </camunda:field>
+          <camunda:field name="message">
+            <camunda:string>Good news - your content has been reviewed and published:
+  [node:title] [node:url]
+
+  Thanks for contributing to [site:name]!
+
+  </camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1alkluj</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1alkluj" name="Non-DE" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_04if7je" targetRef="Activity_1ljuc7j">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_scalar" />
+          </camunda:properties>
+          <camunda:field name="left">
+            <camunda:string>[preferred_langcode]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>de</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>yes</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_10wjb4y" name="Send email" camunda:modelerTemplate="org.drupal.action.action_send_email_action">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="action_send_email_action" />
+          </camunda:properties>
+          <camunda:field name="recipient">
+            <camunda:string>[node:author:mail]</camunda:string>
+          </camunda:field>
+          <camunda:field name="subject">
+            <camunda:string>Veröffentlicht: [node:title] auf [site:name]</camunda:string>
+          </camunda:field>
+          <camunda:field name="message">
+            <camunda:string>Gute Nachricht - dein Inhalt wurde freigegeben und veröffentlicht:
+  [node:title] [node:url]
+
+  Danke für deinen Beitrag zu [site:name]!
+
+  </camunda:string>
+          </camunda:field>
+          <camunda:field name="replace_tokens">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_08jcgzu</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_08jcgzu" name="DE" camunda:modelerTemplate="org.drupal.condition.eca_scalar" sourceRef="Activity_04if7je" targetRef="Activity_10wjb4y">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_scalar" />
+          </camunda:properties>
+          <camunda:field name="left">
+            <camunda:string>[preferred_langcode]</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>de</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_04if7je" name="Set the currently used or negotiated language code." camunda:modelerTemplate="org.drupal.action.eca_set_current_langcode">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_set_current_langcode" />
+          </camunda:properties>
+          <camunda:field name="langcode">
+            <camunda:string>[preferred_langcode]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1jiduqd</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_08jcgzu</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_1alkluj</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1jiduqd" name="Token preferred_langcode is set" camunda:modelerTemplate="org.drupal.condition.eca_token_exists" sourceRef="Activity_1anytww" targetRef="Activity_04if7je">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_token_exists" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>preferred_langcode</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="Activity_1anytww" name="Get the preferred langcode of notification recipient" camunda:modelerTemplate="org.drupal.action.eca_get_preferred_langcode">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_get_preferred_langcode" />
+          </camunda:properties>
+          <camunda:field name="token_name">
+            <camunda:string>preferred_langcode</camunda:string>
+          </camunda:field>
+          <camunda:field name="object">
+            <camunda:string>user</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_00gp4vn</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1jiduqd</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_00gp4vn" sourceRef="Event_1y89lfy" targetRef="Activity_1anytww" />
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="sid-30006dac-b440-43dd-aa3c-369c34d7e4e0">
+      <bpmndi:BPMNPlane id="sid-e7f832e2-f23e-4a19-b366-92be2f03edf8" bpmnElement="Process_zO0uuO3">
+        <bpmndi:BPMNShape id="Event_1y89lfy_di" bpmnElement="Event_1y89lfy">
+          <dc:Bounds x="582" y="162" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="571" y="205" width="63" height="27" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1ljuc7j_di" bpmnElement="Activity_1ljuc7j">
+          <dc:Bounds x="1190" y="220" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_10wjb4y_di" bpmnElement="Activity_10wjb4y">
+          <dc:Bounds x="1190" y="60" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_04if7je_di" bpmnElement="Activity_04if7je">
+          <dc:Bounds x="1030" y="140" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_1anytww_di" bpmnElement="Activity_1anytww">
+          <dc:Bounds x="770" y="140" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="Flow_1alkluj_di" bpmnElement="Flow_1alkluj">
+          <di:waypoint x="1080" y="220" />
+          <di:waypoint x="1080" y="260" />
+          <di:waypoint x="1190" y="260" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="1112" y="263" width="40" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_08jcgzu_di" bpmnElement="Flow_08jcgzu">
+          <di:waypoint x="1080" y="140" />
+          <di:waypoint x="1080" y="100" />
+          <di:waypoint x="1190" y="100" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="1124" y="102" width="16" height="14" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1jiduqd_di" bpmnElement="Flow_1jiduqd">
+          <di:waypoint x="870" y="180" />
+          <di:waypoint x="1030" y="180" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="918" y="141" width="84" height="40" />
+          </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_00gp4vn_di" bpmnElement="Flow_00gp4vn">
+          <di:waypoint x="618" y="180" />
+          <di:waypoint x="770" y="180" />
+        </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

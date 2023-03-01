@@ -1,0 +1,100 @@
+uuid: 7f1e1725-11cd-4bdf-ab35-7b52135f69f9
+langcode: en
+status: true
+dependencies:
+  module:
+    - eca_base
+    - eca_language
+    - eca_user
+    - eca_workflow
+id: process_zo0uuo3
+modeller: bpmn_io
+label: 'Moderation state (published) was set'
+version: 1.0.0
+weight: -7
+events:
+  Event_1y89lfy:
+    plugin: 'workflow:transition'
+    label: 'Mod-State to published'
+    configuration:
+      type: 'node _all'
+      from_state: review
+      to_state: published
+    successors:
+      -
+        id: Activity_1anytww
+        condition: ''
+conditions:
+  Flow_1alkluj:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[preferred_langcode]'
+      right: de
+      operator: equal
+      type: value
+      negate: true
+  Flow_08jcgzu:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[preferred_langcode]'
+      right: de
+      operator: equal
+      type: value
+  Flow_1jiduqd:
+    plugin: eca_token_exists
+    configuration:
+      negate: false
+      token_name: preferred_langcode
+gateways: {  }
+actions:
+  Activity_1ljuc7j:
+    plugin: action_send_email_action
+    label: 'Send email'
+    configuration:
+      replace_tokens: false
+      recipient: '[node:author:mail]'
+      subject: 'Published: [node:title] on [site:name]'
+      message: |-
+        Good news - your content has been reviewed and published:
+        [node:title] [node:url]
+
+        Thanks for contributing to [site:name]!
+    successors: {  }
+  Activity_10wjb4y:
+    plugin: action_send_email_action
+    label: 'Send email'
+    configuration:
+      replace_tokens: false
+      recipient: '[node:author:mail]'
+      subject: 'Veröffentlicht: [node:title] auf [site:name]'
+      message: |-
+        Gute Nachricht - dein Inhalt wurde freigegeben und veröffentlicht:
+        [node:title] [node:url]
+
+        Danke für deinen Beitrag zu [site:name]!
+    successors: {  }
+  Activity_04if7je:
+    plugin: eca_set_current_langcode
+    label: 'Set the currently used or negotiated language code.'
+    configuration:
+      langcode: '[preferred_langcode]'
+    successors:
+      -
+        id: Activity_1ljuc7j
+        condition: Flow_1alkluj
+      -
+        id: Activity_10wjb4y
+        condition: Flow_08jcgzu
+  Activity_1anytww:
+    plugin: eca_get_preferred_langcode
+    label: 'Get the preferred langcode of notification recipient'
+    configuration:
+      token_name: preferred_langcode
+      object: user
+    successors:
+      -
+        id: Activity_04if7je
+        condition: Flow_1jiduqd
