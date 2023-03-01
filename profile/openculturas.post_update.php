@@ -182,3 +182,52 @@ function openculturas_post_update_0007() {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Display revision user and hide author in content moderation view
+ */
+function openculturas_post_update_0008() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0008');
+  if ($no_warnings) {
+    $view = Views::getView('moderated_content');
+    if ($view) {
+      $display = $view->getDisplay();
+      $old_field = $display->getOption('fields');
+      $new_field = [];
+      $style_option = $display->getOption('style');
+      $columns = [];
+      $info = [];
+
+      $new_order_keys = [
+        'views_bulk_operations_bulk_form',
+        'title',
+        'type',
+        'name',
+        'revision_uid',
+        'moderation_state',
+        'changed',
+        'revision_log',
+        'operations'
+      ];
+      foreach ($new_order_keys as $id) {
+        if (!isset($old_field[$id])) {
+          continue;
+        }
+        $new_field[$id] = $old_field[$id];
+        $columns[$id] = $style_option['options']['columns'][$id];
+        $info[$id] = $style_option['options']['info'][$id];
+      }
+      $style_option['options']['info'] = $info;
+      $style_option['options']['columns'] = $columns;
+      $display->setOption('style', $style_option);
+      $display->setOption('fields', $new_field);
+      $view->save();
+    }
+  }
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
