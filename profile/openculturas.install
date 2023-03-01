@@ -123,3 +123,12 @@ function openculturas_update_9002() {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Install eca.
+ */
+function openculturas_update_9003(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['eca']);
+}

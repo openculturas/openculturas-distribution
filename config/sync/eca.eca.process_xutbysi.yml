@@ -1,0 +1,162 @@
+uuid: dea6d2fe-20d2-4b8e-a8bf-4d6dd303b774
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.flagging.claim_ownership.field_comment
+    - field.field.flagging.report_abuse.field_comment
+    - field.storage.flagging.field_comment
+    - flag.flag.claim_ownership
+  module:
+    - eca_base
+    - eca_content
+    - eca_language
+    - openculturas_custom
+id: process_xutbysi
+modeller: bpmn_io
+label: 'Claim ownership'
+version: 1.0.0
+weight: null
+events:
+  Event_0ejsb2d:
+    plugin: 'content_entity:insert'
+    label: 'Ownership claimed'
+    configuration:
+      type: 'flagging claim_ownership'
+    successors:
+      -
+        id: Activity_15y3smb
+        condition: ''
+conditions:
+  Flow_1y751ge:
+    plugin: eca_token_exists
+    configuration:
+      negate: false
+      token_name: recipient_email
+  Flow_1alkluj:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[preferred_langcode]'
+      right: de
+      operator: equal
+      type: value
+      negate: true
+  Flow_08jcgzu:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[preferred_langcode]'
+      right: de
+      operator: equal
+      type: value
+  Flow_1jiduqd:
+    plugin: eca_token_exists
+    configuration:
+      negate: false
+      token_name: preferred_langcode
+  Flow_1ji1mhv:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: recipients
+      right: '0'
+      operator: greaterthan
+      type: numeric
+gateways:
+  Gateway_09bnpzd:
+    type: 0
+    successors:
+      -
+        id: Activity_1ng4u8i
+        condition: Flow_1ji1mhv
+actions:
+  Activity_1ljuc7j:
+    plugin: action_send_email_action
+    label: 'Send email'
+    configuration:
+      recipient: '[recipient_email]'
+      subject: 'Ownership claimed: [entity:title] on [site:name]'
+      message: |-
+        Someone has claimed ownership for a content on [site:name]:
+        Title: [entity:title]
+        Link: [entity:url]
+
+        Comment:
+        [flagging:field_comment]
+
+        For a complete overview, visit
+        [site:url]/admin/content/claims
+      replace_tokens: true
+    successors:
+      -
+        id: Gateway_09bnpzd
+        condition: ''
+  Activity_1ng4u8i:
+    plugin: eca_list_remove
+    label: 'Pop recipient from recipients'
+    configuration:
+      value: ''
+      token_name: recipient_email
+      method: first
+      index: ''
+      list_token: '[recipients]'
+    successors:
+      -
+        id: Activity_0scf1ls
+        condition: Flow_1y751ge
+  Activity_10wjb4y:
+    plugin: action_send_email_action
+    label: 'Send email'
+    configuration:
+      recipient: '[recipient_email]'
+      subject: 'Übernahme beantragt: [entity:title] auf [site:name]'
+      message: |-
+        Für einen Inhalt auf [site:name] wird die Übernahme beantragt:
+        Titel: [entity:title]
+        Link: [entity:url]
+
+        Kommentar: 
+        [flagging:field_comment]
+
+        Eine komplette Übersicht ist unter 
+        [site:url]/admin/content/claims zu finden
+      replace_tokens: true
+    successors:
+      -
+        id: Gateway_09bnpzd
+        condition: ''
+  Activity_04if7je:
+    plugin: eca_set_current_langcode
+    label: 'Set the currently used or negotiated language code.'
+    configuration:
+      langcode: '[preferred_langcode]'
+    successors:
+      -
+        id: Activity_1ljuc7j
+        condition: Flow_1alkluj
+      -
+        id: Activity_10wjb4y
+        condition: Flow_08jcgzu
+  Activity_0scf1ls:
+    plugin: openculturas_preferred_langcode_recipients
+    label: 'Get the preferred langcode of notification recipient'
+    configuration:
+      token_name: preferred_langcode
+      recipient: '[recipient_email]'
+    successors:
+      -
+        id: Activity_04if7je
+        condition: Flow_1jiduqd
+  Activity_15y3smb:
+    plugin: openculturas_load_notification_recipients
+    label: 'Load recipients'
+    configuration:
+      token_name: recipients
+      model: process_xutbysi
+    successors:
+      -
+        id: Gateway_09bnpzd
+        condition: ''

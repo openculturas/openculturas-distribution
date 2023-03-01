@@ -1,0 +1,161 @@
+uuid: eb9a9140-a0fe-4773-af27-8d9993a2d3f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - eca_base
+    - eca_language
+    - eca_workflow
+    - openculturas_custom
+id: process_gfgdois
+modeller: bpmn_io
+label: 'Moderation state (review) was set'
+version: 1.0.0
+weight: null
+events:
+  Event_1y89lfy:
+    plugin: 'workflow:transition'
+    label: 'Mod-State to review'
+    configuration:
+      type: 'node _all'
+      from_state: ''
+      to_state: review
+    successors:
+      -
+        id: Activity_15y3smb
+        condition: ''
+      -
+        id: Activity_15y3smb
+        condition: ''
+conditions:
+  Flow_1y751ge:
+    plugin: eca_token_exists
+    configuration:
+      negate: false
+      token_name: recipient_email
+  Flow_1alkluj:
+    plugin: eca_scalar
+    configuration:
+      case: false
+      left: '[preferred_langcode]'
+      right: de
+      operator: equal
+      type: value
+      negate: true
+  Flow_08jcgzu:
+    plugin: eca_scalar
+    configuration:
+      negate: false
+      case: false
+      left: '[preferred_langcode]'
+      right: de
+      operator: equal
+      type: value
+  Flow_1jiduqd:
+    plugin: eca_token_exists
+    configuration:
+      negate: false
+      token_name: preferred_langcode
+  Flow_09fs1sx:
+    plugin: eca_token_exists
+    configuration:
+      negate: false
+      token_name: recipients
+  Flow_04k8qmj:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: recipients
+      right: '0'
+      operator: greaterthan
+      type: numeric
+gateways:
+  Gateway_1vjtnjr:
+    type: 0
+    successors:
+      -
+        id: Activity_1ng4u8i
+        condition: Flow_04k8qmj
+actions:
+  Activity_1ljuc7j:
+    plugin: action_send_email_action
+    label: 'Send email'
+    configuration:
+      replace_tokens: false
+      recipient: '[recipient_email]'
+      subject: 'Please review [node:title] on [site:name]'
+      message: |-
+        Some content on [site:name] is waiting for moderation:
+        [node:title] [node:url:absolute]
+
+        Please log in, review and either publish or reject the content.
+
+        For a complete moderation overview, visit [site:url]/admin/content/moderated
+    successors:
+      -
+        id: Gateway_1vjtnjr
+        condition: ''
+  Activity_1ng4u8i:
+    plugin: eca_list_remove
+    label: 'Pop recipient from recipients'
+    configuration:
+      value: ''
+      token_name: recipient_email
+      method: first
+      index: ''
+      list_token: '[recipients]'
+    successors:
+      -
+        id: Activity_0scf1ls
+        condition: Flow_1y751ge
+  Activity_10wjb4y:
+    plugin: action_send_email_action
+    label: 'Send email'
+    configuration:
+      replace_tokens: false
+      recipient: '[recipient_email]'
+      subject: 'Freigabe erbeten: [node:title] auf [site:name]'
+      message: |-
+        Ein Inhalt auf [site:name] wartet auf Moderation:
+        [node:title] [node:url:absolute]
+
+        Bitte einloggen, den Inhalt prüfen und entweder veröffentlichen oder zurückweisen.
+
+        Eine komplette Übersicht der zu moderierenden Inhalte ist unter [site:url]/admin/content/moderated zu finden.
+    successors:
+      -
+        id: Gateway_1vjtnjr
+        condition: ''
+  Activity_04if7je:
+    plugin: eca_set_current_langcode
+    label: 'Set the currently used or negotiated language code.'
+    configuration:
+      langcode: '[preferred_langcode]'
+    successors:
+      -
+        id: Activity_1ljuc7j
+        condition: Flow_1alkluj
+      -
+        id: Activity_10wjb4y
+        condition: Flow_08jcgzu
+  Activity_0scf1ls:
+    plugin: openculturas_preferred_langcode_recipients
+    label: 'Get the preferred langcode of notification recipient'
+    configuration:
+      token_name: preferred_langcode
+      recipient: '[recipient_email]'
+    successors:
+      -
+        id: Activity_04if7je
+        condition: Flow_1jiduqd
+  Activity_15y3smb:
+    plugin: openculturas_load_notification_recipients
+    label: 'Load recipients'
+    configuration:
+      token_name: recipients
+      model: process_gfgdois
+    successors:
+      -
+        id: Gateway_1vjtnjr
+        condition: Flow_09fs1sx

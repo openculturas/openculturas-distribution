@@ -560,3 +560,15 @@ function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, 
     }
   }
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function openculturas_custom_eca_delete(\Drupal\Core\Entity\EntityInterface $entity) {
+  $entities = \Drupal::entityTypeManager()->getStorage('eca')->loadMultiple();
+  if ($entities === []) {
+    $storage = \Drupal::entityTypeManager()->getStorage('eca_notification_recipient');
+    $entities = $storage->loadMultiple();
+    $storage->delete($entities);
+  }
+}

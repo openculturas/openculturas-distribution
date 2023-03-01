@@ -30,7 +30,9 @@ function main() {
     'core.extension.yml',
     'update.settings.yml',
     'file.setting.yml',
-    'system.site.yml'
+    'system.site.yml',
+    'eca.settings.yml',
+    'views.view.eca_log.yml'
   ];
 
   if (!is_dir('config/sync/')) {
