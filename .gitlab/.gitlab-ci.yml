@@ -1,0 +1,41 @@
+include:
+  - project: 'devops/gitlab-ci-templates'
+    ref: 1.2.0
+    file:
+      - 'drupal.yml'
+
+variables:
+  CLOUDRON_DB_SOURCE: 'gitrepo'
+
+default:
+  image: docker:23.0-git
+
+build:image:stage:
+  extends: .build:image:stage
+
+deploy:stage:
+  extends: .deploy_cloudron:stage
+  needs:
+    - build:image:stage
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'schedule'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: $CI_COMMIT_BRANCH
+      when: manual
+
+deploy:stage:remove:
+  extends: .deploy_cloudron:stage:remove
+  needs:
+    - deploy:stage
+
+database:snapshot:
+  extends: .pre_cloudron
+  stage: cronjobs
+  variables:
+    APP_ENV: stage
+  script:
+    - bash ${DEBUG:+-o xtrace} /ci/cloudron/db_snapshot.sh
+  rules:
+    - if: $DB_CREATE_SNAPSHOT

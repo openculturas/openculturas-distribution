@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+## Description: Imports latest db snapshot.
+## Usage: dbimport
+## Example: "ddev dbimport"
+
+main() {
+  local remoteurl=""
+  remoteurl=$(git remote get-url origin)
+  local dbrepo=$(mktemp -u -d)
+  git clone "${remoteurl/.git/-database.git}" $dbrepo && cd $dbrepo
+  git archive origin/main | tar -x -C /tmp
+  (cd /var/www/html/ && bash "scripts/db_import.sh")
+}
+
+main "$@"

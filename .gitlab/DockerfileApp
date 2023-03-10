@@ -1,0 +1,22 @@
+# syntax=docker/dockerfile:1
+
+ARG CI_REGISTRY_IMAGE
+FROM $CI_REGISTRY_IMAGE:base as base
+
+FROM base as build
+ARG APP_ENV
+ENV APP_ENV ${APP_ENV:-UNKNOWN}
+ENV COMPOSER_ALLOW_SUPERUSER 1
+WORKDIR /build
+RUN --mount=type=cache,target=/root/.cache/composer --mount=type=cache,target=/root/.npm/_cacache --mount=type=bind,target=/build,readwrite \
+  if [ "${APP_ENV:-}" = 'live' ]; then export NO_DEV=1; fi; \
+  composer install --no-interaction --optimize-autoloader --no-progress --ansi ${NO_DEV:+--no-dev} && \
+  cp -r /build/* /app/code >/dev/null
+
+FROM base
+ARG APP_ENV
+ENV APP_ENV ${APP_ENV:-UNKNOWN}
+WORKDIR /app/code
+COPY --from=build --chown=cloudron:cloudron /app/code /app/code
+COPY ./.gitlab/cloudron.settings.php /app/code/web/sites/default/settings.php
+RUN ln -sf /app/data/files /app/code/web/sites/default/files
