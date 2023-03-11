@@ -7,7 +7,13 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\Entity\EntityDeleteForm;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Utility\UpdateException;
 use Drupal\node\NodeInterface;
+use Drupal\openculturas_custom\EcaNotificationRecipientListBuilder;
+use Drupal\openculturas_custom\Form\EcaNotificationRecipientForm;
 
 /**
  * Implements hook_install_tasks().
@@ -131,4 +137,61 @@ function openculturas_update_9003(): void {
   /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->install(['eca']);
+}
+
+/**
+ * Installs config entity type eca_notification_recipient.
+ */
+function openculturas_update_9004(): string {
+  $changeList = \Drupal::entityDefinitionUpdateManager()->getChangeList();
+  if (!array_key_exists('eca_notification_recipient', $changeList)) {
+    return 'Skipped. The new config entity type eca_notification_recipient is already installed.';
+  }
+  try {
+    \Drupal::entityDefinitionUpdateManager()
+      ->installEntityType(new ConfigEntityType([
+        'id' => 'eca_notification_recipient',
+        'label' => new TranslatableMarkup('Notification recipient'),
+        'label_collection' => new TranslatableMarkup('Notification recipients'),
+        'label_singular' => new TranslatableMarkup('notification recipient'),
+        'label_plural' => new TranslatableMarkup('notification recipients'),
+        'label_count' => [
+          'singular' => "@count notification recipient",
+          'plural' => "@count notification recipients",
+        ],
+        'handlers' => [
+          'list_builder' => EcaNotificationRecipientListBuilder::class,
+          'form' => [
+            'add' => EcaNotificationRecipientForm::class,
+            'edit' => EcaNotificationRecipientForm::class,
+            'delete' => EntityDeleteForm::class,
+          ],
+        ],
+        'config_prefix' => 'eca_notification_recipient',
+        'admin_permission' => 'administer eca_notification_recipient',
+        'static_cache' => TRUE,
+        'links' => [
+          'collection' => '/admin/config/workflow/eca-notification-recipient',
+          'add-form' => '/admin/config/workflow/eca-notification-recipient/add',
+          'edit-form' => '/admin/config/workflow/eca-notification-recipient/{eca_notification_recipient}',
+          'delete-form' => '/admin/config/workflow/eca-notification-recipient/{eca_notification_recipient}/delete',
+        ],
+        'entity_keys' => [
+          'id' => 'id',
+          'label' => 'label',
+          'eca_model' => 'eca_model',
+          'preferred_langcode' => 'preferred_langcode',
+        ],
+        'config_export' => [
+          'id',
+          'label',
+          'eca_model',
+          'preferred_langcode',
+        ],
+      ]));
+  }
+  catch (\Exception $exception) {
+    throw new UpdateException($exception->getMessage());
+  }
+  return 'Installed the new config entity type eca_notification_recipient.';
 }
