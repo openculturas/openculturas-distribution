@@ -26,7 +26,6 @@ main() {
     mkdir -p /app/data/private
     mkdir -p /app/data/files/translations
     chown -R www-data.www-data /app/data
-    _drush en stage_file_proxy
   fi
   _drush deploy
   if [[ -n ${CLOUDRON:-} ]]; then
