@@ -14,7 +14,7 @@ OpenCulturas is built as a pre-configured platform for cultural-focused communit
 
 ## Requirements
 * https://www.drupal.org/docs/system-requirements for Drupal 9
-  * PHP 7.4
+  * PHP 8.1
 * A bunch of drupal modules and external libraries.
 
 ## Installation
