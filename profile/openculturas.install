@@ -195,3 +195,26 @@ function openculturas_update_9004(): string {
   }
   return 'Installed the new config entity type eca_notification_recipient.';
 }
+
+/**
+ * Removes deprecated allowed value of field_event_series
+ */
+function openculturas_update_9005(): string {
+  $updateManager = \Drupal::entityDefinitionUpdateManager();
+  /** @var \Drupal\field\FieldStorageConfigInterface $field_storage_definition*/
+  if (!$field_storage_definition = $updateManager->getFieldStorageDefinition('field_event_series', 'node')) {
+    return 'Skipped. The field field_event_series is not installed.';
+  }
+
+  $field_storage_definition->setSetting('allowed_values', [
+    'no' => 'No',
+    'is_sub_event_of' => 'is sub-event of'
+  ]);
+  try {
+    $updateManager->updateFieldStorageDefinition($field_storage_definition);
+  }
+  catch (\Exception $exception) {
+    throw new UpdateException($exception->getMessage());
+  }
+  return 'Removed deprecated allowed value of field_event_series.';
+}
