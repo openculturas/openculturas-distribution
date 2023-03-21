@@ -1,0 +1,41 @@
+.frontpage {
+  margin: (2*$grid-gutter) 0;
+}
+
+.frontpage-highlights .views-row:nth-child(even) .media div {
+  text-align: right;
+  width: 100%;
+}
+
+.view {
+  .more-link {
+    position: relative;
+    margin-top: $grid-gutter;
+    color: var(--color-link);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: .5em;
+      display: block;
+      width: calc(100% - 3rem);
+      height: .25em;
+      border-bottom: 2px solid var(--color-link);
+    }
+
+    @include icon(chevron-right, fas, after);
+
+    a {
+      position: relative;
+      display: inline-block;
+      background-color: var(--color-bg-light);
+      padding-left: .5em;
+      padding-right: .5em;
+
+      &:focus,
+      &:hover {
+        background-color: var(--color-link);
+      }
+    }
+  }
+}

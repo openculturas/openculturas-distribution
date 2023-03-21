@@ -1,0 +1,155 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser_big
+    - field.field.node.date.field_accessibility
+    - field.field.node.date.field_attendance_mode
+    - field.field.node.date.field_body_addon
+    - field.field.node.date.field_date
+    - field.field.node.date.field_door_time_relative
+    - field.field.node.date.field_event_description
+    - field.field.node.date.field_event_series
+    - field.field.node.date.field_event_status
+    - field.field.node.date.field_forfree
+    - field.field.node.date.field_location
+    - field.field.node.date.field_location_virtual
+    - field.field.node.date.field_organizer
+    - field.field.node.date.field_parent_date
+    - field.field.node.date.field_people_reference
+    - field.field.node.date.field_premiere
+    - field.field.node.date.field_pricing
+    - field.field.node.date.field_related_date_view_ref
+    - field.field.node.date.field_safety_info
+    - field.field.node.date.field_sub_dates_view_ref
+    - field.field.node.date.field_ticketing
+    - node.type.date
+  module:
+    - date_augmenter
+    - field_formatter_class
+    - smart_date_recur
+    - user
+id: node.date.teaser_big
+targetEntityType: node
+bundle: date
+mode: teaser_big
+content:
+  extra_field_event_body:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_event_mood_image:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_date:
+    type: smartdate_recurring
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+      format: site_default_date_and_time
+      force_chronological: true
+      add_classes: true
+      time_wrapper: true
+      past_display: 0
+      upcoming_display: 1
+      show_next: false
+      parts:
+        start: start
+        end: end
+        duration: 0
+      duration:
+        separator: ' | '
+        unit: ''
+        decimals: '2'
+        suffix: h
+      current_upcoming: '1'
+      localize: 0
+    third_party_settings:
+      date_augmenter:
+        instances:
+          weights:
+            order:
+              addtocal:
+                weight: '0'
+          settings:
+            addtocal:
+              label: 'Add to Calendar'
+              event_title: ''
+              location: ''
+              description: ''
+              max_desc: '60'
+              target: ''
+              past_events: 0
+          status:
+            addtocal: 0
+          augmenter_settings:
+            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__instances__augmenter_settings__active_tab: ''
+        rule:
+          weights:
+            order:
+              addtocal:
+                weight: '0'
+          settings:
+            addtocal:
+              label: 'Add to Calendar'
+              event_title: ''
+              location: ''
+              description: ''
+              max_desc: '60'
+              target: ''
+              past_events: 0
+          status:
+            addtocal: 0
+          augmenter_settings:
+            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__rule__augmenter_settings__active_tab: ''
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+  field_location:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+hidden:
+  co_authors: true
+  content_moderation_control: true
+  extra_field_event_category: true
+  extra_field_event_gallery: true
+  extra_field_event_subtitle: true
+  extra_field_location_address_data: true
+  extra_field_social_media_buttons: true
+  extra_field_subtitle: true
+  field_accessibility: true
+  field_attendance_mode: true
+  field_body_addon: true
+  field_door_time_relative: true
+  field_event_description: true
+  field_event_series: true
+  field_event_status: true
+  field_forfree: true
+  field_location_virtual: true
+  field_organizer: true
+  field_parent_date: true
+  field_people_reference: true
+  field_premiere: true
+  field_pricing: true
+  field_related_date_view_ref: true
+  field_safety_info: true
+  field_sub_dates_view_ref: true
+  field_ticketing: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

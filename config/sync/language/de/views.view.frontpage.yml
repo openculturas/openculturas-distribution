@@ -1,20 +1,9 @@
 label: Startseite
-description: 'Inhalt, der auf der Startseite veröffentlicht ist.'
+description: 'Inhalt, der auf der Startseite veröffentlicht wird.'
 display:
   default:
     display_title: Standard
     display_options:
-      pager:
-        options:
-          tags:
-            next: 'Nächste ›'
-            previous: '‹ Vorige'
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
-          expose:
-            items_per_page_label: Anzahl/Seite
-            items_per_page_options_all_label: '- Alle -'
-            offset_label: Versatz
       exposed_form:
         options:
           submit_button: Anwenden
@@ -22,14 +11,42 @@ display:
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-      empty:
-        area_text_custom:
-          content: 'Es wurde noch kein Inhalt für die Startseite erstellt.<br>Lesen Sie das <a target="_blank" href="https://www.drupal.org/de/docs/user_guide/de/index.html"> Benutzerhandbuch</a>, um mehr über das Erstellen von Websites mit Drupal zu erfahren.'
-        title:
-          title: 'Willkommen bei [site:name]'
+      header:
+        area:
+          content:
+            value: "<h2>[view:title]</h2>\r\n"
+            format: basic_html
   feed_1:
     display_title: Newsfeed
   page_1:
     display_title: Seite
     display_options:
       title: Willkommen
+  block_front_all:
+    display_title: 'Alle Typen'
+    display_options:
+      display_comment: 'Termine ausgenommen - siehe Related-dates-View'
+  block_front_articles_x:
+    display_title: Magazinartikel
+    display_options:
+      title: Magazin
+      use_more_text: 'Zum Magazin'
+      link_url: /de/magazin
+      display_comment: ''
+  block_front_events:
+    display_title: Veranstaltungen
+    display_options:
+      title: Veranstaltungskatalog
+      use_more_text: 'Zum Veranstaltungskatalog'
+      link_url: /de/events
+  block_front_locations:
+    display_title: Orte
+    display_options:
+      title: Orte
+      use_more_text: 'Zur Übersicht aller Orte'
+      link_url: /de/orte
+  block_front_profiles:
+    display_title: Profile
+    display_options:
+      use_more_text: 'Zur Community-Übersicht'
+      link_url: /de/community
