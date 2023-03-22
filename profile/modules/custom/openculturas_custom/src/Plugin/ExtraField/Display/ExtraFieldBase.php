@@ -7,6 +7,7 @@ namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -27,6 +28,8 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
 
   protected ?array $referenceViewFormatterSettings;
 
+  protected EntityRepositoryInterface $entityRepository;
+
   /**
    * {@inheritdoc}
    */
@@ -35,6 +38,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
     $instance->renderer = $container->get('renderer');
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->entityDisplayRepository = $container->get('entity_display.repository');
+    $instance->entityRepository = $container->get('entity.repository');
     return $instance;
   }
 
@@ -65,6 +69,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
       if ($this->eventEntity->get($fieldname_in_reference)->isEmpty()) {
         return $build;
       }
+      $this->eventEntity = $this->entityRepository->getTranslationFromContext($this->eventEntity);
       $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
         $this->eventEntity->getEntityTypeId(),
         $this->eventEntity->bundle(),

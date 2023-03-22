@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use function count;
 use function in_array;
 use function is_array;
+use function is_countable;
 use function is_string;
 use function trim;
 
@@ -96,7 +97,7 @@ final class SettingsForm extends ConfigFormBase {
         '#title_display' => 'invisible',
         '#type' => 'url',
         '#size' => 3,
-        '#default_value' => $values['hostname'],
+        '#default_value' => $values['hostname'] ?? '',
         '#placeholder' => 'https://example.org',
         '#states' => [
           'required' => [
@@ -112,8 +113,8 @@ final class SettingsForm extends ConfigFormBase {
         '#title_display' => 'invisible',
         '#type' => 'url',
         '#size' => 5,
-        '#maxlength' => 500,
-        '#default_value' => $values['iframe_src'],
+        '#maxlength' => 1500,
+        '#default_value' => $values['iframe_src'] ?? '',
         '#placeholder' => Url::fromRoute('openculturas_calendar_widget.embed')->setAbsolute()->toString(),
         '#states' => [
           'required' => [
