@@ -15,6 +15,7 @@ dependencies:
     - datetime
     - node
     - options
+    - swiffy_slider
     - text
     - user
 id: frontpage
@@ -493,11 +494,10 @@ display:
         groups:
           1: AND
       style:
-        type: default
+        type: swiffy_slider
         options:
-          row_class: ''
-          default_row_class: true
           uses_fields: false
+          configuration_url: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-16x9&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale&preview-style=preview-images'
       row:
         type: 'entity:node'
         options:
@@ -516,7 +516,7 @@ display:
         sorts: false
         filters: false
         filter_groups: false
-      css_class: 'frontpage frontpage-highlights'
+      css_class: 'frontpage frontpage-highlights node-slider'
       display_description: ''
       display_comment: 'except dates - see Related dates view'
       display_extenders:
