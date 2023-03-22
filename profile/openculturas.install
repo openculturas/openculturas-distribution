@@ -91,6 +91,12 @@ function openculturas_install_content(): void {
     $config->set('content.field_address_location.settings.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg');
     $config->save();
   }
+  if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png')) {
+    $config = $configFactory->getEditable('gin.settings');
+    $config->set('favicon.path', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png');
+    $config->save();
+  }
+
 }
 
 /**
