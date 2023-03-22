@@ -65,10 +65,6 @@ $breakpoints: (                // Size at default font size 16px;
 // CAUTION:
 //   Do not change CSS color variable names (in openculturas_base theme)
 //
-// This would lead to inconsistent results when changing the colors with
-// css_color_variables_ui module.
-// Any changes require updating the color.inc and css_color_variables_dependants.yml
-//
 :root {
   /**
    * Default colors
@@ -93,6 +89,12 @@ $breakpoints: (                // Size at default font size 16px;
   --color-bg-light: #ffffff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
+
+  /**
+  * Optional OC gradients (use in background-image declaration)
+  **/
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #ffdd00, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #ffdd00 40%, #ffdd00 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
 
   /**
    * Default font-sizes
