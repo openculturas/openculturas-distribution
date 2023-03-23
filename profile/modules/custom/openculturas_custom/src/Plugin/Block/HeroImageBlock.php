@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
-
   protected RendererInterface $renderer;
 
   protected EntityRepositoryInterface $entityRepository;
@@ -50,20 +49,23 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
     if (!$current_entity->hasField('field_mood_image')) {
       return $build;
     }
-    if ($current_entity->get('field_mood_image')->isEmpty()) {
-      return $build;
+    if (!$current_entity->get('field_mood_image')->isEmpty()) {
+      if ($current_entity->get('field_mood_image')->getFieldDefinition()->isTranslatable()) {
+        $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
+      }
+      $display_options = [
+        'type' => 'entity_reference_entity_view',
+        'label' => 'hidden',
+        'settings' => [
+          'view_mode' => 'header_image',
+        ],
+      ];
+      $build = $current_entity->get('field_mood_image')->view($display_options);
     }
-    if ($current_entity->get('field_mood_image')->getFieldDefinition()->isTranslatable()) {
-      $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
-    }
-    $display_options = [
-      'type' => 'entity_reference_entity_view',
-      'label' => 'hidden',
-      'settings' => [
-        'view_mode' => 'header_image',
-      ],
-    ];
-    $build = $current_entity->get('field_mood_image')->view($display_options);
+    /*
+     * Needs the cache dependency also for no-content, so that a update of the event entity invalidates the cache.
+     * No-cache is also not a option.
+     */
     $this->renderer->addCacheableDependency($build, $current_entity);
     $this->renderer->addCacheableDependency($build, $page_entity);
     return $build;
@@ -77,5 +79,4 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
       'route',
     ]);
   }
-
 }
