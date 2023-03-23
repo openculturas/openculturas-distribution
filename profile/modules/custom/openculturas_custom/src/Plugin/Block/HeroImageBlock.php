@@ -50,9 +50,7 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
       return $build;
     }
     if (!$current_entity->get('field_mood_image')->isEmpty()) {
-      if ($current_entity->get('field_mood_image')->getFieldDefinition()->isTranslatable()) {
-        $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
-      }
+      $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
       $display_options = [
         'type' => 'entity_reference_entity_view',
         'label' => 'hidden',

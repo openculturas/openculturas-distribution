@@ -7,11 +7,13 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function rtrim;
+use function strip_tags;
 
 /**
  * Provides a page title with subtitle block.
@@ -26,6 +28,8 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
 
   protected RendererInterface $renderer;
 
+  protected EntityRepositoryInterface $entityRepository;
+
   /**
    * The page title: a string (plain title) or a render array (formatted title).
    *
@@ -39,6 +43,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): PageTitleBlock {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
+    $instance->entityRepository = $container->get('entity.repository');
     return $instance;
   }
 
@@ -75,6 +80,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
         $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
         $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderPlain($field_premiere_render_array))) . ': '];
       }
+      $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
       $title_markup[] = ['#plain_text' => $current_entity->label()];
       $this->title = $title_markup;
       if ($current_entity->hasField('field_subtitle')
@@ -98,6 +104,10 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
       '#subtitle' => $subtitle,
       '#profile_image' => $profile_image,
     ];
+    /*
+     * Needs the cache dependency also for no-content, so that a update of the entity invalidates the cache.
+     * No-cache is also not a option.
+     */
     $this->renderer->addCacheableDependency($build, $current_entity);
     $this->renderer->addCacheableDependency($build, $page_entity);
     return $build;
