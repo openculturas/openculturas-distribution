@@ -6,6 +6,7 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
@@ -24,12 +25,15 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
 
   protected RendererInterface $renderer;
 
+  protected EntityRepositoryInterface $entityRepository;
+
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): HeroImageBlock {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
+    $instance->entityRepository = $container->get('entity.repository');
     return $instance;
   }
 
@@ -40,21 +44,26 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
     $build = [];
     $page_entity = CurrentEntityHelper::get_current_page_entity();
     $current_entity = CurrentEntityHelper::getEventReference($page_entity);
-    if ($current_entity !== NULL && !$current_entity->hasField('field_mood_image')) {
+    if ($current_entity === NULL) {
       return $build;
     }
-    if ($current_entity !== NULL
-      && $current_entity->hasField('field_mood_image')
-      && !$current_entity->get('field_mood_image')->isEmpty()) {
-      $display_options = [
-        'type' => 'entity_reference_entity_view',
-        'label' => 'hidden',
-        'settings' => [
-          'view_mode' => 'header_image',
-        ],
-      ];
-      $build = $current_entity->get('field_mood_image')->view($display_options);
+    if (!$current_entity->hasField('field_mood_image')) {
+      return $build;
     }
+    if ($current_entity->get('field_mood_image')->isEmpty()) {
+      return $build;
+    }
+    if ($current_entity->get('field_mood_image')->getFieldDefinition()->isTranslatable()) {
+      $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
+    }
+    $display_options = [
+      'type' => 'entity_reference_entity_view',
+      'label' => 'hidden',
+      'settings' => [
+        'view_mode' => 'header_image',
+      ],
+    ];
+    $build = $current_entity->get('field_mood_image')->view($display_options);
     $this->renderer->addCacheableDependency($build, $current_entity);
     $this->renderer->addCacheableDependency($build, $page_entity);
     return $build;
