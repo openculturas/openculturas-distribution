@@ -7,6 +7,9 @@ dependencies:
     - field.field.user.user.field_main_profile
     - field.field.user.user.field_my_bookmarks_view_ref
     - field.field.user.user.field_my_content_view_ref
+    - field.field.user.user.field_my_main_profile
+    - field.field.user.user.field_my_profiles
+    - field.field.user.user.field_profile_finder
   module:
     - user
 id: user.user.default
@@ -22,19 +25,14 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_main_profile:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
 hidden:
   field_category: true
   field_main_profile: true
   field_my_bookmarks_view_ref: true
   field_my_content_view_ref: true
+  field_my_main_profile: true
+  field_my_profiles: true
+  field_profile_finder: true
   langcode: true
   member_for: true
   realname: true

@@ -219,6 +219,41 @@ input[type="radio"] {
 //  }
 }
 
+// Views exposed form in displays with "compact" css class
+
+//.path-user .views-exposed-form,
+.form--compact
+ {
+  .form--inline  {
+
+    &:first-child {
+      padding-top: .25rem;
+    }
+    &:last-of-type {
+      padding-bottom: 1rem;
+    }
+
+    @include breakpoint(m) {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.25rem;
+
+      * {
+        margin: 0;
+      }
+    }
+    .form-type-textfield {
+      flex: 2 2 auto;
+    }
+    .form-actions {
+      flex: 1 1 auto;
+    }
+  }
+  .form-text {
+    max-width: 100%;
+  }
+}
+
 // Modals
 // please note: Gin admin theme interfers by design
 

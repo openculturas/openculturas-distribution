@@ -6,21 +6,32 @@
   margin-bottom: 0;
 }
 
-.view-header {
-  //padding: 0 $grid-gutter;
+.view-header.h3,
+h3.field__label {
+  @extend %allcaps;
+  font-size: $font-size-s;
+  line-height: 1.866;
+  font-family: var(--font-base);
+  font-weight: bold;
+}
 
-  h3 {
-    @extend %allcaps;
-    font-size: $font-size-s;
-    line-height: 1.866;
-    font-family: var(--font-base);
-    font-weight: bold;
-  }
+.view-header {
 
   .button {
-    margin-top: (2*$grid-gutter);
+    margin-right: $grid-gutter;
+    @include breakpoint(m) {
+      margin-top: (2*$grid-gutter);
+    }
   }
 
+  p:last-child {
+    margin-bottom: (0.5*$grid-gutter);
+  }
+
+}
+
+.pager + .view-footer {
+  text-align: center;
 }
 
 
@@ -32,6 +43,16 @@
   }
 
 }
+
+.view .infobox {
+  display: inline-block;
+  margin-bottom: (2*$grid-gutter);
+  padding: .5rem 1rem;
+  background: var(--color-bg-info);
+  color: var(--color-info);
+}
+
+
 
 .view-header .result-counter {
   margin-bottom: $grid-gutter;
@@ -51,20 +72,12 @@
 
 .views-table {
   tr {
-    border-color: transparent;
+    //border-color: transparent;
   }
-
-  //td:last-child {
-  //    padding-left: $grid-gutter;
-  //}
 
   .flag {
     float: right;
     vertical-align: baseline;
-  }
-
-  td:first-child {
-    width: 100%;
   }
 
   @media screen and (max-width: 48rem) {
@@ -81,11 +94,21 @@
     tr:not(:last-child) {
       border:0;
     }
+    thead tr {
+      flex-flow: row wrap;
+    }
     td {
       align-self: center;
+      .view-my-content & {
+        align-self: flex-start;
+        padding: .25em 0;
+      }
     }
     h3 {
       margin: 0;
+    }
+    .views-field-title {
+      font-weight: bold;
     }
   }
 
@@ -95,8 +118,65 @@
   }
 }
 
+/* Bookmarks view */
+// @todo: move to appropriate file
 
-/* maps */
+.bookmarks .views-table tr {
+  display: unset;
+}
+
+.bookmarks table {
+  tr {
+    border-bottom-width: 0;
+  }
+  td:first-child {
+    width: 4rem;
+    padding-right: 0;
+  }
+  td {
+    vertical-align: top;
+  }
+  .flag-bookmark-node {
+    margin-top: $grid-gutter;
+  }
+  .flag-bookmark-term {
+    top: .25rem;
+  }
+}
+
+.view-my-bookmarks td.views-field-link-flag {
+  padding-top: .45rem;
+}
+
+.view-my-bookmarks-taxonomy table td {
+  vertical-align: middle;
+}
+
+.bookmarks table .profile-teaser.view-mode-compact {
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  text-align: left;
+}
+
+// bookmarks collections side-by-side
+
+.field--name-field-my-bookmarks-view-ref {
+  @include breakpoint(m) {
+    > .field__items {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 0 2.5rem;
+
+      > .field__item {
+        flex-basis: calc(50% - 1.25rem);
+        border-width: 0;
+      }
+    }
+  }
+}
+
+
+/* Maps */
 
 .view .leaflet-container {
   margin-bottom: (2 * $grid-gutter);

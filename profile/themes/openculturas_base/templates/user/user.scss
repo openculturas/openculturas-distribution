@@ -1,0 +1,25 @@
+// Wider grid for dashboard
+// @todo: generic workover of grid containers
+
+.path-user .region-content > .block-system-main-block,
+.path-user .block-system-main-block article.profile {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: auto;
+  max-width: 68.75rem;
+  grid-column-gap: 1.25rem;
+  grid-row-gap: 0;
+}
+
+.path-user .grid-child-fullwidth,
+.path-user .block-system-main-block > form  {
+  grid-column: 2 / 16;
+}
+
+.path-user .block-system-main-block > form  {
+  @include breakpoint(m) {
+    grid-column: 4 / 14;
+  }
+}
+

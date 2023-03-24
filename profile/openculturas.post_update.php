@@ -6,6 +6,7 @@
  */
 
 use Drupal\user\Entity\Role;
+use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 use Drupal\workflows\Entity\Workflow;
 
@@ -244,4 +245,123 @@ function openculturas_post_update_0009() {
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
+}
+
+/**
+ * Setup user dashboard
+ */
+function openculturas_post_update_0010() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0010');
+  if ($no_warnings) {
+    $view = Views::getView('my_bookmarks');
+    if ($view) {
+      $display = $view->getDisplay();
+      $old_items = $display->getOption('fields');
+      $new_items = [];
+      $new_order_keys = [
+        'link_flag',
+        'rendered_entity',
+      ];
+      $style_option = $display->getOption('style');
+      $columns = [];
+      $info = [];
+      foreach ($new_order_keys as $id) {
+        if (!isset($old_items[$id])) {
+          continue;
+        }
+        $new_items[$id] = $old_items[$id];
+        $columns[$id] = $style_option['options']['columns'][$id];
+        $info[$id] = $style_option['options']['info'][$id];
+      }
+      $style_option['options']['info'] = $info;
+      $style_option['options']['columns'] = $columns;
+      $display->setOption('style', $style_option);
+      $display->setOption('fields', $new_items);
+      _openculturas_post_update_0010_filters($view);
+      $display = $view->getDisplay();
+      $old_items = $display->getOption('sorts');
+      $new_items = [];
+      $new_order_keys = [
+        'created_1',
+        'created',
+      ];
+      foreach ($new_order_keys as $id) {
+        if (!isset($old_items[$id])) {
+          continue;
+        }
+        $new_items[$id] = $old_items[$id];
+      }
+      $display->setOption('sorts', $new_items);
+      $view->save();
+    }
+    $view = Views::getView('my_bookmarks_taxonomy');
+    if ($view) {
+      $view->setDisplay('all');
+      $display = $view->getDisplay();
+      $old_items = $display->getOption('fields');
+      $new_items = [];
+      $new_order_keys = [
+        'name',
+        'link_flag',
+        'view_taxonomy_term',
+      ];
+      foreach ($new_order_keys as $id) {
+        if (!isset($old_items[$id])) {
+          continue;
+        }
+        $new_items[$id] = $old_items[$id];
+      }
+      $display->setOption('fields', $new_items);
+      _openculturas_post_update_0010_filters($view);
+      $view->save();
+    }
+
+    $view = Views::getView('my_content');
+    if ($view) {
+      $view->setDisplay('my_content_block');
+      $display = $view->getDisplay();
+      $old_items = $display->getOption('filters');
+      $new_items = [];
+      $new_order_keys = [
+        'type',
+        'default_langcode',
+        'combine',
+        'moderation_state',
+        'type_1'
+      ];
+      foreach ($new_order_keys as $id) {
+        if (!isset($old_items[$id])) {
+          continue;
+        }
+        $new_items[$id] = $old_items[$id];
+      }
+      $display->setOption('filters', $new_items);
+      $view->save();
+    }
+
+  }
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+function _openculturas_post_update_0010_filters(ViewExecutable $view) {
+  $view->setDisplay('all');
+  $display = $view->getDisplay();
+  $old_filters = $display->getOption('filters');
+  $new_filters = [];
+  $new_order_keys = [
+    'status',
+    'default_langcode',
+  ];
+  foreach ($new_order_keys as $id) {
+    if (!isset($old_filters[$id])) {
+      continue;
+    }
+    $new_filters[$id] = $old_filters[$id];
+  }
+  $display->setOption('filters', $new_filters);
 }

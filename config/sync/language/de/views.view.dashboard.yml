@@ -1,0 +1,48 @@
+description: 'Elemente auf der Benutzer-Übersichtsseite'
+display:
+  default:
+    display_options:
+      title: 'Profile finden'
+      exposed_form:
+        options:
+          submit_button: Suchen
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: aufsteigend
+          sort_desc_label: absteigend
+      empty:
+        area:
+          content:
+            value: "<p>Offenbar gibt es kein veröffentlichtes Profil mit diesem Suchbegriff im Titel. Erstelle doch jetzt ein <a href=\"/de/node/add/profile\">Profil</a> (oder einen <a href=\"/de/node/add/location\">Veranstaltungsort</a>)!</p>\r\n"
+            format: basic_html
+      filters:
+        combine:
+          expose:
+            placeholder: 'enthält ...'
+  attachment_revision_summary:
+    display_title: Anhang
+    display_options:
+      filters:
+        combine:
+          expose:
+            placeholder: 'enthält ...'
+      header:
+        area:
+          content:
+            value: "<p>Es existiert mindestens ein Profil mit diesem Suchbegriff, das auf Moderation wartet. Bitte später noch einmal prüfen:</p>\r\n"
+            format: basic_html
+      fields:
+        field_allow_claiming:
+          settings:
+            format_custom_true: 'Übernahme möglich:'
+  block_profile_search:
+    display_options:
+      header:
+        area:
+          content:
+            value: "<h3 class=\"field__label\">Bevor du einen neuen Eintrag erstellst ...</h3>\r\n\r\n<p>Sehen wir mal nach, ob es ein Profil mit deinem Namen gibt. Falls ja, kannst du wahrscheinlich die Übernahme beantragen.</p>\r\n"
+            format: full_html
+      fields:
+        field_allow_claiming:
+          settings:
+            format_custom_true: 'Übernahme möglich'

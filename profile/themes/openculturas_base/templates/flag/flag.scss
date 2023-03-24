@@ -33,7 +33,10 @@
 }
 
 .js-flag-message {
-  @include icon(info-circle);
+  @include icon(info-circle) {
+    color: inherit;
+    padding-right: .75rem;
+  }
   background: $color-bg-success;
   border: 1px solid $color-success;
   color: $color-text;
@@ -47,10 +50,10 @@
   white-space: nowrap;
   z-index: 9999;
 
-  &:before {
-    color: inherit;
-    padding-right: .75rem;
-  }
+  //&:before {
+    //color: inherit;
+    //padding-right: .75rem;
+  //}
 }
 
 .js-flag-message {
@@ -153,5 +156,59 @@
   }
 }
 
+// compact flag styling in bookmarks view
+// see views/views.scss
 
+.bookmarks .flag {
+  a {
+    overflow: hidden;
+    width: 2em;
+    height: 2em;
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  .flag--link {
+    color: var(--color-interaction);
+    background-color: transparent;
+    padding: 0 0 0 3em;
+    border: 0 none;
+ 
+    &:before {
+      position: absolute;
+      left: 0;
+      border: 1px solid var(--color-interaction);
+      padding: .5em;
+      width: 2em;
+      height: 2em;
+      text-align: center;
+      border-radius: 50%;
+      line-height: 1;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:focus::before,
+    &:hover::before {
+      border-radius: 50%;
+      background-color: var(--color-interaction);
+      color: var(--color-text-inverted);
+    }
+  }
+  &.action-unflag {
+    .flag--link {
+      //@include icon(trash-can, fas);
+      @include icon(xmark, fas);
+
+      &:focus::before,
+      &:hover::before {
+        background-color: var(--color-danger);
+        border-color: var(--color-danger);
+      }
+    }
+  }
+}
 

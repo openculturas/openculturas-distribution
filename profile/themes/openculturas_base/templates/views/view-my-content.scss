@@ -2,3 +2,75 @@
 
 .field--name-field-my-content-view-ref {
 }
+
+// finder component on form background
+.view-display-id-block_profile_search  {
+  background-color: var(--color-bg-form);
+  padding: $grid-gutter 2*$grid-gutter 1px;
+
+  form > .form--inline {
+    margin: 0;
+  }
+
+  .views-row:not(:last-child) {
+    border-bottom: 1px solid var(--color-bg-light);
+  }
+
+  .views-field-field-allow-claiming {
+    font-size: var(--font-size-s);
+    font-weight: bold;
+    color: var(--color-success);
+    background-color: var(--color-bg-success);
+    text-align: center;
+    @include breakpoint(m) {
+      display: inline-block;
+      position: absolute;
+      top: -1.5rem;
+      left: 5.25rem; // indent because of profile image
+    }
+  }
+}
+
+// my profiles + locations side by side
+
+.field--name-field-my-profiles.field--type-viewfield > .field__items {
+  @include breakpoint(m) {
+    display: flex;
+    flex-flow: row wrap;
+    gap: $grid-gutter 0;
+
+    > .field__item {
+      border-width: 0;
+      margin: 0;
+      padding: 0;
+      flex-basis: 50%;
+      &:nth-child(odd) {
+        padding-right: $grid-gutter;
+        border-right: 1px solid var(--color-divider-light);
+      }
+      &:nth-child(even) {
+        padding-left: $grid-gutter;
+      }
+    }
+  }
+}
+
+// tables
+
+.my-content {
+  @include breakpoint(m) {
+    table {
+      font-size: var(--font-size-s);
+    }
+    .views-field:not(.views-field-title, .views-field-edit-node) {
+      width: 8rem;
+    }
+    .views-field-edit-node {
+      width: 5rem;
+    }
+    th:last-child,
+    td:last-child {
+      text-align: right;
+    }
+  }
+}

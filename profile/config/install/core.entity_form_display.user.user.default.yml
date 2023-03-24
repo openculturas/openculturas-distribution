@@ -7,6 +7,9 @@ dependencies:
     - field.field.user.user.field_main_profile
     - field.field.user.user.field_my_bookmarks_view_ref
     - field.field.user.user.field_my_content_view_ref
+    - field.field.user.user.field_my_main_profile
+    - field.field.user.user.field_my_profiles
+    - field.field.user.user.field_profile_finder
   module:
     - field_group
     - user
@@ -35,7 +38,7 @@ third_party_settings:
       label: 'My interests'
       region: hidden
       parent_name: ''
-      weight: 9
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -69,12 +72,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   language:
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   matomo:
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -86,8 +89,10 @@ content:
 hidden:
   contact: true
   field_category: true
-  field_main_profile: true
   field_my_bookmarks_view_ref: true
   field_my_content_view_ref: true
+  field_my_main_profile: true
+  field_my_profiles: true
+  field_profile_finder: true
   langcode: true
   path: true

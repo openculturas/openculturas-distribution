@@ -9,7 +9,11 @@ dependencies:
     - field.field.user.user.field_main_profile
     - field.field.user.user.field_my_bookmarks_view_ref
     - field.field.user.user.field_my_content_view_ref
+    - field.field.user.user.field_my_main_profile
+    - field.field.user.user.field_my_profiles
+    - field.field.user.user.field_profile_finder
   module:
+    - field_formatter_class
     - field_group
     - user
     - viewfield
@@ -24,12 +28,11 @@ third_party_settings:
       weight: 2
       format_type: details
       format_settings:
-        classes: ''
+        classes: grid-child-fullwidth
         show_empty_fields: false
-        id: ''
+        id: bookmarks
         open: true
         description: ''
-        required_fields: false
     group_my_content:
       children:
         - field_my_content_view_ref
@@ -39,11 +42,46 @@ third_party_settings:
       weight: 1
       format_type: details
       format_settings:
+        classes: grid-child-fullwidth
+        show_empty_fields: false
+        id: content
+        open: true
+        description: ''
+    group_my_profiles:
+      children:
+        - field_my_main_profile
+        - field_profile_finder
+        - group_my_profiles_locations
+      label: 'My profiles'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: grid-child-fullwidth
+        show_empty_fields: false
+        id: profiles
+        open: true
+        description: ''
+    group_my_profiles_locations:
+      children:
+        - field_my_profiles
+      label: 'My profiles + locations'
+      parent_name: group_my_profiles
+      region: content
+      weight: 2
+      format_type: html_element
+      format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        open: true
-        description: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 _core:
   default_config_hash: V51QPCKkgNREKtSmB9Iu2wmAMEpktVpnzklWaZV8UYo
 id: user.user.full
@@ -51,25 +89,17 @@ targetEntityType: user
 bundle: user
 mode: full
 content:
-  field_main_profile:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_my_bookmarks_view_ref:
     type: viewfield_default
     label: hidden
     settings:
-      view_title: hidden
+      view_title: visually_hidden
       always_build_output: false
       empty_view_title: hidden
     third_party_settings:
       field_formatter_class:
-        class: ''
-    weight: 2
+        class: grid-child-fullwidth
+    weight: 3
     region: content
   field_my_content_view_ref:
     type: viewfield_default
@@ -80,6 +110,42 @@ content:
       empty_view_title: hidden
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_my_main_profile:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_my_profiles:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 4
+    region: content
+  field_profile_finder:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
     region: content
 hidden:
   field_category: true

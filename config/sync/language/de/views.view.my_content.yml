@@ -6,3 +6,100 @@ display:
         options:
           views_infinite_scroll:
             button_text: 'Mehr anzeigen'
+      exposed_form:
+        options:
+          submit_button: Filtern
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+  block_my_locations:
+    display_options:
+      empty:
+        area:
+          content:
+            value: "<h3 class=\"field__label\">Orte</h3>\r\n\r\n<p class=\"infobox\">Wenn du für einen Veranstaltungsort hier bist (z. B. Theater, Museum, Tanzschule), erstelle ein Profil für diesen Ort. Du kannst einstellen, dass dieser Ort von einer anderen Person \"übernommen\" werden kann.</p>\r\n"
+            format: full_html
+      header:
+        area:
+          content:
+            value: "<h3 class=\"field__label\">Profile meiner Orte</h3>\r\n"
+            format: full_html
+  block_my_profiles:
+    display_options:
+      empty:
+        area:
+          content:
+            value: "<h3 class=\"field__label\">Profiles</h3>\r\n\r\n<p class=\"infobox\">Erstelle ein Profil (oder mehrere) für dich selbst und/oder für deine Gruppe. Du kannst jeweils einstellen, dass Profile von einer anderen Person \"übernommen\" werden können.</p>\r\n"
+            format: full_html
+      header:
+        area:
+          content:
+            value: "<h3 class=\"field__label\">Meine Personen-/Gruppen-Profile</h3>\r\n"
+            format: full_html
+  block_profiles_block:
+    display_options:
+      header:
+        area:
+          content:
+            value: "<h3 class=\"field__label\">Meine Profile / Orte</h3>\r\n"
+            format: full_html
+  my_content_block:
+    display_options:
+      fields:
+        title:
+          label: Titel
+        field_subtitle:
+          label: Sub-Titel
+        type:
+          label: Typ
+        moderation_state:
+          label: Status
+          admin_label: Freigabestatus
+        changed:
+          label: Bearbeitet
+        edit_node:
+          text: Bearbeiten
+      filters:
+        combine:
+          expose:
+            label: Titel
+            placeholder: 'enthält ...'
+        moderation_state:
+          expose:
+            label: Status
+          group_info:
+            label: Status
+            group_items:
+              1:
+                title: Entwurf
+              2:
+                title: 'zur Freigabe'
+              3:
+                title: Veröffentlicht
+              4:
+                title: Unveröffentlicht
+        type_1:
+          expose:
+            label: Typ
+      pager:
+        options:
+          expose:
+            items_per_page_label: Zeige
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: ab
+          tags:
+            first: '« Zum Anfang'
+            last: 'Zum Ende »'
+      exposed_form:
+        options:
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: aufsteigend
+          sort_desc_label: absteigend
+      empty:
+        area_text_custom:
+          content: 'Es wurden keine Ergebnisse zu diesen Filter-Kriterien gefunden.'
+      header:
+        area_text_custom:
+          content: '<div class="infobox">Tipp: Füge Termine über die Veranstaltungsseite hinzu.</div>'

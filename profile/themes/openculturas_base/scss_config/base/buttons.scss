@@ -1,4 +1,9 @@
 // Button base styles
+
+button {
+  word-wrap: normal;
+}
+
 %button,
 .button,
 button,
@@ -27,7 +32,8 @@ input[type='submit'] {
 
 }
 
-.form-submit:not([data-drupal-selector="edit-reset"]) {
+.form-submit:not([data-drupal-selector="edit-reset"]),
+.button--cta {
   color: $color-text-inverted;
   background-color: $color-link;
   border-color: $color-link;
@@ -109,5 +115,15 @@ input[type='submit'] {
     color: $color-interaction;
     border-color: $color-bg-light;
     outline: $outline-active;
+  }
+}
+
+// special icons in buttons
+
+.button--add {
+  margin-left: 0;
+  @include icon(circle-plus) {
+    margin-right: .5rem;
+    margin-left: -.5rem;
   }
 }
