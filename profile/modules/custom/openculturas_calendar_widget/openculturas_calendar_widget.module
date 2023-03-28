@@ -7,6 +7,17 @@ use Drupal\openculturas_calendar_widget\Form\EmbedCodeWidget;
 use Drupal\views\ViewExecutable;
 
 /**
+ * Implements hook_theme().
+ */
+function openculturas_calendar_widget_theme($existing, $type, $theme, $path) {
+  return [
+    'page__openculturas_calendar_widget__embed' => [
+      'base hook' => 'page',
+    ],
+  ];
+}
+
+/**
  * Implements hook_views_pre_view().
  */
 function openculturas_calendar_widget_views_pre_view(ViewExecutable $view): void {

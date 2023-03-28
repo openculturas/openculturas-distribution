@@ -113,7 +113,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       }
     }
     $this->renderer->addCacheableDependency($build, $config);
-    $response = $this->bareHtmlPageRenderer->renderBarePage($build, (string) $this->t('Upcoming dates'), NULL);
+    $response = $this->bareHtmlPageRenderer->renderBarePage($build, (string) $this->t('Upcoming dates'), 'page');
     if ($limit_access) {
       $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
       if (isset($hostname) && is_string($hostname)) {
