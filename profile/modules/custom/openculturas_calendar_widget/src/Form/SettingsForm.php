@@ -178,7 +178,7 @@ final class SettingsForm extends ConfigFormBase {
       '#type' => 'text_format',
       '#format' => $this->config('openculturas_calendar_widget.settings')->get('footer')['format'] ?? NULL,
       '#title' => $this->t('Footer'),
-      '#description' => $this->t('Will be displayed underneath of the calendar'),
+      '#description' => $this->t('Will be displayed below the calendar'),
       '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('footer')['value'] ?? NULL,
     ];
     $form['#attached']['library'][] = 'openculturas_calendar_widget/widget';

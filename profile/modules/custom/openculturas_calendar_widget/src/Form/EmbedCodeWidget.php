@@ -46,7 +46,7 @@ final class EmbedCodeWidget extends FormBase {
     $form['container'] = [
       '#type' => 'details',
       '#title' => t('Embed code'),
-      '#description' => t('To embed the upcoming dates based on the above configured filters, copy and past this code into a website.'),
+      '#description' => t('To embed the calendar as filtered above, copy and paste this code into a website.'),
     ];
     $form['container']['status'] = [
       '#markup' => '<div id="openculturas-calendar-widget-messages"></div>',
