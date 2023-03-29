@@ -5,6 +5,8 @@
  * Install, update and uninstall module functions.
  */
 
+declare(strict_types=1);
+
 use Drupal\user\Entity\Role;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
@@ -13,7 +15,7 @@ use Drupal\workflows\Entity\Workflow;
 /**
  * Views: Replaces the Content: publish filter with Content: Published status or admin user.
  */
-function openculturas_post_update_0001() {
+function openculturas_post_update_0001(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -21,7 +23,7 @@ function openculturas_post_update_0001() {
   $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0001');
   if ($no_warnings) {
     $view = Views::getView('entity_reference_node');
-    if ($view) {
+    if ($view !== NULL) {
       if ($view->getHandler('default', 'filter', 'status')) {
         $view->removeHandler('default', 'filter', 'status');
       }
@@ -42,7 +44,7 @@ function openculturas_post_update_0001() {
 /**
  * Views: Set granularity to hour for the not exposed start/end date filter.
  */
-function openculturas_post_update_0002() {
+function openculturas_post_update_0002(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -56,7 +58,7 @@ function openculturas_post_update_0002() {
 /**
  * Adds missing unpublish moderation state option in bulk edit.
  */
-function openculturas_post_update_0003() {
+function openculturas_post_update_0003(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -70,7 +72,7 @@ function openculturas_post_update_0003() {
 /**
  * Installs and places the field field_main_profile into user account.
  */
-function openculturas_post_update_0004() {
+function openculturas_post_update_0004(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -84,7 +86,7 @@ function openculturas_post_update_0004() {
 /**
  * Maps: add pager below map, add result counter, expose no/page option.
  */
-function openculturas_post_update_0005() {
+function openculturas_post_update_0005(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -98,12 +100,12 @@ function openculturas_post_update_0005() {
 /**
  * Deprecate wrong machine name for state (to_review)/transition (review) and add new one.
  */
-function openculturas_post_update_0006() {
+function openculturas_post_update_0006(): void {
   $workflows = ['draften', 'magazine_article'];
   foreach ($workflows as $id) {
-    /** @var \Drupal\workflows\WorkflowInterface $workflow */
+    /** @var \Drupal\workflows\WorkflowInterface|null $workflow */
     $workflow = Workflow::load($id);
-    if ($workflow) {
+    if ($workflow !== NULL) {
       $workflow->getTypePlugin()->setStateWeight('draft', -2);
       $workflow->getTypePlugin()->addState('review', 'In review');
       $workflow->getTypePlugin()->setStateWeight('review', -1);
@@ -127,53 +129,62 @@ function openculturas_post_update_0006() {
     }
   }
 
+  /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('authenticated');
-  $role->grantPermission('use draften transition to_review');
-  $role->revokePermission('use draften transition review');
-  $role->save();
+  if ($role !== NULL) {
+    $role->grantPermission('use draften transition to_review');
+    $role->revokePermission('use draften transition review');
+    $role->save();
+  }
 
+  /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('oc_organizer');
-  $role->revokePermission('use draften transition review');
-  $role->save();
+  if ($role !== NULL) {
+    $role->revokePermission('use draften transition review');
+    $role->save();
+  }
 
+  /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('magazine_editor');
-  $role->grantPermission('use magazine_article transition to_review');
-  $role->save();
+  if ($role !== NULL) {
+    $role->grantPermission('use magazine_article transition to_review');
+    $role->save();
+  }
 
+  /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('oc_admin');
-  $role->grantPermission('use magazine_article transition to_review');
-  $role->save();
-
+  if ($role !== NULL) {
+    $role->grantPermission('use magazine_article transition to_review');
+    $role->save();
+  }
   $view = Views::getView('moderated_content');
-  if ($view) {
-    if (($handler_configuration = $view->getHandler('default', 'filter', 'moderation_state'))) {
-      foreach ($handler_configuration['group_info']['group_items'] as &$group_item) {
-        $value = &$group_item['value'];
-        if (isset($value['draften-to_review'])) {
-          unset($value['draften-to_review']);
-          $value['draften-review'] = 'draften-review';
-        }
-        if (isset($value['magazine_article-to_review'])) {
-          unset($value['magazine_article-to_review']);
-          $value['magazine_article-review'] = 'magazine_article-review';
-        }
+  if ($view !== NULL && ($handler_configuration = $view->getHandler('default', 'filter', 'moderation_state'))) {
+    foreach ($handler_configuration['group_info']['group_items'] as &$group_item) {
+      $value = &$group_item['value'];
+      if (isset($value['draften-to_review'])) {
+        unset($value['draften-to_review']);
+        $value['draften-review'] = 'draften-review';
       }
-      unset($group_item);
-      $handler_configuration['group_info']['group_items'][] = [
-        'operator' => 'in',
-        'title' => 'In review (deprecated)',
-        'value' => ['draften-to_review' => 'draften-to_review', 'magazine_article-to_review' => 'magazine_article-to_review'],
-      ];
-      $view->setHandler('default', 'filter', 'moderation_state', $handler_configuration);
-      $view->save();
+      if (isset($value['magazine_article-to_review'])) {
+        unset($value['magazine_article-to_review']);
+        $value['magazine_article-review'] = 'magazine_article-review';
+      }
     }
+    unset($group_item);
+    $handler_configuration['group_info']['group_items'][] = [
+      'operator' => 'in',
+      'title' => 'In review (deprecated)',
+      'value' => ['draften-to_review' => 'draften-to_review', 'magazine_article-to_review' => 'magazine_article-to_review'],
+    ];
+    $view->setHandler('default', 'filter', 'moderation_state', $handler_configuration);
+    $view->save();
   }
 }
 
 /**
  * ECA: notification models.
  */
-function openculturas_post_update_0007() {
+function openculturas_post_update_0007(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -187,7 +198,7 @@ function openculturas_post_update_0007() {
 /**
  * Display revision user and hide author in content moderation view.
  */
-function openculturas_post_update_0008() {
+function openculturas_post_update_0008(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -195,7 +206,7 @@ function openculturas_post_update_0008() {
   $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0008');
   if ($no_warnings) {
     $view = Views::getView('moderated_content');
-    if ($view) {
+    if ($view !== NULL) {
       $display = $view->getDisplay();
       $old_field = $display->getOption('fields');
       $new_field = [];
@@ -236,7 +247,7 @@ function openculturas_post_update_0008() {
 /**
  * Set the no-snap option for swiffy slider.
  */
-function openculturas_post_update_0009() {
+function openculturas_post_update_0009(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -250,7 +261,7 @@ function openculturas_post_update_0009() {
 /**
  * Setup user dashboard.
  */
-function openculturas_post_update_0010() {
+function openculturas_post_update_0010(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
@@ -258,7 +269,7 @@ function openculturas_post_update_0010() {
   $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0010');
   if ($no_warnings) {
     $view = Views::getView('my_bookmarks');
-    if ($view) {
+    if ($view !== NULL) {
       $display = $view->getDisplay();
       $old_items = $display->getOption('fields');
       $new_items = [];
@@ -299,7 +310,7 @@ function openculturas_post_update_0010() {
       $view->save();
     }
     $view = Views::getView('my_bookmarks_taxonomy');
-    if ($view) {
+    if ($view !== NULL) {
       $view->setDisplay('all');
       $display = $view->getDisplay();
       $old_items = $display->getOption('fields');
@@ -321,7 +332,7 @@ function openculturas_post_update_0010() {
     }
 
     $view = Views::getView('my_content');
-    if ($view) {
+    if ($view !== NULL) {
       $view->setDisplay('my_content_block');
       $display = $view->getDisplay();
       $old_items = $display->getOption('filters');
@@ -348,7 +359,7 @@ function openculturas_post_update_0010() {
   return $updater->logger()->output();
 }
 
-function _openculturas_post_update_0010_filters(ViewExecutable $view) {
+function _openculturas_post_update_0010_filters(ViewExecutable $view): void {
   $view->setDisplay('all');
   $display = $view->getDisplay();
   $old_filters = $display->getOption('filters');

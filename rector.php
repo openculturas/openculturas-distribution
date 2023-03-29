@@ -14,10 +14,10 @@ return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->sets([
     Drupal9SetList::DRUPAL_9,
     LevelSetList::UP_TO_PHP_74,
-    SetList::TYPE_DECLARATION_STRICT,
     SetList::CODE_QUALITY,
     SetList::EARLY_RETURN,
-    SetList::DEAD_CODE
+    SetList::DEAD_CODE,
+    SetList::TYPE_DECLARATION
   ]);
 
   $parameters = $rectorConfig->parameters();
@@ -47,14 +47,18 @@ return static function (RectorConfig $rectorConfig): void {
   );
 
   $rectorConfig->skip([
+      \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
       \Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class => [
         __DIR__  . '/profile/'
       ],
       \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class => [
         __DIR__ . '/profile/'
       ],
+    \Rector\TypeDeclaration\Rector\ClassMethod\ArrayShapeFromConstantArrayReturnRector::class => [
+      __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/Block/PageTitleBlock.php'
+    ],
       __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
       __DIR__ . '/profile/modules/custom/geofield_proximity_filter_extra/src/Controller/AutocompleteFiltersController.php'
   ]);
-
+  $rectorConfig->parallel($seconds = 120, $maxNumberOfProcess = 2,);
 };

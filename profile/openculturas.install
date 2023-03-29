@@ -208,7 +208,7 @@ function openculturas_update_9004(): string {
 function openculturas_update_9005(): string {
   $updateManager = \Drupal::entityDefinitionUpdateManager();
   /** @var \Drupal\field\FieldStorageConfigInterface $field_storage_definition*/
-  if (!$field_storage_definition = $updateManager->getFieldStorageDefinition('field_event_series', 'node')) {
+  if (($field_storage_definition = $updateManager->getFieldStorageDefinition('field_event_series', 'node')) === NULL) {
     return 'Skipped. The field field_event_series is not installed.';
   }
 

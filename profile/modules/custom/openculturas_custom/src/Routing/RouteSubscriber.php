@@ -29,12 +29,12 @@ class RouteSubscriber extends RouteSubscriberBase {
       $route->setRequirement('_user_is_logged_in', 'FALSE');
     }
 
-    if ($route = $collection->get('checklistapi.checklists.update_helper_checklist')) {
+    if (($route = $collection->get('checklistapi.checklists.update_helper_checklist')) !== NULL) {
       $route->setDefault('_title', 'OpenCulturas update instructions');
     }
 
     // Always deny access to '/admin/config/development/update-helper/clear'.
-    if ($route = $collection->get('checklistapi.checklists.update_helper_checklist.clear')) {
+    if (($route = $collection->get('checklistapi.checklists.update_helper_checklist.clear')) !== NULL) {
       $route->setRequirement('_access', 'FALSE');
     }
 

@@ -14,6 +14,7 @@ class EcaNotificationRecipientListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
+    $header = [];
     $header['label'] = $this->t('Label');
     $header['id'] = $this->t('Machine name');
     $header['status'] = $this->t('Status');
@@ -24,6 +25,7 @@ class EcaNotificationRecipientListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
+    $row = [];
     /** @var \Drupal\openculturas_custom\EcaNotificationRecipientInterface $entity */
     $row['label'] = $entity->label();
     $row['id'] = $entity->id();

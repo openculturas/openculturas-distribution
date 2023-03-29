@@ -141,7 +141,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
   $filters = $view_style->displayHandler->getHandlers('filter');
 
   /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
-  $proximityFilters = array_filter($filters, fn($filter) => $filter instanceof GeofieldProximityFilter);
+  $proximityFilters = array_filter($filters, fn($filter): bool => $filter instanceof GeofieldProximityFilter);
   if (is_countable($proximityFilters) && $proximityFilters !== []) {
     $proximityFilter = reset($proximityFilters);
     try {
@@ -258,7 +258,7 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
 /**
  * Implements hook_ENTITY_TYPE_prepare_form().
  */
-function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity) {
+function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity): void {
   if ($entity->isNew() && $entity->hasField('field_behalf') && $entity->get('field_behalf')->isEmpty()) {
     $user = User::load(\Drupal::currentUser()->id());
     $main_profile_non_empty = $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
@@ -523,7 +523,7 @@ function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins): 
 /**
  * Implements hook_checklistapi_checklist_info_alter().
  */
-function openculturas_custom_checklistapi_checklist_info_alter(array &$definitions) {
+function openculturas_custom_checklistapi_checklist_info_alter(array &$definitions): void {
   if (isset($definitions['update_helper_checklist']['#title'])) {
     $definitions['update_helper_checklist']['#title'] = t('OpenCulturas update instructions');
   }
@@ -532,26 +532,23 @@ function openculturas_custom_checklistapi_checklist_info_alter(array &$definitio
 /**
  * Implements hook_form_alter().
  */
-function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
   // Inspired by https://git.drupalcode.org/project/varbase_core/-/blob/9.0.x/modules/varbase_update_helper/varbase_update_helper.module <3.
-  if ($form_id == "checklistapi_checklist_form") {
-    if ($form['#checklist']->id == 'update_helper_checklist') {
-      $checklist = $form['#checklist'];
-      $groups = $checklist->items;
-      // Prevent the user from Clearing checklist progress.
-      $form['actions']['clear']['#access'] = FALSE;
+  if ($form_id == "checklistapi_checklist_form" && $form['#checklist']->id == 'update_helper_checklist') {
+    $checklist = $form['#checklist'];
+    $groups = $checklist->items;
+    // Prevent the user from Clearing checklist progress.
+    $form['actions']['clear']['#access'] = FALSE;
+    foreach (Element::children($groups) as $group_key) {
+      $group = &$groups[$group_key];
 
-      foreach (Element::children($groups) as $group_key) {
-        $group = &$groups[$group_key];
+      foreach (Element::children($group) as $item_key) {
+        $update_key = str_replace('.', '_', $item_key);
+        $entity = Update::load($update_key);
 
-        foreach (Element::children($group) as $item_key) {
-          $update_key = str_replace('.', '_', $item_key);
-          $entity = Update::load($update_key);
-
-          $entityStatus = ($entity && $entity->wasSuccessfulByHook()) ? TRUE : FALSE;
-          if ($entityStatus) {
-            $form[$group_key][$item_key]['#disabled'] = TRUE;
-          }
+        $entityStatus = $entity && $entity->wasSuccessfulByHook();
+        if ($entityStatus) {
+          $form[$group_key][$item_key]['#disabled'] = TRUE;
         }
       }
     }
@@ -561,7 +558,7 @@ function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, 
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function openculturas_custom_eca_delete(EntityInterface $entity) {
+function openculturas_custom_eca_delete(EntityInterface $entity): void {
   $entities = \Drupal::entityTypeManager()->getStorage('eca')->loadMultiple();
   if ($entities === []) {
     $storage = \Drupal::entityTypeManager()->getStorage('eca_notification_recipient');

@@ -83,7 +83,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
         $recipients[] = (string) $entity->label();
       }
     }
-    if ($recipients) {
+    if ($recipients !== []) {
       $token_name = trim($this->configuration['token_name'] ?? '');
       if ($token_name === '') {
         $token_name = 'recipients';

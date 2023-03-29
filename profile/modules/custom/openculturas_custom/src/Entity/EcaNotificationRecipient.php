@@ -117,7 +117,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
    */
   public function onDependencyRemoval(array $dependencies): bool {
     $changed = parent::onDependencyRemoval($dependencies);
-    foreach ($this->eca_model as $model_name => $status) {
+    foreach (array_keys($this->eca_model) as $model_name) {
       $name = $this->entityTypeManager()->getStorage('eca')->load($model_name)->getConfigDependencyName();
       if (isset($dependencies['config'][$name], $this->eca_model[$model_name])) {
         unset($this->eca_model[$model_name]);
@@ -140,12 +140,13 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   public function getPreferredLangcode(): string {
     $language_list = $this->languageManager()->getLanguages();
     $preferred_langcode = $this->get('preferred_langcode');
-    if (!empty($preferred_langcode) && isset($language_list[$preferred_langcode])) {
-      return $language_list[$preferred_langcode]->getId();
-    }
-    else {
+    if (empty($preferred_langcode)) {
       return $this->languageManager()->getDefaultLanguage()->getId();
     }
+    if (!isset($language_list[$preferred_langcode])) {
+      return $this->languageManager()->getDefaultLanguage()->getId();
+    }
+    return $language_list[$preferred_langcode]->getId();
   }
 
 }
