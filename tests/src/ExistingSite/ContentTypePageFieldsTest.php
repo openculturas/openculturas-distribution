@@ -26,7 +26,7 @@ class ContentTypePageFieldsTest extends ExistingSiteBase {
     $session->fieldExists('Subtitle');
     $session->elementTextEquals('css', '#field_mood_image-media-library-wrapper > legend:nth-child(1) > span:nth-child(1)', 'Main image');
     $session->elementExists('css', '#edit-field-mood-image-open-button');
-    #$session->fieldValueEquals('input#edit-field-mood-image-open-button', 'Add media');
+    // $session->fieldValueEquals('input#edit-field-mood-image-open-button', 'Add media');
     $session->fieldExists('Summary');
     $session->fieldExists('Body');
     $session->pageTextContainsOnce('Content elements');
@@ -38,7 +38,7 @@ class ContentTypePageFieldsTest extends ExistingSiteBase {
     $session->fieldExists('Layout switch');
     $session->fieldExists('Language');
 
-return;
+    return;
     // German.
     $this->drupalGet('/de/node/add/page');
     $this->assertSession()->statusCodeEquals(200);

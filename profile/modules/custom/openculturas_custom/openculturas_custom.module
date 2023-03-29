@@ -30,6 +30,7 @@ use Drupal\openculturas_custom\Plugin\views\filter\Date;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
 use Drupal\update_helper_checklist\Entity\Update;
+use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
@@ -259,7 +260,7 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
  */
 function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity) {
   if ($entity->isNew() && $entity->hasField('field_behalf') && $entity->get('field_behalf')->isEmpty()) {
-    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $user = User::load(\Drupal::currentUser()->id());
     $main_profile_non_empty = $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
     if ($main_profile_non_empty) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
@@ -405,7 +406,7 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
       /** @var \Drupal\media\MediaInterface $entity */
       $entity = $row->_entity;
       // Do not remove type casting. current user id is a string-int!
-      if ((int) $entity->getOwnerId() === (int) $current_user->id() || $entity->access('update') || _media_is_cc($entity)) {
+      if ((int) $entity->getOwnerId() === (int) $current_user->id() || $entity->access('update') || openculturas_custom_media_is_creative_commons($entity)) {
         $result[$key] = $row;
       }
     }
@@ -416,7 +417,7 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
 /**
  * Helper function to check the licenses for Creative-Commons.
  */
-function _media_is_cc(MediaInterface $media): bool {
+function openculturas_custom_media_is_creative_commons(MediaInterface $media): bool {
   if ($media->hasField('field_licenses') && !$media->get('field_licenses')->isEmpty()) {
     /** @var \Drupal\Core\Field\FieldItemListInterface $field */
     $field = $media->get('field_licenses');
@@ -426,9 +427,6 @@ function _media_is_cc(MediaInterface $media): bool {
     }
     $value = $field_item->getValue();
     if (isset($value['license'])) {
-      return $value['license'] !== 'all_rights_reserved';
-    }
-    if (array_key_exists('license', $value)) {
       return $value['license'] !== 'all_rights_reserved';
     }
   }
@@ -522,7 +520,6 @@ function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins): 
   $plugins['addtocal']['provider'] = 'openculturas_custom';
 }
 
-
 /**
  * Implements hook_checklistapi_checklist_info_alter().
  */
@@ -542,7 +539,7 @@ function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, 
       $checklist = $form['#checklist'];
       $groups = $checklist->items;
       // Prevent the user from Clearing checklist progress.
-      $form['actions']['clear'] ['#access']= FALSE;
+      $form['actions']['clear']['#access'] = FALSE;
 
       foreach (Element::children($groups) as $group_key) {
         $group = &$groups[$group_key];
@@ -564,7 +561,7 @@ function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, 
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function openculturas_custom_eca_delete(\Drupal\Core\Entity\EntityInterface $entity) {
+function openculturas_custom_eca_delete(EntityInterface $entity) {
   $entities = \Drupal::entityTypeManager()->getStorage('eca')->loadMultiple();
   if ($entities === []) {
     $storage = \Drupal::entityTypeManager()->getStorage('eca_notification_recipient');

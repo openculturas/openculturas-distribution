@@ -11,7 +11,7 @@ use Drupal\views\Views;
 use Drupal\workflows\Entity\Workflow;
 
 /**
- * Views: Replaces the Content: publish filter with Content: Published status or admin user
+ * Views: Replaces the Content: publish filter with Content: Published status or admin user.
  */
 function openculturas_post_update_0001() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -54,7 +54,7 @@ function openculturas_post_update_0002() {
 }
 
 /**
- * Adds missing unpublish moderation state option in bulk edit
+ * Adds missing unpublish moderation state option in bulk edit.
  */
 function openculturas_post_update_0003() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -68,7 +68,7 @@ function openculturas_post_update_0003() {
 }
 
 /**
- * Installs and places the field field_main_profile into user account
+ * Installs and places the field field_main_profile into user account.
  */
 function openculturas_post_update_0004() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -82,7 +82,7 @@ function openculturas_post_update_0004() {
 }
 
 /**
- * Maps: add pager below map, add result counter, expose no/page option
+ * Maps: add pager below map, add result counter, expose no/page option.
  */
 function openculturas_post_update_0005() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -96,7 +96,7 @@ function openculturas_post_update_0005() {
 }
 
 /**
- * deprecate wrong machine name for state (to_review)/transition (review) and add new one
+ * Deprecate wrong machine name for state (to_review)/transition (review) and add new one.
  */
 function openculturas_post_update_0006() {
   $workflows = ['draften', 'magazine_article'];
@@ -171,7 +171,7 @@ function openculturas_post_update_0006() {
 }
 
 /**
- * ECA: notification models
+ * ECA: notification models.
  */
 function openculturas_post_update_0007() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -185,7 +185,7 @@ function openculturas_post_update_0007() {
 }
 
 /**
- * Display revision user and hide author in content moderation view
+ * Display revision user and hide author in content moderation view.
  */
 function openculturas_post_update_0008() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -212,7 +212,7 @@ function openculturas_post_update_0008() {
         'moderation_state',
         'changed',
         'revision_log',
-        'operations'
+        'operations',
       ];
       foreach ($new_order_keys as $id) {
         if (!isset($old_field[$id])) {
@@ -234,7 +234,7 @@ function openculturas_post_update_0008() {
 }
 
 /**
- * Set the no-snap option for swiffy slider
+ * Set the no-snap option for swiffy slider.
  */
 function openculturas_post_update_0009() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -248,7 +248,7 @@ function openculturas_post_update_0009() {
 }
 
 /**
- * Setup user dashboard
+ * Setup user dashboard.
  */
 function openculturas_post_update_0010() {
   /** @var \Drupal\update_helper\Updater $updater */
@@ -331,7 +331,7 @@ function openculturas_post_update_0010() {
         'default_langcode',
         'combine',
         'moderation_state',
-        'type_1'
+        'type_1',
       ];
       foreach ($new_order_keys as $id) {
         if (!isset($old_items[$id])) {

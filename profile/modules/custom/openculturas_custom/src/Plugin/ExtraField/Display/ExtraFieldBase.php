@@ -18,16 +18,34 @@ use function reset;
 
 abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface, InheritFieldInterface {
 
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
   protected RendererInterface $renderer;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected EntityTypeManagerInterface $entityTypeManager;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface
+   */
   protected EntityDisplayRepositoryInterface $entityDisplayRepository;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityInterface|null
+   */
   protected ?EntityInterface $eventEntity = NULL;
 
+  /**
+   * @var array|null
+   */
   protected ?array $referenceViewFormatterSettings;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
   protected EntityRepositoryInterface $entityRepository;
 
   /**

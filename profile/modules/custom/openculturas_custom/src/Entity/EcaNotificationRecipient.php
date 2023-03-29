@@ -91,7 +91,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   protected string $preferred_langcode;
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage) {
     $this->eca_model = array_filter($this->eca_model);
@@ -99,7 +99,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function calculateDependencies() {
     parent::calculateDependencies();
@@ -113,7 +113,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function onDependencyRemoval(array $dependencies): bool {
     $changed = parent::onDependencyRemoval($dependencies);
@@ -127,10 +127,16 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
     return $changed;
   }
 
-  public function isECAModelEnabledForRecipient(string $model): bool {
+  /**
+   * {@inheritdoc}
+   */
+  public function isEcaModelEnabledForRecipient(string $model): bool {
     return (empty(array_filter($this->get('eca_model'))) || $model === '') || ($this->get('eca_model')[$model] ?? FALSE);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getPreferredLangcode(): string {
     $language_list = $this->languageManager()->getLanguages();
     $preferred_langcode = $this->get('preferred_langcode');
@@ -141,6 +147,5 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
       return $this->languageManager()->getDefaultLanguage()->getId();
     }
   }
-
 
 }

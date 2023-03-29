@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\openculturas\Traits;
 
 use Behat\Mink\Exception\ElementNotFoundException;
@@ -29,12 +31,13 @@ trait LoginTrait {
     // These 3 lines are the only lines changed from parent::drupalLogin().
     // Reload to get latest login timestamp.
     $account = User::load($account->id());
-    $login = $this->user_pass_reset_url($account) . '/login';
+    $login = $this->getUserPassResetUrl($account) . '/login';
     $this->getSession()->visit($login);
     try {
       $this->assertSession()->fieldExists('legal_accept');
       $this->submitForm(['legal_accept' => TRUE], 'Confirm');
-    } catch (ElementNotFoundException $elementNotFoundException) {
+    }
+    catch (ElementNotFoundException) {
       // Need to check this only once.
     }
     // @see ::drupalUserIsLoggedIn()
@@ -78,7 +81,7 @@ trait LoginTrait {
    *   A unique URL that provides a one-time log in for the user, from which
    *   they can change their password.
    */
-  public function user_pass_reset_url(UserInterface $account, array $options = []) {
+  public function getUserPassResetUrl(UserInterface $account, array $options = []) {
     $timestamp = time();
     $langcode = $options['langcode'] ?? $account->getPreferredLangcode();
 

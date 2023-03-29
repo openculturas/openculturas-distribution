@@ -10,7 +10,9 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  * Provides an interface defining an eca notification recipient entity type.
  */
 interface EcaNotificationRecipientInterface extends ConfigEntityInterface {
-  public function isECAModelEnabledForRecipient(string $model): bool;
+
+  public function isEcaModelEnabledForRecipient(string $model): bool;
 
   public function getPreferredLangcode(): string;
+
 }

@@ -20,8 +20,6 @@ trait UserTrait {
    *
    * The role will also used as suffix for the username.
    *
-   * @return void
-   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -53,10 +51,9 @@ trait UserTrait {
    * To login existing user we need set a new password.
    *
    * @param \Drupal\user\UserInterface $user
+   *   User account who get the new password.
    *
    * @see \Drupal\Tests\openculturas\Traits\UserTrait::drupalLogin
-   *
-   * @return void
    */
   protected function setNewPassword(UserInterface $user) {
     /** @var \Drupal\user\UserStorageInterface $storage */

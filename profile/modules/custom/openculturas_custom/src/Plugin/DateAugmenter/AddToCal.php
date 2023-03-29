@@ -146,11 +146,7 @@ class AddToCal extends AddToCalOrigin {
     $ical_link[] = 'END:VEVENT';
     $ical_link[] = 'END:VCALENDAR';
 
-    /**
-     * Append every 70 chars a url encoded CRLF sequence followed by a whitespace.
-     *
-     * @link https://icalendar.org/iCalendar-RFC-5545/3-1-content-lines.html
-     */
+    /* Append every 70 chars a url encoded CRLF sequence followed by a whitespace. see https://icalendar.org/iCalendar-RFC-5545/3-1-content-lines.html */
     $ical_link = array_map(fn($content): ?string => mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
     return [
       'ical' => $ical_link,

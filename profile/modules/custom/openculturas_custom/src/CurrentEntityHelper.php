@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom;
 
-use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\node\NodeInterface;
 use function assert;
 
@@ -16,8 +16,10 @@ final class CurrentEntityHelper {
 
   /**
    * Gets current page entity regardless of entity type.
+   * // phpcs:disable Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
    */
   public static function get_current_page_entity(): ?ContentEntityInterface {
+    // phpcs:enable.
     $page_entity = &drupal_static(__FUNCTION__);
     if (!empty($page_entity)) {
       return $page_entity;
@@ -40,10 +42,8 @@ final class CurrentEntityHelper {
   /**
    * The date bundle takes the values from the referenced event bundle entity.
    *
-   *
    * @see \Drupal\openculturas_custom\Plugin\Block\HeroImageBlock::build()
    * @see \Drupal\openculturas_custom\Plugin\Block\PageTitleBlock::build()
-   *
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */

@@ -22,8 +22,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
   protected RendererInterface $renderer;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
   protected EntityRepositoryInterface $entityRepository;
 
   /**
@@ -77,4 +84,5 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
       'route',
     ]);
   }
+
 }

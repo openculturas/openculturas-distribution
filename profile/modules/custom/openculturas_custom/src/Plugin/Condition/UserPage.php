@@ -22,7 +22,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 final class UserPage extends ConditionPluginBase implements ContainerFactoryPluginInterface {
-  
+
+  /**
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
   protected RouteMatchInterface $routeMatch;
 
   /**

@@ -70,7 +70,7 @@ class EcaNotificationRecipientForm extends EntityForm {
       '#title' => $this->t('Language'),
       '#languages' => LanguageInterface::STATE_CONFIGURABLE,
       '#default_value' => $this->entity->get('preferred_langcode'),
-      '#description' => $this->t("This recipient's preferred language for emails.")
+      '#description' => $this->t("This recipient's preferred language for emails."),
     ];
 
     return $form;

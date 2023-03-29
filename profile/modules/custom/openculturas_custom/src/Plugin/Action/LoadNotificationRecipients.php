@@ -39,7 +39,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
       '#type' => 'textfield',
       '#title' => $this->t('Name of token'),
       '#default_value' => $this->configuration['token_name'],
-      '#description' => $this->t('The recipients will be stored in this token as list.')
+      '#description' => $this->t('The recipients will be stored in this token as list.'),
     ];
     $form['model'] = [
       '#type' => 'textfield',
@@ -49,6 +49,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
     ];
     return $form;
   }
+
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state): void {
     $model = $form_state->getValue('model');
 
@@ -59,6 +60,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
       }
     }
   }
+
   /**
    * {@inheritdoc}
    */
@@ -77,7 +79,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
     $recipients = [];
     $eca_model = trim($this->configuration['model'] ?? '');
     foreach ($entities as $entity) {
-      if ($entity->status() && $entity->isECAModelEnabledForRecipient($eca_model)) {
+      if ($entity->status() && $entity->isEcaModelEnabledForRecipient($eca_model)) {
         $recipients[] = (string) $entity->label();
       }
     }
@@ -89,4 +91,5 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
       $this->tokenServices->addTokenData($token_name, $recipients);
     }
   }
+
 }

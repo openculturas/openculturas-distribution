@@ -26,8 +26,14 @@ use function strip_tags;
  */
 final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface, ContainerFactoryPluginInterface {
 
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
   protected RendererInterface $renderer;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
   protected EntityRepositoryInterface $entityRepository;
 
   /**
@@ -58,7 +64,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    *
-   * @return array{label_display: false}
+   * @php-return array{label_display: false}
    */
   public function defaultConfiguration(): array {
     return ['label_display' => FALSE];

@@ -24,9 +24,9 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
    */
   public function defaultConfiguration(): array {
     return [
-        'token_name' => 'preferred_langcode',
-        'recipient' => '',
-      ] + parent::defaultConfiguration();
+      'token_name' => 'preferred_langcode',
+      'recipient' => '',
+    ] + parent::defaultConfiguration();
   }
 
   /**
@@ -44,7 +44,7 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
       '#type' => 'textfield',
       '#title' => $this->t('Name of token'),
       '#default_value' => $this->configuration['token_name'],
-      '#description' => $this->t('The preferred langcode will be stored in this token')
+      '#description' => $this->t('The preferred langcode will be stored in this token'),
     ];
     return $form;
   }
@@ -80,4 +80,5 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
       }
     }
   }
+
 }

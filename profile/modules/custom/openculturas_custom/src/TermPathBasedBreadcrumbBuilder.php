@@ -14,6 +14,9 @@ use Drupal\taxonomy\TermBreadcrumbBuilder;
  */
 class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
 
+  /**
+   * @var \Drupal\taxonomy\TermBreadcrumbBuilder
+   */
   protected TermBreadcrumbBuilder $breadcrumbBuilder;
 
   public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $breadcrumbBuilder): void {

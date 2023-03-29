@@ -21,10 +21,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Returns autocomplete for input field in GeocodeOriginFromCombine.
  *
- * @see GeocodeOriginFromCombine
+ * @see \Drupal\geofield_proximity_filter_extra\Plugin\GeofieldProximitySource\GeocodeOriginFromCombine
  */
 class AutocompleteFiltersController implements ContainerInjectionInterface {
 
+  /**
+   * @var \Psr\Log\LoggerInterface
+   */
   protected LoggerInterface $logger;
 
   /**

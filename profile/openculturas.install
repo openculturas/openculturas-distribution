@@ -203,7 +203,7 @@ function openculturas_update_9004(): string {
 }
 
 /**
- * Removes deprecated allowed value of field_event_series
+ * Removes deprecated allowed value of field_event_series.
  */
 function openculturas_update_9005(): string {
   $updateManager = \Drupal::entityDefinitionUpdateManager();
@@ -214,7 +214,7 @@ function openculturas_update_9005(): string {
 
   $field_storage_definition->setSetting('allowed_values', [
     'no' => 'No',
-    'is_sub_event_of' => 'is sub-event of'
+    'is_sub_event_of' => 'is sub-event of',
   ]);
   try {
     $updateManager->updateFieldStorageDefinition($field_storage_definition);

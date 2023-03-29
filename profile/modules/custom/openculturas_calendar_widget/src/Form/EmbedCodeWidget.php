@@ -17,7 +17,9 @@ use function t;
 
 final class EmbedCodeWidget extends FormBase {
 
-
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
   protected RendererInterface $renderer;
 
   /**
