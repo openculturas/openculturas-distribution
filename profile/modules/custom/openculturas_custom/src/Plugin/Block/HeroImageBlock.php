@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Block;
 
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -58,6 +58,7 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
       return $build;
     }
     if (!$current_entity->get('field_mood_image')->isEmpty()) {
+      /** @var \Drupal\Core\Entity\ContentEntityInterface $current_entity */
       $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
       $display_options = [
         'type' => 'entity_reference_entity_view',

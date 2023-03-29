@@ -86,6 +86,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
         $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
         $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderPlain($field_premiere_render_array))) . ': '];
       }
+      /** @var \Drupal\Core\Entity\ContentEntityInterface $current_entity */
       $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
       $title_markup[] = ['#plain_text' => $current_entity->label()];
       $this->title = $title_markup;

@@ -93,9 +93,9 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $storage) {
+  public function preSave(EntityStorageInterface $storage): void {
     $this->eca_model = array_filter($this->eca_model);
-    return parent::preSave($storage);
+    parent::preSave($storage);
   }
 
   /**
@@ -105,7 +105,12 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
     parent::calculateDependencies();
     foreach ($this->eca_model as $model_name => $status) {
       if ($status) {
-        $this->addDependency('config', $this->entityTypeManager()->getStorage('eca')->load($model_name)->getConfigDependencyName());
+        /** @var \Drupal\eca\Entity\Eca|null $model */
+        $model = $this->entityTypeManager()->getStorage('eca')->load($model_name);
+        if ($model === NULL) {
+          continue;
+        }
+        $this->addDependency('config', $model->getConfigDependencyName());
       }
     }
     $this->addDependency('module', 'eca');
@@ -118,7 +123,12 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   public function onDependencyRemoval(array $dependencies): bool {
     $changed = parent::onDependencyRemoval($dependencies);
     foreach (array_keys($this->eca_model) as $model_name) {
-      $name = $this->entityTypeManager()->getStorage('eca')->load($model_name)->getConfigDependencyName();
+      /** @var \Drupal\eca\Entity\Eca|null $model */
+      $model = $this->entityTypeManager()->getStorage('eca')->load($model_name);
+      if ($model === NULL) {
+        continue;
+      }
+      $name = $model->getConfigDependencyName();
       if (isset($dependencies['config'][$name], $this->eca_model[$model_name])) {
         unset($this->eca_model[$model_name]);
         $changed = TRUE;

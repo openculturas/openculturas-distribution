@@ -260,8 +260,9 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
  */
 function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity): void {
   if ($entity->isNew() && $entity->hasField('field_behalf') && $entity->get('field_behalf')->isEmpty()) {
+    /** @var \Drupal\user\UserInterface|null $user */
     $user = User::load(\Drupal::currentUser()->id());
-    $main_profile_non_empty = $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
+    $main_profile_non_empty = $user !== NULL && $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
     if ($main_profile_non_empty) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
       $field = $user->get('field_main_profile');
@@ -532,7 +533,7 @@ function openculturas_custom_checklistapi_checklist_info_alter(array &$definitio
 /**
  * Implements hook_form_alter().
  */
-function openculturas_custom_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+function openculturas_custom_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   // Inspired by https://git.drupalcode.org/project/varbase_core/-/blob/9.0.x/modules/varbase_update_helper/varbase_update_helper.module <3.
   if ($form_id == "checklistapi_checklist_form" && $form['#checklist']->id == 'update_helper_checklist') {
     $checklist = $form['#checklist'];

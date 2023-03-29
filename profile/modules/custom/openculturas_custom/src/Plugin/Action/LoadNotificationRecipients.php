@@ -56,7 +56,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
     if ($model !== '') {
       $entity = $this->entityTypeManager->getStorage('eca')->load($model);
       if (!$entity instanceof Eca) {
-        $form_state->setErrorByName('model', $this->t('This %name is not a valid eca model', ['%name' => $model]));
+        $form_state->setErrorByName('model', (string) $this->t('This %name is not a valid eca model', ['%name' => $model]));
       }
     }
   }
