@@ -376,3 +376,17 @@ function _openculturas_post_update_0010_filters(ViewExecutable $view): void {
   }
   $display->setOption('filters', $new_filters);
 }
+
+/**
+ * Replace deprecated CamelCase.
+ */
+function openculturas_post_update_0011(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0011');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

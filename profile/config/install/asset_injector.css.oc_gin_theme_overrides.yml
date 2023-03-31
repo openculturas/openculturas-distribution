@@ -6,77 +6,114 @@ dependencies:
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
 code: |-
+  /*
+   * Formtip
+   */
+
   .formtip {
-    background-color: var(--colorGinPrimary);
-    border: 2px solid var(--colorGinPrimary);
-    color: var(--colorGinButtonText);
+    background-color: var(--gin-color-primary);
+    border: 2px solid var(--gin-color-primary);
+    color: var(--gin-color-button-text);
   }
 
   .formtip::before {
-    color: var(--colorGinButtonText);
+    color: var(--gin-color-button-text);
   }
 
   .formtip:focus, 
   .formtip:hover,
   .formtip:active {
-    background-color: var(--colorGinPrimaryLightHover);
-    border-color: var(--colorGinFocus);
+    background-color: var(--gin-color-primary-light-hover);
+    border-color: var(--gin-color-focus);
   }
 
   .formtip:focus:before,
   .formtip:hover:before,
   .formtip:active::before {
-    color: var(--colorGinInfoLight);
+    color: var(--gin-color-info-light);
   }
 
   .formtips-processed.filter-guidelines, 
   div.description.formtips-processed, 
   .form-item .description.formtips-processed, 
   .form-item__description.formtips-processed {
-  	background-color: var(--colorGinInfoBackground);
+  	background-color: var(--gin-bg-info);
   }
 
 
   .formtips-processed::before {
   	border: 6px solid transparent;
-  	border-bottom-color: var(--colorGinInfoBackground);
+  	border-bottom-color: var(--gin-bg-info);
   }
 
   .formtips-processed a {
-    color: var(--colorGinButtonText);
+    color: var(--gin-color-button-text);
     text-decoration: underline;
   }
 
   .formtips-processed a:focus,
   .formtips-processed a:hover {
-    background: var(--colorGinPrimary);
+    background: var(--gin-color-primary);
   }
 
-  /* Choices multi-select widget */
+  /* 
+   * Choices multi-select widget 
+   */
 
   .choices {
-    width: 100%;
+  	min-width: 10rem;
+    width: auto;
+  }
+
+  /* unset/modify unnecessary module css */
+
+  .choices__inner {
+    width: auto;
+    font-size: unset;
+    min-height: unset;
+    padding: 0 .5rem;
+  }
+
+  .choices__input {
+    font-size: unset;
+    margin-bottom: unset;
+  }
+
+  /* adjust to Gin defaults */
+
+  .choices__inner {
+    background: var(--gin-bg-input);
+    color: var(--gin-color-text);
+    border: 1px solid var(--gin-border-color-form-element);
+    border-radius: var(--gin-border-m);
+  }
+
+  .choices__input {
+    background-color: var(--gin-bg-input);
+    padding: calc(0.75rem - 1px) calc(1rem - 1px);
   }
 
   .choices__list--multiple .choices__item {
-    background-color: var(--colorGinPrimary);
-    border-color: var(--colorGinPrimary);
+    background-color: var(--gin-color-primary);
+    border-color:var(--gin-color-primary);
   }
 
   .choices__list--multiple .choices__item:focus,
   .choices__list--multiple .choices__item:hover {
-    background-color: var(--colorGinPrimaryHover);
-    border-color: var(--colorGinPrimaryHover);
+    background-color: var(--gin-color-primary-hover) !important;
+    border-color: var(--gin-color-primary-hover) !important;
   }
 
-
-  /* Focal Point Fix */
+  /* 
+   * Focal Point Fix 
+   */
 
   /* focal point preview overlays image, hard to spot */
+
   .focal-point-preview-link {
     display: block;
     margin: .5rem 2rem;
-    min-height: var(--iconGinSecondaryToolbar);
+    min-height: var(--gin-icon-size-toolbar-secondary);
     padding: .25rem;
     background-color: #fff;
     font-family: unset;
@@ -85,42 +122,44 @@ code: |-
   }
 
   /* adjust to Gin button style */
+
   .focal-point-preview-link {
     font-weight: 700;
     width: auto;
-    background: var(--colorGinPrimaryLightHover);
+    background: var(--gin-color-primary-light-hover);
     padding: .25rem .75rem;
-    border-radius: var(--ginBorderSmall);
+    border-radius: var(--gin-border-s);
     font-size: 0.79rem;
-    color: var(--colorGinPrimary);
     background-color: transparent;
-    border: 2px solid var(--colorGinPrimary) !important;
-    border-radius: var(--ginBorderDefault);
-    transition: var(--ginTransition);
+    border: 2px solid var(--gin-color-primary) !important;
+    border-radius: var(--gin-border-m);
+    transition: var(--gin-transition);
   }
 
   /* use Gin icon instead of emoji */
+
   .focal-point-preview-link:before {
     position: relative;
     display: inline-block;
-    width: var(--iconGinSecondaryToolbar);
-    height: var(--iconGinSecondaryToolbar);
+    width: var(--gin-icon-size-toolbar-secondary);
+    height: var(--gin-icon-size-toolbar-secondary);
     left: -.25rem;
     top: .25rem;
     transform: translateY(-25%);
     content: "";
-    background-color: var(--colorGinPrimary);
+    background-color: var(--gin-color-primary);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center center;
     mask-position: center center;
-    -webkit-mask-size: var(--iconGinSecondaryToolbar) var(--iconGinSecondaryToolbar);
-    mask-size: var(--iconGinSecondaryToolbar) var(--iconGinSecondaryToolbar);
+    -webkit-mask-size: var(---gin-icon-size-toolbar-secondary) var(--gin-icon-size-toolbar-secondary);
+    mask-size: var(--gin-icon-size-toolbar-secondary) var(--gin-icon-size-toolbar-secondary);
     -webkit-mask-image: url(/themes/contrib/gin/dist/media/sprite.svg#search-view);
     mask-image: url(/themes/contrib/gin/dist/media/sprite.svg#search-view);
   }
 
-  /* Preview Modal adjustments */
+  /* preview modal adjustments */
+
   #focal-point-preview-wrapper .note {
     color: var(--color-text-muted);
     padding: .5rem 0;
@@ -133,6 +172,7 @@ code: |-
   }
 
   /* non-clickable flags in views */
+
   .view-flagged-content .action-unflag span {
     text-decoration: line-through;
   }
@@ -142,6 +182,7 @@ code: |-
   }
 
   /* Attribution license in media library */
+
   .media-library-item .media-library-item__preview .field--type-attribution {
     position: absolute;
     top: auto;
@@ -153,8 +194,7 @@ preprocess: true
 conditions:
   current_theme:
     id: current_theme
-    theme:
-      gin: gin
     negate: false
+    theme: gin
 contexts: {  }
 conditions_require_all: true
