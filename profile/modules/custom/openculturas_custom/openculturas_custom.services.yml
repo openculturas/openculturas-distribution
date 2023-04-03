@@ -10,3 +10,9 @@ services:
     class: Drupal\openculturas_custom\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+
+  openculturas_custom.event_subscriber:
+    class: Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomConfigDevelSubscriber
+    arguments: ['@config.manager', '@module_handler']
+    tags:
+      - { name: event_subscriber }

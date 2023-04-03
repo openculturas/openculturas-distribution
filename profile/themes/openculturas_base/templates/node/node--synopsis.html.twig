@@ -1,0 +1,31 @@
+{% extends "@openculturas_base/node/universal-teaser.html.twig" %}
+
+{% block content_wrapper %}
+
+  {%
+    set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'view-mode-' ~ view_mode|clean_class,
+    'clearfix',
+    'faq'
+    ]
+  %}
+
+  {% set wrapper_tag = 'div' %}
+  <{{ wrapper_tag }}{{ attributes.addClass(classes)|without('role') }}>
+    {{ title_prefix }}
+    {% if label %}
+      <h3{{ title_attributes.addClass('teaser') }}>
+        {{ label }}
+      </h3>
+    {% endif %}
+    {{ title_suffix }}
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content }}
+    </div>
+  </{{ wrapper_tag }}>
+{% endblock %}

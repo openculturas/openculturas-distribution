@@ -11,6 +11,7 @@ use Drupal\Core\Config\Entity\ConfigEntityType;
 use Drupal\Core\Entity\EntityDeleteForm;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Utility\UpdateException;
+use Drupal\field\FieldStorageConfigInterface;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EcaNotificationRecipientListBuilder;
 use Drupal\openculturas_custom\Form\EcaNotificationRecipientForm;
@@ -207,9 +208,8 @@ function openculturas_update_9004(): string {
  */
 function openculturas_update_9005(): string {
   $updateManager = \Drupal::entityDefinitionUpdateManager();
-  /** @var \Drupal\field\FieldStorageConfigInterface|null $field_storage_definition */
   $field_storage_definition = $updateManager->getFieldStorageDefinition('field_event_series', 'node');
-  if ($field_storage_definition === NULL) {
+  if (!$field_storage_definition instanceof FieldStorageConfigInterface) {
     return 'Skipped. The field field_event_series is not installed.';
   }
 

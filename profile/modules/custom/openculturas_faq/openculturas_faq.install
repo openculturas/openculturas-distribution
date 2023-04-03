@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openculturas_faq module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function openculturas_faq_install(): void {
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('create faq content');
+    $role->grantPermission('create terms in faq_category');
+    $role->grantPermission('delete any faq content');
+    $role->grantPermission('delete faq revisions');
+    $role->grantPermission('delete own faq content');
+    $role->grantPermission('delete terms in faq_category');
+    $role->grantPermission('edit any faq content');
+    $role->grantPermission('edit own faq content');
+    $role->grantPermission('edit terms in faq_category');
+    $role->grantPermission('revert faq revisions');
+    $role->grantPermission('translate faq node');
+    $role->grantPermission('translate faq_category taxonomy_term');
+    $role->grantPermission('view faq revisions');
+    $role->save();
+  }
+}

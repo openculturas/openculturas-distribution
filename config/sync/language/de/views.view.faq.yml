@@ -1,0 +1,76 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        field_faq_category: {  }
+      pager:
+        options:
+          tags: {  }
+          expose:
+            items_per_page_label: Anzahl/Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      arguments:
+        field_faq_category_target_id:
+          exception:
+            title: Alle
+  page_faq_overview:
+    display_options:
+      fields:
+        node_bulk_form:
+          label: ''
+          action_title: Aktion
+        field_faq_category:
+          label: Kategorie
+        title: {  }
+        langcode:
+          label: Sprache
+        status:
+          settings:
+            format_custom_true: Veröffentlicht
+        sticky:
+          label: 'am Anfang von Listen'
+        operations:
+          label: Aktionen
+      pager:
+        options:
+          tags:
+            first: '« Zum Anfang'
+            last: 'Zum Ende »'
+          expose:
+            items_per_page_label: Anzahl/Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+          text_input_required: 'Wählen Sie einen beliebigen Filter und klicken Sie auf Anwenden, um Ergebnisse zu sehen'
+          bef:
+            general:
+              secondary_label: 'Erweiterte Optionen'
+      filters:
+        field_faq_category_target_id:
+          expose:
+            label: Kategorie
+        langcode:
+          expose:
+            label: Übersetzungssprache
+      title: 'FAQ - Alle Kategorien'
+  related_faq_term:
+    display_options:
+      arguments:
+        field_faq_category_target_id:
+          exception:
+            title: Alle

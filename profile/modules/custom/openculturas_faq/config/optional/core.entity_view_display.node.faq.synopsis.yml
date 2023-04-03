@@ -1,0 +1,86 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.synopsis
+    - field.field.node.faq.body
+    - field.field.node.faq.field_content_paragraphs
+    - field.field.node.faq.field_detailed_question
+    - field.field.node.faq.field_faq_category
+    - field.field.node.faq.field_mood_image
+    - node.type.faq
+  module:
+    - field_formatter_class
+    - field_group
+    - smart_trim
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_answer:
+      children:
+        - field_detailed_question
+        - body
+      label: '[node:title]'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: sub_details
+      format_settings:
+        description: ''
+        id: ''
+        classes: sub-details
+        show_empty_fields: 0
+        open: 0
+id: node.faq.synopsis
+targetEntityType: node
+bundle: faq
+mode: synopsis
+content:
+  body:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 600
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more_link: true
+      more_class: ''
+      more_text: 'Read complete answer'
+      more_aria_label: 'Complete answer to [node:title]'
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
+    third_party_settings:
+      field_formatter_class:
+        class: synopsis-more-link
+    weight: 2
+    region: content
+  field_detailed_question:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  path:
+    type: path
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_content_paragraphs: true
+  field_faq_category: true
+  field_mood_image: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

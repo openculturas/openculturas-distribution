@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Entity;
 
+use Drupal\eca\Entity\Eca;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\openculturas_custom\EcaNotificationRecipientInterface;
@@ -105,9 +106,8 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
     parent::calculateDependencies();
     foreach ($this->eca_model as $model_name => $status) {
       if ($status) {
-        /** @var \Drupal\eca\Entity\Eca|null $model */
         $model = $this->entityTypeManager()->getStorage('eca')->load($model_name);
-        if ($model === NULL) {
+        if (!$model instanceof Eca) {
           continue;
         }
         $this->addDependency('config', $model->getConfigDependencyName());
@@ -123,9 +123,8 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   public function onDependencyRemoval(array $dependencies): bool {
     $changed = parent::onDependencyRemoval($dependencies);
     foreach (array_keys($this->eca_model) as $model_name) {
-      /** @var \Drupal\eca\Entity\Eca|null $model */
       $model = $this->entityTypeManager()->getStorage('eca')->load($model_name);
-      if ($model === NULL) {
+      if (!$model instanceof Eca) {
         continue;
       }
       $name = $model->getConfigDependencyName();

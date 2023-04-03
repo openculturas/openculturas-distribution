@@ -30,6 +30,7 @@ $settings['config_exclude_modules'] = [
   'eca_modeller_bpmn',
   'eca_ui',
   'smtp',
+  'config_devel'
 ];
 
 // Override drupal/swiftmailer default config to use Mailhog

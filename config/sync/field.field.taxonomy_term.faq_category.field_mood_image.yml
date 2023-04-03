@@ -1,0 +1,31 @@
+uuid: 52d74eb5-6dea-4825-a4f1-6c64bb37c7e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_mood_image
+    - media.type.image
+    - taxonomy.vocabulary.faq_category
+_core:
+  default_config_hash: 610LHI70RcuRGa7x-AAI_xq2PhKREcQURsB7xiJxkFU
+id: taxonomy_term.faq_category.field_mood_image
+field_name: field_mood_image
+entity_type: taxonomy_term
+bundle: faq_category
+label: 'Mood image'
+description: 'This image is displayed in the header of the page.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,71 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser_big
+    - field.field.node.faq.body
+    - field.field.node.faq.field_content_paragraphs
+    - field.field.node.faq.field_detailed_question
+    - field.field.node.faq.field_faq_category
+    - field.field.node.faq.field_mood_image
+    - node.type.faq
+  module:
+    - field_formatter_class
+    - smart_trim
+    - user
+id: node.faq.teaser_big
+targetEntityType: node
+bundle: faq
+mode: teaser_big
+content:
+  field_detailed_question:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 200
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more_link: false
+      more_class: more-link
+      more_text: More
+      more_aria_label: ''
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image_big
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  path:
+    type: path
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  body: true
+  extra_field_social_media_buttons: true
+  field_content_paragraphs: true
+  field_faq_category: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

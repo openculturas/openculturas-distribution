@@ -86,8 +86,6 @@ details {
     &.form-required {
       &:after {
         font-size: $font-size-l;
-        //line-height: $line-height-details-header;
-        //vertical-align: top;
         position: absolute;
         right: 3rem;
         top: .5rem;
@@ -112,6 +110,44 @@ details {
   .details-wrapper {
     margin: 0;
     padding: $grid-gutter 0 (2*$grid-gutter);
+  }
+}
+
+details {
+  .node details {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    &.form-wrapper:last-of-type {
+      padding-bottom: 0;
+      border-bottom-width: 0;
+    }
+  }
+
+  details {
+    width: calc(100% - (2.5*$grid-gutter));
+    margin: 0 (2*$grid-gutter) 0 0;
+    border-bottom-width: 0;
+
+    &:last-of-type {
+      border-bottom-width: 0;
+    }
+
+    > summary::before {
+      font-size: var(--font-size-m);
+    }
+
+    .details-title {
+      font-family: var(--font-family-sans-serif);
+      font-size: var(--font-size-m);
+      //color: var(--color-interaction);
+      font-weight: bold;
+      padding-top: .666rem;
+    }
+
+    .details-wrapper {
+      padding-top: 0;
+      padding-right: (2*$grid-gutter);
+    }
   }
 }
 

@@ -1,0 +1,66 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.teaser
+    - field.field.taxonomy_term.faq_category.field_mood_image
+    - field.field.taxonomy_term.faq_category.field_related_faq_view_ref
+    - field.field.taxonomy_term.faq_category.field_term_children_view_ref
+    - taxonomy.vocabulary.faq_category
+  module:
+    - text
+    - viewfield
+id: taxonomy_term.faq_category.teaser
+targetEntityType: taxonomy_term
+bundle: faq_category
+mode: teaser
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_faq_list:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_mood_image:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_related_faq_view_ref:
+    type: viewfield_default
+    label: above
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_term_children_view_ref:
+    type: viewfield_default
+    label: above
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  flag_bookmark_term:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  langcode: true
+  search_api_excerpt: true

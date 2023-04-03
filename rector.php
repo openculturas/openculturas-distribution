@@ -47,18 +47,21 @@ return static function (RectorConfig $rectorConfig): void {
   );
 
   $rectorConfig->skip([
-      \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
-      \Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class => [
-        __DIR__  . '/profile/'
-      ],
-      \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class => [
-        __DIR__ . '/profile/'
-      ],
+    \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
+    \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
+    \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class,
+    \Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class => [
+      __DIR__  . '/profile/'
+    ],
+    \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class => [
+      __DIR__ . '/profile/'
+    ],
     \Rector\TypeDeclaration\Rector\ClassMethod\ArrayShapeFromConstantArrayReturnRector::class => [
       __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/Block/PageTitleBlock.php'
     ],
-      __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
-      __DIR__ . '/profile/modules/custom/geofield_proximity_filter_extra/src/Controller/AutocompleteFiltersController.php'
+    __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
+    __DIR__ . '/profile/modules/custom/geofield_proximity_filter_extra/src/Controller/AutocompleteFiltersController.php',
+    __DIR__ . '/profile/modules/custom/openculturas_faq/src/ProxyClass/OpenCulturasFaqUninstallValidator.php',
   ]);
   $rectorConfig->parallel($seconds = 120, $maxNumberOfProcess = 2,);
 };

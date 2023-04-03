@@ -1,0 +1,71 @@
+uuid: 4a3f38e9-9f95-45a7-b307-afbc2e631989
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_paragraphs
+    - node.type.faq
+    - paragraphs.paragraphs_type.block
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.view
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: ZIYBX7D5kV5RR6a3rPrAq_65ZC2vI090XKJ8s_CoPgQ
+id: node.faq.field_content_paragraphs
+field_name: field_content_paragraphs
+entity_type: node
+bundle: faq
+label: 'Content elements'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      block: block
+      gallery: gallery
+      media: media
+      text: text
+      view: view
+    negate: 0
+    target_bundles_drag_drop:
+      accessibility:
+        weight: -23
+        enabled: false
+      address_data:
+        weight: -22
+        enabled: false
+      block:
+        weight: -20
+        enabled: true
+      bookable_event:
+        weight: -16
+        enabled: false
+      contact_data:
+        weight: -21
+        enabled: false
+      gallery:
+        weight: -19
+        enabled: true
+      media:
+        weight: -18
+        enabled: true
+      media_mention:
+        weight: -13
+        enabled: false
+      member:
+        weight: -17
+        enabled: false
+      text:
+        weight: -15
+        enabled: true
+      view:
+        weight: -14
+        enabled: true
+field_type: entity_reference_revisions

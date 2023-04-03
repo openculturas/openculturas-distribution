@@ -1,0 +1,7 @@
+services:
+  openculturas_faq.uninstall_validator:
+    class: Drupal\openculturas_faq\OpenCulturasFaqUninstallValidator
+    tags:
+      - { name: module_install.uninstall_validator }
+    arguments: [ '@entity_type.manager', '@string_translation']
+    lazy: true

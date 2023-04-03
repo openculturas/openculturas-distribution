@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+  enforced:
+    module:
+      - openculturas_faq
+id: faq_term_all_languages
+label: 'FAQ Term - all languages'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'faq/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  415d3383-99e4-4632-8ee9-540bdb99cc83:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 415d3383-99e4-4632-8ee9-540bdb99cc83
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      faq_category: faq_category
+selection_logic: and
+weight: -5
+relationships: {  }

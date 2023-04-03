@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.faq_category.field_mood_image
+    - field.field.taxonomy_term.faq_category.field_related_faq_view_ref
+    - field.field.taxonomy_term.faq_category.field_term_children_view_ref
+    - taxonomy.vocabulary.faq_category
+  module:
+    - field_formatter_class
+id: taxonomy_term.faq_category.default
+targetEntityType: taxonomy_term
+bundle: faq_category
+mode: default
+content:
+  extra_field_faq_list:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  description: true
+  extra_field_social_media_buttons: true
+  field_related_faq_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true
