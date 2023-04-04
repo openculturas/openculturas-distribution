@@ -128,6 +128,9 @@ function openculturas_post_update_0006(): void {
       $workflow->save();
     }
   }
+  foreach (\Drupal::configFactory()->listAll('workflows.workflow.') as $config_name) {
+    \Drupal::configFactory()->reset($config_name);
+  }
 
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('authenticated');
