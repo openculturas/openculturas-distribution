@@ -12,6 +12,7 @@ use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 use Drupal\workflows\Entity\Workflow;
 
+
 /**
  * Views: Replaces the Content: publish filter with Content: Published status or admin user.
  */
@@ -20,22 +21,7 @@ function openculturas_post_update_0001(): string {
   $updater = \Drupal::service('update_helper.updater');
 
   // Execute configuration update definitions with logging of success.
-  $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0001');
-  if ($no_warnings) {
-    $view = Views::getView('entity_reference_node');
-    if ($view !== NULL) {
-      if ($view->getHandler('default', 'filter', 'status')) {
-        $view->removeHandler('default', 'filter', 'status');
-      }
-      if ($view->getHandler('er_organizer', 'filter', 'status')) {
-        $view->removeHandler('er_organizer', 'filter', 'status');
-      }
-      if ($view->getHandler('er_organizer', 'filter', 'status_1')) {
-        $view->removeHandler('er_organizer', 'filter', 'status_1');
-      }
-      $view->save();
-    }
-  }
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0001');
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
