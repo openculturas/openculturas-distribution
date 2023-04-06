@@ -1,6 +1,6 @@
 include:
   - project: 'devops/gitlab-ci-templates'
-    ref: 1.2.8
+    ref: 1.2.10
     file:
       - 'drupal.yml'
 
@@ -22,6 +22,8 @@ deploy:stage:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
+    - if: "$CI_COMMIT_REF_NAME == $PRELIVE_BRANCH_NAME"
+      when: never
     - if: $CI_COMMIT_BRANCH
       when: manual
 
@@ -29,6 +31,14 @@ deploy:stage:remove:
   extends: .deploy_cloudron:stage:remove
   needs:
     - deploy:stage
+
+build:image:prelive:
+  extends: .build:image:prelive
+
+deploy:prelive:
+  extends: .deploy_cloudron:prelive
+  needs:
+    - build:image:prelive
 
 database:snapshot:
   extends: .pre_cloudron

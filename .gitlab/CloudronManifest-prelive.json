@@ -1,0 +1,19 @@
+{
+  "id": "distribution.openculturas.app",
+  "title": "openculturas distribution",
+  "version": "1.0.0",
+  "healthCheckPath": "/healthcheck/",
+  "httpPort": 80,
+  "addons": {
+    "localstorage": {},
+    "mysql": {},
+    "scheduler": {
+      "cron": {
+        "schedule": "17 * * * *",
+        "command": "sudo -u www-data --preserve-env bash /app/code/scripts/cron.sh"
+      }
+    }
+  },
+  "manifestVersion": 2,
+  "memoryLimit": 786432000
+}
