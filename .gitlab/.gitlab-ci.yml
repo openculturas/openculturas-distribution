@@ -49,3 +49,25 @@ database:snapshot:
     - bash ${DEBUG:+-o xtrace} /ci/cloudron/db_snapshot.sh
   rules:
     - if: $DB_CREATE_SNAPSHOT
+
+test create project:
+  image: $CLOUDRON_BASE_IMAGE
+  stage: test
+  variables:
+    COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer"
+    COMPOSER_EXIT_ON_PATCH_FAILURE: 1
+    COMPOSER_MEMORY_LIMIT: -1
+  cache:
+    key: composer
+    paths:
+      - $COMPOSER_CACHE_DIR
+    when: always
+  script:
+    - composer create-project --remove-vcs --no-interaction --ansi drupal/openculturas_project example.org
+    - cd example.org
+    - composer audit --locked --no-interaction --ansi
+    - composer update --prefer-lowest --no-interaction --ansi
+  # Enable when https://www.drupal.org/project/smtp/issues/3352909 is fixed.
+  #  - composer audit --locked --no-interaction --ansi
+  rules:
+    - if: $TEST_COMPOSER_CREATE_PROJECT
