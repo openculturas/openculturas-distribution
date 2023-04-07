@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\EventSubscriber;
 
+use Drupal\views\ViewEntityInterface;
 use Drupal\config_devel\Event\ConfigDevelEvents;
 use Drupal\config_devel\Event\ConfigDevelSaveEvent;
 use Drupal\Core\Config\ConfigManagerInterface;
@@ -62,13 +63,14 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
       return;
     }
     if ($entity_type_id === 'view') {
-      /** @var \Drupal\views\ViewEntityInterface $configEntity */
+      /** @var \Drupal\views\ViewEntityInterface|null $configEntity */
       $configEntity = $this->configManager->loadConfigEntityByName($config_name);
-      if ($configEntity->uuid() !== NULL) {
+      if ($configEntity instanceof ViewEntityInterface && $configEntity->uuid() !== NULL) {
         $data = ['uuid' => $configEntity->uuid()] + $data;
         $event->setData($data);
       }
     }
+    // // @phpstan-ignore-next-line
     if ($extension === \Drupal::installProfile()) {
       return;
     }
