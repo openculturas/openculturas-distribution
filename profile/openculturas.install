@@ -225,3 +225,12 @@ function openculturas_update_9005(): string {
   }
   return 'Removed deprecated allowed value of field_event_series.';
 }
+
+/**
+ * Installs admin_toolbar and admin_toolbar_tools.
+ */
+function openculturas_update_9006(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['admin_toolbar', 'admin_toolbar_tools']);
+}

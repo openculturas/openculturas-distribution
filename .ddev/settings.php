@@ -38,3 +38,6 @@ $config['smtp.settings']['smtp_on'] = TRUE;
 $config['smtp.settings']['smtp_host'] = '127.0.0.1';
 $config['smtp.settings']['smtp_port'] = '1025';
 $config['system.mail']['interface']['default'] = 'SMTPMailSystem';
+
+$settings['simple_environment_anonymous'] = TRUE;
+$settings['simple_environment_indicator'] = '#000000/#1d70b7 Dev';

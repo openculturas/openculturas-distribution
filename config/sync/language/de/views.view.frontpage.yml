@@ -1,9 +1,11 @@
-label: Startseite
-description: 'Inhalt, der auf der Startseite veröffentlicht wird.'
 display:
   default:
-    display_title: Standard
     display_options:
+      header:
+        area:
+          content:
+            format: basic_html
+            value: "<h2>[view:title]</h2>\r\n"
       exposed_form:
         options:
           submit_button: Anwenden
@@ -11,17 +13,7 @@ display:
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-      header:
-        area:
-          content:
-            value: "<h2>[view:title]</h2>\r\n"
-            format: basic_html
-  feed_1:
-    display_title: Newsfeed
-  page_1:
-    display_title: Seite
-    display_options:
-      title: Willkommen
+    display_title: Standard
   block_front_all:
     display_title: 'Alle Typen'
     display_options:
@@ -32,7 +24,6 @@ display:
       title: Magazin
       use_more_text: 'Zum Magazin'
       link_url: /de/magazin
-      display_comment: ''
   block_front_events:
     display_title: Veranstaltungen
     display_options:
@@ -50,3 +41,17 @@ display:
     display_options:
       use_more_text: 'Zur Community-Übersicht'
       link_url: /de/community
+  feed_1:
+    display_title: Newsfeed
+    display_options:
+      fields:
+        title:
+          separator: ', '
+        field_subtitle:
+          separator: ', '
+  page_1:
+    display_title: Seite
+    display_options:
+      title: Willkommen
+label: Startseite
+description: 'Inhalt, der auf der Startseite veröffentlicht wird.'
