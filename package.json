@@ -1,7 +1,7 @@
 {
   "name": "openculturas",
   "description": "The OpenCulturas distribution install profile.",
-  "license": "GPL-2.0",
+  "license": "GPL-2.0-or-later",
   "private": true,
   "engines": {
     "node": ">= 16.0"
@@ -11,11 +11,11 @@
     "build:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
     "watch:js": "cross-env BABEL_ENV=legacy node ./scripts/js/babel-es6-watch.js",
     "watch:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node ./scripts/js/babel-es6-watch.js",
-    "lint:core-js": "node ./node_modules/eslint/bin/eslint.js profile",
-    "lint:core-js-stats": "node ./node_modules/eslint/bin/eslint.js --format=./scripts/js/eslint-stats-by-type.js .",
+    "lint:js": "eslint .",
+    "lint:js-stats": "eslint --format=./scripts/js/eslint-stats-by-type.js .",
     "lint:css": "stylelint \"profile/themes/openculturas_base/css/*.css\" \"profile/modules/**/*.css\"",
-    "lint:css-checkstyle": "stylelint \"**/*.css\" --custom-formatter ./node_modules/stylelint-checkstyle-formatter/index.js",
-    "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --ext .yml .",
+    "lint:scss": "stylelint --config=.stylelintrc.scss.json \"profile/themes/openculturas_base/scss_config/**/*.scss\"",
+    "lint:yaml": "eslint --ext .yml .",
     "prettier": "prettier --write \"./**/*.es6.js\""
   },
   "devDependencies": {
@@ -26,9 +26,10 @@
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
     "es6-promise": "^4.2.8",
-    "eslint": "^8.37.0",
+    "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-formatter-gitlab": "^4.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
@@ -37,8 +38,9 @@
     "minimist": "^1.2.2",
     "prettier": "^2.1.2",
     "stylelint": "^15.3.0",
-    "stylelint-checkstyle-formatter": "^0.1.1",
     "stylelint-config-standard": "^31.0.0",
+    "stylelint-config-standard-scss": "^8.0.0",
+    "stylelint-formatter-gitlab": "^1.0.2",
     "stylelint-order": "^6.0.3"
   },
   "//": "'development is the default environment, and legacy is for transpiling the old jQuery codebase",

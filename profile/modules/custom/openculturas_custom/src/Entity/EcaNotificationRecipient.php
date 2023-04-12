@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\openculturas_custom\Entity;
 
-use Drupal\eca\Entity\Eca;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\eca\Entity\Eca;
 use Drupal\openculturas_custom\EcaNotificationRecipientInterface;
 use function array_filter;
 

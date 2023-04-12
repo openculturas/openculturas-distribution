@@ -5,7 +5,7 @@
  * Primary module hooks for OpenCulturas Base module.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultInterface;
@@ -18,8 +18,8 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\flag\Entity\Flag;
-use Drupal\flag\FlaggingInterface;
 use Drupal\flag\FlagInterface;
+use Drupal\flag\FlaggingInterface;
 use Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter;
 use Drupal\leaflet_views\Plugin\views\style\LeafletMap;
 use Drupal\media\MediaInterface;
@@ -437,7 +437,7 @@ function openculturas_custom_media_is_creative_commons(MediaInterface $media): b
 /**
  * Implements hook_flag_action_access().
  */
-function openculturas_custom_flag_action_access(string $action, FlagInterface $flag, AccountInterface $account, EntityInterface $flaggable = NULL): AccessResultInterface {
+function openculturas_custom_flag_action_access(string $action, FlagInterface $flag, AccountInterface $account, ?EntityInterface $flaggable = NULL): AccessResultInterface {
   if ($account->isAnonymous()) {
     return AccessResult::neutral();
   }

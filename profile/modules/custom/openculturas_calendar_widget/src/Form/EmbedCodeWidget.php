@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\openculturas_calendar_widget\Form;
 
@@ -42,7 +42,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, Url $url = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?Url $url = NULL): array {
     $config = $this->configFactory()->getEditable('openculturas_calendar_widget.settings');
     $iframe_src = $url !== NULL ? $url->toString() : '';
     $form['container'] = [

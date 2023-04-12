@@ -5,13 +5,12 @@
  * Install, update and uninstall module functions.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Drupal\user\Entity\Role;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 use Drupal\workflows\Entity\Workflow;
-
 
 /**
  * Views: Replaces the Content: publish filter with Content: Published status or admin user.

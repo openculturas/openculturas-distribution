@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\openculturas_custom\Plugin\DateAugmenter;
 
-use Drupal\addtocal_augment\Plugin\DateAugmenter\AddToCal as AddToCalOrigin;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\addtocal_augment\Plugin\DateAugmenter\AddToCal as AddToCalOrigin;
 use function array_map;
 use function mb_strlen;
 use function preg_replace;
@@ -17,7 +19,7 @@ class AddToCal extends AddToCalOrigin {
   /**
    * {@inheritdoc}
    */
-  public function buildLinks(array $output, DrupalDateTime $start, DrupalDateTime $end = NULL, array $options = []) {
+  public function buildLinks(array $output, DrupalDateTime $start, ?DrupalDateTime $end = NULL, array $options = []) {
     $google_link = [];
     // Use provided settings if they exist, otherwise look for plugin config.
     $config = $options['settings'] ?? $this->getConfiguration();

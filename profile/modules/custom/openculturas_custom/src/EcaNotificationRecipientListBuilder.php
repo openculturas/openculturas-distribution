@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\openculturas_custom;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;

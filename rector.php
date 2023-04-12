@@ -20,6 +20,14 @@ return static function (RectorConfig $rectorConfig): void {
     SetList::TYPE_DECLARATION
   ]);
 
+  if (getenv('CI')) {
+    // Ensure file system caching is used instead of in-memory.
+    $rectorConfig->cacheClass(\Rector\Caching\ValueObject\Storage\FileCacheStorage::class);
+
+    // Specify a path that works locally as well as on CI job runners.
+    $rectorConfig->cacheDirectory(__DIR__ . '/.rectorcache');
+  }
+
   $parameters = $rectorConfig->parameters();
 
   $drupalFinder = new DrupalFinder();
@@ -31,7 +39,7 @@ return static function (RectorConfig $rectorConfig): void {
     $drupalRoot . '/themes'
   ]);
 
-  $rectorConfig->fileExtensions(['php', 'module', 'theme', 'install', 'profile', 'inc', 'engine']);
+  $rectorConfig->fileExtensions(['php', 'module', 'theme', 'install', 'profile']);
   $rectorConfig->importNames(true, false);
   $rectorConfig->importShortClasses(false);
   $parameters->set('drupal_rector_notices_as_comments', true);

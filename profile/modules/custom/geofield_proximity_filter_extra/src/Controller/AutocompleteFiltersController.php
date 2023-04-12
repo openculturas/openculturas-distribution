@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\geofield_proximity_filter_extra\Controller;
 
@@ -30,9 +30,6 @@ class AutocompleteFiltersController implements ContainerInjectionInterface {
    */
   protected LoggerInterface $logger;
 
-  /**
-   * ViewsAutocompleteFiltersController constructor.
-   */
   public function __construct(LoggerInterface $logger) {
     $this->logger = $logger;
   }

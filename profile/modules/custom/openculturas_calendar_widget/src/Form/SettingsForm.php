@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\openculturas_calendar_widget\Form;
 
@@ -22,7 +22,7 @@ use function trim;
 final class SettingsForm extends ConfigFormBase {
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): SettingsForm {
     $instance = parent::create($container);

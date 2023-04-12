@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\geofield_proximity_filter_extra\Plugin\views\filter;
 

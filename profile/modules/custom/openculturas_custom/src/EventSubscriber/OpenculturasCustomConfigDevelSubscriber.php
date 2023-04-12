@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Drupal\openculturas_custom\EventSubscriber;
 
-use Drupal\views\ViewEntityInterface;
-use Drupal\config_devel\Event\ConfigDevelEvents;
-use Drupal\config_devel\Event\ConfigDevelSaveEvent;
 use Drupal\Core\Config\ConfigManagerInterface;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\config_devel\Event\ConfigDevelEvents;
+use Drupal\config_devel\Event\ConfigDevelSaveEvent;
+use Drupal\views\ViewEntityInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use function array_unique;
 use function basename;
