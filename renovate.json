@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>devops/renovate-config"
+    "local>devops/renovate-config",
+    ":semanticCommitTypeAll(chore)"
   ],
   "ignorePaths": [
     "**/node_modules/**",
@@ -29,13 +30,6 @@
         "docker"
       ],
       "pinDigests": false
-    },
-    {
-      "matchDepTypes": [
-        "*"
-      ],
-      "semanticCommitType": "chore",
-      "commitBody": "Changelog: dependency"
     }
   ]
 }
