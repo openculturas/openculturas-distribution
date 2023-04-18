@@ -1,5 +1,5 @@
 const
-  { src, dest, watch, series, parallel } = require('gulp'),
+  { series, parallel } = require('gulp'),
   gulp = require('gulp'),
   dartSass = require('sass'),
   gulpSass = require('gulp-sass'),
@@ -10,8 +10,6 @@ const
   autoprefixer = require('gulp-autoprefixer'),
   sourcemaps = require('gulp-sourcemaps'),
   concat = require('gulp-concat'),
-  clean = require('gulp-clean-css'),
-  minify = require('gulp-minify'),
   environments = require('gulp-environments'),
   browserSync = require('browser-sync').create(),
   development = environments.development,
@@ -44,7 +42,6 @@ const paths = {
 };
 
 gulp.task('sass', function () {
-  // Removed .pipe(clean()), because Drupal stylesheets should not be minified.
   return gulp
     .src(paths.styles.src)
     .pipe(sassGlob())
@@ -60,16 +57,6 @@ gulp.task('js', function () {
   return gulp
     .src(paths.scripts.src)
     .pipe(concat(paths.scripts.dest.filename))
-    .pipe(
-      production(
-        minify({
-          ext: {
-            min: '.js',
-          },
-          noSource: true,
-        }),
-      ),
-    )
     .pipe(gulp.dest(paths.scripts.dest.dir));
 });
 
