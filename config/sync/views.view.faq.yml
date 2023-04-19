@@ -484,12 +484,13 @@ display:
           admin_label: ''
           plugin_id: views_add_button_area
           empty: true
-          tokenize: 0
+          tokenize: false
           type: node+faq
           render_plugin: views_add_button_node
           access_plugin: views_add_button_node
           context: ''
           button_text: ''
+          query_string: ''
           button_classes: button
           button_attributes: ''
           button_access_denied:
@@ -501,8 +502,7 @@ display:
           button_suffix:
             value: ''
             format: minimal_html
-          query_string: ''
-          destination: 0
+          destination: false
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -1458,12 +1458,13 @@ display:
           admin_label: ''
           plugin_id: views_add_button_area
           empty: true
-          tokenize: 1
+          tokenize: true
           type: node+faq
           render_plugin: views_add_button_node
           access_plugin: views_add_button_node
           context: ''
           button_text: 'Add FAQ'
+          query_string: 'field_faq_category={{ raw_arguments.field_faq_category_target_id }}'
           button_classes: button
           button_attributes: ''
           button_access_denied:
@@ -1475,8 +1476,7 @@ display:
           button_suffix:
             value: ''
             format: minimal_html
-          query_string: 'field_faq_category={{ raw_arguments.field_faq_category_target_id }}'
-          destination: 0
+          destination: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
