@@ -378,3 +378,19 @@ function openculturas_post_update_0011(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Fix language handling for the notification recipient.
+ */
+function openculturas_post_update_0012(): string {
+  \Drupal::configFactory()->getEditable('eca.eca.process_zo0uuo3')->delete();
+  \Drupal::configFactory()->getEditable('eca.model.process_zo0uuo3')->delete();
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0012');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

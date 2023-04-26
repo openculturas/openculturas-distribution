@@ -167,13 +167,26 @@ modeldata: |
             <camunda:string>preferred_langcode</camunda:string>
           </camunda:field>
           <camunda:field name="object">
-            <camunda:string>user</camunda:string>
+            <camunda:string>[current-user]</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1ldc5iv</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1jiduqd</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_00gp4vn" sourceRef="Event_1y89lfy" targetRef="Activity_195h7qn" />
+      <bpmn2:task id="Activity_195h7qn" name="Switch to author" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_switch_account" />
+          </camunda:properties>
+          <camunda:field name="user_id">
+            <camunda:string>[entity:author:uid]</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_00gp4vn</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_1jiduqd</bpmn2:outgoing>
+        <bpmn2:outgoing>Flow_1ldc5iv</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_00gp4vn" sourceRef="Event_1y89lfy" targetRef="Activity_1anytww" />
+      <bpmn2:sequenceFlow id="Flow_1ldc5iv" sourceRef="Activity_195h7qn" targetRef="Activity_1anytww" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-30006dac-b440-43dd-aa3c-369c34d7e4e0">
       <bpmndi:BPMNPlane id="sid-e7f832e2-f23e-4a19-b366-92be2f03edf8" bpmnElement="Process_zO0uuO3">
@@ -197,6 +210,10 @@ modeldata: |
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_1anytww_di" bpmnElement="Activity_1anytww">
           <dc:Bounds x="770" y="140" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Activity_195h7qn_di" bpmnElement="Activity_195h7qn">
+          <dc:Bounds x="730" y="290" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1alkluj_di" bpmnElement="Flow_1alkluj">
@@ -224,7 +241,15 @@ modeldata: |
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_00gp4vn_di" bpmnElement="Flow_00gp4vn">
           <di:waypoint x="618" y="180" />
-          <di:waypoint x="770" y="180" />
+          <di:waypoint x="674" y="180" />
+          <di:waypoint x="674" y="350" />
+          <di:waypoint x="730" y="350" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1ldc5iv_di" bpmnElement="Flow_1ldc5iv">
+          <di:waypoint x="780" y="290" />
+          <di:waypoint x="780" y="255" />
+          <di:waypoint x="820" y="255" />
+          <di:waypoint x="820" y="220" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

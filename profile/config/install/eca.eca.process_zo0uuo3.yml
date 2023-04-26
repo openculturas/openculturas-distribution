@@ -21,7 +21,7 @@ events:
       to_state: published
     successors:
       -
-        id: Activity_1anytww
+        id: Activity_195h7qn
         condition: ''
 conditions:
   Flow_1alkluj:
@@ -92,8 +92,17 @@ actions:
     label: 'Get the preferred langcode of notification recipient'
     configuration:
       token_name: preferred_langcode
-      object: user
+      object: '[current-user]'
     successors:
       -
         id: Activity_04if7je
         condition: Flow_1jiduqd
+  Activity_195h7qn:
+    plugin: eca_switch_account
+    label: 'Switch to author'
+    configuration:
+      user_id: '[entity:author:uid]'
+    successors:
+      -
+        id: Activity_1anytww
+        condition: ''
