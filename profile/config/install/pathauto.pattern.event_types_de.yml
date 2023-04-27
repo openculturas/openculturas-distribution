@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: event_types_de
+label: 'Event types DE'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'veranstaltungen/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  4c53fb45-6450-484e-ac9c-a57703075e65:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 4c53fb45-6450-484e-ac9c-a57703075e65
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      event_type: event_type
+  ded8ef5e-87e4-4f9e-a001-35e3f7b7a732:
+    id: language
+    negate: false
+    uuid: ded8ef5e-87e4-4f9e-a001-35e3f7b7a732
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -10
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Sprache

@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.location.field_related_date_view_ref
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_started
+    - field.field.node.location.field_sub_type
     - field.field.node.location.field_subtitle
     - field.field.node.location.field_supporters
     - node.type.location
@@ -46,6 +47,14 @@ content:
       field_formatter_class:
         class: ''
     weight: 1
+    region: content
+  field_sub_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_subtitle:
     type: text_default

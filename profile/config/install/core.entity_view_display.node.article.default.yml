@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
+    - field.field.node.article.field_sub_type
     - field.field.node.article.field_subtitle
     - node.type.article
   module:
@@ -27,6 +28,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_sub_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   body: true

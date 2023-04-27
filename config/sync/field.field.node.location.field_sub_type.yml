@@ -1,0 +1,29 @@
+uuid: 6554ac4e-84c6-497c-a4b5-1ae7cb7dc881
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sub_type
+    - node.type.location
+    - taxonomy.vocabulary.location_type
+id: node.location.field_sub_type
+field_name: field_sub_type
+entity_type: node
+bundle: location
+label: 'Location Type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      location_type: location_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

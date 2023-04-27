@@ -1,0 +1,51 @@
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.location_type.field_mood_image
+    - field.field.taxonomy_term.location_type.field_related_location_view_ref
+    - field.field.taxonomy_term.location_type.field_term_children_view_ref
+    - taxonomy.vocabulary.location_type
+  module:
+    - field_formatter_class
+    - text
+    - viewfield
+id: taxonomy_term.location_type.default
+targetEntityType: taxonomy_term
+bundle: location_type
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_social_media_buttons:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_related_location_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+  flag_bookmark_term:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_mood_image: true
+  field_term_children_view_ref: true
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,33 @@
+uuid: a3c139da-3d1c-4c89-b77a-0ff62b300708
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: event_types
+label: 'Event types'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'events/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  d25ff95c-6e5c-4b5e-a093-9caf524aea94:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: d25ff95c-6e5c-4b5e-a093-9caf524aea94
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      event_type: event_type
+  d0235125-ef12-40af-934c-bdc547dd3893:
+    id: language
+    negate: false
+    uuid: d0235125-ef12-40af-934c-bdc547dd3893
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      en: en
+selection_logic: and
+weight: -5
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Sprache

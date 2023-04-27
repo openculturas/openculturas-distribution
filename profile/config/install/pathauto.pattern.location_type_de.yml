@@ -1,0 +1,32 @@
+langcode: de
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: location_type_de
+label: 'Location type DE'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/orte/kategorien/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  4cc5fefd-8f5f-46f0-afc9-df9dd3c400f1:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 4cc5fefd-8f5f-46f0-afc9-df9dd3c400f1
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      location_type: location_type
+  ffbbb6d1-34cd-4dc2-8243-4c5f4a2c19e8:
+    id: language
+    negate: false
+    uuid: ffbbb6d1-34cd-4dc2-8243-4c5f4a2c19e8
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -10
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Sprache

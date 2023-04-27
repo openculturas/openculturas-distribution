@@ -1,0 +1,33 @@
+uuid: 60943397-7dad-44f2-9adf-ee9d7a1f0404
+langcode: de
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: location_type
+label: 'Location type'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/locations/location-types/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  08599665-df85-4fc3-b2ea-ea0ba84bff78:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 08599665-df85-4fc3-b2ea-ea0ba84bff78
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      location_type: location_type
+  88deba94-dd45-4443-80a1-870078592285:
+    id: language
+    negate: false
+    uuid: 88deba94-dd45-4443-80a1-870078592285
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      en: en
+selection_logic: and
+weight: -10
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Sprache

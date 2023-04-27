@@ -1,0 +1,101 @@
+uuid: 05db8f4a-6449-4089-b45e-2cb1133670ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full
+    - field.field.taxonomy_term.event_type.field_mood_image
+    - field.field.taxonomy_term.event_type.field_related_event_view_ref
+    - field.field.taxonomy_term.event_type.field_term_children_view_ref
+    - taxonomy.vocabulary.event_type
+  module:
+    - field_formatter_class
+    - field_group
+    - text
+    - viewfield
+third_party_settings:
+  field_group:
+    group_interact:
+      children:
+        - flag_bookmark_term
+        - extra_field_social_media_buttons
+      label: Interact
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: html_element
+      format_settings:
+        classes: interact
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_sub_catgories:
+      children:
+        - field_term_children_view_ref
+      label: 'Sub categories'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+id: taxonomy_term.event_type.full
+targetEntityType: taxonomy_term
+bundle: event_type
+mode: full
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  extra_field_social_media_buttons:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_related_event_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+  field_term_children_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 6
+    region: content
+  flag_bookmark_term:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_mood_image: true
+  langcode: true
+  search_api_excerpt: true

@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.page.field_layout_switcher
     - field.field.node.page.field_meta_tags
     - field.field.node.page.field_mood_image
+    - field.field.node.page.field_sub_type
     - field.field.node.page.field_subtitle
     - field.field.node.page.field_supporters
     - node.type.page
@@ -25,6 +26,7 @@ third_party_settings:
     group_administrative:
       children:
         - langcode
+        - field_sub_type
         - translation
         - uid
         - created
@@ -36,7 +38,7 @@ third_party_settings:
       label: Administrative
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -101,13 +103,13 @@ content:
     third_party_settings: {  }
   field_layout_switcher:
     type: options_select
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_meta_tags:
     type: metatag_firehose
-    weight: 26
+    weight: 11
     region: content
     settings:
       sidebar: true
@@ -122,6 +124,12 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_sub_type:
+    type: options_select
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_subtitle:
     type: text_textfield
     weight: 1
@@ -135,7 +143,7 @@ content:
         hide_guidelines: '0'
   field_supporters:
     type: media_library_widget
-    weight: 5
+    weight: 6
     region: content
     settings:
       media_types: {  }
@@ -149,7 +157,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -173,7 +181,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true

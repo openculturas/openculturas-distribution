@@ -1,0 +1,29 @@
+uuid: 803bb6af-d063-49f0-b12f-8eb9c0722b3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_mood_image
+    - media.type.image
+    - taxonomy.vocabulary.page_type
+id: taxonomy_term.page_type.field_mood_image
+field_name: field_mood_image
+entity_type: taxonomy_term
+bundle: page_type
+label: 'Mood image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

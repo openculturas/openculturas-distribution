@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.event.field_related_date_view_ref
     - field.field.node.event.field_started
     - field.field.node.event.field_status
+    - field.field.node.event.field_sub_type
     - field.field.node.event.field_subtitle
     - field.field.node.event.field_supporters
     - field.field.node.event.field_url
@@ -27,6 +28,7 @@ dependencies:
     - workflows.workflow.draften
   module:
     - allowed_formats
+    - choices
     - content_moderation
     - datetime_extras
     - duration_field
@@ -84,8 +86,8 @@ third_party_settings:
       children:
         - title
         - field_subtitle
+        - group_tags_wrapper
         - field_allow_claiming
-        - field_category
         - body
         - field_url
       label: Basics
@@ -169,6 +171,27 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
+    group_tags_wrapper:
+      children:
+        - field_sub_type
+        - field_category
+      label: 'Tags wrapper'
+      region: content
+      parent_name: group_event_tab_basics
+      weight: 23
+      format_type: html_element
+      format_settings:
+        classes: tags-wrapper
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        required_fields: true
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -176,7 +199,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 25
+    weight: 27
     region: content
     settings:
       rows: 5
@@ -199,7 +222,7 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -224,7 +247,7 @@ content:
     third_party_settings: {  }
   field_allow_claiming:
     type: boolean_checkbox
-    weight: 23
+    weight: 26
     region: content
     settings:
       display_label: true
@@ -267,10 +290,11 @@ content:
             effect_options: {  }
             selector: ''
   field_category:
-    type: options_select
-    weight: 24
+    type: choices_widget
+    weight: 25
     region: content
-    settings: {  }
+    settings:
+      configuration_options: ''
     third_party_settings: {  }
   field_duration:
     type: duration_widget
@@ -280,7 +304,7 @@ content:
     third_party_settings: {  }
   field_gallery:
     type: media_library_widget
-    weight: 23
+    weight: 15
     region: content
     settings:
       media_types:
@@ -306,14 +330,14 @@ content:
     third_party_settings: {  }
   field_min_age:
     type: number
-    weight: 13
+    weight: 12
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_mood_image:
     type: media_library_widget
-    weight: 22
+    weight: 14
     region: content
     settings:
       media_types: {  }
@@ -372,6 +396,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_sub_type:
+    type: options_select
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_subtitle:
     type: text_textfield
     weight: 22
@@ -385,14 +415,14 @@ content:
         hide_guidelines: '0'
   field_supporters:
     type: media_library_widget
-    weight: 24
+    weight: 16
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_url:
     type: link_default
-    weight: 26
+    weight: 28
     region: content
     settings:
       placeholder_url: ''
@@ -413,19 +443,19 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -438,7 +468,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 6
     region: content
     settings:
       display_label: true
@@ -453,7 +483,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -462,7 +492,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }

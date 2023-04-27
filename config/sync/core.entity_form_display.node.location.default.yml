@@ -24,12 +24,14 @@ dependencies:
     - field.field.node.location.field_related_date_view_ref
     - field.field.node.location.field_safety_info
     - field.field.node.location.field_started
+    - field.field.node.location.field_sub_type
     - field.field.node.location.field_subtitle
     - field.field.node.location.field_supporters
     - node.type.location
     - workflows.workflow.draften_member
   module:
     - allowed_formats
+    - choices
     - content_moderation
     - datetime_extras
     - field_group
@@ -64,7 +66,7 @@ third_party_settings:
         weight: 0
     group_about:
       children:
-        - field_category
+        - group_tags_wrapper
         - body
         - field_started
         - field_contact_data
@@ -170,6 +172,27 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
+    group_tags_wrapper:
+      children:
+        - field_sub_type
+        - field_category
+      label: 'Tags wrapper'
+      region: content
+      parent_name: group_about
+      weight: 3
+      format_type: html_element
+      format_settings:
+        classes: tags-wrapper
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        required_fields: true
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -177,7 +200,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 5
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -200,13 +223,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 29
+    weight: 37
     region: content
     settings: {  }
     third_party_settings: {  }
   field_accessibility:
     type: paragraphs
-    weight: 9
+    weight: 35
     region: content
     settings:
       title: 'Accessibility information'
@@ -225,7 +248,7 @@ content:
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 13
+    weight: 39
     region: content
     settings:
       rows: 5
@@ -236,7 +259,7 @@ content:
         hide_guidelines: '1'
   field_address_data:
     type: paragraphs
-    weight: 7
+    weight: 5
     region: content
     settings:
       title: 'Address information'
@@ -255,20 +278,21 @@ content:
     third_party_settings: {  }
   field_allow_claiming:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_category:
-    type: options_select
-    weight: 4
+    type: choices_widget
+    weight: 15
     region: content
-    settings: {  }
+    settings:
+      configuration_options: ''
     third_party_settings: {  }
   field_contact_data:
     type: paragraphs
-    weight: 7
+    weight: 6
     region: content
     settings:
       title: 'Contact information'
@@ -287,7 +311,7 @@ content:
     third_party_settings: {  }
   field_gallery:
     type: media_library_widget
-    weight: 13
+    weight: 15
     region: content
     settings:
       media_types:
@@ -298,7 +322,7 @@ content:
         show_edit: '1'
   field_logo:
     type: media_library_widget
-    weight: 12
+    weight: 14
     region: content
     settings:
       media_types: {  }
@@ -307,7 +331,7 @@ content:
         show_edit: '1'
   field_mood_image:
     type: media_library_widget
-    weight: 10
+    weight: 11
     region: content
     settings:
       media_types: {  }
@@ -316,7 +340,7 @@ content:
         show_edit: '1'
   field_opening_hours:
     type: text_textarea
-    weight: 10
+    weight: 36
     region: content
     settings:
       rows: 5
@@ -327,7 +351,7 @@ content:
         hide_guidelines: '1'
   field_people_reference:
     type: paragraphs
-    weight: 12
+    weight: 36
     region: content
     settings:
       title: 'Regular performer'
@@ -346,7 +370,7 @@ content:
     third_party_settings: {  }
   field_portrait:
     type: media_library_widget
-    weight: 11
+    weight: 12
     region: content
     settings:
       media_types: {  }
@@ -355,7 +379,7 @@ content:
         show_edit: '1'
   field_press_quotes:
     type: paragraphs
-    weight: 14
+    weight: 40
     region: content
     settings:
       title: 'Press quote'
@@ -374,7 +398,7 @@ content:
     third_party_settings: {  }
   field_reference_title:
     type: string_textfield
-    weight: 11
+    weight: 35
     region: content
     settings:
       size: 60
@@ -382,7 +406,7 @@ content:
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 11
+    weight: 38
     region: content
     settings:
       rows: 5
@@ -393,13 +417,19 @@ content:
         hide_guidelines: '1'
   field_started:
     type: datetime_datelist_no_time
-    weight: 6
+    weight: 5
     region: content
     settings:
       date_order: MY
       time_type: none
       increment: '15'
       date_year_range: '1900:2050'
+    third_party_settings: {  }
+  field_sub_type:
+    type: options_select
+    weight: 14
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_subtitle:
     type: text_textfield
@@ -414,14 +444,14 @@ content:
         hide_guidelines: '0'
   field_supporters:
     type: media_library_widget
-    weight: 14
+    weight: 16
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 27
+    weight: 35
     region: content
     settings:
       include_locked: true
@@ -434,19 +464,19 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 32
+    weight: 40
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 30
+    weight: 38
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 34
+    weight: 42
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -459,7 +489,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 31
+    weight: 39
     region: content
     settings:
       display_label: true
@@ -474,7 +504,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 28
+    weight: 36
     region: content
     settings:
       match_operator: CONTAINS
@@ -483,7 +513,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 33
+    weight: 41
     region: content
     settings: {  }
     third_party_settings: {  }

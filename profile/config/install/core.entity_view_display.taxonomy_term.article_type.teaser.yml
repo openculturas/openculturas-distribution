@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.teaser
+    - field.field.taxonomy_term.article_type.field_mood_image
+    - field.field.taxonomy_term.article_type.field_related_article_view_ref
+    - field.field.taxonomy_term.article_type.field_term_children_view_ref
+    - taxonomy.vocabulary.article_type
+id: taxonomy_term.article_type.teaser
+targetEntityType: taxonomy_term
+bundle: article_type
+mode: teaser
+content:
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image_big
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  description: true
+  extra_field_social_media_buttons: true
+  field_related_article_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true
