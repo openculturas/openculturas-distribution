@@ -408,3 +408,17 @@ function openculturas_post_update_0013(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Disable snap in the swiffy slider formatter.
+ */
+function openculturas_post_update_0014(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0014');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
