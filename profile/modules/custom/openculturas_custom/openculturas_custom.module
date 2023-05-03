@@ -262,7 +262,7 @@ function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity): v
   if ($entity->isNew() && $entity->hasField('field_behalf') && $entity->get('field_behalf')->isEmpty()) {
     /** @var \Drupal\user\UserInterface|null $user */
     $user = User::load(\Drupal::currentUser()->id());
-    $main_profile_non_empty = $user !== NULL && $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
+    $main_profile_non_empty = $user instanceof UserInterface && $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
     if ($main_profile_non_empty) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
       $field = $user->get('field_main_profile');
@@ -332,7 +332,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $flag_bundles = ['bookmark_node', 'recommendation_node'];
     foreach ($flag_bundles as $flag_bundle) {
       $flag = Flag::load($flag_bundle);
-      if ($event instanceof NodeInterface && $flag !== NULL) {
+      if ($event instanceof NodeInterface && $flag instanceof Flag) {
         $build_key = 'flag_' . $flag->id();
         if (isset($build[$build_key])) {
           $build[$build_key] = array_merge($build[$build_key], [
@@ -465,7 +465,7 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
     $field = $node->get('field_event_series');
     /** @var \Drupal\Core\Field\FieldItemInterface|null $field_item */
     $field_item = $field->first();
-    if ($field->isEmpty() || ($field_item !== NULL && $field_item->getString() === 'no')) {
+    if ($field->isEmpty() || ($field_item instanceof FieldItemInterface && $field_item->getString() === 'no')) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
       $field = $node->get('field_parent_date');
       if (!$field->isEmpty()) {

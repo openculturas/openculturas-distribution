@@ -7,6 +7,7 @@ namespace Drupal\openculturas_custom\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -79,9 +80,9 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
     $subtitle = NULL;
     $profile_image = NULL;
 
-    if ($current_entity !== NULL) {
+    if ($current_entity instanceof ContentEntityInterface) {
       $title_markup = [];
-      if ($page_entity !== NULL && $page_entity->hasField('field_premiere')
+      if ($page_entity instanceof ContentEntityInterface && $page_entity->hasField('field_premiere')
         && !$page_entity->get('field_premiere')->isEmpty()) {
         $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
         $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderPlain($field_premiere_render_array))) . ': '];

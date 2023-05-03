@@ -8,9 +8,11 @@
 declare(strict_types = 1);
 
 use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 use Drupal\workflows\Entity\Workflow;
+use Drupal\workflows\WorkflowInterface;
 
 /**
  * Views: Replaces the Content: publish filter with Content: Published status or admin user.
@@ -90,7 +92,7 @@ function openculturas_post_update_0006(): void {
   foreach ($workflows as $id) {
     /** @var \Drupal\workflows\WorkflowInterface|null $workflow */
     $workflow = Workflow::load($id);
-    if ($workflow !== NULL) {
+    if ($workflow instanceof WorkflowInterface) {
       $workflow->getTypePlugin()->setStateWeight('draft', -2);
       $workflow->getTypePlugin()->addState('review', 'In review');
       $workflow->getTypePlugin()->setStateWeight('review', -1);
@@ -119,7 +121,7 @@ function openculturas_post_update_0006(): void {
 
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('authenticated');
-  if ($role !== NULL) {
+  if ($role instanceof RoleInterface) {
     $role->grantPermission('use draften transition to_review');
     $role->revokePermission('use draften transition review');
     $role->save();
@@ -127,26 +129,26 @@ function openculturas_post_update_0006(): void {
 
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('oc_organizer');
-  if ($role !== NULL) {
+  if ($role instanceof RoleInterface) {
     $role->revokePermission('use draften transition review');
     $role->save();
   }
 
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('magazine_editor');
-  if ($role !== NULL) {
+  if ($role instanceof RoleInterface) {
     $role->grantPermission('use magazine_article transition to_review');
     $role->save();
   }
 
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('oc_admin');
-  if ($role !== NULL) {
+  if ($role instanceof RoleInterface) {
     $role->grantPermission('use magazine_article transition to_review');
     $role->save();
   }
   $view = Views::getView('moderated_content');
-  if ($view !== NULL && ($handler_configuration = $view->getHandler('default', 'filter', 'moderation_state'))) {
+  if ($view instanceof ViewExecutable && ($handler_configuration = $view->getHandler('default', 'filter', 'moderation_state'))) {
     foreach ($handler_configuration['group_info']['group_items'] as &$group_item) {
       $value = &$group_item['value'];
       if (isset($value['draften-to_review'])) {
@@ -194,7 +196,7 @@ function openculturas_post_update_0008(): string {
   $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0008');
   if ($no_warnings) {
     $view = Views::getView('moderated_content');
-    if ($view !== NULL) {
+    if ($view instanceof ViewExecutable) {
       $display = $view->getDisplay();
       $old_field = $display->getOption('fields');
       $new_field = [];
@@ -257,7 +259,7 @@ function openculturas_post_update_0010(): string {
   $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0010');
   if ($no_warnings) {
     $view = Views::getView('my_bookmarks');
-    if ($view !== NULL) {
+    if ($view instanceof ViewExecutable) {
       $display = $view->getDisplay();
       $old_items = $display->getOption('fields');
       $new_items = [];
@@ -298,7 +300,7 @@ function openculturas_post_update_0010(): string {
       $view->save();
     }
     $view = Views::getView('my_bookmarks_taxonomy');
-    if ($view !== NULL) {
+    if ($view instanceof ViewExecutable) {
       $view->setDisplay('all');
       $display = $view->getDisplay();
       $old_items = $display->getOption('fields');
@@ -320,7 +322,7 @@ function openculturas_post_update_0010(): string {
     }
 
     $view = Views::getView('my_content');
-    if ($view !== NULL) {
+    if ($view instanceof ViewExecutable) {
       $view->setDisplay('my_content_block');
       $display = $view->getDisplay();
       $old_items = $display->getOption('filters');

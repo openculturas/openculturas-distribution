@@ -48,7 +48,7 @@ final class CurrentEntityHelper {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public static function getEventReference(?ContentEntityInterface $entity): ?ContentEntityInterface {
-    if ($entity === NULL) {
+    if (!$entity instanceof ContentEntityInterface) {
       return $entity;
     }
     if ($entity->bundle() !== 'date') {
