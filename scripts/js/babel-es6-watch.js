@@ -4,14 +4,11 @@
  * Watch changes to *.es6.js files and compile them to ES5 during development.
  */
 
-'use strict';
-
-const fs = require('fs');
+import { stat, unlink } from 'node:fs';
 // eslint-disable-next-line import/no-extraneous-dependencies
-const chokidar = require('chokidar');
-
-const changeOrAdded = require('./changeOrAdded');
-const log = require('./log');
+import chokidar from 'chokidar';
+import changeOrAdded from './changeOrAdded';
+import log from './log';
 
 // Match only on .es6.js files.
 const fileMatch = './**/*.es6.js';
@@ -33,8 +30,8 @@ watcher
   .on('change', changeOrAdded)
   .on('unlink', (filePath) => {
     const fileName = filePath.slice(0, -7);
-    fs.stat(`${fileName}.js`, () => {
-      fs.unlink(`${fileName}.js`, unlinkHandler);
+    stat(`${fileName}.js`, () => {
+      unlink(`${fileName}.js`, unlinkHandler);
     });
   })
   .on('ready', () => log(`Watching '${fileMatch}' for changes.`));

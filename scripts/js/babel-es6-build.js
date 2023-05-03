@@ -5,8 +5,9 @@
  *
  * Run build:js with --file to only parse a specific file. Using the --check
  * flag build:js can be run to check if files are compiled correctly.
- * @example <caption>Only process misc/drupal.es6.js and misc/drupal.init.es6.js</caption
- * yarn run build:js -- --file misc/drupal.es6.js --file misc/drupal.init.es6.js
+ * @example <caption>Only process misc/drupal.es6.js and
+ *   misc/drupal.init.es6.js</caption yarn run build:js -- --file
+ *   misc/drupal.es6.js --file misc/drupal.init.es6.js
  * @example <caption>Check if all files have been compiled correctly</caption
  * yarn run build:js -- --check
  *
@@ -14,15 +15,18 @@
  * meant to be used in that context.
  */
 
-'use strict';
+import path from 'node:path';
+import process from 'node:process';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import glob from 'glob';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import minimist from 'minimist';
+import changeOrAdded from './changeOrAdded';
+import check from './check';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-const glob = require('glob');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const argv = require('minimist')(process.argv.slice(2));
-const path = require('path');
-const changeOrAdded = require('./changeOrAdded');
-const check = require('./check');
+const argv = minimist(process.argv.slice(2));
+
 // Allow the caller to override the root directory.
 const dir = argv.dir || './';
 

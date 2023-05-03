@@ -1,14 +1,17 @@
-const chalk = require('chalk');
-const fs = require('fs');
-const log = require('./log');
-const compile = require('./compile');
+import { readFile } from 'node:fs';
+import process from 'node:process';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import chalk from 'chalk';
 
-module.exports = (filePath) => {
+import log from './log';
+import compile from './compile';
+
+export default function check(filePath) {
   log(`'${filePath}' is being checked.`);
   // Transform the file.
-  compile(filePath, function check(code) {
+  compile(filePath, (code) => {
     const fileName = filePath.slice(0, -7);
-    fs.readFile(`${fileName}.js`, function read(err, data) {
+    readFile(`${fileName}.js`, function read(err, data) {
       if (err) {
         log(chalk.red(err));
         process.exitCode = 1;

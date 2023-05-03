@@ -6,13 +6,13 @@
   "engines": {
     "node": ">= 16.0"
   },
+  "type": "module",
   "scripts": {
-    "build:js": "cross-env BABEL_ENV=legacy node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
-    "build:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
-    "watch:js": "cross-env BABEL_ENV=legacy node ./scripts/js/babel-es6-watch.js",
-    "watch:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node ./scripts/js/babel-es6-watch.js",
+    "build:js": "cross-env BABEL_ENV=legacy node --experimental-specifier-resolution=node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
+    "build:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node --experimental-specifier-resolution=node  ./scripts/js/babel-es6-build.js --dir \"./profile\"",
+    "watch:js": "cross-env BABEL_ENV=legacy node --experimental-specifier-resolution=node  ./scripts/js/babel-es6-watch.js",
+    "watch:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node --experimental-specifier-resolution=node ./scripts/js/babel-es6-watch.js",
     "lint:js": "eslint .",
-    "lint:js-stats": "eslint --format=./scripts/js/eslint-stats-by-type.js .",
     "lint:css": "stylelint \"profile/themes/openculturas_base/css/*.css\" \"profile/modules/**/*.css\"",
     "lint:scss": "stylelint --config=.stylelintrc.scss.json \"profile/themes/openculturas_base/scss_config/**/*.scss\"",
     "lint:yaml": "eslint --ext .yml .",
@@ -22,7 +22,7 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-plugin-add-header-comment": "^1.0.3",
-    "chalk": "^4.1.0",
+    "chalk": "^5.0.0",
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
     "es6-promise": "^4.2.8",
