@@ -9,7 +9,7 @@ use Drupal\user\UserInterface;
 use weitzman\DrupalTestTraits\Entity\UserCreationTrait;
 
 /**
- * Trait UserTrait.
+ * Trait for user related tasks.
  */
 trait UserTrait {
   use UserCreationTrait;
@@ -32,7 +32,11 @@ trait UserTrait {
     $role = $role_storage->load($role_name);
     $user_name = 'user_' . $role_name;
     if ($role instanceof RoleInterface) {
-      $users = $entity_manager->getStorage('user')->loadByProperties(['name' => $user_name]);
+      $users = $entity_manager->getStorage('user')->loadByProperties(
+        [
+          'name' => $user_name,
+        ]
+      );
       if ($users === []) {
         $values = ['roles' => [$role->id()]];
         $account = $this->createUser([], $user_name, $values);
@@ -55,7 +59,7 @@ trait UserTrait {
    *
    * @see \Drupal\Tests\openculturas\Traits\UserTrait::drupalLogin
    */
-  protected function setNewPassword(UserInterface $user) {
+  protected function setNewPassword(UserInterface $user): void {
     /** @var \Drupal\user\UserStorageInterface $storage */
     $storage = $this->container->get('entity_type.manager')->getStorage('user');
     $pass_raw = $this->container->get('password_generator')->generate();

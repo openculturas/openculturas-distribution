@@ -37,18 +37,6 @@ class ContentTypePageFieldsTest extends ExistingSiteBase {
     $session->elementTextEquals('css', '#field_supporters-media-library-wrapper > legend > span', 'Supported by');
     $session->fieldExists('Layout switch');
     $session->fieldExists('Language');
-
-    return;
-    // German.
-    $this->drupalGet('/de/node/add/page');
-    $this->assertSession()->statusCodeEquals(200);
-    $session = $this->assertSession();
-    $session->fieldExists('Sprache');
-    $session->fieldExists('Title');
-    $session->fieldExists('Untertitel');
-    $session->buttonExists('Medien hinzufügen');
-    $session->fieldExists('Textkörper');
-    $session->buttonExists('Content element hinzufügen');
   }
 
 }

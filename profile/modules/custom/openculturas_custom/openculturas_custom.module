@@ -141,13 +141,13 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
   $filters = $view_style->displayHandler->getHandlers('filter');
 
   /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
-  $proximityFilters = array_filter($filters, fn($filter): bool => $filter instanceof GeofieldProximityFilter);
+  $proximityFilters = array_filter($filters, static fn($filter): bool => $filter instanceof GeofieldProximityFilter);
   if (is_countable($proximityFilters) && $proximityFilters !== []) {
     $proximityFilter = reset($proximityFilters);
     try {
       $property = new ReflectionProperty($proximityFilter, 'sourcePlugin');
     }
-    catch (\Exception $exception) {
+    catch (\Exception) {
       return;
     }
     $property->setAccessible(TRUE);
@@ -351,11 +351,13 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
 
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
+ *
+ * @see openculturas_custom_node_presave()
+ * @see openculturas_custom_flagging_insert()
  */
 function openculturas_custom_user_view_alter(array &$build, UserInterface $user): void {
   if ($build['#view_mode'] === 'full') {
     // Used to clear cache of user page.
-    // See openculturas_custom_node_presave()/openculturas_custom_flagging_insert().
     $build['#cache']['tags'][] = 'entity_view_user_' . $user->id() . '_full';
   }
 }
@@ -379,25 +381,34 @@ function openculturas_custom_form_node_form_alter(array &$form, FormStateInterfa
 }
 
 /**
- * Submit handler to redirect the user to the date add form with the event id as parameter.
+ * Submit handler for openculturas_custom_form_node_form_alter().
  *
- * @see openculturas_custom_form_node_form_alter
- * @see openculturas_custom_node_prepare_form
+ * Redirects the user to the date add form with the event id as parameter.
+ *
+ * @see openculturas_custom_form_node_form_alter()
+ * @see openculturas_custom_node_prepare_form()
  */
 function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state): void {
   /** @var \Drupal\node\NodeForm $node_form */
   $node_form = $form_state->getFormObject();
   /** @var \Drupal\node\NodeInterface $node */
   $node = $node_form->getEntity();
-  $form_state->setRedirectUrl(Url::fromRoute('node.add', ['node_type' => 'date'], ['query' => ['event_id' => $node->id()]]));
+  $form_state->setRedirectUrl(Url::fromRoute('node.add', [
+    'node_type' => 'date',
+  ], [
+    'query' => [
+      'event_id' => $node->id(),
+    ],
+  ]));
 }
 
 /**
  * Implements hook_views_pre_render().
  */
 function openculturas_custom_views_pre_render(ViewExecutable $view): void {
-  // Only doing this for media library widget view.
-  // Background: https://www.drupal.org/project/drupal/issues/3283692#comment-14544647
+  // Only doing this for media library widget view until there is
+  // a better solution.
+  // https://www.drupal.org/project/drupal/issues/3283692#comment-14544647
   if ($view->id() === 'media_library') {
     $current_user = \Drupal::currentUser();
     $result = [];
@@ -407,7 +418,9 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
       /** @var \Drupal\media\MediaInterface $entity */
       $entity = $row->_entity;
       // Do not remove type casting. current user id is a string-int!
-      if ((int) $entity->getOwnerId() === (int) $current_user->id() || $entity->access('update') || openculturas_custom_media_is_creative_commons($entity)) {
+      if ((int) $entity->getOwnerId() === $current_user->id() ||
+        $entity->access('update') ||
+        openculturas_custom_media_is_creative_commons($entity)) {
         $result[$key] = $row;
       }
     }
@@ -420,7 +433,6 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
  */
 function openculturas_custom_media_is_creative_commons(MediaInterface $media): bool {
   if ($media->hasField('field_licenses') && !$media->get('field_licenses')->isEmpty()) {
-    /** @var \Drupal\Core\Field\FieldItemListInterface $field */
     $field = $media->get('field_licenses');
     $field_item = $field->first();
     if (!$field_item instanceof FieldItemInterface) {
@@ -461,7 +473,6 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
   $tags = ['entity_view_user_' . $owner_id . '_full'];
 
   if ($node->hasField('field_event_series') && $node->hasField('field_parent_date')) {
-    /** @var \Drupal\Core\Field\FieldItemListInterface $field */
     $field = $node->get('field_event_series');
     /** @var \Drupal\Core\Field\FieldItemInterface|null $field_item */
     $field_item = $field->first();
@@ -514,7 +525,7 @@ function openculturas_custom_views_plugins_filter_alter(array &$plugins): void {
 }
 
 /**
- * Implements hook_date_augmenter_plugin_info_alter(().
+ * Implements hook_date_augmenter_plugin_info_alter().
  */
 function openculturas_custom_date_augmenter_plugin_info_alter(array &$plugins): void {
   $plugins['addtocal']['class'] = AddToCal::class;
@@ -534,8 +545,7 @@ function openculturas_custom_checklistapi_checklist_info_alter(array &$definitio
  * Implements hook_form_alter().
  */
 function openculturas_custom_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
-  // Inspired by https://git.drupalcode.org/project/varbase_core/-/blob/9.0.x/modules/varbase_update_helper/varbase_update_helper.module <3.
-  if ($form_id == "checklistapi_checklist_form" && $form['#checklist']->id == 'update_helper_checklist') {
+  if ($form_id === "checklistapi_checklist_form" && $form['#checklist']->id === 'update_helper_checklist') {
     $checklist = $form['#checklist'];
     $groups = $checklist->items;
     // Prevent the user from Clearing checklist progress.
@@ -559,7 +569,7 @@ function openculturas_custom_form_alter(array &$form, FormStateInterface $form_s
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function openculturas_custom_eca_delete(EntityInterface $entity): void {
+function openculturas_custom_eca_delete(): void {
   $entities = \Drupal::entityTypeManager()->getStorage('eca')->loadMultiple();
   if ($entities === []) {
     $storage = \Drupal::entityTypeManager()->getStorage('eca_notification_recipient');
@@ -573,8 +583,8 @@ function openculturas_custom_eca_delete(EntityInterface $entity): void {
  */
 function openculturas_custom_preprocess_node(array &$variables): void {
   if (array_key_exists('#fieldgroups', $variables['elements'])) {
-    foreach ($variables['elements']['#fieldgroups'] as &$field_group) {
-      if ($field_group->format_type == 'sub_details') {
+    foreach ($variables['elements']['#fieldgroups'] as $field_group) {
+      if ($field_group->format_type === 'sub_details') {
         $variables['title_attributes']['class'][] = 'visually-hidden';
       }
     }

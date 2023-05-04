@@ -18,8 +18,11 @@
     <exclude name="Drupal.Commenting.ClassComment.Missing" />
     <exclude name="Drupal.Commenting.FileComment.Missing" />
     <exclude name="Drupal.Arrays.Array.LongLineDeclaration" />
+    <exclude name="Drupal.Files.LineLength.TooLong" />
   </rule>
-  <rule ref="vendor/drupal/coder/coder_sniffer/DrupalPractice"/>
+  <rule ref="vendor/drupal/coder/coder_sniffer/DrupalPractice">
+    <exclude name="DrupalPractice.Objects.GlobalDrupal.GlobalDrupal" />
+  </rule>
   <!-- Example how you would disable an external rule you do not like:
   <rule ref="PEAR.Functions.ValidDefaultValue.NotAtEnd">
     <severity>0</severity>

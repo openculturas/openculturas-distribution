@@ -15,7 +15,9 @@ use Drupal\workflows\Entity\Workflow;
 use Drupal\workflows\WorkflowInterface;
 
 /**
- * Views: Replaces the Content: publish filter with Content: Published status or admin user.
+ * Views: Replaces views filter.
+ *
+ * Filter: "Content: publish filter" with "Content: Published status or admin user".
  */
 function openculturas_post_update_0001(): string {
   /** @var \Drupal\update_helper\Updater $updater */

@@ -7,23 +7,28 @@ namespace Drupal\Tests\openculturas\Traits;
 use Drupal\node\NodeInterface;
 
 /**
- * Trait NodeTrait.
+ * Trait for node related functions.
  */
 trait NodeTrait {
 
-  protected function visitNodeByTitle(string $title) {
+  protected function visitNodeByTitle(string $title): void {
     $this->visitNodeByOpAndTitle('view', $title);
   }
 
-  protected function openNodeEditFormByTitle(string $title) {
+  protected function openNodeEditFormByTitle(string $title): void {
     $this->visitNodeByOpAndTitle('edit', $title);
   }
 
-  protected function openNodeDeleteFormByTitle(string $title) {
+  protected function openNodeDeleteFormByTitle(string $title): void {
     $this->visitNodeByOpAndTitle('delete', $title);
   }
 
-  private function visitNodeByOpAndTitle(string $op, string $title) {
+  /**
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  private function visitNodeByOpAndTitle(string $op, string $title): void {
     /**
      * @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
      */

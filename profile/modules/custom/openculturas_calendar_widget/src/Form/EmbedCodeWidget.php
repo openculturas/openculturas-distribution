@@ -29,6 +29,7 @@ final class EmbedCodeWidget extends FormBase {
     $instance = parent::create($container);
     $instance->renderer = $container->get('renderer');
     $instance->setConfigFactory($container->get('config.factory'));
+    $instance->setStringTranslation($container->get('string_translation'));
     return $instance;
   }
 
@@ -47,14 +48,14 @@ final class EmbedCodeWidget extends FormBase {
     $iframe_src = $url instanceof Url ? $url->toString() : '';
     $form['container'] = [
       '#type' => 'details',
-      '#title' => t('Embed code'),
-      '#description' => t('To embed the calendar as filtered above, copy and paste this code into a website.'),
+      '#title' => $this->t('Embed code'),
+      '#description' => $this->t('To embed the calendar as filtered above, copy and paste this code into a website.'),
     ];
     $form['container']['status'] = [
       '#markup' => '<div id="openculturas-calendar-widget-messages"></div>',
     ];
     if (!$config->get('limit_access')) {
-      static::embedCodeWidgetElement($form['container'], $iframe_src);
+      self::embedCodeWidgetElement($form['container'], $iframe_src);
     }
     if ($this->currentUser()->hasPermission('administer openculturas_calendar_widget configuration')) {
       $list_items = [];
