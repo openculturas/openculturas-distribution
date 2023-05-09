@@ -1,7 +1,12 @@
 uuid: 2cc84262-43f4-4fc8-a008-87d5c82c4d9c
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - crop
+third_party_settings:
+  crop:
+    image_field: _none
 id: document
 label: Document
 description: ''
@@ -12,3 +17,5 @@ source_configuration:
   source_field: field_media_file
 field_map:
   name: name
+  mimetype: field_mimetype
+  filesize: field_filesize

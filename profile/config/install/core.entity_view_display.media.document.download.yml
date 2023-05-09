@@ -3,25 +3,45 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.download
+    - field.field.media.document.field_filesize
+    - field.field.media.document.field_inlanguage
     - field.field.media.document.field_media_file
+    - field.field.media.document.field_mimetype
     - media.type.document
   module:
-    - file
+    - field_formatter_class
+    - openculturas_media
 id: media.document.download
 targetEntityType: media
 bundle: document
 mode: download
 content:
-  field_media_file:
-    type: file_default
-    label: visually_hidden
-    settings:
-      use_description_as_link_text: true
+  extra_field_media_metadata:
+    settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
+    region: content
+  field_media_file:
+    type: media_entity_download_meta
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+      disposition: inline
+      use_description_as_link_text: '1'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
     region: content
 hidden:
   created: true
+  field_filesize: true
+  field_inlanguage: true
+  field_mimetype: true
   langcode: true
   name: true
   search_api_excerpt: true

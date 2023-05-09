@@ -1,0 +1,29 @@
+uuid: 3e166314-ab94-4225-aa95-11c4a3faa5d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_media_multiple
+    - media.type.document
+    - paragraphs.paragraphs_type.download
+id: paragraph.download.field_media_multiple
+field_name: field_media_multiple
+entity_type: paragraph
+bundle: download
+label: Download
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

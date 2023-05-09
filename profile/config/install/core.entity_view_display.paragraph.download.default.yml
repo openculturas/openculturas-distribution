@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.download.field_media_multiple
+    - paragraphs.paragraphs_type.download
+  module:
+    - field_formatter_class
+id: paragraph.download.default
+targetEntityType: paragraph
+bundle: download
+mode: default
+content:
+  field_media_multiple:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: download
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

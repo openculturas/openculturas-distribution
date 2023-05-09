@@ -116,6 +116,7 @@ install:
   - node
   - oembed_providers
   - openculturas_custom
+  - openculturas_media
   - options
   - page_cache
   - paragraphs
@@ -182,6 +183,8 @@ config_devel:
     - core.base_field_override.taxonomy_term.location_type.metatag
     - core.base_field_override.taxonomy_term.page_type.changed
     - core.base_field_override.taxonomy_term.page_type.metatag
+    - core.entity_form_display.media.document.default
+    - core.entity_form_display.media.document.media_library
     - core.entity_form_display.node.article.bulk_edit
     - core.entity_form_display.node.article.default
     - core.entity_form_display.node.event.bulk_edit
@@ -190,10 +193,14 @@ config_devel:
     - core.entity_form_display.node.location.default
     - core.entity_form_display.node.page.bulk_edit
     - core.entity_form_display.node.page.default
+    - core.entity_form_display.paragraph.download.default
     - core.entity_form_display.taxonomy_term.article_type.default
     - core.entity_form_display.taxonomy_term.event_type.default
     - core.entity_form_display.taxonomy_term.location_type.default
     - core.entity_form_display.taxonomy_term.page_type.default
+    - core.entity_view_display.media.document.default
+    - core.entity_view_display.media.document.download
+    - core.entity_view_display.media.document.media_library
     - core.entity_view_display.node.article.compact
     - core.entity_view_display.node.article.default
     - core.entity_view_display.node.article.full
@@ -224,6 +231,7 @@ config_devel:
     - core.entity_view_display.node.page.teaser
     - core.entity_view_display.node.page.teaser_big
     - core.entity_view_display.node.profile.full
+    - core.entity_view_display.paragraph.download.default
     - core.entity_view_display.taxonomy_term.article_type.default
     - core.entity_view_display.taxonomy_term.article_type.full
     - core.entity_view_display.taxonomy_term.article_type.teaser
@@ -243,6 +251,12 @@ config_devel:
     - field.field.node.event.field_sub_type
     - field.field.node.location.field_sub_type
     - field.field.node.page.field_sub_type
+    - field.field.node.page.field_content_paragraphs
+    - field.field.media.document.field_filesize
+    - field.field.media.document.field_inlanguage
+    - field.field.media.document.field_media_file
+    - field.field.media.document.field_mimetype
+    - field.field.paragraph.download.field_media_multiple
     - field.field.taxonomy_term.article_type.field_mood_image
     - field.field.taxonomy_term.article_type.field_related_article_view_ref
     - field.field.taxonomy_term.article_type.field_term_children_view_ref
@@ -257,6 +271,9 @@ config_devel:
     - field.field.taxonomy_term.page_type.field_related_article_view_ref
     - field.field.taxonomy_term.page_type.field_term_children_view_ref
     - field.storage.node.field_sub_type
+    - field.storage.media.field_filesize
+    - field.storage.media.field_inlanguage
+    - field.storage.media.field_mimetype
     - field.storage.taxonomy_term.field_related_article_view_ref
     - field.storage.taxonomy_term.field_related_event_view_ref
     - field.storage.taxonomy_term.field_related_location_view_ref
@@ -265,12 +282,14 @@ config_devel:
     - language.content_settings.taxonomy_term.location_type
     - language.content_settings.taxonomy_term.page_type
     - node.type.article
+    - media.type.document
     - pathauto.pattern.article_types
     - pathauto.pattern.event_types
     - pathauto.pattern.event_types_de
     - pathauto.pattern.location_type
     - pathauto.pattern.location_type_de
     - pathauto.pattern.page_type
+    - paragraphs.paragraphs_type.download
     - simple_sitemap.bundle_settings.default.taxonomy_term.article_type
     - simple_sitemap.bundle_settings.default.taxonomy_term.location_type
     - simple_sitemap.bundle_settings.default.taxonomy_term.page_type

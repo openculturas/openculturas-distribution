@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types = 1);
+
+/**
+ * @file
+ * Primary module hooks for OpenCulturas media module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openculturas_media_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'media_download' => [
+      'variables' => [
+        'link' => NULL,
+        'filesize' => NULL,
+        'mimetype' => NULL,
+        'inlanguage' => NULL,
+        'attributes' => [],
+      ],
+    ],
+  ];
+}
