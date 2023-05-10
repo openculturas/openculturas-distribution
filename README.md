@@ -68,11 +68,20 @@ Cheatsheet:
 More information about ddev cli command https://ddev.readthedocs.io/en/stable/users/basics/cli-usage/.
 
 ### Composer scripts
-#### Update installation profile configuration
-This script copies and prepares the files from `config/sync` to `profile/config/install` to use it for a new installation.
-* `composer run update-config`
 
 #### Updating initial content
 * Fetch latest changes and install site: `git pull && composer install && composer run update-config && ddev composer run si`
 * Change content via UI
 * Export content `ddev composer run export-content`
+
+### Configuration files
+
+All configuration are managed via [config_devel](https://www.drupal.org/project/config_devel).
+Each configuration is listed in the info file of the profile or submodule.
+So any new configuration needs to be added to the info file.
+
+After that, enable config_devel and run `ddev drush cde openculturas` or `ddev drush cde submodule`.
+
+This command updates all configuration which are listed in the info file and removes the key `_core` and `uuid` except for
+views configuration. The uuid is needed because the uuid is used in other configuration as default value, without this
+the default value would be not set/broken.
