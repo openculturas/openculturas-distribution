@@ -260,6 +260,7 @@ database:snapshot:
 
 test create project:
   extends: .composer
+  needs: []
   script:
     - composer create-project --remove-vcs --no-interaction --ansi drupal/openculturas_project example.org
     - cd example.org
