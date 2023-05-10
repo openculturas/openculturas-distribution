@@ -18,14 +18,13 @@ third_party_settings:
   field_group:
     group_administrative:
       children:
-        - langcode
         - status
         - created
         - path
       label: Administrative
       region: hidden
       parent_name: ''
-      weight: 5
+      weight: 7
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -71,6 +70,13 @@ content:
         teaser: teaser
         teaser_big: teaser_big
     third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 5
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -78,6 +84,11 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 6
+    region: content
+    settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
@@ -91,6 +102,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  langcode: true
   path: true
   status: true
