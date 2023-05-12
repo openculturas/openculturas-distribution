@@ -30,7 +30,7 @@
     grid-column: 2 / 16;
     display: flex;
     justify-content: space-between;
-    margin-top: 3.5rem;
+    margin-top: 3.1rem;
 
     .block-system-branding-block {
       .site-name {
@@ -228,21 +228,9 @@
     }
   }
 
-//  &:hover,
-//  &:focus {
-//    background-color: $color-link;
-//    color: $color-text-inverted;
-//  }
 }
 
 /* Adjust position when Gin vertical toolbar is present */
 body.gin--vertical-toolbar.offcanvas-open .header__offcanvas-menu--grid  {
-  left: calc(var(--ginVerticalToolbarOffset) / 2);
+  left: calc(var(--gin-toolbar-x-offset) / 2 + .5rem);
 }
-
-// TODO: Remove note.
-// This should not be necessary or you have out of bound Elements (such as long pre-Elements)
-//body.offcanvas-open {
-//  width: 100%;
-//  overflow: hidden;
-//}
