@@ -1,4 +1,28 @@
- .layout-container {
+// Preprocess-provided header image duplicated as background
+@include breakpoint(l) {
+  .layout-background {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position-x: center;
+    background-position-y: 0;
+    background-size: contain;
+    background-blend-mode: multiply;
+    position: fixed;
+    width: 100vw;
+    height: calc(100vw / 2); /* aspect ratio of header image style */
+  }
+  .layout-background:after {
+    content: '';
+    display: block;
+    width: calc(100vw);
+    height: calc(100vw / 2 - 7px);
+    background-color: #f4f4ff73;
+    backdrop-filter: blur(7px);
+  }
+}
+
+.layout-container {
    @include grid();
    background: $color-bg-light;
    margin: 0 auto;
@@ -30,7 +54,6 @@
       margin-bottom: -4.75rem;
     }
   }
-
 
   main.main {
     grid-column: 1 / 17;

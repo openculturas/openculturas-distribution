@@ -11,6 +11,8 @@ use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Url;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
+use Drupal\image\ImageStyleInterface;
+use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
 
 /**
@@ -23,6 +25,44 @@ function openculturas_base_preprocess_html(array &$variables): void {
       $variables['entity_type_id'] = $parameter->getEntityTypeId();
       break;
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ *
+ * Provides header image to serve as layout background.
+ */
+function openculturas_base_preprocess_page(array &$variables): void {
+  // Check if the current page is a node or a taxonomy term page.
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $mood_image = $node->get('field_mood_image')->entity;
+  }
+  elseif ($term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
+    $mood_image = $term->get('field_mood_image')->entity;
+  }
+  else {
+    return;
+  }
+  // Get the URL of the image style "header_image" and set it as a variable for page.html.twig.
+  if ($mood_image instanceof MediaInterface) {
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+    $field = $mood_image->get('field_media_image');
+    $references = $field->referencedEntities();
+    if ($references === []) {
+      return;
+    }
+    /** @var \Drupal\file\FileInterface $file */
+    $file = reset($references);
+    $mood_image_uri = $file->getFileUri();
+    /** @var \Drupal\image\ImageStyleStorageInterface $imageStorage */
+    $imageStorage = \Drupal::entityTypeManager()->getStorage('image_style');
+    $mood_image_style = $imageStorage->load('header_image');
+    if (!$mood_image_style instanceof ImageStyleInterface) {
+      return;
+    }
+    $mood_image_bg = $mood_image_style->buildUrl($mood_image_uri);
+    $variables['mood_image_bg'] = $mood_image_bg;
   }
 }
 

@@ -40,6 +40,14 @@
  * @see html.html.twig
  */
 #}
+
+{% if mood_image_bg is not empty %}
+  <div class="layout-background" style="background-image: url('{{ mood_image_bg }}');"></div>
+{% else %}
+  <div class="layout-background-empty"></div>
+{% endif %}
+
+
 <div class="layout-container">
   <header role="banner" class="header">
     {% if page.branding %}
