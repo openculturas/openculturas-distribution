@@ -18,8 +18,8 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\flag\Entity\Flag;
-use Drupal\flag\FlagInterface;
 use Drupal\flag\FlaggingInterface;
+use Drupal\flag\FlagInterface;
 use Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter;
 use Drupal\leaflet_views\Plugin\views\style\LeafletMap;
 use Drupal\media\MediaInterface;
@@ -582,9 +582,9 @@ function openculturas_custom_eca_delete(): void {
  * Implements hook_preprocess_HOOK().
  */
 function openculturas_custom_preprocess_node(array &$variables): void {
-  if (array_key_exists('#fieldgroups', $variables['elements'])) {
+  if (array_key_exists('#fieldgroups', $variables['elements']) && is_array($variables['elements']['#fieldgroups'])) {
     foreach ($variables['elements']['#fieldgroups'] as $field_group) {
-      if ($field_group->format_type === 'sub_details') {
+      if (is_object($field_group) && property_exists($field_group, 'format_type') && $field_group->format_type === 'sub_details') {
         $variables['title_attributes']['class'][] = 'visually-hidden';
       }
     }
