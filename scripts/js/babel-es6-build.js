@@ -18,7 +18,7 @@
 import path from 'node:path';
 import process from 'node:process';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import glob from 'glob';
+import { glob } from 'glob';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import minimist from 'minimist';
 import changeOrAdded from './changeOrAdded';
@@ -51,6 +51,6 @@ const processFiles = (error, filePaths) => {
 if (argv.file) {
   processFiles(null, [].concat(argv.file));
 } else {
-  glob(fileMatch, globOptions, processFiles);
+  processFiles(null, glob(fileMatch, globOptions));
 }
 process.exitCode = 0;
