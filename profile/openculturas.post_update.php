@@ -426,3 +426,17 @@ function openculturas_post_update_0014(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Enable ajax in view my_recommendations.
+ */
+function openculturas_post_update_0015(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0015');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
