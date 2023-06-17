@@ -92,6 +92,7 @@ final class SettingsForm extends ConfigFormBase {
       '#suffix' => '</div>',
     ];
     foreach ($items as $token => $values) {
+      $form['host_list']['items'][$token] = [];
       $form['host_list']['items'][$token]['hostname'] = [
         '#title' => $this->t('Website'),
         '#title_display' => 'invisible',
