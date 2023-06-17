@@ -9,20 +9,19 @@ xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
 database:
-  type: mysql
-  version: "8.0"
+    type: mysql
+    version: "8.0"
 nfs_mount_enabled: false
 mutagen_enabled: false
 hooks:
-  pre-start:
-  - exec-host: if [[ ! -d web/sites/default/files/private ]];then mkdir -p web/sites/default/files/private;fi
-  - exec-host: if [[ ! -d web/sites/default/files/translations ]];then mkdir web/sites/default/files/translations;fi
-  - exec-host: if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/
-      && ln -sf ../../../.ddev/settings.php;fi
+    pre-start:
+        - exec-host: if [[ ! -d web/sites/default/files/private ]];then mkdir -p web/sites/default/files/private;fi
+        - exec-host: if [[ ! -d web/sites/default/files/translations ]];then mkdir web/sites/default/files/translations;fi
+        - exec-host: if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/ && ln -sf ../../../.ddev/settings.php;fi
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
-nodejs_version: "16"
+nodejs_version: "18"
 
 # Key features of ddev's config.yaml:
 
