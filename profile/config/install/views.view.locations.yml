@@ -8,11 +8,8 @@ dependencies:
     - node.type.location
     - taxonomy.vocabulary.category
   module:
-    - address
     - better_exposed_filters
-    - geocoder_geofield
     - geofield
-    - geofield_proximity_filter_extra
     - leaflet_views
     - node
     - paragraphs
@@ -86,105 +83,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           counter_start: 1
-        field_address_locality:
-          id: field_address_locality
-          table: paragraph__field_address
-          field: field_address_locality
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: subdivision
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          display_name: true
-        field_address_postal_code:
-          id: field_address_postal_code
-          table: paragraph__field_address
-          field: field_address_postal_code
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          label: ''
-          exclude: true
-          alter:
-            alter_text: true
-            text: '{{ field_address_postal_code }}, {{ field_address_locality }}'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
         field_address_location:
           id: field_address_location
           table: paragraph__field_address_location
@@ -235,13 +133,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: geocoder_geofield_reverse_geocode
+          type: geofield_latlon
           settings:
-            providers:
-              openstreetmap:
-                checked: '1'
-                weight: '0'
-            dumper: addresstext
+            output_format: wkt
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -266,7 +160,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<a href=\"#result-{{ counter }}\">{{ title }}</a><br>\r\n{{ field_address_location }}"
+            text: '<a href="#result-{{ counter }}">{{ title }}</a>'
             make_link: false
             path: ''
             absolute: false
@@ -605,48 +499,6 @@ display:
                 min_terms: 4
                 delay: 800
                 address_format: default_formatted_address
-        geofield_proximity_filter_extra_combine:
-          id: geofield_proximity_filter_extra_combine
-          table: views
-          field: geofield_proximity_filter_extra_combine
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: geofield_proximity_filter_extra_combine
-          operator: contains
-          value: ''
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          fields:
-            field_address_locality: field_address_locality
-            field_address_postal_code: field_address_postal_code
         default_langcode:
           id: default_langcode
           table: node_field_data
@@ -687,6 +539,94 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_address_location_lat:
+          id: field_address_location_lat
+          table: paragraph__field_address_location
+          field: field_address_location_lat
+          relationship: field_address_data
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: 'not empty'
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_address_location_lon:
+          id: field_address_location_lon
+          table: paragraph__field_address_location
+          field: field_address_location_lon
+          relationship: field_address_data
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: 'not empty'
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -694,17 +634,19 @@ display:
       style:
         type: leaflet_map
         options:
-          grouping:
-            -
-              field: field_address_location
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           data_source:
             field_address_location: field_address_location
           entity_source: field_address_data
           entity_source_submit: 'Update Entity Source'
-          name_field: field_address_location
-          view_mode: address_block
+          name_field: ''
+          leaflet_tooltip:
+            value: ''
+            options: '{"permanent":false,"direction":"center"}'
+          leaflet_popup:
+            value: title
+            options: '{"maxWidth":"300","minWidth":"50","autoPan":true}'
+            view_mode: address_block
           leaflet_map: 'OSM Mapnik'
           height: '400'
           height_unit: px
@@ -713,12 +655,20 @@ display:
           gesture_handling: true
           reset_map:
             control: true
-            position: topright
+            options: '{"position":"topleft","title":"Reset View"}'
+          map_scale:
+            control: false
+            options: '{"position":"bottomright","maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":false}'
+          locate:
+            control: false
+            options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Locate my position"}}'
+            automatic: false
           map_position:
             force: false
             center:
               lat: 52.52
               lon: 13.4
+            zoomControlPosition: topleft
             zoom: 12
             minZoom: 1
             maxZoom: 18
@@ -751,6 +701,7 @@ display:
             control: true
             include_path: false
             options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":false,"removeOutsideVisibleBounds":false}'
+            excluded: '0'
           fullscreen:
             control: true
             options: '{"position":"topleft","pseudoFullscreen":false}'
@@ -758,6 +709,9 @@ display:
           geocoder:
             control: false
             settings:
+              autocomplete:
+                placeholder: 'Search Address'
+                title: 'Search an Address on the Map'
               position: topright
               input_size: 25
               providers:
@@ -769,7 +723,10 @@ display:
               zoom: 16
               popup: false
               options: ''
-          description_field: title
+          map_lazy_load:
+            lazy_load: false
+          feature_properties:
+            values: ''
       row:
         type: fields
         options:
@@ -980,168 +937,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_address_location:
-          id: field_address_location
-          table: paragraph__field_address_location
-          field: field_address_location
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: geofield_latlon
-          settings:
-            output_format: decimal
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_address_locality:
-          id: field_address_locality
-          table: paragraph__field_address
-          field: field_address_locality
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: subdivision
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          display_name: true
-        field_address_postal_code:
-          id: field_address_postal_code
-          table: paragraph__field_address
-          field: field_address_postal_code
-          relationship: field_address_data
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
         rendered_entity:
           id: rendered_entity
           table: node
@@ -1357,12 +1152,6 @@ display:
         - 'config:core.entity_view_display.node.event.search_result'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.event.teaser_big'
-        - 'config:core.entity_view_display.node.faq.compact'
-        - 'config:core.entity_view_display.node.faq.default'
-        - 'config:core.entity_view_display.node.faq.full'
-        - 'config:core.entity_view_display.node.faq.synopsis'
-        - 'config:core.entity_view_display.node.faq.teaser'
-        - 'config:core.entity_view_display.node.faq.teaser_big'
         - 'config:core.entity_view_display.node.location.compact'
         - 'config:core.entity_view_display.node.location.default'
         - 'config:core.entity_view_display.node.location.full'
@@ -1388,4 +1177,3 @@ display:
         - 'config:core.entity_view_display.node.profile.search_result'
         - 'config:core.entity_view_display.node.profile.teaser'
         - 'config:core.entity_view_display.node.profile.teaser_big'
-        - 'config:field.storage.paragraph.field_address_location'
