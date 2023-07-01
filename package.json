@@ -4,28 +4,16 @@
   "license": "GPL-2.0-or-later",
   "private": true,
   "engines": {
-    "node": ">= 16.0"
+    "node": ">= 18.0"
   },
-  "type": "module",
   "scripts": {
-    "build:js": "cross-env BABEL_ENV=legacy node --experimental-specifier-resolution=node ./scripts/js/babel-es6-build.js --dir \"./profile\"",
-    "build:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node --experimental-specifier-resolution=node  ./scripts/js/babel-es6-build.js --dir \"./profile\"",
-    "watch:js": "cross-env BABEL_ENV=legacy node --experimental-specifier-resolution=node  ./scripts/js/babel-es6-watch.js",
-    "watch:js-dev": "cross-env NODE_ENV=development BABEL_ENV=legacy node --experimental-specifier-resolution=node ./scripts/js/babel-es6-watch.js",
-    "lint:js": "eslint .",
+    "lint:js": "eslint --ext .js .",
     "lint:css": "stylelint \"profile/themes/openculturas_base/css/*.css\" \"profile/modules/**/*.css\"",
     "lint:scss": "stylelint --config=.stylelintrc.scss.json \"profile/themes/openculturas_base/scss_config/**/*.scss\"",
     "lint:yaml": "eslint --ext .yml .",
-    "prettier": "prettier --write \"./**/*.es6.js\""
+    "prettier": "prettier --write \"./**/*.js\""
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "babel-plugin-add-header-comment": "^1.0.3",
-    "chalk": "^5.0.0",
-    "chokidar": "^3.3.1",
-    "cross-env": "^7.0.2",
-    "es6-promise": "^4.2.8",
     "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -34,54 +22,11 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-yml": "^1.5.0",
-    "glob": "^10.2.7",
-    "minimist": "^1.2.2",
     "prettier": "^2.1.2",
     "stylelint": "^15.3.0",
     "stylelint-config-standard": "^31.0.0",
     "stylelint-config-standard-scss": "^8.0.0",
     "stylelint-formatter-gitlab": "^1.0.2",
     "stylelint-order": "^6.0.3"
-  },
-  "//": "'development is the default environment, and legacy is for transpiling the old jQuery codebase",
-  "babel": {
-    "env": {
-      "development": {
-        "presets": [
-          [
-            "@babel/preset-env",
-            {
-              "modules": "commonjs",
-              "targets": {
-                "node": "current"
-              }
-            }
-          ]
-        ]
-      },
-      "legacy": {
-        "presets": [
-          [
-            "@babel/preset-env",
-            {
-              "modules": false
-            }
-          ]
-        ]
-      }
-    }
-  },
-  "browserslist": [
-    "last 2 Chrome major versions",
-    "last 2 Firefox major versions",
-    "last 2 Safari major versions",
-    "last 2 Edge major versions",
-    "last 2 Opera versions",
-    "last 2 iOS major versions",
-    "last 1 Explorer major version",
-    "last 1 ChromeAndroid version",
-    "last 1 UCAndroid version",
-    "last 1 Samsung version",
-    "Firefox ESR"
-  ]
+  }
 }
