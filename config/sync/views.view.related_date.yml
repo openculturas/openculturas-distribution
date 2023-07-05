@@ -18,7 +18,6 @@ dependencies:
   module:
     - better_exposed_filters
     - entity_reference_revisions
-    - geocoder_geofield
     - geofield
     - leaflet_views
     - node
@@ -6105,13 +6104,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: geocoder_geofield_reverse_geocode
+          type: geofield_latlon
           settings:
-            providers:
-              openstreetmap:
-                checked: '1'
-                weight: '0'
-            dumper: addresstext
+            output_format: wkt
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -6817,15 +6812,23 @@ display:
         options:
           grouping:
             -
-              field: field_address_location
+              field: title
               rendered: true
-              rendered_strip: false
+              overlays_options:
+                disabled_overlays: {  }
+                hidden_overlays_controls: {  }
           data_source:
             field_address_location: field_address_location
           entity_source: field_location
           entity_source_submit: 'Update Entity Source'
-          name_field: field_address_location
-          view_mode: full
+          name_field: ''
+          leaflet_tooltip:
+            value: ''
+            options: '{"permanent":false,"direction":"center"}'
+          leaflet_popup:
+            value: nothing
+            options: '{"maxWidth":"300","minWidth":"50","autoPan":true}'
+            view_mode: full
           leaflet_map: 'OSM Mapnik'
           height: '400'
           height_unit: px
@@ -6834,12 +6837,20 @@ display:
           gesture_handling: true
           reset_map:
             control: true
-            position: topright
+            options: '{"position":"topleft","title":"Reset View"}'
+          map_scale:
+            control: false
+            options: '{"position":"bottomright","maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":false}'
+          locate:
+            control: false
+            options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Locate my position"}}'
+            automatic: false
           map_position:
             force: false
             center:
               lat: 52.52
               lon: 13.4
+            zoomControlPosition: topleft
             zoom: 12
             minZoom: 1
             maxZoom: 18
@@ -6872,6 +6883,7 @@ display:
             control: true
             include_path: false
             options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":false,"removeOutsideVisibleBounds":false}'
+            excluded: '0'
           fullscreen:
             control: true
             options: '{"position":"topleft","pseudoFullscreen":false}'
@@ -6879,6 +6891,9 @@ display:
           geocoder:
             control: false
             settings:
+              autocomplete:
+                placeholder: 'Search Address'
+                title: 'Search an Address on the Map'
               position: topright
               input_size: 25
               providers:
@@ -6890,7 +6905,10 @@ display:
               zoom: 16
               popup: false
               options: ''
-          description_field: nothing
+          map_lazy_load:
+            lazy_load: false
+          feature_properties:
+            values: ''
       row:
         type: fields
         options:
