@@ -1,0 +1,97 @@
+views.view.related_date:
+  expected_config:
+    display:
+      upcoming_dates_map:
+        display_options:
+          fields:
+            field_address_location:
+              settings:
+                dumper: addresstext
+                providers:
+                  openstreetmap:
+                    checked: '1'
+                    weight: '0'
+              type: geocoder_geofield_reverse_geocode
+          style:
+            options:
+              description_field: nothing
+              grouping:
+                -
+                  field: field_address_location
+                  rendered: true
+                  rendered_strip: false
+              name_field: field_address_location
+              reset_map:
+                position: topright
+              view_mode: full
+  update_actions:
+    delete:
+      display:
+        upcoming_dates_map:
+          display_options:
+            fields:
+              field_address_location:
+                settings:
+                  dumper:
+                  providers:
+            style:
+              options:
+                description_field: nothing
+                grouping:
+                reset_map:
+                  position: topright
+                view_mode: full
+    add:
+      display:
+        upcoming_dates_map:
+          display_options:
+            style:
+              options:
+                feature_properties:
+                  values: ''
+                geocoder:
+                  settings:
+                    autocomplete:
+                      placeholder: 'Search Address'
+                      title: 'Search an Address on the Map'
+                leaflet_markercluster:
+                  excluded: '0'
+                leaflet_popup:
+                  options: '{"maxWidth":"300","minWidth":"50","autoPan":true}'
+                  value: nothing
+                  view_mode: full
+                leaflet_tooltip:
+                  options: '{"permanent":false,"direction":"center"}'
+                  value: ''
+                locate:
+                  automatic: false
+                  control: false
+                  options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Locate my position"}}'
+                map_lazy_load:
+                  lazy_load: false
+                map_position:
+                  zoomControlPosition: topleft
+    change:
+      display:
+        upcoming_dates_map:
+          display_options:
+            fields:
+              field_address_location:
+                settings:
+                  output_format: wkt
+                type: geofield_latlon
+            style:
+              options:
+                grouping:
+                  -
+                    field: title
+                    rendered: true
+                    overlays_options:
+                      disabled_overlays: {  }
+                      hidden_overlays_controls: {  }
+                map_scale:
+                  control: false
+                  options: '{"position":"bottomright","maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":false}'
+                name_field: ''
+                reset_map:
+                  options: '{"position":"topleft","title":"Reset View"}'
