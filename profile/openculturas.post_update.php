@@ -7,6 +7,9 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Config\Entity\ConfigEntityUpdater;
+use Drupal\Core\Entity\Display\EntityDisplayInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\views\ViewExecutable;
@@ -467,4 +470,26 @@ function openculturas_post_update_0017(): string {
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
+}
+
+/**
+ * Update all entity view displays that contain date_augmenter third party settings.
+ */
+function openculturas_post_update_0018(?array &$sandbox = NULL): void {
+  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
+
+  $callback = function (EntityDisplayInterface $display): bool {
+    if ($display instanceof EntityViewDisplayInterface) {
+      $components = $display->getComponents();
+      foreach ($components as $options) {
+        if (isset($options['third_party_settings']['date_augmenter'])) {
+          $display->save();
+          return FALSE;
+        }
+      }
+    }
+    return FALSE;
+  };
+
+  $config_entity_updater->update($sandbox, 'entity_view_display', $callback);
 }
