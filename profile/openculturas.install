@@ -234,3 +234,25 @@ function openculturas_update_9200(): void {
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->install(['admin_toolbar', 'admin_toolbar_tools']);
 }
+
+/**
+ * Removes unused configuration from openculturas base theme settings.
+ */
+function openculturas_update_9301(): void {
+  $changed = NULL;
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('openculturas_base.settings');
+  if (!$config->isNew()) {
+    $data = $config->getRawData();
+    foreach (array_keys($data) as $key) {
+      if (str_starts_with($key, 'color-')) {
+        unset($data[$key]);
+        $changed = TRUE;
+      }
+    }
+    if ($changed) {
+      $config->setData($data);
+      $config->save();
+    }
+  }
+}
