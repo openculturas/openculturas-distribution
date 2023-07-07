@@ -37,20 +37,14 @@ $settings['config_exclude_modules'] = [
   'devel',
   'stage_file_proxy',
   'config_inspector',
-  'cookies_matomo',
-  'matomo',
-  'matomo_tagmanager',
   'upgrade_status',
-  'openculturas_calendar_widget',
   'bpmn_io',
   'eca_modeller_bpmn',
-  'eca_ui',
-  'smtp',
+  'eca_ui'
 ];
 
 if (getenv('STAGE_FILE_PROXY_ORIGIN')) {
   $config['stage_file_proxy.settings']['origin'] = getenv('STAGE_FILE_PROXY_ORIGIN');
   $settings['simple_environment_anonymous'] = TRUE;
   $settings['simple_environment_indicator'] = '#000000/#ffdd00 Stage';
-
 }

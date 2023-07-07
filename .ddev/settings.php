@@ -21,15 +21,10 @@ $settings['config_exclude_modules'] = [
   'devel',
   'stage_file_proxy',
   'config_inspector',
-  'cookies_matomo',
-  'matomo',
-  'matomo_tagmanager',
   'upgrade_status',
-  'openculturas_calendar_widget',
   'bpmn_io',
   'eca_modeller_bpmn',
   'eca_ui',
-  'smtp',
   'config_devel'
 ];
 
