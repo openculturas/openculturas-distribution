@@ -6,7 +6,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |-
+code: |+
   /*
    * Formtip
    */
@@ -207,6 +207,17 @@ code: |-
   .translation-entity-all-languages {
     color: var(--gin-color-danger);
   }
+
+  /* Paragraphs behaviors tabs highlight + fix border */
+
+  .is-horizontal .paragraphs-tabs:first-of-type {
+    background-color: #fdf7ebdd; /* keeping opacity, using  color of --gin-bg-warning-light */
+  }
+
+  .is-horizontal .paragraphs-tabs:first-of-type::after {
+    bottom: 0;
+  }
+
 media: all
 preprocess: true
 conditions:
