@@ -11016,7 +11016,7 @@ textarea.error {
   box-shadow: 0 3px 2px 0 var(--color-info);
 }
 
-*:-ms-input-placeholder {
+*::-moz-placeholder {
   color: var(--color-text-muted);
   text-align: right;
 }
@@ -11050,6 +11050,7 @@ input[size] {
 
 select {
   -webkit-appearance: none;
+     -moz-appearance: none;
           appearance: none;
   padding-right: 2rem;
   position: relative;
@@ -11156,10 +11157,6 @@ input[type=radio] {
 }
 .ui-dialog.ui-widget .ui-dialog-title {
   font-size: var(--font-size-l);
-}
-.ui-dialog.ui-widget .ui-dialog-titlebar-close {
-  top: 0.5rem;
-  right: 1rem;
 }
 .ui-dialog.ui-widget .ui-widget-content.ui-dialog-content {
   padding: 1.25rem;
@@ -11424,7 +11421,7 @@ button {
   word-wrap: normal;
 }
 
-.cookiesjsr-layer .cookiesjsr-btn, .flag a, .add-to-calendar.modal a, .leaflet-container a.leaflet-popup-close-button, .shariff .button-style-icon a,
+.cookies-fallback .cookies-fallback--link, .cookies-fallback .cookies-fallback--btn, .cookiesjsr-layer .cookiesjsr-btn, .flag a, .add-to-calendar.modal a, .leaflet-container a.leaflet-popup-close-button, .shariff .button-style-icon a,
 .button,
 button,
 input[type=button],
@@ -11440,14 +11437,14 @@ input[type=submit] {
   padding: 0.5rem 2rem;
   text-decoration: none;
 }
-.inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .flag a, .flag .inverted a, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a,
+.inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .flag a, .flag .inverted a, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a,
 .inverted .button,
 .inverted button,
 .inverted input[type=button],
 .inverted input[type=submit] {
   border-color: var(--color-text-inverted);
 }
-.cookiesjsr-layer .cookiesjsr-btn:focus, .flag a:focus, .add-to-calendar.modal a:focus, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .flag a:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover,
+.cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .cookiesjsr-layer .cookiesjsr-btn:focus, .flag a:focus, .add-to-calendar.modal a:focus, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .flag a:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover,
 .button:focus,
 .button:not([disabled]):hover,
 button:focus,
@@ -11546,7 +11543,7 @@ button[type=submit].button--danger:not([disabled]):hover {
   text-align: center;
 }
 
-.cookiesjsr-layer .cookiesjsr-btn:active, .flag a:active, .add-to-calendar.modal a:active, .leaflet-container a.leaflet-popup-close-button:active, .shariff .button-style-icon a:active,
+.cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .cookiesjsr-layer .cookiesjsr-btn:active, .flag a:active, .add-to-calendar.modal a:active, .leaflet-container a.leaflet-popup-close-button:active, .shariff .button-style-icon a:active,
 .button:active,
 button:active,
 input[type=button]:active,
@@ -13901,16 +13898,16 @@ h6.teaser {
 
 .cookies-fallback {
   border-color: var(--color-divider-light);
+  padding: 1.25rem 2.5rem;
 }
 .cookies-fallback .cookies-fallback--btn {
-  background: var(--color-primary);
-}
-.cookies-fallback .cookies-fallback--btn:active {
-  background: transparent;
-  color: var(--color-interaction);
+  padding: 0.5em 2em;
+  text-transform: unset;
+  min-height: unset;
 }
 .cookies-fallback .cookies-fallback--link {
-  color: var(--color-primary);
+  font-size: unset;
+  padding: 0.5em 2em;
 }
 .cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--link:hover {
   color: var(--color-text-inverted);
@@ -13921,6 +13918,16 @@ h6.teaser {
   color: var(--color-interaction);
   background: transparent;
   text-decoration: none;
+}
+
+.cookies-fallback--wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.cookies-fallback--video {
+  background-image: none;
+  background-color: var(--color-bg-slight-contrast);
 }
 
 .footer--container,
@@ -14286,11 +14293,13 @@ html[lang=de] .node--workflow-pending:before {
 }
 .header__offcanvas-menu--content ul.menu > li > ul {
   margin-left: 1.25rem;
-  column-count: 1;
+  -moz-column-count: 1;
+       column-count: 1;
 }
 @media screen and (min-width: 62rem) {
   .header__offcanvas-menu--content ul.menu {
-    column-count: 2;
+    -moz-column-count: 2;
+         column-count: 2;
   }
   .header__offcanvas-menu--content ul.menu .menu-item a {
     border-width: 0;
@@ -14782,8 +14791,10 @@ a.public-transport:before {
 }
 @media screen and (min-width: 48rem) {
   .contact-data {
-    column-count: 2;
-    column-gap: 2.5rem;
+    -moz-column-count: 2;
+         column-count: 2;
+    -moz-column-gap: 2.5rem;
+         column-gap: 2.5rem;
   }
 }
 

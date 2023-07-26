@@ -162,17 +162,18 @@
 // In Video-placeholder,when cookies off.
 .cookies-fallback {
   border-color: $color-divider-light;
+  padding: 1.25rem 2.5rem;
 
   .cookies-fallback--btn {
-    background: $color-primary;
-
-    &:active {
-      background: transparent;
-      color: $color-interaction;
-    }
+  @extend %button;
+  padding: .5em 2em;
+  text-transform: unset;
+  min-height: unset;
   }
   .cookies-fallback--link {
-    color: $color-primary;
+    @extend %button;
+    font-size: unset;
+    padding: .5em 2em;
     &:focus,
     &:hover {
       color: $color-text-inverted;
@@ -186,5 +187,16 @@
       text-decoration: none;
     }
   }
+}
+
+.cookies-fallback--wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+// @todo check back with https://www.drupal.org/project/cookies/issues/3350253
+.cookies-fallback--video {
+  background-image: none;
+  background-color: var(--color-bg-slight-contrast);
 }
 
