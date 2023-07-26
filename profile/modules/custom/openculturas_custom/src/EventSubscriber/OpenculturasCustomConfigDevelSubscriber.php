@@ -15,7 +15,8 @@ use function array_unique;
 use function basename;
 use function class_exists;
 use function dirname;
-use function rtrim;
+use function pathinfo;
+use function reset;
 use function str_ends_with;
 
 /**
@@ -56,7 +57,7 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     $data = $event->getData();
     $file_names = $event->getFileNames();
     $file_path = reset($file_names);
-    $config_name = rtrim(basename($file_path), '.yml');
+    $config_name = pathinfo($file_path, PATHINFO_FILENAME);
     $entity_type_id = $this->configManager->getEntityTypeIdByName($config_name);
     $extension = basename(dirname($file_path, 3));
     if ($entity_type_id === NULL) {
@@ -82,6 +83,7 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     }
     $data['dependencies']['enforced']['module'][] = $extension;
     $data['dependencies']['enforced']['module'] = array_unique($data['dependencies']['enforced']['module']);
+
     $event->setData($data);
   }
 
