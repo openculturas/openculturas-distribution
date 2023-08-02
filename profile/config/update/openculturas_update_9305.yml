@@ -1,0 +1,202 @@
+__global_actions:
+  install_modules:
+    - openculturas_media
+  import_configs:
+    - paragraphs.paragraphs_type.download
+    - field.storage.media.field_filesize
+    - field.storage.media.field_inlanguage
+    - field.storage.media.field_mimetype
+    - core.base_field_override.paragraph.download.created
+    - core.entity_form_display.paragraph.download.default
+    - core.entity_view_display.paragraph.download.default
+    - field.field.media.document.field_filesize
+    - field.field.media.document.field_inlanguage
+    - field.field.media.document.field_mimetype
+    - field.field.paragraph.download.field_media_multiple
+    - language.content_settings.paragraph.download
+
+field.field.media.document.field_media_file:
+  expected_config: { }
+  update_actions:
+    change:
+      label: Document
+      translatable: true
+
+media.type.document:
+  expected_config: {  }
+  update_actions:
+    add:
+      field_map:
+        filesize: field_filesize
+        mimetype: field_mimetype
+      third_party_settings:
+        crop:
+          image_field: _none
+
+core.entity_form_display.media.document.default:
+  expected_config: { }
+  update_actions:
+    delete:
+      third_party_settings:
+        field_group:
+          group_administrative:
+            children:
+              - field_mimetype
+              - field_filesize
+              - translation
+    add:
+      content:
+        field_inlanguage:
+          region: content
+          settings:
+            format:
+              name: name
+          third_party_settings: {  }
+          type: languagefield_select
+          weight: 3
+      third_party_settings:
+        field_group:
+          group_administrative:
+            children:
+              - field_mimetype
+              - field_filesize
+              - translation
+
+core.entity_form_display.media.document.media_library:
+  expected_config:
+    content: {  }
+  update_actions:
+    delete:
+      hidden:
+        field_inlanguage: true
+        field_media_file: true
+        name: true
+    add:
+      content:
+        field_inlanguage:
+          region: content
+          settings:
+            autocomplete_route_name: languagefield.autocomplete
+            placeholder: ''
+            size: '60'
+          third_party_settings: {  }
+          type: languagefield_autocomplete
+          weight: 2
+        field_media_file:
+          region: content
+          settings:
+            progress_indicator: throbber
+          third_party_settings: {  }
+          type: file_generic
+          weight: 1
+        name:
+          region: content
+          settings:
+            placeholder: ''
+            size: 60
+          third_party_settings: {  }
+          type: string_textfield
+          weight: 0
+        translation:
+          region: content
+          settings: {  }
+          third_party_settings: {  }
+          weight: 10
+
+core.entity_view_display.media.document.default:
+  expected_config:
+    content:
+      field_media_file:
+        settings:
+          use_description_as_link_text: true
+        third_party_settings: {  }
+        type: file_default
+  update_actions:
+    delete:
+      content:
+        field_media_file:
+          settings:
+            use_description_as_link_text: true
+      hidden:
+        field_filesize: true
+        field_inlanguage: true
+        field_mimetype: true
+    add:
+      content:
+        field_filesize:
+          label: above
+          region: content
+          settings:
+            prefix_suffix: true
+            thousand_separator: ''
+          third_party_settings: {  }
+          type: number_integer
+          weight: 1
+        field_inlanguage:
+          label: above
+          region: content
+          settings:
+            format:
+              name: name
+            link_to_entity: false
+          third_party_settings: {  }
+          type: languagefield_default
+          weight: 3
+        field_mimetype:
+          label: above
+          region: content
+          settings:
+            link_to_entity: false
+          third_party_settings: {  }
+          type: string
+          weight: 2
+    change:
+      content:
+        field_media_file:
+          settings:
+            disposition: attachment
+            rel: '0'
+            target: '0'
+            trim_length: 80
+            url_only: false
+            url_plain: false
+          third_party_settings:
+            field_formatter_class:
+              class: ''
+          type: media_entity_download_download_link
+
+core.entity_view_display.media.document.download:
+  expected_config:
+    content:
+      field_media_file:
+        label: visually_hidden
+        settings:
+          use_description_as_link_text: true
+        third_party_settings: {  }
+        type: file_default
+        weight: 0
+  update_actions:
+    add:
+      content:
+        extra_field_media_metadata:
+          region: content
+          settings: {  }
+          third_party_settings: {  }
+          weight: 2
+    change:
+      content:
+        field_media_file:
+          label: hidden
+          settings:
+            disposition: inline
+            rel: '0'
+            target: '0'
+            trim_length: 80
+            url_only: false
+            url_plain: false
+            use_description_as_link_text: '1'
+          third_party_settings:
+            field_formatter_class:
+              class: ''
+          type: media_entity_download_meta
+          weight: 1

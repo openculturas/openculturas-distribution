@@ -672,3 +672,17 @@ function openculturas_post_update_0024(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Backport of view-displays (vocabulary, related_article, related_date, related_event, related_location)
+ */
+function openculturas_post_update_0025(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0025');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

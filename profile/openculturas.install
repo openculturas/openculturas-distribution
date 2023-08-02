@@ -9,12 +9,16 @@ declare(strict_types = 1);
 
 use Drupal\Core\Config\Entity\ConfigEntityType;
 use Drupal\Core\Entity\EntityDeleteForm;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Utility\UpdateException;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EcaNotificationRecipientListBuilder;
 use Drupal\openculturas_custom\Form\EcaNotificationRecipientForm;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 
 /**
  * Implements hook_install_tasks().
@@ -266,6 +270,91 @@ function openculturas_update_9302(): string {
 
   // Execute configuration update definitions with logging of success.
   $updater->executeUpdate('openculturas', 'openculturas_update_9302');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs the vocabularies page_type, location_type, event_type and article_type.
+ */
+function openculturas_update_9303(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9303');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $perms = [
+      'create terms in article_type',
+      'delete terms in article_type',
+      'edit terms in article_type',
+      'translate article_type taxonomy_term',
+    ];
+    foreach ($perms as $perm) {
+      $role->grantPermission($perm);
+    }
+    $role->save();
+  }
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs the new field sub_type.
+ */
+function openculturas_update_9304(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9304');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs paragraph download.
+ */
+function openculturas_update_9305(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9305');
+
+  $bundles = ['page', 'faq', 'article'];
+  foreach ($bundles as $bundle) {
+    /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+    $field = FieldConfig::loadByName('node', $bundle, 'field_content_paragraphs');
+    if (!$field instanceof FieldConfigInterface) {
+      continue;
+    }
+    $handler_settings = $field->getSetting('handler_settings');
+    if (!isset($handler_settings['target_bundles']['download'])) {
+      $handler_settings['target_bundles']['download'] = 'download';
+    }
+    ksort($handler_settings['target_bundles']);
+    $field->setSetting('handler_settings', $handler_settings);
+    $field->save();
+  }
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs viewmode teaser_big.
+ */
+function openculturas_update_9306(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9306');
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
