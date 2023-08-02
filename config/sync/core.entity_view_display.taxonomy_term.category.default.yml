@@ -13,23 +13,11 @@ dependencies:
     - field.field.taxonomy_term.category.field_term_children_view_ref
     - field.field.taxonomy_term.category.field_upcoming_dates_view_ref
     - taxonomy.vocabulary.category
-  module:
-    - viewfield
 id: taxonomy_term.category.default
 targetEntityType: taxonomy_term
 bundle: category
 mode: default
-content:
-  field_term_children_view_ref:
-    type: viewfield_default
-    label: above
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
   description: true
   extra_field_social_media_buttons: true
@@ -40,6 +28,7 @@ hidden:
   field_related_event_view_ref: true
   field_related_location_view_ref: true
   field_related_organizer_view_ref: true
+  field_term_children_view_ref: true
   field_upcoming_dates_view_ref: true
   flag_bookmark_term: true
   langcode: true

@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.teaser_wrapper.field_teasers
+    - field.field.paragraph.teaser_wrapper.paragraph_view_mode
+    - paragraphs.paragraphs_type.teaser_wrapper
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+id: paragraph.teaser_wrapper.default
+targetEntityType: paragraph
+bundle: teaser_wrapper
+mode: default
+content:
+  field_teasers:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true

@@ -256,3 +256,17 @@ function openculturas_update_9301(): void {
     }
   }
 }
+
+/**
+ * Installs the view mode teaser_unified.
+ */
+function openculturas_update_9302(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9302');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

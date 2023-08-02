@@ -28,29 +28,12 @@ dependencies:
     - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
-    - text
     - user
 id: node.profile.default
 targetEntityType: node
 bundle: profile
 mode: default
-content:
-  field_portrait:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_subtitle:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
+content: {  }
 hidden:
   body: true
   co_authors: true
@@ -69,6 +52,7 @@ hidden:
   field_people_reference: true
   field_performer_at_view_ref: true
   field_performer_event_view_ref: true
+  field_portrait: true
   field_press_quotes: true
   field_profile_role: true
   field_profile_type: true
@@ -76,6 +60,7 @@ hidden:
   field_recommended_by_view_ref: true
   field_reference_title: true
   field_started: true
+  field_subtitle: true
   field_upcoming_dates_by_profile: true
   flag_bookmark_node: true
   flag_claim_ownership: true

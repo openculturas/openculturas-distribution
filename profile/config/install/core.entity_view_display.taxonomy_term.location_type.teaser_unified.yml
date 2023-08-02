@@ -1,0 +1,62 @@
+langcode: de
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.teaser_unified
+    - field.field.taxonomy_term.location_type.field_mood_image
+    - field.field.taxonomy_term.location_type.field_related_location_view_ref
+    - field.field.taxonomy_term.location_type.field_term_children_view_ref
+    - taxonomy.vocabulary.location_type
+  module:
+    - field_formatter_class
+    - smart_trim
+id: taxonomy_term.location_type.teaser_unified
+targetEntityType: taxonomy_term
+bundle: location_type
+mode: teaser_unified
+content:
+  description:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 200
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
+        token_browser: ''
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_related_location_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

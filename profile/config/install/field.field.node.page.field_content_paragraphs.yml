@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.download
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.teaser_wrapper
     - paragraphs.paragraphs_type.text
     - paragraphs.paragraphs_type.view
   module:
@@ -26,48 +27,61 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      block: block
-      gallery: gallery
-      media: media
       text: text
-      view: view
+      media: media
+      gallery: gallery
       download: download
+      teaser_wrapper: teaser_wrapper
+      block: block
+      view: view
     negate: 0
     target_bundles_drag_drop:
       accessibility:
-        weight: 9
+        weight: -26
         enabled: false
       address_data:
-        weight: 10
+        weight: -25
         enabled: false
       block:
-        weight: 12
+        weight: -28
         enabled: true
       bookable_event:
-        weight: 15
+        weight: -22
         enabled: false
       contact_data:
-        weight: 11
+        weight: -24
         enabled: false
       download:
-        weight: 18
+        weight: -30
         enabled: true
       gallery:
-        weight: 12
+        weight: -31
         enabled: true
       media:
-        weight: 13
+        weight: -32
         enabled: true
       media_mention:
-        weight: 19
+        weight: -21
         enabled: false
       member:
-        weight: 14
+        weight: -23
         enabled: false
+      teaser_external:
+        weight: -18
+        enabled: false
+      teaser_node:
+        weight: -20
+        enabled: false
+      teaser_term:
+        weight: -19
+        enabled: false
+      teaser_wrapper:
+        weight: -29
+        enabled: true
       text:
-        weight: 15
+        weight: -33
         enabled: true
       view:
-        weight: 16
+        weight: -27
         enabled: true
 field_type: entity_reference_revisions

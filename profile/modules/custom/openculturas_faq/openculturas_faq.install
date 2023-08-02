@@ -33,3 +33,30 @@ function openculturas_faq_install(): void {
     $role->save();
   }
 }
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function openculturas_faq_update_dependencies(): array {
+  return [
+    'openculturas_faq' => [
+      9301 => [
+        'openculturas' => 9302,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Installs the view displays teaser_unified.
+ */
+function openculturas_faq_update_9301(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9001');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

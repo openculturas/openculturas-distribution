@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types = 1);
+
+/**
+ * @file
+ * Primary module hooks for openculturas_teaser module.
+ */
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function openculturas_teaser_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'teaser' => [
+      'variables' => [
+        'title' => NULL,
+        'subtitle' => NULL,
+        'description' => NULL,
+        'media' => NULL,
+        'url' => NULL,
+        'attributes' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_field_widget_single_element_form_alter().
+ */
+function openculturas_teaser_field_widget_single_element_form_alter(array &$element, FormStateInterface $form_state, array $context): void {
+  if (array_key_exists('#paragraph_type', $element)) {
+    switch ($element['#paragraph_type']) {
+      case 'teaser_node':
+      case 'teaser_term':
+      case 'teaser_external':
+        $element['subform']['#weight'] = 1;
+        $element['behavior_plugins']['#weight'] = 2;
+        break;
+    }
+  }
+}

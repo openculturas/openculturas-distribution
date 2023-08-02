@@ -9,6 +9,7 @@ distribution:
   install:
     finish_url: '?welcome=1'
   langcode: en
+
 install:
   - address
   - address_display
@@ -117,9 +118,12 @@ install:
   - oembed_providers
   - openculturas_custom
   - openculturas_media
+  - openculturas_teaser
   - options
   - page_cache
   - paragraphs
+  - paragraphs_type_permissions
+  - paragraph_view_mode
   - path
   - path_alias
   - pathauto
@@ -548,6 +552,7 @@ config_devel:
     - core.entity_view_display.node.article.search_result
     - core.entity_view_display.node.article.teaser_big
     - core.entity_view_display.node.article.teaser
+    - core.entity_view_display.node.article.teaser_unified
     - core.entity_view_display.node.date.compact
     - core.entity_view_display.node.date.default
     - core.entity_view_display.node.date.full
@@ -555,6 +560,7 @@ config_devel:
     - core.entity_view_display.node.date.search_result
     - core.entity_view_display.node.date.teaser_big
     - core.entity_view_display.node.date.teaser
+    - core.entity_view_display.node.date.teaser_unified
     - core.entity_view_display.node.event.compact
     - core.entity_view_display.node.event.default
     - core.entity_view_display.node.event.full
@@ -562,6 +568,7 @@ config_devel:
     - core.entity_view_display.node.event.search_result
     - core.entity_view_display.node.event.teaser_big
     - core.entity_view_display.node.event.teaser
+    - core.entity_view_display.node.event.teaser_unified
     - core.entity_view_display.node.location.compact
     - core.entity_view_display.node.location.default
     - core.entity_view_display.node.location.full
@@ -570,6 +577,7 @@ config_devel:
     - core.entity_view_display.node.location.search_result
     - core.entity_view_display.node.location.teaser_big
     - core.entity_view_display.node.location.teaser
+    - core.entity_view_display.node.location.teaser_unified
     - core.entity_view_display.node.location.token
     - core.entity_view_display.node.page.default
     - core.entity_view_display.node.page.full
@@ -577,6 +585,7 @@ config_devel:
     - core.entity_view_display.node.page.search_result
     - core.entity_view_display.node.page.teaser_big
     - core.entity_view_display.node.page.teaser
+    - core.entity_view_display.node.page.teaser_unified
     - core.entity_view_display.node.profile.compact
     - core.entity_view_display.node.profile.contact
     - core.entity_view_display.node.profile.default
@@ -587,6 +596,7 @@ config_devel:
     - core.entity_view_display.node.profile.search_result
     - core.entity_view_display.node.profile.teaser_big
     - core.entity_view_display.node.profile.teaser
+    - core.entity_view_display.node.profile.teaser_unified
     - core.entity_view_display.paragraph.accessibility.default
     - core.entity_view_display.paragraph.address_data.address_block
     - core.entity_view_display.paragraph.address_data.address_line_complete
@@ -610,21 +620,27 @@ config_devel:
     - core.entity_view_display.taxonomy_term.article_type.default
     - core.entity_view_display.taxonomy_term.article_type.full
     - core.entity_view_display.taxonomy_term.article_type.teaser
+    - core.entity_view_display.taxonomy_term.article_type.teaser_unified
     - core.entity_view_display.taxonomy_term.category.default
     - core.entity_view_display.taxonomy_term.category.full
     - core.entity_view_display.taxonomy_term.category.teaser
+    - core.entity_view_display.taxonomy_term.category.teaser_unified
     - core.entity_view_display.taxonomy_term.column.default
     - core.entity_view_display.taxonomy_term.column.full
     - core.entity_view_display.taxonomy_term.column.teaser
+    - core.entity_view_display.taxonomy_term.column.teaser_unified
     - core.entity_view_display.taxonomy_term.event_type.default
     - core.entity_view_display.taxonomy_term.event_type.full
     - core.entity_view_display.taxonomy_term.event_type.teaser
+    - core.entity_view_display.taxonomy_term.event_type.teaser_unified
     - core.entity_view_display.taxonomy_term.location_type.default
     - core.entity_view_display.taxonomy_term.location_type.full
     - core.entity_view_display.taxonomy_term.location_type.teaser
+    - core.entity_view_display.taxonomy_term.location_type.teaser_unified
     - core.entity_view_display.taxonomy_term.page_type.default
     - core.entity_view_display.taxonomy_term.page_type.full
     - core.entity_view_display.taxonomy_term.page_type.teaser
+    - core.entity_view_display.taxonomy_term.page_type.teaser_unified
     - core.entity_view_display.user.user.compact
     - core.entity_view_display.user.user.default
     - core.entity_view_display.user.user.full
@@ -657,6 +673,7 @@ config_devel:
     - core.entity_view_mode.node.search_result
     - core.entity_view_mode.node.teaser_big
     - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.teaser_unified
     - core.entity_view_mode.node.token
     - core.entity_view_mode.paragraph.address_block
     - core.entity_view_mode.paragraph.address_line_complete
@@ -671,6 +688,7 @@ config_devel:
     - core.entity_view_mode.shortcut.token
     - core.entity_view_mode.taxonomy_term.full
     - core.entity_view_mode.taxonomy_term.teaser
+    - core.entity_view_mode.taxonomy_term.teaser_unified
     - core.entity_view_mode.taxonomy_term.token
     - core.entity_view_mode.user.compact
     - core.entity_view_mode.user.full
@@ -1332,3 +1350,28 @@ config_devel:
     - workflows.workflow.draften_member
     - workflows.workflow.draften
     - workflows.workflow.magazine_article
+    - core.entity_form_display.paragraph.teaser_external.default
+    - core.entity_form_display.paragraph.teaser_node.default
+    - core.entity_form_display.paragraph.teaser_term.default
+    - core.entity_form_display.paragraph.teaser_wrapper.default
+    - core.entity_view_display.paragraph.teaser_external.default
+    - core.entity_view_display.paragraph.teaser_node.default
+    - core.entity_view_display.paragraph.teaser_term.default
+    - core.entity_view_display.paragraph.teaser_wrapper.default
+    - core.entity_view_display.paragraph.teaser_wrapper.grid
+    - core.entity_view_display.paragraph.teaser_wrapper.slider
+    - core.entity_view_mode.paragraph.grid
+    - core.entity_view_mode.paragraph.slider
+    - field.field.paragraph.teaser_external.field_url_single_value
+    - field.field.paragraph.teaser_node.field_article
+    - field.field.paragraph.teaser_term.field_term
+    - field.field.paragraph.teaser_wrapper.field_teasers
+    - field.field.paragraph.teaser_wrapper.paragraph_view_mode
+    - field.storage.paragraph.field_teasers
+    - field.storage.paragraph.field_url_single_value
+    - field.storage.paragraph.field_article
+    - field.storage.paragraph.field_term
+    - paragraphs.paragraphs_type.teaser_external
+    - paragraphs.paragraphs_type.teaser_node
+    - paragraphs.paragraphs_type.teaser_term
+    - paragraphs.paragraphs_type.teaser_wrapper

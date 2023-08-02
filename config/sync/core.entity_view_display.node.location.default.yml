@@ -29,40 +29,12 @@ dependencies:
     - field.field.node.location.field_supporters
     - node.type.location
   module:
-    - field_formatter_class
-    - text
     - user
 id: node.location.default
 targetEntityType: node
 bundle: location
 mode: default
-content:
-  field_logo:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: logo
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 1
-    region: content
-  field_sub_type:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_subtitle:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
   body: true
   co_authors: true
@@ -75,6 +47,7 @@ hidden:
   field_category: true
   field_contact_data: true
   field_gallery: true
+  field_logo: true
   field_mention_by_art_view_ref: true
   field_mood_image: true
   field_opening_hours: true
@@ -87,6 +60,8 @@ hidden:
   field_related_date_view_ref: true
   field_safety_info: true
   field_started: true
+  field_sub_type: true
+  field_subtitle: true
   field_supporters: true
   flag_bookmark_node: true
   flag_claim_ownership: true

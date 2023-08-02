@@ -27,36 +27,12 @@ dependencies:
     - field.field.node.event.field_url
     - node.type.event
   module:
-    - text
     - user
 id: node.event.default
 targetEntityType: node
 bundle: event
 mode: default
-content:
-  field_category:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_sub_type:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_subtitle:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
   body: true
   co_authors: true
@@ -65,6 +41,7 @@ hidden:
   field_accessibility: true
   field_allow_claiming: true
   field_bookable_info: true
+  field_category: true
   field_duration: true
   field_gallery: true
   field_inlanguage: true
@@ -78,6 +55,8 @@ hidden:
   field_related_date_view_ref: true
   field_started: true
   field_status: true
+  field_sub_type: true
+  field_subtitle: true
   field_supporters: true
   field_url: true
   flag_bookmark_node: true

@@ -1,0 +1,35 @@
+<div {{ attributes }}>
+  {% spaceless %}
+    <article class="view-mode-teaser universal-teaser clearfix">
+      <div class="teaser--top">
+
+        {% if media %}
+          <div class="field--name-field-mood-image">
+            {{- media -}}
+          </div>
+        {% endif %}
+
+        <div class="oc-teaser--title">
+          <h3 class="teaser">
+            <a href="{{ url }}">
+              {{ title }}
+            </a>
+          </h3>
+        </div>
+
+        {% if subtitle %}
+          <div class="oc-teaser--subtitle field--name-field-subtitle">
+            {{- subtitle -}}
+          </div>
+        {% endif %}
+
+        {% if description %}
+          <div class="oc-teaser--description">
+            {{- description -}}
+          </div>
+        {% endif %}
+
+      </div>
+    </article>
+  {% endspaceless %}
+</div>

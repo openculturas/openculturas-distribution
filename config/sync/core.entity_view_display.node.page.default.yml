@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.page.field_supporters
     - node.type.page
   module:
-    - text
     - user
 _core:
   default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
@@ -21,22 +20,7 @@ id: node.page.default
 targetEntityType: node
 bundle: page
 mode: default
-content:
-  field_sub_type:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_subtitle:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
   body: true
   co_authors: true
@@ -46,6 +30,8 @@ hidden:
   field_layout_switcher: true
   field_meta_tags: true
   field_mood_image: true
+  field_sub_type: true
+  field_subtitle: true
   field_supporters: true
   flag_bookmark_node: true
   flag_recommendation_node: true

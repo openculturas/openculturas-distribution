@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.teaser_external.field_url_single_value
+    - paragraphs.paragraphs_type.teaser_external
+  module:
+    - link
+id: paragraph.teaser_external.default
+targetEntityType: paragraph
+bundle: teaser_external
+mode: default
+content:
+  field_url_single_value:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

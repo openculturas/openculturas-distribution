@@ -10,6 +10,12 @@ declare(strict_types = 1);
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\asset_injector\AssetInjectorInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\taxonomy\VocabularyInterface;
+use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\views\ViewExecutable;
@@ -495,6 +501,40 @@ function openculturas_post_update_0018(?array &$sandbox = NULL): void {
 }
 
 /**
+ * Updates the oc_gin_theme_overrides asset.
+ */
+function openculturas_post_update_oc_gin_theme_overrides_paragraphs_behaviors(?array &$sandbox = NULL): void {
+  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
+
+  $callback = function (AssetInjectorInterface $asset): bool {
+    if ($asset->id() !== 'oc_gin_theme_overrides') {
+      return FALSE;
+    }
+    $code = $asset->getCode();
+    if (str_contains($code, 'Paragraphs behaviors tabs highlight')) {
+      return FALSE;
+    }
+    $new_code = <<<CSS
+
+/* Paragraphs behaviors tabs highlight + fix border */
+
+.is-horizontal .paragraphs-tabs:first-of-type {
+  background-color: #fdf7ebdd; /* keeping opacity, using  color of --gin-bg-warning-light */
+}
+
+.is-horizontal .paragraphs-tabs:first-of-type::after {
+  bottom: 0;
+}
+
+CSS;
+    $asset->set('code', $code . PHP_EOL . $new_code . PHP_EOL);
+    return TRUE;
+  };
+
+  $config_entity_updater->update($sandbox, 'asset_injector_css', $callback);
+}
+
+/**
  * Enable mastodon.
  */
 function openculturas_post_update_0019(): string {
@@ -517,6 +557,117 @@ function openculturas_post_update_0020(): string {
 
   // Execute configuration update definitions with logging of success.
   $updater->executeUpdate('openculturas', 'openculturas_post_update_0020');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs view display for node types,vocabularies.
+ */
+function openculturas_post_update_0021(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $no_warning = $updater->executeUpdate('openculturas', 'openculturas_post_update_0021');
+  if ($no_warning) {
+    $config_list = [
+      'page_type' => 'core.entity_view_display.taxonomy_term.page_type.teaser_unified',
+      'location_type' => 'core.entity_view_display.taxonomy_term.location_type.teaser_unified',
+      'event_type' => 'core.entity_view_display.taxonomy_term.event_type.teaser_unified',
+      'article_type' => 'core.entity_view_display.taxonomy_term.article_type.teaser_unified',
+    ];
+    // Import configurations.
+    $configFactory = \Drupal::configFactory();
+    /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+    $configUpdater = \Drupal::service('config_update.config_update');
+    /** @var \Drupal\update_helper\UpdateLogger $logger */
+    $logger = \Drupal::service('update_helper.logger');
+    foreach ($config_list as $vocabulary_id => $full_config_name) {
+      $vocabulary = Vocabulary::load($vocabulary_id);
+      if (!$vocabulary instanceof VocabularyInterface) {
+        $logger->warning(sprintf('Unable to import %s config, because vocabulary %s not found.', $full_config_name, $vocabulary_id));
+        continue;
+      }
+      $config_name = ConfigName::createByFullName($full_config_name);
+
+      if (!empty($configFactory->get($full_config_name)->getRawData())) {
+        $logger->warning(sprintf('Importing of %s config will be skipped, because configuration already exists.', $full_config_name));
+        continue;
+      }
+
+      if (!$configUpdater->import($config_name->getType(), $config_name->getName())) {
+        $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+        continue;
+      }
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+  }
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs paragraphs_type_permissions and the permissions.
+ */
+function openculturas_post_update_0022(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0022');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs openculturas_teaser.
+ */
+function openculturas_post_update_0023(): string {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['paragraph_view_mode']);
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0023');
+  $bundles = ['page', 'faq', 'article'];
+  foreach ($bundles as $bundle) {
+    /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+    $field = FieldConfig::loadByName('node', $bundle, 'field_content_paragraphs');
+    if (!$field instanceof FieldConfigInterface) {
+      continue;
+    }
+    $handler_settings = $field->getSetting('handler_settings');
+    if (!isset($handler_settings['target_bundles']['teaser_wrapper'])) {
+      $handler_settings['target_bundles']['teaser_wrapper'] = 'teaser_wrapper';
+    }
+    ksort($handler_settings['target_bundles']);
+    $field->setSetting('handler_settings', $handler_settings);
+    $field->save();
+  }
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Allows p-Element in advanced_html.
+ */
+function openculturas_post_update_0024(): string {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['paragraph_view_mode']);
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0024');
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();

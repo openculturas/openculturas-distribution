@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.teaser_node.field_article
+    - paragraphs.paragraphs_type.teaser_node
+  module:
+    - field_formatter_class
+id: paragraph.teaser_node.default
+targetEntityType: paragraph
+bundle: teaser_node
+mode: default
+content:
+  field_article:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_unified
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

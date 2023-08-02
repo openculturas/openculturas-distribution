@@ -1,0 +1,115 @@
+uuid: 04c169f9-3537-4a15-86be-9a80a6c0a6bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser_unified
+    - field.field.node.event.body
+    - field.field.node.event.field_accessibility
+    - field.field.node.event.field_allow_claiming
+    - field.field.node.event.field_bookable_info
+    - field.field.node.event.field_category
+    - field.field.node.event.field_duration
+    - field.field.node.event.field_gallery
+    - field.field.node.event.field_inlanguage
+    - field.field.node.event.field_is_bookable
+    - field.field.node.event.field_mention_by_art_view_ref
+    - field.field.node.event.field_min_age
+    - field.field.node.event.field_mood_image
+    - field.field.node.event.field_people_reference
+    - field.field.node.event.field_press_quotes
+    - field.field.node.event.field_recommended_by_view_ref
+    - field.field.node.event.field_related_date_view_ref
+    - field.field.node.event.field_started
+    - field.field.node.event.field_status
+    - field.field.node.event.field_sub_type
+    - field.field.node.event.field_subtitle
+    - field.field.node.event.field_supporters
+    - field.field.node.event.field_url
+    - node.type.event
+  module:
+    - field_formatter_class
+    - smart_trim
+    - text
+    - user
+id: node.event.teaser_unified
+targetEntityType: node
+bundle: event
+mode: teaser_unified
+content:
+  body:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 200
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
+        token_browser: ''
+      summary_handler: trim
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  co_authors: true
+  content_moderation_control: true
+  extra_field_social_media_buttons: true
+  field_accessibility: true
+  field_allow_claiming: true
+  field_bookable_info: true
+  field_category: true
+  field_duration: true
+  field_gallery: true
+  field_inlanguage: true
+  field_is_bookable: true
+  field_mention_by_art_view_ref: true
+  field_min_age: true
+  field_people_reference: true
+  field_press_quotes: true
+  field_recommended_by_view_ref: true
+  field_related_date_view_ref: true
+  field_started: true
+  field_status: true
+  field_sub_type: true
+  field_supporters: true
+  field_url: true
+  flag_bookmark_node: true
+  flag_claim_ownership: true
+  flag_recommendation_node: true
+  flag_report_abuse: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

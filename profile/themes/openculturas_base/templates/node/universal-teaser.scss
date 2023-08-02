@@ -127,3 +127,26 @@ h6.teaser {
 
   }
 }
+
+/* side-by-side teasers */
+
+
+@media screen and (min-width: 48rem) {
+  .grid-2-m,
+  .grid-3-l { 
+    .universal-teaser .field--name-field-mood-image {
+      float: none;
+      margin-left: 0;
+      max-width: 100%;
+
+      // broken image fallback
+      img {
+        display: inline-block;
+        aspect-ratio: 16/9;
+        min-width: 240px;
+        min-height: 146px;
+        background: var(--color-bg-slight-contrast);
+      }
+    }
+  }
+}

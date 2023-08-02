@@ -1,0 +1,31 @@
+uuid: f94e5864-7165-47b6-95c4-797f734d5f99
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.grid
+    - field.field.paragraph.teaser_wrapper.field_teasers
+    - field.field.paragraph.teaser_wrapper.paragraph_view_mode
+    - paragraphs.paragraphs_type.teaser_wrapper
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+id: paragraph.teaser_wrapper.grid
+targetEntityType: paragraph
+bundle: teaser_wrapper
+mode: grid
+content:
+  field_teasers:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: 'teaser--wrapper grid-1 grid-2-m grid-row-gap-2 grid-column-gap-2'
+    weight: 0
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true
