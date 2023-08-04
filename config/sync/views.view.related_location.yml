@@ -14,7 +14,7 @@ dependencies:
 id: related_location
 label: 'Related locations'
 module: views
-description: 'OpenCulturas: list of related locations '
+description: 'OpenCulturas: lists of related locations '
 tag: OpenCulturas
 base_table: node_field_data
 base_field: nid
@@ -25,7 +25,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Related location'
+      title: ''
       fields:
         title:
           id: title
@@ -144,6 +144,21 @@ display:
             field_identifier: ''
           exposed: false
           granularity: second
+        sticky:
+          id: sticky
+          table: node_field_data
+          field: sticky
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: sticky
+          plugin_id: standard
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments:
         field_category_target_id:
           id: field_category_target_id
@@ -210,6 +225,46 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
         options:
@@ -234,11 +289,11 @@ display:
       use_ajax: true
       header: {  }
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -247,7 +302,7 @@ display:
       tags: {  }
   by_location_type:
     id: by_location_type
-    display_title: 'by location type'
+    display_title: 'By location type'
     display_plugin: block
     position: 1
     display_options:
@@ -296,11 +351,11 @@ display:
         title: false
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -309,16 +364,16 @@ display:
       tags: {  }
   related_location:
     id: related_location
-    display_title: 'by category'
+    display_title: 'By focus category'
     display_plugin: block
     position: 1
     display_options:
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -335,6 +390,23 @@ display:
         type: none
         options:
           offset: 0
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+          granularity: second
       arguments:
         field_member_target_id:
           id: field_member_target_id
@@ -379,6 +451,7 @@ display:
         css_class: false
         pager: false
         relationships: false
+        sorts: false
         arguments: false
       relationships:
         field_people_reference:
@@ -402,12 +475,12 @@ display:
           required: true
       css_class: 'locations grid-1 grid-2-m grid-row-gap-2'
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - 'user.node_grants:view'

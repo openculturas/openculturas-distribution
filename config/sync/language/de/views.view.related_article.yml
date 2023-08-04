@@ -5,41 +5,68 @@ display:
       empty:
         area:
           content:
-            value: "<p>Aktuell stehen keine Magazinartikel im Zusammenhang mit diesem Inhalt.</p>\r\n"
+            value: "<p>Aktuell stehen keine Artikel im Zusammenhang mit diesem Inhalt.</p>\r\n"
             format: basic_html
       pager:
         options:
           views_infinite_scroll:
             button_text: 'Mehr anzeigen'
+      title: 'Verwandte Artikel'
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      header:
+        views_add_button:
+          button_text: 'Artikel verfassen'
+    display_title: Standard
   mention_by_article:
     display_options:
       title: 'Im Artikel genannt'
       header:
         area_text_custom:
           content: '<h3>Erwähnt in</h3>'
+    display_title: 'Erwähnung durch'
   by_author:
     display_options:
       header:
         area_text_custom:
           content: '<h3>Geschriebene Magazinartikel</h3>'
+    display_title: 'Nach Verfasser:in'
   related_article_by_column:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+    display_title: 'Nach Rubrik - auf Begriffsseite'
   related_article_term:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+    display_title: 'Nach Fokuskategorie - auf Begriffsseite'
   related_article_latest:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+      empty:
+        area:
+          content:
+            value: "<p>There are currently no articles in the database.</p>\r\n"
+            format: basic_html
+    display_title: Aktuellste
+  block_1:
+    display_title: 'Nach Artikeltyp - auf Begriffsseite'
+  related_article_node:
+    display_title: 'Nach Fokuskategorie - auf Inhaltsseite'
+label: 'Verwandte Artikel'

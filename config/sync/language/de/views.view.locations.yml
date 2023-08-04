@@ -1,4 +1,4 @@
-description: 'OpenCulturas: Liste der Veranstaltungsorte'
+description: 'OpenCulturas: filterbare Liste aller Veranstaltungsorte, mit angehängter Landkarte'
 display:
   default:
     display_options:
@@ -9,10 +9,14 @@ display:
             placeholder: 'enthält ...'
         field_address_location_proximity:
           expose:
-            label: Entfernung
+            label: Umkreis
         field_category_target_id_1:
           expose:
             label: Fokus
+        field_sub_type_target_id:
+          admin_label: Typ
+          expose:
+            label: Typ
       exposed_form:
         options:
           submit_button: Anwenden
@@ -23,30 +27,41 @@ display:
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-          text_input_required: 'Wähle einen Filter und klick auf <em>Anwenden</em>, um Ergebnisse zu sehen'
+          text_input_required: 'Wähle einen Filter und klicke auf <em>Anwenden</em>, um Ergebnisse zu sehen'
       pager:
         options:
           tags:
             next: 'Nächste ›'
             previous: '‹ Vorige'
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
           expose:
             items_per_page_label: Anz./Seite
             items_per_page_options_all_label: '- Alle -'
+      style:
+        options:
+          reset_map:
+            options: '{"position":"topleft","title":"Ansicht zurücksetzen"}'
+          locate:
+            options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Meinen Standort finden"}}'
+    display_title: Standard
   locations_block_map:
     display_options:
       fields:
         rendered_entity:
           alter:
             text: ''
+        counter:
+          admin_label: Sprunganker-Link
       empty:
         area:
           content:
             value: "<p>Keine Ergebnisse.</p>\r\n"
             format: basic_html
+    display_title: 'Orte (mit Filterbereich)'
   attachment_map:
     display_options:
       header:
         result:
           content: '<div class="result-counter"><strong>@start - @end</strong> von insgesamt <strong>@total</strong></div>'
+    display_title: 'Anhang: Landkarte'

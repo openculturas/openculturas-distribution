@@ -15,7 +15,7 @@ dependencies:
 id: my_bookmarks_taxonomy
 label: 'My bookmarks (taxonomy)'
 module: views
-description: 'Dashboard: Various aggregation blocks of flagged terms'
+description: 'OpenCulturas dashboard: Various aggregation blocks of flagged terms'
 tag: 'OpenCulturas, Dashboard'
 base_table: taxonomy_term_field_data
 base_field: tid
@@ -26,7 +26,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Categories
+      title: Focus
       fields:
         name:
           id: name
@@ -456,6 +456,7 @@ display:
           flag: bookmark_term
           user_scope: any
       css_class: bookmarks
+      use_ajax: true
       header:
         area:
           id: area
@@ -487,6 +488,7 @@ display:
     display_plugin: block
     position: 1
     display_options:
+      title: ''
       pager:
         type: infinite_scroll
         options:
@@ -568,6 +570,7 @@ display:
         groups:
           1: AND
       defaults:
+        title: false
         pager: false
         filters: false
         filter_groups: false
@@ -586,7 +589,7 @@ display:
       tags: {  }
   category:
     id: category
-    display_title: Category
+    display_title: Focus
     display_plugin: block
     position: 1
     display_options:

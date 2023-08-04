@@ -13,8 +13,16 @@ display:
             value: "<p>Aktuell stehen keine Termine im Zusammenhang mit diesem Inhalt.</p>\r\n"
             format: basic_html
       display_comment: 'Der Link zeigt auf den Inhalt des Datumseintrags, verwendet als Linktext aber den Titel der Veranstaltung.'
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+    display_title: Standard
   related_date_alternative:
-    display_title: 'Weitere Termine'
+    display_title: 'Alternative Termine'
     display_options:
       display_description: 'Überspringt das erste Datum'
       display_comment: 'Der Link zeigt auf den Inhalt des Datumseintrags, verwendet als Linktext aber den Titel der Veranstaltung.'
@@ -26,13 +34,16 @@ display:
   related_date_event:
     display_options:
       display_comment: 'Der Link zeigt auf den Inhalt des Datumseintrags, verwendet als Linktext aber den Titel der Veranstaltung.'
+    display_title: 'Nach Veranstaltung'
   related_date_location:
     display_options:
       display_comment: 'Der Link zeigt auf den Inhalt des Datumseintrags, verwendet als Linktext aber den Titel der Veranstaltung.'
+    display_title: 'Nach Ort'
   related_date_organizer:
     display_options:
       display_comment: 'Der Link zeigt auf den Inhalt des Datumseintrags, verwendet als Linktext aber den Titel der Veranstaltung.'
       title: 'Als Veranstalter:in'
+    display_title: 'Nach Organisator:in'
   upcoming_dates:
     display_title: 'Kommende Termine'
     display_options:
@@ -62,12 +73,20 @@ display:
           expose:
             label: Veranstaltungsort
             placeholder: 'Name enthält ...'
+        field_date_duration:
+          expose:
+            label: Dauer
+          group_info:
+            label: 'Mehrtägige ausblenden'
+            group_items:
+              1:
+                title: Ja
       exposed_form:
         options:
           submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: 'Sortieren nach'
-          text_input_required: 'Wähle einen Filter und klick auf <em>Anwenden</em>, um Ergebnisse zu sehen'
+          text_input_required: 'Wähle einen Filter und klicke auf <em>Anwenden</em>, um Ergebnisse zu sehen'
           bef:
             general:
               secondary_label: 'Erweiterte Filter'
@@ -76,17 +95,41 @@ display:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
           expose:
             items_per_page_label: Anz./Seite
             items_per_page_options_all_label: '- Alle -'
+            offset_label: ab
       display_comment: ''
+      empty:
+        area:
+          content:
+            value: "<p>Momentan stehen keine Termine an.</p>\r\n"
+            format: basic_html
   upcoming_dates_map:
     display_options:
       header:
         result:
           content: '<div class="result-counter"><strong>@start - @end</strong> von insgesamt <strong>@total</strong></div>'
+      title: 'Kommende Termine: Karte'
+      fields:
+        nothing:
+          admin_label: Kartentitel
+      filters:
+        field_address_location_proximity:
+          expose:
+            label: Umkreis
+        title_1:
+          expose:
+            label: Titel
+      style:
+        options:
+          reset_map:
+            options: '{"position":"topleft","title":"Ansicht zurücksetzen"}'
+          locate:
+            options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Meinen Standort finden"}}'
+    display_title: 'Kommende Termine: Karte'
   block_front_dates:
     display_title: 'Startseite: Nächste Termine'
     display_options:
@@ -98,3 +141,17 @@ display:
             value: "<h2>[view:title]</h2>\r\n"
             format: basic_html
       display_comment: ''
+      empty:
+        area:
+          content:
+            value: "<p>Offenbar gibt es momentan keine anstehenden Termine in der Datenbank.</p>\r\n"
+            format: basic_html
+  by_profile:
+    display_title: 'Nach Profil'
+  by_term:
+    display_title: 'Nach Begriff'
+  sub_dates:
+    display_title: 'Termine dieser Reihe'
+    display_options:
+      title: 'Termine in dieser Veranstaltungreihe'
+label: 'Verwandte Termine'

@@ -8,10 +8,10 @@ dependencies:
     - media
     - user
 id: related_sponsor
-label: 'Sponsor logo'
+label: 'Sponsor logos'
 module: views
-description: 'OpenCulturas: list of related sponsor logo '
-tag: ''
+description: 'OpenCulturas: list of related sponsor logos'
+tag: OpenCulturas
 base_table: media_field_data
 base_field: mid
 display:
@@ -21,7 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Sponsor logo'
+      title: Sponsors
       fields:
         name:
           id: name
@@ -134,6 +134,46 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        default_langcode:
+          id: default_langcode
+          table: media_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: media
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
       row:
@@ -153,18 +193,19 @@ display:
       use_ajax: true
       header: {  }
       footer: {  }
+      display_comment: 'Platform (global) sponsors are aggregated here. Entity-related sponsors can be added via dedicated field.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
         - user.permissions
       tags: {  }
   platform:
     id: platform
-    display_title: 'Platform Sponsor'
+    display_title: 'Platform sponsors'
     display_plugin: block
     position: 1
     display_options:
@@ -232,6 +273,46 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        default_langcode:
+          id: default_langcode
+          table: media_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: media
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -240,12 +321,13 @@ display:
         filters: false
         filter_groups: false
       display_description: ''
+      display_comment: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
         - user.permissions

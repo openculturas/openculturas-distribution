@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - node.type.event
     - taxonomy.vocabulary.category
+    - taxonomy.vocabulary.event_type
   module:
     - better_exposed_filters
     - datetime
@@ -18,7 +19,7 @@ dependencies:
 id: event_catalogue
 label: 'Event catalogue'
 module: views
-description: 'OpenCulturas: Event catalogue'
+description: 'OpenCulturas: Lists of all event descriptions (active or archived)'
 tag: OpenCulturas
 base_table: node_field_data
 base_field: nid
@@ -98,7 +99,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 12
+          items_per_page: 24
           total_pages: null
           id: 0
           tags:
@@ -147,7 +148,7 @@ display:
                 reset_label: ''
                 collapsible: false
                 collapsible_label: 'Sort options'
-                is_secondary: false
+                is_secondary: true
             filter:
               title:
                 plugin_id: default
@@ -172,7 +173,15 @@ display:
                   collapsible: false
                   is_secondary: true
               field_is_bookable_value:
-                plugin_id: bef_single
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: true
+              field_sub_type_target_id:
+                plugin_id: default
                 advanced:
                   sort_options: false
                   rewrite:
@@ -254,6 +263,7 @@ display:
           plugin_id: bundle
           value:
             event: event
+          group: 1
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -530,6 +540,95 @@ display:
                 title: 'No'
                 operator: '='
                 value: '0'
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_sub_type_target_id:
+          id: field_sub_type_target_id
+          table: node__field_sub_type
+          field: field_sub_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: 'Event type'
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_sub_type_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: field_sub_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: event_type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: event_type
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: default
       row:
@@ -577,11 +676,11 @@ display:
             format: minimal_html
           destination: false
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -593,7 +692,7 @@ display:
       tags: {  }
   block_archive:
     id: block_archive
-    display_title: 'as Block (Archive)'
+    display_title: 'Events archive'
     display_plugin: block
     position: 2
     display_options:
@@ -621,6 +720,7 @@ display:
           plugin_id: bundle
           value:
             event: event
+          group: 1
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -845,6 +945,91 @@ display:
                   min: ''
                   max: ''
                   value: '18'
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_sub_type_target_id:
+          id: field_sub_type_target_id
+          table: node__field_sub_type
+          field: field_sub_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: 'Event type'
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_sub_type_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: field_sub_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: event_type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: event_type
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -854,11 +1039,11 @@ display:
         filters: false
         filter_groups: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -870,16 +1055,16 @@ display:
       tags: {  }
   event_catalogue_block:
     id: event_catalogue_block
-    display_title: 'as Block'
+    display_title: 'Events (active)'
     display_plugin: block
     position: 1
     display_options:
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args

@@ -686,3 +686,237 @@ function openculturas_post_update_0025(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Build always the view output.
+ */
+function openculturas_post_update_views_refactor_0001(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0001');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Disable view content_recent, who_s_new, who_s_online.
+ */
+function openculturas_post_update_views_refactor_0002(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0002');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Change texts, rendering language of views and view-displays.
+ */
+function openculturas_post_update_views_refactor_0003(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0003');
+
+  if ($no_warnings) {
+    $view = Views::getView('vocabulary');
+    if ($view instanceof ViewExecutable) {
+      $view->initDisplay();
+      if ($view->displayHandlers->has('block_filter_vocabulary')) {
+        $view->setDisplay('block_filter_vocabulary');
+        $display = $view->getDisplay();
+        $display->display['display_title'] = 'Select vocabulary for term grid';
+        $display->setOption('block_description', '');
+        $view->save();
+      }
+    }
+  }
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Add new filter type filter to view event_catalogue, locations.
+ */
+function openculturas_post_update_views_refactor_0004(): string {
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $fields = $entity_field_manager->getFieldStorageDefinitions('node');
+  if (!isset($fields['field_sub_type'])) {
+    return '[Skipped] field field_sub_type (node) is not installed';
+  }
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0004');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Add default_langcode filter to frontpage view.
+ */
+function openculturas_post_update_views_refactor_0005(): string {
+  $view = Views::getView('frontpage');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $displays_ids = [
+      'block_front_all',
+      'block_front_articles_x',
+      'block_front_events',
+      'block_front_locations',
+      'block_front_profiles',
+    ];
+    foreach ($displays_ids as $displays_id) {
+      if (!$view->displayHandlers->has($displays_id)) {
+        return sprintf('[Skipped] Display %s in view frontpage is not installed', $displays_id);
+      }
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0005');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Change rendering_language and display title of display by_location_type in view related_location.
+ */
+function openculturas_post_update_views_refactor_0006(): string {
+  $view = Views::getView('related_location');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $displays_ids = [
+      'by_location_type',
+    ];
+    foreach ($displays_ids as $displays_id) {
+      if (!$view->displayHandlers->has($displays_id)) {
+        return sprintf('[Skipped] Display %s in view related_location is not installed', $displays_id);
+      }
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0006');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Change rendering_language and display title of display related_event_by_type in view related_event.
+ */
+function openculturas_post_update_views_refactor_0007(): string {
+  $view = Views::getView('related_event');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $displays_ids = [
+      'related_event_by_type',
+    ];
+    foreach ($displays_ids as $displays_id) {
+      if (!$view->displayHandlers->has($displays_id)) {
+        return sprintf('[Skipped] Display %s in view related_event is not installed', $displays_id);
+      }
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0007');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Change empty content of display block_front_dates in view related_date.
+ */
+function openculturas_post_update_views_refactor_0008(): string {
+  $view = Views::getView('related_date');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $displays_ids = [
+      'block_front_dates',
+    ];
+    foreach ($displays_ids as $displays_id) {
+      if (!$view->displayHandlers->has($displays_id)) {
+        return sprintf('[Skipped] Display %s in view related_date is not installed', $displays_id);
+      }
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0008');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Change rendering_language and display title of display block_1 in view related_article.
+ */
+function openculturas_post_update_views_refactor_0009(): string {
+  $view = Views::getView('related_article');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $displays_ids = [
+      'block_1',
+    ];
+    foreach ($displays_ids as $displays_id) {
+      if (!$view->displayHandlers->has($displays_id)) {
+        return sprintf('[Skipped] Display %s in view related_article is not installed', $displays_id);
+      }
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0009');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Change rendering_language and display title of the displays in view related_pages.
+ */
+function openculturas_post_update_views_refactor_0010(): string {
+  $view = Views::getView('related_pages');
+  if (!$view instanceof ViewExecutable) {
+    return '[Skipped] View related_pages does not exists';
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_views_refactor_0010');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

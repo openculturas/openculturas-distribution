@@ -1,5 +1,5 @@
 label: Veranstaltungskatalog
-description: 'OpenCulturas: Veranstaltungskatalog'
+description: 'OpenCulturas: Liste aller Veranstaltungsbeschreibungen (aktiv oder archiviert)'
 display:
   default:
     display_title: Standard
@@ -12,13 +12,13 @@ display:
               secondary_label: 'Erweiterte Filter'
             sort:
               advanced:
-                collapsible_label: Sortieroptionen
+                collapsible_label: Sortierung
           submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-          text_input_required: 'Wählen Sie einen beliebigen Filter und klicken Sie auf Anwenden, um Ergebnisse zu sehen'
+          text_input_required: 'Filtereinstellungen vornehmen und auf Anwenden klicken, um Ergebnisse zu sehen'
       sorts:
         title:
           expose:
@@ -36,7 +36,7 @@ display:
             label: Fokus
         field_is_bookable_value:
           group_info:
-            label: 'Ist buchbar'
+            label: 'Kann gebucht werden'
             group_items:
               1:
                 title: Ja
@@ -49,13 +49,15 @@ display:
             label: Mindestalter
           group_info:
             label: Mindestalter
+        field_sub_type_target_id:
+          admin_label: Typ
       pager:
         options:
           tags:
             next: 'Nächste ›'
             previous: '‹ Vorige'
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
           expose:
             items_per_page_label: Anzahl/Seite
             items_per_page_options_all_label: '- Alle -'
@@ -81,3 +83,8 @@ display:
             label: Mindestalter
           group_info:
             label: Mindestalter
+        field_sub_type_target_id:
+          admin_label: Typ
+    display_title: Veranstaltungsarchiv
+  event_catalogue_block:
+    display_title: 'Veranstaltungen (aktiv)'

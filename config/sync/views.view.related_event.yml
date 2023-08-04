@@ -26,7 +26,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Related event'
+      title: 'Related events'
       fields:
         title:
           id: title
@@ -241,6 +241,46 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
         options:
@@ -266,11 +306,11 @@ display:
       group_by: true
       header: {  }
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -279,9 +319,9 @@ display:
       tags: {  }
   related_event_by_type:
     id: related_event_by_type
-    display_title: 'by event type - On term page '
+    display_title: 'By event type - on term page '
     display_plugin: block
-    position: 1
+    position: 3
     display_options:
       title: 'Related events by event type'
       arguments:
@@ -330,11 +370,11 @@ display:
         arguments: false
       group_by: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -343,7 +383,7 @@ display:
       tags: {  }
   related_event_node:
     id: related_event_node
-    display_title: 'by category - On node page'
+    display_title: 'By focus category - on node page'
     display_plugin: block
     position: 1
     display_options:
@@ -429,11 +469,11 @@ display:
         filters: true
         filter_groups: true
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -442,9 +482,9 @@ display:
       tags: {  }
   related_event_performer:
     id: related_event_performer
-    display_title: 'Involved in - On profile page'
+    display_title: 'Involved in - on profile page'
     display_plugin: block
-    position: 1
+    position: 4
     display_options:
       title: 'Involved in'
       fields:
@@ -606,6 +646,7 @@ display:
             value: ''
             format: minimal_html
           destination: true
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -677,16 +718,16 @@ display:
         - 'config:core.entity_view_display.node.profile.teaser_unified'
   related_event_term:
     id: related_event_term
-    display_title: 'by category - On term page'
+    display_title: 'By focus category - on term page'
     display_plugin: block
-    position: 1
+    position: 2
     display_options:
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args

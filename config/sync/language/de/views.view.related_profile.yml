@@ -16,43 +16,90 @@ display:
           submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+    display_title: Standard
   profile_location:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- alle -'
+            offset_label: ab
       exposed_form:
         options:
           submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area:
+          content:
+            value: "<p>Offenbar gibt es momentan keinen Inhalt dieser Art in der Datenbank.</p>\r\n"
+            format: basic_html
+      filters:
+        title:
+          expose:
+            label: Name
+            placeholder: 'enthält ...'
+        field_category_target_id:
+          expose:
+            label: Fokus
+    display_title: 'Profile + Orte'
   related_profile_artist:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- alle -'
+            offset_label: ab
       exposed_form:
         options:
           submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area:
+          content:
+            value: "<p>Offenbar gibt es momentan keinen Inhalt dieser Art in der Datenbank.</p>\r\n"
+            format: basic_html
+      filters:
+        field_profile_role_value:
+          expose:
+            label: Rolle
+        title:
+          expose:
+            label: Name
+            placeholder: 'enthält ...'
+        field_category_target_id:
+          expose:
+            label: Fokus
+        field_profile_type_value:
+          expose:
+            label: Typ
+    display_title: 'Künstler:innen'
   related_profile_community:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- alle -'
+            offset_label: ab
       filters:
         field_profile_role_value:
           expose:
@@ -61,9 +108,9 @@ display:
             label: Rolle
             group_items:
               1:
-                title: 'Künstler:in'
+                title: 'Künstler:innen'
               2:
-                title: 'Veranstalter:in'
+                title: 'Veranstalter:innen'
               3:
                 title: Kulturinteressiert
         title:
@@ -77,15 +124,78 @@ display:
           submit_button: Anwenden
           reset_button_label: Zurücksetzen
           exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
           bef:
             general:
               secondary_label: 'Erweiterte Filter'
+          text_input_required: 'Filter wählen und Anwenden klicken, um Ergebnisse zu sehen'
+      empty:
+        area:
+          content:
+            value: "<p>Offenbar gibt es momentan keinen Inhalt dieser Art in der Datenbank.</p>\r\n"
+            format: basic_html
   related_profile_organizers:
     display_options:
       pager:
         options:
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- alle -'
+            offset_label: ab
+      empty:
+        area:
+          content:
+            value: "<p>Offenbar gibt es momentan keinen Inhalt dieser Art in der Datenbank.</p>\r\n"
+            format: basic_html
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      filters:
+        field_profile_role_value:
+          expose:
+            label: Rolle
+        title:
+          expose:
+            label: Name
+            placeholder: 'enthält ...'
+        field_category_target_id:
+          expose:
+            label: Fokus
+    display_title: 'Veranstalter:innen'
+  related_profile_member_of:
+    display_title: 'Mitglied von'
+    display_options:
+      title: 'Mitglied von'
+  related_profile_members:
+    display_title: Mitglieder
+    display_options:
+      title: Mitglieder
+      arguments:
+        nid:
+          exception:
+            title: Alle
+  related_profile_term_artist:
+    display_title: ''
+    display_options:
+      title: 'Künstler:innen - nach Fokuskategorie'
+      arguments:
+        field_category_target_id:
+          exception:
+            title: Alle
+  related_profile_term_organizer:
+    display_title: ''
+    display_options:
+      title: 'Veranstalter:innen - nach Fokuskategorie'
+      arguments:
+        field_category_target_id:
+          exception:
+            title: Alle
+label: 'Verwandte Profile'

@@ -1,4 +1,4 @@
-description: 'OpenCulturas: Liste der eigenen Inhalte'
+description: 'OpenCulturas-Dashboard: Verschiedene Übersichten der eigenen Inhalte'
 display:
   default:
     display_options:
@@ -13,6 +13,7 @@ display:
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
+    display_title: Standard
   block_my_locations:
     display_options:
       empty:
@@ -27,6 +28,11 @@ display:
           content:
             value: "<h3 class=\"field__label\">Profile meiner Orte</h3>\r\n"
             format: full_html
+      pager:
+        options:
+          views_infinite_scroll:
+            button_text: 'Mehr anzeigen'
+    display_title: Orte
   block_my_profiles:
     display_options:
       empty:
@@ -41,6 +47,11 @@ display:
           content:
             value: "<h3 class=\"field__label\">Meine Personen-/Gruppen-Profile</h3>\r\n"
             format: full_html
+      pager:
+        options:
+          views_infinite_scroll:
+            button_text: 'Mehr anzeigen'
+    display_title: Profile
   block_profiles_block:
     display_options:
       header:
@@ -48,13 +59,14 @@ display:
           content:
             value: "<h3 class=\"field__label\">Meine Profile / Orte</h3>\r\n"
             format: full_html
+    display_title: 'Profile + Orte'
   my_content_block:
     display_options:
       fields:
         title:
           label: Titel
         field_subtitle:
-          label: Sub-Titel
+          label: Untertitel
         type:
           label: Typ
         moderation_state:
@@ -94,18 +106,27 @@ display:
             items_per_page_options_all_label: '- Alle -'
             offset_label: ab
           tags:
-            first: '« Zum Anfang'
-            last: 'Zum Ende »'
+            first: '« Anfang'
+            last: 'Ende »'
       exposed_form:
         options:
           reset_button_label: Zurücksetzen
           exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
       empty:
         area_text_custom:
           content: 'Es wurden keine Ergebnisse zu diesen Filter-Kriterien gefunden.'
       header:
         area_text_custom:
           content: '<div class="infobox">Tipp: Füge Termine über die Veranstaltungsseite hinzu.</div>'
-label: 'Meine Inhalte'
+        views_add_button_1:
+          admin_label: 'Artikel schreiben'
+          button_text: 'Artikel schreiben'
+        views_add_button:
+          admin_label: 'Veranstaltung anlegen'
+          button_text: 'Veranstaltung anlegen'
+    display_title: 'Tabelle der Inhalte'
+  entity_reference_behalf_of:
+    display_title: 'Im Namen von (Kennzeichnung)'
+label: 'Dashboard: Meine Inhalte'

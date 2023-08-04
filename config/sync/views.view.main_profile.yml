@@ -9,10 +9,10 @@ dependencies:
     - node
     - user
 id: main_profile
-label: 'Main profile'
+label: 'Dashboard: Main profile'
 module: views
-description: ''
-tag: ''
+description: 'OpenCulturas: Displays main profile (chosen by user) on user dashboard'
+tag: 'OpenCulturas, Dashboard'
 base_table: users_field_data
 base_field: uid
 display:
@@ -231,6 +231,7 @@ display:
           plugin_id: standard
           required: true
       css_class: content
+      use_ajax: true
       header:
         area:
           id: area
@@ -246,11 +247,11 @@ display:
             format: full_html
           tokenize: false
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user.roles

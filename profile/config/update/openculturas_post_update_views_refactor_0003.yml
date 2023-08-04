@@ -1,0 +1,2375 @@
+views.view.dashboard:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas user dashboard: Profile finder'
+      display:
+        block_profile_search:
+          display_title: 'Profile finder'
+      label: 'Dashboard: finder'
+
+views.view.entity_reference_node:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        entity_reference_main_profile:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        er_organizer:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        entity_reference_main_profile:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        er_organizer:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: collection of node entity reference views used for select field filters'
+      label: 'Entity reference: nodes'
+
+views.view.event_catalogue:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        block_archive:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        event_catalogue_block:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: { }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: { }
+                  description: ''
+                  group_items: { }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        block_archive:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: { }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: { }
+                  description: ''
+                  group_items: { }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        event_catalogue_block:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: Lists of all event descriptions (active or archived)'
+      display:
+        default:
+          display_options:
+            exposed_form:
+              options:
+                bef:
+                  filter:
+                    field_is_bookable_value:
+                      plugin_id: default
+                  sort:
+                    advanced:
+                      is_secondary: true
+            pager:
+              options:
+                items_per_page: 24
+        block_archive:
+          display_title: 'Events archive'
+        event_catalogue_block:
+          display_title: 'Events (active)'
+
+views.view.flagged_content:
+  expected_config:  {  }
+  update_actions:
+    add:
+      display:
+        default:
+          display_options:
+            use_ajax: true
+    change:
+      description: 'OpenCulturas: administrative overviews of abuse + claim flags'
+
+views.view.moderated_content:
+  expected_config:  {  }
+  update_actions:
+    change:
+      tag: OpenCulturas
+
+views.view.main_profile:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+            use_ajax: true
+    change:
+      description: 'OpenCulturas: Displays main profile (chosen by user) on user dashboard'
+      label: 'Dashboard: Main profile'
+      tag: 'OpenCulturas, Dashboard'
+
+views.view.my_bookmarks:
+  expected_config:  {  }
+  update_actions:
+    add:
+      display:
+        date:
+          display_options:
+            display_comment: 'Dates per se not suitable for flagging, using events instead'
+    change:
+      description: 'OpenCulturas user dashboard: Various aggregation blocks of flagged content'
+      display:
+        all:
+          position: 1
+        date:
+          display_title: Dates
+          position: 7
+        event:
+          display_title: Events
+          position: 6
+        location:
+          display_title: Locations
+        magazine:
+          display_title: Articles
+          position: 4
+        page:
+          display_title: Pages
+        profile:
+          display_title: Profiles
+          position: 2
+      label: 'My bookmarks (content)'
+
+views.view.my_bookmarks_taxonomy:
+  expected_config:  {  }
+  update_actions:
+    add:
+      display:
+        all:
+          display_options:
+            defaults:
+              title: false
+            title: ''
+    change:
+      description: 'OpenCulturas dashboard: Various aggregation blocks of flagged terms'
+      display:
+        category:
+          display_title: Focus
+        default:
+          display_options:
+            title: Focus
+            use_ajax: true
+
+views.view.related_dates_export:
+  expected_config:  {  }
+  update_actions:
+    change:
+      description: 'OpenCulturas: list of related dates. Caveat: do not translate this view!'
+
+views.view.locations:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: filterable list of all locations and map attachment'
+
+views.view.related_sponsor:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        platform:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            display_comment: 'Platform (global) sponsors are aggregated here. Entity-related sponsors can be added via dedicated field.'
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: media
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: media_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        platform:
+          display_options:
+            display_comment: ''
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: media
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: { }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: { }
+                  description: ''
+                  group_items: { }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: media_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: list of related sponsor logos'
+      display:
+        default:
+          display_options:
+            title: Sponsors
+        platform:
+          display_title: 'Platform sponsors'
+      label: 'Sponsor logos'
+      tag: OpenCulturas
+
+views.view.vocabulary:
+  expected_config:  {  }
+  update_actions:
+    add:
+      display:
+        default:
+          display_options:
+            use_ajax: true
+    change:
+      display:
+        block_term_grid:
+          display_options:
+            block_description: ''
+            display_description: 'For all vocabularies: child terms to current term'
+          display_title: 'Term children'
+        block_term_grid_category:
+          display_options:
+            block_description: ''
+            display_description: 'filtered to category terms'
+          display_title: 'Focus term grid'
+        block_term_grid_columns:
+          display_options:
+            block_description: ''
+          display_title: 'Columns term grid'
+
+views.view.oc_frontpage:
+  expected_config:  {  }
+  update_actions:
+    delete:
+      display:
+        default:
+          display_options:
+            filters:
+              langcode:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        feed_1:
+          display_options:
+            filters:
+              langcode:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        page_1:
+          display_options:
+            filters:
+              langcode:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        feed_1:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        page_1:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      tag: 'OpenCulturas, Frontpage'
+
+views.view.related_profile:
+  expected_config: { }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        profile_location:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_profile_artist:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_profile_community:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_profile_members:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_profile_organizers:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_profile_term_artist:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_profile_term_organizer:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+            sorts:
+              sticky:
+                admin_label: ''
+                entity_field: sticky
+                entity_type: node
+                expose:
+                  field_identifier: ''
+                  label: ''
+                exposed: false
+                field: sticky
+                group_type: group
+                id: sticky
+                order: DESC
+                plugin_id: standard
+                relationship: none
+                table: node_field_data
+        profile_location:
+          display_options:
+            defaults:
+              empty: false
+            empty:
+              area:
+                admin_label: ''
+                content:
+                  format: basic_html
+                  value: 'It seems that currently there is no such content in the database.'
+                empty: true
+                field: area
+                group_type: group
+                id: area
+                plugin_id: text
+                relationship: none
+                table: views
+                tokenize: false
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+              title:
+                expose:
+                  remember_roles:
+                    oc_admin: '0'
+                    oc_member: '0'
+                    oc_organizer: '0'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_artist:
+          display_options:
+            defaults:
+              empty: false
+            empty:
+              area:
+                admin_label: ''
+                content:
+                  format: basic_html
+                  value: 'It seems that currently there is no such content in the database.'
+                empty: true
+                field: area
+                group_type: group
+                id: area
+                plugin_id: text
+                relationship: none
+                table: views
+                tokenize: false
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+              title:
+                expose:
+                  remember_roles:
+                    oc_admin: '0'
+                    oc_member: '0'
+                    oc_organizer: '0'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_community:
+          display_options:
+            defaults:
+              empty: false
+            empty:
+              area:
+                admin_label: ''
+                content:
+                  format: basic_html
+                  value: 'It seems that currently there is no such content in the database.'
+                empty: true
+                field: area
+                group_type: group
+                id: area
+                plugin_id: text
+                relationship: none
+                table: views
+                tokenize: false
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_member_of:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_members:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_organizers:
+          display_options:
+            defaults:
+              empty: false
+            empty:
+              area:
+                admin_label: ''
+                content:
+                  format: basic_html
+                  value: 'It seems that currently there is no such content in the database.'
+                empty: true
+                field: area
+                group_type: group
+                id: area
+                plugin_id: text
+                relationship: none
+                table: views
+                tokenize: false
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+              title:
+                expose:
+                  remember_roles:
+                    oc_admin: '0'
+                    oc_member: '0'
+                    oc_organizer: '0'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_term_artist:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_profile_term_organizer:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: lists of related profiles'
+      display:
+        profile_location:
+          display_options:
+            filters:
+              title:
+                expose:
+                  label: Name
+                  placeholder: contains...
+            pager:
+              options:
+                items_per_page: 24
+          display_title: 'Profiles + locations'
+          position: 2
+        related_profile_artist:
+          display_options:
+            filters:
+              title:
+                expose:
+                  label: Name
+                  placeholder: contains...
+            pager:
+              options:
+                items_per_page: 24
+          position: 3
+        related_profile_community:
+          position: 1
+        related_profile_member_of:
+          position: 5
+        related_profile_members:
+          position: 6
+        related_profile_organizers:
+          display_options:
+            filters:
+              title:
+                expose:
+                  label: Name
+                  placeholder: contains...
+            pager:
+              options:
+                items_per_page: 24
+          position: 4
+        related_profile_term_artist:
+          display_title: 'Artists - by focus category'
+          position: 7
+        related_profile_term_organizer:
+          display_title: 'Organizers - by focus category'
+          position: 8
+
+views.view.related_location:
+  expected_config: { }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_location:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_location_performer_at:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+            sorts:
+              sticky:
+                admin_label: ''
+                entity_field: sticky
+                entity_type: node
+                expose:
+                  field_identifier: ''
+                  label: ''
+                exposed: false
+                field: sticky
+                group_type: group
+                id: sticky
+                order: DESC
+                plugin_id: standard
+                relationship: none
+                table: node_field_data
+        related_location:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_location_performer_at:
+          display_options:
+            defaults:
+              sorts: false
+            rendering_language: '***LANGUAGE_language_interface***'
+            sorts:
+              created:
+                admin_label: ''
+                entity_field: created
+                entity_type: node
+                expose:
+                  field_identifier: ''
+                  label: ''
+                exposed: false
+                field: created
+                granularity: second
+                group_type: group
+                id: created
+                order: DESC
+                plugin_id: date
+                relationship: none
+                table: node_field_data
+    change:
+      description: 'OpenCulturas: lists of related locations '
+      display:
+        default:
+          display_options:
+            title: ''
+        related_location:
+          display_title: 'By focus category'
+
+views.view.related_event:
+  expected_config: { }
+  update_actions:
+    delete:
+      display:
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_event_node:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_event_term:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_event_node:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_event_performer:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_event_term:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      display:
+        default:
+          display_options:
+            title: 'Related events'
+        related_event_node:
+          display_title: 'By focus category - on node page'
+        related_event_performer:
+          display_title: 'Involved in - on profile page'
+          position: 4
+        related_event_term:
+          display_title: 'By focus category - on term page'
+          position: 2
+
+views.view.related_date:
+  expected_config: { }
+  update_actions:
+    add:
+      display:
+        by_profile:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        by_term:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        default:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_date_alternative:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_date_event:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_date_location:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_date_organizer:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        sub_dates:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        upcoming_dates_map:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        upcoming_dates:
+          display_options:
+            defaults:
+              empty: false
+            empty:
+              area:
+                admin_label: ''
+                content:
+                  format: basic_html
+                  value: 'Currently there are no upcoming dates.'
+                empty: true
+                field: area
+                group_type: group
+                id: area
+                plugin_id: text
+                relationship: none
+                table: views
+                tokenize: false
+            exposed_form:
+              options:
+                bef:
+                  filter:
+                    field_date_duration:
+                      advanced:
+                        collapsible: false
+                        is_secondary: false
+                        placeholder_text: ''
+                        rewrite:
+                          filter_rewrite_values: ''
+                      plugin_id: bef_single
+            filters:
+              field_date_duration:
+                admin_label: ''
+                expose:
+                  description: null
+                  identifier: field_date_duration
+                  label: 'Date - Duration'
+                  max_placeholder: null
+                  min_placeholder: null
+                  multiple: false
+                  operator: field_date_duration_op
+                  operator_id: field_date_duration_op
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  placeholder: null
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: true
+                field: field_date_duration
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items:
+                    1:
+                      operator: '<='
+                      title: 'Yes'
+                      value:
+                        max: ''
+                        min: ''
+                        value: '1441'
+                  identifier: duration
+                  label: 'Hide multi-day dates'
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: radios
+                group_type: group
+                id: field_date_duration
+                is_grouped: true
+                operator: '='
+                plugin_id: numeric
+                relationship: none
+                table: node__field_date
+                value:
+                  max: ''
+                  min: ''
+                  value: ''
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: lists of dates, filtered by given entities'
+      display:
+        by_profile:
+          position: 7
+        by_term:
+          position: 9
+        default:
+          display_options:
+            empty:
+              area:
+                content:
+                  value: 'Currently no dates relate to this content.'
+            query:
+              options:
+                distinct: true
+        related_date_alternative:
+          position: 3
+        related_date_event:
+          position: 5
+        related_date_location:
+          position: 6
+        related_date_organizer:
+          position: 8
+        sub_dates:
+          position: 4
+        upcoming_dates:
+          display_options:
+            exposed_form:
+              options:
+                bef:
+                  pager:
+                    advanced:
+                      is_secondary: false
+            pager:
+              options:
+                expose:
+                  items_per_page_label: No/page
+          position: 1
+        upcoming_dates_map:
+          position: 2
+      tag: 'OpenCulturas, Frontpage'
+
+views.view.related_article:
+  expected_config: { }
+  update_actions:
+    delete:
+      display:
+        by_author:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        default:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        mention_by_article:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_article_by_column:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_article_latest:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_article_node:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+        related_article_term:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        by_author:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        mention_by_article:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+        related_article_by_column:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_article_latest:
+          display_options:
+            defaults:
+              empty: false
+            empty:
+              area:
+                admin_label: ''
+                content:
+                  format: basic_html
+                  value: 'There are currently no articles in the database.'
+                empty: true
+                field: area
+                group_type: group
+                id: area
+                plugin_id: text
+                relationship: none
+                table: views
+                tokenize: false
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_article_node:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+        related_article_term:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      display:
+        by_author:
+          position: 7
+        default:
+          display_options:
+            header:
+              views_add_button:
+                button_text: 'Add article'
+        mention_by_article:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+            title: ''
+          display_title: 'Mentioned by'
+          position: 2
+        related_article_by_column:
+          display_title: 'By column - on term page'
+          position: 5
+        related_article_latest:
+          position: 1
+        related_article_node:
+          display_title: 'By focus category - on node page'
+        related_article_term:
+          display_title: 'By focus category - on term page'
+          position: 4
+
+views.view.recommended_by:
+  expected_config: { }
+  update_actions:
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: field_behalf
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+            use_ajax: true
+        recommended_by_block:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas: List profiles/locations which recommended the given entity'
+      display:
+        default:
+          display_options:
+            pager:
+              options:
+                items_per_page: 6
+
+views.view.my_recommendations:
+  expected_config: { }
+  update_actions:
+    delete:
+      display:
+        default:
+          display_options:
+            filters:
+              type:
+                value:
+                  date: date
+    add:
+      display:
+        block_all:
+          display_options:
+            defaults:
+              filter_groups: false
+              filters: false
+              title: false
+            display_description: ''
+            display_extenders: {  }
+            filter_groups:
+              groups:
+                1: AND
+              operator: AND
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+              status:
+                entity_field: status
+                entity_type: node
+                expose:
+                  operator: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                field: status
+                group: 1
+                id: status
+                plugin_id: boolean
+                table: node_field_data
+                value: '1'
+              type:
+                admin_label: ''
+                entity_field: type
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  reduce: false
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: type
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: type
+                is_grouped: false
+                operator: in
+                plugin_id: bundle
+                relationship: none
+                table: node_field_data
+                value:
+                  article: article
+                  event: event
+                  location: location
+                  page: page
+                  profile: profile
+            rendering_language: '***LANGUAGE_language_interface***'
+            title: Profile
+          display_plugin: block
+          display_title: 'Any type'
+          id: block_all
+          position: 1
+        date:
+          display_options:
+            defaults:
+              filter_groups: false
+              filters: false
+            display_comment: 'Dates per se not suitable for flagging, using events instead'
+            filter_groups:
+              groups:
+                1: AND
+              operator: AND
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+              status:
+                entity_field: status
+                entity_type: node
+                expose:
+                  operator: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                field: status
+                group: 1
+                id: status
+                plugin_id: boolean
+                table: node_field_data
+                value: '1'
+              type:
+                admin_label: ''
+                entity_field: type
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  reduce: false
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: type
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: type
+                is_grouped: false
+                operator: in
+                plugin_id: bundle
+                relationship: none
+                table: node_field_data
+                value:
+                  date: date
+            rendering_language: '***LANGUAGE_language_interface***'
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        event:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        location:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        magazine:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        page:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        profile:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+    change:
+      description: 'OpenCulturas: recommendations made on behalf of the current profile'
+      display:
+        date:
+          position: 7
+        default:
+          display_options:
+            filters:
+              type:
+                value:
+                  article: article
+        event:
+          display_title: Events
+        location:
+          display_title: Locations
+        magazine:
+          display_title: Articles
+          position: 5
+        page:
+          display_title: Pages
+          position: 6
+        profile:
+          display_options:
+            rendering_language: '***LANGUAGE_language_interface***'
+            title: Profile
+          display_title: Profiles
+          position: 2
+
+views.view.my_content:
+  expected_config: { }
+  update_actions:
+    delete:
+      display:
+        entity_reference_behalf_of:
+          cache_metadata:
+            contexts:
+              - 'languages:language_content'
+    add:
+      display:
+        default:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+        entity_reference_behalf_of:
+          display_options:
+            filters:
+              default_langcode:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: node
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: none
+                table: node_field_data
+                value: '1'
+            rendering_language: '***LANGUAGE_language_interface***'
+    change:
+      description: 'OpenCulturas dashboard: Various aggregation blocks of own content, filter list for behalf-of fields'
+      display:
+        block_my_locations:
+          display_title: Locations
+        block_my_profiles:
+          display_title: Profiles
+        block_profiles_block:
+          display_title: 'Profiles + locations'
+        entity_reference_behalf_of:
+          display_title: 'Behalf of (flag)'
+        my_content_block:
+          display_title: 'Content table'
+      label: 'Dashboard: My content'

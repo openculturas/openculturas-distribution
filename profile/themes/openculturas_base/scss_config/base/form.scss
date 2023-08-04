@@ -139,6 +139,11 @@ input[size='30'] {
     max-width: 15rem;
   }
 }
+
+input.bef-datepicker {
+  max-width: 10rem;
+}
+
 .view-search input[size='30'] {
   @include breakpoint(l) {
     max-width: 30rem;
@@ -207,14 +212,29 @@ input[type="radio"] {
   .form--inline .details-wrapper {
     display: flex;
     flex-flow: row wrap;
-    align-items: last baseline;
+    gap: .25rem 1rem;
+    //align-items: last baseline;
     padding-bottom: .5rem;
+  }
+
+  // checkbox has no label above
+  .form-type-checkbox {
+    @include breakpoint(m) {
+      padding-top: 2.25rem;
+      padding-bottom: .25rem;
+    }
+
+    input {
+      margin-right: .125em;
+      font-size: 1.5em;
+    }
   }
 
 // /* Secondary filters above default exposed form */
 //  .bef--secondary {
 //    order: -1;
 //  }
+
 }
 
 // Views exposed form in displays with "compact" css class

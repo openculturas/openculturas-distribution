@@ -7,6 +7,7 @@ dependencies:
     - field.storage.paragraph.field_address_location
     - node.type.location
     - taxonomy.vocabulary.category
+    - taxonomy.vocabulary.location_type
   module:
     - better_exposed_filters
     - geofield
@@ -20,7 +21,7 @@ dependencies:
 id: locations
 label: Locations
 module: views
-description: 'OpenCulturas: location lists'
+description: 'OpenCulturas: filterable list of all locations and map attachment'
 tag: OpenCulturas
 base_table: node_field_data
 base_field: nid
@@ -627,6 +628,51 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_sub_type_target_id:
+          id: field_sub_type_target_id
+          table: node__field_sub_type
+          field: field_sub_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: 'Location type'
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_sub_type_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: field_sub_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: location_type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: location_type
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -755,11 +801,11 @@ display:
       use_ajax: true
       header: {  }
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -1138,6 +1184,7 @@ display:
         - 'config:core.entity_view_display.node.article.search_result'
         - 'config:core.entity_view_display.node.article.teaser'
         - 'config:core.entity_view_display.node.article.teaser_big'
+        - 'config:core.entity_view_display.node.article.teaser_unified'
         - 'config:core.entity_view_display.node.date.compact'
         - 'config:core.entity_view_display.node.date.default'
         - 'config:core.entity_view_display.node.date.full'
@@ -1145,6 +1192,7 @@ display:
         - 'config:core.entity_view_display.node.date.search_result'
         - 'config:core.entity_view_display.node.date.teaser'
         - 'config:core.entity_view_display.node.date.teaser_big'
+        - 'config:core.entity_view_display.node.date.teaser_unified'
         - 'config:core.entity_view_display.node.event.compact'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.full'
@@ -1152,6 +1200,14 @@ display:
         - 'config:core.entity_view_display.node.event.search_result'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.event.teaser_big'
+        - 'config:core.entity_view_display.node.event.teaser_unified'
+        - 'config:core.entity_view_display.node.faq.compact'
+        - 'config:core.entity_view_display.node.faq.default'
+        - 'config:core.entity_view_display.node.faq.full'
+        - 'config:core.entity_view_display.node.faq.synopsis'
+        - 'config:core.entity_view_display.node.faq.teaser'
+        - 'config:core.entity_view_display.node.faq.teaser_big'
+        - 'config:core.entity_view_display.node.faq.teaser_unified'
         - 'config:core.entity_view_display.node.location.compact'
         - 'config:core.entity_view_display.node.location.default'
         - 'config:core.entity_view_display.node.location.full'
@@ -1160,6 +1216,7 @@ display:
         - 'config:core.entity_view_display.node.location.search_result'
         - 'config:core.entity_view_display.node.location.teaser'
         - 'config:core.entity_view_display.node.location.teaser_big'
+        - 'config:core.entity_view_display.node.location.teaser_unified'
         - 'config:core.entity_view_display.node.location.token'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.full'
@@ -1167,6 +1224,7 @@ display:
         - 'config:core.entity_view_display.node.page.search_result'
         - 'config:core.entity_view_display.node.page.teaser'
         - 'config:core.entity_view_display.node.page.teaser_big'
+        - 'config:core.entity_view_display.node.page.teaser_unified'
         - 'config:core.entity_view_display.node.profile.compact'
         - 'config:core.entity_view_display.node.profile.contact'
         - 'config:core.entity_view_display.node.profile.default'
@@ -1177,3 +1235,4 @@ display:
         - 'config:core.entity_view_display.node.profile.search_result'
         - 'config:core.entity_view_display.node.profile.teaser'
         - 'config:core.entity_view_display.node.profile.teaser_big'
+        - 'config:core.entity_view_display.node.profile.teaser_unified'

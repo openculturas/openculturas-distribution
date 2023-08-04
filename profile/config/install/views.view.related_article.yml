@@ -242,6 +242,46 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
         options:
@@ -280,7 +320,7 @@ display:
           render_plugin: views_add_button_node
           access_plugin: views_add_button_node
           context: ''
-          button_text: ''
+          button_text: 'Add article'
           query_string: ''
           button_classes: button
           button_attributes: ''
@@ -295,11 +335,11 @@ display:
             format: minimal_html
           destination: false
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -308,9 +348,9 @@ display:
       tags: {  }
   block_1:
     id: block_1
-    display_title: 'by article type - On term page'
+    display_title: 'By article type - on term page'
     display_plugin: block
-    position: 2
+    position: 6
     display_options:
       pager:
         type: full
@@ -377,11 +417,11 @@ display:
         pager: false
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -392,7 +432,7 @@ display:
     id: by_author
     display_title: 'By author'
     display_plugin: block
-    position: 6
+    position: 7
     display_options:
       title: 'By author'
       arguments:
@@ -475,11 +515,11 @@ display:
             value: ''
             format: minimal_html
           destination: false
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -488,11 +528,11 @@ display:
       tags: {  }
   mention_by_article:
     id: mention_by_article
-    display_title: 'Mention by'
+    display_title: 'Mentioned by'
     display_plugin: block
-    position: 5
+    position: 2
     display_options:
-      title: 'Mentioned in this article'
+      title: ''
       fields:
         field_references:
           id: field_references
@@ -650,6 +690,46 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -715,11 +795,11 @@ display:
             value: ''
             format: minimal_html
           destination: false
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -729,9 +809,9 @@ display:
         - 'config:field.storage.node.field_references'
   related_article_by_column:
     id: related_article_by_column
-    display_title: 'by column - On term page'
+    display_title: 'By column - on term page'
     display_plugin: block
-    position: 1
+    position: 5
     display_options:
       pager:
         type: full
@@ -808,11 +888,11 @@ display:
         arguments: false
       relationships: {  }
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -823,7 +903,7 @@ display:
     id: related_article_latest
     display_title: Latest
     display_plugin: block
-    position: 4
+    position: 1
     display_options:
       title: 'Latest articles'
       pager:
@@ -847,17 +927,32 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'There are currently no articles in the database.'
+            format: basic_html
+          tokenize: false
       arguments: {  }
       defaults:
+        empty: false
         title: false
         pager: false
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
@@ -865,7 +960,7 @@ display:
       tags: {  }
   related_article_node:
     id: related_article_node
-    display_title: 'by category - On node page'
+    display_title: 'By focus category - on node page'
     display_plugin: block
     position: 3
     display_options:
@@ -913,11 +1008,11 @@ display:
       defaults:
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -926,9 +1021,9 @@ display:
       tags: {  }
   related_article_term:
     id: related_article_term
-    display_title: 'by category - On term page'
+    display_title: 'By focus category - on term page'
     display_plugin: block
-    position: 2
+    position: 4
     display_options:
       pager:
         type: full
@@ -954,11 +1049,11 @@ display:
       defaults:
         pager: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args

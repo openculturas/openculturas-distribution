@@ -34,8 +34,8 @@ dependencies:
 id: related_date
 label: 'Related dates'
 module: views
-description: 'OpenCulturas: list of related dates'
-tag: OpenCulturas
+description: 'OpenCulturas: lists of dates, filtered by given entities'
+tag: 'OpenCulturas, Frontpage'
 base_table: node_field_data
 base_field: nid
 display:
@@ -1138,7 +1138,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'Currently no date relate to this content.'
+            value: 'Currently no dates relate to this content.'
             format: basic_html
           tokenize: false
       sorts:
@@ -1326,7 +1326,7 @@ display:
         options:
           query_comment: ''
           disable_sql_rewrite: false
-          distinct: false
+          distinct: true
           replica: false
           query_tags: {  }
       relationships:
@@ -1354,11 +1354,11 @@ display:
       header: {  }
       footer: {  }
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
@@ -2613,6 +2613,20 @@ display:
                   placeholder_text: ''
                   collapsible: false
                   is_secondary: true
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'It seems like there are currently no upcoming dates in the database.'
+            format: basic_html
+          tokenize: false
       arguments: {  }
       filters:
         status:
@@ -3118,6 +3132,7 @@ display:
           1: AND
           2: OR
       defaults:
+        empty: false
         title: true
         css_class: false
         pager: false
@@ -3232,12 +3247,12 @@ display:
             format: minimal_html
           destination: false
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       exposed_block: true
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user
@@ -3256,7 +3271,7 @@ display:
     id: by_profile
     display_title: 'By profile'
     display_plugin: block
-    position: 4
+    position: 7
     display_options:
       title: 'By profile'
       arguments:
@@ -3333,12 +3348,12 @@ display:
           required: false
       display_description: ''
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3357,7 +3372,7 @@ display:
     id: by_term
     display_title: 'By term'
     display_plugin: block
-    position: 6
+    position: 9
     display_options:
       arguments:
         field_category_target_id:
@@ -3407,11 +3422,11 @@ display:
       defaults:
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3430,7 +3445,7 @@ display:
     id: related_date_alternative
     display_title: 'Alternative dates'
     display_plugin: block
-    position: 1
+    position: 3
     display_options:
       title: 'Alternative dates'
       pager:
@@ -3502,11 +3517,11 @@ display:
         filter_groups: true
       display_description: 'Skips first date'
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3525,7 +3540,7 @@ display:
     id: related_date_event
     display_title: 'By event'
     display_plugin: block
-    position: 2
+    position: 5
     display_options:
       arguments:
         field_event_description_target_id:
@@ -3603,11 +3618,11 @@ display:
             format: minimal_html
           destination: false
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3626,7 +3641,7 @@ display:
     id: related_date_location
     display_title: 'By location'
     display_plugin: block
-    position: 3
+    position: 6
     display_options:
       arguments:
         field_location_target_id:
@@ -3692,11 +3707,11 @@ display:
           required: true
       display_description: ''
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3715,7 +3730,7 @@ display:
     id: related_date_organizer
     display_title: 'By organizer'
     display_plugin: block
-    position: 5
+    position: 8
     display_options:
       title: 'As an organizer'
       arguments:
@@ -3970,12 +3985,12 @@ display:
           content: '<h3>[view:title]</h3>'
           tokenize: false
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3994,7 +4009,7 @@ display:
     id: sub_dates
     display_title: 'Dates in this series'
     display_plugin: block
-    position: 9
+    position: 4
     display_options:
       title: 'Dates in this series'
       arguments:
@@ -4041,11 +4056,11 @@ display:
         title: false
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -4064,7 +4079,7 @@ display:
     id: upcoming_dates
     display_title: 'Upcoming dates'
     display_plugin: block
-    position: 7
+    position: 1
     display_options:
       fields:
         counter:
@@ -5237,7 +5252,7 @@ display:
             last: 'Last »'
           expose:
             items_per_page: true
-            items_per_page_label: No./page
+            items_per_page_label: No/page
             items_per_page_options: '24, 60, 120, 240'
             items_per_page_options_all: false
             items_per_page_options_all_label: '- All -'
@@ -5270,7 +5285,7 @@ display:
             pager:
               plugin_id: default
               advanced:
-                is_secondary: true
+                is_secondary: false
             filter:
               field_category_target_id:
                 plugin_id: default
@@ -5317,6 +5332,28 @@ display:
                   placeholder_text: ''
                   collapsible: false
                   is_secondary: true
+              field_date_duration:
+                plugin_id: bef_single
+                advanced:
+                  placeholder_text: ''
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'Currently there are no upcoming dates.'
+            format: basic_html
+          tokenize: false
       arguments: {  }
       filters:
         status:
@@ -5816,12 +5853,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_date_duration:
+          id: field_date_duration
+          table: node__field_date
+          field: field_date_duration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_duration_op
+            label: 'Date - Duration'
+            description: null
+            use_operator: false
+            operator: field_date_duration_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_duration
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: null
+            max_placeholder: null
+            placeholder: null
+          is_grouped: true
+          group_info:
+            label: 'Hide multi-day dates'
+            description: ''
+            identifier: duration
+            optional: true
+            widget: radios
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '1441'
       filter_groups:
         operator: AND
         groups:
           1: AND
           2: OR
       defaults:
+        empty: false
         title: true
         pager: false
         exposed_form: false
@@ -5911,11 +6000,11 @@ display:
             format: minimal_html
           destination: false
       display_comment: 'Link points to the date node but uses the related event''s title as link text.'
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -5935,7 +6024,7 @@ display:
     id: upcoming_dates_map
     display_title: 'Upcoming dates map'
     display_plugin: attachment
-    position: 8
+    position: 2
     display_options:
       title: 'Upcoming dates map'
       fields:
@@ -6987,6 +7076,7 @@ display:
           empty: false
           content: '<div class="result-counter">Displaying <strong>@start - @end</strong> of <strong>@total</strong></div>'
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
       displays:
         upcoming_dates: upcoming_dates
@@ -6996,7 +7086,6 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user

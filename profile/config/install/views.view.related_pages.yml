@@ -13,9 +13,9 @@ dependencies:
     - views_add_button
     - views_infinite_scroll
 id: related_pages
-label: 'Related Pages'
+label: 'Related pages'
 module: views
-description: 'OpenCulturas: list of related articles '
+description: 'OpenCulturas: list of related pages'
 tag: OpenCulturas
 base_table: node_field_data
 base_field: nid
@@ -125,7 +125,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'Currently no articles relate to this content.'
+            value: 'Currently no pages relate to this content.'
             format: basic_html
           tokenize: false
       sorts:
@@ -239,19 +239,18 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        langcode:
-          id: langcode
+        default_langcode:
+          id: default_langcode
           table: node_field_data
-          field: langcode
+          field: default_langcode
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: langcode
-          plugin_id: language
-          operator: in
-          value:
-            '***LANGUAGE_language_interface***': '***LANGUAGE_language_interface***'
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
           group: 1
           exposed: false
           expose:
@@ -268,7 +267,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -334,11 +332,11 @@ display:
             format: minimal_html
           destination: false
       footer: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -349,7 +347,7 @@ display:
     id: by_author
     display_title: 'By author'
     display_plugin: block
-    position: 6
+    position: 4
     display_options:
       title: 'By author'
       arguments:
@@ -432,11 +430,11 @@ display:
             value: ''
             format: minimal_html
           destination: false
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -445,7 +443,7 @@ display:
       tags: {  }
   by_page_type:
     id: by_page_type
-    display_title: 'by page type - On term page'
+    display_title: 'By page type - on term page'
     display_plugin: block
     position: 2
     display_options:
@@ -514,11 +512,11 @@ display:
         pager: false
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -527,11 +525,11 @@ display:
       tags: {  }
   mention_by_article:
     id: mention_by_article
-    display_title: 'Mention by'
+    display_title: 'Mentioned by'
     display_plugin: block
-    position: 5
+    position: 3
     display_options:
-      title: 'Mentioned in this article'
+      title: ''
       fields:
         field_references:
           id: field_references
@@ -700,8 +698,8 @@ display:
         relationships: false
         fields: false
         arguments: false
-        filters: false
-        filter_groups: false
+        filters: true
+        filter_groups: true
         header: false
       relationships:
         field_references:
@@ -754,11 +752,11 @@ display:
             value: ''
             format: minimal_html
           destination: false
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -770,7 +768,7 @@ display:
     id: related_article_latest
     display_title: Latest
     display_plugin: block
-    position: 4
+    position: 1
     display_options:
       title: 'Latest articles'
       pager:
@@ -800,11 +798,11 @@ display:
         pager: false
         arguments: false
       display_description: ''
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
