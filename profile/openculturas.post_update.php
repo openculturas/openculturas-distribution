@@ -967,3 +967,17 @@ function openculturas_post_update_0026(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Disable grouping in upcoming dates map.
+ */
+function openculturas_post_update_0027(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0027');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
