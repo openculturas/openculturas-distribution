@@ -981,3 +981,45 @@ function openculturas_post_update_0027(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Show related content details-container as open by default.
+ */
+function openculturas_post_update_0028(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0028');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Show Sub-categories details-container as open by default.
+ */
+function openculturas_post_update_0029(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0029');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Add missing related content details-container.
+ */
+function openculturas_post_update_0030(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0030');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

@@ -1,0 +1,41 @@
+core.entity_view_display.taxonomy_term.article_type.full:
+  expected_config:
+    third_party_settings:
+      field_group:
+        group_articles:
+          format_settings:
+            open: false
+            required_fields: false
+  update_actions:
+    delete:
+      third_party_settings:
+        field_group:
+          group_articles:
+            format_settings:
+              required_fields: false
+    change:
+      third_party_settings:
+        field_group:
+          group_articles:
+            format_settings:
+              open: true
+core.entity_view_display.taxonomy_term.page_type.full:
+  expected_config: { }
+  update_actions:
+    delete:
+      third_party_settings:
+        field_group:
+          group_pages:
+            format_settings:
+              required_fields: false
+    change:
+      content:
+        field_related_article_view_ref:
+          label: hidden
+        field_term_children_view_ref:
+          label: hidden
+      third_party_settings:
+        field_group:
+          group_pages:
+            format_settings:
+              open: true
