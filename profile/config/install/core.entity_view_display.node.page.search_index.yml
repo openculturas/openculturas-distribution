@@ -14,6 +14,7 @@ dependencies:
     - node.type.page
   module:
     - entity_reference_revisions
+    - field_formatter_class
     - text
     - user
 id: node.page.search_index
@@ -44,6 +45,16 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_sub_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
   field_subtitle:
     type: text_default
     label: hidden
@@ -57,7 +68,6 @@ hidden:
   field_layout_switcher: true
   field_meta_tags: true
   field_mood_image: true
-  field_sub_type: true
   field_supporters: true
   flag_bookmark_node: true
   flag_recommendation_node: true
