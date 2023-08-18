@@ -922,6 +922,41 @@ function openculturas_post_update_views_refactor_0010(): string {
 }
 
 /**
+ * Limit allowed_views in field_view.
+ */
+function openculturas_post_update_views_refactor_0011(): string {
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
+  if (!$field instanceof FieldConfigInterface) {
+    return '[Skipped] Field field_view not fround';
+  }
+  $allowed_views_setting = $field->getSetting('allowed_views');
+
+  $allowed_views = [
+    'event_catalogue',
+    'faq',
+    'oc_frontpage',
+    'frontpage',
+    'locations',
+    'related_article',
+    'related_date',
+    'related_profile',
+    'search',
+    'related_sponsor',
+    'vocabulary',
+  ];
+  foreach ($allowed_views as $view_name) {
+    $allowed_views_setting[$view_name] = $view_name;
+  }
+  $views = Views::getEnabledViews();
+
+  $allowed_views_setting = array_filter($allowed_views_setting, static fn($view_name): bool => isset($views[$view_name]), ARRAY_FILTER_USE_KEY);
+  $field->setSetting('allowed_views', $allowed_views_setting);
+  $field->save();
+  return sprintf('Limited allowed views in field_view to: %s', implode(',', array_filter($allowed_views_setting)));
+}
+
+/**
  * Add event type filter to upcoming dates display (calendar).
  */
 function openculturas_post_update_0026(): string {
