@@ -1,60 +1,64 @@
-uuid: aa9978d5-a9e9-4bdb-9ab9-fa6a5ee8c524
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_form_mode.node.bulk_edit
-    - field.field.node.page.body
-    - field.field.node.page.field_content_paragraphs
-    - field.field.node.page.field_layout_switcher
-    - field.field.node.page.field_meta_tags
-    - field.field.node.page.field_mood_image
-    - field.field.node.page.field_sub_type
-    - field.field.node.page.field_subtitle
-    - field.field.node.page.field_supporters
-    - node.type.page
-    - workflows.workflow.magazine_article
+    - field.field.node.faq.body
+    - field.field.node.faq.field_content_paragraphs
+    - field.field.node.faq.field_detailed_question
+    - field.field.node.faq.field_faq_category
+    - field.field.node.faq.field_mood_image
+    - node.type.faq
   module:
     - content_moderation
-_core:
-  default_config_hash: AD_lefuYmjsKeH3OQApsyP_nLj6ZnGaALznLQSQ0Z_o
-id: node.page.bulk_edit
+    - field_group
+third_party_settings:
+  field_group:
+    group_administrative:
+      children:
+        - path
+        - url_redirects
+        - simple_sitemap
+      label: Administrative
+      region: hidden
+      parent_name: ''
+      weight: 14
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
+id: node.faq.bulk_edit
 targetEntityType: node
-bundle: page
+bundle: faq
 mode: bulk_edit
 content:
-  co_authors:
-    type: entity_reference_autocomplete_tags
-    weight: 17
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_sub_type:
-    type: options_buttons
-    weight: 0
+  field_faq_category:
+    type: options_select
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 1
+    weight: 0
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 0
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -74,7 +78,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -85,11 +89,8 @@ content:
 hidden:
   body: true
   field_content_paragraphs: true
-  field_layout_switcher: true
-  field_meta_tags: true
+  field_detailed_question: true
   field_mood_image: true
-  field_subtitle: true
-  field_supporters: true
   path: true
   simple_sitemap: true
   status: true

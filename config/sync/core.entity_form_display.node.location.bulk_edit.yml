@@ -32,116 +32,6 @@ dependencies:
     - workflows.workflow.draften_member
   module:
     - content_moderation
-    - field_group
-third_party_settings:
-  field_group:
-    group_about:
-      children:
-        - body
-        - field_category
-        - field_contact_data
-        - field_started
-      label: Profile
-      region: hidden
-      parent_name: group_location_tabs_container
-      weight: 21
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-profile
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_location_tabs_container:
-      children:
-        - group_location_tab_basics
-        - group_about
-        - group_location_tab_performer
-        - group_location_tab_media
-        - group_location_tab_advanced
-      label: Tabs
-      region: hidden
-      parent_name: ''
-      weight: 15
-      format_type: tabs
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: groups-container
-        direction: horizontal
-        width_breakpoint: 640
-    group_location_tab_basics:
-      children:
-        - title
-        - field_address_data
-        - field_subtitle
-      label: Basics
-      region: hidden
-      parent_name: group_location_tabs_container
-      weight: 20
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-basics
-        formatter: open
-        description: ''
-        required_fields: true
-    group_location_tab_media:
-      children:
-        - field_gallery
-        - field_logo
-        - field_mood_image
-        - field_portrait
-        - field_supporters
-      label: Media
-      region: hidden
-      parent_name: group_location_tabs_container
-      weight: 23
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-media
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_location_tab_advanced:
-      children:
-        - field_accessibility
-        - field_additional_information
-        - field_opening_hours
-        - field_press_quotes
-        - field_safety_info
-      label: Advanced
-      region: hidden
-      parent_name: group_location_tabs_container
-      weight: 24
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-advanced
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_location_tab_performer:
-      children:
-        - field_people_reference
-        - field_reference_title
-      label: People
-      region: hidden
-      parent_name: group_location_tabs_container
-      weight: 22
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-performers
-        formatter: closed
-        description: ''
-        required_fields: true
 id: node.location.bulk_edit
 targetEntityType: node
 bundle: location
@@ -169,6 +59,22 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_category:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_sub_type:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -217,7 +123,6 @@ hidden:
   field_accessibility: true
   field_additional_information: true
   field_address_data: true
-  field_category: true
   field_contact_data: true
   field_gallery: true
   field_logo: true
@@ -233,7 +138,6 @@ hidden:
   field_related_date_view_ref: true
   field_safety_info: true
   field_started: true
-  field_sub_type: true
   field_subtitle: true
   field_supporters: true
   path: true

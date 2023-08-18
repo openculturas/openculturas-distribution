@@ -30,133 +30,6 @@ dependencies:
     - workflows.workflow.draften
   module:
     - content_moderation
-    - field_group
-third_party_settings:
-  field_group:
-    group_administrative:
-      children:
-        - status
-        - path
-        - url_redirects
-        - simple_sitemap
-      label: Administrative
-      region: hidden
-      parent_name: ''
-      weight: 11
-      format_type: details_sidebar
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-        weight: 0
-    group_event_tabs_container:
-      children:
-        - group_event_tab_basics
-        - group_event_tab_artists
-        - group_event_tab_media
-        - group_event_tab_advanced
-        - group_event_tab_bookable
-      label: Tabs
-      region: hidden
-      parent_name: ''
-      weight: 12
-      format_type: tabs
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: groups-container
-        direction: horizontal
-        width_breakpoint: 640
-    group_event_tab_basics:
-      children:
-        - title
-        - body
-        - field_category
-        - field_subtitle
-        - field_url
-      label: Basics
-      region: hidden
-      parent_name: group_event_tabs_container
-      weight: 20
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-basics
-        formatter: open
-        description: ''
-        required_fields: true
-    group_event_tab_media:
-      children:
-        - field_gallery
-        - field_mood_image
-        - field_supporters
-      label: Media
-      region: hidden
-      parent_name: group_event_tabs_container
-      weight: 22
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-media
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_event_tab_artists:
-      children:
-        - field_people_reference
-      label: People
-      region: hidden
-      parent_name: group_event_tabs_container
-      weight: 21
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-artists
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_event_tab_bookable:
-      children:
-        - field_bookable_info
-        - field_is_bookable
-      label: Bookable
-      region: hidden
-      parent_name: group_event_tabs_container
-      weight: 24
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-bookable
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_event_tab_advanced:
-      children:
-        - field_accessibility
-        - field_duration
-        - field_inlanguage
-        - field_min_age
-        - field_press_quotes
-        - field_started
-      label: Advanced
-      region: hidden
-      parent_name: group_event_tabs_container
-      weight: 23
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-advanced
-        formatter: closed
-        description: ''
-        required_fields: true
 id: node.event.bulk_edit
 targetEntityType: node
 bundle: event
@@ -185,9 +58,25 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_category:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_status:
     type: options_select
     weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_sub_type:
+    type: options_buttons
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -237,7 +126,6 @@ hidden:
   body: true
   field_accessibility: true
   field_bookable_info: true
-  field_category: true
   field_duration: true
   field_gallery: true
   field_inlanguage: true
@@ -250,7 +138,6 @@ hidden:
   field_recommended_by_view_ref: true
   field_related_date_view_ref: true
   field_started: true
-  field_sub_type: true
   field_subtitle: true
   field_supporters: true
   field_url: true

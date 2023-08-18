@@ -48,14 +48,28 @@ function openculturas_faq_update_dependencies(): array {
 }
 
 /**
- * Installs the view displays teaser_unified.
+ * Installs the view display teaser_unified.
  */
 function openculturas_faq_update_9301(): string {
   /** @var \Drupal\update_helper\Updater $updater */
   $updater = \Drupal::service('update_helper.updater');
 
   // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9001');
+  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9301');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Installs form mode bulk_edit.
+ */
+function openculturas_faq_update_9302(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9302');
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();

@@ -19,95 +19,6 @@ dependencies:
     - workflows.workflow.magazine_article
   module:
     - content_moderation
-    - field_group
-third_party_settings:
-  field_group:
-    group_administrative:
-      children:
-        - url_redirects
-        - path
-        - simple_sitemap
-      label: Administrative
-      region: hidden
-      parent_name: ''
-      weight: 6
-      format_type: details_sidebar
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-        weight: 0
-    group_meta_information:
-      children:
-        - field_author
-        - field_category
-        - field_column
-        - field_date_published
-      label: 'Meta information'
-      region: hidden
-      parent_name: group_magazine_tabs_container
-      weight: 21
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-meta
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_magazine_tabs_container:
-      children:
-        - group_magazine_tab_basics
-        - group_meta_information
-        - group_magazine_tab_mentioned
-      label: Tabs
-      region: hidden
-      parent_name: ''
-      weight: 10
-      format_type: tabs
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: groups-container
-        direction: horizontal
-        width_breakpoint: 640
-    group_magazine_tab_basics:
-      children:
-        - title
-        - body
-        - field_content_paragraphs
-        - field_mood_image
-        - field_subtitle
-      label: Basics
-      region: hidden
-      parent_name: group_magazine_tabs_container
-      weight: 20
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-basics
-        formatter: open
-        description: ''
-        required_fields: true
-    group_magazine_tab_mentioned:
-      children:
-        - field_references
-      label: Mentions
-      region: hidden
-      parent_name: group_magazine_tabs_container
-      weight: 22
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-mentions
-        formatter: closed
-        description: ''
-        required_fields: true
 id: node.article.bulk_edit
 targetEntityType: node
 bundle: article
@@ -126,6 +37,28 @@ content:
   created:
     type: datetime_timestamp
     weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_category:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_column:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_sub_type:
+    type: options_buttons
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -174,15 +107,12 @@ content:
 hidden:
   body: true
   field_author: true
-  field_category: true
-  field_column: true
   field_content_paragraphs: true
   field_date_published: true
   field_meta_tags: true
   field_mood_image: true
   field_recommended_by_view_ref: true
   field_references: true
-  field_sub_type: true
   field_subtitle: true
   path: true
   simple_sitemap: true

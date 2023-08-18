@@ -31,113 +31,6 @@ dependencies:
     - workflows.workflow.draften_member
   module:
     - content_moderation
-    - field_group
-third_party_settings:
-  field_group:
-    group_profile_type:
-      children:
-        - field_people_reference
-        - field_profile_role
-        - field_profile_type
-        - field_reference_title
-      label: 'Profile type'
-      region: hidden
-      parent_name: group_profile_tab_basics
-      weight: 4
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-type
-        description: ''
-        required_fields: true
-    group_profile_tabs_container:
-      children:
-        - group_profile_tab_basics
-        - group_profile
-        - group_profile_tab_media
-        - group_profile_tab_advanced
-      label: Tabs
-      region: hidden
-      parent_name: ''
-      weight: 19
-      format_type: tabs
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: groups-container
-        direction: horizontal
-        width_breakpoint: 640
-    group_profile_tab_basics:
-      children:
-        - title
-        - field_subtitle
-        - group_profile_type
-      label: Basics
-      region: hidden
-      parent_name: group_profile_tabs_container
-      weight: 1
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-basics
-        formatter: open
-        description: ''
-        required_fields: true
-    group_profile_tab_media:
-      children:
-        - field_gallery
-        - field_logo
-        - field_mood_image
-        - field_portrait
-      label: Media
-      region: hidden
-      parent_name: group_profile_tabs_container
-      weight: 3
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-media
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_profile_tab_advanced:
-      children:
-        - field_press_quotes
-      label: Advanced
-      region: hidden
-      parent_name: group_profile_tabs_container
-      weight: 4
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: group-advanced
-        formatter: closed
-        description: ''
-        required_fields: true
-    group_profile:
-      children:
-        - body
-        - field_address_data
-        - field_category
-        - field_contact_data
-        - field_started
-      label: Profile
-      region: hidden
-      parent_name: group_profile_tabs_container
-      weight: 2
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        formatter: closed
-        description: ''
-        required_fields: true
-        open: true
 id: node.profile.bulk_edit
 targetEntityType: node
 bundle: profile
@@ -192,6 +85,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
