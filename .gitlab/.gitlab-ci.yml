@@ -31,7 +31,7 @@ default:
   cache:
     - key: composer
       paths:
-       - $COMPOSER_CACHE_DIR
+        - $COMPOSER_CACHE_DIR
       when: always
 
 composer validate:
@@ -48,7 +48,6 @@ composer validate:
         paths:
           - "composer.json"
           - "composer.lock"
-        compare_to: 1.2.x
 
 .validate_rules:
   rules:
