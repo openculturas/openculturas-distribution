@@ -1086,3 +1086,30 @@ function openculturas_post_update_0032(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Install missing by_term display in view related_date.
+ */
+function openculturas_post_update_0033(): string {
+  $view = Views::getView('related_date');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $displays_ids = [
+      'by_term',
+    ];
+    foreach ($displays_ids as $displays_id) {
+      if ($view->displayHandlers->has($displays_id)) {
+        return sprintf('[Skipped] Display %s in view related_date is already installed', $displays_id);
+      }
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0033');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
