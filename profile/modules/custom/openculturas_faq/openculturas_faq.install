@@ -13,7 +13,10 @@ use Drupal\user\RoleInterface;
 /**
  * Implements hook_install().
  */
-function openculturas_faq_install(): void {
+function openculturas_faq_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('oc_admin');
   if ($role instanceof RoleInterface) {
@@ -70,6 +73,20 @@ function openculturas_faq_update_9302(): string {
 
   // Execute configuration update definitions with logging of success.
   $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9302');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Setup entity view displays search_index and search_result.
+ */
+function openculturas_faq_update_9303(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9303');
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();

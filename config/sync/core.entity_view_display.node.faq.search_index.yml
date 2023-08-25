@@ -1,0 +1,72 @@
+uuid: cc3d5f2b-5d7e-43d7-8c54-cfbdef44e227
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.faq.body
+    - field.field.node.faq.field_content_paragraphs
+    - field.field.node.faq.field_detailed_question
+    - field.field.node.faq.field_faq_category
+    - field.field.node.faq.field_mood_image
+    - node.type.faq
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+    - text
+    - user
+_core:
+  default_config_hash: YjESJMlQDfWUpcnvuo-iIQt9mzyMSlPjHpT2adXTLZ4
+id: node.faq.search_index
+targetEntityType: node
+bundle: faq
+mode: search_index
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_content_paragraphs:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_detailed_question:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_faq_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 3
+    region: content
+  path:
+    type: path
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_mood_image: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true
