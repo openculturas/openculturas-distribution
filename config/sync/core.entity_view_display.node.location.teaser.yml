@@ -31,6 +31,7 @@ dependencies:
     - node.type.location
   module:
     - entity_reference_revisions
+    - field_formatter_class
     - text
     - user
 id: node.location.teaser
@@ -52,7 +53,7 @@ content:
       view_mode: address_line
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_portrait:
     type: entity_reference_entity_view
@@ -63,12 +64,22 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_sub_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
 hidden:
   body: true
@@ -92,7 +103,6 @@ hidden:
   field_related_date_view_ref: true
   field_safety_info: true
   field_started: true
-  field_sub_type: true
   field_supporters: true
   flag_bookmark_node: true
   flag_claim_ownership: true

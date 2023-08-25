@@ -81,6 +81,8 @@
 %}
 {% set mood_image = content.field_mood_image|render|trim is not empty %}
 {% set profile_image = content.field_portrait|render|trim is not empty %}
+{% set sub_type = content.field_sub_type|render|trim is not empty %}
+{% set column = content.field_column|render|trim is not empty %}
 {% set wrapper_tag = 'article' %}
 
 {{ attach_library('classy/node') }}
@@ -92,22 +94,34 @@
     {% elseif profile_image %}
       {{ content.field_portrait }}
     {% endif %}
-
+  </div>
+  <div class="teaser--body">
     {{ title_prefix }}
     {% if label and not page %}
-      <h3{{ title_attributes.addClass('teaser') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h3>
+      {% if column %}
+        <div class="article-column field__label" id="st-{{ node.id }}">{{ content.field_column }}</div>
+        <h3{{ title_attributes.addClass('teaser') }} id="h-{{ node.id }}">
+          <a href="{{ url }}" rel="bookmark" aria-labelledby="st-{{ node.id }} h-{{ node.id }}">{{ label }}</a>
+        </h3>
+      {% elseif sub_type %}
+        <div class="sub-type field__label" id="st-{{ node.id }}">{{ content.field_sub_type }}</div>
+        <h3{{ title_attributes.addClass('teaser') }} id="h-{{ node.id }}">
+          <a href="{{ url }}" rel="bookmark" aria-labelledby="st-{{ node.id }} h-{{ node.id }}">{{ label }}</a>
+        </h3>
+      {% else %}
+        <h3{{ title_attributes.addClass('teaser') }}>
+          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+        </h3>
+      {% endif %}
     {% endif %}
     {{ title_suffix }}
 
     <div{{ content_attributes.addClass('node__content') }}>
-      {{ content | without('field_mood_image', 'field_author', 'field_portrait', 'field_date_published')}}
+      {{ content | without('field_mood_image', 'field_sub_type', 'field_column', 'field_author', 'field_portrait', 'field_date_published') }}
     </div>
   </div>
-
   {% if content.field_author|render|trim or content.field_publication_date|render|trim  %}
-  <footer>
+  <footer class="teaser--footer">
     <div class="teaser--author">
       {{ content.field_author }}
     </div>

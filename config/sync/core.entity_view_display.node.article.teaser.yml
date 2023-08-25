@@ -51,7 +51,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 2
+    weight: 4
     region: content
   co_authors:
     type: author
@@ -69,7 +69,17 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 3
+    weight: 5
+    region: content
+  field_column:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
     region: content
   field_date_published:
     type: datetime_default
@@ -80,7 +90,7 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 4
+    weight: 6
     region: content
   field_mood_image:
     type: entity_reference_entity_view
@@ -91,23 +101,31 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_sub_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
+    region: content
   field_subtitle:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
 hidden:
   content_moderation_control: true
   extra_field_social_media_buttons: true
   field_category: true
-  field_column: true
   field_content_paragraphs: true
   field_meta_tags: true
   field_recommended_by_view_ref: true
   field_references: true
-  field_sub_type: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true

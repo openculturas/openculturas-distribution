@@ -1,0 +1,101 @@
+core.entity_view_display.node.article.teaser:
+  expected_config: { }
+  update_actions:
+    delete:
+      hidden:
+        field_sub_type: true
+        field_column: true
+    add:
+      content:
+        field_column:
+          type: entity_reference_label
+          label: hidden
+          settings:
+            link: false
+          third_party_settings:
+            field_formatter_class:
+              class: ''
+          weight: 1
+          region: content
+        field_sub_type:
+          type: entity_reference_label
+          label: hidden
+          settings:
+            link: false
+          third_party_settings:
+            field_formatter_class:
+              class: ''
+          weight: 2
+          region: content
+    change:
+      content:
+        body:
+          weight: 4
+        co_authors:
+          weight: 0
+        field_author:
+          weight: 5
+        field_date_published:
+          weight: 6
+        field_mood_image:
+          weight: 0
+        field_subtitle:
+          weight: 3
+
+core.entity_view_display.node.event.teaser:
+  expected_config: { }
+  update_actions:
+    delete:
+      hidden:
+        field_sub_type: true
+    add:
+      content:
+        field_sub_type:
+          type: entity_reference_label
+          label: hidden
+          settings:
+            link: false
+          third_party_settings:
+            field_formatter_class:
+              class: ''
+          weight: 0
+          region: content
+    change:
+      content:
+        body:
+          weight: 3
+        co_authors:
+          weight: 0
+        field_mood_image:
+          weight: 2
+        field_subtitle:
+          weight: 1
+
+core.entity_view_display.node.location.teaser:
+  expected_config: { }
+  update_actions:
+    delete:
+      hidden:
+        field_sub_type: true
+    add:
+      content:
+        field_sub_type:
+          type: entity_reference_label
+          label: hidden
+          settings:
+            link: false
+          third_party_settings:
+            field_formatter_class:
+              class: ''
+          weight: 1
+          region: content
+    change:
+      content:
+        co_authors:
+          weight: 0
+        field_address_data:
+          weight: 3
+        field_portrait:
+          weight: 0
+        field_subtitle:
+          weight: 2
