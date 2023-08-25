@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.faq.body
+    - field.field.node.faq.field_content_paragraphs
+    - field.field.node.faq.field_detailed_question
+    - field.field.node.faq.field_faq_category
+    - field.field.node.faq.field_mood_image
+    - node.type.faq
+  module:
+    - field_formatter_class
+    - geocoder_field
+    - text
+    - user
+id: node.faq.search_result
+targetEntityType: node
+bundle: faq
+mode: search_result
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+  field_detailed_question:
+    type: geocoder_geocode_formatter
+    label: above
+    settings:
+      dumper: wkt
+      providers: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  path:
+    type: path
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_content_paragraphs: true
+  field_faq_category: true
+  field_mood_image: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

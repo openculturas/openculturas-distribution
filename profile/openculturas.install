@@ -17,6 +17,8 @@ use Drupal\field\FieldStorageConfigInterface;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EcaNotificationRecipientListBuilder;
 use Drupal\openculturas_custom\Form\EcaNotificationRecipientForm;
+use Drupal\search_api\Entity\Index;
+use Drupal\search_api\IndexInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
@@ -358,4 +360,21 @@ function openculturas_update_9306(): string {
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
+}
+
+/**
+ * Indexed all content type by default except date.
+ */
+function openculturas_update_9307(): void {
+  /** @var \Drupal\search_api\IndexInterface|null $search_index */
+  $search_index = Index::load('content');
+  if ($search_index instanceof IndexInterface) {
+    /** @var \Drupal\search_api\Plugin\search_api\datasource\ContentEntity $data_source */
+    $data_source = $search_index->getDatasource('entity:node');
+    $configuration = $data_source->getConfiguration();
+    $configuration['bundles']['selected'] = ['date' => 'date'];
+    $configuration['bundles']['default'] = TRUE;
+    $data_source->setConfiguration($configuration);
+    $search_index->save();
+  }
 }
