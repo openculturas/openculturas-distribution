@@ -79,6 +79,7 @@
   'profile-teaser'
 ]
 %}
+{% set sub_type = content.field_sub_type|render|trim is not empty %}
 {% set wrapper_tag = 'article' %}
 {{ attach_library('classy/node') }}
  {% block content_wrapper %}
@@ -89,13 +90,20 @@
     <div class="profile--content">
       {{ title_prefix }}
       {% if label %}
-        <h3{{ title_attributes.addClass('teaser') }}>
-          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-        </h3>
+        {% if sub_type %}
+          <div class="sub-type field__label" id="st-{{ node.id }}">{{ content.field_sub_type }}</div>
+          <h3{{ title_attributes.addClass('teaser') }} id="h-{{ node.id }}">
+            <a href="{{ url }}" rel="bookmark" aria-labelledby="st-{{ node.id }} h-{{ node.id }}">{{ label }}</a>
+          </h3>
+        {% else %}
+          <h3{{ title_attributes.addClass('teaser') }}>
+            <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+          </h3>
+        {% endif %}
       {% endif %}
       {{ title_suffix }}
       <div{{ content_attributes.addClass('node__content') }}>
-        {{ content | without('field_portrait') }}
+        {{ content | without('field_portrait', 'field_sub_type') }}
       </div>
     </div>
   </{{ wrapper_tag }}>
