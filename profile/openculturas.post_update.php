@@ -1113,3 +1113,24 @@ function openculturas_post_update_0033(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Add field sub_type into default form of node type article, event, location and page.
+ */
+function openculturas_post_update_0034(): string {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepository $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  $formDisplay = $entity_display_repository->getFormDisplay('node', 'article');
+  if ($formDisplay->getComponent('field_sub_type') !== NULL) {
+    return '[Skipped] field_sub_type is already not hidden.';
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0034');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
