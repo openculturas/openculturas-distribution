@@ -124,24 +124,26 @@ h6.teaser {
 // changed in 1.3.1: teaser grid layout
 
 .universal-teaser {
-  display: grid;
-  grid-template-columns: 10, 1fr;
-  grid-template-rows: auto;
-  column-gap: $grid-gutter;
-  grid-template-areas: 
-    "text text text text text text image image image image"
-    "foot foot foot foot foot foot foot foot foot foot";
+  @include breakpoint(m) {
+    display: grid;
+    grid-template-columns: 10, 1fr;
+    grid-template-rows: auto;
+    column-gap: $grid-gutter;
+    grid-template-areas: 
+      "text text text text text text image image image image"
+      "foot foot foot foot foot foot foot foot foot foot";
 
-  .teaser--top {
-    grid-area: image;
+    .teaser--top {
+      grid-area: image;
+      justify-self: end;
+    }
+    .teaser--body {
+      grid-area: text;
+    }
+    .teaser--footer {
+      grid-area: foot;
+    }
   }
-  .teaser--body {
-    grid-area: text;
-  }
-  .teaser--footer {
-    grid-area: foot;
-  }
-
 }
 
 

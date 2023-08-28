@@ -13787,22 +13787,25 @@ h6.teaser {
   text-align: right;
 }
 
-.universal-teaser {
-  display: grid;
-  grid-template-columns: 10, 1fr;
-  grid-template-rows: auto;
-  -moz-column-gap: 1.25rem;
-       column-gap: 1.25rem;
-  grid-template-areas: "text text text text text text image image image image" "foot foot foot foot foot foot foot foot foot foot";
-}
-.universal-teaser .teaser--top {
-  grid-area: image;
-}
-.universal-teaser .teaser--body {
-  grid-area: text;
-}
-.universal-teaser .teaser--footer {
-  grid-area: foot;
+@media screen and (min-width: 48rem) {
+  .universal-teaser {
+    display: grid;
+    grid-template-columns: 10, 1fr;
+    grid-template-rows: auto;
+    -moz-column-gap: 1.25rem;
+         column-gap: 1.25rem;
+    grid-template-areas: "text text text text text text image image image image" "foot foot foot foot foot foot foot foot foot foot";
+  }
+  .universal-teaser .teaser--top {
+    grid-area: image;
+    justify-self: end;
+  }
+  .universal-teaser .teaser--body {
+    grid-area: text;
+  }
+  .universal-teaser .teaser--footer {
+    grid-area: foot;
+  }
 }
 
 /* side-by-side teasers */
