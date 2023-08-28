@@ -13720,21 +13720,8 @@ h6.teaser {
 .universal-teaser .field {
   margin: 0.5rem 0;
 }
-.universal-teaser .teaser--top::after {
-  content: "";
-  display: table;
-  clear: both;
-}
 .universal-teaser .field--name-field-mood-image {
   display: block;
-  max-width: 100%;
-}
-@media screen and (min-width: 48rem) {
-  .universal-teaser .field--name-field-mood-image {
-    max-width: 30%;
-    float: right;
-    margin: 0 0 0.5rem 2.5rem;
-  }
 }
 .universal-teaser .field--name-field-mood-image .field {
   margin: 0;
@@ -13798,6 +13785,24 @@ h6.teaser {
   margin-top: 1.333rem;
   margin-left: 1.25rem;
   text-align: right;
+}
+
+.universal-teaser {
+  display: grid;
+  grid-template-columns: 10, 1fr;
+  grid-template-rows: auto;
+  -moz-column-gap: 1.25rem;
+       column-gap: 1.25rem;
+  grid-template-areas: "text text text text text text image image image image" "foot foot foot foot foot foot foot foot foot foot";
+}
+.universal-teaser .teaser--top {
+  grid-area: image;
+}
+.universal-teaser .teaser--body {
+  grid-area: text;
+}
+.universal-teaser .teaser--footer {
+  grid-area: foot;
 }
 
 /* side-by-side teasers */
