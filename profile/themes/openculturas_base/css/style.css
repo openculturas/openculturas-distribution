@@ -13720,6 +13720,9 @@ h6.teaser {
 .universal-teaser .field {
   margin: 0.5rem 0;
 }
+.universal-teaser .teaser--top {
+  margin-bottom: 0.625rem;
+}
 .universal-teaser .field--name-field-mood-image {
   display: block;
 }
@@ -13786,42 +13789,48 @@ h6.teaser {
   margin-left: 1.25rem;
   text-align: right;
 }
+.universal-teaser img.image-style-teaser {
+  display: inline-block;
+  aspect-ratio: 16/9;
+  min-width: 240px;
+  min-height: 146px;
+  background: var(--color-bg-slight-contrast);
+}
 
 .universal-teaser {
-  display: grid;
-  grid-template-columns: 10, 1fr;
-  grid-template-rows: auto;
-  -moz-column-gap: 1.25rem;
-       column-gap: 1.25rem;
-  grid-template-areas: "text text text text text text image image image image" "foot foot foot foot foot foot foot foot foot foot";
+  display: flex;
+  flex-flow: column;
 }
-.universal-teaser .teaser--top {
-  grid-area: image;
-}
-.universal-teaser .teaser--body {
-  grid-area: text;
-}
-.universal-teaser .teaser--footer {
-  grid-area: foot;
+@media screen and (min-width: 48rem) {
+  .universal-teaser {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: auto;
+    -moz-column-gap: 1.25rem;
+         column-gap: 1.25rem;
+    grid-template-areas: "text text text text text text image image image image" "foot foot foot foot foot foot foot foot foot foot";
+  }
+  .universal-teaser .teaser--top {
+    grid-area: image;
+    justify-self: end;
+  }
+  .universal-teaser .teaser--body {
+    grid-area: text;
+  }
+  .universal-teaser .teaser--footer {
+    grid-area: foot;
+  }
 }
 
 /* side-by-side teasers */
 @media screen and (min-width: 48rem) {
-  .grid-2-m .universal-teaser .field--name-field-mood-image,
-  .grid-3-l .universal-teaser .field--name-field-mood-image {
-    float: none;
-    margin-left: 0;
-    max-width: 100%;
-  }
-  .grid-2-m .universal-teaser .field--name-field-mood-image img,
-  .grid-3-l .universal-teaser .field--name-field-mood-image img {
-    display: inline-block;
-    aspect-ratio: 16/9;
-    min-width: 240px;
-    min-height: 146px;
-    background: var(--color-bg-slight-contrast);
+  .grid-2-m .universal-teaser,
+  .grid-3-l .universal-teaser {
+    display: flex;
+    flex-flow: column;
   }
 }
+
 #cookiesjsr {
   --default-margin: 1.25rem;
   --layer-body-bg-color: var(--color-bg-slight-contrast);
