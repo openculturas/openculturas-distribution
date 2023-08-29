@@ -176,9 +176,8 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
       if (!empty($settings['body'])) {
         $entity->set($this->descriptionField, $settings['body']);
       }
-      $descriptionField = $entity->get($this->descriptionField)->getValue();
       $description = $entity->get($this->descriptionField);
-      if (!empty($descriptionField->value)) {
+      if (!$description->isEmpty()) {
         $build['#description'] = $description->view($viewMode);
       }
     }
