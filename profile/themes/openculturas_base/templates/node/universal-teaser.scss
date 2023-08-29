@@ -29,9 +29,9 @@ h6.teaser {
     margin: .5rem 0;
   }
 
-  //.teaser--top {
-    //min-width: 12rem;
-  //}
+  .teaser--top {
+    margin-bottom: .625rem;
+  }
 
   .field--name-field-mood-image {
     display: block;
@@ -119,14 +119,26 @@ h6.teaser {
     text-align: right;
 
   }
+
+  // broken image fallback
+  img.image-style-teaser {
+    display: inline-block;
+    aspect-ratio: 16/9;
+    min-width: 240px;
+    min-height: 146px;
+    background: var(--color-bg-slight-contrast);
+  }
+
 }
 
 // changed in 1.3.1: teaser grid layout
 
 .universal-teaser {
+  display: flex;
+  flex-flow: column;
   @include breakpoint(m) {
     display: grid;
-    grid-template-columns: 10, 1fr;
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: auto;
     column-gap: $grid-gutter;
     grid-template-areas: 
@@ -150,22 +162,12 @@ h6.teaser {
 /* side-by-side teasers */
 
 
-@media screen and (min-width: 48rem) {
-  .grid-2-m,
-  .grid-3-l { 
-    .universal-teaser .field--name-field-mood-image {
-      float: none;
-      margin-left: 0;
-      max-width: 100%;
-
-      // broken image fallback
-      img {
-        display: inline-block;
-        aspect-ratio: 16/9;
-        min-width: 240px;
-        min-height: 146px;
-        background: var(--color-bg-slight-contrast);
-      }
+.grid-2-m,
+.grid-3-l { 
+  .universal-teaser {
+    @include breakpoint(m) {
+      display: flex;
+      flex-flow: column;
     }
   }
 }
