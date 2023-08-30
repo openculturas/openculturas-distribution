@@ -1193,3 +1193,23 @@ function openculturas_post_update_0038(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Enable 'Hide non translatable fields on translation forms' for paragraph.
+ */
+function openculturas_post_update_0039(): void {
+  /** @var \Drupal\content_translation\ContentTranslationManager $content_translation_manager */
+  $content_translation_manager = \Drupal::service('content_translation.manager');
+  $paragraphs_type_storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  /** @var \Drupal\paragraphs\ParagraphsTypeInterface[] $paragraphs_types */
+  $paragraphs_types = $paragraphs_type_storage->loadMultiple();
+  foreach ($paragraphs_types as $paragraph_type) {
+    assert(is_string($paragraph_type->id()));
+    if ($content_translation_manager->isEnabled('paragraph', $paragraph_type->id())) {
+      $settings = $content_translation_manager->getBundleTranslationSettings('paragraph', $paragraph_type->id());
+      $settings['untranslatable_fields_hide'] = TRUE;
+      $content_translation_manager->setBundleTranslationSettings('paragraph', $paragraph_type->id(), $settings);
+    }
+  }
+
+}
