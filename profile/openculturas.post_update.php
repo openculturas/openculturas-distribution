@@ -1283,3 +1283,35 @@ function openculturas_post_update_0041(): void {
     $view->save();
   }
 }
+
+/**
+ * Move sub type filter after category filter in locations view.
+ */
+function openculturas_post_update_0042(): void {
+  $view = Views::getView('locations');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $display = $view->getDisplay();
+    $old_filters = $display->getOption('filters');
+    $new_filters = [];
+    $new_order_keys = [
+      'status',
+      'type',
+      'title',
+      'field_category_target_id_1',
+      'field_sub_type_target_id',
+      'field_address_location_proximity',
+      'default_langcode',
+      'field_address_location_lat',
+      'field_address_location_lon',
+    ];
+    foreach ($new_order_keys as $id) {
+      if (!isset($old_filters[$id])) {
+        continue;
+      }
+      $new_filters[$id] = $old_filters[$id];
+    }
+    $display->setOption('filters', $new_filters);
+    $view->save();
+  }
+}
