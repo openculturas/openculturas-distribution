@@ -5,10 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_references
     - node.type.article
-    - node.type.event
-    - node.type.location
-    - node.type.page
-    - node.type.profile
 id: node.article.field_references
 field_name: field_references
 entity_type: node
@@ -20,17 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      page: page
-      event: event
-      location: location
-      article: article
-      profile: profile
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    auto_create_bundle: article
+    view:
+      view_name: entity_reference_node
+      display_name: er_node_references
+      arguments: {  }
 field_type: entity_reference
