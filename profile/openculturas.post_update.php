@@ -12,7 +12,11 @@ use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\asset_injector\AssetInjectorInterface;
+use Drupal\editor\EditorInterface;
+use Drupal\editor\Entity\Editor;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\filter\Entity\FilterFormat;
+use Drupal\filter\FilterFormatInterface;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\VocabularyInterface;
 use Drupal\update_helper\ConfigName;
@@ -1200,16 +1204,79 @@ function openculturas_post_update_0038(): string {
 function openculturas_post_update_0039(): void {
   /** @var \Drupal\content_translation\ContentTranslationManager $content_translation_manager */
   $content_translation_manager = \Drupal::service('content_translation.manager');
-  $paragraphs_type_storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  $paragraphs_type_storage = \Drupal::entityTypeManager()
+    ->getStorage('paragraphs_type');
   /** @var \Drupal\paragraphs\ParagraphsTypeInterface[] $paragraphs_types */
   $paragraphs_types = $paragraphs_type_storage->loadMultiple();
   foreach ($paragraphs_types as $paragraph_type) {
     assert(is_string($paragraph_type->id()));
-    if ($content_translation_manager->isEnabled('paragraph', $paragraph_type->id())) {
-      $settings = $content_translation_manager->getBundleTranslationSettings('paragraph', $paragraph_type->id());
+    if ($content_translation_manager->isEnabled('paragraph',
+      $paragraph_type->id())) {
+      $settings = $content_translation_manager->getBundleTranslationSettings('paragraph',
+        $paragraph_type->id());
       $settings['untranslatable_fields_hide'] = TRUE;
-      $content_translation_manager->setBundleTranslationSettings('paragraph', $paragraph_type->id(), $settings);
+      $content_translation_manager->setBundleTranslationSettings('paragraph',
+        $paragraph_type->id(), $settings);
     }
   }
+}
 
+/**
+ * Re import all filter formats and editors.
+ */
+function openculturas_post_update_0040(): void {
+  $format_id_list = [
+    'advanced_html',
+    'basic_html',
+    'full_html',
+    'minimal_html',
+    'plain_text',
+    'restricted_html',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($format_id_list as $format_id) {
+    $full_config_name = 'filter.format.' . $format_id;
+    $format = FilterFormat::load($format_id);
+    if (!$format instanceof FilterFormatInterface) {
+      $logger->warning(sprintf('Unable to import %s config, because filter format %s not found.', $full_config_name, $format_id));
+      continue;
+    }
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if (!$configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+      continue;
+    }
+    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+
+  $editor_id_list = [
+    'advanced_html',
+    'basic_html',
+    'full_html',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($editor_id_list as $editor_id) {
+    $full_config_name = 'editor.editor.' . $editor_id;
+    $editor = Editor::load($editor_id);
+    if (!$editor instanceof EditorInterface) {
+      $logger->warning(sprintf('Unable to import %s config, because editor %s not found.', $full_config_name, $editor_id));
+      continue;
+    }
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if (!$configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+      continue;
+    }
+    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+
+  $logger->output();
 }
