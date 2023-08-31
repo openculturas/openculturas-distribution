@@ -968,41 +968,7 @@ function openculturas_post_update_0026(): string {
   $updater = \Drupal::service('update_helper.updater');
 
   // Execute configuration update definitions with logging of success.
-  $no_warnings = $updater->executeUpdate('openculturas', 'openculturas_post_update_0026');
-  if ($no_warnings) {
-    $view = Views::getView('related_date');
-    if ($view instanceof ViewExecutable) {
-      $view->initDisplay();
-      $view->setDisplay('upcoming_dates');
-      $display = $view->getDisplay();
-      $old_filters = $display->getOption('filters');
-      $new_filters = [];
-      $new_order_keys = [
-        'status',
-        'type',
-        'field_category_target_id',
-        'field_sub_type_target_id',
-        'field_date_value_1',
-        'field_date_end_value',
-        'field_a11y_features_target_id',
-        'field_address_location_proximity',
-        'title',
-        'title_1',
-        'field_date_duration',
-        'field_date_value',
-        'field_date_end_value_1',
-      ];
-      foreach ($new_order_keys as $id) {
-        if (!isset($old_filters[$id])) {
-          continue;
-        }
-        $new_filters[$id] = $old_filters[$id];
-      }
-      $display->setOption('filters', $new_filters);
-      $view->save();
-    }
-  }
-
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0026');
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
@@ -1279,4 +1245,41 @@ function openculturas_post_update_0040(): void {
   }
 
   $logger->output();
+}
+
+/**
+ * Move duration filter after end_value filter.
+ */
+function openculturas_post_update_0041(): void {
+  $view = Views::getView('related_date');
+  if ($view instanceof ViewExecutable) {
+    $view->initDisplay();
+    $view->setDisplay('upcoming_dates');
+    $display = $view->getDisplay();
+    $old_filters = $display->getOption('filters');
+    $new_filters = [];
+    $new_order_keys = [
+      'status',
+      'type',
+      'field_category_target_id',
+      'field_sub_type_target_id',
+      'field_date_value_1',
+      'field_date_end_value',
+      'field_date_duration',
+      'field_a11y_features_target_id',
+      'field_address_location_proximity',
+      'title',
+      'title_1',
+      'field_date_value',
+      'field_date_end_value_1',
+    ];
+    foreach ($new_order_keys as $id) {
+      if (!isset($old_filters[$id])) {
+        continue;
+      }
+      $new_filters[$id] = $old_filters[$id];
+    }
+    $display->setOption('filters', $new_filters);
+    $view->save();
+  }
 }
