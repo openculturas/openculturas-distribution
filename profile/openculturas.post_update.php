@@ -1188,7 +1188,7 @@ function openculturas_post_update_0039(): void {
 }
 
 /**
- * Re import all filter formats and editors.
+ * Revert all filter formats and editors.
  */
 function openculturas_post_update_0040(): void {
   $format_id_list = [
@@ -1314,4 +1314,28 @@ function openculturas_post_update_0042(): void {
     $display->setOption('filters', $new_filters);
     $view->save();
   }
+}
+
+/**
+ * Revert field.field.node.article.field_references, field.field.paragraph.teaser_node.field_article and views.view.entity_reference_node.
+ */
+function openculturas_post_update_0043(): void {
+  $configurations = [
+    'field.field.node.article.field_references',
+    'field.field.paragraph.teaser_node.field_article',
+    'views.view.entity_reference_node',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($configurations as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if (!$configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+      continue;
+    }
+    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+  $logger->output();
 }

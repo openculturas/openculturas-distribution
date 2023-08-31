@@ -4,11 +4,6 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_article
-    - node.type.article
-    - node.type.event
-    - node.type.location
-    - node.type.page
-    - node.type.profile
     - paragraphs.paragraphs_type.teaser_node
 id: paragraph.teaser_node.field_article
 field_name: field_article
@@ -21,17 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      article: article
-      page: page
-      event: event
-      location: location
-      profile: profile
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    auto_create_bundle: article
+    view:
+      view_name: entity_reference_node
+      display_name: er_node_references
+      arguments: {  }
 field_type: entity_reference
