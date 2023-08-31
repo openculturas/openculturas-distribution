@@ -435,6 +435,51 @@ display:
           hierarchy: true
           limit: true
           error_message: true
+        field_sub_type_target_id:
+          id: field_sub_type_target_id
+          table: node__field_sub_type
+          field: field_sub_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: 'Location type'
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_sub_type_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: field_sub_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: location_type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: location_type
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
         field_address_location_proximity:
           id: field_address_location_proximity
           table: paragraph__field_address_location
@@ -628,51 +673,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_sub_type_target_id:
-          id: field_sub_type_target_id
-          table: node__field_sub_type
-          field: field_sub_type_target_id
-          relationship: none
-          group_type: group
-          admin_label: 'Location type'
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_sub_type_target_id_op
-            label: Type
-            description: ''
-            use_operator: false
-            operator: field_sub_type_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: location_type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: location_type
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -1204,6 +1204,8 @@ display:
         - 'config:core.entity_view_display.node.faq.compact'
         - 'config:core.entity_view_display.node.faq.default'
         - 'config:core.entity_view_display.node.faq.full'
+        - 'config:core.entity_view_display.node.faq.search_index'
+        - 'config:core.entity_view_display.node.faq.search_result'
         - 'config:core.entity_view_display.node.faq.synopsis'
         - 'config:core.entity_view_display.node.faq.teaser'
         - 'config:core.entity_view_display.node.faq.teaser_big'
