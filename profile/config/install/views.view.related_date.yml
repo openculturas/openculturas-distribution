@@ -5597,6 +5597,57 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_date_duration:
+          id: field_date_duration
+          table: node__field_date
+          field: field_date_duration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_duration_op
+            label: 'Date - Duration'
+            description: null
+            use_operator: false
+            operator: field_date_duration_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_duration
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: null
+            max_placeholder: null
+            placeholder: null
+          is_grouped: true
+          group_info:
+            label: 'Hide multi-day dates'
+            description: ''
+            identifier: duration
+            optional: true
+            widget: radios
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '1441'
         field_a11y_features_target_id:
           id: field_a11y_features_target_id
           table: paragraph__field_a11y_features
@@ -5821,57 +5872,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_date_duration:
-          id: field_date_duration
-          table: node__field_date
-          field: field_date_duration
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: numeric
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_date_duration_op
-            label: 'Date - Duration'
-            description: null
-            use_operator: false
-            operator: field_date_duration_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_date_duration
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            min_placeholder: null
-            max_placeholder: null
-            placeholder: null
-          is_grouped: true
-          group_info:
-            label: 'Hide multi-day dates'
-            description: ''
-            identifier: duration
-            optional: true
-            widget: radios
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: 'Yes'
-                operator: '<='
-                value:
-                  min: ''
-                  max: ''
-                  value: '1441'
         field_date_value:
           id: field_date_value
           table: node__field_date
