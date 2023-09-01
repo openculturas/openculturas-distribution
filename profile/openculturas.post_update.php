@@ -1174,10 +1174,11 @@ function openculturas_post_update_0039(): void {
     ->getStorage('paragraphs_type');
   /** @var \Drupal\paragraphs\ParagraphsTypeInterface[] $paragraphs_types */
   $paragraphs_types = $paragraphs_type_storage->loadMultiple();
+  $skip = ['teaser_external', 'teaser_node', 'teaser_term'];
   foreach ($paragraphs_types as $paragraph_type) {
     assert(is_string($paragraph_type->id()));
     if ($content_translation_manager->isEnabled('paragraph',
-      $paragraph_type->id())) {
+      $paragraph_type->id()) && !in_array($paragraph_type->id(), $skip, TRUE)) {
       $settings = $content_translation_manager->getBundleTranslationSettings('paragraph',
         $paragraph_type->id());
       $settings['untranslatable_fields_hide'] = TRUE;
@@ -1338,4 +1339,20 @@ function openculturas_post_update_0043(): void {
     $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
   }
   $logger->output();
+}
+
+/**
+ * Disable 'Hide non translatable fields on translation forms' for nested teaser paragraphs.
+ */
+function openculturas_post_update_0044(): void {
+  /** @var \Drupal\content_translation\ContentTranslationManager $content_translation_manager */
+  $content_translation_manager = \Drupal::service('content_translation.manager');
+  $paragraphs_type_ids = ['teaser_external', 'teaser_node', 'teaser_term'];
+  foreach ($paragraphs_type_ids as $paragraph_type_id) {
+    if ($content_translation_manager->isEnabled('paragraph', $paragraph_type_id)) {
+      $settings = $content_translation_manager->getBundleTranslationSettings('paragraph', $paragraph_type_id);
+      $settings['untranslatable_fields_hide'] = '0';
+      $content_translation_manager->setBundleTranslationSettings('paragraph', $paragraph_type_id, $settings);
+    }
+  }
 }
