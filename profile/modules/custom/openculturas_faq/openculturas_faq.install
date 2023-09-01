@@ -7,6 +7,8 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
@@ -35,6 +37,15 @@ function openculturas_faq_install(bool $is_syncing): void {
     $role->grantPermission('view faq revisions');
     $role->save();
   }
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
+  if ($field instanceof FieldConfigInterface) {
+    $allowed_views_setting = $field->getSetting('allowed_views');
+    $allowed_views_setting['faq'] = 'faq';
+    $field->setSetting('allowed_views', $allowed_views_setting);
+    $field->save();
+  }
+
 }
 
 /**
