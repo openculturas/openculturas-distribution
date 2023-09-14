@@ -49,61 +49,6 @@ function openculturas_faq_install(bool $is_syncing): void {
 }
 
 /**
- * Implements hook_update_dependencies().
- */
-function openculturas_faq_update_dependencies(): array {
-  return [
-    'openculturas_faq' => [
-      9301 => [
-        'openculturas' => 9302,
-      ],
-    ],
-  ];
-}
-
-/**
- * Installs the view display teaser_unified.
- */
-function openculturas_faq_update_9301(): string {
-  /** @var \Drupal\update_helper\Updater $updater */
-  $updater = \Drupal::service('update_helper.updater');
-
-  // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9301');
-
-  // Output logged messages to related channel of update execution.
-  return $updater->logger()->output();
-}
-
-/**
- * Installs form mode bulk_edit.
- */
-function openculturas_faq_update_9302(): string {
-  /** @var \Drupal\update_helper\Updater $updater */
-  $updater = \Drupal::service('update_helper.updater');
-
-  // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9302');
-
-  // Output logged messages to related channel of update execution.
-  return $updater->logger()->output();
-}
-
-/**
- * Setup entity view displays search_index and search_result.
- */
-function openculturas_faq_update_9303(): string {
-  /** @var \Drupal\update_helper\Updater $updater */
-  $updater = \Drupal::service('update_helper.updater');
-
-  // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas_faq', 'openculturas_faq_update_9303');
-
-  // Output logged messages to related channel of update execution.
-  return $updater->logger()->output();
-}
-
-/**
  * Implements hook_update_last_removed().
  */
 function openculturas_faq_update_last_removed(): int {

@@ -8,23 +8,6 @@
 declare(strict_types = 1);
 
 /**
- * Creates new config for openculturas_custom.settings.
- */
-function openculturas_custom_update_9301(): void {
-  $configFactory = \Drupal::configFactory();
-  $settings = $configFactory->getEditable('openculturas_custom.settings');
-  if ($settings->isNew()) {
-    $settings->initWithData([
-      'allowed_classes' => [
-        'style__slight_contrast' => 'Slight contrast',
-        'style__vivid_contrast' => 'Vivid contrast',
-      ],
-    ]);
-    $settings->save();
-  }
-}
-
-/**
  * Implements hook_update_last_removed().
  */
 function openculturas_custom_update_last_removed(): int {
