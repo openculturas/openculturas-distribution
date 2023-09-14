@@ -1,25 +1,24 @@
-image: drud/ddev-gitpod-base:20230310
+image: ddev/ddev-gitpod-base:20230724
 
 tasks:
   - name: ddev-gitpod-launcher
     init: |
       export DDEV_NONINTERACTIVE=true
-      ddev composer install --no-interaction && \
+      ddev composer install --ansi --no-interaction && \
       cp .ddev/.gitpod/settings.local.php web/sites/default/ && \
-      ddev drush site:install --yes --existing-config
+      ddev dbimport-gitpod
     command: |
       export DDEV_NONINTERACTIVE=true
       (ddev restart || ddev start) && \
       gp ports await 8080 && sleep 1 && gp preview $(gp url 8080)
   - name: Theme development dependencies
     before: |
-      cd web/profiles/contrib/openculturas-profile/themes/openculturas_base
+      cd profile/themes/openculturas_base && \
+      sudo chown -R gitpod: ~/.npm
     init: |
-      echo npm install --global gulp-cli && \
-      echo npm install
+      npm ci
     command: |
-      sudo npm install --global gulp-cli && \
-      npm install
+      npm ci
 
 ports:
   # Ignore direct-build https port

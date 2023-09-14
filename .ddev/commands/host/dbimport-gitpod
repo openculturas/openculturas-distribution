@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -o nounset
+set -o pipefail
+set -o errexit
+
+if [[ -n ${DEBUG:-} ]]; then
+  set -o xtrace
+fi
+
+readonly __DIR__="$(
+  cd "$(dirname "${0}")"
+  pwd
+)"
+
+_drush() {
+  ddev drush --ansi --yes "$@"
+}
+
+main() {
+  if [[ ! -f /tmp/db.sql.gz ]]; then
+    local remoteurl=""
+    remoteurl=$(git remote get-url origin)
+    local dbrepo=$(mktemp -u -d)
+    git clone "${remoteurl/.git/-database.git}" $dbrepo && cd $dbrepo
+    git archive origin/main | tar -x -C /tmp
+  fi
+  if [ -f /tmp/db.sql ]; then
+    echo "Delete existing sql-file."
+    rm -f /tmp/db.sql
+  fi
+  if [[ ! -f /tmp/db.sql.gz ]]; then
+    echo "No dump found"
+    exit 1
+  fi
+
+  _drush sql:create
+  ddev import-db --file=/tmp/db.sql.gz
+  rm -f /tmp/db.sql
+  ddev exec bash "/var/www/html/scripts/post_tasks.sh"
+}
+
+main "$@"
