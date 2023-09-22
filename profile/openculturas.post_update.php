@@ -70,3 +70,17 @@ function openculturas_removed_post_updates(): array {
     'openculturas_post_update_views_refactor_0011' => '1.4.0',
   ];
 }
+
+/**
+ * Configuration update.
+ */
+function openculturas_post_update_0045(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_0045');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

@@ -1373,6 +1373,46 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        default_langcode_1:
+          id: default_langcode_1
+          table: paragraphs_item_field_data
+          field: default_langcode
+          relationship: field_people_reference
+          group_type: group
+          admin_label: ''
+          entity_type: paragraph
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1397,16 +1437,6 @@ display:
           group_type: group
           admin_label: 'field_people_reference: Paragraph'
           plugin_id: standard
-          required: true
-        reverse__node__field_people_reference:
-          id: reverse__node__field_people_reference
-          table: paragraphs_item_field_data
-          field: reverse__node__field_people_reference
-          relationship: field_people_reference
-          group_type: group
-          admin_label: field_people_reference
-          entity_type: paragraph
-          plugin_id: entity_reverse
           required: true
       css_class: 'profiles grid-1 grid-2-m grid-row-gap-2'
       display_description: ''
@@ -1447,6 +1477,8 @@ display:
         - 'config:core.entity_view_display.node.faq.compact'
         - 'config:core.entity_view_display.node.faq.default'
         - 'config:core.entity_view_display.node.faq.full'
+        - 'config:core.entity_view_display.node.faq.search_index'
+        - 'config:core.entity_view_display.node.faq.search_result'
         - 'config:core.entity_view_display.node.faq.synopsis'
         - 'config:core.entity_view_display.node.faq.teaser'
         - 'config:core.entity_view_display.node.faq.teaser_big'
