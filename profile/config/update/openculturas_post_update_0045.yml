@@ -1,0 +1,68 @@
+views.view.related_profile:
+  expected_config:
+    display:
+      related_profile_member_of:
+        display_options:
+          relationships:
+            reverse__node__field_people_reference:
+              admin_label: field_people_reference
+              entity_type: paragraph
+              field: reverse__node__field_people_reference
+              group_type: group
+              id: reverse__node__field_people_reference
+              plugin_id: entity_reverse
+              relationship: field_people_reference
+              required: true
+              table: paragraphs_item_field_data
+  update_actions:
+    delete:
+      display:
+        related_profile_member_of:
+          display_options:
+            relationships:
+              reverse__node__field_people_reference:
+    add:
+      display:
+        related_profile_member_of:
+          display_options:
+            filters:
+              default_langcode_1:
+                admin_label: ''
+                entity_field: default_langcode
+                entity_type: paragraph
+                expose:
+                  description: ''
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  operator: ''
+                  operator_id: ''
+                  operator_limit_selection: false
+                  operator_list: {  }
+                  remember: false
+                  remember_roles:
+                    authenticated: authenticated
+                  required: false
+                  use_operator: false
+                exposed: false
+                field: default_langcode
+                group: 1
+                group_info:
+                  default_group: All
+                  default_group_multiple: {  }
+                  description: ''
+                  group_items: {  }
+                  identifier: ''
+                  label: ''
+                  multiple: false
+                  optional: true
+                  remember: false
+                  widget: select
+                group_type: group
+                id: default_langcode_1
+                is_grouped: false
+                operator: '='
+                plugin_id: boolean
+                relationship: field_people_reference
+                table: paragraphs_item_field_data
+                value: '1'
