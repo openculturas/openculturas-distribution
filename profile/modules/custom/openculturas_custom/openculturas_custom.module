@@ -595,8 +595,8 @@ function openculturas_custom_preprocess_node(array &$variables): void {
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openculturas_custom_theme_suggestions_details_alter(array &$suggestions, array $variables): void {
-  if (array_key_exists('#theme', $variables['element'])) {
-    $suggestions[] = 'details__' . $variables['element']['#theme'];
+  if (array_key_exists('#plugin_id', $variables['element'])) {
+    $suggestions[] = 'details__' . $variables['element']['#plugin_id'];
   }
 }
 
