@@ -77,7 +77,7 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
     if (!empty($title)) {
       $element['#title'] = $title;
     }
-    $element['#theme'] = 'sub_details';
+    $element['#plugin_id'] = $this->getBaseId();
   }
 
 }
