@@ -54,3 +54,18 @@ function openculturas_faq_install(bool $is_syncing): void {
 function openculturas_faq_update_last_removed(): int {
   return 9303;
 }
+
+/**
+ * Deletes removed update_helper_checklist updates.
+ */
+function openculturas_faq_update_9401(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
+
+  $checklist_items = [
+    'openculturas_faq:openculturas_faq_update_9001',
+    'openculturas_faq:openculturas_faq_update_9302',
+    'openculturas_faq:openculturas_faq_update_9303',
+  ];
+  $entities = $storage->loadMultiple($checklist_items);
+  $storage->delete($entities);
+}

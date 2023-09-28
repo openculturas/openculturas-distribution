@@ -99,3 +99,78 @@ function openculturas_install_content(): void {
 function openculturas_update_last_removed(): int {
   return 9307;
 }
+
+/**
+ * Deletes removed update_helper_checklist updates.
+ */
+function openculturas_update_9401(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
+
+  $checklist_items = [
+    'openculturas:openculturas_update_9002',
+    'openculturas:openculturas_update_9302',
+    'openculturas:openculturas_update_9303',
+    'openculturas:openculturas_update_9304',
+    'openculturas:openculturas_update_9305',
+    'openculturas:openculturas_update_9306',
+    'openculturas:openculturas_post_update_0001',
+    'openculturas:openculturas_post_update_0002',
+    'openculturas:openculturas_post_update_0003',
+    'openculturas:openculturas_post_update_0004',
+    'openculturas:openculturas_post_update_0005',
+    'openculturas:openculturas_post_update_0006',
+    'openculturas:openculturas_post_update_0007',
+    'openculturas:openculturas_post_update_0008',
+    'openculturas:openculturas_post_update_0009',
+    'openculturas:openculturas_post_update_0010',
+    'openculturas:openculturas_post_update_0011',
+    'openculturas:openculturas_post_update_0012',
+    'openculturas:openculturas_post_update_0013',
+    'openculturas:openculturas_post_update_0014',
+    'openculturas:openculturas_post_update_0015',
+    'openculturas:openculturas_post_update_0016',
+    'openculturas:openculturas_post_update_0017',
+    'openculturas:openculturas_post_update_0018',
+    'openculturas:openculturas_post_update_0019',
+    'openculturas:openculturas_post_update_0020',
+    'openculturas:openculturas_post_update_0021',
+    'openculturas:openculturas_post_update_0022',
+    'openculturas:openculturas_post_update_0023',
+    'openculturas:openculturas_post_update_0024',
+    'openculturas:openculturas_post_update_0025',
+    'openculturas:openculturas_post_update_0026',
+    'openculturas:openculturas_post_update_0027',
+    'openculturas:openculturas_post_update_0028',
+    'openculturas:openculturas_post_update_0029',
+    'openculturas:openculturas_post_update_0030',
+    'openculturas:openculturas_post_update_0031',
+    'openculturas:openculturas_post_update_0032',
+    'openculturas:openculturas_post_update_0033',
+    'openculturas:openculturas_post_update_0034',
+    'openculturas:openculturas_post_update_0035',
+    'openculturas:openculturas_post_update_0036',
+    'openculturas:openculturas_post_update_0037',
+    'openculturas:openculturas_post_update_0038',
+    'openculturas:openculturas_post_update_0039',
+    'openculturas:openculturas_post_update_0040',
+    'openculturas:openculturas_post_update_0041',
+    'openculturas:openculturas_post_update_0042',
+    'openculturas:openculturas_post_update_0043',
+    'openculturas:openculturas_post_update_0044',
+    'openculturas:openculturas_post_update_oc_gin_theme_overrides_paragraphs_behaviors',
+    'openculturas:openculturas_post_update_views_refactor_0001',
+    'openculturas:openculturas_post_update_views_refactor_0002',
+    'openculturas:openculturas_post_update_views_refactor_0003',
+    'openculturas:openculturas_post_update_views_refactor_0004',
+    'openculturas:openculturas_post_update_views_refactor_0005',
+    'openculturas:openculturas_post_update_views_refactor_0006',
+    'openculturas:openculturas_post_update_views_refactor_0007',
+    'openculturas:openculturas_post_update_views_refactor_0008',
+    'openculturas:openculturas_post_update_views_refactor_0009',
+    'openculturas:openculturas_post_update_views_refactor_0010',
+    'openculturas:openculturas_post_update_views_refactor_0011',
+  ];
+
+  $entities = $storage->loadMultiple($checklist_items);
+  $storage->delete($entities);
+}
