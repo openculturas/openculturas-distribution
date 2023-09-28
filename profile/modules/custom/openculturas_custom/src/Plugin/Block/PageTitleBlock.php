@@ -22,7 +22,7 @@ use function strip_tags;
  * @Block(
  *   id = "openculturas_custom_page_title",
  *   admin_label = @Translation("Page title with subtitle"),
- *   category = @Translation("Openculturas")
+ *   category = @Translation("OpenCulturas")
  * )
  */
 final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface, ContainerFactoryPluginInterface {
@@ -78,6 +78,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
     $page_entity = CurrentEntityHelper::get_current_page_entity();
     $current_entity = CurrentEntityHelper::getEventReference($page_entity);
     $subtitle = NULL;
+    $sub_type = NULL;
     $profile_image = NULL;
 
     if ($current_entity instanceof ContentEntityInterface) {
@@ -95,6 +96,10 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
         && !$current_entity->get('field_subtitle')->isEmpty()) {
         $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);
       }
+      if ($current_entity->hasField('field_sub_type')
+        && !$current_entity->get('field_sub_type')->isEmpty()) {
+        $sub_type = $current_entity->get('field_sub_type')->view(['label' => 'hidden']);
+      }
       if ($current_entity->hasField('field_portrait')
         && !$current_entity->get('field_portrait')->isEmpty()) {
         $display_options = [
@@ -110,6 +115,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
       '#theme' => 'page_title_custom',
       '#title' => $this->title,
       '#subtitle' => $subtitle,
+      '#sub_type' => $sub_type,
       '#profile_image' => $profile_image,
     ];
     /*

@@ -19,9 +19,12 @@
   {% endif %}
     {{ profile_image }}
     <div class="headlines-wrapper">
+      {% if sub_type.0 %}
+        <div class="sub-type field__label">{{ sub_type.0 }}</div>
+      {% endif %}
       <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
       {% if subtitle.0 %}
-      <h2 class="page-subtitle">{{ subtitle.0 }}</h2>
+        <h2 class="page-subtitle">{{ subtitle.0 }}</h2>
       {% endif %}
     </div>
   {% if profile_image %}
