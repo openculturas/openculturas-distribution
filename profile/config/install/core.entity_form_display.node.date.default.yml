@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.date.field_people_reference
     - field.field.node.date.field_premiere
     - field.field.node.date.field_pricing
+    - field.field.node.date.field_pricing_info
     - field.field.node.date.field_related_date_view_ref
     - field.field.node.date.field_safety_info
     - field.field.node.date.field_sub_dates_view_ref
@@ -40,6 +41,7 @@ third_party_settings:
       children:
         - field_forfree
         - field_pricing
+        - field_pricing_info
         - field_ticketing
       label: Tickets
       region: content
@@ -440,13 +442,25 @@ content:
     settings:
       size: 60
       placeholder: '2.00 - 10.00 €'
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields: {  }
+  field_pricing_info:
+    type: text_textarea
+    weight: 11
+    region: content
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '0'
   field_safety_info:
     type: text_textarea
     weight: 25
     region: content
     settings:
-      rows: 5
+      rows: 2
       placeholder: ''
     third_party_settings:
       allowed_formats:
@@ -454,7 +468,7 @@ content:
         hide_guidelines: '1'
   field_ticketing:
     type: link_default
-    weight: 11
+    weight: 12
     region: content
     settings:
       placeholder_url: ''
@@ -475,7 +489,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -487,7 +501,7 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -500,7 +514,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -529,7 +543,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

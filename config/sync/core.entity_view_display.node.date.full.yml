@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.date.field_people_reference
     - field.field.node.date.field_premiere
     - field.field.node.date.field_pricing
+    - field.field.node.date.field_pricing_info
     - field.field.node.date.field_related_date_view_ref
     - field.field.node.date.field_safety_info
     - field.field.node.date.field_sub_dates_view_ref
@@ -45,12 +46,12 @@ third_party_settings:
       label: 'Event series'
       parent_name: ''
       region: content
-      weight: 14
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: series
         open: true
         description: ''
     group_cast:
@@ -59,29 +60,30 @@ third_party_settings:
       label: Featuring
       parent_name: ''
       region: content
-      weight: 15
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: featuring
         open: true
         description: ''
     group_tickets:
       children:
         - field_forfree
         - field_pricing
+        - field_pricing_info
         - field_ticketing
         - field_door_time_relative
       label: 'Tickets and pricing'
       parent_name: ''
       region: content
-      weight: 16
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: pricing
         open: true
         description: ''
     group_accessibility_information:
@@ -90,12 +92,12 @@ third_party_settings:
       label: Accessibility
       parent_name: ''
       region: content
-      weight: 17
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: a11y
         open: false
         description: ''
     group_organizer:
@@ -104,15 +106,14 @@ third_party_settings:
       label: Organizer
       parent_name: ''
       region: content
-      weight: 18
+      weight: 14
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: organizer
         open: false
         description: ''
-        required_fields: false
     group_tagging:
       children:
         - extra_field_event_category
@@ -124,7 +125,7 @@ third_party_settings:
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: focus
         open: true
         description: ''
     group_alternative_dates:
@@ -133,30 +134,28 @@ third_party_settings:
       label: 'Alternative dates'
       parent_name: ''
       region: content
-      weight: 19
+      weight: 15
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: alternative-dates
         open: true
         description: ''
-        required_fields: false
     group_gallery:
       children:
         - extra_field_event_gallery
       label: Gallery
       parent_name: ''
       region: content
-      weight: 20
+      weight: 16
       format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
-        id: ''
+        id: gallery
         open: true
         description: ''
-        required_fields: false
     group_interact:
       children:
         - flag_bookmark_node
@@ -170,7 +169,7 @@ third_party_settings:
       format_settings:
         classes: interact
         show_empty_fields: false
-        id: ''
+        id: interact
         element: div
         show_label: false
         label_element: h3
@@ -222,7 +221,7 @@ third_party_settings:
       label: 'Dates in this series'
       parent_name: group_part_of_event_series
       region: content
-      weight: 18
+      weight: 19
       format_type: html_element
       format_settings:
         classes: ''
@@ -235,6 +234,24 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+    group_location:
+      children:
+        - field_attendance_mode
+        - field_location_virtual
+        - extra_field_location_address_data
+        - field_location
+        - field_safety_info
+      label: 'Event location'
+      parent_name: ''
+      region: content
+      weight: 10
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: location
+        open: true
+        description: ''
 id: node.date.full
 targetEntityType: node
 bundle: date
@@ -258,7 +275,7 @@ content:
   extra_field_event_gallery:
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 24
     region: content
   extra_field_location_address_data:
     settings: {  }
@@ -282,7 +299,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 24
     region: content
   field_attendance_mode:
     type: list_default
@@ -312,6 +329,15 @@ content:
       upcoming_display: 1
       show_next: true
       current_upcoming: '1'
+      parts:
+        - start
+        - end
+      duration:
+        separator: ' | '
+        unit: ''
+        decimals: 2
+        suffix: h
+      localize: 0
     third_party_settings:
       date_augmenter:
         instances:
@@ -456,6 +482,13 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
+  field_pricing_info:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
   field_related_date_view_ref:
     type: viewfield_default
     label: hidden
@@ -493,7 +526,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   flag_bookmark_node:
     settings: {  }
