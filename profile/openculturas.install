@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\node\NodeInterface;
+use Drupal\user\Entity\Role;
 
 /**
  * Implements hook_install_tasks().
@@ -219,4 +220,43 @@ function openculturas_update_9404(): string {
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
+}
+
+/**
+ * Revoke stale permissions.
+ */
+function openculturas_update_9405(): void {
+  $role = Role::load('magazine_editor');
+  if ($role instanceof Role) {
+    $role->revokePermission('use magazine_article transition review');
+    $role->save();
+  }
+
+  $role = Role::load('oc_admin');
+  if ($role instanceof Role) {
+    $permissions = [
+      'create field_claim_ownership_resolved',
+      'create field_report_abuse_resolved',
+      'create field_resolved',
+      'edit field_claim_ownership_resolved',
+      'edit field_report_abuse_resolved',
+      'edit field_resolved',
+      'edit own field_claim_ownership_resolved',
+      'edit own field_report_abuse_resolved',
+      'edit own field_resolved',
+      'view field_claim_ownership_resolved',
+      'view field_report_abuse_resolved',
+      'view field_resolved',
+      'view own field_claim_ownership_resolved',
+      'view own field_report_abuse_resolved',
+      'view own field_resolved',
+      'use draften transition review',
+      'use magazine_article transition review',
+    ];
+    foreach ($permissions as $permission) {
+      $role->revokePermission($permission);
+    }
+    $role->save();
+  }
+
 }
