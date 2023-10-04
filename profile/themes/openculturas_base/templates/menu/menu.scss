@@ -126,3 +126,37 @@ a.menu-item--toggle {
     }
   }
 }
+
+.block-language {
+  .links {
+    margin-right: 3rem;
+    @include icon(globe);
+
+    &:before {
+      color: var(--color-link);
+      line-height: 2;
+      padding-right: .25rem;
+    }
+
+    //li.is-active {
+      //display: none;
+    //}
+
+    li a {
+      color: var(--color-link);
+      padding-left: .5rem;
+      padding-right: .5rem;
+      &:focus,
+      &:hover {
+        color: var(--color-text-inverted);
+      }
+      &:active {
+        color: var(--color-interaction);
+      }
+    }
+    li.is-active a {
+      color: var(--color-text-muted);
+      border-bottom: 1px solid;
+    }
+  }
+}

@@ -188,3 +188,35 @@ function openculturas_update_9402(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Search results enhancements.
+ */
+function openculturas_update_9403(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9403');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Search results enhancements - exposed filter.
+ */
+function openculturas_update_9404(): string {
+  // Extra update hook to avoid the error:
+  // [warning] The "views_exposed_filter_block:search-search_page" was not found.
+  // The view needs to update first to enable exposed,
+  // then views knows this is valid exposed block.
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_update_9404');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}

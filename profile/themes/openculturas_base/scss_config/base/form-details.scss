@@ -123,6 +123,8 @@ details {
     }
   }
 
+  // Nested details, e. g. FAQ
+
   details {
     width: calc(100% - (2.5*$grid-gutter));
     margin: 0 (2*$grid-gutter) 0 0;
@@ -137,11 +139,12 @@ details {
     }
 
     .details-title {
-      font-family: var(--font-family-sans-serif);
-      font-size: var(--font-size-m);
+      @extend .h3;
+      //font-family: var(--font-family-sans-serif);
+      //font-size: var(--font-size-m);
       //color: var(--color-interaction);
-      font-weight: bold;
-      padding-top: .666rem;
+      //font-weight: bold;
+      //padding-top: .666rem;
     }
 
     .details-wrapper {
@@ -157,6 +160,7 @@ details {
   }
 }
 
+
 /* Views exposed forms, secondary options */
 details.bef--secondary {
   border-width: 0 0 1px;
@@ -170,5 +174,27 @@ details.bef--secondary {
 
   > summary:before {
     font-size: $font-size-default;
+  }
+}
+
+// Facets
+
+.block-facets details {
+  border-width: 0 0 1px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 1rem;
+
+  > summary.h4 {
+    &:before {
+      font-size: var(--font-size-m);
+      @include breakpoint(m) {
+        margin-top: -.333rem;
+      }
+    }
+  }
+
+  ul {
+    margin-top: $grid-gutter;
   }
 }

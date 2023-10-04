@@ -6,15 +6,15 @@ dependencies:
     - views.view.search
   module:
     - search_api
-id: a11y_features
-name: Accessibility
-weight: 0
+id: sub_type_taxonomy_term_name
+name: Type
+weight: -2
 min_count: 1
 missing: false
 missing_label: others
-url_alias: a11y_features
+url_alias: sub_type
 facet_source_id: 'search_api:views_page__search__search_page'
-field_identifier: field_a11y_features
+field_identifier: field_sub_type_1
 query_operator: or
 hard_limit: 0
 exclude: false
@@ -29,7 +29,7 @@ widget:
   type: links
   config:
     show_numbers: true
-    soft_limit: 5
+    soft_limit: 10
     show_reset_link: true
     reset_text: 'Show all'
     hide_reset_when_no_selection: true
@@ -60,17 +60,16 @@ processor_configs:
       sort: 40
     settings:
       sort: ASC
+  hide_1_result_facet:
+    processor_id: hide_1_result_facet
+    weights:
+      build: 50
+    settings: {  }
   hierarchy_processor:
     processor_id: hierarchy_processor
     weights:
       build: 100
     settings: {  }
-  term_weight_widget_order:
-    processor_id: term_weight_widget_order
-    weights:
-      sort: 60
-    settings:
-      sort: ASC
   translate_entity:
     processor_id: translate_entity
     weights:

@@ -1,5 +1,6 @@
 form,
-.block-facets {
+.block-facets,
+.form-area {
   background: $color-bg-form;
 
   >.form--inline,
@@ -205,11 +206,12 @@ input[type="radio"] {
 // Views exposed forms
 
 .bef-exposed-form {
-  border-width: 1px 0 0;
+  border-width: 1px 0 1px;
   margin-top: $grid-gutter;
+  padding-bottom: .75rem;
 
-  > div,
-  .form--inline .details-wrapper {
+  .form--inline .details-wrapper,
+  > div {
     display: flex;
     flex-flow: row wrap;
     gap: .25rem 1rem;
@@ -230,6 +232,10 @@ input[type="radio"] {
     }
   }
 
+  .form-submit {
+    margin-bottom: 0;
+  }
+
   // submit button alignment
   .form--inline .form-actions {
     align-self: flex-end;
@@ -245,8 +251,8 @@ input[type="radio"] {
 // Views exposed form in displays with "compact" css class
 
 //.path-user .views-exposed-form,
-.form--compact
- {
+div#block-oc-search-input,
+.form--compact {
   .form--inline  {
 
     &:first-child {
@@ -274,6 +280,9 @@ input[type="radio"] {
   }
   .form-text {
     max-width: 100%;
+  }
+  .details-wrapper {
+    padding: 0;
   }
 }
 
@@ -394,6 +403,7 @@ fieldset[id^="edit-radius-wrapper"] {
 .block-facets {
   h4 {
     margin-bottom: 0 $grid-gutter $grid-gutter;
+    padding: .5em 1rem;
   }
   ul {
     margin: 0;

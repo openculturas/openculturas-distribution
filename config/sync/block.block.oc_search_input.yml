@@ -1,26 +1,26 @@
+uuid: a76cd301-aefa-43fa-90f0-d877b1094411
 langcode: en
 status: true
 dependencies:
   config:
-    - facets.facet.a11y_features
+    - views.view.search
   module:
-    - facets
     - system
+    - views
   theme:
     - openculturas_base
-id: a11y_features
+id: oc_search_input
 theme: openculturas_base
 region: content
-weight: -9
+weight: -15
 provider: null
-plugin: 'facet_block:a11y_features'
+plugin: 'views_exposed_filter_block:search-search_page'
 settings:
-  id: 'facet_block:a11y_features'
-  label: 'Accessibility Features'
+  id: 'views_exposed_filter_block:search-search_page'
+  label: ''
   label_display: '0'
-  provider: facets
-  context_mapping: {  }
-  block_id: a11y_features
+  provider: views
+  views_label: ''
 visibility:
   request_path:
     id: request_path

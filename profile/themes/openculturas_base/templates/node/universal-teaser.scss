@@ -158,8 +158,17 @@ h6.teaser {
   }
 }
 
+// Teaser big too verbose for small screens 
 
-/* side-by-side teasers */
+.view-mode-teaser-big .field--name-body {
+  display: none;
+  @include breakpoint(m) {
+    display: block;
+  }
+}
+
+
+// side-by-side teasers 
 
 
 .grid-2-m,
