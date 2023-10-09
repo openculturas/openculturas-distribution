@@ -52,13 +52,23 @@
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
+{% block field %}
   <div{{ attributes.addClass(classes) }}>
-    {% if not label_hidden %}
-      <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
-    {% endif %}
-    <div class="field__items">
-    {% for item in items %}
-      <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
-    {% endfor %}
-    </div>
+    {% block label %}
+      {% if not label_hidden %}
+        {% block label_visible %}
+          <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
+        {% endblock label_visible %}
+      {% endif %}
+    {% endblock label %}
+    {% block items %}
+      <div class="field__items">
+        {% for item in items %}
+          {% block item %}
+            <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
+          {% endblock item %}
+        {% endfor %}
+      </div>
+    {% endblock items %}
   </div>
+{% endblock field %}

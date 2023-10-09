@@ -198,3 +198,26 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
     $variables['user_has_edit_access'] = $node->access('edit');
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for field.html.twig.
+ *
+ * Adds the view_mode of the field to the twig template suggestions.
+ */
+function openculturas_base_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
+  // Add view_mode of the element (if available) to each field template suggestion.
+  if (!empty($variables['element']['#view_mode'])) {
+    // Enable reference.
+    foreach ($suggestions as &$suggestion) {
+      // Make suggestion array multidimensional.
+      $suggestion = [
+        $suggestion,
+        $suggestion . '__' . 'view_mode_' . $variables['element']['#view_mode'],
+      ];
+      // Disable reference.
+      unset($suggestion);
+    }
+    // Flatten suggestions array.
+    $suggestions = array_merge(...$suggestions);
+  }
+}
