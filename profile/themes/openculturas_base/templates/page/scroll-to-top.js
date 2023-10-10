@@ -1,12 +1,10 @@
-(function ($) {
+(function ($, Drupal, once) {
 
   // Add body class on scroll.
   Drupal.behaviors.scrollToTop = {
     // eslint-disable-next-line no-unused-vars
     attach(context, settings) {
-      $(context)
-        .find('body')
-        .once('scroll-class')
+      $(once('scroll-class', 'body', context))
         .each(function() {
           const headerOffset = $('.navbar-secondary', context).outerHeight();
           const $body = $(this);
@@ -36,5 +34,4 @@
         });
     },
   };
-
-} (jQuery));
+}(jQuery, Drupal, once));

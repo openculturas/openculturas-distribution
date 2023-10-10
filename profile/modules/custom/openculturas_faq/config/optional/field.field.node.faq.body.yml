@@ -3,17 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.body
+    - filter.format.advanced_html
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.plain_text
     - node.type.faq
   module:
-    - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - basic_html
-      - advanced_html
-      - full_html
-      - plain_text
 id: node.faq.body
 field_name: body
 entity_type: node
@@ -27,4 +23,9 @@ default_value_callback: ''
 settings:
   display_summary: true
   required_summary: false
+  allowed_formats:
+    - basic_html
+    - advanced_html
+    - full_html
+    - plain_text
 field_type: text_with_summary

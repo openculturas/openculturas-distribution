@@ -3,7 +3,7 @@ type: theme
 base theme: classy
 description: "The OpenCulturas distribution's base theme. Sub-themeable."
 package: Openculturas
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10
 
 ckeditor_stylesheets:
   - css/wysiwyg.css
@@ -11,13 +11,21 @@ ckeditor_stylesheets:
 libraries:
   - openculturas_base/global
 
-# Prevent social_media_links from loading fontawesome again via CDN. It is included in openculturas_base locally.
 libraries-override:
+  # Prevent social_media_links from loading fontawesome again via CDN. It is included in openculturas_base locally.
   social_media_links/fontawesome.component: false
+  # Removed to set a border in our css.
+  flag/flag.link:
+    css:
+      theme:
+        css/flag-link.css: false
 
 libraries-extend:
   better_exposed_filters/datepickers:
     - openculturas_base/datepicker_i18n_de
+  core/drupal.dialog:
+    - openculturas_base/drupal.dialog
+
 
 regions:
   page_top: 'Above everything'

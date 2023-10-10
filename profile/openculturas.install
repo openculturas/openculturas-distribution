@@ -10,17 +10,49 @@ declare(strict_types = 1);
 use Drupal\node\NodeInterface;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 
 /**
  * Implements hook_install_tasks().
  */
 function openculturas_install_tasks(): array {
   return [
+    'openculturas_install_role_missing_permission' => [
+      'display_name' => t('Install missing permissions'),
+      'type' => 'normal',
+    ],
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
       'type' => 'normal',
     ],
   ];
+}
+
+/**
+ * Callback function to install manually the permissions.
+ *
+ * This is necessary because of a circular dependency between the 'xyz' role
+ * and the 'assign xyz role' permission.
+ *
+ * @see https://www.drupal.org/project/role_delegation/issues/3354012
+ * @see openculturas_install_tasks()
+ */
+function openculturas_install_role_missing_permission(): void {
+  /*
+   * @todo Remove perms on drush cde in
+   * \Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomConfigDevelSubscriber::onConfigDevelSave().
+   */
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('assign magazine_editor role');
+    $role->grantPermission('assign oc_admin role');
+    $role->grantPermission('assign oc_member role');
+    $role->grantPermission('assign oc_organizer role');
+    $role->save();
+  }
 }
 
 /**

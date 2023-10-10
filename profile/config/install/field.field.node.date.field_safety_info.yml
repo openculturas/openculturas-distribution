@@ -3,23 +3,21 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_safety_info
+    - filter.format.basic_html
     - node.type.date
   module:
-    - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - basic_html
 id: node.date.field_safety_info
 field_name: field_safety_info
 entity_type: node
 bundle: date
 label: 'Safety info'
-description: 'For on-site rules like ''no glass bottles'''
+description: "For on-site rules like 'no glass bottles'"
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - basic_html
 field_type: text_long

@@ -45,6 +45,7 @@ $settings['config_exclude_modules'] = [
 
 if (getenv('STAGE_FILE_PROXY_ORIGIN')) {
   $config['stage_file_proxy.settings']['origin'] = getenv('STAGE_FILE_PROXY_ORIGIN');
+  $config['stage_file_proxy.settings']['origin_dir'] = 'sites/default/files';
   $settings['simple_environment_anonymous'] = TRUE;
   $settings['simple_environment_indicator'] = '#000000/#ffdd00 Stage';
 }

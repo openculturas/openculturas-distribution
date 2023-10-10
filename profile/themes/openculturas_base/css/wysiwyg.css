@@ -10439,8 +10439,8 @@ readers do not read off random characters that represent icons */
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -10724,10 +10724,10 @@ kbd {
   padding: 0 0.5em;
 }
 
-q:before {
+q::before {
   content: "„";
 }
-q:after {
+q::after {
   content: "“";
 }
 
@@ -10956,7 +10956,7 @@ fieldset fieldset {
   border-width: 0;
 }
 
-.form-required:after {
+.form-required::after {
   background-image: none;
   color: var(--color-danger);
   content: "*";
@@ -11141,50 +11141,6 @@ div#block-oc-search-input .details-wrapper,
   padding: 0;
 }
 
-.ui-widget-overlay.ui-front {
-  background: var(--color-neutral-canvas);
-  opacity: 0.8;
-}
-
-.ui-dialog.ui-widget,
-.ui-dialog.ui-widget .ui-dialog-content {
-  font-family: unset;
-  color: unset;
-}
-
-.ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
-  border-radius: 2px;
-}
-
-.ui-dialog {
-  box-shadow: 0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.2);
-}
-
-.ui-dialog.ui-widget .ui-dialog-titlebar {
-  border-radius: var(--button-border-radius) var(--button-border-radius) 0 0;
-  padding: 0.5rem 1.25rem;
-  background-color: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-.ui-dialog.ui-widget .ui-dialog-title {
-  font-size: var(--font-size-base);
-}
-.ui-dialog.ui-widget .ui-widget-content.ui-dialog-content {
-  padding: 1.25rem;
-  background: var(--color-bg-light);
-  border: 1px solid var(--color-interaction);
-  border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
-}
-.ui-dialog.ui-widget .ui-dialog-content .form-actions {
-  margin: 1.25rem 1.25rem 0;
-  padding-bottom: 1.25rem;
-}
-.ui-dialog.ui-widget select,
-.ui-dialog.ui-widget input,
-.ui-dialog.ui-widget button {
-  font-family: inherit;
-}
-
 .ui-datepicker {
   border-color: var(--color-interaction--lighten-75);
 }
@@ -11365,7 +11321,7 @@ details > summary:before {
 details > summary::-webkit-details-marker {
   display: none;
 }
-details > summary:before {
+details > summary::before {
   border-radius: var(--button-border-radius);
   float: right;
   font-size: var(--font-size-icon);
@@ -11375,15 +11331,15 @@ details > summary:before {
   transition: transform 300ms ease;
 }
 @media screen and (min-width: 48rem) {
-  details > summary:before {
+  details > summary::before {
     margin-top: 0.25em;
   }
 }
-details > summary:focus:before, details > summary:hover:before {
+details > summary:focus::before, details > summary:hover::before {
   background: var(--color-interaction);
   color: var(--color-text-inverted);
 }
-details > summary:active:before {
+details > summary:active::before {
   background: transparent;
   color: var(--color-interaction);
   outline: var(--outline-active);
@@ -11391,17 +11347,17 @@ details > summary:active:before {
 details > summary:focus, details > summary:hover {
   color: var(--color-interaction);
 }
-details > summary.form-required:after {
+details > summary.form-required::after {
   font-size: var(--font-size-l);
   position: absolute;
   right: 3rem;
   top: 0.5rem;
 }
-details > summary.form-required h2:after {
+details > summary.form-required h2::after {
   color: var(--color-danger);
   content: "*";
 }
-details[open] > summary:before {
+details[open] > summary::before {
   transform: rotate(-180deg);
 }
 details .details-wrapper {
@@ -11447,7 +11403,7 @@ details.bef--secondary > summary .details-title {
   text-align: right;
   margin-right: 1rem;
 }
-details.bef--secondary > summary:before {
+details.bef--secondary > summary::before {
   font-size: var(--font-size-default);
 }
 
@@ -11457,11 +11413,11 @@ details.bef--secondary > summary:before {
   margin-bottom: 0;
   padding-top: 1rem;
 }
-.block-facets details > summary.h4:before {
+.block-facets details > summary.h4::before {
   font-size: var(--font-size-m);
 }
 @media screen and (min-width: 48rem) {
-  .block-facets details > summary.h4:before {
+  .block-facets details > summary.h4::before {
     margin-top: -0.333rem;
   }
 }
@@ -11679,14 +11635,14 @@ figcaption .attribution {
   border: 2px solid var(--color-info);
   color: var(--color-text-inverted);
 }
-.formtip:before {
+.formtip::before {
   color: var(--color-text-inverted);
 }
 .formtip:focus, .formtip:hover, .formtip:active {
   background-color: var(--color-text-inverted);
   border-color: var(--color-info);
 }
-.formtip:focus:before, .formtip:hover:before, .formtip:active:before {
+.formtip:focus::before, .formtip:hover::before, .formtip:active::before {
   color: var(--color-info);
 }
 
@@ -11694,7 +11650,7 @@ figcaption .attribution {
   padding: 1.25rem;
   border-radius: 2px;
 }
-.formtips-processed:before {
+.formtips-processed::before {
   border: 6px solid transparent;
   border-bottom-color: var(--color-info);
 }
@@ -11918,7 +11874,7 @@ details > summary:before {
 details > summary::-webkit-details-marker {
   display: none;
 }
-details > summary:before {
+details > summary::before {
   border-radius: var(--button-border-radius);
   float: right;
   font-size: var(--font-size-icon);
@@ -11928,15 +11884,15 @@ details > summary:before {
   transition: transform 300ms ease;
 }
 @media screen and (min-width: 48rem) {
-  details > summary:before {
+  details > summary::before {
     margin-top: 0.25em;
   }
 }
-details > summary:focus:before, details > summary:hover:before {
+details > summary:focus::before, details > summary:hover::before {
   background: var(--color-interaction);
   color: var(--color-text-inverted);
 }
-details > summary:active:before {
+details > summary:active::before {
   background: transparent;
   color: var(--color-interaction);
   outline: var(--outline-active);
@@ -11944,17 +11900,17 @@ details > summary:active:before {
 details > summary:focus, details > summary:hover {
   color: var(--color-interaction);
 }
-details > summary.form-required:after {
+details > summary.form-required::after {
   font-size: var(--font-size-l);
   position: absolute;
   right: 3rem;
   top: 0.5rem;
 }
-details > summary.form-required h2:after {
+details > summary.form-required h2::after {
   color: var(--color-danger);
   content: "*";
 }
-details[open] > summary:before {
+details[open] > summary::before {
   transform: rotate(-180deg);
 }
 details .details-wrapper {
@@ -12000,7 +11956,7 @@ details.bef--secondary > summary .details-title {
   text-align: right;
   margin-right: 1rem;
 }
-details.bef--secondary > summary:before {
+details.bef--secondary > summary::before {
   font-size: var(--font-size-default);
 }
 
@@ -12010,11 +11966,11 @@ details.bef--secondary > summary:before {
   margin-bottom: 0;
   padding-top: 1rem;
 }
-.block-facets details > summary.h4:before {
+.block-facets details > summary.h4::before {
   font-size: var(--font-size-m);
 }
 @media screen and (min-width: 48rem) {
-  .block-facets details > summary.h4:before {
+  .block-facets details > summary.h4::before {
     margin-top: -0.333rem;
   }
 }
@@ -12137,7 +12093,7 @@ fieldset fieldset {
   border-width: 0;
 }
 
-.form-required:after {
+.form-required::after {
   background-image: none;
   color: var(--color-danger);
   content: "*";
@@ -12322,50 +12278,6 @@ div#block-oc-search-input .details-wrapper,
   padding: 0;
 }
 
-.ui-widget-overlay.ui-front {
-  background: var(--color-neutral-canvas);
-  opacity: 0.8;
-}
-
-.ui-dialog.ui-widget,
-.ui-dialog.ui-widget .ui-dialog-content {
-  font-family: unset;
-  color: unset;
-}
-
-.ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
-  border-radius: 2px;
-}
-
-.ui-dialog {
-  box-shadow: 0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.2);
-}
-
-.ui-dialog.ui-widget .ui-dialog-titlebar {
-  border-radius: var(--button-border-radius) var(--button-border-radius) 0 0;
-  padding: 0.5rem 1.25rem;
-  background-color: var(--color-interaction);
-  color: var(--color-text-inverted);
-}
-.ui-dialog.ui-widget .ui-dialog-title {
-  font-size: var(--font-size-base);
-}
-.ui-dialog.ui-widget .ui-widget-content.ui-dialog-content {
-  padding: 1.25rem;
-  background: var(--color-bg-light);
-  border: 1px solid var(--color-interaction);
-  border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
-}
-.ui-dialog.ui-widget .ui-dialog-content .form-actions {
-  margin: 1.25rem 1.25rem 0;
-  padding-bottom: 1.25rem;
-}
-.ui-dialog.ui-widget select,
-.ui-dialog.ui-widget input,
-.ui-dialog.ui-widget button {
-  font-family: inherit;
-}
-
 .ui-datepicker {
   border-color: var(--color-interaction--lighten-75);
 }
@@ -12501,8 +12413,8 @@ input[type=password],
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -12786,10 +12698,10 @@ kbd {
   padding: 0 0.5em;
 }
 
-q:before {
+q::before {
   content: "„";
 }
-q:after {
+q::after {
   content: "“";
 }
 
@@ -12963,14 +12875,14 @@ figcaption .attribution {
   border: 2px solid var(--color-info);
   color: var(--color-text-inverted);
 }
-.formtip:before {
+.formtip::before {
   color: var(--color-text-inverted);
 }
 .formtip:focus, .formtip:hover, .formtip:active {
   background-color: var(--color-text-inverted);
   border-color: var(--color-info);
 }
-.formtip:focus:before, .formtip:hover:before, .formtip:active:before {
+.formtip:focus::before, .formtip:hover::before, .formtip:active::before {
   color: var(--color-info);
 }
 
@@ -12978,7 +12890,7 @@ figcaption .attribution {
   padding: 1.25rem;
   border-radius: 2px;
 }
-.formtips-processed:before {
+.formtips-processed::before {
   border: 6px solid transparent;
   border-bottom-color: var(--color-info);
 }

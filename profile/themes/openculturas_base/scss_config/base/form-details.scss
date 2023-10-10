@@ -52,7 +52,7 @@ details {
     }
 
     // Chevron  ▲ and ▼.
-    &:before {
+    &::before {
       border-radius: $button-border-radius;
       float: right;
       font-size: $font-size-icon;
@@ -66,13 +66,13 @@ details {
       }
     }
 
-    &:focus:before,
-    &:hover:before {
+    &:focus::before,
+    &:hover::before {
       background: $color-interaction;
       color: $color-text-inverted;
     }
 
-    &:active:before {
+    &:active::before {
       background: transparent;
       color: $color-interaction;
       outline: $outline-active;
@@ -84,7 +84,7 @@ details {
     }
 
     &.form-required {
-      &:after {
+      &::after {
         font-size: $font-size-l;
         position: absolute;
         right: 3rem;
@@ -92,7 +92,7 @@ details {
       }
 
       h2 {
-        &:after {
+        &::after {
           color: $color-danger;
           content: '*';
         }
@@ -102,7 +102,7 @@ details {
   }
 
   &[open] {
-    > summary:before {
+    > summary::before {
       transform: rotate(-180deg);
     }
   }
@@ -172,7 +172,7 @@ details.bef--secondary {
     margin-right: 1rem;
   }
 
-  > summary:before {
+  > summary::before {
     font-size: $font-size-default;
   }
 }
@@ -186,7 +186,7 @@ details.bef--secondary {
   padding-top: 1rem;
 
   > summary.h4 {
-    &:before {
+    &::before {
       font-size: var(--font-size-m);
       @include breakpoint(m) {
         margin-top: -.333rem;

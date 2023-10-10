@@ -1,4 +1,4 @@
-(function ($, Drupal) {
+(function ($, Drupal, once) {
 
   'use strict';
 
@@ -7,7 +7,7 @@
    */
   Drupal.behaviors.mainMenu = {
     attach: function (context, settings) {
-      $('.menu-item--toggle', context).once('init-main-menu').click(this.toggleMenuItem);
+      $(once('init-main-menu', '.menu-item--toggle', context)).click(this.toggleMenuItem);
       // Toggle initial states.
       $('.region-offcanvas-menu ul').each(function() {
         if ($(this).parent().hasClass('menu-item--active-trail')) {
@@ -20,7 +20,7 @@
         }
       });
     },
-    toggleMenuItem: function(e= null) {
+    toggleMenuItem: function() {
       let $menuItem = $(this).parent();
       let $allMenuItems = $('.region-offcanvas-menu li.menu-item');
       let wasOpen = $menuItem.hasClass('menu-item--open');
@@ -33,4 +33,4 @@
       }
     }
   };
-} (jQuery, Drupal));
+} (jQuery, Drupal, once));

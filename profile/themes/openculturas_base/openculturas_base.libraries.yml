@@ -7,9 +7,9 @@ global:
       css/style.css: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
     - core/drupal
     - core/once
+    - core/drupal.dialog # Workaround - somehow it does not load on profile recommended flag widget.
 
 datepicker_i18n_de:
   js:
@@ -18,3 +18,9 @@ datepicker_i18n_de:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+
+
+drupal.dialog:
+  css:
+    component:
+      css/jquery-ui.dialog.css: {}

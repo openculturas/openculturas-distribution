@@ -13,6 +13,8 @@ use function preg_replace;
 use function sprintf;
 use function str_repeat;
 use function str_replace;
+use function substr;
+use function trim;
 
 class AddToCal extends AddToCalOrigin {
 
@@ -28,8 +30,9 @@ class AddToCal extends AddToCalOrigin {
       // or a provided title?
       return;
     }
+    $def_format = 'Ymd\\THi00';
+    $def_format_z = $def_format . '\\Z';
     $end_fallback = $end ?? $start;
-
     $now = $this->getCurrentDate();
     // For a recurring date, determine if the last instance is in the past.
     $upcoming_instance = FALSE;
@@ -59,12 +62,12 @@ class AddToCal extends AddToCalOrigin {
       $prefix = ':';
     }
     else {
-      $date_format = "Ymd\\THi00";
+      $date_format = $def_format;
       if ($timezone !== '' && $timezone !== '0') {
         $prefix = ';TZID=' . $timezone . ':';
       }
       else {
-        $date_format .= "\\Z";
+        $date_format = $def_format_z;
         $prefix = ':';
       }
       $start_formatted = $start->format($date_format, $timezone);
@@ -81,7 +84,6 @@ class AddToCal extends AddToCalOrigin {
       $description = $this->parseField($config['description'], $entity, TRUE, TRUE);
       $google_link['details'] = $this->parseField($config['description'], $entity, TRUE, TRUE, '<br><p><b><u><a><ul><ol>');
       $google_link['details'] = str_replace('</p>' . PHP_EOL . PHP_EOL . '<p>', '</p><p>', $google_link['details']);
-
       $max_length = $config['max_desc'] ?? 60;
       if ($max_length) {
         // @todo Use Smart Trim if available.
@@ -105,13 +107,13 @@ class AddToCal extends AddToCalOrigin {
       // Timezone must precede VEVENT in iCal format
       // per icalendar.org/iCalendar-RFC-5545/3-6-5-time-zone-component.html .
       $google_link['ctz'] = $timezone;
-      $ical_link[] = 'BEGIN:VTIMEZONE';
-      $ical_link[] = 'TZID:' . $timezone;
-      $ical_link[] = 'BEGIN:STANDARD';
-      $ical_link[] = 'TZOFFSETFROM:' . $offset_from;
-      $ical_link[] = 'TZOFFSETTO:' . $offset_to;
-      $ical_link[] = 'END:STANDARD';
-      $ical_link[] = 'END:VTIMEZONE';
+      $ical_link['tz'][] = 'BEGIN:VTIMEZONE';
+      $ical_link['tz'][] = 'TZID:' . $timezone;
+      $ical_link['tz'][] = 'BEGIN:STANDARD';
+      $ical_link['tz'][] = 'TZOFFSETFROM:' . $offset_from;
+      $ical_link['tz'][] = 'TZOFFSETTO:' . $offset_to;
+      $ical_link['tz'][] = 'END:STANDARD';
+      $ical_link['tz'][] = 'END:VTIMEZONE';
     }
     $ical_link[] = 'VERSION:2.0';
     $ical_link[] = 'BEGIN:VEVENT';
@@ -123,10 +125,11 @@ class AddToCal extends AddToCalOrigin {
 
     // Dates.
     // As per RFC 2445 4.8.7.2 the DTSTAMP property must be in UTC.
-    $now->setTimezone(new \DateTimeZone('UTC'));
-    $ical_link[] = 'DTSTAMP:' . $now->format('Ymd\\THi00\\Z');
-    $ical_link[] = 'DTSTART' . $prefix . $start_formatted;
-    $ical_link[] = 'DTEND' . $prefix . $end_formatted;
+    $utc = new \DateTimeZone('UTC');
+    $now->setTimezone($utc);
+    $ical_link[] = 'DTSTAMP:' . $now->format($def_format_z);
+    $ical_link['start'] = 'DTSTART' . $prefix . $start_formatted;
+    $ical_link['end'] = 'DTEND' . $prefix . $end_formatted;
     $google_link['dates'] = $start_formatted . '/' . $end_formatted;
 
     // Recurrence.
@@ -149,9 +152,21 @@ class AddToCal extends AddToCalOrigin {
     $ical_link[] = 'END:VCALENDAR';
 
     /* Append every 70 chars a url encoded CRLF sequence followed by a whitespace. see https://icalendar.org/iCalendar-RFC-5545/3-1-content-lines.html */
-    $ical_link = array_map(fn($content): ?string => mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
+    $ical_link = array_map(static fn($content): null|string|array => is_string($content) && mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
+
+    // Set start/end dates timezone to UTC for Outlook.
+    $outlook_link = $ical_link;
+    if (isset($outlook_link['tz'])) {
+      unset($outlook_link['tz']);
+    }
+    $start->setTimezone($utc);
+    $end->setTimezone($utc);
+    $outlook_link['start'] = 'DTSTART:' . $start->format($def_format_z);
+    $outlook_link['end'] = 'DTEND:' . $end->format($def_format_z);
+
     return [
       'ical' => $ical_link,
+      'outlook' => $outlook_link,
       'google' => $google_link,
     ];
   }

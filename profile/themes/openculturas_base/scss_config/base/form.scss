@@ -75,7 +75,7 @@ fieldset fieldset {
   border-width: 0;
 }
 
-.form-required:after {
+.form-required::after {
   background-image: none;
   color: $color-danger;
   content: '*';
@@ -283,62 +283,6 @@ div#block-oc-search-input,
   }
   .details-wrapper {
     padding: 0;
-  }
-}
-
-// Modals
-// please note: Gin admin theme interfers by design
-
-.ui-widget-overlay.ui-front {
-  background: var(--color-neutral-canvas);
-  opacity: .8;
-}
-
-.ui-dialog.ui-widget,
-.ui-dialog.ui-widget .ui-dialog-content {
-  font-family: unset;
-  color: unset;
-}
-
-.ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
-  border-radius: 2px;
-}
-
-.ui-dialog {
-  box-shadow: 0 0 .5rem .25rem #00000033;
-}
-
-.ui-dialog.ui-widget {
-  .ui-dialog-titlebar {
-    border-radius: var(--button-border-radius) var(--button-border-radius) 0 0;
-    padding: .5rem $grid-gutter;
-    background-color: var(--color-interaction);
-    color: var(--color-text-inverted);
-  }
-
-  .ui-dialog-title {
-    font-size: var(--font-size-base);
-  }
-
-  .ui-dialog-titlebar-close {
-  }
-
-  .ui-widget-content.ui-dialog-content {
-    padding: $grid-gutter;
-    background: var(--color-bg-light);
-    border: 1px solid var(--color-interaction);
-    border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
-  }
-
-  .ui-dialog-content .form-actions {
-    margin: $grid-gutter $grid-gutter 0;
-    padding-bottom: $grid-gutter;
-  }
-
-  select,
-  input,
-  button {
-    font-family: inherit;
   }
 }
 

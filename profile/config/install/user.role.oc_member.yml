@@ -5,6 +5,7 @@ dependencies:
     - workflows.workflow.draften_member
   module:
     - content_moderation
+    - file
     - flag
     - node
 id: oc_member
@@ -12,6 +13,7 @@ label: 'OC member'
 weight: -8
 is_admin: null
 permissions:
+  - 'delete own files'
   - 'flag recommendation_node'
   - 'unflag recommendation_node'
   - 'use draften_member transition create_new_draft'
