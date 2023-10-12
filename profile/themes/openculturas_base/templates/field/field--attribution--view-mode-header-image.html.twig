@@ -1,0 +1,12 @@
+{% extends 'field.html.twig' %}
+
+{% block item %}
+  <div class="attribution--bubble">
+    <button class="attribution--bubble--toggle" aria-label="{{ 'Show attribution'|trans }}">
+        ?
+    </button>
+    <dialog class="attribution--bubble--dialog">
+      {{ parent() }}
+    </dialog>
+  </div>
+{% endblock item %}

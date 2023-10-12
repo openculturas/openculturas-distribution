@@ -1,0 +1,82 @@
+.field--type-attribution {
+    .attribution--bubble {
+        position: absolute;
+        max-width: 26em;
+        right: .5em;
+        top: 1em;
+        color: $color-text-inverted;
+        display: flex;
+        flex-flow: column;
+        align-items: flex-end;
+    
+        .attribution--bubble--toggle {
+          display: block;
+          background-color: $color-info;
+          color: $color-text-inverted;
+          border-radius: 2rem;
+          border: none;
+          width: 2rem;
+          height: 2rem;
+          padding: 0;
+          margin-right: .25rem;
+          margin-bottom: 1.5rem;
+          &[data-active] {
+            outline: 3px solid $color-info;
+            outline-offset: 6px;
+          }
+        }
+
+      .attribution--bubble--dialog {
+        background-color: transparent;
+        display: none;
+        border: none;
+        padding: 0;
+        min-width: 15rem;
+        margin-right: 0;
+        position: absolute;
+        z-index: +1;
+  
+        &[open] {
+          display: block;
+          top: 3.5em;
+        }
+  
+        &::before {
+          content: "";
+          position: absolute;
+          top: -10px;
+          right: 10px;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid $color-info;
+        }
+  
+        .field__item {
+          color: white;
+          a {
+            color: white;
+            text-decoration: underline;
+            &:focus {
+              background: transparent;
+            }
+            &:hover {
+              background: $color-link;
+            }
+          }
+        }
+
+        .field__item {
+            padding: 1em;
+            border-radius: 3px;
+            background-color: $color-info;
+        }
+    }
+  }
+    
+  @include breakpoint(xs) {
+      .attribution--bubble {
+        right: 0em;
+        top: 0;
+      }
+  }
+}
