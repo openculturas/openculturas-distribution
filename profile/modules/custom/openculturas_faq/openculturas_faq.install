@@ -102,3 +102,20 @@ function openculturas_faq_update_9303(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Deletes invalid path component in entity_view_display configurations.
+ */
+function openculturas_faq_update_9304(): void {
+  $configFactory = \Drupal::configFactory();
+  foreach ($configFactory->listAll('core.entity_view_display.node.faq') as $config_name) {
+    $config = $configFactory->getEditable($config_name);
+    if ($config->isNew()) {
+      continue;
+    }
+    $configData = $config->getRawData();
+    unset($configData['content']['path']);
+    $config->setData($configData);
+    $config->save(TRUE);
+  }
+}
