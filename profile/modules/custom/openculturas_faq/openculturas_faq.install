@@ -56,6 +56,23 @@ function openculturas_faq_update_last_removed(): int {
 }
 
 /**
+ * Deletes invalid path component in entity_view_display configurations.
+ */
+function openculturas_faq_update_9304(): void {
+  $configFactory = \Drupal::configFactory();
+  foreach ($configFactory->listAll('core.entity_view_display.node.faq') as $config_name) {
+    $config = $configFactory->getEditable($config_name);
+    if ($config->isNew()) {
+      continue;
+    }
+    $configData = $config->getRawData();
+    unset($configData['content']['path']);
+    $config->setData($configData);
+    $config->save(TRUE);
+  }
+}
+
+/**
  * Deletes removed update_helper_checklist updates.
  */
 function openculturas_faq_update_9401(): void {
