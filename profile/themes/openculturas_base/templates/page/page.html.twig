@@ -72,32 +72,34 @@
         class="header__burger--buttons"
         aria-controls="offcanvas_menu"
         aria-expanded="false"
-        aria-label="{{ 'Open the menu'|t }}">
+        aria-label="{{ 'Menu'|t }}">
       </button>
     </div>
-    <div class="header__offcanvas-menu" role="dialog" aria-hidden="true" id="offcanvas_menu">
-      <div class="header__offcanvas-menu--grid">
-        <div class="header__offcanvas-menu--heading">
-          {% if page.branding %}
-            <div class="header__offcanvas-menu__branding">
-              {{ page.branding }}
+    <dialog id="offcanvas_menu_dialog">
+      <div class="header__offcanvas-menu"  aria-hidden="true" id="offcanvas_menu">
+        <div class="header__offcanvas-menu--grid">
+          <div class="header__offcanvas-menu--heading">
+            {% if page.branding %}
+              <div class="header__offcanvas-menu__branding">
+                {{ page.branding }}
+              </div>
+            {% endif %}
+            <div class="header__offcanvas-menu--toggle">
+              <button
+                id="button-offcanvas-close"
+                class="header__burger--buttons header__offcanvas-menu--burger"
+                aria-controls="offcanvas_menu"
+                aria-expanded="false"
+                aria-label="{{ 'Close'|t }}">
+              </button>
             </div>
-          {% endif %}
-          <div class="header__offcanvas-menu--toggle">
-            <button
-              id="button-offcanvas-close"
-              class="header__burger--buttons header__offcanvas-menu--burger"
-              aria-controls="offcanvas_menu"
-              aria-expanded="false"
-              aria-label="{{ 'Close the menu'|t }}">
-            </button>
+          </div>
+          <div class="header__offcanvas-menu--content">
+            {{ page.offcanvas_menu }}
           </div>
         </div>
-        <div class="header__offcanvas-menu--content">
-          {{ page.offcanvas_menu }}
-        </div>
       </div>
-    </div>
+    </dialog>
     {% endif %}
   </header>
   {% if page.breadcrumbs %}
