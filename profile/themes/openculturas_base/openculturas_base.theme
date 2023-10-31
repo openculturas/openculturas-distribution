@@ -115,6 +115,10 @@ function openculturas_base_preprocess_node(array &$variables): void {
       $event = reset($events);
       if ($event instanceof NodeInterface) {
         $variables['label'] = $event->label();
+        if (is_array($variables['content']['extra_field_event_mood_image'])) {
+          $variables['content']['field_mood_image'] = $variables['content']['extra_field_event_mood_image'];
+          $variables['content']['extra_field_event_mood_image']['#access'] = FALSE;
+        }
       }
     }
   }
