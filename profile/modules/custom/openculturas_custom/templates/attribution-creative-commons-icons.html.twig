@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an attribution.
+ *
+ * Available variables:
+ * - source.name: The name of the source.
+ * - source.link: The link to the source.
+ * - author.name: The name of the author.
+ * - author.link: The link to the author.
+ * - license: The associated license.
+ * - license.id: The spdx license short code.
+ * - license.name: The spdx license name.
+ * - license.osiCertified: Is the license OSI certified?
+ * - license.deprecated: Is the license deprecated?
+ * - license.link: The link to the license.
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('openculturas_custom/attribution_creative_commons_icons') }}
+{% set version = '' %}
+<div class="attribution--license-icons">
+  {# Fake a cc icon only for cc licence except CC0 (public domain) #}
+  {% if license.identifier|lower starts with 'cc-' %}
+    {% set features = license.identifier|split('-') %}
+    <span class="attribution--license-icons__license-identifier">
+    {% apply spaceless %}
+      {% for feature in features %}
+        {% if feature and feature matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}
+          {% set version = feature %}
+        {% else %}
+          {% if version == '' %}
+            {% if features[loop.index] and features[loop.index] matches '/^[-+]?[0-9]*\\.?[0-9]+$/' %}{% set last = true %}{% endif %}
+            <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i><b>{% if last != true and loop.first != 1 and loop.last != 1 %}-{% else %}&nbsp;{% endif %}</b>
+          {% elseif version != ''  %}
+            <i class="cc-icon-cc-{{ feature|lower }}"><span>{{ feature|upper }}</span></i>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endapply %}
+    </span>
+  {% else %}
+      <span class="attribution--license-icons__license-identifier">{% if license.identifier == 'All rights reserved' %}&copy;{% else %}{{ license.identifier }}{% endif %}</span>
+  {% endif %}
+</div>

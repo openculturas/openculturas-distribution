@@ -68,6 +68,18 @@ function openculturas_custom_theme(): array {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function openculturas_custom_theme_registry_alter(array &$theme_registry): void {
+  if (isset($theme_registry['attribution_creative_commons_icons'])) {
+    /** @var \Drupal\Core\Extension\ExtensionList $extension_list */
+    $extension_list = \Drupal::service('extension.list.module');
+    $theme_registry['attribution_creative_commons_icons']['theme path'] = $extension_list->getPath('openculturas_custom');
+    $theme_registry['attribution_creative_commons_icons']['path'] = $extension_list->getPath('openculturas_custom') . '/templates';
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK() for leaflet-map.html.twig.
  */
 function openculturas_custom_preprocess_leaflet_map(array &$variables): void {

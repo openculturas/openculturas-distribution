@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\node\NodeInterface;
+use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 
 /**
@@ -259,4 +260,25 @@ function openculturas_update_9405(): void {
     $role->save();
   }
 
+}
+
+/**
+ * Revert asset_injector.css.oc_gin_theme_overrides.
+ */
+function openculturas_update_9406(): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $full_config_name = 'asset_injector.css.oc_gin_theme_overrides';
+  $config_name = ConfigName::createByFullName($full_config_name);
+
+  if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+  else {
+    $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+  }
+
+  return $logger->output();
 }
