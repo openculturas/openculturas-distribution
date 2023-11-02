@@ -15,7 +15,7 @@ $databases['default']['default']['init_commands'] = [
 require_once $app_root . '/sites/example.settings.local.php';
 
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-   include $app_root . '/' . $site_path . '/settings.local.php';
+  include $app_root . '/' . $site_path . '/settings.local.php';
 }
 $settings['config_exclude_modules'] = [
   'devel',
@@ -25,14 +25,8 @@ $settings['config_exclude_modules'] = [
   'bpmn_io',
   'eca_modeller_bpmn',
   'eca_ui',
-  'config_devel'
+  'config_devel',
 ];
-
-// Override drupal/swiftmailer default config to use Mailhog
-$config['smtp.settings']['smtp_on'] = TRUE;
-$config['smtp.settings']['smtp_host'] = '127.0.0.1';
-$config['smtp.settings']['smtp_port'] = '1025';
-$config['system.mail']['interface']['default'] = 'SMTPMailSystem';
 
 $settings['simple_environment_anonymous'] = TRUE;
 $settings['simple_environment_indicator'] = '#000000/#1d70b7 Dev';
