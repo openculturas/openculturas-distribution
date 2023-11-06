@@ -44,9 +44,11 @@ body:not(.path-frontpage) .node {
 }
 
 .interact {
+  padding: $grid-gutter 0;
   @extend %flex !optional;
   justify-content: center;
   flex-flow: row wrap;
+  column-gap: 1.25rem;
 
   .field--name-extra-field-social-media-buttons {
     flex-basis: 100%;
@@ -60,6 +62,11 @@ body:not(.path-frontpage) .node {
 
   .shariff {
     display: flex;
+  }
+
+  .path-node & {
+    margin-top: $grid-gutter;
+    border-top: 1px solid var(--color-divider-light);
   }
 }
 

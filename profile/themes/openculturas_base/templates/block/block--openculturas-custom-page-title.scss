@@ -1,8 +1,5 @@
 .block-openculturas-custom-page-title {
-  margin-bottom: (2*$grid-gutter);
-  @include breakpoint(m) {
-    margin-bottom: $grid-gutter;
-  }
+  margin-bottom: $grid-gutter;
 
   .page-title {
     margin-bottom: .5rem;
@@ -34,27 +31,50 @@
   .field--name-field-portrait {
     @include profile_circle;
     position: relative;
-    top: -3rem;
+    top: $grid-gutter;
     height: 6rem;
     width: 6rem;
     min-width: 6rem;
-    margin: 0 0 -3rem;
+    margin: 0 0 $grid-gutter;
     border-width: 2px;
   }
 
   @include breakpoint(m) {
     margin-top: 1rem;
-    //margin-bottom: 4rem;
     flex-flow: row nowrap;
     align-items: normal;
     text-align: left;
-
     .field--name-field-portrait {
       position: relative;
-      top: $grid-gutter;
       margin-right: $grid-gutter;
-      margin-bottom: $grid-gutter;
     }
   }
 
 }
+
+// Firefox does not support has-selector by default.
+// See option below
+.hero-intro:has(img) + main .custom-page-title--with-image .field--name-field-portrait {
+  top: -3rem;
+  margin-bottom: -3rem;
+
+  @include breakpoint(m) {
+    top: $grid-gutter;
+    margin-bottom: $grid-gutter;
+  }
+}
+
+// Portrait can overlap header image if you always have one
+// (otherwise overlaps crumbtrail in small breakpoint)
+
+// .custom-page-title--with-image {
+//   .field--name-field-portrait {
+//     top: -3rem;
+//     margin-bottom: -3rem;
+//     @include breakpoint (m) {
+//       margin-right: $grid-gutter;
+//       top: $grid-gutter;
+//       margin-bottom: $grid-gutter;
+//     }
+//   }
+// }

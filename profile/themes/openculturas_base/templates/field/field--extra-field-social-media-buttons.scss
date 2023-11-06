@@ -7,12 +7,14 @@ body .interact {
   position: relative;
   text-align: left;
   button {
-    @include icon(share-alt);
-    &:before {
-      margin-right: .75rem;
+    @include icon(share-alt) {
+      padding-right: .75rem;
     }
     padding-left: 1rem; // like flag buttons
     padding-right: 1rem;
+  }
+  button {
+    @extend %button-small;
   }
 
   &:hover,

@@ -3,7 +3,7 @@
 }
 
 .flag a {
-  @extend %button;
+  @extend %button-small;
   display: inline-block;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -32,6 +32,10 @@
   }
 }
 
+.flag a.disabled {
+  opacity: .5;
+}
+
 .js-flag-message {
   @include icon(info-circle) {
     color: inherit;
@@ -40,24 +44,20 @@
   background: $color-bg-success;
   border: 1px solid $color-success;
   color: $color-text;
+  font-size: var(--font-size-s);
   display: block;
   margin: 0;
   padding: .5rem 1rem;
   position: absolute;
-  left: 0;
+  left: 3rem;
   text-align: right;
   top: -.5rem;
   white-space: nowrap;
-  z-index: 9999;
-
-  //&:before {
-    //color: inherit;
-    //padding-right: .75rem;
-  //}
+  z-index: +1;
 }
 
 .js-flag-message {
-  transform:translateX(calc(-100% - #{$grid-gutter}));
+  //transform:translateX(calc(-100% - #{$grid-gutter}));
 }
 
 .action-flag {
@@ -83,9 +83,10 @@
   justify-content: center;
   align-items: center;
   border-radius: $button-border-radius;
-  width: inherit;
-  overflow: hidden;
-  transition: opacity 2s linear;
+  width: 8rem;
+  overflow: visible;
+  transition: opacity 3s linear;
+  font-size: var(--font-size-s);
 
    &:before {
     margin-right: .75rem;
@@ -104,14 +105,13 @@
 
 .flag-recommendation-node {
   .flag--link {
-    //@include icon(share-alt);
     @include icon(star);
   }
 }
 
 .flag-report-abuse {
   .flag--link {
-    @extend %button-danger;
+    //@extend %button-danger;
     @include icon(hand);
   }
 }
@@ -127,32 +127,59 @@
 .flag-recommendation-node {
 }
 
+// Bookmark flag icon in header image region
 
-// header block
-.block-openculturas-custom-bookmark-flag-icon {
-  .flag-recommendation-node,
-  .flag-bookmark-node,
-  .flag-bookmark-term {
+.region-header-intro {
+  #block-bookmarkflagicon {
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: -3.5rem;
+    right: 1rem;
+    z-index: +1;
+    @include breakpoint(m) {
+      right: 3.25rem;
+    }
+    @include breakpoint(l) {
+      right: 4.25rem;
+      bottom: -4.5rem;
+    }
+  }
 
-    .flag--link {
-      padding-left: 1rem;
-      padding-right: 1rem;
-      margin: 0;
-      max-width: 2.8rem;
-      overflow: hidden;
-      transition: max-width .5s ease 1s;
-      transition-delay: 1s;
+  .js-flag-message,
+  .flag .ajax-spinner {
+    transform:translateX(calc(-100% - 2rem));
+  }
 
+  div[class^="flag flag-bookmark"] a {
+    overflow: hidden;
+    width: 2rem;
+    height: 2rem;
+    padding: .333rem .625rem;
+    border-radius: 50%;
+    margin-bottom: 0;
+    @include breakpoint(m) {
+      width: 3rem;
+      height: 3rem;
+      padding: .666rem .825rem;
+      border-width: 2px !important;
       &:before {
-        line-height: 1;
-        margin-right: 1rem;
-      }
-
-      &:hover {
-        max-width: 100vw;
-        transition-delay: 0s;
+        font-size: 1.5rem;
+        padding-right: 3rem;
       }
     }
+  }
+}
+
+#block-heroimagefromcurrententityfromfield-mood-image + #block-bookmarkflagicon {
+  right: 1rem;
+  @include breakpoint(m) {
+    bottom: .5rem;
+    right: 1.25rem;
+  }
+
+  .action-unflag a {
+    border-color: var(--color-text-inverted);
   }
 }
 
@@ -173,7 +200,7 @@
     background-color: transparent;
     padding: 0 0 0 3em;
     border: 0 none;
- 
+
     &:before {
       position: absolute;
       left: 0;

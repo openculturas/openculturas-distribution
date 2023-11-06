@@ -42,18 +42,6 @@ class BookmarkFlagIconBlock extends BlockBase {
         '#create_placeholder' => TRUE,
       ];
 
-      if ($current_entity->getEntityTypeId() === 'node') {
-        $build['flag_recommendation_node'] = [
-          '#lazy_builder' => ['flag.link_builder:build', [
-            $current_entity->getEntityTypeId(),
-            $current_entity->id(),
-            'recommendation_node',
-          ],
-          ],
-          '#create_placeholder' => TRUE,
-        ];
-      }
-
       $build['#cache'] = [
         'max-age' => 0,
       ];
