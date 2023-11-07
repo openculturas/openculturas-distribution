@@ -465,7 +465,37 @@ input[type="password"],
 
   .form-item label {
     @extend %label;
+
     padding-left: 0;
   }
+}
 
+// Password indicator (@todo check back with contrib classy theme)
+
+.password-strength__indicator {
+  border: 1px solid transparent;
+
+  &.is-weak {
+    border-color: var(--color-danger);
+    background-color: var(--color-danger);
+  }
+  &.is-fair {
+    border-color: var(--color-warning-dark);
+    background-color: var(--color-warning);
+  }
+  &.is-good {
+    border-color: var(--color-info);
+    background-color: var(--color-info);
+  }
+  &.is-strong {
+    border-color: var(--color-success);
+    background-color: var(--color-success);
+  }
+}
+
+.password-suggestions {
+  padding: 0.5rem 1rem 1rem;
+  color: var(--color-info);
+  border-color: var(--color-info);
+  background-color: var(--color-bg-info);
 }

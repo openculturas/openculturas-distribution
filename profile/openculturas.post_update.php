@@ -136,3 +136,51 @@ function openculturas_post_update_interaction_button_section(): string {
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Setup password policies and enable strength indicator.
+ */
+function openculturas_post_update_password_policy(): string {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install([
+    'password_policy',
+    'password_policy_length',
+    'password_policy_character_types',
+    'password_policy_blacklist',
+  ]);
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $displays_ids = ['default', 'register'];
+  foreach ($displays_ids as $displays_id) {
+    $display = $entity_display->getFormDisplay('user', 'user', $displays_id);
+    if (!$display->isNew()) {
+      $display->removeComponent('field_last_password_reset');
+      $display->removeComponent('field_password_expiration');
+      $display->removeComponent('field_pending_expire_sent');
+      $display->save();
+    }
+  }
+
+  $displays_ids = ['default', 'compact', 'full'];
+  foreach ($displays_ids as $displays_id) {
+    $display = $entity_display->getViewDisplay('user', 'user', $displays_id);
+    if (!$display->isNew()) {
+      $display->removeComponent('field_last_password_reset');
+      $display->removeComponent('field_password_expiration');
+      $display->removeComponent('field_pending_expire_sent');
+      $display->save();
+    }
+  }
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_password_policy');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
