@@ -15,11 +15,11 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
     return;
   }
 
-  $form['custom_settings'] = [
+  $form['background_image'] = [
     '#type' => 'details',
     '#title' => t('Background image'),
   ];
-  $form['custom_settings']['background_image_mode'] = [
+  $form['background_image']['background_image_mode'] = [
     '#type'          => 'radios',
     '#default_value' => theme_get_setting('background_image.mode') ?? 'mood_image',
     '#description' => t('An image can be appended behind the content to cover the viewport background.'),
@@ -29,7 +29,7 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
       'global_image' => t('Use global image globally (upload here)'),
     ],
   ];
-  $form['custom_settings']['background_image_path'] = [
+  $form['background_image']['background_image_path'] = [
     '#type' => 'textfield',
     '#title' => t('Path to custom background image'),
     '#default_value' => theme_get_setting('background_image.path'),
@@ -40,7 +40,7 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
     ],
   ];
 
-  $element = &$form['custom_settings']['background_image_path'];
+  $element = &$form['background_image']['background_image_path'];
   $friendly_path = NULL;
   $original_path = $element['#default_value'];
   $default = 'background.jpg';
@@ -54,7 +54,7 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
     '@explicit-file' => is_string($original_path) && StreamWrapperManager::getScheme($original_path) !== FALSE ? $original_path : 'public://' . $default,
   ]);
 
-  $form['custom_settings']['background_image_upload'] = [
+  $form['background_image']['background_image_upload'] = [
     '#type' => 'file',
     '#title' => t('Upload background image'),
     '#description' => t("If you don't have direct file access to the server, use this field to upload your image."),
@@ -76,8 +76,8 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
  * Validation handler for openculturas_base_form_system_theme_settings_alter().
  */
 function openculturas_base_form_system_theme_settings_validate(array &$form, FormStateInterface $form_state): void {
-  if (isset($form['custom_settings']['background_image_upload'])) {
-    $file = _file_save_upload_from_form($form['custom_settings']['background_image_upload'], $form_state, 0);
+  if (isset($form['background_image']['background_image_upload'])) {
+    $file = _file_save_upload_from_form($form['background_image']['background_image_upload'], $form_state, 0);
     if ($file) {
       // Put the temporary file in form_values, so we can save it on submit.
       $form_state->setValue('background_image_upload', $file);

@@ -9,6 +9,7 @@ use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
@@ -68,7 +69,57 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
    * @php-return array{label_display: false}
    */
   public function defaultConfiguration(): array {
-    return ['label_display' => FALSE];
+    return [
+      'label_display' => FALSE,
+      'subheadline_display' => TRUE,
+      'subtype_display' => TRUE,
+      'profilepicture_display' => TRUE,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::buildConfigurationForm($form, $form_state);
+    $form['page_title_block'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Components'),
+      '#open' => TRUE,
+      '#description' => $this->t('The default page title block compose several fields. Deselect here what you prefer to place elsewhere in the layout.'),
+    ];
+    $form['page_title_block']['page_title_display'] = [
+      '#title' => $this->t('Page title'),
+      '#type' => 'checkbox',
+      '#disabled' => TRUE,
+      '#default_value' => TRUE,
+    ];
+    $form['page_title_block']['subheadline_display'] = [
+      '#title' => $this->t('Subheadline (tagline)'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->configuration['subheadline_display'],
+    ];
+    $form['page_title_block']['subtype_display'] = [
+      '#title' => $this->t('Sub type'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->configuration['subtype_display'],
+    ];
+    $form['page_title_block']['profilepicture_display'] = [
+      '#title' => $this->t('Profile picture'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->configuration['profilepicture_display'],
+    ];
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, FormStateInterface $form_state): void {
+    $this->configuration['subheadline_display'] = $form_state->getValue(['page_title_block', 'subheadline_display']);
+    $this->configuration['subtype_display'] = $form_state->getValue(['page_title_block', 'subtype_display']);
+    $this->configuration['profilepicture_display'] = $form_state->getValue(['page_title_block', 'profilepicture_display']);
+    parent::blockSubmit($form, $form_state);
   }
 
   /**
@@ -92,15 +143,15 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
       $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
       $title_markup[] = ['#plain_text' => $current_entity->label()];
       $this->title = $title_markup;
-      if ($current_entity->hasField('field_subtitle')
+      if ($this->configuration['subheadline_display'] && $current_entity->hasField('field_subtitle')
         && !$current_entity->get('field_subtitle')->isEmpty()) {
         $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);
       }
-      if ($current_entity->hasField('field_sub_type')
+      if ($this->configuration['subtype_display'] && $current_entity->hasField('field_sub_type')
         && !$current_entity->get('field_sub_type')->isEmpty()) {
         $sub_type = $current_entity->get('field_sub_type')->view(['label' => 'hidden']);
       }
-      if ($current_entity->hasField('field_portrait')
+      if ($this->configuration['profilepicture_display'] && $current_entity->hasField('field_portrait')
         && !$current_entity->get('field_portrait')->isEmpty()) {
         $display_options = [
           'type' => 'entity_reference_entity_view',
