@@ -102,7 +102,7 @@ function _openculturas_post_update_interaction_button_section_remove_bookmark(st
 }
 
 /**
- * Disable bookmark as field and enable it as block.
+ * Disable bookmark as field and enable it as block, re-order of interact field_group fields.
  */
 function openculturas_post_update_interaction_button_section(): string {
 
