@@ -47,7 +47,7 @@ return static function (RectorConfig $rectorConfig): void {
     __DIR__ . '/profile/'
   ]);
   $rectorConfig->phpstanConfig(
-    __DIR__ . '/phpstan.neon'
+    __DIR__ . '/phpstan-for-rector.neon'
   );
   $rectorConfig->phpVersion(
     PhpVersion::PHP_74
