@@ -41,7 +41,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   /**
    * @var array|null
    */
-  protected ?array $referenceViewFormatterSettings;
+  protected ?array $referenceViewFormatterSettings = NULL;
 
   /**
    * @var \Drupal\Core\Entity\EntityRepositoryInterface

@@ -102,7 +102,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   /**
    * {@inheritdoc}
    */
-  public function calculateDependencies() {
+  public function calculateDependencies(): self {
     parent::calculateDependencies();
     foreach ($this->eca_model as $model_name => $status) {
       if ($status) {
@@ -140,7 +140,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
    * {@inheritdoc}
    */
   public function isEcaModelEnabledForRecipient(string $model): bool {
-    return (empty(array_filter($this->get('eca_model'))) || $model === '') || ($this->get('eca_model')[$model] ?? FALSE);
+    return (array_filter($this->get('eca_model')) === [] || $model === '') || ($this->get('eca_model')[$model] ?? FALSE);
   }
 
   /**

@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 use DrupalFinder\DrupalFinder;
+use DrupalRector\Set\Drupal10SetList;
 use DrupalRector\Set\Drupal9SetList;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
@@ -13,6 +14,7 @@ use Rector\Set\ValueObject\SetList;
 return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->sets([
     Drupal9SetList::DRUPAL_9,
+    Drupal10SetList::DRUPAL_101,
     LevelSetList::UP_TO_PHP_74,
     SetList::CODE_QUALITY,
     SetList::EARLY_RETURN,
@@ -28,8 +30,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->cacheDirectory(__DIR__ . '/.rectorcache');
   }
 
-  $parameters = $rectorConfig->parameters();
-
   $drupalFinder = new DrupalFinder();
   $drupalFinder->locateRoot(__DIR__);
   $drupalRoot = $drupalFinder->getDrupalRoot();
@@ -42,7 +42,6 @@ return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->fileExtensions(['php', 'module', 'theme', 'install', 'profile']);
   $rectorConfig->importNames(true, false);
   $rectorConfig->importShortClasses(false);
-  $parameters->set('drupal_rector_notices_as_comments', true);
 
   $rectorConfig->paths([
     __DIR__ . '/profile/'
@@ -58,18 +57,12 @@ return static function (RectorConfig $rectorConfig): void {
     \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
     \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
     \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class,
-    \Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class => [
-      __DIR__  . '/profile/'
-    ],
     \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class => [
       __DIR__ . '/profile/'
-    ],
-    \Rector\TypeDeclaration\Rector\ClassMethod\ArrayShapeFromConstantArrayReturnRector::class => [
-      __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/Block/PageTitleBlock.php'
     ],
     __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
     __DIR__ . '/profile/modules/custom/geofield_proximity_filter_extra/src/Controller/AutocompleteFiltersController.php',
     __DIR__ . '/profile/modules/custom/openculturas_faq/src/ProxyClass/OpenCulturasFaqUninstallValidator.php',
   ]);
-  $rectorConfig->parallel($seconds = 120, $maxNumberOfProcess = 2,);
+  $rectorConfig->parallel(maxNumberOfProcess: 2);
 };

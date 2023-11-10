@@ -113,11 +113,15 @@ final class EmbedCodeWidget extends FormBase {
       '#suffix' => Markup::create(sprintf('<button data-source-id="%s" class="button openculturas-calendar-widget-copy-button">%s</button>', $code_html_id, t('Copy text'))),
       '#value' => '',
     ];
-    if (!empty($iframe_src)) {
-      $element['code']['#value'] = <<<EOF
+    if ($iframe_src === NULL) {
+      return;
+    }
+    if ($iframe_src === '') {
+      return;
+    }
+    $element['code']['#value'] = <<<EOF
 <iframe id="calender-upcoming-dates" style="border: none" title="Upcoming dates" width="560" height="800" src="$iframe_src" />
 EOF;
-    }
   }
 
 }

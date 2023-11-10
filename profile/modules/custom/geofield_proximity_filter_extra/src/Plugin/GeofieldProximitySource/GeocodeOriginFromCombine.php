@@ -60,7 +60,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
 
     }
     else {
-      $view_args = empty(array_filter($this->viewHandler->view->args)) ? 0 : implode('||', $this->viewHandler->view->args);
+      $view_args = array_filter($this->viewHandler->view->args) === [] ? 0 : implode('||', $this->viewHandler->view->args);
       unset($form['origin_address']['#attributes']['class']);
       $form['origin_address']['#autocomplete_route_name'] = 'geofield_geocode_origin_combine.autocomplete';
       $form['origin_address']['#autocomplete_route_parameters'] = [

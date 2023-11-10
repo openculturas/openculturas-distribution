@@ -79,9 +79,13 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
     $recipients = [];
     $eca_model = trim($this->configuration['model'] ?? '');
     foreach ($entities as $entity) {
-      if ($entity->status() && $entity->isEcaModelEnabledForRecipient($eca_model)) {
-        $recipients[] = (string) $entity->label();
+      if (!$entity->status()) {
+        continue;
       }
+      if (!$entity->isEcaModelEnabledForRecipient($eca_model)) {
+        continue;
+      }
+      $recipients[] = (string) $entity->label();
     }
     if ($recipients !== []) {
       $token_name = trim($this->configuration['token_name'] ?? '');

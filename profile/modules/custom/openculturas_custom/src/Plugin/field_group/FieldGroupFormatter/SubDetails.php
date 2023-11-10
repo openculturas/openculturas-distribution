@@ -37,7 +37,7 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($plugin_id, $plugin_definition, $configuration['group'], $configuration['settings'], $configuration['label']);
     $instance->moduleHandler = $container->get('module_handler');
     $instance->token = $container->get('token');

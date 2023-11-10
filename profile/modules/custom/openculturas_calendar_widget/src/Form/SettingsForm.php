@@ -248,10 +248,10 @@ final class SettingsForm extends ConfigFormBase {
       }
       foreach ($host_list as $token => $values) {
         $hostname = trim($values['hostname']);
-        if (empty($hostname) && isset($form['host_list']['items'][$token]['hostname'])) {
+        if ($hostname === '' && isset($form['host_list']['items'][$token]['hostname'])) {
           unset($host_list[$token]);
         }
-        if ($form_state->getTriggeringElement()['#name'] === 'add_host' && !empty($hostname) && in_array($hostname, $hostnames, TRUE)) {
+        if ($form_state->getTriggeringElement()['#name'] === 'add_host' && $hostname !== '' && in_array($hostname, $hostnames, TRUE)) {
           $form_state->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicate hostname'));
           return;
         }
