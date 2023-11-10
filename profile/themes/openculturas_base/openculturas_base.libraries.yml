@@ -11,16 +11,18 @@ global:
     - core/once
     - core/drupal.dialog # Workaround - somehow it does not load on profile recommended flag widget.
 
-datepicker_i18n_de:
-  js:
-    js/datepicker_i18n_de.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
-    - core/drupalSettings
-
-
 drupal.dialog:
   css:
     component:
       css/jquery-ui.dialog.css: {}
+
+jquery_ui.datepicker:
+  js:
+    js/datepicker_i18n_de.js: {}
+  css:
+    component:
+      css/jquery-ui.datepicker.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
