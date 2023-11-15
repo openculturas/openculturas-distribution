@@ -105,7 +105,7 @@ function openculturas_base_form_system_theme_settings_form_submit(array &$form, 
   /** @var \Drupal\Core\File\FileSystemInterface $fileSystem */
   $fileSystem = \Drupal::service('file_system');
   $values = $form_state->getValues();
-  $config = \Drupal::configFactory()->getEditable('openculturas_base.settings');
+  $config = \Drupal::configFactory()->getEditable($values['config_key']);
   $config->set('background_image.mode', $values['background_image_mode']);
   try {
     if (!empty($values['background_image_upload'])) {
