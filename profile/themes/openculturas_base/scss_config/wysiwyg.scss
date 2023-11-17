@@ -1,10 +1,9 @@
-/**
- * SCSS compiler entrypoint.
- * This file defines the order in which scss components are loaded.
- */
+// SCSS compiler entrypoint.
+// This file defines the order in which scss components are loaded.
+
 
 // Load mixins and helper functions.
-@import "_abstract";
+@import "_abstract"; // stylelint-disable-line scss/load-no-partial-leading-underscore
 
 // Load variables
 @import "variables";
@@ -13,4 +12,4 @@
 @import "fonts";
 
 // Load basic styling from base folder.
-@import "base/*.scss";
+@import "base/*";

@@ -1,17 +1,10 @@
 @charset "UTF-8";
-/**
- * SCSS compiler entrypoint.
- * This file defines the order in which scss components are loaded.
- */
 :root {
-  /**
-   * Default colors
-  **/
   --color-primary: #a1167f;
   --color-interaction: #483d8b;
   --color-text: #1f1f1f;
   --color-text-muted: #7b7d85;
-  --color-text-inverted: #ffffff;
+  --color-text-inverted: #fff;
   --color-headline: #1f1f1f;
   --color-link: #a1167f;
   --color-link--opacity: #a1167f5c;
@@ -22,26 +15,17 @@
   --color-neutral-canvas: #F6F6F6;
   --color-bg-dark: #303236;
   --color-bg-slight-contrast: #e8e9eb;
-  --color-bg-light: #ffffff;
+  --color-bg-light: #fff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
-  /**
-  * Optional OC gradients (use in background-image declaration)
-  **/
-  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #ffdd00, #008d36, #1d70b7);
-  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #ffdd00 40%, #ffdd00 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
-  /**
-   * Default font-sizes
-  **/
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
   --font-size-xxl: 2rem;
   --font-size-xl: 1.5rem;
   --font-size-l: 1.25rem;
   --font-size-default: 1rem;
   --font-size-s: .875rem;
   --font-size-icon: 1.5rem;
-  /**
-   * Other
-  **/
   --button-border-radius: 4px;
 }
 @media screen and (min-width: 48rem) {
@@ -51,13 +35,7 @@
   }
 }
 
-/**
- * Default color derivates
- * are changed when base colors are changed by css_color_variables or Color module settings.
- * NOTE: CSS variables should be reassigned here.
- */
 body {
-  /* Messages (system feedback) */
   --color-bg-danger: #f9dcdd;
   --color-danger-dark: #a00f12;
   --color-bg-danger-light: #fceced;
@@ -67,7 +45,6 @@ body {
   --color-success-dark: #126007;
   --color-bg-warning: #fff7d9;
   --color-warning-dark: #c09300;
-  /* Form & other colors */
   --color-bg-form: #f6f6fa;
   --color-bg-fieldset: #483d8b07;
   --outline-active: 2px dashed var(--color-interaction, #483d8b);
@@ -84,7 +61,7 @@ button[type=submit].button--danger:before,
 details > summary:before,
 blockquote span:after,
 blockquote span:before {
-  font-family: "Font Awesome 6 Free";
+  font-family: "Font Awesome 6 Free", sans-serif;
   font-weight: 900;
 }
 
@@ -104,41 +81,6 @@ blockquote span:before {
   font-size: 5rem;
 }
 
-:root {
-  --font-base: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-head: "Noto Serif", Georgia, "Times New Roman", Times, serif;
-}
-
-@font-face {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-regular.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-@font-face {
-  font-family: "Noto Sans";
-  font-style: italic;
-  font-weight: 400;
-  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-italic.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-@font-face {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 700;
-  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-700.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-@font-face {
-  font-family: "Noto Sans";
-  font-style: italic;
-  font-weight: 700;
-  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-700italic.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-700italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-@font-face {
-  font-family: "Noto Serif";
-  font-style: normal;
-  font-weight: 400;
-  src: local(""), url("../fonts/noto-serif-v16-latin-ext_latin-regular.woff2") format("woff2"), url("../fonts/noto-serif-v16-latin-ext_latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
 /*!
  * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -10436,6 +10378,41 @@ readers do not read off random characters that represent icons */
   content: "\f3f6";
 }
 
+:root {
+  --font-base: "Noto Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  --font-head: "Noto Serif", georgia, "Times New Roman", times, serif;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-regular.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-italic.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-700.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: local(""), url("../fonts/noto-sans-v21-latin-ext_latin-700italic.woff2") format("woff2"), url("../fonts/noto-sans-v21-latin-ext_latin-700italic.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Noto Serif";
+  src: local(""), url("../fonts/noto-serif-v16-latin-ext_latin-regular.woff2") format("woff2"), url("../fonts/noto-serif-v16-latin-ext_latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-weight: 400;
+  font-style: normal;
+}
 *,
 *::before,
 *::after {
@@ -10452,14 +10429,14 @@ html {
 }
 
 body {
-  background-color: var(--color-neutral-canvas);
-  color: var(--color-text);
-  font-family: var(--font-base);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.4;
   margin: 0;
-  -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-neutral-canvas);
+  font-family: var(--font-base);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-wrap: anywhere;
 }
 
@@ -10474,14 +10451,13 @@ strong,
 }
 
 h1, .h1,
-h2, .h2, .details-title,
-h3, .h3, details details .details-title, blockquote,
-blockquote p,
+h2, .h2,
+h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-  font-weight: normal;
   margin: 0.5em 0;
+  font-weight: normal;
 }
 
 h1,
@@ -10493,8 +10469,7 @@ h1,
 }
 
 h2,
-.h2,
-.details-title {
+.h2, .details-title {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: var(--font-size-xl);
@@ -10502,9 +10477,7 @@ h2,
 }
 
 h3,
-.h3,
-details details .details-title,
-blockquote,
+.h3, details details .details-title, blockquote,
 blockquote p {
   color: var(--color-headline);
   font-family: var(--font-head);
@@ -10514,16 +10487,16 @@ blockquote p {
 
 h4,
 .h4 {
-  color: var(--color-text);
-  font-size: var(--font-size-default);
   letter-spacing: 0.05rem;
   text-transform: uppercase;
+  color: var(--color-text);
+  font-size: var(--font-size-default);
 }
 
 h5,
 .h5 {
-  font-weight: bold;
   font-size: var(--font-size-default);
+  font-weight: bold;
 }
 
 h6,
@@ -10535,8 +10508,8 @@ h6,
 a,
 .leaflet-popup-content a,
 button.link {
-  color: var(--color-link);
   text-decoration: none;
+  color: var(--color-link);
 }
 a.is-active,
 button.link.is-active {
@@ -10545,13 +10518,13 @@ button.link.is-active {
 a:hover, a:focus,
 button.link:hover,
 button.link:focus {
-  background: var(--color-link);
   color: var(--color-text-inverted);
+  background: var(--color-link);
 }
 a:active,
 button.link:active {
-  outline: var(--outline-active);
   color: var(--color-link);
+  outline: var(--outline-active);
   background: var(--color-text-inverted);
 }
 .text-formatted a,
@@ -10567,12 +10540,12 @@ p:last-child {
 }
 
 ul {
-  list-style: square outside;
   margin-left: 1.25rem;
+  list-style: square outside;
 }
 ul ul {
-  list-style-type: circle;
   margin-bottom: 1.25rem;
+  list-style-type: circle;
 }
 ul ul ul {
   list-style-type: disc;
@@ -10600,10 +10573,10 @@ li:last-child {
 
 table {
   display: table;
-  margin: 1em auto;
+  overflow-x: auto;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  margin: 1em auto;
 }
 table code, table pre {
   max-width: 15rem;
@@ -10615,11 +10588,11 @@ table .draggable {
   position: relative;
 }
 table .draggable .tabledrag-handle {
-  display: block;
-  height: 2rem;
   position: absolute;
   top: calc(50% - 0.55rem);
+  display: block;
   width: 2rem;
+  height: 2rem;
 }
 table .draggable .tabledrag-handle:active, table .draggable .tabledrag-handle:hover {
   background: transparent;
@@ -10628,8 +10601,8 @@ table .draggable .tabledrag-handle:active {
   outline: 0;
 }
 table .draggable .tabledrag-handle .handle {
-  height: 2rem;
   width: 2rem;
+  height: 2rem;
 }
 
 td.is-active {
@@ -10646,8 +10619,8 @@ th {
 
 td,
 th {
-  vertical-align: top;
   padding: 0.5em 2em 0.5em 0;
+  vertical-align: top;
 }
 
 td:last-child,
@@ -10688,18 +10661,17 @@ i.fad {
 }
 
 sub {
-  font-size: 0.75em;
   position: relative;
   bottom: -0.25em;
+  font-size: 0.75em;
 }
 
 sup {
-  font-size: 0.75em;
   position: relative;
   top: -0.5em;
+  font-size: 0.75em;
 }
 
-/* %small */
 .tiny,
 small,
 .small,
@@ -10708,18 +10680,18 @@ small,
 }
 
 abbr {
-  border-bottom: 2px dotted var(--color-text-muted);
   text-decoration: none;
+  border-bottom: 2px dotted var(--color-text-muted);
 }
 
 kbd {
-  background: var(--color-text-muted);
+  padding: 0 0.5em;
   border: thin solid var(--color-text);
   border-radius: var(--button-border-radius);
+  background: var(--color-text-muted);
   box-shadow: 1px 2px 2px var(--color-bg-light);
   font-family: inherit;
   font-size: 0.9em;
-  padding: 0 0.5em;
 }
 
 q::before {
@@ -10736,11 +10708,11 @@ mark {
 pre,
 code {
   display: inline-block;
-  font-family: monospace;
-  max-width: 100%;
   overflow: scroll;
+  max-width: 100%;
   padding-bottom: 0.5rem;
   white-space: pre;
+  font-family: monospace;
 }
 
 samp,
@@ -10761,8 +10733,8 @@ img[alt] {
 
 img,
 figure {
-  height: auto;
   max-width: 100%;
+  height: auto;
   vertical-align: bottom;
 }
 
@@ -10772,8 +10744,8 @@ figure {
 }
 
 figcaption {
-  font-weight: bold;
   font-size: var(--font-size-default);
+  font-weight: bold;
 }
 
 blockquote {
@@ -10781,18 +10753,13 @@ blockquote {
   margin: 2.5rem 0;
   text-align: center;
 }
-@media screen and (min-width: 48rem) {
-  blockquote {
-    margin: 3.75rem 1.25rem;
-  }
-}
 blockquote,
 blockquote p {
-  font-size: var(--font-size-l);
-  padding: 0 1.25rem;
-  font-style: italic;
-  color: var(--color-text-muted);
   display: inline-block;
+  padding: 0 1.25rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-l);
+  font-style: italic;
 }
 blockquote span:before {
   -webkit-font-smoothing: antialiased;
@@ -10802,8 +10769,8 @@ blockquote span:before {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f10e";
   margin-right: 1rem;
+  content: "\f10e";
 }
 blockquote span:after {
   -webkit-font-smoothing: antialiased;
@@ -10813,16 +10780,20 @@ blockquote span:after {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f10d";
   display: inline-block;
   margin-left: 1rem;
   white-space: nowrap;
+  content: "\f10d";
 }
 blockquote > *:first-child {
   margin-top: 0;
 }
+@media screen and (min-width: 48rem) {
+  blockquote {
+    margin: 3.75rem 1.25rem;
+  }
+}
 
-/* %allcaps */
 .allcaps,
 fieldset summary,
 fieldset legend,
@@ -10834,8 +10805,8 @@ caption {
 
 .entity-moderation-form .form-item label {
   margin: 0;
-  font-weight: bold;
   font-size: var(--font-size-s);
+  font-weight: bold;
   line-height: 1.866;
 }
 
@@ -10865,9 +10836,9 @@ form > [class*=facets-widget],
 .form-area > p,
 .form-area > [id*=ajax-wrapper],
 .form-area > [class*=facets-widget] {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
   width: auto !important;
+  margin-right: 1.25rem;
+  margin-left: 1.25rem;
 }
 form > .form--inline:first-child,
 form > .form-item:first-child,
@@ -10938,8 +10909,8 @@ form > [class*=facets-widget]:last-of-type,
 }
 
 fieldset {
-  background: var(--color-bg-fieldset);
   padding: 1.25rem;
+  background: var(--color-bg-fieldset);
 }
 fieldset.error {
   border: 2px solid var(--color-danger);
@@ -10949,16 +10920,16 @@ fieldset.error > legend {
 }
 
 fieldset fieldset {
-  background: transparent;
   padding: 0;
   border-width: 0;
+  background: transparent;
 }
 
 .form-required::after {
-  background-image: none;
-  color: var(--color-danger);
   content: "*";
   vertical-align: text-top;
+  color: var(--color-danger);
+  background-image: none;
 }
 
 .form--inline .form-item {
@@ -10977,8 +10948,8 @@ input,
 select,
 textarea {
   padding: 0.5rem 1rem;
-  background: var(--color-bg-light);
   border: 1px solid var(--color-divider-dark);
+  background: var(--color-bg-light);
 }
 input:focus,
 select:focus,
@@ -10994,23 +10965,23 @@ textarea.error {
 }
 
 *::-moz-placeholder {
-  color: var(--color-text-muted);
   text-align: right;
+  color: var(--color-text-muted);
 }
 
 *::placeholder {
-  color: var(--color-text-muted);
   text-align: right;
+  color: var(--color-text-muted);
 }
 
 .form-autocomplete {
-  background-position: right 0.5rem center !important;
   padding-right: 2rem;
+  background-position: right 0.5rem center !important;
 }
 
 input[size] {
-  max-width: 100%;
   width: 100%;
+  max-width: 100%;
 }
 
 @media screen and (min-width: 62rem) {
@@ -11030,35 +11001,35 @@ input.bef-datepicker {
 }
 
 select {
+  position: relative;
+  padding-right: 2rem;
+  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
+  background-size: 1em;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  padding-right: 2rem;
-  position: relative;
-  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
-  background-size: 1em;
 }
 
 input[type=checkbox],
 input[type=radio] {
-  height: 1em;
-  margin-right: 0.5rem;
   position: relative;
   top: 0.1rem;
-  vertical-align: baseline;
   width: 1em;
+  height: 1em;
+  margin-right: 0.5rem;
+  vertical-align: baseline;
 }
 
 .ui-menu .ui-menu-item-wrapper {
-  background-color: transparent;
-  border: 0;
-  color: var(--color-text);
   display: block;
+  color: var(--color-text);
+  border: 0;
+  background-color: transparent;
 }
 .ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper:focus {
-  background-color: var(--color-link);
-  border: 0;
   color: var(--color-text-inverted);
+  border: 0;
+  background-color: var(--color-link);
 }
 
 .ui-autocomplete .ui-menu-item-wrapper.ui-state-active,
@@ -11069,14 +11040,14 @@ input[type=radio] {
 }
 
 *[disabled] {
-  opacity: 0.5;
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .bef-exposed-form {
-  border-width: 1px 0 1px;
   margin-top: 1.25rem;
   padding-bottom: 0.75rem;
+  border-width: 1px 0 1px;
 }
 .bef-exposed-form .form--inline .details-wrapper,
 .bef-exposed-form > div {
@@ -11085,15 +11056,15 @@ input[type=radio] {
   gap: 0.25rem 1rem;
   padding-bottom: 0.5rem;
 }
+.bef-exposed-form .form-type-checkbox input {
+  margin-right: 0.125em;
+  font-size: 1.5em;
+}
 @media screen and (min-width: 48rem) {
   .bef-exposed-form .form-type-checkbox {
     padding-top: 2.25rem;
     padding-bottom: 0.25rem;
   }
-}
-.bef-exposed-form .form-type-checkbox input {
-  margin-right: 0.125em;
-  font-size: 1.5em;
 }
 .bef-exposed-form .form-submit {
   margin-bottom: 0;
@@ -11110,6 +11081,14 @@ div#block-oc-search-input .form--inline:last-of-type,
 .form--compact .form--inline:last-of-type {
   padding-bottom: 1rem;
 }
+div#block-oc-search-input .form--inline .form-type-textfield,
+.form--compact .form--inline .form-type-textfield {
+  flex: 2 2 auto;
+}
+div#block-oc-search-input .form--inline .form-actions,
+.form--compact .form--inline .form-actions {
+  flex: 1 1 auto;
+}
 @media screen and (min-width: 48rem) {
   div#block-oc-search-input .form--inline,
   .form--compact .form--inline {
@@ -11122,14 +11101,6 @@ div#block-oc-search-input .form--inline:last-of-type,
     margin: 0;
   }
 }
-div#block-oc-search-input .form--inline .form-type-textfield,
-.form--compact .form--inline .form-type-textfield {
-  flex: 2 2 auto;
-}
-div#block-oc-search-input .form--inline .form-actions,
-.form--compact .form--inline .form-actions {
-  flex: 1 1 auto;
-}
 div#block-oc-search-input .form-text,
 .form--compact .form-text {
   max-width: 100%;
@@ -11139,25 +11110,24 @@ div#block-oc-search-input .details-wrapper,
   padding: 0;
 }
 
-/* @todo: add more robust identifier to fieldset */
 fieldset[id^=edit-radius-wrapper] {
   width: auto;
-  background: transparent;
-  border: 0;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 fieldset[id^=edit-radius-wrapper] legend {
-  height: 0;
-  width: 0;
   overflow: hidden;
+  width: 0;
+  height: 0;
 }
 fieldset[id^=edit-radius-wrapper] .fieldset-wrapper {
   display: flex;
 }
 fieldset[id^=edit-radius-wrapper] .form-item-radius-value {
-  max-width: 9rem;
   order: 1;
+  max-width: 9rem;
 }
 @media screen and (min-width: 62rem) {
   fieldset[id^=edit-radius-wrapper] .address-input {
@@ -11178,10 +11148,10 @@ fieldset[id^=edit-radius-wrapper] .form--inline:last-of-type {
   list-style: none outside;
 }
 .block-facets li {
+  display: inline-block;
   margin: 0;
   padding: 0;
   list-style: none;
-  display: inline-block;
 }
 
 .region-content > .block-facets {
@@ -11189,14 +11159,13 @@ fieldset[id^=edit-radius-wrapper] .form--inline:last-of-type {
   margin-bottom: 0 !important;
 }
 
-/* View password module fix */
 button:not([disabled]).shwpd {
-  display: block;
   position: absolute;
-  left: auto;
-  padding: 0.5rem 0.25rem;
-  right: 1rem;
   top: 2.75rem;
+  right: 1rem;
+  left: auto;
+  display: block;
+  padding: 0.5rem 0.25rem;
 }
 button:not([disabled]).shwpd:focus, button:not([disabled]).shwpd:hover {
   background-color: var(--color-bg-light);
@@ -11210,10 +11179,9 @@ input[type=password],
   padding-right: 3rem;
 }
 
-/* Workflow moderation form */
 .content-moderation-entity-moderation-form {
-  padding: 1.25rem 2.5rem 1.25rem;
   margin-bottom: 2.5rem;
+  padding: 1.25rem 2.5rem 1.25rem;
   background-color: var(--color-bg-warning);
 }
 
@@ -11257,22 +11225,22 @@ input[type=password],
 }
 
 .details-title {
-  color: inherit;
   display: inline-block;
-  line-height: inherit;
+  width: calc(100% - 2 * var(--font-size-icon));
+  margin: 0;
   padding-top: 0.5rem;
   padding-bottom: 0.75rem;
-  margin: 0;
-  width: calc(100% - 2 * var(--font-size-icon));
+  color: inherit;
+  line-height: inherit;
 }
 
 details {
+  width: 100%;
+  margin-right: 1.25rem;
+  margin-left: 1.25rem;
+  padding: 0;
   border: 0;
   border-top: 1px solid var(--color-divider-light);
-  padding: 0;
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-  width: 100%;
 }
 details.form-wrapper {
   margin: 0;
@@ -11281,13 +11249,13 @@ details.form-wrapper:last-of-type {
   padding-bottom: 0.5rem;
 }
 details:last-of-type {
-  border-bottom: 1px solid var(--color-divider-light);
   margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-divider-light);
 }
 details > summary {
-  list-style: none;
-  padding: 0;
   position: relative;
+  padding: 0;
+  list-style: none;
 }
 details > summary:before {
   -webkit-font-smoothing: antialiased;
@@ -11303,13 +11271,13 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 details > summary::before {
-  border-radius: var(--button-border-radius);
   float: right;
-  font-size: var(--font-size-icon);
-  line-height: 1.98;
   margin-top: 0.1em;
   padding: 0 0.5em;
   transition: transform 300ms ease;
+  border-radius: var(--button-border-radius);
+  font-size: var(--font-size-icon);
+  line-height: 1.98;
 }
 @media screen and (min-width: 48rem) {
   details > summary::before {
@@ -11317,26 +11285,26 @@ details > summary::before {
   }
 }
 details > summary:focus::before, details > summary:hover::before {
-  background: var(--color-interaction);
   color: var(--color-text-inverted);
+  background: var(--color-interaction);
 }
 details > summary:active::before {
-  background: transparent;
   color: var(--color-interaction);
   outline: var(--outline-active);
+  background: transparent;
 }
 details > summary:focus, details > summary:hover {
   color: var(--color-interaction);
 }
 details > summary.form-required::after {
-  font-size: var(--font-size-l);
   position: absolute;
-  right: 3rem;
   top: 0.5rem;
+  right: 3rem;
+  font-size: var(--font-size-l);
 }
 details > summary.form-required h2::after {
-  color: var(--color-danger);
   content: "*";
+  color: var(--color-danger);
 }
 details[open] > summary::before {
   transform: rotate(-180deg);
@@ -11374,25 +11342,24 @@ details details .details-wrapper {
   padding-bottom: 0;
 }
 
-/* Views exposed forms, secondary options */
 details.bef--secondary {
   border-width: 0 0 1px;
 }
 details.bef--secondary > summary .details-title {
-  font-size: var(--font-size-default);
-  font-family: var(--font-base);
-  text-align: right;
   margin-right: 1rem;
+  text-align: right;
+  font-family: var(--font-base);
+  font-size: var(--font-size-default);
 }
 details.bef--secondary > summary::before {
   font-size: var(--font-size-default);
 }
 
 .block-facets details {
-  border-width: 0 0 1px;
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 1rem;
+  border-width: 0 0 1px;
 }
 .block-facets details > summary.h4::before {
   font-size: var(--font-size-m);
@@ -11416,16 +11383,16 @@ button {
 button,
 input[type=button],
 input[type=submit] {
-  background-color: var(--color-bg-light);
+  display: inline-block;
+  margin-bottom: 1em;
+  padding: 0.5em 2em;
+  text-decoration: none;
   color: var(--color-interaction);
   border-width: 1px;
   border-style: solid;
   border-color: var(--color-interaction);
   border-radius: var(--button-border-radius);
-  display: inline-block;
-  margin-bottom: 1em;
-  padding: 0.5em 2em;
-  text-decoration: none;
+  background-color: var(--color-bg-light);
 }
 .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a,
 .inverted .button-small,
@@ -11446,20 +11413,20 @@ input[type=button]:focus,
 input[type=button]:not([disabled]):hover,
 input[type=submit]:focus,
 input[type=submit]:not([disabled]):hover {
-  background-color: var(--color-interaction);
   color: var(--color-text-inverted);
+  background-color: var(--color-interaction);
 }
 
 .button-small {
-  font-size: var(--font-size-s);
   padding: 0.25em 1em;
+  font-size: var(--font-size-s);
 }
 
 .form-submit:not([data-drupal-selector=edit-reset]),
 .button--cta {
   color: var(--color-text-inverted);
-  background-color: var(--color-link);
   border-color: var(--color-link);
+  background-color: var(--color-link);
 }
 
 .form-submit.danger,
@@ -11469,8 +11436,24 @@ a.button.danger,
 input[type=submit].danger,
 button[type=submit].button--danger {
   color: var(--color-danger);
-  background-color: var(--color-bg-light);
   border-color: var(--color-danger);
+  background-color: var(--color-bg-light);
+}
+.form-submit.danger:focus,
+.form-submit.danger:not([disabled]):hover,
+.button.danger:focus,
+.button.danger:not([disabled]):hover,
+.button--danger:focus,
+.button--danger:not([disabled]):hover,
+a.button.danger:focus,
+a.button.danger:not([disabled]):hover,
+input[type=submit].danger:focus,
+input[type=submit].danger:not([disabled]):hover,
+button[type=submit].button--danger:focus,
+button[type=submit].button--danger:not([disabled]):hover {
+  color: var(--color-text-inverted);
+  border-color: var(--color-danger);
+  background-color: var(--color-danger);
 }
 .form-submit.danger:before,
 .button.danger:before,
@@ -11485,33 +11468,17 @@ button[type=submit].button--danger:before {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f00d";
   margin-right: 0.5rem;
-}
-.form-submit.danger:focus,
-.form-submit.danger:not([disabled]):hover,
-.button.danger:focus,
-.button.danger:not([disabled]):hover,
-.button--danger:focus,
-.button--danger:not([disabled]):hover,
-a.button.danger:focus,
-a.button.danger:not([disabled]):hover,
-input[type=submit].danger:focus,
-input[type=submit].danger:not([disabled]):hover,
-button[type=submit].button--danger:focus,
-button[type=submit].button--danger:not([disabled]):hover {
-  background-color: var(--color-danger);
-  border-color: var(--color-danger);
-  color: var(--color-text-inverted);
+  content: "\f00d";
 }
 
 .shariff ul {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none outside;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
 }
 .shariff li {
   margin: 0;
@@ -11519,13 +11486,13 @@ button[type=submit].button--danger:not([disabled]):hover {
   list-style: none;
 }
 .shariff .button-style-icon a {
-  font-size: var(--font-size-icon);
-  line-height: 1;
   width: 2em;
   height: 2em;
-  border-radius: 50%;
   padding: 0.5em;
   text-align: center;
+  border-radius: 50%;
+  font-size: var(--font-size-icon);
+  line-height: 1;
 }
 
 .leaflet-container a.leaflet-popup-close-button:active,
@@ -11534,10 +11501,10 @@ button[type=submit].button--danger:not([disabled]):hover {
 button:active,
 input[type=button]:active,
 input[type=submit]:active {
-  background-color: var(--color-bg-light);
   color: var(--color-interaction);
   border-color: var(--color-bg-light);
   outline: var(--outline-active);
+  background-color: var(--color-bg-light);
 }
 
 .button--add {
@@ -11551,14 +11518,14 @@ input[type=submit]:active {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f055";
   margin-right: 0.5rem;
   margin-left: -0.5rem;
+  content: "\f055";
 }
 
 .inverted {
-  background: var(--color-bg-dark);
   color: var(--color-text-inverted);
+  background: var(--color-bg-dark);
 }
 .inverted a,
 .inverted a.is-active,
@@ -11601,27 +11568,27 @@ figcaption .attribution {
 }
 
 .leaflet-container a.leaflet-popup-close-button {
-  width: auto;
-  height: auto;
-  color: unset;
-  font: unset;
   top: 0.25em;
   right: 0.25em;
-  font-size: var(--font-size-s);
+  width: auto;
+  height: auto;
   padding: 0 0.5em;
+  color: unset;
+  font: unset;
+  font-size: var(--font-size-s);
 }
 
 .formtip {
-  background-color: var(--color-info);
-  border: 2px solid var(--color-info);
   color: var(--color-text-inverted);
+  border: 2px solid var(--color-info);
+  background-color: var(--color-info);
 }
 .formtip::before {
   color: var(--color-text-inverted);
 }
 .formtip:focus, .formtip:hover, .formtip:active {
-  background-color: var(--color-text-inverted);
   border-color: var(--color-info);
+  background-color: var(--color-text-inverted);
 }
 .formtip:focus::before, .formtip:hover::before, .formtip:active::before {
   color: var(--color-info);
@@ -11636,8 +11603,8 @@ figcaption .attribution {
   border-bottom-color: var(--color-info);
 }
 .formtips-processed a {
-  color: var(--color-text-inverted);
   text-decoration: underline;
+  color: var(--color-text-inverted);
 }
 
 div.description.formtips-processed,
@@ -11652,15 +11619,15 @@ div.description.formtips-processed,
 }
 
 .qa--only::after {
-  display: block;
-  content: "For QA purposes only";
-  font-size: 0.5rem;
-  color: var(--color-danger);
   position: absolute;
   top: auto;
   right: 0;
   bottom: 0;
   left: auto;
+  display: block;
+  content: "For QA purposes only";
+  color: var(--color-danger);
+  font-size: 0.5rem;
 }
 
 button {
@@ -11672,16 +11639,16 @@ button {
 button,
 input[type=button],
 input[type=submit] {
-  background-color: var(--color-bg-light);
+  display: inline-block;
+  margin-bottom: 1em;
+  padding: 0.5em 2em;
+  text-decoration: none;
   color: var(--color-interaction);
   border-width: 1px;
   border-style: solid;
   border-color: var(--color-interaction);
   border-radius: var(--button-border-radius);
-  display: inline-block;
-  margin-bottom: 1em;
-  padding: 0.5em 2em;
-  text-decoration: none;
+  background-color: var(--color-bg-light);
 }
 .inverted .button-small, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button,
 .inverted .button,
@@ -11700,20 +11667,20 @@ input[type=button]:focus,
 input[type=button]:not([disabled]):hover,
 input[type=submit]:focus,
 input[type=submit]:not([disabled]):hover {
-  background-color: var(--color-interaction);
   color: var(--color-text-inverted);
+  background-color: var(--color-interaction);
 }
 
 .button-small {
-  font-size: var(--font-size-s);
   padding: 0.25em 1em;
+  font-size: var(--font-size-s);
 }
 
 .form-submit:not([data-drupal-selector=edit-reset]),
 .button--cta {
   color: var(--color-text-inverted);
-  background-color: var(--color-link);
   border-color: var(--color-link);
+  background-color: var(--color-link);
 }
 
 .form-submit.danger,
@@ -11723,8 +11690,24 @@ a.button.danger,
 input[type=submit].danger,
 button[type=submit].button--danger {
   color: var(--color-danger);
-  background-color: var(--color-bg-light);
   border-color: var(--color-danger);
+  background-color: var(--color-bg-light);
+}
+.form-submit.danger:focus,
+.form-submit.danger:not([disabled]):hover,
+.button.danger:focus,
+.button.danger:not([disabled]):hover,
+.button--danger:focus,
+.button--danger:not([disabled]):hover,
+a.button.danger:focus,
+a.button.danger:not([disabled]):hover,
+input[type=submit].danger:focus,
+input[type=submit].danger:not([disabled]):hover,
+button[type=submit].button--danger:focus,
+button[type=submit].button--danger:not([disabled]):hover {
+  color: var(--color-text-inverted);
+  border-color: var(--color-danger);
+  background-color: var(--color-danger);
 }
 .form-submit.danger:before,
 .button.danger:before,
@@ -11739,33 +11722,17 @@ button[type=submit].button--danger:before {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f00d";
   margin-right: 0.5rem;
-}
-.form-submit.danger:focus,
-.form-submit.danger:not([disabled]):hover,
-.button.danger:focus,
-.button.danger:not([disabled]):hover,
-.button--danger:focus,
-.button--danger:not([disabled]):hover,
-a.button.danger:focus,
-a.button.danger:not([disabled]):hover,
-input[type=submit].danger:focus,
-input[type=submit].danger:not([disabled]):hover,
-button[type=submit].button--danger:focus,
-button[type=submit].button--danger:not([disabled]):hover {
-  background-color: var(--color-danger);
-  border-color: var(--color-danger);
-  color: var(--color-text-inverted);
+  content: "\f00d";
 }
 
 .shariff ul {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none outside;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
 }
 .shariff li {
   margin: 0;
@@ -11773,13 +11740,13 @@ button[type=submit].button--danger:not([disabled]):hover {
   list-style: none;
 }
 .shariff .button-style-icon a {
-  font-size: var(--font-size-icon);
-  line-height: 1;
   width: 2em;
   height: 2em;
-  border-radius: 50%;
   padding: 0.5em;
   text-align: center;
+  border-radius: 50%;
+  font-size: var(--font-size-icon);
+  line-height: 1;
 }
 
 .button-small:active, .shariff .button-style-icon a:active, .leaflet-container a.leaflet-popup-close-button:active,
@@ -11787,10 +11754,10 @@ button[type=submit].button--danger:not([disabled]):hover {
 button:active,
 input[type=button]:active,
 input[type=submit]:active {
-  background-color: var(--color-bg-light);
   color: var(--color-interaction);
   border-color: var(--color-bg-light);
   outline: var(--outline-active);
+  background-color: var(--color-bg-light);
 }
 
 .button--add {
@@ -11804,28 +11771,28 @@ input[type=submit]:active {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f055";
   margin-right: 0.5rem;
   margin-left: -0.5rem;
+  content: "\f055";
 }
 
 .details-title {
-  color: inherit;
   display: inline-block;
-  line-height: inherit;
+  width: calc(100% - 2 * var(--font-size-icon));
+  margin: 0;
   padding-top: 0.5rem;
   padding-bottom: 0.75rem;
-  margin: 0;
-  width: calc(100% - 2 * var(--font-size-icon));
+  color: inherit;
+  line-height: inherit;
 }
 
 details {
+  width: 100%;
+  margin-right: 1.25rem;
+  margin-left: 1.25rem;
+  padding: 0;
   border: 0;
   border-top: 1px solid var(--color-divider-light);
-  padding: 0;
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-  width: 100%;
 }
 details.form-wrapper {
   margin: 0;
@@ -11834,13 +11801,13 @@ details.form-wrapper:last-of-type {
   padding-bottom: 0.5rem;
 }
 details:last-of-type {
-  border-bottom: 1px solid var(--color-divider-light);
   margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-divider-light);
 }
 details > summary {
-  list-style: none;
-  padding: 0;
   position: relative;
+  padding: 0;
+  list-style: none;
 }
 details > summary:before {
   -webkit-font-smoothing: antialiased;
@@ -11856,13 +11823,13 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 details > summary::before {
-  border-radius: var(--button-border-radius);
   float: right;
-  font-size: var(--font-size-icon);
-  line-height: 1.98;
   margin-top: 0.1em;
   padding: 0 0.5em;
   transition: transform 300ms ease;
+  border-radius: var(--button-border-radius);
+  font-size: var(--font-size-icon);
+  line-height: 1.98;
 }
 @media screen and (min-width: 48rem) {
   details > summary::before {
@@ -11870,26 +11837,26 @@ details > summary::before {
   }
 }
 details > summary:focus::before, details > summary:hover::before {
-  background: var(--color-interaction);
   color: var(--color-text-inverted);
+  background: var(--color-interaction);
 }
 details > summary:active::before {
-  background: transparent;
   color: var(--color-interaction);
   outline: var(--outline-active);
+  background: transparent;
 }
 details > summary:focus, details > summary:hover {
   color: var(--color-interaction);
 }
 details > summary.form-required::after {
-  font-size: var(--font-size-l);
   position: absolute;
-  right: 3rem;
   top: 0.5rem;
+  right: 3rem;
+  font-size: var(--font-size-l);
 }
 details > summary.form-required h2::after {
-  color: var(--color-danger);
   content: "*";
+  color: var(--color-danger);
 }
 details[open] > summary::before {
   transform: rotate(-180deg);
@@ -11927,25 +11894,24 @@ details details .details-wrapper {
   padding-bottom: 0;
 }
 
-/* Views exposed forms, secondary options */
 details.bef--secondary {
   border-width: 0 0 1px;
 }
 details.bef--secondary > summary .details-title {
-  font-size: var(--font-size-default);
-  font-family: var(--font-base);
-  text-align: right;
   margin-right: 1rem;
+  text-align: right;
+  font-family: var(--font-base);
+  font-size: var(--font-size-default);
 }
 details.bef--secondary > summary::before {
   font-size: var(--font-size-default);
 }
 
 .block-facets details {
-  border-width: 0 0 1px;
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 1rem;
+  border-width: 0 0 1px;
 }
 .block-facets details > summary.h4::before {
   font-size: var(--font-size-m);
@@ -11985,9 +11951,9 @@ form > [class*=facets-widget],
 .form-area > p,
 .form-area > [id*=ajax-wrapper],
 .form-area > [class*=facets-widget] {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
   width: auto !important;
+  margin-right: 1.25rem;
+  margin-left: 1.25rem;
 }
 form > .form--inline:first-child,
 form > .form-item:first-child,
@@ -12058,8 +12024,8 @@ form > [class*=facets-widget]:last-of-type,
 }
 
 fieldset {
-  background: var(--color-bg-fieldset);
   padding: 1.25rem;
+  background: var(--color-bg-fieldset);
 }
 fieldset.error {
   border: 2px solid var(--color-danger);
@@ -12069,16 +12035,16 @@ fieldset.error > legend {
 }
 
 fieldset fieldset {
-  background: transparent;
   padding: 0;
   border-width: 0;
+  background: transparent;
 }
 
 .form-required::after {
-  background-image: none;
-  color: var(--color-danger);
   content: "*";
   vertical-align: text-top;
+  color: var(--color-danger);
+  background-image: none;
 }
 
 .form--inline .form-item {
@@ -12097,8 +12063,8 @@ input,
 select,
 textarea {
   padding: 0.5rem 1rem;
-  background: var(--color-bg-light);
   border: 1px solid var(--color-divider-dark);
+  background: var(--color-bg-light);
 }
 input:focus,
 select:focus,
@@ -12114,23 +12080,23 @@ textarea.error {
 }
 
 *::-moz-placeholder {
-  color: var(--color-text-muted);
   text-align: right;
+  color: var(--color-text-muted);
 }
 
 *::placeholder {
-  color: var(--color-text-muted);
   text-align: right;
+  color: var(--color-text-muted);
 }
 
 .form-autocomplete {
-  background-position: right 0.5rem center !important;
   padding-right: 2rem;
+  background-position: right 0.5rem center !important;
 }
 
 input[size] {
-  max-width: 100%;
   width: 100%;
+  max-width: 100%;
 }
 
 @media screen and (min-width: 62rem) {
@@ -12150,35 +12116,35 @@ input.bef-datepicker {
 }
 
 select {
+  position: relative;
+  padding-right: 2rem;
+  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
+  background-size: 1em;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  padding-right: 2rem;
-  position: relative;
-  background: var(--color-bg-light) url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
-  background-size: 1em;
 }
 
 input[type=checkbox],
 input[type=radio] {
-  height: 1em;
-  margin-right: 0.5rem;
   position: relative;
   top: 0.1rem;
-  vertical-align: baseline;
   width: 1em;
+  height: 1em;
+  margin-right: 0.5rem;
+  vertical-align: baseline;
 }
 
 .ui-menu .ui-menu-item-wrapper {
-  background-color: transparent;
-  border: 0;
-  color: var(--color-text);
   display: block;
+  color: var(--color-text);
+  border: 0;
+  background-color: transparent;
 }
 .ui-menu .ui-menu-item-wrapper:hover, .ui-menu .ui-menu-item-wrapper:focus {
-  background-color: var(--color-link);
-  border: 0;
   color: var(--color-text-inverted);
+  border: 0;
+  background-color: var(--color-link);
 }
 
 .ui-autocomplete .ui-menu-item-wrapper.ui-state-active,
@@ -12189,14 +12155,14 @@ input[type=radio] {
 }
 
 *[disabled] {
-  opacity: 0.5;
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .bef-exposed-form {
-  border-width: 1px 0 1px;
   margin-top: 1.25rem;
   padding-bottom: 0.75rem;
+  border-width: 1px 0 1px;
 }
 .bef-exposed-form .form--inline .details-wrapper,
 .bef-exposed-form > div {
@@ -12205,15 +12171,15 @@ input[type=radio] {
   gap: 0.25rem 1rem;
   padding-bottom: 0.5rem;
 }
+.bef-exposed-form .form-type-checkbox input {
+  margin-right: 0.125em;
+  font-size: 1.5em;
+}
 @media screen and (min-width: 48rem) {
   .bef-exposed-form .form-type-checkbox {
     padding-top: 2.25rem;
     padding-bottom: 0.25rem;
   }
-}
-.bef-exposed-form .form-type-checkbox input {
-  margin-right: 0.125em;
-  font-size: 1.5em;
 }
 .bef-exposed-form .form-submit {
   margin-bottom: 0;
@@ -12230,6 +12196,14 @@ div#block-oc-search-input .form--inline:last-of-type,
 .form--compact .form--inline:last-of-type {
   padding-bottom: 1rem;
 }
+div#block-oc-search-input .form--inline .form-type-textfield,
+.form--compact .form--inline .form-type-textfield {
+  flex: 2 2 auto;
+}
+div#block-oc-search-input .form--inline .form-actions,
+.form--compact .form--inline .form-actions {
+  flex: 1 1 auto;
+}
 @media screen and (min-width: 48rem) {
   div#block-oc-search-input .form--inline,
   .form--compact .form--inline {
@@ -12242,14 +12216,6 @@ div#block-oc-search-input .form--inline:last-of-type,
     margin: 0;
   }
 }
-div#block-oc-search-input .form--inline .form-type-textfield,
-.form--compact .form--inline .form-type-textfield {
-  flex: 2 2 auto;
-}
-div#block-oc-search-input .form--inline .form-actions,
-.form--compact .form--inline .form-actions {
-  flex: 1 1 auto;
-}
 div#block-oc-search-input .form-text,
 .form--compact .form-text {
   max-width: 100%;
@@ -12259,25 +12225,24 @@ div#block-oc-search-input .details-wrapper,
   padding: 0;
 }
 
-/* @todo: add more robust identifier to fieldset */
 fieldset[id^=edit-radius-wrapper] {
   width: auto;
-  background: transparent;
-  border: 0;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 fieldset[id^=edit-radius-wrapper] legend {
-  height: 0;
-  width: 0;
   overflow: hidden;
+  width: 0;
+  height: 0;
 }
 fieldset[id^=edit-radius-wrapper] .fieldset-wrapper {
   display: flex;
 }
 fieldset[id^=edit-radius-wrapper] .form-item-radius-value {
-  max-width: 9rem;
   order: 1;
+  max-width: 9rem;
 }
 @media screen and (min-width: 62rem) {
   fieldset[id^=edit-radius-wrapper] .address-input {
@@ -12298,10 +12263,10 @@ fieldset[id^=edit-radius-wrapper] .form--inline:last-of-type {
   list-style: none outside;
 }
 .block-facets li {
+  display: inline-block;
   margin: 0;
   padding: 0;
   list-style: none;
-  display: inline-block;
 }
 
 .region-content > .block-facets {
@@ -12309,14 +12274,13 @@ fieldset[id^=edit-radius-wrapper] .form--inline:last-of-type {
   margin-bottom: 0 !important;
 }
 
-/* View password module fix */
 button:not([disabled]).shwpd {
-  display: block;
   position: absolute;
-  left: auto;
-  padding: 0.5rem 0.25rem;
-  right: 1rem;
   top: 2.75rem;
+  right: 1rem;
+  left: auto;
+  display: block;
+  padding: 0.5rem 0.25rem;
 }
 button:not([disabled]).shwpd:focus, button:not([disabled]).shwpd:hover {
   background-color: var(--color-bg-light);
@@ -12330,10 +12294,9 @@ input[type=password],
   padding-right: 3rem;
 }
 
-/* Workflow moderation form */
 .content-moderation-entity-moderation-form {
-  padding: 1.25rem 2.5rem 1.25rem;
   margin-bottom: 2.5rem;
+  padding: 1.25rem 2.5rem 1.25rem;
   background-color: var(--color-bg-warning);
 }
 
@@ -12392,14 +12355,14 @@ html {
 }
 
 body {
-  background-color: var(--color-neutral-canvas);
-  color: var(--color-text);
-  font-family: var(--font-base);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.4;
   margin: 0;
-  -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-neutral-canvas);
+  font-family: var(--font-base);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-wrap: anywhere;
 }
 
@@ -12414,14 +12377,13 @@ strong,
 }
 
 h1, .h1,
-h2, .h2, .details-title,
-h3, .h3, blockquote,
-blockquote p, details details .details-title,
+h2, .h2,
+h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-  font-weight: normal;
   margin: 0.5em 0;
+  font-weight: normal;
 }
 
 h1,
@@ -12433,8 +12395,7 @@ h1,
 }
 
 h2,
-.h2,
-.details-title {
+.h2, .details-title {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: var(--font-size-xl);
@@ -12442,10 +12403,8 @@ h2,
 }
 
 h3,
-.h3,
-blockquote,
-blockquote p,
-details details .details-title {
+.h3, blockquote,
+blockquote p, details details .details-title {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: var(--font-size-l);
@@ -12454,16 +12413,16 @@ details details .details-title {
 
 h4,
 .h4 {
-  color: var(--color-text);
-  font-size: var(--font-size-default);
   letter-spacing: 0.05rem;
   text-transform: uppercase;
+  color: var(--color-text);
+  font-size: var(--font-size-default);
 }
 
 h5,
 .h5 {
-  font-weight: bold;
   font-size: var(--font-size-default);
+  font-weight: bold;
 }
 
 h6,
@@ -12475,8 +12434,8 @@ h6,
 a,
 .leaflet-popup-content a,
 button.link {
-  color: var(--color-link);
   text-decoration: none;
+  color: var(--color-link);
 }
 a.is-active,
 button.link.is-active {
@@ -12485,13 +12444,13 @@ button.link.is-active {
 a:hover, a:focus,
 button.link:hover,
 button.link:focus {
-  background: var(--color-link);
   color: var(--color-text-inverted);
+  background: var(--color-link);
 }
 a:active,
 button.link:active {
-  outline: var(--outline-active);
   color: var(--color-link);
+  outline: var(--outline-active);
   background: var(--color-text-inverted);
 }
 .text-formatted a,
@@ -12507,12 +12466,12 @@ p:last-child {
 }
 
 ul {
-  list-style: square outside;
   margin-left: 1.25rem;
+  list-style: square outside;
 }
 ul ul {
-  list-style-type: circle;
   margin-bottom: 1.25rem;
+  list-style-type: circle;
 }
 ul ul ul {
   list-style-type: disc;
@@ -12540,10 +12499,10 @@ li:last-child {
 
 table {
   display: table;
-  margin: 1em auto;
+  overflow-x: auto;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  margin: 1em auto;
 }
 table code, table pre {
   max-width: 15rem;
@@ -12555,11 +12514,11 @@ table .draggable {
   position: relative;
 }
 table .draggable .tabledrag-handle {
-  display: block;
-  height: 2rem;
   position: absolute;
   top: calc(50% - 0.55rem);
+  display: block;
   width: 2rem;
+  height: 2rem;
 }
 table .draggable .tabledrag-handle:active, table .draggable .tabledrag-handle:hover {
   background: transparent;
@@ -12568,8 +12527,8 @@ table .draggable .tabledrag-handle:active {
   outline: 0;
 }
 table .draggable .tabledrag-handle .handle {
-  height: 2rem;
   width: 2rem;
+  height: 2rem;
 }
 
 td.is-active {
@@ -12586,8 +12545,8 @@ th {
 
 td,
 th {
-  vertical-align: top;
   padding: 0.5em 2em 0.5em 0;
+  vertical-align: top;
 }
 
 td:last-child,
@@ -12628,18 +12587,17 @@ i.fad {
 }
 
 sub {
-  font-size: 0.75em;
   position: relative;
   bottom: -0.25em;
+  font-size: 0.75em;
 }
 
 sup {
-  font-size: 0.75em;
   position: relative;
   top: -0.5em;
+  font-size: 0.75em;
 }
 
-/* %small */
 .tiny,
 small,
 .small,
@@ -12648,18 +12606,18 @@ small,
 }
 
 abbr {
-  border-bottom: 2px dotted var(--color-text-muted);
   text-decoration: none;
+  border-bottom: 2px dotted var(--color-text-muted);
 }
 
 kbd {
-  background: var(--color-text-muted);
+  padding: 0 0.5em;
   border: thin solid var(--color-text);
   border-radius: var(--button-border-radius);
+  background: var(--color-text-muted);
   box-shadow: 1px 2px 2px var(--color-bg-light);
   font-family: inherit;
   font-size: 0.9em;
-  padding: 0 0.5em;
 }
 
 q::before {
@@ -12676,11 +12634,11 @@ mark {
 pre,
 code {
   display: inline-block;
-  font-family: monospace;
-  max-width: 100%;
   overflow: scroll;
+  max-width: 100%;
   padding-bottom: 0.5rem;
   white-space: pre;
+  font-family: monospace;
 }
 
 samp,
@@ -12701,8 +12659,8 @@ img[alt] {
 
 img,
 figure {
-  height: auto;
   max-width: 100%;
+  height: auto;
   vertical-align: bottom;
 }
 
@@ -12712,8 +12670,8 @@ figure {
 }
 
 figcaption {
-  font-weight: bold;
   font-size: var(--font-size-default);
+  font-weight: bold;
 }
 
 blockquote {
@@ -12721,18 +12679,13 @@ blockquote {
   margin: 2.5rem 0;
   text-align: center;
 }
-@media screen and (min-width: 48rem) {
-  blockquote {
-    margin: 3.75rem 1.25rem;
-  }
-}
 blockquote,
 blockquote p {
-  font-size: var(--font-size-l);
-  padding: 0 1.25rem;
-  font-style: italic;
-  color: var(--color-text-muted);
   display: inline-block;
+  padding: 0 1.25rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-l);
+  font-style: italic;
 }
 blockquote span:before {
   -webkit-font-smoothing: antialiased;
@@ -12742,8 +12695,8 @@ blockquote span:before {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f10e";
   margin-right: 1rem;
+  content: "\f10e";
 }
 blockquote span:after {
   -webkit-font-smoothing: antialiased;
@@ -12753,16 +12706,20 @@ blockquote span:after {
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  content: "\f10d";
   display: inline-block;
   margin-left: 1rem;
   white-space: nowrap;
+  content: "\f10d";
 }
 blockquote > *:first-child {
   margin-top: 0;
 }
+@media screen and (min-width: 48rem) {
+  blockquote {
+    margin: 3.75rem 1.25rem;
+  }
+}
 
-/* %allcaps */
 .allcaps,
 caption,
 fieldset summary,
@@ -12774,14 +12731,14 @@ fieldset legend,
 
 .entity-moderation-form .form-item label {
   margin: 0;
-  font-weight: bold;
   font-size: var(--font-size-s);
+  font-weight: bold;
   line-height: 1.866;
 }
 
 .inverted {
-  background: var(--color-bg-dark);
   color: var(--color-text-inverted);
+  background: var(--color-bg-dark);
 }
 .inverted a,
 .inverted a.is-active,
@@ -12824,27 +12781,27 @@ figcaption .attribution {
 }
 
 .leaflet-container a.leaflet-popup-close-button {
-  width: auto;
-  height: auto;
-  color: unset;
-  font: unset;
   top: 0.25em;
   right: 0.25em;
-  font-size: var(--font-size-s);
+  width: auto;
+  height: auto;
   padding: 0 0.5em;
+  color: unset;
+  font: unset;
+  font-size: var(--font-size-s);
 }
 
 .formtip {
-  background-color: var(--color-info);
-  border: 2px solid var(--color-info);
   color: var(--color-text-inverted);
+  border: 2px solid var(--color-info);
+  background-color: var(--color-info);
 }
 .formtip::before {
   color: var(--color-text-inverted);
 }
 .formtip:focus, .formtip:hover, .formtip:active {
-  background-color: var(--color-text-inverted);
   border-color: var(--color-info);
+  background-color: var(--color-text-inverted);
 }
 .formtip:focus::before, .formtip:hover::before, .formtip:active::before {
   color: var(--color-info);
@@ -12859,8 +12816,8 @@ figcaption .attribution {
   border-bottom-color: var(--color-info);
 }
 .formtips-processed a {
-  color: var(--color-text-inverted);
   text-decoration: underline;
+  color: var(--color-text-inverted);
 }
 
 div.description.formtips-processed,
@@ -12875,13 +12832,13 @@ div.description.formtips-processed,
 }
 
 .qa--only::after {
-  display: block;
-  content: "For QA purposes only";
-  font-size: 0.5rem;
-  color: var(--color-danger);
   position: absolute;
   top: auto;
   right: 0;
   bottom: 0;
   left: auto;
+  display: block;
+  content: "For QA purposes only";
+  color: var(--color-danger);
+  font-size: 0.5rem;
 }

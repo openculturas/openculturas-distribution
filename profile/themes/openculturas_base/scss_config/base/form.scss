@@ -10,10 +10,11 @@ form,
   >p,
   >[id*=ajax-wrapper],
   >[class*=facets-widget] {
+    width: auto !important;
+    margin-right: $grid-gutter;
+    
     // Padding without adding padding to FORM Tag (which would mess up button positioning).
     margin-left: $grid-gutter;
-    margin-right: $grid-gutter;
-    width: auto !important;
 
     &:first-child {
       padding-top: $grid-gutter;
@@ -29,9 +30,9 @@ form,
   @extend %small;
 }
 
-//.js-hide {
+// .js-hide {
 //  display: none !important;
-//}
+// }
 
 
 .form-textarea-wrapper,
@@ -53,8 +54,8 @@ form,
 }
 
 fieldset {
-  background: $color-bg-fieldset;
   padding: $grid-gutter;
+  background: $color-bg-fieldset;
 
   summary,
   legend {
@@ -70,16 +71,16 @@ fieldset {
 }
 
 fieldset fieldset {
-  background: transparent;
   padding: 0;
   border-width: 0;
+  background: transparent;
 }
 
 .form-required::after {
-  background-image: none;
-  color: $color-danger;
   content: '*';
   vertical-align: text-top;
+  color: $color-danger;
+  background-image: none;
 }
 
 .form--inline {
@@ -100,8 +101,8 @@ input,
 select,
 textarea {
   padding: 0.5rem 1rem;
-  background: $color-bg-light;
   border: 1px solid $color-divider-dark;
+  background: $color-bg-light;
 
   &:focus {
     border-bottom-color: $color-info;
@@ -115,23 +116,23 @@ textarea {
 }
 
 *::placeholder {
-  color: $color-text-muted;
   text-align: right;
+  color: $color-text-muted;
 }
 
 .form-autocomplete {
-  background-position: right 0.5rem center!important;
   padding-right: 2rem;
+  background-position: right 0.5rem center!important;
 }
 
 // Responsive forms.
 input[size] {
-  max-width: 100%;
   width: 100%;
+  max-width: 100%;
 
-  //@include breakpoint(m) {
+  // @include breakpoint(m) {
   //  width: auto;
-  //}
+  // }
 
 }
 
@@ -153,37 +154,37 @@ input.bef-datepicker {
 
 
 select {
-  appearance:none;
-  padding-right: 2rem;
   position: relative;
+  padding-right: 2rem;
   background: $color-bg-light url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
   background-size: 1em;
+  appearance:none;
 
 }
 
 input[type="checkbox"],
 input[type="radio"] {
-  height: 1em;
-  margin-right: .5rem;
   position: relative;
   top: .1rem;
-  vertical-align: baseline;
   width: 1em;
+  height: 1em;
+  margin-right: .5rem;
+  vertical-align: baseline;
 }
 
 
 // Autocomplete widget select.
 .ui-menu .ui-menu-item-wrapper {
-  background-color: transparent;
-  border: 0;
-  color: $color-text;
   display: block;
+  color: $color-text;
+  border: 0;
+  background-color: transparent;
 
   &:hover,
   &:focus {
-    background-color: $color-link;
-    border: 0;
     color: $color-text-inverted;
+    border: 0;
+    background-color: $color-link;
   }
 }
 
@@ -199,36 +200,37 @@ input[type="radio"] {
 }
 
 *[disabled] {
-  opacity: .5;
   pointer-events: none;
+  opacity: .5;
 }
 
 // Views exposed forms
 
 .bef-exposed-form {
-  border-width: 1px 0 1px;
   margin-top: $grid-gutter;
   padding-bottom: .75rem;
+  border-width: 1px 0 1px;
 
   .form--inline .details-wrapper,
   > div {
     display: flex;
     flex-flow: row wrap;
     gap: .25rem 1rem;
-    //align-items: last baseline;
+
+    // align-items: last baseline;
     padding-bottom: .5rem;
   }
 
   // checkbox has no label above
   .form-type-checkbox {
-    @include breakpoint(m) {
-      padding-top: 2.25rem;
-      padding-bottom: .25rem;
-    }
 
     input {
       margin-right: .125em;
       font-size: 1.5em;
+    }
+    @include breakpoint(m) {
+      padding-top: 2.25rem;
+      padding-bottom: .25rem;
     }
   }
 
@@ -250,7 +252,7 @@ input[type="radio"] {
 
 // Views exposed form in displays with "compact" css class
 
-//.path-user .views-exposed-form,
+// .path-user .views-exposed-form,
 div#block-oc-search-input,
 .form--compact {
   .form--inline  {
@@ -260,6 +262,12 @@ div#block-oc-search-input,
     }
     &:last-of-type {
       padding-bottom: 1rem;
+    }
+    .form-type-textfield {
+      flex: 2 2 auto;
+    }
+    .form-actions {
+      flex: 1 1 auto;
     }
 
     @include breakpoint(m) {
@@ -271,12 +279,6 @@ div#block-oc-search-input,
         margin: 0;
       }
     }
-    .form-type-textfield {
-      flex: 2 2 auto;
-    }
-    .form-actions {
-      flex: 1 1 auto;
-    }
   }
   .form-text {
     max-width: 100%;
@@ -286,19 +288,19 @@ div#block-oc-search-input,
   }
 }
 
-/* @todo: add more robust identifier to fieldset */
+// @todo: add more robust identifier to fieldset
 fieldset[id^="edit-radius-wrapper"] {
-  //width: 100%;
+  // width: 100%;
   width: auto;
-  background: transparent;
-  border: 0;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
 
   legend {
-    height: 0;
-    width: 0;
     overflow: hidden;
+    width: 0;
+    height: 0;
   }
 
   .fieldset-wrapper {
@@ -306,8 +308,8 @@ fieldset[id^="edit-radius-wrapper"] {
   }
 
   .form-item-radius-value {
-    max-width: 9rem;
     order: +1;
+    max-width: 9rem;
   }
 
   .address-input {
@@ -333,10 +335,10 @@ fieldset[id^="edit-radius-wrapper"] {
     list-style: none outside;
   }
   li {
+    display: inline-block;
     margin: 0;
     padding: 0;
     list-style: none;
-    display: inline-block;
   }
 }
 
@@ -345,15 +347,15 @@ fieldset[id^="edit-radius-wrapper"] {
   margin-bottom: 0 !important;
 }
 
-/* View password module fix */
+// View password module fix
 
 button:not([disabled]).shwpd {
-  display: block;
   position: absolute;
-  left: auto;
-  padding: .5rem .25rem;
-  right: 1rem;
   top: 2.75rem;
+  right: 1rem;
+  left: auto;
+  display: block;
+  padding: .5rem .25rem;
 
   &:focus,
   &:hover {
@@ -370,11 +372,11 @@ input[type="password"],
   padding-right: 3rem;
 }
 
-/* Workflow moderation form */
+// Workflow moderation form
 
 .content-moderation-entity-moderation-form {
-  padding: $grid-gutter (2 * $grid-gutter) $grid-gutter;
   margin-bottom: (2 * $grid-gutter);
+  padding: $grid-gutter (2 * $grid-gutter) $grid-gutter;
   background-color: $color-bg-warning;
 }
 

@@ -14,14 +14,14 @@ html {
 }
 
 body {
-  background-color: $color-neutral-canvas;
-  color: $color-text;
-  font-family: $font-base;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.4;
   margin: 0;
-  -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  color: $color-text;
+  background-color: $color-neutral-canvas;
+  font-family: $font-base;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-wrap: anywhere;
 }
 
@@ -36,8 +36,8 @@ strong,
 }
 
 @include all-headings {
-  font-weight: normal;
   margin: .5em 0;
+  font-weight: normal;
 }
 
 h1,
@@ -49,7 +49,7 @@ h1,
 }
 
 h2,
-.h2 {
+.h2, %h2 {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: $font-size-xl;
@@ -57,7 +57,7 @@ h2,
 }
 
 h3,
-.h3 {
+.h3, %h3 {
   color: var(--color-headline);
   font-family: var(--font-head);
   font-size: $font-size-l;
@@ -66,16 +66,16 @@ h3,
 
 h4,
 .h4 {
-  color: var(--color-text);
-  font-size: $font-size-default;
   letter-spacing: .05rem;
   text-transform: uppercase;
+  color: var(--color-text);
+  font-size: $font-size-default;
 }
 
 h5,
 .h5 {
-  font-weight: bold;
   font-size: $font-size-default;
+  font-weight: bold;
 }
 
 h6,
@@ -87,8 +87,8 @@ h6,
 a,
 %link-default,
 button.link {
-  color: $color-link;
   text-decoration: none;
+  color: $color-link;
 
   &.is-active {
     // Keep our styles.
@@ -97,13 +97,13 @@ button.link {
 
   &:hover,
   &:focus {
-    background: $color-link;
     color: $color-text-inverted;
+    background: $color-link;
   }
 
   &:active {
-    outline: $outline-active;
     color: $color-link;
+    outline: $outline-active;
     background: $color-text-inverted;
   }
 
@@ -121,12 +121,12 @@ p {
 }
 
 ul {
-  list-style: square outside;
   margin-left: $grid-gutter;
+  list-style: square outside;
 
   ul {
-    list-style-type: circle;
     margin-bottom: $grid-gutter;
+    list-style-type: circle;
 
     ul {
       list-style-type: disc;
@@ -160,10 +160,10 @@ li {
 
 table {
   display: table;
-  margin: 1em auto;
+  overflow-x: auto;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  margin: 1em auto;
 
   code, pre {
     max-width: 15rem;
@@ -176,11 +176,11 @@ table {
   .draggable {
     position: relative;
     .tabledrag-handle {
-      display: block;
-      height: 2rem;
       position: absolute;
       top: calc(50% - 0.55rem);
+      display: block;
       width: 2rem;
+      height: 2rem;
       &:active,
       &:hover {
         background: transparent;
@@ -190,8 +190,8 @@ table {
       }
 
       .handle {
-        height: 2rem;
         width: 2rem;
+        height: 2rem;
       }
     }
   }
@@ -215,8 +215,8 @@ th {
 
 td,
 th {
-  vertical-align: top;
   padding: .5em 2em .5em 0;
+  vertical-align: top;
 }
 
 td:last-child,
@@ -251,7 +251,7 @@ hr {
   border-color: $color-divider-dark;
 }
 
-//Fontawesome
+// Fontawesome
 i.far,
 i.fa,
 i.fab,
@@ -261,18 +261,18 @@ i.fad {
 }
 
 sub {
-  font-size: .75em;
   position: relative;
   bottom: -0.25em;
+  font-size: .75em;
 }
 
 sup {
-  font-size: .75em;
   position: relative;
   top: -0.5em;
+  font-size: .75em;
 }
 
-/* %small */
+// %small
 .tiny,
 small,
 .small,
@@ -281,18 +281,18 @@ small,
 }
 
 abbr {
-  border-bottom: 2px dotted $color-text-muted;
   text-decoration: none;
+  border-bottom: 2px dotted $color-text-muted;
 }
 
 kbd {
-  background: $color-text-muted;
+  padding: 0 0.5em;
   border: thin solid $color-text;
   border-radius: $button-border-radius;
+  background: $color-text-muted;
   box-shadow: 1px 2px 2px $color-bg-light;
   font-family: inherit;
   font-size: 0.9em;
-  padding: 0 0.5em;
 }
 
 q {
@@ -307,11 +307,11 @@ mark {
 pre,
 code {
   display: inline-block;
-  font-family: monospace;
-  max-width: 100%;
   overflow: scroll;
+  max-width: 100%;
   padding-bottom: .5rem;
   white-space: pre;
+  font-family: monospace;
 }
 
 samp,
@@ -332,19 +332,19 @@ img[alt] {
 
 img,
 figure {
-  height: auto;
   max-width: 100%;
+  height: auto;
   vertical-align: bottom;
 }
 
 figure {
-  margin: (2*$grid-gutter) 0;
+  margin: (2 * $grid-gutter) 0;
   text-align: center;
 }
 
 figcaption {
-  font-weight: bold;
   font-size: $font-size-default;
+  font-weight: bold;
 }
 
 blockquote  {
@@ -352,18 +352,15 @@ blockquote  {
   margin: (2 * $grid-gutter) 0;
   text-align: center;
 
-  @include breakpoint(m) {
-    margin: (3 * $grid-gutter) $grid-gutter ;
-  }
-
   &,
   p {
-    @extend .h3;
-    font-size: $font-size-l;
-    padding: 0 $grid-gutter;
-    font-style: italic;
-    color: $color-text-muted;
+    @extend %h3;
+
     display: inline-block;
+    padding: 0 $grid-gutter;
+    color: $color-text-muted;
+    font-size: $font-size-l;
+    font-style: italic;
   }
 
   span {
@@ -380,11 +377,15 @@ blockquote  {
   > *:first-child {
     margin-top: 0;
   }
+
+  @include breakpoint(m) {
+    margin: (3 * $grid-gutter) $grid-gutter ;
+  }
 }
 
 
 
-/* %allcaps */
+// %allcaps
 .allcaps,
 %allcaps {
   letter-spacing: .05em;
@@ -393,8 +394,9 @@ blockquote  {
 
 %label {
   @extend %allcaps;
+
   margin: 0;
-  font-weight: bold;
   font-size: $font-size-s;
+  font-weight: bold;
   line-height: 1.866;
 }

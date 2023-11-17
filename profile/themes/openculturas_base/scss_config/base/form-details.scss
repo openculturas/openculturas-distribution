@@ -6,45 +6,49 @@
 $line-height-details-header: 2.2;
 
 .details-title {
-  @extend .h2;
-  color: inherit;
+  @extend %h2;
+
   display: inline-block;
-  //line-height: $line-height-details-header;
-  line-height: inherit;
+  width: calc(100% - 2 * var(--font-size-icon));
+  margin: 0;
   padding-top: .5rem;
   padding-bottom: .75rem;
-  margin: 0;
-  width: calc(100% - 2 * var(--font-size-icon));
+  color: inherit;
+
+  // line-height: $line-height-details-header;
+  line-height: inherit;
 }
 
 details {
+  width: 100%; // Required by ff.
+  margin-right: $grid-gutter;
+  margin-left: $grid-gutter; // form has no padding, see form.scss
+  padding: 0;
   border: 0;
   border-top: 1px solid $color-divider-light;
-  padding: 0;
-  margin-left: $grid-gutter; // form has no padding, see form.scss
-  margin-right: $grid-gutter;
-  width: 100%; // Required by ff.
 
   // Reverting form-wrapper default.
   &.form-wrapper {
     margin: 0;
 
     &:last-of-type {
-      //border-bottom: 0;
+      // border-bottom: 0;
       padding-bottom: .5rem;
     }
   }
+
   // Keep distance from non-details elements.
   &:last-of-type {
-    border-bottom: 1px solid $color-divider-light;
     margin-bottom: $grid-gutter;
+    border-bottom: 1px solid $color-divider-light;
   }
 
   > summary {
     @include icon(chevron-down, fas, before);
-    list-style: none;
-    padding: 0;
+
     position: relative;
+    padding: 0;
+    list-style: none;
 
     // Disable default marker element on webkit browsers.
     &::-webkit-details-marker {
@@ -53,13 +57,13 @@ details {
 
     // Chevron  ▲ and ▼.
     &::before {
-      border-radius: $button-border-radius;
       float: right;
-      font-size: $font-size-icon;
-      line-height: (0.9 * $line-height-details-header);
       margin-top: .1em;
       padding: 0 .5em;
       transition: transform 300ms ease;
+      border-radius: $button-border-radius;
+      font-size: $font-size-icon;
+      line-height: (0.9 * $line-height-details-header);
       @include breakpoint(m) {
         // h2.details-title is responsive at breakpoint.
         margin-top: .25em;
@@ -68,14 +72,14 @@ details {
 
     &:focus::before,
     &:hover::before {
-      background: $color-interaction;
       color: $color-text-inverted;
+      background: $color-interaction;
     }
 
     &:active::before {
-      background: transparent;
       color: $color-interaction;
       outline: $outline-active;
+      background: transparent;
     }
 
     &:focus,
@@ -85,16 +89,16 @@ details {
 
     &.form-required {
       &::after {
-        font-size: $font-size-l;
         position: absolute;
-        right: 3rem;
         top: .5rem;
+        right: 3rem;
+        font-size: $font-size-l;
       }
 
       h2 {
         &::after {
-          color: $color-danger;
           content: '*';
+          color: $color-danger;
         }
       }
     }
@@ -109,7 +113,7 @@ details {
 
   .details-wrapper {
     margin: 0;
-    padding: $grid-gutter 0 (2*$grid-gutter);
+    padding: $grid-gutter 0 (2 * $grid-gutter);
   }
 }
 
@@ -126,8 +130,8 @@ details {
   // Nested details, e. g. FAQ
 
   details {
-    width: calc(100% - (2.5*$grid-gutter));
-    margin: 0 (2*$grid-gutter) 0 0;
+    width: calc(100% - (2.5 * $grid-gutter));
+    margin: 0 (2 * $grid-gutter) 0 0;
     border-bottom-width: 0;
 
     &:last-of-type {
@@ -139,17 +143,18 @@ details {
     }
 
     .details-title {
-      @extend .h3;
-      //font-family: var(--font-family-sans-serif);
-      //font-size: var(--font-size-m);
-      //color: var(--color-interaction);
-      //font-weight: bold;
-      //padding-top: .666rem;
+      @extend %h3;
+
+      // font-family: var(--font-family-sans-serif);
+      // font-size: var(--font-size-m);
+      // color: var(--color-interaction);
+      // font-weight: bold;
+      // padding-top: .666rem;
     }
 
     .details-wrapper {
       padding-top: 0;
-      padding-right: (2*$grid-gutter);
+      padding-right: (2 * $grid-gutter);
     }
   }
 }
@@ -161,15 +166,15 @@ details {
 }
 
 
-/* Views exposed forms, secondary options */
+// Views exposed forms, secondary options
 details.bef--secondary {
   border-width: 0 0 1px;
 
   > summary .details-title {
-    font-size: $font-size-default;
-    font-family: $font-base;
-    text-align: right;
     margin-right: 1rem;
+    text-align: right;
+    font-family: $font-base;
+    font-size: $font-size-default;
   }
 
   > summary::before {
@@ -180,10 +185,10 @@ details.bef--secondary {
 // Facets
 
 .block-facets details {
-  border-width: 0 0 1px;
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 1rem;
+  border-width: 0 0 1px;
 
   > summary.h4 {
     &::before {

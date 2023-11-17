@@ -9,16 +9,16 @@ button {
 button,
 input[type='button'],
 input[type='submit'] {
-  background-color: $color-bg-light;
+  display: inline-block;
+  margin-bottom: 1em;
+  padding: .5em 2em;
+  text-decoration: none;
   color: $color-interaction;
   border-width: 1px;
   border-style: solid;
   border-color: $color-interaction;
   border-radius: $button-border-radius;
-  display: inline-block;
-  margin-bottom: 1em;
-  padding: .5em 2em;
-  text-decoration: none;
+  background-color: $color-bg-light;
 
   .inverted & {
     border-color: $color-text-inverted;
@@ -26,8 +26,8 @@ input[type='submit'] {
 
   &:focus,
   &:not([disabled]):hover {
-    background-color: $color-interaction;
     color: $color-text-inverted;
+    background-color: $color-interaction;
   }
 
 }
@@ -35,26 +35,27 @@ input[type='submit'] {
 %button-small,
 .button-small {
   @extend %button;
-  font-size: var(--font-size-s);
+
   padding: .25em 1em;
+  font-size: var(--font-size-s);
 }
 
 .form-submit:not([data-drupal-selector="edit-reset"]),
 .button--cta {
   color: $color-text-inverted;
-  background-color: $color-link;
   border-color: $color-link;
+  background-color: $color-link;
 }
 
 %button-active {
-  background-color: $color-interaction;
-  border-color: $color-interaction;
   color: $color-text-inverted;
+  border-color: $color-interaction;
+  background-color: $color-interaction;
 
   &:focus,
   &:not([disabled]):hover {
-    background-color: $color-bg-light;
     color: $color-interaction;
+    background-color: $color-bg-light;
   }
 
 }
@@ -68,30 +69,30 @@ a.button.danger,
 input[type="submit"].danger,
 button[type="submit"].button--danger {
   color: $color-danger;
-  background-color: $color-bg-light;
   border-color: $color-danger;
-  @include icon(xmark) {
-    margin-right: .5rem;
-  }
+  background-color: $color-bg-light;
 
   &:focus,
   &:not([disabled]):hover {
-    background-color: $color-danger;
-    border-color: $color-danger;
     color: $color-text-inverted;
+    border-color: $color-danger;
+    background-color: $color-danger;
+  }
+  @include icon(xmark) {
+    margin-right: .5rem;
   }
 
 }
 
 .shariff {
-  //margin-top: $grid-gutter;
+  // margin-top: $grid-gutter;
   ul {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
     margin: 0;
     padding: 0;
     list-style: none outside;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
   }
   li {
     margin: 0;
@@ -100,13 +101,14 @@ button[type="submit"].button--danger {
   }
   .button-style-icon a {
     @extend %button;
-    font-size: var(--font-size-icon);
-    line-height: 1;
+
     width: 2em;
     height: 2em;
-    border-radius: 50%;
     padding: .5em;
     text-align: center;
+    border-radius: 50%;
+    font-size: var(--font-size-icon);
+    line-height: 1;
   }
 }
 
@@ -118,10 +120,10 @@ button,
 input[type='button'],
 input[type='submit'] {
   &:active {
-    background-color: $color-bg-light;
     color: $color-interaction;
     border-color: $color-bg-light;
     outline: $outline-active;
+    background-color: $color-bg-light;
   }
 }
 

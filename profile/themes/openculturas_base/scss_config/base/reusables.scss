@@ -1,8 +1,8 @@
 // Re-usable classes
 
 .inverted {
-  background: $color-bg-dark;
   color: $color-text-inverted;
+  background: $color-bg-dark;
 
   a,
   a.is-active,
@@ -48,21 +48,23 @@ figcaption .attribution {
 
   a {
     @extend %link-default;
+
     font-weight: bold;
   }
 }
 
 .leaflet-container {
   a.leaflet-popup-close-button {
-    width: auto;
-    height: auto;
-    color: unset;
-    font: unset;
+    @extend %button;
+
     top: .25em;
     right: .25em;
-    @extend %button;
-    font-size: var(--font-size-s);
+    width: auto;
+    height: auto;
     padding: 0 .5em;
+    color: unset;
+    font: unset;
+    font-size: var(--font-size-s);
   }
 }
 
@@ -70,9 +72,9 @@ figcaption .attribution {
 // Form tips in front-end
 
 .formtip {
-  background-color: var(--color-info);
-  border: 2px solid var(--color-info);
   color: var(--color-text-inverted);
+  border: 2px solid var(--color-info);
+  background-color: var(--color-info);
 
   &::before {
     color: var(--color-text-inverted);
@@ -81,8 +83,8 @@ figcaption .attribution {
   &:focus,
   &:hover,
   &:active {
-    background-color: var(--color-text-inverted);
     border-color: var(--color-info);
+    background-color: var(--color-text-inverted);
 
     &::before {
       color: var(--color-info);
@@ -101,8 +103,8 @@ figcaption .attribution {
   }
 
   a {
-    color: var(--color-text-inverted);
     text-decoration: underline;
+    color: var(--color-text-inverted);
   }
 
 }
@@ -119,13 +121,13 @@ div.description.formtips-processed,
 }
 
 .qa--only::after {
-  display: block;
-  content:'For QA purposes only';
-  font-size: .5rem;
-  color: var(--color-danger);
   position: absolute;
   top: auto;
   right: 0;
   bottom: 0;
   left: auto;
+  display: block;
+  content:'For QA purposes only';
+  color: var(--color-danger);
+  font-size: .5rem;
 }

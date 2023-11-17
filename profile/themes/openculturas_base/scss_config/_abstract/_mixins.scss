@@ -1,39 +1,41 @@
-//
-//  Helper mixin for setting sensible grid defaults depending on variables.scss.
-//  This mixin will create a simple grid with $grid-column-count columns if no parameters are given.
-//  Optionally you can define your own grid layout as needed by passing $columns and $area-names.
-//
-//  @param $columns-definition
-//    A definition for grid columns like "3fr 3fr 6fr 4fr" or "repeat(8, 2fr)".
-//  @param $area-names
-//    If you want to use named grid areas, you can pass name strings like "media text meta".
-//  @param $row-gap
-//    If you want to set a custom row gap, you can do so by passing a size like '2rem'.
-//
-//  @usage
-//    .gridContainer {
-//        // Includes the default grid with 16 columns.
-//        @include grid();
-//    }
-//
-//    .customGridContainer {
-//        // Includes a custom grid with 2 areas.
-//        @include grid(4fr 12fr, "sidebar main");
-//    }
-//
-//    .multiRowGridContainer {
-//        // Includes a custom grid with 2 areas and 3 rows.
-//        @include grid(4fr 12fr, "logo header" "sidebar main" "copy footer");
-//    }
-//
-//    .multiRowGridContainerWithRowGap {
-//        // Includes a custom grid with 2 areas and 3 rows and a row-gap of $grid-gutter.
-//        @include grid(4fr 12fr, "logo header" "sidebar main" "copy footer", $grid-gutter);
-//    }
-//
-//
+// Helper mixin for setting sensible grid defaults depending on variables.scss.
+// This mixin will create a simple grid with $grid-column-count columns if no parameters are given.
+// Optionally you can define your own grid layout as needed by passing $columns and $area-names.
+// _
+// @param $columns-definition
+//   A definition for grid columns like "3fr 3fr 6fr 4fr" or "repeat(8, 2fr)".
+// @param $area-names
+//   If you want to use named grid areas, you can pass name strings like "media text meta".
+// @param $row-gap
+//   If you want to set a custom row gap, you can do so by passing a size like '2rem'.
+// _
+// @usage
+//   .gridContainer {
+//       // Includes the default grid with 16 columns.
+//       @include grid();
+//   }
+// _
+//   .customGridContainer {
+//       // Includes a custom grid with 2 areas.
+//       @include grid(4fr 12fr, "sidebar main");
+//   }
+// _
+//   .multiRowGridContainer {
+//       // Includes a custom grid with 2 areas and 3 rows.
+//       @include grid(4fr 12fr, "logo header" "sidebar main" "copy footer");
+//   }
+// _
+//   .multiRowGridContainerWithRowGap {
+//       // Includes a custom grid with 2 areas and 3 rows and a row-gap of $grid-gutter.
+//       @include grid(4fr 12fr, "logo header" "sidebar main" "copy footer", $grid-gutter);
+//   }
+
 @mixin grid($columns-definition: false, $area-names: false, $row-gap: 0) {
   display: grid;
+  grid-template-rows: auto;
+  grid-row-gap: $row-gap;
+  grid-column-gap: $grid-gutter;
+  max-width: $grid-layout-max-width;
   @if $columns-definition {
     grid-template-columns: $columns-definition;
   } @else {
@@ -42,10 +44,6 @@
   @if $area-names {
     grid-template-areas: $area-names;
   }
-  grid-template-rows: auto;
-  max-width: $grid-layout-max-width;
-  grid-column-gap: $grid-gutter;
-  grid-row-gap: $row-gap;
 }
 
 @mixin content-grid-default() {
@@ -56,125 +54,127 @@
   }
 }
 
-//
-//  Helper mixin for breakpoints.
-//
-//  @param $name
-//    The name of the breakpoint you want to use as defined in _variables.scss.
-//
-//  @usage
-//    .responsiveContainer {
-//        @include breakpoint(m) {
-//           padding: 1rem;
-//        }
-//    }
-//
-@mixin breakpoint ($name: xs) {
-  @media screen and (#{map_get($breakpoints, $name)}) {
+
+// Helper mixin for breakpoints.
+// _
+// @param $name
+//   The name of the breakpoint you want to use as defined in _variables.scss.
+// _
+// @usage
+//   .responsiveContainer {
+//       @include breakpoint(m) {
+//          padding: 1rem;
+//       }
+//   }
+
+@mixin breakpoint($name: xs) {
+  @media screen and (#{map_get($breakpoints, $name)}) { // stylelint-disable-line media-query-no-invalid
     @content;
   }
 }
 
-//
-//  Helper mixin for quickly setting a font style from the list in _variables.scss.
-//
-//  @param $name
-//    The name of the font style as listed in _variables.scss.
-//
-//  @usage
-//    .textContainer {
-//       @include typo(h1);
-//    }
-//
-@mixin typo ($name: body) {
+
+// Helper mixin for quickly setting a font style from the list in _variables.scss.
+// _
+// @param $name
+//   The name of the font style as listed in _variables.scss.
+// _
+// @usage
+//   .textContainer {
+//      @include typo(h1);
+//   }
+
+@mixin typo($name: body) {
   @error 'Mixing hase been removed';
 }
 
-//
-//  Helper mixin for making an image fit to its's container.
-//
-//  The expected behaviour will be like background-size: cover, but with real images.
-//  Optionally it is possible to define a min-height or max-height.
-//
-//  @param $max-height
-//    Optional max-height value.
-//  @param $min-height
-//    Optional min-height value.
-//
-//  @usage
-//    .imgContainer {
-//      @include image-fit();
-//    }
-//
-@mixin image-fit ($max-height: false, $min-height: false) {
+
+// Helper mixin for making an image fit to its's container.
+// _
+// The expected behaviour will be like background-size: cover, but with real images.
+// Optionally it is possible to define a min-height or max-height.
+// _
+// @param $max-height
+//   Optional max-height value.
+// @param $min-height
+//   Optional min-height value.
+// _
+// @usage
+//   .imgContainer {
+//     @include image-fit();
+//   }
+
+@mixin image-fit($max-height: false, $min-height: false) {
   .media--blazy,
   figure,
   picture {
     display: block;
-    height: 100%;
     width: 100%;
+    height: 100%;
   }
   img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     @if $max-height != false {
       max-height: $max-height;
     }
     @if $min-height != false {
       min-height: $min-height;
     }
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
   }
 }
 
-//
-//  Helper mixin for adding an icon to an element via scss.
-//  Optionally you can select another fontawesome set of icons and the location of the icon (::before or ::after).
-//
-//  @param $icon
-//    The icon name in the fontawesome library (f.e. "arrow-up" or "bars").
-//  @param $iconset
-//    Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
-//    in the "brands" set of fontawesome which has the shorthand "fab").
-//    Possible values with the free version of fontawesome: "fas" & "fab".
-//  @param $position
-//    Optional overriding-possibility for the position of the icon. By default they are appended to a ::before element.
-//    If for some reason you need the icon to be in the ::after element, you can pass 'after' as the third parameter.
-//
-//  @usage
-//     .elementWithArrowIcon {
-//         @include icon(arrow-up);
-//     }
-//
-//     .elementWithTwitterIcon {
-//         @include icon(twitter, fab);
-//     }
-//
-//     .elementWithArrowIconAfterContent {
-//         @include icon(arrow-up, fas, after);
-//     }
-//
-//
+
+// Helper mixin for adding an icon to an element via scss.
+// Optionally you can select another fontawesome set of icons and the location of the icon (::before or ::after).
+// _
+// @param $icon
+//   The icon name in the fontawesome library (f.e. "arrow-up" or "bars").
+// @param $iconset
+//   Optional iconset for fontawesome library (f.e. for using "twitter" icon you have to define "fab" because it is
+//   in the "brands" set of fontawesome which has the shorthand "fab").
+//   Possible values with the free version of fontawesome: "fas" & "fab".
+// @param $position
+//   Optional overriding-possibility for the position of the icon. By default they are appended to a ::before element.
+//   If for some reason you need the icon to be in the ::after element, you can pass 'after' as the third parameter.
+// _
+// @usage
+//    .elementWithArrowIcon {
+//        @include icon(arrow-up);
+//    }
+// _
+//    .elementWithTwitterIcon {
+//        @include icon(twitter, fab);
+//    }
+// _
+//    .elementWithArrowIconAfterContent {
+//        @include icon(arrow-up, fas, after);
+//    }
+
+
 @mixin icon($icon: arrow-right, $iconset: fas, $position: before) {
   &:#{$position} {
-    @include fa-icon();
+    @include fa-icon;
     @extend %#{$iconset};
-    content: "#{map_get($fa-icons, $icon)}";
     @content;
+
+    content: "#{map_get($fa-icons, $icon)}";
   }
 }
 
-//
+
 // Helper mixin for defining the profile image circle size and styling.
-//
-@mixin profile_circle() {
+
+
+@mixin profile-circle() {
+  position: relative;
+  overflow: hidden;
   width: 4rem;
-  height: 4rem;
   min-width: 4rem;
+  height: 4rem;
   border: 1px solid $color-bg-light;
   border-radius: 50%;
-  overflow: hidden;
-  position: relative;
 
   .field {
     margin: 0;
@@ -189,36 +189,37 @@
 
   @include breakpoint(m) {
     width: 7rem;
-    height: 7rem;
     min-width: 7rem;
+    height: 7rem;
   }
 }
 
-//
-// Helper mixin for defining social links styling.
-//
-@mixin social_links() {
-  margin: 0 auto $grid-gutter auto;
-  //width: fit-content;
-  max-width: 100%;
 
-  //@include breakpoint(l) {
-    //@include grid(repeat(10, 1fr));
-  //}
+// Helper mixin for defining social links styling.
+
+@mixin social-links() {
+  // width: fit-content;
+  max-width: 100%;
+  margin: 0 auto $grid-gutter auto;
+
+  // @include breakpoint(l) {
+    // @include grid(repeat(10, 1fr));
+   // }
 
   .field__item {
     display: block;
-    //width: fit-content;
-    //max-width: 100%;
 
-    //@include breakpoint(l) {
-      //&:nth-child(odd) {
-        //grid-column: 1/6;
-      //}
-      //&:nth-child(even) {
-        //grid-column: 7/11;
-      //}
-    //}
+    // width: fit-content;
+    // max-width: 100%;
+
+     // @include breakpoint(l) {
+       // &:nth-child(odd) {
+         // grid-column: 1/6;
+       // }
+       // &:nth-child(even) {
+         // grid-column: 7/11;
+       // }
+     // }
 
     &.field-email a {
       @include icon(envelope);
@@ -234,17 +235,21 @@
     }
 
     > a {
-      padding: .5rem 1rem;
-      //padding-bottom: 0.25rem;
-      //padding-top: 0.25rem;
-      //padding-left: 2px; // A little nicer hover bg.
-      margin: 0.25rem 0;
       display: inline-block;
-      //overflow: hidden;
+
+      // padding-bottom: 0.25rem;
+      // padding-top: 0.25rem;
+      // padding-left: 2px; // A little nicer hover bg.
+
+      margin: 0.25rem 0;
+      padding: .5rem 1rem;
+
+      // overflow: hidden;
       word-break: keep-all;
-      //text-overflow: ellipsis;
-      //white-space: nowrap;
-      //max-width: 100%;
+
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+      // max-width: 100%;
 
       &:focus,
       &:hover {
@@ -261,18 +266,18 @@
 
       &::before,
       i {
-        font-size: $font-size-icon;
-        vertical-align: bottom;
         margin-right: 0.5rem;
+        vertical-align: bottom;
+        font-size: $font-size-icon;
       }
     }
   }
 }
 
-//
-//  Helper mixin for defining screenreader-only text.
-//
-@mixin visually_hidden() {
+
+// Helper mixin for defining screenreader-only text.
+
+@mixin visually-hidden() {
   position: absolute !important;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
@@ -281,22 +286,23 @@
   word-wrap: normal;
 }
 
-//
-//  Default clearfix implementation to be used in conjunction with floating elements.
-//
-//  @usage
-//    .box {
-//      @include clearfix;
-//      .child {
-//        float:left;
-//      }
-//   }
-//
-@mixin clearfix () {
+
+// Default clearfix implementation to be used in conjunction with floating elements.
+// _
+// @usage
+//   .box {
+//     @include clearfix;
+//     .child {
+//       float:left;
+//     }
+//  }
+
+
+@mixin clearfix() {
   &::after {
-    content: '';
     display: table;
     clear: both;
+    content: '';
   }
 }
 

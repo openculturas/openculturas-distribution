@@ -1,56 +1,55 @@
-//
 // @file:
 //  Variables definition file.
-//
 
-//
+
+
 //  Grid base definition.
-//
+// _
 //  Has effect on the grid wherever it is used.
-//
+
 $grid-gutter: 1.25rem; // The grid gap between columns.
 $grid-column-count: 16; // The default amount of columns added to a grid if there is no override.
 $grid-layout-max-width: 68.75rem; // Maximum width of the grid to prevent the site from getting to wide on large screens.
 
-//
-//  Utility Classes Grid system definition.
-//
-//  If you need more info on how this works, have a look into grid.scss.
-//
-//  The key of the map defines the selector and the value how many columns the grid should have.
-//  You can add new values to the grid if you need utility classes with more columns.
-//  These settings will only have an effect on the utility classes and not on the main layout grid.
-//
-$utility_grids: (
+
+// Utility Classes Grid system definition.
+// _
+// If you need more info on how this works, have a look into grid.scss.
+// _
+// The key of the map defines the selector and the value how many columns the grid should have.
+// You can add new values to the grid if you need utility classes with more columns.
+// These settings will only have an effect on the utility classes and not on the main layout grid.
+
+$utility-grids: (
   'grid-1': 1,
   'grid-2': 2,
   'grid-3': 3,
   'grid-4': 4
 );
 
-//
-//  Selectors for setting the grid on sub-elements with utility classes.
-//
-//  BEWARE: Unlike other systems like e. g. bootstrap
-//  the grid will not be defined on the element containing the class directly.
-//  Instead, it will be set on the following selectors beneath the set class element.
-//  You can add more selectors to this setting if you need the grid to work on more elements.
-//
-$utility_grids_container_selectors: '> .view-content, > .field__items, > .details-wrapper';
 
-//
-//  Breakpoint definitions.
-//
-//  This map defines all the breakpoints used by openculturas_base to be used in scss files.
-//
-//  Have a look at the 'breakpoint' mixin in mixins.scss for more info on how to use it.
-//
-//  You can change the values to match your design better, by changing the media selectors.
-//  Add new breakpoints if you need them.
-//
-//  CAUTION: It is NOT recommended to DELETE any of the default breakpoint definitions below.
-//  Since they are used by the scss files, this would most likely result in a broken compilation process.
-//
+// Selectors for setting the grid on sub-elements with utility classes.
+// _
+// BEWARE: Unlike other systems like e. g. bootstrap
+// the grid will not be defined on the element containing the class directly.
+// Instead, it will be set on the following selectors beneath the set class element.
+// You can add more selectors to this setting if you need the grid to work on more elements.
+
+$utility-grids-container-selectors: '> .view-content, > .field__items, > .details-wrapper';
+
+
+// Breakpoint definitions.
+// _
+// This map defines all the breakpoints used by openculturas_base to be used in scss files.
+// _
+// Have a look at the 'breakpoint' mixin in mixins.scss for more info on how to use it.
+// _
+// You can change the values to match your design better, by changing the media selectors.
+// Add new breakpoints if you need them.
+// _
+// CAUTION: It is NOT recommended to DELETE any of the default breakpoint definitions below.
+// Since they are used by the scss files, this would most likely result in a broken compilation process.
+
 $breakpoints: (                // Size at default font size 16px;
   xs: 'max-width: 29.9999rem', // < 480px
   s: 'min-width: 30rem',       // 480px
@@ -59,21 +58,20 @@ $breakpoints: (                // Size at default font size 16px;
   xl: 'min-width: #{$grid-layout-max-width}'
 );
 
-//
+
 // Colors.
-//
+// _
 // CAUTION:
-//   Do not change CSS color variable names (in openculturas_base theme)
-//
+// Do not change CSS color variable names (in openculturas_base theme)
+
 :root {
-  /**
-   * Default colors
-  **/
+  // Default colors
+
   --color-primary: #a1167f;
   --color-interaction:  #483d8b; // Secondary
   --color-text: #1f1f1f;
   --color-text-muted: #7b7d85;
-  --color-text-inverted: #ffffff;
+  --color-text-inverted: #fff;
   --color-headline: #1f1f1f;
   --color-link: #a1167f;
   --color-link--opacity: #a1167f5c; // 64% transparent link color
@@ -84,19 +82,19 @@ $breakpoints: (                // Size at default font size 16px;
   --color-neutral-canvas: #F6F6F6;
   --color-bg-dark: #303236;
   --color-bg-slight-contrast: #e8e9eb;
-  --color-bg-light: #ffffff;
+  --color-bg-light: #fff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
 
-  /**
-  * Optional OC gradients (use in background-image declaration)
-  **/
-  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #ffdd00, #008d36, #1d70b7);
-  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #ffdd00 40%, #ffdd00 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+  
+  // Optional OC gradients (use in background-image declaration)
+  
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
 
-  /**
-   * Default font-sizes
-  **/
+  
+  // Default font-sizes
+  
   --font-size-xxl: 2rem;
   --font-size-xl: 1.5rem;
   --font-size-l: 1.25rem;
@@ -104,27 +102,28 @@ $breakpoints: (                // Size at default font size 16px;
   --font-size-s: .875rem;
   --font-size-icon: 1.5rem;
 
+  
+  // Other
+  
+  --button-border-radius: 4px;
+
   @include breakpoint(m) {
     --font-size-xxl: 2.5rem;
     --font-size-xl: 1.75rem;
   }
-
-  /**
-   * Other
-  **/
-  --button-border-radius: 4px;
 }
 
-//
+
 // SASS-color-variables containing CSS-variables
-//
+// _
 // Why we reassign CSS vars to SASS variables?
 // + Base theme uses SASS-based color scheme (undefined CSS vars would fail silently).
 // + A clearly defined set of CSS variables keeps sub-themes working.
 // Disadvantage:
 // - Native SASS color functions are disabled and throw errors when used.
-//   --> Make use of Hexadecimal opacity:
-//       #0000007F not rgba(0, 0, 0, 0.5)
+//  --> Make use of Hexadecimal opacity:
+//      #0000007F not rgba(0, 0, 0, 0.5)
+
 
 $color-primary: var(--color-primary);
 $color-interaction: var(--color-interaction);
@@ -133,15 +132,12 @@ $color-text-muted: var(--color-text-muted);
 $color-text-inverted: var(--color-text-inverted);
 $color-headline: var(--color-headline);
 $color-link: var(--color-link);
-
 $color-neutral-canvas: var(--color-neutral-canvas);
 $color-bg-dark: var(--color-bg-dark);
 $color-bg-slight-contrast: var(--color-bg-slight-contrast);
 $color-bg-light: var(--color-bg-light);
-
 $color-divider-light: var(--color-divider-light);
 $color-divider-dark: var(--color-divider-dark);
-
 $color-danger: var(--color-danger);
 $color-info: var(--color-info);
 $color-success: var(--color-success);
@@ -157,22 +153,21 @@ $color-bg-success: var(--color-bg-success);
 $color-success-dark: var(--color-success-dark);
 $color-bg-warning: var(--color-bg-warning);
 $color-warning-dark: var(--color-warning-dark);
-
 $color-bg-form: var(--color-bg-form);
 $color-bg-fieldset: var(--color-bg-fieldset);
-$color-bg-link--opacity: var(--color-link--opacity);
+$color-bg-link-opacity: var(--color-link--opacity);
 
 // Other
 $border-radius-button: var(--border-radius-button);
 
-/**
- * Default color derivates
- * are changed when base colors are changed by css_color_variables or Color module settings.
- * NOTE: CSS variables should be reassigned here.
- */
+
+// Default color derivates
+// are changed when base colors are changed by css_color_variables or Color module settings.
+// NOTE: CSS variables should be reassigned here.
+
 
 body {
-  /* Messages (system feedback) */
+  // Messages (system feedback)
   --color-bg-danger: #f9dcdd;
   --color-danger-dark: #a00f12;
   --color-bg-danger-light: #fceced;
@@ -183,18 +178,18 @@ body {
   --color-bg-warning: #fff7d9;
   --color-warning-dark: #c09300;
 
-  /* Form & other colors */
+  // Form & other colors
   --color-bg-form: #f6f6fa;
   --color-bg-fieldset: #483d8b07;
   --outline-active: 2px dashed var(--color-interaction, #483d8b);
   --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
 }
 
-//
+
 //  Default font mapping for headlines and body text.
-//
+// _
 //  @see: fonts.scss file.
-//
+
 $font-base: var(--font-base);
 $font-head: var(--font-head);
 
@@ -212,37 +207,37 @@ $outline-active: var(--outline-active);
 // Button radius
 $button-border-radius: var(--button-border-radius);
 
-//
-//  Fontawesome 6.
-//
-//  openculturas_base theme use the Fontawesome 6 free version.
-//  You can use fontawesome like the official documentation with setting <i> elements or via SCSS mixins.
-//
-//  Have a look for the 'icon' mixin in mixins.scss for more info on how to use it.
-//
-//  The Fontawesome package lives in '/libraries/font-awesome/webfonts', so we need to tell the Fontawesome
-//  scss config that our copy is in another directory relative to the docroot, for the font paths to resolve.
-//
+
+// Fontawesome 6.
+// _
+// openculturas_base theme use the Fontawesome 6 free version.
+// You can use fontawesome like the official documentation with setting <i> elements or via SCSS mixins.
+// _
+// Have a look for the 'icon' mixin in mixins.scss for more info on how to use it.
+// _
+// The Fontawesome package lives in '/libraries/font-awesome/webfonts', so we need to tell the Fontawesome
+// scss config that our copy is in another directory relative to the docroot, for the font paths to resolve.
+
 $fa-font-path: "/libraries/font-awesome/webfonts";
 
-//
-//  Fontawesome extend-only selectors for webfont names.
-//
-//  As long as you are using fontawesome 6 this should not need a change.
-//  These selectors work as a mapping for the 'icon' mixin so it will map icons to the right web fonts.
-//
-//  If for any reason Fontawesome decides to rename their web fonts, this is the place to adapt the new names.
-//
+
+// Fontawesome extend-only selectors for webfont names.
+// _
+// As long as you are using fontawesome 6 this should not need a change.
+// These selectors work as a mapping for the 'icon' mixin so it will map icons to the right web fonts.
+// _
+// If for any reason Fontawesome decides to rename their web fonts, this is the place to adapt the new names.
+
 %far,
 %fas,
 %fa-solid {
-  font-family: 'Font Awesome 6 Free';
+  font-family: 'Font Awesome 6 Free', sans-serif;
   font-weight: 900;
 }
 
 %fab,
 %fa-brands {
-  font-family: 'Font Awesome 6 Brands';
+  font-family: 'Font Awesome 6 Brands', sans-serif;
   font-weight: 400;
 }
 
