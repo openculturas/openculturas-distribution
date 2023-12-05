@@ -22,8 +22,7 @@ use function strip_tags;
  *
  * @Block(
  *   id = "openculturas_custom_page_title",
- *   admin_label = @Translation("Page title with subtitle"),
- *   category = @Translation("OpenCulturas")
+ *   admin_label = @Translation("Page title with subtitle")
  * )
  */
 final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface, ContainerFactoryPluginInterface {

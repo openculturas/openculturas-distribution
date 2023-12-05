@@ -14,8 +14,7 @@ use Drupal\openculturas_custom\CurrentEntityHelper;
  *
  * @Block(
  *   id = "openculturas_custom_bookmark_flag_icon",
- *   admin_label = @Translation("Bookmark flag icon"),
- *   category = @Translation("Openculturas")
+ *   admin_label = @Translation("Bookmark flag icon")
  * )
  */
 final class BookmarkFlagIconBlock extends BlockBase {
