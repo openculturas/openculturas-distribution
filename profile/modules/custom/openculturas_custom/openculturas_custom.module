@@ -351,11 +351,12 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
         $build_key = 'flag_' . $flag->id();
         if (isset($build[$build_key])) {
           $build[$build_key] = array_merge($build[$build_key], [
-            '#lazy_builder' => ['flag.link_builder:build', [
-              $event->getEntityTypeId(),
-              $event->id(),
-              $flag->id(),
-            ],
+            '#lazy_builder' => [
+              'flag.link_builder:build', [
+                $event->getEntityTypeId(),
+                $event->id(),
+                $flag->id(),
+              ],
             ],
           ]);
         }

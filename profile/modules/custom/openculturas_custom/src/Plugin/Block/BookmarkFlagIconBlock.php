@@ -18,7 +18,7 @@ use Drupal\openculturas_custom\CurrentEntityHelper;
  *   category = @Translation("Openculturas")
  * )
  */
-class BookmarkFlagIconBlock extends BlockBase {
+final class BookmarkFlagIconBlock extends BlockBase {
 
   use UncacheableDependencyTrait;
 
@@ -27,23 +27,21 @@ class BookmarkFlagIconBlock extends BlockBase {
    */
   public function build(): ?array {
     $build = [];
-    $current_entity = CurrentEntityHelper::get_current_page_entity();
+    $page_entity = CurrentEntityHelper::get_current_page_entity();
+    $current_entity = CurrentEntityHelper::getEventReference($page_entity);
     if ($current_entity instanceof FieldableEntityInterface
       && ($current_entity->getEntityTypeId() === 'node'
         || $current_entity->getEntityTypeId() === 'taxonomy_term')
       ) {
       $build['flag_bookmark_' . $current_entity->getEntityTypeId()] = [
-        '#lazy_builder' => ['flag.link_builder:build', [
-          $current_entity->getEntityTypeId(),
-          $current_entity->id(),
-          ($current_entity->getEntityTypeId() === 'taxonomy_term') ? 'bookmark_term' : 'bookmark_' . $current_entity->getEntityTypeId(),
-        ],
+        '#lazy_builder' => [
+          'flag.link_builder:build', [
+            $current_entity->getEntityTypeId(),
+            $current_entity->id(),
+            ($current_entity->getEntityTypeId() === 'taxonomy_term') ? 'bookmark_term' : 'bookmark_node',
+          ],
         ],
         '#create_placeholder' => TRUE,
-      ];
-
-      $build['#cache'] = [
-        'max-age' => 0,
       ];
       return $build;
     }
