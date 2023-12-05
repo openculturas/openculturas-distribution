@@ -18,8 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *   id = "openculturas_custom_hero_image",
- *   admin_label = @Translation("Hero image from current entity (from field_mood_image)"),
- *   category = @Translation("Openculturas")
+ *   admin_label = @Translation("Hero image from current entity (from field_mood_image)")
  * )
  */
 final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
