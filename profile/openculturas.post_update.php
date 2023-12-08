@@ -8,6 +8,9 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\field\Entity\FieldConfig;
 
 /**
  * Implements hook_removed_post_updates().
@@ -183,4 +186,40 @@ function openculturas_post_update_password_policy(): string {
 
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
+}
+
+/**
+ * Removes invalid block categories and adds Content block category.
+ */
+function openculturas_post_update_field_block_ref_cleanup(): void {
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
+  if ($field instanceof FieldConfigInterface) {
+    $selection = $field->getSetting('selection');
+    if ($selection !== 'categories') {
+      return;
+    }
+
+    $selection_settings = $field->getSetting('selection_settings');
+    $categories_configured = $selection_settings['categories'] ?? [];
+    if ($categories_configured !== []) {
+      /** @var \Drupal\block_field\BlockFieldManagerInterface $block_field_manager */
+      $block_field_manager = \Drupal::service('block_field.manager');
+      $all_categories = array_values($block_field_manager->getBlockCategories());
+      $all_categories = array_map(static fn(string|TranslatableMarkup $category): string => (string) $category, $all_categories);
+
+      foreach ($categories_configured as $category_configured => $status) {
+        if (!in_array($category_configured, $all_categories, TRUE)) {
+          unset($categories_configured[$category_configured]);
+        }
+      }
+      // Content block is enabled.
+      if (in_array('Content block', $all_categories, TRUE)) {
+        $categories_configured['Content block'] = 'Content block';
+      }
+      $selection_settings['categories'] = $categories_configured;
+      $field->setSetting('selection_settings', $selection_settings);
+      $field->save();
+    }
+  }
 }
