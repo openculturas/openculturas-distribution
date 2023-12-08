@@ -635,4 +635,8 @@ function openculturas_custom_config_schema_info_alter(array &$definitions): void
     $definitions['field.field_settings.viewfield']['mapping']['allowed_views']['orderby'] = 'key';
     $definitions['field.field_settings.viewfield']['mapping']['allowed_display_types']['orderby'] = 'key';
   }
+  if (isset($definitions['block_field_selection.categories']['mapping']['categories'])) {
+    $definitions['block_field_selection.categories']['mapping']['categories']['orderby'] = 'key';
+  }
+
 }
