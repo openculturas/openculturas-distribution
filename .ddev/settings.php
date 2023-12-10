@@ -26,6 +26,7 @@ $settings['config_exclude_modules'] = [
   'eca_modeller_bpmn',
   'eca_ui',
   'config_devel',
+  'config_update_ui'
 ];
 
 $settings['simple_environment_anonymous'] = TRUE;
