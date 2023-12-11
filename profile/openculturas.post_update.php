@@ -7,10 +7,12 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\FieldStorageConfigInterface;
 
 /**
  * Implements hook_removed_post_updates().
@@ -222,4 +224,13 @@ function openculturas_post_update_field_block_ref_cleanup(): void {
       $field->save();
     }
   }
+}
+
+/**
+ * Updates all field storage config from type viewfield due missing handler setting.
+ */
+function openculturas_post_update_viewfield_missing_handler(?array &$sandbox = NULL): void {
+  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
+  $callback = fn(FieldStorageConfigInterface $fieldStorageConfig): bool => $fieldStorageConfig->getType() === 'viewfield';
+  $config_entity_updater->update($sandbox, 'field_storage_config', $callback);
 }
