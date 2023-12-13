@@ -13,6 +13,8 @@ use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 
 /**
  * Implements hook_removed_post_updates().
@@ -233,4 +235,17 @@ function openculturas_post_update_viewfield_missing_handler(?array &$sandbox = N
   $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
   $callback = fn(FieldStorageConfigInterface $fieldStorageConfig): bool => $fieldStorageConfig->getType() === 'viewfield';
   $config_entity_updater->update($sandbox, 'field_storage_config', $callback);
+}
+
+/**
+ * Grant - access tour - permission to authenticated user role.
+ */
+function openculturas_post_update_tour_access(): void {
+  if (\Drupal::moduleHandler()->moduleExists('tour')) {
+    $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+    if ($role instanceof RoleInterface) {
+      $role->grantPermission('access tour');
+      $role->save();
+    }
+  }
 }
