@@ -10,6 +10,7 @@ declare(strict_types = 1);
 use Drupal\node\NodeInterface;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
 
 /**
@@ -26,6 +27,17 @@ function openculturas_install_tasks(): array {
       'type' => 'normal',
     ],
   ];
+}
+
+/**
+ * Implements hook_install().
+ */
+function openculturas_install(): void {
+  // Assign user 1 the "administrator" role.
+  /** @var \Drupal\user\UserInterface $user */
+  $user = User::load(1);
+  $user->addRole('administrator');
+  $user->save();
 }
 
 /**
