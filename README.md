@@ -70,7 +70,7 @@ More information about ddev cli command https://ddev.readthedocs.io/en/stable/us
 ### Composer scripts
 
 #### Updating initial content
-* Fetch latest changes and install site: `git pull && composer install && composer run update-config && ddev composer run si`
+* Fetch latest changes and install site: `git pull && ddev composer install && ddev composer run si`
 * Change content via UI
 * Export content `ddev composer run export-content`
 
