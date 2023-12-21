@@ -13,6 +13,7 @@ use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
+use Drupal\filter\FilterFormatInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
@@ -269,5 +270,22 @@ function openculturas_post_update_formtips_replace_people_reference_selector(): 
     $formtips_selectors = $config->get('formtips_selectors');
     $config->set('formtips_selectors', str_replace("[id^='edit-field-people-reference-0-subform-field-member-0-target-id']", "[id^='edit-field-people-reference-']", $formtips_selectors));
     $config->save();
+  }
+}
+
+/**
+ * Add filter_autop filter to minimal_html filter_format.
+ */
+function openculturas_post_update_add_filter_autop_to_minimal_html(): void {
+  $filterFormatStorage = \Drupal::entityTypeManager()->getStorage('filter_format');
+  /** @var \Drupal\filter\FilterFormatInterface|null $filterFormat */
+  $filterFormat = $filterFormatStorage->load('minimal_html');
+  if ($filterFormat instanceof FilterFormatInterface) {
+    /** @var \Drupal\filter\Plugin\FilterInterface $filter */
+    $filter = $filterFormat->filters('filter_autop');
+    $configuration = $filter->getConfiguration();
+    $configuration['status'] = TRUE;
+    $filterFormat->setFilterConfig($filter->getPluginId(), $configuration);
+    $filterFormat->save();
   }
 }
