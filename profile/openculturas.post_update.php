@@ -258,3 +258,16 @@ function openculturas_post_update_install_admin_toolbar_links_access_filter(): v
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->install(['admin_toolbar_links_access_filter']);
 }
+
+/**
+ * Replace formtips selector for people_reference field.
+ */
+function openculturas_post_update_formtips_replace_people_reference_selector(): void {
+  $conficFactory = \Drupal::configFactory();
+  $config = $conficFactory->getEditable('formtips.settings');
+  if (!$config->isNew()) {
+    $formtips_selectors = $config->get('formtips_selectors');
+    $config->set('formtips_selectors', str_replace("[id^='edit-field-people-reference-0-subform-field-member-0-target-id']", "[id^='edit-field-people-reference-']", $formtips_selectors));
+    $config->save();
+  }
+}
