@@ -26,6 +26,10 @@ function openculturas_install_tasks(): array {
       'display_name' => t('Assign user 1 the "administrator" role.'),
       'type' => 'normal',
     ],
+    'openculturas_install_openculturas_modules' => [
+      'display_name' => t('Install OpenCulturas modules.'),
+      'type' => 'normal',
+    ],
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
       'type' => 'normal',
@@ -138,7 +142,18 @@ function openculturas_install_content(): void {
     $config->set('favicon.path', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png');
     $config->save();
   }
+}
 
+/**
+ * Callback function to install OpenCulturas modules.
+ *
+ * The modules need configurations of the OpenCulturas profile, therefore
+ * we install them after the profile was installed.
+ */
+function openculturas_install_openculturas_modules(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  $module_installer->install(['openculturas_map']);
 }
 
 /**

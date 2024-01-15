@@ -13,8 +13,26 @@ name: 'Advanced HTML'
 format: advanced_html
 weight: -10
 filters:
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: 0
+    settings: {  }
   filter_align:
     id: filter_align
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_caption:
+    id: filter_caption
     provider: filter
     status: true
     weight: 0
@@ -28,12 +46,19 @@ filters:
       allowed_html: '<br> <p> <h2 id dir> <h3 id dir> <h4 id dir> <h5 id dir> <h6 id dir> <div class> <cite dir> <dl dir> <dt> <dd> <span dir> <blockquote cite dir> <ul type dir> <ol type dir start> <a hreflang title dir href data-entity-type data-entity-uuid data-entity-substitution> <drupal-media title dir data-entity-type data-entity-uuid alt data-view-mode data-caption data-align> <strong> <em> <s> <sub> <sup> <li>'
       filter_html_help: false
       filter_html_nofollow: false
-  filter_caption:
-    id: filter_caption
+  filter_image_lazy_load:
+    id: filter_image_lazy_load
+    provider: filter
+    status: true
+    weight: 15
+    settings: {  }
+  filter_url:
+    id: filter_url
     provider: filter
     status: true
     weight: 0
-    settings: {  }
+    settings:
+      filter_url_length: 72
   linkit:
     id: linkit
     provider: linkit
@@ -58,28 +83,3 @@ filters:
         logo_image: logo_image
         remote_video: remote_video
         sponsor: sponsor
-  filter_autop:
-    id: filter_autop
-    provider: filter
-    status: true
-    weight: 0
-    settings: {  }
-  editor_file_reference:
-    id: editor_file_reference
-    provider: editor
-    status: true
-    weight: 0
-    settings: {  }
-  filter_url:
-    id: filter_url
-    provider: filter
-    status: true
-    weight: 0
-    settings:
-      filter_url_length: 72
-  filter_image_lazy_load:
-    id: filter_image_lazy_load
-    provider: filter
-    status: true
-    weight: 15
-    settings: {  }

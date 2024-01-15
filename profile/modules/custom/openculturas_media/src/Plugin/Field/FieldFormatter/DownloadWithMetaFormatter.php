@@ -7,11 +7,13 @@ namespace Drupal\openculturas_media\Plugin\Field\FieldFormatter;
 use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\StringTranslation\ByteSizeMarkup;
 use Drupal\Core\Template\Attribute;
 use Drupal\media\MediaInterface;
 use Drupal\media_entity_download\Plugin\Field\FieldFormatter\DownloadLinkFieldFormatter;
 use Drupal\openculturas_media\Service\ReadableMime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function is_numeric;
 
 /**
  * Plugin implementation of the 'media_entity_download_download_link' formatter.
@@ -72,7 +74,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
         if ($parent->hasField('field_filesize') && !$parent->get('field_filesize')->isEmpty()) {
           $filesize = $parent->get('field_filesize')->getString();
           $build[$delta]['#filesize'] = [
-            '#markup' => format_size($filesize),
+            '#markup' => is_numeric($filesize) ? ByteSizeMarkup::create((int) $filesize) : 0,
           ];
         }
 
