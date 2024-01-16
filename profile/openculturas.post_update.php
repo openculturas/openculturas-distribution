@@ -289,3 +289,18 @@ function openculturas_post_update_add_filter_autop_to_minimal_html(): void {
     $filterFormat->save();
   }
 }
+
+/**
+ * Grant - smart_date_recur - permissions to authenticated user role.
+ */
+function openculturas_post_update_smart_date_recur_access(): void {
+  if (\Drupal::moduleHandler()->moduleExists('smart_date_recur')) {
+    $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+    if ($role instanceof RoleInterface) {
+      $role->grantPermission('cancel smart date recur instances');
+      $role->grantPermission('make smart dates recur');
+      $role->grantPermission('reschedule smart date recur instances');
+      $role->save();
+    }
+  }
+}
