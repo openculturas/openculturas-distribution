@@ -1,64 +1,117 @@
-uuid: 3fc29a24-ea17-49a4-b6ac-f91f2272fcdd
+uuid: 50fc3e6c-80fc-4441-84e5-ce4baa6a6f70
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.full_html
   module:
-    - ckeditor
-_core:
-  default_config_hash: 967ijj7p6i7rwrYl7r08WQFeCY_c23YAh0h8u-w_CXM
+    - ckeditor5
 format: full_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Strike
-            - Superscript
-            - Subscript
-            - '-'
-            - RemoveFormat
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - Blockquote
-            - DrupalMediaLibrary
-            - Table
-            - HorizontalRule
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-        -
-          name: Tools
-          items:
-            - ShowBlocks
-            - Source
-            - Language
-            - SpecialChar
-            - Maximize
+    items:
+      - heading
+      - style
+      - bold
+      - italic
+      - link
+      - bulletedList
+      - numberedList
+      - textPartLanguage
+      - blockQuote
+      - drupalMedia
+      - insertTable
+      - specialCharacters
+      - horizontalLine
+      - strikethrough
+      - superscript
+      - subscript
+      - removeFormat
+      - code
+      - codeBlock
+      - sourceEditing
   plugins:
-    language:
+    ckeditor5_codeBlock:
+      languages:
+        -
+          label: 'Plain text'
+          language: plaintext
+        -
+          label: C
+          language: c
+        -
+          label: 'C#'
+          language: cs
+        -
+          label: C++
+          language: cpp
+        -
+          label: CSS
+          language: css
+        -
+          label: Diff
+          language: diff
+        -
+          label: HTML
+          language: html
+        -
+          label: Java
+          language: java
+        -
+          label: JavaScript
+          language: javascript
+        -
+          label: PHP
+          language: php
+        -
+          label: Python
+          language: python
+        -
+          label: Ruby
+          language: ruby
+        -
+          label: TypeScript
+          language: typescript
+        -
+          label: XML
+          language: xml
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_language:
       language_list: all
-    drupallink:
+    ckeditor5_list:
+      reversed: true
+      startIndex: true
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<a id name lang dir>'
+        - '<div lang dir>'
+        - '<p lang dir>'
+        - '<blockquote lang dir>'
+        - '<ul lang dir>'
+        - '<ol lang dir>'
+        - '<dl lang dir class>'
+        - '<dt lang dir>'
+        - '<h2 lang dir>'
+        - '<h3 lang dir>'
+        - '<h4 lang dir>'
+        - '<table lang dir>'
+    ckeditor5_style:
+      styles:
+        -
+          label: Inset
+          element: '<div class="inset">'
+    linkit_extension:
       linkit_enabled: true
       linkit_profile: openculturas
+    media_media:
+      allow_view_mode_override: true
 image_upload:
   status: false
   scheme: public

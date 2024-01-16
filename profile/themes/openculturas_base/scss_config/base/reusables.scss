@@ -37,6 +37,28 @@ figcaption .attribution {
   }
 }
 
+// Editor styles
+
+strong.textmarker {
+  background-color: yellow;
+  font-weight: normal;
+}
+
+.inset {
+  // see .view .infobox in views.scss
+  margin-bottom: 1.25rem;
+  padding: .5rem 1.25rem 1.25rem;
+  color: var(--color-info);
+  background: var(--color-bg-info);
+  > h3, h4 {
+    color: var(--color-info);
+  }
+  @include breakpoint(m) {
+    float: right;
+    max-width: 16.25rem;
+    margin: 0 0 1.25rem 1.25rem;
+  }
+}
 
 .leaflet-popup-content-wrapper {
   border-radius: 2px;

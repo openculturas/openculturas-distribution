@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.media.content_asset
     - core.entity_view_mode.media.logo
   module:
+    - editor
     - linkit
     - media
 name: 'Advanced HTML'
@@ -24,7 +25,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title> <s> <sup> <sub> <span dir lang> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <p>'
+      allowed_html: '<br> <p> <h2 id dir> <h3 id dir> <h4 id dir> <h5 id dir> <h6 id dir> <div class> <cite dir> <dl dir> <dt> <dd> <span dir> <blockquote cite dir> <ul type dir> <ol type dir start> <a hreflang title dir href data-entity-type data-entity-uuid data-entity-substitution> <drupal-media title dir data-entity-type data-entity-uuid alt data-view-mode data-caption data-align> <strong> <em> <s> <sub> <sup> <li>'
       filter_html_help: false
       filter_html_nofollow: false
   filter_caption:
@@ -48,6 +49,7 @@ filters:
     settings:
       default_view_mode: content_asset
       allowed_view_modes:
+        default: default
         content_asset: content_asset
         logo: logo
       allowed_media_types:
@@ -55,9 +57,29 @@ filters:
         image: image
         logo_image: logo_image
         remote_video: remote_video
+        sponsor: sponsor
   filter_autop:
     id: filter_autop
     provider: filter
     status: true
     weight: 0
     settings: {  }
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: 0
+    settings: {  }
+  filter_image_lazy_load:
+    id: filter_image_lazy_load
+    provider: filter
+    status: true
+    weight: 15
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72

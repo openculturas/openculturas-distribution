@@ -46,7 +46,7 @@ filters:
     status: false
     weight: -44
     settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <s> <sup> <sub> <img src alt data-entity-type data-entity-uuid data-align data-caption> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <hr> <p> <h1> <pre> <span dir lang> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <aside class="inset">'
+      allowed_html: '<a id name lang dir> <div lang dir class="inset"> <p lang dir> <blockquote lang dir> <ul lang dir> <ol lang dir> <dl lang dir class> <dt lang dir> <h2 lang dir> <h3 lang dir> <h4 lang dir> <table lang dir>'
       filter_html_help: true
       filter_html_nofollow: false
   linkit:
@@ -64,6 +64,7 @@ filters:
     settings:
       default_view_mode: content_asset
       allowed_view_modes:
+        default: default
         content_asset: content_asset
         logo: logo
         teaser_image: teaser_image
@@ -72,6 +73,7 @@ filters:
         image: image
         logo_image: logo_image
         remote_video: remote_video
+        sponsor: sponsor
   filter_html_escape:
     id: filter_html_escape
     provider: filter
@@ -81,7 +83,7 @@ filters:
   filter_url:
     id: filter_url
     provider: filter
-    status: false
+    status: true
     weight: -41
     settings:
       filter_url_length: 72
@@ -94,7 +96,7 @@ filters:
   filter_autop:
     id: filter_autop
     provider: filter
-    status: false
+    status: true
     weight: -42
     settings: {  }
   filter_image_lazy_load:

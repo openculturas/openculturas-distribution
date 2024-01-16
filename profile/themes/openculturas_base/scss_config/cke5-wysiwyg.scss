@@ -1,0 +1,16 @@
+// SCSS compiler entrypoint.
+// This file defines the order in which scss components are loaded.
+
+// Load mixins and helper functions.
+@import "_abstract/_mixins"; // stylelint-disable-line scss/load-no-partial-leading-underscore
+
+// Load variables
+@import "variables";
+
+// Load text and icon fonts
+@import "fonts";
+
+.ck-content {
+    // Load basic styling from base folder.
+  @import "base/*"; // stylelint-disable-line no-invalid-position-at-import-rule
+}

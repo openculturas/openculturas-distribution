@@ -21,6 +21,7 @@ const paths = {
     src: [
       './scss_config/style.scss',
       './scss_config/wysiwyg.scss',
+      './scss_config/cke5-wysiwyg.scss',
     ],
     dest: 'css/',
     watch: [

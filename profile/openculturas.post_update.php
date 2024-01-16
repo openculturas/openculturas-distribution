@@ -14,6 +14,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\filter\FilterFormatInterface;
+use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
@@ -303,4 +304,50 @@ function openculturas_post_update_smart_date_recur_access(): void {
       $role->save();
     }
   }
+}
+
+/**
+ * Migrate to ckEditor5.
+ */
+function openculturas_post_update_ckeditor5_migration(): string {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['ckeditor5']);
+
+  $role = Role::load(RoleInterface::ANONYMOUS_ID);
+  if ($role instanceof RoleInterface) {
+    $role->revokePermission('use text format restricted_html');
+    $role->save();
+  }
+
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->revokePermission('use text format restricted_html');
+    $role->save();
+  }
+
+  $full_config_names = [
+    'editor.editor.advanced_html',
+    'editor.editor.basic_html',
+    'editor.editor.full_html',
+    'filter.format.advanced_html',
+    'filter.format.basic_html',
+    'filter.format.full_html',
+    'filter.format.restricted_html',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+  return $logger->output();
 }
