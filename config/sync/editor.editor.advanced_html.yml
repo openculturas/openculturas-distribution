@@ -1,62 +1,75 @@
-uuid: c09c9f90-fdb5-411b-a338-7bdd3d7b0d63
+uuid: e7c8848a-46fb-46df-b606-d88a6a970577
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.advanced_html
   module:
-    - ckeditor
+    - ckeditor5
 format: advanced_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Strike
-            - Superscript
-            - Subscript
-            - RemoveFormat
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-        -
-          name: Links
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Insert
-          items:
-            - Blockquote
-            - SpecialChar
-            - DrupalMediaLibrary
-        -
-          name: Tools
-          items:
-            - Undo
-            - Redo
-            - Cut
-            - Copy
-            - Source
-            - Language
-            - Maximize
+    items:
+      - heading
+      - style
+      - bold
+      - italic
+      - strikethrough
+      - link
+      - bulletedList
+      - numberedList
+      - textPartLanguage
+      - drupalMedia
+      - blockQuote
+      - specialCharacters
+      - undo
+      - redo
+      - removeFormat
+      - superscript
+      - subscript
+      - sourceEditing
   plugins:
-    drupallink:
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_language:
+      language_list: all
+    ckeditor5_list:
+      reversed: false
+      startIndex: true
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<cite lang dir>'
+        - '<dl lang dir>'
+        - '<dt>'
+        - '<dd>'
+        - '<span lang dir>'
+        - '<blockquote cite lang dir>'
+        - '<ul type lang dir>'
+        - '<ol type lang dir>'
+        - '<h2 id lang dir>'
+        - '<h3 id lang dir>'
+        - '<h4 id lang dir>'
+        - '<h5 id lang dir>'
+        - '<h6 id lang dir>'
+        - '<a hreflang title lang dir>'
+        - '<drupal-media title lang dir>'
+        - '<div class>'
+    ckeditor5_style:
+      styles:
+        -
+          label: Inset
+          element: '<div class="inset">'
+    linkit_extension:
       linkit_enabled: true
       linkit_profile: openculturas
-    language:
-      language_list: all
+    media_media:
+      allow_view_mode_override: true
 image_upload:
   status: false
   scheme: public
