@@ -351,3 +351,12 @@ function openculturas_post_update_ckeditor5_migration(): string {
   }
   return $logger->output();
 }
+
+/**
+ * Install multiple_fields_remove_button.
+ */
+function openculturas_post_update_install_multiple_fields_remove_button(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['multiple_fields_remove_button']);
+}
