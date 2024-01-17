@@ -195,6 +195,11 @@
       const burgerButtonOpen = document.querySelector('#button-offcanvas-open');
       const burgerButtonClose = document.querySelector('#button-offcanvas-close');
       const offcanvasMenu = document.querySelector('#offcanvas_menu');
+
+      if (!burgerButtonOpen || !burgerButtonClose || !offcanvasMenu) {
+        return;
+      }
+
       burgerButtonOpen.setAttribute('aria-expanded', 'false');
       burgerButtonClose.setAttribute('aria-expanded', 'false');
       offcanvasMenu.setAttribute('aria-hidden', 'true')
