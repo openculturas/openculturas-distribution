@@ -3,4 +3,5 @@ ARG BASE_IMAGE
 FROM $BASE_IMAGE
 ARG CI_PROJECT_NAME
 ARG BASICAUTH_PASSWORD
-RUN htpasswd -nbs "$CI_PROJECT_NAME" "$BASICAUTH_PASSWORD" > /app/pkg/htpasswd
+RUN htpasswd -nbs "$CI_PROJECT_NAME" "$BASICAUTH_PASSWORD" > /app/pkg/htpasswd && \
+    rm /app/pkg/apacheconf-per-dir/7G-Firewall.conf
