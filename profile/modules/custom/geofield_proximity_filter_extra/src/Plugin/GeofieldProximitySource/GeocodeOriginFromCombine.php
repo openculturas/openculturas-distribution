@@ -84,7 +84,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
           'type' => 'button',
           'class' => ['button', 'button--locate_me'],
         ],
-        '#after_build' => [[$this, 'findMyLocationAfterBuild']],
+        '#after_build' => [$this->findMyLocationAfterBuild(...)],
       ];
     }
   }

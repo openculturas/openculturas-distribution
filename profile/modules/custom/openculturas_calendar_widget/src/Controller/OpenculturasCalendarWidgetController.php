@@ -85,7 +85,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#type' => 'view',
       '#name' => 'related_date',
       '#display_id' => 'upcoming_dates',
-      '#pre_render' => [[View::class, 'preRenderViewElement'], [self::class, 'preRenderViewElement']],
+      '#pre_render' => [[View::class, 'preRenderViewElement'], self::preRenderViewElement(...)],
     ];
     if ($this->request && $this->request->query->has('source_uri')) {
       $build['container']['link'] = [

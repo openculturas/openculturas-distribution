@@ -25,16 +25,6 @@ use function str_ends_with;
 class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterface {
 
   /**
-   * @var \Drupal\Core\Config\ConfigManagerInterface
-   */
-  protected ConfigManagerInterface $configManager;
-
-  /**
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected ModuleHandlerInterface $moduleHandler;
-
-  /**
    * Creates OpenculturasCustomConfigDevelSubscriber objects.
    *
    * @param \Drupal\Core\Config\ConfigManagerInterface $configManager
@@ -42,9 +32,7 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   Module handler service.
    */
-  public function __construct(ConfigManagerInterface $configManager, ModuleHandlerInterface $moduleHandler) {
-    $this->configManager = $configManager;
-    $this->moduleHandler = $moduleHandler;
+  public function __construct(protected ConfigManagerInterface $configManager, protected ModuleHandlerInterface $moduleHandler) {
   }
 
   /**
@@ -57,9 +45,9 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     $data = $event->getData();
     $file_names = $event->getFileNames();
     $file_path = reset($file_names);
-    $config_name = pathinfo($file_path, PATHINFO_FILENAME);
+    $config_name = pathinfo((string) $file_path, PATHINFO_FILENAME);
     $entity_type_id = $this->configManager->getEntityTypeIdByName($config_name);
-    $extension = basename(dirname($file_path, 3));
+    $extension = basename(dirname((string) $file_path, 3));
     if ($entity_type_id === NULL) {
       return;
     }
@@ -78,7 +66,7 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     if (!$this->moduleHandler->moduleExists($extension)) {
       return;
     }
-    if (str_ends_with(dirname($file_path), InstallStorage::CONFIG_INSTALL_DIRECTORY) === FALSE) {
+    if (str_ends_with(dirname((string) $file_path), InstallStorage::CONFIG_INSTALL_DIRECTORY) === FALSE) {
       return;
     }
     $data['dependencies']['enforced']['module'][] = $extension;

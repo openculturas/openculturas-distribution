@@ -570,7 +570,7 @@ function openculturas_custom_form_alter(array &$form, FormStateInterface $form_s
       $group = &$groups[$group_key];
 
       foreach (Element::children($group) as $item_key) {
-        $update_key = str_replace('.', '_', $item_key);
+        $update_key = str_replace('.', '_', (string) $item_key);
         $entity = Update::load($update_key);
 
         $entityStatus = $entity && $entity->wasSuccessfulByHook();

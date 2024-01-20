@@ -144,7 +144,7 @@ final class SettingsForm extends ConfigFormBase {
       $form['host_list']['items'][$token]['remove'] = [
         '#type' => 'submit',
         '#value' => $this->t('Remove'),
-        '#submit' => [[$this, 'removeRowSubmit']],
+        '#submit' => [$this->removeRowSubmit(...)],
         '#name' => 'host_remove' . $token,
         '#ajax' => [
           'callback' => [self::class, 'ajaxRefreshCallback'],
@@ -160,7 +160,7 @@ final class SettingsForm extends ConfigFormBase {
       $form['host_list']['actions']['add'] = [
         '#type' => 'submit',
         '#value' => $this->t('Add one more'),
-        '#submit' => [[$this, 'addRowSubmit']],
+        '#submit' => [$this->addRowSubmit(...)],
         '#name' => 'add_host',
         '#ajax' => [
           'callback' => [self::class, 'ajaxRefreshCallback'],
@@ -247,7 +247,7 @@ final class SettingsForm extends ConfigFormBase {
         return;
       }
       foreach ($host_list as $token => $values) {
-        $hostname = trim($values['hostname']);
+        $hostname = trim((string) $values['hostname']);
         if ($hostname === '' && isset($form['host_list']['items'][$token]['hostname'])) {
           unset($host_list[$token]);
         }
@@ -281,9 +281,9 @@ final class SettingsForm extends ConfigFormBase {
           continue;
         }
         $values = [];
-        $values['hostname'] = trim($input_values['hostname']);
-        $values['iframe_src'] = trim($input_values['iframe_src']);
-        $values['css'] = trim($input_values['css']);
+        $values['hostname'] = trim((string) $input_values['hostname']);
+        $values['iframe_src'] = trim((string) $input_values['iframe_src']);
+        $values['css'] = trim((string) $input_values['css']);
         if (empty($values['hostname'])) {
           continue;
         }

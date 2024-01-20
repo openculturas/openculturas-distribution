@@ -114,7 +114,7 @@ function openculturas_base_form_system_theme_settings_form_submit(array &$form, 
       $values['background_image_path'] = $filename;
     }
   }
-  catch (FileException $e) {
+  catch (FileException) {
     // Ignore.
   }
 

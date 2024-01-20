@@ -5,17 +5,14 @@ declare(strict_types=1);
 
 use DrupalFinder\DrupalFinder;
 use DrupalRector\Set\Drupal10SetList;
-use DrupalRector\Set\Drupal9SetList;
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->sets([
-    Drupal9SetList::DRUPAL_9,
     Drupal10SetList::DRUPAL_101,
-    LevelSetList::UP_TO_PHP_74,
+    LevelSetList::UP_TO_PHP_81,
     SetList::CODE_QUALITY,
     SetList::EARLY_RETURN,
     SetList::DEAD_CODE,
@@ -50,7 +47,7 @@ return static function (RectorConfig $rectorConfig): void {
     __DIR__ . '/phpstan-for-rector.neon'
   );
   $rectorConfig->phpVersion(
-    PhpVersion::PHP_74
+    \Rector\ValueObject\PhpVersion::PHP_81
   );
 
   $rectorConfig->skip([

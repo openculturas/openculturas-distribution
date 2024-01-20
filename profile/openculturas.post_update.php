@@ -269,7 +269,7 @@ function openculturas_post_update_formtips_replace_people_reference_selector(): 
   $config = $conficFactory->getEditable('formtips.settings');
   if (!$config->isNew()) {
     $formtips_selectors = $config->get('formtips_selectors');
-    $config->set('formtips_selectors', str_replace("[id^='edit-field-people-reference-0-subform-field-member-0-target-id']", "[id^='edit-field-people-reference-']", $formtips_selectors));
+    $config->set('formtips_selectors', str_replace("[id^='edit-field-people-reference-0-subform-field-member-0-target-id']", "[id^='edit-field-people-reference-']", (string) $formtips_selectors));
     $config->save();
   }
 }
