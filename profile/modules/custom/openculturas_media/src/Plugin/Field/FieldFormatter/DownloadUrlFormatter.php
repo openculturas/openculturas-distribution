@@ -37,22 +37,22 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->fileStorage = $container->get('entity_type.manager')->getStorage('file');
-    return $instance;
+    $downloadUrlFormatter = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $downloadUrlFormatter->fileStorage = $container->get('entity_type.manager')->getStorage('file');
+    return $downloadUrlFormatter;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode): array {
+  public function viewElements(FieldItemListInterface $fieldItemList, $langcode): array {
     $elements = [];
     $settings = $this->getSettings();
-    $parentAdapter = $items->getParent();
+    $parentAdapter = $fieldItemList->getParent();
     if ($parentAdapter instanceof EntityAdapter) {
       $parent = $parentAdapter->getValue()->id();
 
-      foreach ($items as $delta => $item) {
+      foreach ($fieldItemList as $delta => $item) {
 
         $route_parameters = ['media' => $parent];
         $url_options = [];
@@ -74,6 +74,7 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
           // downloads will never navigate client locations)
           $url_options['attributes']['target'] = $settings['target'];
         }
+
         if (!empty($settings['rel'])) {
           $url_options['attributes']['rel'] = $settings['rel'];
         }
@@ -84,6 +85,7 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
         ];
       }
     }
+
     return $elements;
   }
 

@@ -43,7 +43,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, ?Url $url = NULL): array {
+  public function buildForm(array $form, FormStateInterface $formState, ?Url $url = NULL): array {
     $config = $this->configFactory()->getEditable('openculturas_calendar_widget.settings');
     $iframe_src = $url instanceof Url ? $url->toString() : '';
     $form['container'] = [
@@ -57,6 +57,7 @@ final class EmbedCodeWidget extends FormBase {
     if (!$config->get('limit_access')) {
       self::embedCodeWidgetElement($form['container'], $iframe_src);
     }
+
     if ($this->currentUser()->hasPermission('administer openculturas_calendar_widget configuration')) {
       $list_items = [];
       if (!$config->get('limit_access')) {
@@ -98,7 +99,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
+  public function submitForm(array &$form, FormStateInterface $formState): void {
   }
 
   public static function embedCodeWidgetElement(array &$element, ?string $iframe_src): void {
@@ -116,11 +117,13 @@ final class EmbedCodeWidget extends FormBase {
     if ($iframe_src === NULL) {
       return;
     }
+
     if ($iframe_src === '') {
       return;
     }
+
     $element['code']['#value'] = <<<EOF
-<iframe id="calender-upcoming-dates" style="border: none" title="Upcoming dates" width="560" height="800" src="$iframe_src" />
+<iframe id="calender-upcoming-dates" style="border: none" title="Upcoming dates" width="560" height="800" src="{$iframe_src}" />
 EOF;
   }
 

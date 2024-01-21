@@ -52,6 +52,7 @@ function openculturas_base_preprocess_page(array &$variables): void {
     else {
       return;
     }
+
     // Get the URL of the image style "header_image" and set it as a variable for page.html.twig.
     if ($mood_image instanceof MediaInterface) {
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
@@ -60,6 +61,7 @@ function openculturas_base_preprocess_page(array &$variables): void {
       if ($references === []) {
         return;
       }
+
       /** @var \Drupal\file\FileInterface $file */
       $file = reset($references);
       $mood_image_uri = $file->getFileUri();
@@ -76,6 +78,7 @@ function openculturas_base_preprocess_page(array &$variables): void {
     if (!$mood_image_style instanceof ImageStyleInterface) {
       return;
     }
+
     $mood_image_bg = $mood_image_style->buildUrl($mood_image_uri);
     $variables['mood_image_bg'] = $mood_image_bg;
   }
@@ -98,14 +101,16 @@ function openculturas_base_preprocess_node(array &$variables): void {
       'field_portrait',
       'field_premiere',
     ];
-    foreach ($hidden_fields as $name) {
-      if (isset($variables['content'][$name])) {
-        $variables["content"][$name]['#access'] = FALSE;
+    foreach ($hidden_fields as $hidden_field) {
+      if (isset($variables['content'][$hidden_field])) {
+        $variables["content"][$hidden_field]['#access'] = FALSE;
       }
     }
+
     if ($node->hasField('field_layout_switcher') && !$node->get('field_layout_switcher')->isEmpty()) {
       $variables['attributes']['class'][] = $node->get('field_layout_switcher')->value;
     }
+
     if ($node->hasField('field_event_status') && !$node->get('field_event_status')->isEmpty()) {
       $variables['attributes']['class'][] = $node->get('field_event_status')->value;
     }
@@ -118,6 +123,7 @@ function openculturas_base_preprocess_node(array &$variables): void {
     $variables['elements']['#fieldgroups']['group_featuring']->label = $node->get('field_reference_title')->value;
     $variables['content']['field_reference_title']['#access'] = FALSE;
   }
+
   if ($node->bundle() === 'date' && $node->hasField('field_event_description') && !$node->get('field_event_description')->isEmpty()) {
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
     $list = $node->get('field_event_description');
@@ -177,6 +183,7 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
     if (!$item instanceof GeofieldItem) {
       return;
     }
+
     $values = $item->getValue();
     $variables['address_links'] = NULL;
     if (is_array($values) && isset($values['latlon'])) {
@@ -196,12 +203,14 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
       $variables['address_links'] = $render_array;
     }
   }
+
   if ($paragraph->bundle() === 'member' && $paragraph->hasField('field_member') && !$paragraph->get('field_member')->isEmpty()) {
     /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $entityReferenceItem */
     $entityReferenceItem = $paragraph->get('field_member')->first();
     if (!$entityReferenceItem instanceof EntityReferenceItem) {
       return;
     }
+
     $variables['member_is_published'] = FALSE;
     $variables['user_has_edit_access'] = FALSE;
     /** @var \Drupal\node\NodeInterface|null $node */
@@ -209,6 +218,7 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
     if (!$node instanceof NodeInterface) {
       return;
     }
+
     $variables['member_is_published'] = $node->isPublished();
     $variables['user_has_edit_access'] = $node->access('edit');
   }
@@ -232,6 +242,7 @@ function openculturas_base_theme_suggestions_field_alter(array &$suggestions, ar
       // Disable reference.
       unset($suggestion);
     }
+
     // Flatten suggestions array.
     $suggestions = array_merge(...$suggestions);
   }

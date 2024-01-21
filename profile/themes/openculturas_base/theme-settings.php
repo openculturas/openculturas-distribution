@@ -9,7 +9,7 @@ use Drupal\Core\StreamWrapper\StreamWrapperManager;
 /**
  * Implements hook_form_system_theme_settings_alter().
  */
-function openculturas_base_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state, ?string $form_id = NULL): void {
+function openculturas_base_form_system_theme_settings_alter(array &$form, FormStateInterface $formState, ?string $form_id = NULL): void {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -75,22 +75,23 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
 /**
  * Validation handler for openculturas_base_form_system_theme_settings_alter().
  */
-function openculturas_base_form_system_theme_settings_validate(array &$form, FormStateInterface $form_state): void {
+function openculturas_base_form_system_theme_settings_validate(array &$form, FormStateInterface $formState): void {
   if (isset($form['background_image']['background_image_upload'])) {
-    $file = _file_save_upload_from_form($form['background_image']['background_image_upload'], $form_state, 0);
+    $file = _file_save_upload_from_form($form['background_image']['background_image_upload'], $formState, 0);
     if ($file) {
       // Put the temporary file in form_values, so we can save it on submit.
-      $form_state->setValue('background_image_upload', $file);
+      $formState->setValue('background_image_upload', $file);
     }
   }
-  if ($form_state->getValue('background_image_mode') !== 'global_image') {
-    $form_state->unsetValue('background_image_path');
+
+  if ($formState->getValue('background_image_mode') !== 'global_image') {
+    $formState->unsetValue('background_image_path');
   }
 
-  if ($form_state->getValue('background_image_path')) {
-    $path = _openculturas_base_form_system_theme_settings_validate_path($form_state->getValue('background_image_path'));
+  if ($formState->getValue('background_image_path')) {
+    $path = _openculturas_base_form_system_theme_settings_validate_path($formState->getValue('background_image_path'));
     if (!$path) {
-      $form_state->setErrorByName('background_image_path', (string) t('The custom image path is invalid.'));
+      $formState->setErrorByName('background_image_path', (string) t('The custom image path is invalid.'));
     }
   }
 }
@@ -98,13 +99,13 @@ function openculturas_base_form_system_theme_settings_validate(array &$form, For
 /**
  * Submit handler for openculturas_base_form_system_theme_settings_alter().
  */
-function openculturas_base_form_system_theme_settings_form_submit(array &$form, FormStateInterface $form_state): void {
+function openculturas_base_form_system_theme_settings_form_submit(array &$form, FormStateInterface $formState): void {
   // If the user uploaded a new logo or favicon, save it to a permanent location
   // and use it in place of the default theme-provided file.
   $default_scheme = \Drupal::config('system.file')->get('default_scheme');
   /** @var \Drupal\Core\File\FileSystemInterface $fileSystem */
   $fileSystem = \Drupal::service('file_system');
-  $values = $form_state->getValues();
+  $values = $formState->getValues();
   $config = \Drupal::configFactory()->getEditable($values['config_key']);
   $config->set('background_image.mode', $values['background_image_mode']);
   try {
@@ -126,14 +127,15 @@ function openculturas_base_form_system_theme_settings_form_submit(array &$form, 
     $config->clear('background_image.path');
     $config->set('background_image.mode', 'mood_image');
   }
+
   if ($values['background_image_mode'] !== 'global_image') {
     $config->clear('background_image.path');
   }
 
   $config->save();
-  $form_state->unsetValue('background_image_path');
-  $form_state->unsetValue('background_image_upload');
-  $form_state->unsetValue('background_image_mode');
+  $formState->unsetValue('background_image_path');
+  $formState->unsetValue('background_image_upload');
+  $formState->unsetValue('background_image_mode');
 }
 
 function _openculturas_base_form_system_theme_settings_validate_path(string $path): false|string {
@@ -143,16 +145,20 @@ function _openculturas_base_form_system_theme_settings_validate_path(string $pat
   if ($fileSystem->realpath($path) === $path) {
     return FALSE;
   }
+
   // A path relative to the Drupal root or a fully qualified URI is valid.
   if (is_file($path)) {
     return $path;
   }
+
   // Prepend 'public://' for relative file paths within public filesystem.
   if (StreamWrapperManager::getScheme($path) === FALSE) {
     $path = 'public://' . $path;
   }
+
   if (is_file($path)) {
     return $path;
   }
+
   return FALSE;
 }

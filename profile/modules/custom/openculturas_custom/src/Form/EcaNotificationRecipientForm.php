@@ -20,9 +20,9 @@ class EcaNotificationRecipientForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, FormStateInterface $form_state): array {
+  public function form(array $form, FormStateInterface $formState): array {
 
-    $form = parent::form($form, $form_state);
+    $form = parent::form($form, $formState);
 
     $form['label'] = [
       '#type' => 'email',
@@ -55,8 +55,10 @@ class EcaNotificationRecipientForm extends EntityForm {
       if (!in_array('notification', $entity->getModel()->getTags(), TRUE)) {
         continue;
       }
+
       $options[$entity->id()] = $entity->label();
     }
+
     $models = $this->entity->get('eca_model') ?? [];
     $form['eca_model'] = [
       '#type' => 'checkboxes',
@@ -79,14 +81,14 @@ class EcaNotificationRecipientForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state) {
-    $result = parent::save($form, $form_state);
+  public function save(array $form, FormStateInterface $formState) {
+    $result = parent::save($form, $formState);
     $message_args = ['%label' => $this->entity->label()];
     $message = $result == SAVED_NEW
       ? $this->t('Created new notification recipient %label.', $message_args)
       : $this->t('Updated notification recipient %label.', $message_args);
     $this->messenger()->addStatus($message);
-    $form_state->setRedirectUrl($this->entity->toUrl('collection'));
+    $formState->setRedirectUrl($this->entity->toUrl('collection'));
     return $result;
   }
 

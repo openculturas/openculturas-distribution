@@ -19,27 +19,28 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
    */
   protected TermBreadcrumbBuilder $breadcrumbBuilder;
 
-  public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $breadcrumbBuilder): void {
-    $this->breadcrumbBuilder = $breadcrumbBuilder;
+  public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $termBreadcrumbBuilder): void {
+    $this->breadcrumbBuilder = $termBreadcrumbBuilder;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function applies(RouteMatchInterface $route_match) {
-    return $this->breadcrumbBuilder->applies($route_match);
+  public function applies(RouteMatchInterface $routeMatch) {
+    return $this->breadcrumbBuilder->applies($routeMatch);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function build(RouteMatchInterface $route_match): Breadcrumb {
-    $breadcrumb_by_path = parent::build($route_match);
-    $breadcrumb_by_term = $this->breadcrumbBuilder->build($route_match);
+  public function build(RouteMatchInterface $routeMatch): Breadcrumb {
+    $breadcrumb_by_path = parent::build($routeMatch);
+    $breadcrumb_by_term = $this->breadcrumbBuilder->build($routeMatch);
 
     if (count($breadcrumb_by_path->getLinks()) > 1) {
       return $breadcrumb_by_path;
     }
+
     // Fallback to term based breadcrumb.
     // This can happen when the request has an unalias path.
     return $breadcrumb_by_term;

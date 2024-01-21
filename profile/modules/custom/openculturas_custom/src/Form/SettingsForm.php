@@ -29,13 +29,14 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $formState) {
     $classMap = $this->config('openculturas_custom.settings')
       ->get('allowed_classes');
     $classes = [];
     foreach ($classMap as $class => $label) {
       $classes[] = sprintf("%s|%s", $class, $label);
     }
+
     $form['allowed_classes'] = [
       '#type' => 'textarea',
       '#required' => TRUE,
@@ -43,30 +44,30 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('One class|label pair per line, use only letters and underscores (no dashes or spaces) in label.'),
       '#default_value' => implode("\r\n", $classes),
     ];
-    return parent::buildForm($form, $form_state);
+    return parent::buildForm($form, $formState);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state): void {
+  public function validateForm(array &$form, FormStateInterface $formState): void {
     try {
-      $this->explodeClasses($form_state->getValue('allowed_classes'));
+      $this->explodeClasses($formState->getValue('allowed_classes'));
     }
-    catch (InvalidFormatException $ex) {
-      $form_state->setErrorByName('allowed_classes', $ex->getMessage());
+    catch (InvalidFormatException $invalidFormatException) {
+      $formState->setErrorByName('allowed_classes', $invalidFormatException->getMessage());
     }
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $classMap = $this->explodeClasses($form_state->getValue('allowed_classes'));
+  public function submitForm(array &$form, FormStateInterface $formState): void {
+    $classMap = $this->explodeClasses($formState->getValue('allowed_classes'));
     $this->config('openculturas_custom.settings')
       ->set('allowed_classes', $classMap)
       ->save();
-    parent::submitForm($form, $form_state);
+    parent::submitForm($form, $formState);
   }
 
   /**
@@ -92,9 +93,11 @@ class SettingsForm extends ConfigFormBase {
         if (!$matched) {
           throw new InvalidFormatException(sprintf('The entered line "%s" has a invalid format', $class));
         }
+
         $classMap[$matches[1]] = $matches[2];
       }
     }
+
     return $classMap;
   }
 

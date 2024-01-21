@@ -26,7 +26,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
+  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $entityViewDisplay, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $originalField = $build['field_url_single_value'][0];
     $url = $originalField['#url'];
@@ -38,9 +38,11 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
     if (!empty($settings['subtitle'])) {
       $teaser['#subtitle'] = $settings['subtitle'];
     }
+
     if (!empty($settings['body'])) {
       $teaser['#description'] = $settings['body'];
     }
+
     if (!empty($settings['media'])) {
       $mid = $settings['media'];
       $media = $this->entityTypeManager->getStorage('media')->load($mid);
@@ -50,6 +52,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
           ->view($media, 'teaser_image');
       }
     }
+
     $teaser['#url'] = $url->toString();
     $teaser['#attributes'] = new Attribute(['class' => ['teaser-external']]);
     $build['field_url_single_value'][0] = $teaser;
@@ -58,8 +61,8 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
-    parent::buildBehaviorForm($paragraph, $form, $form_state);
+  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $formState): array {
+    parent::buildBehaviorForm($paragraph, $form, $formState);
     // Pay attention to the hash(#) !
     unset($form['title']);
     $form['#title'] = $this->t('Additional teaser content');
@@ -69,18 +72,19 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
+  public static function isApplicable(ParagraphsTypeInterface $paragraphsType): bool {
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $fieldManager */
     $fieldManager = \Drupal::service('entity_field.manager');
-    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
+    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphsType->id());
     $ef = $fieldManager->getBaseFieldDefinitions('paragraph');
     $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
-    foreach ($fieldKeys as $item) {
-      $fieldDefinition = $fd[$item];
+    foreach ($fieldKeys as $fieldKey) {
+      $fieldDefinition = $fd[$fieldKey];
       if ($fieldDefinition->getType() == 'link') {
         return TRUE;
       }
     }
+
     return FALSE;
   }
 

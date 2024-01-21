@@ -87,7 +87,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#display_id' => 'upcoming_dates',
       '#pre_render' => [[View::class, 'preRenderViewElement'], self::preRenderViewElement(...)],
     ];
-    if ($this->request && $this->request->query->has('source_uri')) {
+    if ($this->request instanceof Request && $this->request->query->has('source_uri')) {
       $build['container']['link'] = [
         '#type' => 'more_link',
         '#title' => $this->t('More dates'),
@@ -95,6 +95,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
         '#attributes' => ['class' => 'button'],
       ];
     }
+
     $build['container']['footer'] = [
       '#type' => 'processed_text',
       '#text' => $config->get('footer')['value'] ?? '',
@@ -107,7 +108,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#attributes' => ['target' => '_blank'],
     ];
     $build['#attached']['html_head'][] = [$head, 'oc_iframe_base'];
-    if ($limit_access && $this->request) {
+    if ($limit_access && $this->request instanceof Request) {
       $token = $this->request->get('access_token');
       $host_list = $config->get('host_list');
       $hostname = NULL;
@@ -123,6 +124,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
         }
       }
     }
+
     $this->renderer->addCacheableDependency($build, $config);
     $response = $this->bareHtmlPageRenderer->renderBarePage($build, (string) $this->t('Upcoming dates'), 'page');
     if ($limit_access) {
@@ -131,6 +133,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
         $response->headers->set('Content-Security-Policy', [sprintf('frame-ancestors %s', $hostname)]);
       }
     }
+
     return $response;
   }
 
@@ -142,6 +145,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       $view->attachment_before = [];
       $view->attachment_after = [];
     }
+
     return $element;
   }
 

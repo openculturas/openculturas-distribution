@@ -24,18 +24,22 @@ final class CurrentEntityHelper {
     if (!empty($page_entity)) {
       return $page_entity;
     }
+
     $types = array_keys(\Drupal::entityTypeManager()->getDefinitions());
-    $route = \Drupal::routeMatch();
-    $params = $route->getParameters()->all();
+    $routeMatch = \Drupal::routeMatch();
+    $params = $routeMatch->getParameters()->all();
     foreach ($types as $type) {
       if (empty($params[$type])) {
         continue;
       }
+
       if (!$params[$type] instanceof ContentEntityInterface) {
         continue;
       }
+
       return $params[$type];
     }
+
     return NULL;
   }
 
@@ -47,25 +51,30 @@ final class CurrentEntityHelper {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public static function getEventReference(?ContentEntityInterface $entity): ?ContentEntityInterface {
-    if (!$entity instanceof ContentEntityInterface) {
-      return $entity;
+  public static function getEventReference(?ContentEntityInterface $contentEntity): ?ContentEntityInterface {
+    if (!$contentEntity instanceof ContentEntityInterface) {
+      return $contentEntity;
     }
-    if ($entity->bundle() !== 'date') {
-      return $entity;
+
+    if ($contentEntity->bundle() !== 'date') {
+      return $contentEntity;
     }
-    if (!$entity->hasField('field_event_description')) {
-      return $entity;
+
+    if (!$contentEntity->hasField('field_event_description')) {
+      return $contentEntity;
     }
-    if ($entity->get('field_event_description')->isEmpty()) {
-      return $entity;
+
+    if ($contentEntity->get('field_event_description')->isEmpty()) {
+      return $contentEntity;
     }
-    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
-    $event_list = $entity->get('field_event_description');
-    $event_item = $event_list->first();
+
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $fieldItemList */
+    $fieldItemList = $contentEntity->get('field_event_description');
+    $event_item = $fieldItemList->first();
     if (!$event_item instanceof EntityReferenceItem) {
-      return $entity;
+      return $contentEntity;
     }
+
     assert($event_item->entity instanceof NodeInterface);
     return $event_item->entity ?? NULL;
   }

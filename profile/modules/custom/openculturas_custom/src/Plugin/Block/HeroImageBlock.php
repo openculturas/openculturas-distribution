@@ -53,9 +53,11 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
     if (!$current_entity instanceof ContentEntityInterface) {
       return $build;
     }
+
     if (!$current_entity->hasField('field_mood_image')) {
       return $build;
     }
+
     if (!$current_entity->get('field_mood_image')->isEmpty()) {
       /** @var \Drupal\Core\Entity\ContentEntityInterface $current_entity */
       $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
@@ -68,6 +70,7 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
       ];
       $build = $current_entity->get('field_mood_image')->view($display_options);
     }
+
     /*
      * Needs the cache dependency also for no-content, so that a update of the event entity invalidates the cache.
      * No-cache is also not a option.

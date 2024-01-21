@@ -38,12 +38,12 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
   /**
    * Adds enforced dependency and adds back the uuid for view config entities.
    *
-   * @param \Drupal\config_devel\Event\ConfigDevelSaveEvent $event
+   * @param \Drupal\config_devel\Event\ConfigDevelSaveEvent $configDevelSaveEvent
    *   The ConfigDevelSaveEvent event object.
    */
-  public function onConfigDevelSave(ConfigDevelSaveEvent $event): void {
-    $data = $event->getData();
-    $file_names = $event->getFileNames();
+  public function onConfigDevelSave(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    $file_names = $configDevelSaveEvent->getFileNames();
     $file_path = reset($file_names);
     $config_name = pathinfo((string) $file_path, PATHINFO_FILENAME);
     $entity_type_id = $this->configManager->getEntityTypeIdByName($config_name);
@@ -51,28 +51,33 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     if ($entity_type_id === NULL) {
       return;
     }
+
     if ($entity_type_id === 'view') {
       /** @var \Drupal\views\ViewEntityInterface|null $configEntity */
       $configEntity = $this->configManager->loadConfigEntityByName($config_name);
       if ($configEntity instanceof ViewEntityInterface && $configEntity->uuid() !== NULL) {
         $data = ['uuid' => $configEntity->uuid()] + $data;
-        $event->setData($data);
+        $configDevelSaveEvent->setData($data);
       }
     }
+
     // // @phpstan-ignore-next-line
     if ($extension === \Drupal::installProfile()) {
       return;
     }
+
     if (!$this->moduleHandler->moduleExists($extension)) {
       return;
     }
+
     if (str_ends_with(dirname((string) $file_path), InstallStorage::CONFIG_INSTALL_DIRECTORY) === FALSE) {
       return;
     }
+
     $data['dependencies']['enforced']['module'][] = $extension;
     $data['dependencies']['enforced']['module'] = array_unique($data['dependencies']['enforced']['module']);
 
-    $event->setData($data);
+    $configDevelSaveEvent->setData($data);
   }
 
   /**
@@ -82,6 +87,7 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     if (!class_exists(ConfigDevelEvents::class)) {
       return [];
     }
+
     return [
       ConfigDevelEvents::SAVE => ['onConfigDevelSave'],
     ];

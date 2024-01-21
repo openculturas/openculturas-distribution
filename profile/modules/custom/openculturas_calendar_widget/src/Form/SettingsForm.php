@@ -47,7 +47,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state): array {
+  public function buildForm(array $form, FormStateInterface $formState): array {
     $form['#tree'] = TRUE;
     $form['limit_access'] = [
       '#type' => 'checkbox',
@@ -56,16 +56,18 @@ final class SettingsForm extends ConfigFormBase {
     ];
 
     $items = [];
-    if ($form_state->hasTemporaryValue('host_list')) {
-      $items = $form_state->getTemporaryValue('host_list');
+    if ($formState->hasTemporaryValue('host_list')) {
+      $items = $formState->getTemporaryValue('host_list');
     }
-    elseif (!$form_state->getValues()) {
+    elseif (!$formState->getValues()) {
       $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
     }
+
     if ((is_countable($items) ? count($items) : 0) === 0 || !is_array($items)) {
       $items = is_array($items) ? $items : [];
       $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => NULL];
     }
+
     $form['host_list'] = [
       '#type' => 'details',
       '#title' => $this->t('Websites'),
@@ -132,6 +134,7 @@ final class SettingsForm extends ConfigFormBase {
         /** @var string $iframe_src */
         $iframe_src = $url->toString();
       }
+
       EmbedCodeWidget::embedCodeWidgetElement($form['host_list']['items'][$token], $iframe_src);
       $form['host_list']['items'][$token]['css'] = [
         '#title' => $this->t('Css'),
@@ -168,6 +171,7 @@ final class SettingsForm extends ConfigFormBase {
         ],
       ];
     }
+
     $form['header'] = [
       '#type' => 'text_format',
       '#format' => $this->config('openculturas_calendar_widget.settings')->get('header')['format'] ?? NULL,
@@ -183,7 +187,7 @@ final class SettingsForm extends ConfigFormBase {
       '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('footer')['value'] ?? NULL,
     ];
     $form['#attached']['library'][] = 'openculturas_calendar_widget/widget';
-    return parent::buildForm($form, $form_state);
+    return parent::buildForm($form, $formState);
   }
 
   /**
@@ -196,12 +200,12 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * Adds an empty item to the table.
    */
-  public function addRowSubmit(array &$form, FormStateInterface $form_state): void {
-    if ($form_state->hasTemporaryValue('host_list')) {
-      $items = $form_state->getTemporaryValue('host_list');
+  public function addRowSubmit(array &$form, FormStateInterface $formState): void {
+    if ($formState->hasTemporaryValue('host_list')) {
+      $items = $formState->getTemporaryValue('host_list');
       $items[Crypt::randomBytesBase64()] = '';
-      $form_state->setTemporaryValue('host_list', $items);
-      $form_state->setRebuild();
+      $formState->setTemporaryValue('host_list', $items);
+      $formState->setRebuild();
       $this->messenger->addWarning($this->t('You have unsaved changes.'));
     }
   }
@@ -209,21 +213,23 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * Removes an item from the table.
    */
-  public function removeRowSubmit(array &$form, FormStateInterface $form_state): void {
-    if (!is_array($form_state->getTriggeringElement())) {
-      parent::validateForm($form, $form_state);
+  public function removeRowSubmit(array &$form, FormStateInterface $formState): void {
+    if (!is_array($formState->getTriggeringElement())) {
+      parent::validateForm($form, $formState);
       return;
     }
-    if (!isset($form_state->getTriggeringElement()['#ajax']['id'])) {
-      parent::validateForm($form, $form_state);
+
+    if (!isset($formState->getTriggeringElement()['#ajax']['id'])) {
+      parent::validateForm($form, $formState);
       return;
     }
-    $id = $form_state->getTriggeringElement()['#ajax']['id'];
-    if ($form_state->hasTemporaryValue('host_list')) {
-      $items = $form_state->getTemporaryValue('host_list');
+
+    $id = $formState->getTriggeringElement()['#ajax']['id'];
+    if ($formState->hasTemporaryValue('host_list')) {
+      $items = $formState->getTemporaryValue('host_list');
       unset($items[$id]);
-      $form_state->setTemporaryValue('host_list', $items);
-      $form_state->setRebuild();
+      $formState->setTemporaryValue('host_list', $items);
+      $formState->setRebuild();
       $this->messenger->addWarning($this->t('You have unsaved changes.'));
     }
   }
@@ -231,48 +237,55 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state): void {
-    if (!is_array($form_state->getTriggeringElement())) {
-      parent::validateForm($form, $form_state);
+  public function validateForm(array &$form, FormStateInterface $formState): void {
+    if (!is_array($formState->getTriggeringElement())) {
+      parent::validateForm($form, $formState);
       return;
     }
-    if (!isset($form_state->getTriggeringElement()['#name'])) {
-      parent::validateForm($form, $form_state);
+
+    if (!isset($formState->getTriggeringElement()['#name'])) {
+      parent::validateForm($form, $formState);
       return;
     }
-    if ($form_state->getValue('limit_access')) {
-      $host_list = $form_state->getValue(['host_list', 'items']) ?? [];
+
+    if ($formState->getValue('limit_access')) {
+      $host_list = $formState->getValue(['host_list', 'items']) ?? [];
       $hostnames = [];
       if (!is_array($host_list)) {
         return;
       }
+
       foreach ($host_list as $token => $values) {
         $hostname = trim((string) $values['hostname']);
         if ($hostname === '' && isset($form['host_list']['items'][$token]['hostname'])) {
           unset($host_list[$token]);
         }
-        if ($form_state->getTriggeringElement()['#name'] === 'add_host' && $hostname !== '' && in_array($hostname, $hostnames, TRUE)) {
-          $form_state->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicate hostname'));
+
+        if ($formState->getTriggeringElement()['#name'] === 'add_host' && $hostname !== '' && in_array($hostname, $hostnames, TRUE)) {
+          $formState->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicate hostname'));
           return;
         }
+
         $hostnames[] = $hostname;
       }
-      $form_state->setTemporaryValue('host_list', $host_list);
+
+      $formState->setTemporaryValue('host_list', $host_list);
     }
-    parent::validateForm($form, $form_state);
+
+    parent::validateForm($form, $formState);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
+  public function submitForm(array &$form, FormStateInterface $formState): void {
     $config = $this->config('openculturas_calendar_widget.settings');
-    if (is_array($form_state->getTriggeringElement()) && $form_state->getTriggeringElement()['#name'] !== 'op') {
+    if (is_array($formState->getTriggeringElement()) && $formState->getTriggeringElement()['#name'] !== 'op') {
       return;
     }
 
-    if ($form_state->getValue('limit_access')) {
-      $host_list = $form_state->getValue(['host_list', 'items']) ?? [];
+    if ($formState->getValue('limit_access')) {
+      $host_list = $formState->getValue(['host_list', 'items']) ?? [];
       $host_list = is_array($host_list) ? $host_list : [];
       $host_list_new = [];
 
@@ -280,6 +293,7 @@ final class SettingsForm extends ConfigFormBase {
         if (empty($input_values)) {
           continue;
         }
+
         $values = [];
         $values['hostname'] = trim((string) $input_values['hostname']);
         $values['iframe_src'] = trim((string) $input_values['iframe_src']);
@@ -287,22 +301,25 @@ final class SettingsForm extends ConfigFormBase {
         if (empty($values['hostname'])) {
           continue;
         }
+
         if (empty($values['iframe_src'])) {
           continue;
         }
+
         $host_list_new[$token] = $values;
       }
+
       $config->set('host_list', $host_list_new);
     }
     else {
       $config->set('host_list', []);
     }
 
-    $config->set('footer', $form_state->getValue('footer'));
-    $config->set('header', $form_state->getValue('header'));
-    $config->set('limit_access', $form_state->getValue('limit_access'));
+    $config->set('footer', $formState->getValue('footer'));
+    $config->set('header', $formState->getValue('header'));
+    $config->set('limit_access', $formState->getValue('limit_access'));
     $config->save();
-    parent::submitForm($form, $form_state);
+    parent::submitForm($form, $formState);
   }
 
 }

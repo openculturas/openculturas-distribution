@@ -19,16 +19,19 @@ function openculturas_faq_node_prepare_form(NodeInterface $node): void {
   if ($is_new_entity === FALSE) {
     return;
   }
+
   $request = \Drupal::request();
   if ($request->query->has('field_faq_category')) {
     $faq_category_id = $request->get('field_faq_category');
     if (empty($faq_category_id)) {
       return;
     }
+
     $faq_category = Term::load($faq_category_id);
     if (!$faq_category instanceof TermInterface) {
       return;
     }
+
     if ($faq_category->bundle() !== 'faq_category') {
       return;
     }

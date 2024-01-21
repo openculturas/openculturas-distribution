@@ -19,6 +19,7 @@ function openculturas_faq_install(bool $is_syncing): void {
   if ($is_syncing) {
     return;
   }
+
   /** @var \Drupal\user\RoleInterface|null $role */
   $role = Role::load('oc_admin');
   if ($role instanceof RoleInterface) {
@@ -37,6 +38,7 @@ function openculturas_faq_install(bool $is_syncing): void {
     $role->grantPermission('view faq revisions');
     $role->save();
   }
+
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
   if ($field instanceof FieldConfigInterface) {
@@ -65,6 +67,7 @@ function openculturas_faq_update_9304(): void {
     if ($config->isNew()) {
       continue;
     }
+
     $configData = $config->getRawData();
     unset($configData['content']['path']);
     $config->setData($configData);
@@ -76,13 +79,13 @@ function openculturas_faq_update_9304(): void {
  * Deletes removed update_helper_checklist updates.
  */
 function openculturas_faq_update_9401(): void {
-  $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
+  $entityStorage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
 
   $checklist_items = [
     'openculturas_faq:openculturas_faq_update_9001',
     'openculturas_faq:openculturas_faq_update_9302',
     'openculturas_faq:openculturas_faq_update_9303',
   ];
-  $entities = $storage->loadMultiple($checklist_items);
-  $storage->delete($entities);
+  $entities = $entityStorage->loadMultiple($checklist_items);
+  $entityStorage->delete($entities);
 }

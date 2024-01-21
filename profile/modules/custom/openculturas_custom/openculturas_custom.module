@@ -99,10 +99,12 @@ function openculturas_custom_library_info_alter(array &$libraries, string $exten
         $libraries[$library]['css']['component'] = ['/' . $path => []];
         unset($libraries[$library]['css']['component']['js/leaflet_markercluster/dist/MarkerCluster.css']);
       }
+
       if (($path = $library_file_finder->find('leaflet.markercluster/dist/MarkerCluster.Default.css'))) {
         $libraries[$library]['css']['component']['/' . $path] = [];
         unset($libraries[$library]['css']['component']['js/leaflet_markercluster/dist/MarkerCluster.Default.css']);
       }
+
       if (($path = $library_file_finder->find('leaflet.markercluster/dist/leaflet.markercluster.js'))) {
         $libraries[$library]['js']['/' . $path] = ['minified' => TRUE];
         unset($libraries[$library]['js']['js/leaflet_markercluster/dist/leaflet.markercluster.js']);
@@ -126,6 +128,7 @@ function openculturas_custom_library_info_alter(array &$libraries, string $exten
       if (($path = $library_file_finder->find('leaflet.fullscreen/dist/leaflet.fullscreen.css'))) {
         $libraries[$library]['css']['component'] = ['/' . $path => []];
       }
+
       if (($path = $library_file_finder->find('leaflet.fullscreen/dist/Leaflet.fullscreen.min.js'))) {
         $libraries[$library]['js'] = ['/' . $path => ['minified' => TRUE]];
       }
@@ -136,6 +139,7 @@ function openculturas_custom_library_info_alter(array &$libraries, string $exten
       if (($path = $library_file_finder->find('leaflet.gesture-handling/dist/leaflet-gesture-handling.min.css'))) {
         $libraries[$library]['css']['component'] = ['/' . $path => ['minified' => TRUE]];
       }
+
       if (($path = $library_file_finder->find('leaflet.gesture-handling/dist/leaflet-gesture-handling.min.js'))) {
         $libraries[$library]['js'] = ['/' . $path => ['minified' => TRUE]];
       }
@@ -152,8 +156,8 @@ function openculturas_custom_library_info_alter(array &$libraries, string $exten
 /**
  * Implements hook_leaflet_map_view_style_alter().
  */
-function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, LeafletMap $view_style): void {
-  $filters = $view_style->displayHandler->getHandlers('filter');
+function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, LeafletMap $leafletMap): void {
+  $filters = $leafletMap->displayHandler->getHandlers('filter');
 
   /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
   $proximityFilters = array_filter($filters, static fn($filter): bool => $filter instanceof GeofieldProximityFilter);
@@ -165,6 +169,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
     catch (\Exception) {
       return;
     }
+
     $property->setAccessible(TRUE);
     /** @var \Drupal\geofield\Plugin\GeofieldProximitySourceInterface $source_plugin */
     $source_plugin = $property->getValue($proximityFilter);
@@ -190,14 +195,14 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
-function openculturas_custom_flagging_insert(FlaggingInterface $entity): void {
-  if ($entity->getFlagId() === 'recommendation_node') {
+function openculturas_custom_flagging_insert(FlaggingInterface $flagging): void {
+  if ($flagging->getFlagId() === 'recommendation_node') {
     /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
-    $flagged_entity = $entity->getFlaggable();
+    $flagged_entity = $flagging->getFlaggable();
     $cacheInvalidator->invalidateTags($flagged_entity->getCacheTagsToInvalidate());
   }
-  elseif (in_array($entity->getFlagId(), ['bookmark_node', 'bookmark_term'], TRUE)) {
+  elseif (in_array($flagging->getFlagId(), ['bookmark_node', 'bookmark_term'], TRUE)) {
     /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
     $id = \Drupal::currentUser()->id();
@@ -209,11 +214,11 @@ function openculturas_custom_flagging_insert(FlaggingInterface $entity): void {
 /**
  * Implements hook_ENTITY_TYPE_update().
  */
-function openculturas_custom_flagging_update(FlaggingInterface $entity): void {
-  if ($entity->getFlagId() === 'recommendation_node') {
+function openculturas_custom_flagging_update(FlaggingInterface $flagging): void {
+  if ($flagging->getFlagId() === 'recommendation_node') {
     /** @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheInvalidator */
     $cacheInvalidator = \Drupal::service('cache_tags.invalidator');
-    $flagged_entity = $entity->getFlaggable();
+    $flagged_entity = $flagging->getFlaggable();
     $cacheInvalidator->invalidateTags($flagged_entity->getCacheTagsToInvalidate());
   }
 }
@@ -230,24 +235,29 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
     if (empty($event_id)) {
       return;
     }
+
     $event = Node::load($event_id);
     if (!$event instanceof NodeInterface) {
       return;
     }
+
     if ($event->bundle() !== 'event') {
       return;
     }
+
     $node->set('field_event_description', ['target_id' => $event->id()]);
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $source_data */
     $source_data = $event->get('field_people_reference');
     if ($source_data->isEmpty()) {
       return;
     }
+
     $cloned_paragraphs = [];
     /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
     foreach ($source_data->referencedEntities() as $paragraph) {
       $cloned_paragraphs[] = clone $paragraph;
     }
+
     $node->set('field_people_reference', $cloned_paragraphs);
   }
 
@@ -257,24 +267,27 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
     if (empty($member_id)) {
       return;
     }
+
     $profile = Node::load($member_id);
     if (!$profile instanceof NodeInterface) {
       return;
     }
+
     if ($profile->bundle() !== 'profile') {
       return;
     }
-    $paragraph = Paragraph::create(['type' => 'member']);
-    $paragraph->set('field_member', ['target_id' => $member_id]);
-    $node->set('field_people_reference', [$paragraph]);
+
+    $entity = Paragraph::create(['type' => 'member']);
+    $entity->set('field_member', ['target_id' => $member_id]);
+    $node->set('field_people_reference', [$entity]);
   }
 }
 
 /**
  * Implements hook_ENTITY_TYPE_prepare_form().
  */
-function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity): void {
-  if ($entity->isNew() && $entity->hasField('field_behalf') && $entity->get('field_behalf')->isEmpty()) {
+function openculturas_custom_flagging_prepare_form(FlaggingInterface $flagging): void {
+  if ($flagging->isNew() && $flagging->hasField('field_behalf') && $flagging->get('field_behalf')->isEmpty()) {
     /** @var \Drupal\user\UserInterface|null $user */
     $user = User::load(\Drupal::currentUser()->id());
     $main_profile_non_empty = $user instanceof UserInterface && $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
@@ -283,7 +296,7 @@ function openculturas_custom_flagging_prepare_form(FlaggingInterface $entity): v
       $field = $user->get('field_main_profile');
       $main_profile = current($field->referencedEntities());
       if ($main_profile instanceof NodeInterface) {
-        $entity->set('field_behalf', ['target_id' => $main_profile->id()]);
+        $flagging->set('field_behalf', ['target_id' => $main_profile->id()]);
       }
     }
   }
@@ -297,6 +310,7 @@ function openculturas_custom_local_tasks_alter(array &$local_tasks): void {
     $local_tasks['entity.user.canonical']['title'] = t('My Content');
     $local_tasks['entity.user.canonical']['weight'] = -3;
   }
+
   if (isset($local_tasks['entity.user.edit_form'])) {
     $local_tasks['entity.user.edit_form']['title'] = t('Account settings');
     $local_tasks['entity.user.edit_form']['weight'] = -2;
@@ -306,17 +320,18 @@ function openculturas_custom_local_tasks_alter(array &$local_tasks): void {
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
-function openculturas_custom_node_view_alter(array &$build, NodeInterface $entity): void {
+function openculturas_custom_node_view_alter(array &$build, NodeInterface $node): void {
   if ($build['#view_mode'] === 'full' && isset($build['field_forfree'])) {
     // Not for free then there should be a price and hide this field output.
-    $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
+    $build['field_forfree']['#access'] = (bool) $node->get('field_forfree')->value;
   }
-  if ($entity->bundle() === 'date' && $build['#view_mode'] === 'full') {
+
+  if ($node->bundle() === 'date' && $build['#view_mode'] === 'full') {
     $request = \Drupal::request();
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
-    if ($request->query->has('date_delta') && $entity->hasField('field_date') && ($delta = $request->get('date_delta'))) {
-      $cloned_entity = clone $entity;
+    if ($request->query->has('date_delta') && $node->hasField('field_date') && ($delta = $request->get('date_delta'))) {
+      $cloned_entity = clone $node;
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
       $field = $cloned_entity->get('field_date');
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem|null $delta_item */
@@ -335,13 +350,15 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
       }
     }
   }
-  if ($entity->hasField('field_event_description') && !$entity->get('field_event_description')->isEmpty()) {
+
+  if ($node->hasField('field_event_description') && !$node->get('field_event_description')->isEmpty()) {
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
-    $event_list = $entity->get('field_event_description');
+    $event_list = $node->get('field_event_description');
     $event_item = $event_list->first();
     if (!$event_item instanceof EntityReferenceItem) {
       return;
     }
+
     $event = $event_item->entity;
     assert($event instanceof NodeInterface);
     $flag_bundles = ['bookmark_node', 'recommendation_node'];
@@ -381,12 +398,12 @@ function openculturas_custom_user_view_alter(array &$build, UserInterface $user)
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state): void {
+function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $formState): void {
   /** @var \Drupal\node\NodeForm $node_form */
-  $node_form = $form_state->getFormObject();
-  /** @var \Drupal\node\NodeInterface $node */
-  $node = $node_form->getEntity();
-  if ($node->bundle() === 'event') {
+  $node_form = $formState->getFormObject();
+  /** @var \Drupal\node\NodeInterface $entity */
+  $entity = $node_form->getEntity();
+  if ($entity->bundle() === 'event') {
     \Drupal::request()->query->remove('destination');
     $form['#submit'][] = 'openculturas_custom_event_submit_handler';
     $form['actions']['openculturas_custom_event_submit'] = $form['actions']['submit'];
@@ -404,16 +421,16 @@ function openculturas_custom_form_node_form_alter(array &$form, FormStateInterfa
  * @see openculturas_custom_form_node_form_alter()
  * @see openculturas_custom_node_prepare_form()
  */
-function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state): void {
-  /** @var \Drupal\node\NodeForm $node_form */
-  $node_form = $form_state->getFormObject();
-  /** @var \Drupal\node\NodeInterface $node */
-  $node = $node_form->getEntity();
-  $form_state->setRedirectUrl(Url::fromRoute('node.add', [
+function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $formState): void {
+  /** @var \Drupal\node\NodeForm $form */
+  $form = $formState->getFormObject();
+  /** @var \Drupal\node\NodeInterface $entity */
+  $entity = $form->getEntity();
+  $formState->setRedirectUrl(Url::fromRoute('node.add', [
     'node_type' => 'date',
   ], [
     'query' => [
-      'event_id' => $node->id(),
+      'event_id' => $entity->id(),
     ],
   ]));
 }
@@ -421,16 +438,16 @@ function openculturas_custom_event_submit_handler(array &$form, FormStateInterfa
 /**
  * Implements hook_views_pre_render().
  */
-function openculturas_custom_views_pre_render(ViewExecutable $view): void {
+function openculturas_custom_views_pre_render(ViewExecutable $viewExecutable): void {
   // Only doing this for media library widget view until there is
   // a better solution.
   // https://www.drupal.org/project/drupal/issues/3283692#comment-14544647
-  if ($view->id() === 'media_library') {
+  if ($viewExecutable->id() === 'media_library') {
     $current_user = \Drupal::currentUser();
     $result = [];
 
     // Display only media authored by the current user or can edit.
-    foreach ($view->result as $key => $row) {
+    foreach ($viewExecutable->result as $key => $row) {
       /** @var \Drupal\media\MediaInterface $entity */
       $entity = $row->_entity;
       // Do not remove type casting. current user id is a string-int!
@@ -440,7 +457,8 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
         $result[$key] = $row;
       }
     }
-    $view->result = $result;
+
+    $viewExecutable->result = $result;
   }
 }
 
@@ -454,11 +472,13 @@ function openculturas_custom_media_is_creative_commons(MediaInterface $media): b
     if (!$field_item instanceof FieldItemInterface) {
       return FALSE;
     }
+
     $value = $field_item->getValue();
     if (isset($value['license'])) {
       return $value['license'] !== 'all_rights_reserved';
     }
   }
+
   return FALSE;
 }
 
@@ -469,6 +489,7 @@ function openculturas_custom_flag_action_access(string $action, FlagInterface $f
   if ($account->isAnonymous()) {
     return AccessResult::neutral();
   }
+
   /** @var \Drupal\node\NodeInterface|null $entity */
   $entity = $flaggable;
   if ($entity && $flag->id() === 'claim_ownership' && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')->isEmpty()) {
@@ -502,16 +523,17 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
   }
 
   $node_reference_fields = ['field_location', 'field_references'];
-  foreach ($node_reference_fields as $field_name) {
-    if ($node->hasField($field_name)) {
-      $refs = $node->get($field_name)->getValue();
+  foreach ($node_reference_fields as $node_reference_field) {
+    if ($node->hasField($node_reference_field)) {
+      $refs = $node->get($node_reference_field)->getValue();
       foreach ($refs as $ref) {
         $tags[] = 'node:' . $ref['target_id'];
       }
     }
+
     // If the field changes, also invalidate the original value.
-    if ($node->original !== NULL && $node->original->hasField($field_name)) {
-      $refs = $node->get($field_name)->getValue();
+    if ($node->original !== NULL && $node->original->hasField($node_reference_field)) {
+      $refs = $node->get($node_reference_field)->getValue();
       foreach ($refs as $ref) {
         $tags[] = 'node:' . $ref['target_id'];
       }
@@ -560,7 +582,7 @@ function openculturas_custom_checklistapi_checklist_info_alter(array &$definitio
 /**
  * Implements hook_form_alter().
  */
-function openculturas_custom_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+function openculturas_custom_form_alter(array &$form, FormStateInterface $formState, string $form_id): void {
   if ($form_id === "checklistapi_checklist_form" && $form['#checklist']->id === 'update_helper_checklist') {
     $checklist = $form['#checklist'];
     $groups = $checklist->items;
@@ -601,19 +623,24 @@ function openculturas_custom_preprocess_node(array &$variables): void {
   if (!array_key_exists('#fieldgroups', $variables['elements'])) {
     return;
   }
+
   if (!is_array($variables['elements']['#fieldgroups'])) {
     return;
   }
+
   foreach ($variables['elements']['#fieldgroups'] as $field_group) {
     if (!is_object($field_group)) {
       continue;
     }
+
     if (!property_exists($field_group, 'format_type')) {
       continue;
     }
+
     if ($field_group->format_type !== 'sub_details') {
       continue;
     }
+
     $variables['title_attributes']['class'][] = 'visually-hidden';
   }
 }
@@ -635,6 +662,7 @@ function openculturas_custom_config_schema_info_alter(array &$definitions): void
     $definitions['field.field_settings.viewfield']['mapping']['allowed_views']['orderby'] = 'key';
     $definitions['field.field_settings.viewfield']['mapping']['allowed_display_types']['orderby'] = 'key';
   }
+
   if (isset($definitions['block_field_selection.categories']['mapping']['categories'])) {
     $definitions['block_field_selection.categories']['mapping']['categories']['orderby'] = 'key';
   }

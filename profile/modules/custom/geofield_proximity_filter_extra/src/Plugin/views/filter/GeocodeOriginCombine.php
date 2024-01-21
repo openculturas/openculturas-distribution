@@ -30,6 +30,7 @@ final class GeocodeOriginCombine extends Combine {
     if (empty($this->value)) {
       return;
     }
+
     parent::query();
   }
 

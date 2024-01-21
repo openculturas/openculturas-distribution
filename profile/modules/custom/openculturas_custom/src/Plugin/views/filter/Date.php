@@ -59,7 +59,8 @@ class Date extends SmartDateDate {
         'minute' => $value->format('i'),
         'second' => $value->format('s'),
       ];
-      $min = $max = $value_array;
+      $min = $value_array;
+      $max = $value_array;
       switch ($granularity) {
         case 'year':
           $min['month'] = '01';
@@ -81,6 +82,7 @@ class Date extends SmartDateDate {
           $max['second'] = '59';
       }
     }
+
     $start_field = str_replace('_end_value', '_value', $field);
     $end_field = str_replace('_value', '_end_value', $start_field);
     $operator = $field === $end_field ? '<=' : '>=';

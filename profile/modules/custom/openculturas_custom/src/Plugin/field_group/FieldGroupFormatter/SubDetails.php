@@ -61,6 +61,7 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
         '#weight' => $form['label']['#weight'],
       ];
     }
+
     return $form;
   }
 
@@ -74,9 +75,11 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
     if (array_key_exists('#node', $processed_object)) {
       $title = $this->token->replace($element['#title'], ['node' => $processed_object['#node']]);
     }
+
     if (!empty($title)) {
       $element['#title'] = $title;
     }
+
     $element['#plugin_id'] = $this->getBaseId();
   }
 

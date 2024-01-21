@@ -27,14 +27,14 @@ class OpenCulturasFaqUninstallValidator implements ModuleUninstallValidatorInter
   /**
    * Constructs a new OpenCulturasFrequentlyAskedQuestionsUninstallValidator.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity manager.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
    *   The string translation service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, TranslationInterface $string_translation) {
-    $this->nodeStorage = $entity_manager->getStorage('node');
-    $this->setStringTranslation($string_translation);
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, TranslationInterface $translation) {
+    $this->nodeStorage = $entityTypeManager->getStorage('node');
+    $this->setStringTranslation($translation);
   }
 
   /**
@@ -45,9 +45,11 @@ class OpenCulturasFaqUninstallValidator implements ModuleUninstallValidatorInter
     if ($module !== 'openculturas_faq') {
       return $reasons;
     }
+
     if ($this->hasFaqNodes()) {
       $reasons[] = (string) $this->t('To uninstall OpenCulturas - Frequently Asked Questions, delete all content that has the Faq content type');
     }
+
     return $reasons;
   }
 

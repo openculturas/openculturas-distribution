@@ -48,7 +48,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
+  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $formState): array {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
 
     $form['#type'] = 'details';
@@ -83,7 +83,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
   /**
    * Find the first media reference field in entity's selected viewmode.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $contentEntity
    *   The entity.
    * @param string $viewMode
    *   Selected viewmode.
@@ -94,31 +94,34 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function getTeaserMediaId(ContentEntityInterface $entity, string $viewMode): ?int {
-    $entityType = $entity->getEntityTypeId();
-    $bundle = $entity->bundle();
+  protected function getTeaserMediaId(ContentEntityInterface $contentEntity, string $viewMode): ?int {
+    $entityType = $contentEntity->getEntityTypeId();
+    $bundle = $contentEntity->bundle();
 
-    $viewModeStorage = $this->entityTypeManager->getStorage('entity_view_display');
-    $display = $viewModeStorage->load(sprintf('%s.%s.%s', $entityType, $bundle, $viewMode));
+    $layoutBuilderEntityViewDisplayStorage = $this->entityTypeManager->getStorage('entity_view_display');
+    $display = $layoutBuilderEntityViewDisplayStorage->load(sprintf('%s.%s.%s', $entityType, $bundle, $viewMode));
     if ($display instanceof EntityViewDisplayInterface) {
       foreach ($display->getComponents() as $key => $item) {
         if ($item['type'] == 'entity_reference_entity_view') {
           /** @var \Drupal\Core\Field\FieldConfigInterface|null $fieldConfig */
-          $fieldConfig = $entity->getFieldDefinition($key);
+          $fieldConfig = $contentEntity->getFieldDefinition($key);
           if (!$fieldConfig instanceof FieldConfigInterface) {
             return NULL;
           }
+
           $handler = $fieldConfig->getSetting('handler');
           if ($handler == 'default:media') {
-            $mediaReferenceItem = $entity->get($key)->first();
+            $mediaReferenceItem = $contentEntity->get($key)->first();
             if ($mediaReferenceItem instanceof EntityReferenceItem) {
               return (int) ($mediaReferenceItem->target_id);
             }
+
             return NULL;
           }
         }
       }
     }
+
     return NULL;
   }
 
@@ -145,6 +148,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
         ->addError($this->t('Invalid arguments provided, @entity_key does not exist.', ['@entity_key' => $entityKey]));
       return $build;
     }
+
     /** @var \Drupal\Core\Entity\ContentEntityInterface $originalEntity */
     $originalEntity = $build[$entityKey];
     $build['#theme'] = 'teaser';
@@ -160,31 +164,37 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
         }
       }
     }
+
     $build['#title'] = $entity->label();
     $build['#url'] = $entity->toUrl();
     if ($entity->hasField('field_subtitle')) {
       if (!empty($settings['subtitle'])) {
         $entity->set('field_subtitle', $settings['subtitle']);
       }
+
       $subtitle = $entity->get('field_subtitle')->getValue();
       if (!empty($subtitle)) {
         $build['#subtitle'] = $entity->get('field_subtitle')
           ->view($viewMode);
       }
     }
+
     if ($entity->hasField($this->descriptionField)) {
       if (!empty($settings['body'])) {
         $entity->set($this->descriptionField, $settings['body']);
       }
+
       $description = $entity->get($this->descriptionField);
       if (!$description->isEmpty()) {
         $build['#description'] = $description->view($viewMode);
       }
     }
+
     $mid = $this->getTeaserMediaId($entity, $viewMode);
     if (!empty($settings['media'])) {
       $mid = $settings['media'];
     }
+
     if ($mid) {
       $media = $this->entityTypeManager->getStorage('media')->load($mid);
       if ($media instanceof MediaInterface) {
@@ -193,6 +203,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
           ->view($media, 'teaser_image');
       }
     }
+
     $build['#cache']['tags'] = $this->cacheTags;
     $build[$entityKey] = $entity;
     return $build;

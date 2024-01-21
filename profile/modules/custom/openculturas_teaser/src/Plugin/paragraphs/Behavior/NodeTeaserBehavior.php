@@ -24,7 +24,7 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
+  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $entityViewDisplay, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $buildNode = &$build['field_article'][0];
 
@@ -47,14 +47,14 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
+  public static function isApplicable(ParagraphsTypeInterface $paragraphsType): bool {
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $fieldManager */
     $fieldManager = \Drupal::service('entity_field.manager');
-    $fieldDefinitions = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
+    $fieldDefinitions = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphsType->id());
     $baseFieldDefinitions = $fieldManager->getBaseFieldDefinitions('paragraph');
     $fieldKeys = array_diff(array_keys($fieldDefinitions), array_keys($baseFieldDefinitions));
-    foreach ($fieldKeys as $item) {
-      $fieldDefinition = $fieldDefinitions[$item];
+    foreach ($fieldKeys as $fieldKey) {
+      $fieldDefinition = $fieldDefinitions[$fieldKey];
       if ($fieldDefinition->getType() == 'entity_reference') {
         $handler = $fieldDefinition->getSetting('handler');
         if ($handler == 'default:node') {
@@ -62,6 +62,7 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
         }
       }
     }
+
     return FALSE;
   }
 

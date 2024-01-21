@@ -98,6 +98,7 @@ function openculturas_install_content(): void {
   if ($node instanceof NodeInterface) {
     $config->set('page.404', '/node/' . $node->id());
   }
+
   /** @var \Drupal\node\NodeInterface|null $node */
   $node = $entityRepository->loadEntityByUuid('node', '34e5758c-997b-45cd-91ed-66a694a5fdd3');
   // File: profile/modules/custom/openculturas_content/content/node/34e5758c-997b-45cd-91ed-66a694a5fdd3.yml.
@@ -111,6 +112,7 @@ function openculturas_install_content(): void {
   if ($node instanceof NodeInterface) {
     $config->set('page.front', '/node/' . $node->id());
   }
+
   $config->save();
 
   // Fix path to marker, when installed as a dependency.
@@ -131,6 +133,7 @@ function openculturas_install_content(): void {
     $config->set('content.field_address_location.settings.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg');
     $config->save();
   }
+
   if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png')) {
     $config = $configFactory->getEditable('gin.settings');
     $config->set('favicon.path', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png');
@@ -150,7 +153,7 @@ function openculturas_update_last_removed(): int {
  * Deletes removed update_helper_checklist updates.
  */
 function openculturas_update_9401(): void {
-  $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
+  $entityStorage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
 
   $checklist_items = [
     'openculturas:openculturas_update_9002',
@@ -217,8 +220,8 @@ function openculturas_update_9401(): void {
     'openculturas:openculturas_post_update_views_refactor_0011',
   ];
 
-  $entities = $storage->loadMultiple($checklist_items);
-  $storage->delete($entities);
+  $entities = $entityStorage->loadMultiple($checklist_items);
+  $entityStorage->delete($entities);
 }
 
 /**
@@ -301,6 +304,7 @@ function openculturas_update_9405(): void {
     foreach ($permissions as $permission) {
       $role->revokePermission($permission);
     }
+
     $role->save();
   }
 

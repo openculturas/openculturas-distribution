@@ -48,6 +48,7 @@ final class ReadableMime {
     if (array_key_exists($filemime, $niceFileMimes)) {
       return $niceFileMimes[$filemime];
     }
+
     // No result do a pass through.
     return $filemime;
   }

@@ -41,28 +41,29 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->mimeFormatter = $container->get('openculturas_media.readable_mime');
-    $instance->languageManager = $container->get('language_manager');
-    return $instance;
+    $downloadWithMetaFormatter = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $downloadWithMetaFormatter->mimeFormatter = $container->get('openculturas_media.readable_mime');
+    $downloadWithMetaFormatter->languageManager = $container->get('language_manager');
+    return $downloadWithMetaFormatter;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode): array {
+  public function viewElements(FieldItemListInterface $fieldItemList, $langcode): array {
 
     $build = [];
-    $elements = parent::viewElements($items, $langcode);
-    $parentAdapter = $items->getParent();
+    $elements = parent::viewElements($fieldItemList, $langcode);
+    $parentAdapter = $fieldItemList->getParent();
     if ($parentAdapter instanceof EntityAdapter) {
       /** @var \Drupal\media\MediaInterface|null $parent */
       $parent = $parentAdapter->getValue();
       if (!$parent instanceof MediaInterface) {
         return $elements;
       }
+
       $predefined = $this->languageManager->getStandardLanguageList();
-      foreach ($items as $delta => $item) {
+      foreach ($fieldItemList as $delta => $item) {
         $attribute = new Attribute();
         $build[$delta] = [
           '#theme' => 'media_download',
@@ -74,6 +75,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
             '#markup' => format_size($filesize),
           ];
         }
+
         if ($parent->hasField('field_mimetype') && !$parent->get('field_mimetype')->isEmpty()) {
           $mimetype = $parent->get('field_mimetype')->getString();
           $readable = $this->mimeFormatter
@@ -84,15 +86,18 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
           ];
           $attribute->addClass('file--' . file_icon_class($mimetype));
         }
+
         if ($parent->hasField('field_inlanguage') && !$parent->get('field_inlanguage')->isEmpty()) {
           $langcode = $parent->get('field_inlanguage')->getString();
           if (isset($predefined[$langcode])) {
             $build[$delta]['#inlanguage'] = $this->t($predefined[$langcode][0]); // phpcs:ignore
           }
         }
+
         $build[$delta]['#attributes'] = $attribute;
       }
     }
+
     return $build;
   }
 

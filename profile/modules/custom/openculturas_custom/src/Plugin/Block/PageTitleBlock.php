@@ -79,8 +79,8 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
-    $form = parent::buildConfigurationForm($form, $form_state);
+  public function buildConfigurationForm(array $form, FormStateInterface $formState): array {
+    $form = parent::buildConfigurationForm($form, $formState);
     $form['page_title_block'] = [
       '#type' => 'details',
       '#title' => $this->t('Components'),
@@ -114,11 +114,11 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function blockSubmit($form, FormStateInterface $form_state): void {
-    $this->configuration['subheadline_display'] = $form_state->getValue(['page_title_block', 'subheadline_display']);
-    $this->configuration['subtype_display'] = $form_state->getValue(['page_title_block', 'subtype_display']);
-    $this->configuration['profilepicture_display'] = $form_state->getValue(['page_title_block', 'profilepicture_display']);
-    parent::blockSubmit($form, $form_state);
+  public function blockSubmit($form, FormStateInterface $formState): void {
+    $this->configuration['subheadline_display'] = $formState->getValue(['page_title_block', 'subheadline_display']);
+    $this->configuration['subtype_display'] = $formState->getValue(['page_title_block', 'subtype_display']);
+    $this->configuration['profilepicture_display'] = $formState->getValue(['page_title_block', 'profilepicture_display']);
+    parent::blockSubmit($form, $formState);
   }
 
   /**
@@ -138,6 +138,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
         $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
         $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderPlain($field_premiere_render_array))) . ': '];
       }
+
       /** @var \Drupal\Core\Entity\ContentEntityInterface $current_entity */
       $current_entity = $this->entityRepository->getTranslationFromContext($current_entity);
       $title_markup[] = ['#plain_text' => $current_entity->label()];
@@ -146,10 +147,12 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
         && !$current_entity->get('field_subtitle')->isEmpty()) {
         $subtitle = $current_entity->get('field_subtitle')->view(['label' => 'hidden']);
       }
+
       if ($this->configuration['subtype_display'] && $current_entity->hasField('field_sub_type')
         && !$current_entity->get('field_sub_type')->isEmpty()) {
         $sub_type = $current_entity->get('field_sub_type')->view(['label' => 'hidden']);
       }
+
       if ($this->configuration['profilepicture_display'] && $current_entity->hasField('field_portrait')
         && !$current_entity->get('field_portrait')->isEmpty()) {
         $display_options = [

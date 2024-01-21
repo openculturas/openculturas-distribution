@@ -33,19 +33,20 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
   /**
    * {@inheritdoc}
    */
-  public function buildOptionsForm(array &$form, FormStateInterface $form_state, array $options_parents, $is_exposed = FALSE): void {
-    parent::buildOptionsForm($form, $form_state, $options_parents, $is_exposed);
+  public function buildOptionsForm(array &$form, FormStateInterface $formState, array $options_parents, $is_exposed = FALSE): void {
+    parent::buildOptionsForm($form, $formState, $options_parents, $is_exposed);
 
     if (!$is_exposed) {
 
       $form['settings']['#access'] = FALSE;
       $form['use_autocomplete']['#access'] = FALSE;
 
-      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), fn(FilterPluginBase $filter): bool => $filter instanceof GeocodeOriginCombine);
+      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), static fn(FilterPluginBase $filterPluginBase): bool => $filterPluginBase instanceof GeocodeOriginCombine);
       $filter_options = [];
       foreach ($filters as $id => $filter) {
         $filter_options[$id] = $filter->adminLabel();
       }
+
       $form['geocode_origin_combine_filter'] = [
         '#type' => 'select',
         '#title' => $this->t('Geocode origin combine filter'),
@@ -72,9 +73,11 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
       if (!isset($this->configuration['show_find_my_button'])) {
         return;
       }
+
       if (!$this->configuration['show_find_my_button']) {
         return;
       }
+
       // Workaround for https://www.drupal.org/project/drupal/issues/289240.
       $form['find_my_location'] = [
         '#type' => 'html_tag',
@@ -89,8 +92,8 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
     }
   }
 
-  public function findMyLocationAfterBuild(array $element, FormStateInterface $form_state): array {
-    $form = $form_state->getCompleteForm();
+  public function findMyLocationAfterBuild(array $element, FormStateInterface $formState): array {
+    $form = $formState->getCompleteForm();
     array_pop($element['#array_parents']);
     $key_exists = NULL;
     $container = NestedArray::getValue($form, $element['#array_parents'], $key_exists);
@@ -98,6 +101,7 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
       $element['#access'] = FALSE;
       return $element;
     }
+
     $element['#attributes']['data-target-selector-id'] = $container['origin_address']['#attributes']['data-drupal-selector'];
     $element['#attached']['library'][] = 'geofield_proximity_filter_extra/locate_me';
     $element['#attached']['drupalSettings'] = [

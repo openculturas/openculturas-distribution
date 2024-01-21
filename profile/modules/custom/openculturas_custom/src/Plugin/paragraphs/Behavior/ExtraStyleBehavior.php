@@ -33,8 +33,8 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $static = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $static->allowedClasses = [static::NONE => t('None')];
+    $extraStyleBehavior = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $extraStyleBehavior->allowedClasses = [static::NONE => t('None')];
     $allowedClasses = $container->get('config.factory')
       ->get('openculturas_custom.settings')
       ->get('allowed_classes');
@@ -44,16 +44,17 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
     else {
       foreach ($allowedClasses as $class => $label) {
         // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
-        $static->allowedClasses[$class] = t($label);
+        $extraStyleBehavior->allowedClasses[$class] = t($label);
       }
     }
-    return $static;
+
+    return $extraStyleBehavior;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
+  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $entityViewDisplay, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $class = $settings['class'];
     if ($class != static::NONE) {
@@ -64,7 +65,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
+  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $formState): array {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $form = [
       '#type' => 'container',

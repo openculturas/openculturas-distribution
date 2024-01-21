@@ -50,7 +50,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
+  public function buildConfigurationForm(array $form, FormStateInterface $formState): array {
     $form['enabled'] = [
       '#title' => $this->t('Enable condition'),
       '#type' => 'checkbox',
@@ -61,16 +61,16 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
       '#type' => 'checkbox',
       '#default_value' => $this->configuration['only_for_owner'],
     ];
-    return parent::buildConfigurationForm($form, $form_state);
+    return parent::buildConfigurationForm($form, $formState);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
-    $this->configuration['enabled'] = (bool) $form_state->getValue('enabled');
-    $this->configuration['only_for_owner'] = (bool) $form_state->getValue('only_for_owner');
-    parent::submitConfigurationForm($form, $form_state);
+  public function submitConfigurationForm(array &$form, FormStateInterface $formState): void {
+    $this->configuration['enabled'] = (bool) $formState->getValue('enabled');
+    $this->configuration['only_for_owner'] = (bool) $formState->getValue('only_for_owner');
+    parent::submitConfigurationForm($form, $formState);
   }
 
   /**
@@ -96,6 +96,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
     if (!empty($this->configuration['only_for_owner'])) {
       return $is_owner && $is_route;
     }
+
     return $is_route;
   }
 
@@ -110,6 +111,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
     if (!$this->isNegated()) {
       return (string) $this->t('Do not return true on user page');
     }
+
     return (string) $this->t('Return true on user page');
   }
 
@@ -121,6 +123,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
     if (empty($this->configuration['enabled'])) {
       return $contexts;
     }
+
     $contexts[] = 'route';
     $contexts[] = 'user';
     return $contexts;

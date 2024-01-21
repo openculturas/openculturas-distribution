@@ -6,17 +6,18 @@ declare(strict_types=1);
 use DrupalFinder\DrupalFinder;
 use DrupalRector\Set\Drupal10SetList;
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
   $rectorConfig->sets([
-    Drupal10SetList::DRUPAL_101,
-    LevelSetList::UP_TO_PHP_81,
-    SetList::CODE_QUALITY,
-    SetList::EARLY_RETURN,
     SetList::DEAD_CODE,
-    SetList::TYPE_DECLARATION
+    SetList::CODE_QUALITY,
+    SetList::CODING_STYLE,
+    SetList::NAMING,
+    SetList::TYPE_DECLARATION,
+    SetList::EARLY_RETURN,
+    SetList::INSTANCEOF,
+    Drupal10SetList::DRUPAL_10
   ]);
 
   if (getenv('CI')) {
