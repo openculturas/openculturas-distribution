@@ -6,7 +6,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |
+code: |+
   /*
    * Formtip
    */
@@ -62,7 +62,6 @@ code: |
    */
 
   .choices {
-    min-width: 10rem;
     width: auto;
   }
 
@@ -70,6 +69,7 @@ code: |
 
   .choices__inner {
     width: auto;
+    min-width: 12rem;
     font-size: unset;
     min-height: unset;
     padding: 0 .5rem;
@@ -91,7 +91,8 @@ code: |
 
   .choices__input {
     background-color: var(--gin-bg-input);
-    padding: calc(0.75rem - 1px) calc(1rem - 1px);
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
   .choices__list--multiple .choices__item {
@@ -103,6 +104,11 @@ code: |
   .choices__list--multiple .choices__item:hover {
     background-color: var(--gin-color-primary-hover) !important;
     border-color: var(--gin-color-primary-hover) !important;
+  }
+
+  /* Adjust Choices to CKEditor 5 z-index */
+  .choices__list.choices__list--dropdown {
+    z-index: calc(var(--ck-z-default) + 1);
   }
 
   /*
@@ -213,17 +219,109 @@ code: |
   .is-horizontal .paragraphs-tabs:first-of-type {
     background-color: #fdf7ebdd; /* keeping opacity, using  color of --gin-bg-warning-light */
   }
-
   .is-horizontal .paragraphs-tabs:first-of-type::after {
     bottom: 0;
   }
-
   .ck-dropdown__panel.ck-dropdown__panel-visible {
     overflow: scroll;
     max-height: var(--ck-min-height);
   }
+
+  /* Smart date form adjustments */
+
+  .field-multiple-table tr .smartdate--time-inline {
+    margin-bottom: var(--gin-spacing-m);
+    align-items: center;
+  }
+  .fieldset__wrapper .smartdate--time-inline .smartdate--separator {
+    margin: 0;
+    padding: calc(var(--input-padding-vertical) - 1px) var(--input-padding-horizontal);
+  }
+  .field-multiple-table tr .smartdate--time-inline .form-item {
+    margin: 0;
+  }
+  .smartdate--widget .fieldset__wrapper .allday {
+    margin: .5em 0.5em 0 0;
+    position: relative;
+    top: 0px;
+  }
+  .smartdate--widget .fieldset__wrapper .allday-label {
+    float: none;
+    margin-right: 2.5rem;
+  }
+  .smartdate--widget .form-items-inline.time-start .form-element--type-date,
+  .smartdate--widget .form-items-inline.time-end .form-element--type-time {
+    border-radius: var(--gin-border-m) 0 0 var(--gin-border-m);
+  }
+  .smartdate--widget .form-items-inline.time-end .form-element--type-date,
+  .smartdate--widget .form-items-inline.time-start .form-element--type-time {
+    border-radius: 0 var(--gin-border-m) var(--gin-border-m) 0;
+  }
+  .smartdate--widget .allday-label {
+    font-size: var(--gin-font-size-s);
+    font-weight: var(--gin-font-weight-semibold);
+    color: var(--gin-color-title);
+  }
+
+  /* Paragraphs behavior field widget margin */
+
+  div[id*="behavior-plugins"] {
+    margin-bottom: var(--gin-spacing-l);
+  }
+
+  /* Keep paragraph forms/draggables inside viewport */
+
+  .paragraphs-tabs-wrapper .draggable-table th.field-label {
+    width: 100%;
+  }
+  .paragraphs-tabs-wrapper .draggable-table thead tr {
+    display: block;
+  }
+  .paragraphs-tabs-wrapper .draggable-table tr.draggable {
+    display: flex;
+    align-items: center;
+  }
+  .paragraphs-tabs-wrapper .draggable td:not(.tabledrag-cell--only-drag) {
+    max-width: calc(100% - 40px);
+  }
+  .paragraphs-tabs-wrapper .draggable-table th[colspan] {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  .paragraphs-tabs-wrapper .draggable-table > tbody > .draggable > td + td,
+  .js .field--widget-paragraphs .draggable-table,
+  .draggable-table thead,
+  .draggable-table tbody {
+    display: block;
+  }
+
+  /* Moderation form moved out of sidebar */
+
+  .gin-node-edit-form div:not(.entity-content-form-footer) > .field--widget-moderation-state-default {
+    background: var(--gin-color-primary-light);
+    padding: 0 var(--space-l);
+  }
+  .gin-node-edit-form div:not(.entity-content-form-footer) > .field--widget-moderation-state-default .form-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0 var(--space-l);
+    align-items: baseline;
+  }
+  .gin-node-edit-form div:not(.entity-content-form-footer) > .field--widget-moderation-state-default .form-item {
+    margin-top: var(--space-s);
+    margin-bottom: var(--space-s);
+  }
+
+  /* Smart date draggable tables not full width */
+
+  .draggable td:nth-child(2) {
+    width: 100%;
+  }
+
 media: all
-preprocess: true
+preprocess: false
 conditions:
   current_theme:
     id: current_theme
