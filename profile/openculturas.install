@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the standard installation profile.
+ * Install, update and uninstall functions for the openculturas installation profile.
  */
 
 declare(strict_types = 1);
@@ -22,22 +22,15 @@ function openculturas_install_tasks(): array {
       'display_name' => t('Install missing permissions'),
       'type' => 'normal',
     ],
+    'openculturas_install_task_role_administrator' => [
+      'display_name' => t('Assign user 1 the "administrator" role.'),
+      'type' => 'normal',
+    ],
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
       'type' => 'normal',
     ],
   ];
-}
-
-/**
- * Implements hook_install().
- */
-function openculturas_install(): void {
-  // Assign user 1 the "administrator" role.
-  /** @var \Drupal\user\UserInterface $user */
-  $user = User::load(1);
-  $user->addRole('administrator');
-  $user->save();
 }
 
 /**
@@ -65,6 +58,16 @@ function openculturas_install_role_missing_permission(): void {
     $role->grantPermission('assign oc_organizer role');
     $role->save();
   }
+}
+
+/**
+ * Callback function to assign user 1 the "administrator" role.
+ */
+function openculturas_install_task_role_administrator(): void {
+  /** @var \Drupal\user\UserInterface $user */
+  $user = User::load(1);
+  $user->addRole('administrator');
+  $user->save();
 }
 
 /**
