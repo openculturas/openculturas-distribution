@@ -15,6 +15,7 @@
   --color-neutral-canvas: #F6F6F6;
   --color-bg-dark: #303236;
   --color-bg-slight-contrast: #e8e9eb;
+  --color-bg-hardly-any-contrast: #f5f5f5;
   --color-bg-light: #fff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
@@ -62,7 +63,6 @@ body {
 a.public-transport:before,
 .address-navigation a:before,
 a.address-navigation:before,
-.address-container--address:before,
 .scroll-to-top:before,
 .header__burger--buttons:before,
 .header__offcanvas-menu--content .block-views-exposed-filter-blocksearch-search-input .form-actions button[type=submit]:before,
@@ -14890,32 +14890,51 @@ body.gin--vertical-toolbar.offcanvas-open .header__offcanvas-menu--grid {
   visibility: hidden;
 }
 
+.address-container {
+  background-color: var(--color-bg-hardly-any-contrast);
+}
+@media screen and (min-width: 48rem) {
+  .address-container {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    grid-template-rows: auto;
+    grid-row-gap: 0;
+    grid-column-gap: 1.25rem;
+    grid-template-areas: "address map" "links map";
+  }
+  .address-container--address {
+    grid-area: address;
+  }
+  .address-container--links {
+    grid-area: links;
+  }
+  .address-container--map {
+    grid-area: map;
+  }
+}
+.address-container .field--name-field-address-location {
+  margin: 0;
+}
+
 .address-container--address {
-  width: 100%;
+  padding-top: 0.625rem;
   text-align: center;
-  margin-bottom: 2.5rem;
-}
-.address-container--address:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f3c5";
-}
-.address-container--address:before {
-  color: var(--color-link);
-  display: block;
-  font-size: 3rem;
-  margin-bottom: 1.25rem;
 }
 
 .address-container--links {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 3.75rem;
+  align-self: end;
+  padding-bottom: 0.625rem;
+}
+
+.address-container--map {
+  padding: 1.25rem;
+}
+@media screen and (min-width: 48rem) {
+  .address-container--map {
+    padding-left: 0;
+  }
 }
 
 .address-navigation a,

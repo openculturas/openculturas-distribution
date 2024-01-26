@@ -355,3 +355,63 @@ function openculturas_post_update_ckeditor5_migration(): string {
 
   return $logger->output();
 }
+
+/**
+ * More compact address map.
+ */
+function openculturas_post_update_compact_address_map(): string {
+  $full_config_name = 'core.entity_view_display.paragraph.address_data.default';
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->get($full_config_name);
+  if ($config->isNew()) {
+    return 'Skipped';
+  }
+
+  $icon_url = $config->get('content.field_address_location.settings.icon.iconUrl');
+
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $config_name = ConfigName::createByFullName($full_config_name);
+
+  if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+  else {
+    $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+  }
+
+  $configFactory
+    ->getEditable($full_config_name)
+    ->set('content.field_address_location.settings.icon.iconUrl', $icon_url)
+    ->save();
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $display = $entity_display->getViewDisplay('node', 'date', 'full');
+  if (!$display->isNew()) {
+    $field_location = $display->getComponent('field_location');
+    if (is_array($field_location)) {
+      $field_location['type'] = 'entity_reference_entity_view';
+      $field_location['label'] = 'hidden';
+      $field_location['settings'] = ['view_mode' => 'compact', 'link' => FALSE];
+      $display->setComponent('field_location', $field_location);
+      $extra_field_location_address_data = $display->getComponent('extra_field_location_address_data');
+      if (is_array($extra_field_location_address_data)) {
+        $extra_field_location_address_data['weight'] = (int) $field_location['weight'] + 1;
+        $display->setComponent('extra_field_location_address_data', $extra_field_location_address_data);
+        $field_safety_info = $display->getComponent('field_safety_info');
+        if (is_array($field_safety_info)) {
+          $field_safety_info['weight'] = (int) $field_location['weight'] + 2;
+          $display->setComponent('field_safety_info', $field_safety_info);
+        }
+      }
+
+      $display->save();
+    }
+  }
+
+  return $logger->output();
+}

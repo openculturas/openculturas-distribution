@@ -1,23 +1,55 @@
 .address-container {
-  &--address {
-    width: 100%;
-    text-align: center;
-    margin-bottom: (2 * $grid-gutter);
+  background-color: var(--color-bg-hardly-any-contrast);
+  @include breakpoint(m) {
+    display: grid;
+    //grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: 4fr 6fr;
+    grid-template-rows: auto;
+    grid-row-gap: 0;
+    grid-column-gap: $grid-gutter;
+    grid-template-areas:
+      "address map"
+      "links map";
 
-    @include icon(location-dot);
-    &:before {
-      color: $color-link;
-      display: block;
-      font-size: 3rem;
-      margin-bottom: $grid-gutter;
+    &--address {
+      grid-area: address;
+    }
+    &--links {
+      grid-area: links;
+    }
+    &--map {
+      grid-area: map;
     }
   }
+  .field--name-field-address-location {
+    margin: 0;
+  }
+}
+
+.address-container--address {
+  padding-top: (0.5 * $grid-gutter);
+  text-align: center;
+  //@include icon(location-dot);
+  //&:before {
+  //  color: $color-link;
+  //  display: block;
+  //  font-size: 3rem;
+  //  margin-bottom: $grid-gutter;
+  //}
 }
 
 .address-container--links {
   display: flex;
   justify-content: space-around;
-  margin-bottom: (3 * $grid-gutter);
+  align-self: end;
+  padding-bottom: (0.5 * $grid-gutter);
+}
+
+.address-container--map {
+  padding: $grid-gutter;
+  @include breakpoint(m) {
+    padding-left: 0;
+  }
 }
 
 .address-navigation a,
