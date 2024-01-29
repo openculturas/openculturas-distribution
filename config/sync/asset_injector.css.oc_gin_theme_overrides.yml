@@ -249,14 +249,23 @@ code: |+
     float: none;
     margin-right: 2.5rem;
   }
-  .smartdate--widget .form-items-inline.time-start .form-element--type-date,
-  .smartdate--widget .form-items-inline.time-end .form-element--type-time {
+
+  @media (min-width: 56em) {
+    .smartdate--time-inline .form-datetime-wrapper:nth-of-type(2) .form-items-inline,
+    .smartdate--time-inline div.time-end {
+      flex-direction: row;
+    }
+  }
+
+  .smartdate--widget .form-element--type-date {
     border-radius: var(--gin-border-m) 0 0 var(--gin-border-m);
   }
-  .smartdate--widget .form-items-inline.time-end .form-element--type-date,
-  .smartdate--widget .form-items-inline.time-start .form-element--type-time {
+  .smartdate--widget .form-element--type-time {
     border-radius: 0 var(--gin-border-m) var(--gin-border-m) 0;
+    position: relative;
+    left: -1px;
   }
+
   .smartdate--widget .allday-label {
     font-size: var(--gin-font-size-s);
     font-weight: var(--gin-font-weight-semibold);
@@ -292,8 +301,8 @@ code: |+
   }
   .paragraphs-tabs-wrapper .draggable-table > tbody > .draggable > td + td,
   .js .field--widget-paragraphs .draggable-table,
-  .draggable-table thead,
-  .draggable-table tbody {
+  .paragraphs-tabs-wrapper .draggable-table thead,
+  .paragraphs-tabs-wrapper .draggable-table tbody {
     display: block;
   }
 
@@ -316,7 +325,7 @@ code: |+
 
   /* Smart date draggable tables not full width */
 
-  .draggable td:nth-child(2) {
+  .field--widget-smartdate-inline .draggable td:nth-child(2) {
     width: 100%;
   }
 
@@ -327,5 +336,5 @@ conditions:
     id: current_theme
     negate: false
     theme: gin
-contexts: {  }
+contexts: { }
 conditions_require_all: true
