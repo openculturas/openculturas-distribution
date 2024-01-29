@@ -347,3 +347,12 @@ function openculturas_update_10102(): string {
 
   return $logger->output();
 }
+
+/**
+ * Install node_edit_protection module.
+ */
+function openculturas_update_10103(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['node_edit_protection']);
+}
