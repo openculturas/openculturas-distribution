@@ -415,3 +415,38 @@ function openculturas_post_update_compact_address_map(): string {
 
   return $logger->output();
 }
+
+/**
+ * Allows to use field_supporters for users.
+ */
+function openculturas_post_update_enable_field_supporters_for_all(array &$sandbox): void {
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface[] $roles */
+  $roles = $roleStorage->loadMultiple();
+  foreach ($roles as $role) {
+    $role->revokePermission('create field_supporters');
+    $role->revokePermission('edit field_supporters');
+    $role->revokePermission('edit own field_supporters');
+    $role->revokePermission('view field_supporters');
+    $role->revokePermission('view own field_supporters');
+    if ($role->id() === RoleInterface::AUTHENTICATED_ID) {
+      $role->grantPermission('create sponsor media');
+      $role->grantPermission('edit own sponsor media');
+    }
+
+    $role->save();
+  }
+
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityUpdater $configEntityUpdater */
+  $configEntityUpdater = \Drupal::classResolver(ConfigEntityUpdater::class);
+  $callback = static function (FieldStorageConfigInterface $fieldStorageConfig): bool {
+    if ($fieldStorageConfig->getName() === 'field_supporters') {
+      $fieldStorageConfig->setThirdPartySetting('field_permissions', 'permission_type', 'public');
+      return TRUE;
+    }
+
+    return FALSE;
+  };
+  $configEntityUpdater->update($sandbox, 'field_storage_config', $callback);
+}

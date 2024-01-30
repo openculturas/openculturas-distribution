@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_supporters
     - field.storage.paragraph.field_block_ref
     - field.storage.paragraph.field_view
     - filter.format.basic_html
@@ -10,6 +9,7 @@ dependencies:
     - media.type.image
     - media.type.logo_image
     - media.type.remote_video
+    - media.type.sponsor
     - media.type.user_profile_picture
     - node.type.article
     - node.type.date
@@ -62,6 +62,7 @@ permissions:
   - 'create paragraph content text'
   - 'create profile content'
   - 'create remote_video media'
+  - 'create sponsor media'
   - 'create user_profile_picture media'
   - 'delete media'
   - 'delete own article content'
@@ -85,6 +86,7 @@ permissions:
   - 'edit own event content'
   - 'edit own location content'
   - 'edit own profile content'
+  - 'edit own sponsor media'
   - 'flag bookmark_node'
   - 'flag bookmark_term'
   - 'flag claim_ownership'
@@ -112,7 +114,6 @@ permissions:
   - 'use text format minimal_html'
   - 'view Terms and Conditions'
   - 'view field_block_ref'
-  - 'view field_supporters'
   - 'view field_view'
   - 'view latest version'
   - 'view media'
