@@ -44,10 +44,10 @@ class AddToCal extends AddToCalOrigin {
       return;
     }
     $entity = $options['entity'] ?? NULL;
-    if ($end === NULL) {
+    if (!$end instanceof DrupalDateTime) {
       $end = $start;
     }
-    if ($start instanceof DrupalDateTime && $tz = $start->getTimezone()) {
+    if ($tz = $start->getTimezone()) {
       $timezone = $tz->getName();
     }
     else {
