@@ -43,10 +43,6 @@ function openculturas_install_tasks(): array {
  * @see openculturas_install_tasks()
  */
 function openculturas_install_role_missing_permission(): void {
-  /*
-   * @todo Remove perms on drush cde in
-   * \Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomConfigDevelSubscriber::onConfigDevelSave().
-   */
   /** @var \Drupal\user\RoleStorageInterface $roleStorage */
   $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
   /** @var \Drupal\user\RoleInterface|null $role */

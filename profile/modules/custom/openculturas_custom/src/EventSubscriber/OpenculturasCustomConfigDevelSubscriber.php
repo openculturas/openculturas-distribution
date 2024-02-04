@@ -11,18 +11,21 @@ use Drupal\config_devel\Event\ConfigDevelEvents;
 use Drupal\config_devel\Event\ConfigDevelSaveEvent;
 use Drupal\views\ViewEntityInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use function array_search;
 use function array_unique;
+use function array_values;
 use function basename;
 use function class_exists;
 use function dirname;
 use function pathinfo;
+use function preg_match;
 use function reset;
 use function str_ends_with;
 
 /**
  * OpenCulturas Customizing event subscriber.
  */
-class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterface {
+final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterface {
 
   /**
    * Creates OpenculturasCustomConfigDevelSubscriber objects.
@@ -61,6 +64,11 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
       }
     }
 
+    if ($config_name === 'user.role.oc_admin') {
+      $this->excludeOpenCulturasFaq($configDevelSaveEvent);
+      $this->excludeRoleDelegation($configDevelSaveEvent);
+    }
+
     // // @phpstan-ignore-next-line
     if ($extension === \Drupal::installProfile()) {
       return;
@@ -91,6 +99,51 @@ class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberInterfac
     return [
       ConfigDevelEvents::SAVE => ['onConfigDevelSave'],
     ];
+  }
+
+  /**
+   * OpenCulturas FAQ is an optional module.
+   */
+  private function excludeOpenCulturasFaq(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    $config_names = ['node.type.faq', 'taxonomy.vocabulary.faq_category'];
+    foreach ($config_names as $config_name) {
+      $index = array_search($config_name, $data['dependencies']['config'], TRUE);
+      if ($index !== FALSE) {
+        unset($data['dependencies']['config'][$index]);
+      }
+    }
+
+    $data['dependencies']['config'] = array_values($data['dependencies']['config']);
+    $configDevelSaveEvent->setData($data);
+    foreach ($data['permissions'] as $index => $permission) {
+      if (str_contains($permission, 'faq')) {
+        unset($data['permissions'][$index]);
+      }
+    }
+
+    $data['permissions'] = array_values($data['permissions']);
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * Removes role_delegation permissions.
+   *
+   * The permissions of this module needs to be installed after openculturas because
+   * it depends on roles which are installed with this profile.
+   *
+   * @see openculturas_install_role_missing_permission()
+   */
+  private function excludeRoleDelegation(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    foreach ($data['permissions'] as $index => $permission) {
+      if (preg_match('/assign \w+ role/', $permission)) {
+        unset($data['permissions'][$index]);
+      }
+    }
+
+    $data['permissions'] = array_values($data['permissions']);
+    $configDevelSaveEvent->setData($data);
   }
 
 }
