@@ -450,3 +450,112 @@ function openculturas_post_update_enable_field_supporters_for_all(array &$sandbo
   };
   $configEntityUpdater->update($sandbox, 'field_storage_config', $callback);
 }
+
+/**
+ * Add new field groups to content type page.
+ */
+function openculturas_post_update_add_field_groups_to_page(): void {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $entityFormDisplay = $entity_display->getFormDisplay('node', 'page');
+  if (!$entityFormDisplay->isNew()) {
+    $settings = [
+      'children' => ['group_basics'],
+      'label' => 'Tabs',
+      'region' => 'content',
+      'parent_name' => '',
+      'weight' => 0,
+      'format_type' => 'tabs',
+      'format_settings' => [
+        'classes' => '',
+        'show_empty_fields' => FALSE,
+        'id' => '',
+        'direction' => 'horizontal',
+        'width_breakpoint' => 640,
+      ],
+    ];
+
+    $entityFormDisplay->setThirdPartySetting('field_group', 'group_tabs', $settings);
+    $settings = [
+      'children' => [
+        'title',
+        'field_subtitle',
+        'field_mood_image',
+        'body',
+        'field_content_paragraphs',
+        'field_supporters',
+        'field_layout_switcher',
+        'status',
+      ],
+      'label' => 'Basics',
+      'region' => 'content',
+      'parent_name' => 'group_tabs',
+      'weight' => 0,
+      'format_type' => 'tab',
+      'format_settings' => [
+        'classes' => '',
+        'show_empty_fields' => FALSE,
+        'id' => 'group-basics',
+        'formatter' => 'open',
+        'description' => '',
+        'required_fields' => TRUE,
+      ],
+    ];
+
+    $entityFormDisplay->setThirdPartySetting('field_group', 'group_basics', $settings);
+    $entityFormDisplay->save();
+  }
+}
+
+/**
+ * Move the content moderation widget from sidebar to content area.
+ */
+function openculturas_post_update_moderation_widget_to_content_area(): void {
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $bundle_ids = [
+    'article' => 'group_magazine_tabs_container',
+    'date' => 'group_date_tabs_container',
+    'event' => 'group_event_tabs_container',
+    'location' => 'group_location_tabs_container',
+    'profile' => 'group_profile_tabs_container',
+    'page' => 'group_tabs',
+  ];
+  foreach ($bundle_ids as $bundle_id => $group_id) {
+    $display = $entity_display->getFormDisplay('node', $bundle_id);
+    if (!$display->isNew() && $moderation_state_component = $display->getComponent('moderation_state')) {
+      $group = $display->getThirdPartySetting('field_group', $group_id);
+      if ($group && is_array($group['children'])) {
+        $children = $group['children'];
+        array_unshift($children, 'moderation_state');
+        $group['children'] = array_values(array_unique($children));
+        $display->setThirdPartySetting('field_group', $group_id, $group);
+        $weight = 0;
+        $moderation_state_component['weight'] = $weight;
+        $display->setComponent('moderation_state', $moderation_state_component);
+        foreach ($group['children'] as $child) {
+          if ($child === 'moderation_state') {
+            continue;
+          }
+
+          ++$weight;
+          if ($display->getComponent($child)) {
+            $component = $display->getComponent($child);
+            $component['weight'] = $weight;
+            $display->setComponent($child, $component);
+          }
+          elseif ($display->getThirdPartySetting('field_group', $child)) {
+            $settings = $display->getThirdPartySetting('field_group', $child);
+            $settings['weight'] = $weight;
+            $display->setThirdPartySetting('field_group', $child, $settings);
+          }
+        }
+
+        $display->save();
+      }
+    }
+  }
+}

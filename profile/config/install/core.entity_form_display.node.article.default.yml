@@ -15,7 +15,7 @@ dependencies:
     - field.field.node.article.field_sub_type
     - field.field.node.article.field_subtitle
     - node.type.article
-    - workflows.workflow.magazine_article
+    - workflows.workflow.draften_member
   module:
     - allowed_formats
     - choices
@@ -61,7 +61,7 @@ third_party_settings:
       label: 'Meta information'
       region: content
       parent_name: group_magazine_tabs_container
-      weight: 21
+      weight: 2
       format_type: tab
       format_settings:
         classes: ''
@@ -72,6 +72,7 @@ third_party_settings:
         required_fields: true
     group_magazine_tabs_container:
       children:
+        - moderation_state
         - group_magazine_tab_basics
         - group_meta_information
         - group_magazine_tab_mentioned
@@ -96,7 +97,7 @@ third_party_settings:
       label: Basics
       region: content
       parent_name: group_magazine_tabs_container
-      weight: 20
+      weight: 1
       format_type: tab
       format_settings:
         classes: ''
@@ -111,7 +112,7 @@ third_party_settings:
       label: Mentions
       region: content
       parent_name: group_magazine_tabs_container
-      weight: 22
+      weight: 3
       format_type: tab
       format_settings:
         classes: ''
@@ -277,7 +278,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
