@@ -559,3 +559,17 @@ function openculturas_post_update_moderation_widget_to_content_area(): void {
     }
   }
 }
+
+/**
+ * Replace field_category_target_id with term_node_tid_depth.
+ */
+function openculturas_post_update_related_content_via_term_node_tid_depth(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('openculturas', 'openculturas_post_update_related_content_via_term_node_tid_depth');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
