@@ -29,6 +29,7 @@ use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
 use Drupal\openculturas_custom\Plugin\views\filter\Date;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
+use Drupal\taxonomy\TermInterface;
 use Drupal\update_helper_checklist\Entity\Update;
 use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
@@ -314,6 +315,59 @@ function openculturas_custom_local_tasks_alter(array &$local_tasks): void {
   if (isset($local_tasks['entity.user.edit_form'])) {
     $local_tasks['entity.user.edit_form']['title'] = t('Account settings');
     $local_tasks['entity.user.edit_form']['weight'] = -2;
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function openculturas_custom_entity_view_alter(array &$build, EntityInterface $entity): void {
+  $isAnonymous = \Drupal::currentUser()->isAnonymous();
+  if ($isAnonymous && ($entity->getEntityTypeId() === 'node' || $entity->getEntityTypeId() === 'taxonomy_term')) {
+    if (isset($build['flag_bookmark_node'])) {
+      $build['flag_bookmark_node'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-bookmark-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}"></a></div>
+EOF
+        ,
+      ];
+    }
+
+    if (isset($build['flag_recommendation_node'])) {
+      $build['flag_recommendation_node'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-recommendation-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to recommend'| t}}">{{'Recommend'|t}}</a></div>
+EOF
+        ,
+      ];
+    }
+
+    assert($entity instanceof NodeInterface || $entity instanceof TermInterface);
+    if (isset($build['flag_claim_ownership']) && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')
+      ->isEmpty()) {
+      $allowed = (bool) $entity->get('field_allow_claiming')->value;
+      if ($allowed) {
+        $build['flag_claim_ownership'] = [
+          '#type' => 'inline_template',
+          '#template' => <<<EOF
+<div class="flag flag-claim-ownership action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to claim this' | t}}">{{'Claim ownership'|t}}</a></div>
+EOF
+          ,
+        ];
+      }
+    }
+
+    if (isset($build['flag_report_abuse'])) {
+      $build['flag_report_abuse'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-report-abuse action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to report abuse' | t}}">{{'Report abuse'|t}}</a></div>
+EOF
+        ,
+      ];
+    }
   }
 }
 
