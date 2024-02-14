@@ -12,7 +12,7 @@ form,
   >[class*=facets-widget] {
     width: auto !important;
     margin-right: $grid-gutter;
-    
+
     // Padding without adding padding to FORM Tag (which would mess up button positioning).
     margin-left: $grid-gutter;
 
@@ -103,7 +103,6 @@ textarea {
   padding: 0.5rem 1rem;
   border: 1px solid $color-divider-dark;
   background: $color-bg-light;
-
   &:focus {
     border-bottom-color: $color-info;
     box-shadow: 0 3px 2px 0 $color-info;
@@ -159,8 +158,96 @@ select {
   background: $color-bg-light url(../images/chevron-down.svg) right 0.5em top 0.5em no-repeat;
   background-size: 1em;
   appearance:none;
-
+  &[multiple].slimselect:not([data-once]) {
+    height: 2.48rem;
+    background: $color-bg-light;
+    optgroup, option {
+      visibility: hidden;
+    }
+  }
 }
+
+// @todo move slimselect to dedicated scss file
+// place slimselect css in ss module folder
+
+.slimselect {
+  --ss-primary-color: var(--color-interaction);
+  --ss-bg-color: var(--color-bg-light);
+  --ss-font-color: var(--color-text);
+  --ss-font-placeholder-color: #1f1f1f66; // todo later: remove disallowed color functions, use muted color 50%
+  --ss-disabled-color: var(--color-bg-slight-contrast);
+  --ss-border-color: var(--color-interaction);
+  
+  // --ss-highlight-color: ;
+  --ss-success-color: var(--color-success);
+  --ss-error-color: var(--color-danger);
+  --ss-focus-color: var(--color-focus);
+  --ss-main-height: 2.5rem; // adjust to standard select height
+
+  // --ss-content-height: ;
+  --ss-spacing-l: 0.5em; // ! used in removal button
+  --ss-spacing-m: 0.5em;
+  --ss-spacing-s: 0.25em;
+  --ss-animation-timing: 0.2s;
+  --ss-border-radius: var(--button-border-radius);
+}
+
+.ss-main {
+  width: 18rem;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border: 1px solid var(--color-divider-dark);
+  border-radius: 0;
+
+  .ss-arrow {
+    margin: var(--ss-spacing-s) var(--ss-spacing-m) auto var(--ss-spacing-m); // align top
+    padding-right: 2rem;
+    background: $color-bg-light url(../images/chevron-down.svg) no-repeat;
+    background-position: 0.5em;
+    background-size: 1em;
+    path {
+      visibility: hidden;
+    }
+  }
+  .ss-values {
+    // height: 1.3rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+    .ss-placeholder {
+      padding: 0;
+    }
+    .ss-value {
+      // background-color: var(--color-primary)!important;
+      .ss-value-text {
+        font-size: var(--font-size-s);
+      }
+      .ss-value-delete {
+        border-left-width: 0;
+      }
+    }
+  }
+}
+
+select[multiple].slimselect:not([data-once]) {
+  height: 2.48rem;
+
+  // background: $color-bg-light;
+  optgroup, option {
+    visibility: hidden;
+  }
+}
+
+// we redefine ss custom properties instead
+// .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected, .ss-option:hover {
+//  //color: var(--color-primary);
+//  background-color: var(--color-primary)!important;
+// }
+
+// end @todo slimselect
 
 input[type="checkbox"],
 input[type="radio"] {
@@ -425,3 +512,5 @@ input[type="password"],
   border-color: var(--color-info);
   background-color: var(--color-bg-info);
 }
+
+

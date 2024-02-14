@@ -1,0 +1,20 @@
+slimselect:
+  remote: https://slimselectjs.com/
+  version: v2.8.1
+  license:
+    name: MIT
+    url: https://github.com/brianvoe/slim-select/blob/master/README.md
+    gpl-compatible: true
+  js:
+    assets/vendor/slimselect/slimselect.min.js: { minified: true, attributes: { defer: true } }
+  css:
+    component:
+      assets/vendor/slimselect/slimselect.css: { minified: true, attributes: { defer: true } }
+
+openculturas_slimselect:
+  js:
+    js/openculturas_slimselect.js: { attributes: { defer: true } }
+  dependencies:
+    - openculturas_slimselect/slimselect
+    - core/drupal
+    - core/once
