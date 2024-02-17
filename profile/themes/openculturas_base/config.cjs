@@ -4,7 +4,7 @@
  *
  * @type {{browserSync: {hostname: string}}}
  */
-module.exports = {
+exports.default = {
   browserSync: {
     hostname: 'http://openculturas.ddev.site/',
     // Disable for offline development.

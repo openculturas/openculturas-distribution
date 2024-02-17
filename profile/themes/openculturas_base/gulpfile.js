@@ -1,20 +1,21 @@
-const
-  { series, parallel } = require('gulp'),
-  gulp = require('gulp'),
-  dartSass = require('sass'),
-  gulpSass = require('gulp-sass'),
-  sass = gulpSass(dartSass),
-  fs = require('fs'),
-  rename = require('gulp-rename'),
-  sassGlob = require('gulp-sass-glob'),
-  autoprefixer = require('gulp-autoprefixer'),
-  sourcemaps = require('gulp-sourcemaps'),
-  concat = require('gulp-concat'),
-  environments = require('gulp-environments'),
-  browserSync = require('browser-sync').create(),
-  development = environments.development,
-  production = environments.production;
-let config;
+import gulp from 'gulp';
+import * as dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
+import fs from 'fs';
+import gulpAutoprefixer from 'gulp-autoprefixer';
+import rename from 'gulp-rename';
+import sassGlob from 'gulp-sass-glob';
+import sourcemaps from "gulp-sourcemaps";
+import concat from 'gulp-concat';
+import environments from 'gulp-environments';
+import browserSync from 'browser-sync';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const development = environments.development,
+production = environments.production;
+
+let browserSyncConfig;
 
 const paths = {
   styles: {
@@ -48,7 +49,7 @@ gulp.task('sass', function () {
     .pipe(sassGlob())
     .pipe(development(sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
-    .pipe(production(autoprefixer()))
+    .pipe(production(gulpAutoprefixer()))
     .pipe(development(sourcemaps.write()))
     .pipe(gulp.dest(paths.styles.dest))
     .pipe(browserSync.stream());
@@ -61,38 +62,38 @@ gulp.task('js', function () {
     .pipe(gulp.dest(paths.scripts.dest.dir));
 });
 
-gulp.task('js-watch', series('js', function (done) {
+gulp.task('js-watch', gulp.series('js', function (done) {
   browserSync.reload();
   done();
 }));
 
 function copyConfig(done) {
   try {
-    fs.accessSync('./config.js');
-    console.log('config.js found :)');
+    fs.accessSync('./config.cjs', fs.constants.R_OK);
+    console.log('config.cjs found :)');
     done();
   } catch (e) {
-    console.log('config.js not found. Will create it four you...');
+    console.log('config.cjs not found. Will create it four you...');
     console.log(
-      'Please check the hostname in config.js and change it to your local host, if needed.',
+      'Please check the hostname in config.cjs and change it to your local host, if needed.',
     );
     return gulp
-      .src('./config.js.example')
-      .pipe(rename('config.js'))
+      .src('./config.cjs.example')
+      .pipe(rename('config.cjs'))
       .pipe(gulp.dest('.'));
   }
 }
 
 function readConfig(done) {
-  config = require('./config.js');
+  browserSyncConfig = require("./config.cjs").default;
   done();
 }
 
 function developmentServer() {
   browserSync.init({
-    proxy: config.browserSync.hostname,
-    online: config.browserSync.online,
-    open: config.browserSync.open,
+    proxy: browserSyncConfig.browserSync.hostname,
+    online: browserSyncConfig.browserSync.online,
+    open: browserSyncConfig.browserSync.open,
     reloadDelay: 300,
   });
   gulp.watch(paths.styles.watch, gulp.series('sass'));
@@ -115,10 +116,10 @@ gulp.task('set-env-production', function(cb) {
 //   `npm run build` for production build
 //   `npm run serve` for development
 //
-gulp.task('initConfig', series(copyConfig, readConfig))
-gulp.task('dev', series('set-env-development', parallel('sass', 'js')));
-gulp.task('build', series('set-env-production', parallel('sass', 'js')));
-gulp.task('watch', series(
-    parallel('initConfig', 'set-env-development'),
-    parallel('sass', 'js', developmentServer),
+gulp.task('initConfig', gulp.series(copyConfig, readConfig))
+gulp.task('dev', gulp.series('set-env-development', gulp.parallel('sass', 'js')));
+gulp.task('build', gulp.series('set-env-production', gulp.parallel('sass', 'js')));
+gulp.task('watch', gulp.series(
+    gulp.parallel('initConfig', 'set-env-development'),
+    gulp.parallel('sass', 'js', developmentServer),
 ));
