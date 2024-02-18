@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\Form\FormStateInterface;

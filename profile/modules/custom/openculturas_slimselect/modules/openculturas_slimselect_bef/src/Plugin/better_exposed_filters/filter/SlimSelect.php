@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\openculturas_slimselect_bef\Plugin\better_exposed_filters\filter;
 
