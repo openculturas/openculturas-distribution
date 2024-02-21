@@ -1,0 +1,207 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openculturas_discussions module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
+
+/**
+ * Implements hook_install().
+ */
+function openculturas_discussions_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('create comment content');
+    $role->grantPermission('delete own comment content');
+    $role->grantPermission('use comment transition create_new_draft');
+    $role->grantPermission('use comment transition to_review');
+    $role->grantPermission('use text format comment_html');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('magazine_editor');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('edit own comment content');
+    $role->grantPermission('use comment transition publish');
+    $role->grantPermission('use comment transition unpublish');
+    $role->grantPermission('revert comment revisions');
+    $role->grantPermission('view comment revisions');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('oc_organizer');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('edit own comment content');
+    $role->grantPermission('use comment transition publish');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('edit own comment content');
+    $role->grantPermission('use comment transition publish');
+    $role->grantPermission('use comment transition unpublish');
+    $role->save();
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $bundles = ['event', 'location', 'profile', 'article'];
+  foreach ($bundles as $bundle) {
+    // Form displays.
+    $display = $entity_display->getFormDisplay('node', $bundle, 'bulk_edit');
+    if (!$display->isNew()) {
+      $display->setComponent('field_comments_mode', ['weight' => 5]);
+      $display->save();
+    }
+
+    $display = $entity_display->getFormDisplay('node', $bundle, 'default');
+    if (!$display->isNew()) {
+      $display->setComponent('field_comments_mode', ['weight' => 1]);
+      $settings = $display->getThirdPartySetting('field_group', 'group_administrative');
+      if (is_array($settings)) {
+        $settings['children'][] = 'field_comments_mode';
+        $settings['children'] = array_values($settings['children']);
+        sort($settings['children']);
+        $display->setThirdPartySetting('field_group', 'group_administrative', $settings);
+      }
+
+      $display->save();
+    }
+
+    // View displays.
+    $display = $entity_display->getViewDisplay('node', $bundle, 'full');
+    if (!$display->isNew()) {
+      $display->setComponent('field_comments', ['weight' => 1, 'label' => 'hidden', 'settings' => ['always_build_output' => TRUE]]);
+      $display->setThirdPartySetting('field_group', 'group_comments', [
+        'label' => 'Comments',
+        'children' => ['field_comments'],
+        'format_type' => 'details',
+        'parent_name' => '',
+        'region' => 'content',
+        'weight' => $display->getHighestWeight() + 1,
+        'format_settings' => [
+          'classes' => 'comments',
+          'id' => 'comments',
+          'show_empty_fields' => FALSE,
+          'open' => TRUE,
+          'required_fields' => FALSE,
+          'description' => '',
+        ],
+      ]);
+      $display->save();
+    }
+  }
+
+  $view = Views::getView('moderated_content');
+  if ($view instanceof ViewExecutable) {
+    $type_filter_configuration = $view->getHandler('default', 'filter', 'type');
+    if (is_array($type_filter_configuration)) {
+      $type_filter_configuration['exposed'] = FALSE;
+      $type_filter_configuration['operator'] = 'not in';
+      $type_filter_configuration['value'] = ['comment' => 'comment'];
+      $view->setHandler('default', 'filter', 'type', $type_filter_configuration);
+      $view->save();
+    }
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
+  if ($field instanceof FieldConfigInterface) {
+    $allowed_views_setting = $field->getSetting('allowed_views');
+    $allowed_views_setting['related_comments'] = 'related_comments';
+    ksort($allowed_views_setting);
+    $field->setSetting('allowed_views', $allowed_views_setting);
+    $field->save();
+  }
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openculturas_discussions_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  $view = Views::getView('moderated_content');
+  if ($view instanceof ViewExecutable) {
+    $type_filter_configuration = $view->getHandler('default', 'filter', 'type');
+    if (is_array($type_filter_configuration)) {
+      $type_filter_configuration['exposed'] = TRUE;
+      $type_filter_configuration['operator'] = 'in';
+      $type_filter_configuration['value'] = [];
+      $view->setHandler('default', 'filter', 'type', $type_filter_configuration);
+      $view->save();
+    }
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
+  if ($field instanceof FieldConfigInterface) {
+    $allowed_views_setting = $field->getSetting('allowed_views');
+    unset($allowed_views_setting['related_comments']);
+    $field->setSetting('allowed_views', $allowed_views_setting);
+    $field->save();
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+  $bundles = ['event', 'location', 'profile', 'article'];
+  foreach ($bundles as $bundle) {
+    // Form displays.
+    $display = $entity_display->getFormDisplay('node', $bundle, 'bulk_edit');
+    if (!$display->isNew()) {
+      $display->removeComponent('field_comments_mode');
+      $display->save();
+    }
+
+    $display = $entity_display->getFormDisplay('node', $bundle, 'default');
+    if (!$display->isNew()) {
+      $display->removeComponent('field_comments_mode');
+      $group_administrative = $display->getThirdPartySetting('field_group', 'group_administrative');
+      if (is_array($group_administrative)) {
+        foreach ($group_administrative['children'] as $key => $child) {
+          if ($child === 'field_comments_mode') {
+            unset($group_administrative['children'][$key]);
+            $group_administrative['children'] = array_values($group_administrative['children']);
+          }
+        }
+
+        $display->setThirdPartySetting('field_group', 'group_administrative', $group_administrative);
+      }
+
+      $display->save();
+    }
+
+    // View displays.
+    $display = $entity_display->getViewDisplay('node', $bundle, 'full');
+    if (!$display->isNew()) {
+      $display->removeComponent('field_comments');
+      $display->unsetThirdPartySetting('field_group', 'group_comments');
+      $display->save();
+    }
+  }
+
+  $configFactory = \Drupal::configFactory();
+  $configFactory->getEditable('auto_entitylabel.settings.node.comment')->delete();
+}

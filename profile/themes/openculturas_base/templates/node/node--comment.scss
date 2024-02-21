@@ -1,0 +1,52 @@
+// Comments view
+
+.comment-submitted {
+  @include breakpoint(m) {
+    border: 1px solid var(--color-divider-light);
+    border-width: 1px 0 0;
+    display: flex;
+    gap: .625rem 2.5rem;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    @include breakpoint(m) {
+      flex-flow: row nowrap;
+    }
+  }
+  time,
+  .field--name-field-subtitle {
+    color: var(--color-text-muted);
+  }
+}
+
+.discussions {
+  .bundle {
+    font-weight: normal;
+    font-size: var(--font-size-default);
+  }
+
+  .node--workflow-pending::before,
+  .node--unpublished::before {
+    display: inline;
+    padding: .5rem 1.5rem;
+  }
+}
+
+// Table
+
+.comments-overview {
+  td:nth-child(1) {
+    min-width: 4rem;
+  }
+  td:nth-child(3) {
+    min-width: 50%;
+  }
+  .node--unpublished::before,
+  .node--workflow-pending::before {
+    display: inline-block;
+    padding: .25rem 1rem;
+  }
+  .comment-date {
+  color: var(--color-text-muted);
+  }
+}

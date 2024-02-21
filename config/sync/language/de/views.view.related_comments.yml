@@ -1,0 +1,90 @@
+label: 'Zugehörige Kommentare'
+description: 'OpenCulturas: Stellt Kommentare zum aktuellen Inhalt zusammen und bietet Aktionen an.'
+display:
+  default:
+    display_options:
+      title: 'Zugehörige Kommentare'
+      header:
+        views_add_button:
+          button_text: 'Neuer Kommentar'
+          button_access_denied:
+            value: '<p><a href="/user/login">Einloggen zum Kommentieren</a></p>'
+            format: advanced_html
+      empty:
+        area_text_custom:
+          content: 'Schreibe den ersten Kommentar.'
+      exposed_form:
+        options:
+          submit_button: Filtern
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: aufsteigend
+          sort_desc_label: absteigend
+      fields:
+        edit_node:
+          text: 'Kommentar bearbeiten'
+        edit_user:
+          text: 'User bearbeiten'
+      pager:
+        options:
+          views_infinite_scroll:
+            button_text: 'Mehr anzeigen'
+  block_comments:
+    display_title: 'Kommentare zum aktuellen Inhalt'
+    display_options:
+      header:
+        result:
+          content: '<strong>@total</strong> Kommentare'
+  block_hottest_discussions:
+    display_title: Meistkommentiert
+    display_options:
+      title: 'Aktivste Dikussionen'
+      fields:
+        field_ref_node:
+          alter:
+            text: '<strong>{{ field_ref_node }}</strong> Kommentare'
+        view_node:
+          text: Ansehen
+  block_recent_comments:
+    display_title: Aktuellster
+    display_options:
+      title: 'Aktuellster Kommentar'
+      fields:
+        nothing_1:
+          alter:
+            text: '<a href="{{ view_node }}#comments">Zum Kommentarbereich</a>'
+        field_ref_node:
+          alter:
+            text: '<span class="post-reference">betr. {{ field_ref_node }}</span>'
+      empty:
+        area:
+          content:
+            value: 'Es wurden noch keine Diskussionen begonnen. Bitte schau später noch einmal vorbei.'
+            format: minimal_html
+  comments_overview_table:
+    display_options:
+      display_comment: 'Note: inline css in view header for easier followup when re-arranging columns'
+      fields:
+        field_date_published:
+          label: am
+        views_conditional_field_2:
+          label: von
+        views_conditional_field:
+          label: kommentiert
+        field_ref_node:
+          label: betr.
+        body:
+          settings:
+            more: {  }
+      filters:
+        combine:
+          expose:
+            label: Finden
+            placeholder: 'enthält Stichwort ...'
+      empty:
+        area:
+          content:
+            value: 'Es haben noch keine Diskussionen begonnen. Schaut später noch einmal rein.'
+            format: minimal_html
+      title: Diskussionen
+    display_title: Tabelle

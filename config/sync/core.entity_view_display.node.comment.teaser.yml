@@ -1,0 +1,77 @@
+uuid: 4e20c049-7e4e-4adf-a092-6dcc49baf210
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.comment.body
+    - field.field.node.comment.field_behalf
+    - field.field.node.comment.field_date_published
+    - field.field.node.comment.field_ref_node
+    - node.type.comment
+  module:
+    - field_formatter_class
+    - smart_trim
+    - user
+_core:
+  default_config_hash: UVfprr2Cd6swkgk1PhurnnmgdqRCdgW-la2rAvV5RUk
+id: node.comment.teaser
+targetEntityType: node
+bundle: comment
+mode: teaser
+content:
+  body:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 600
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: true
+        target_blank: false
+        link_trim_only: true
+        class: ''
+        text: 'Read complete comment'
+        aria_label: 'Read complete [node:title]'
+        token_browser: ''
+      summary_handler: ignore
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
+    third_party_settings:
+      field_formatter_class:
+        class: synopsis-more-link
+    weight: 101
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  flag_bookmark_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_recommendation_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_behalf: true
+  field_date_published: true
+  field_ref_node: true
+  langcode: true
+  search_api_excerpt: true
+  shariff_field: true

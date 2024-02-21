@@ -1,0 +1,35 @@
+uuid: 44ff541e-3f27-4a20-b33f-1413248c3b4b
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openculturas_discussions
+_core:
+  default_config_hash: JT-61dhgDfOJZyMvtauPi7cL8hWCRgeRwZmodivQvN8
+name: 'Comment HTML'
+format: comment_html
+weight: -7
+filters:
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<br> <p> <strong> <em> <a href> <ul> <ol> <li>'
+      filter_html_help: false
+      filter_html_nofollow: true
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }

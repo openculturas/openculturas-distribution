@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.comment
     - workflows.workflow.draften
     - workflows.workflow.draften_member
     - workflows.workflow.magazine_article
@@ -757,10 +758,11 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-          operator: in
-          value: {  }
+          operator: 'not in'
+          value:
+            comment: comment
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: type_op
             label: 'Content type'

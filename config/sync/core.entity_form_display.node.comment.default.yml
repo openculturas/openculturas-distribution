@@ -1,0 +1,91 @@
+uuid: 6d700bfd-fdd6-4706-bcce-e6f227d563f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.comment.body
+    - field.field.node.comment.field_behalf
+    - field.field.node.comment.field_date_published
+    - field.field.node.comment.field_ref_node
+    - node.type.comment
+    - workflows.workflow.comment
+  module:
+    - content_moderation
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_tabs:
+      children:
+        - moderation_state
+        - group_basics
+      label: Tabs
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        direction: horizontal
+        width_breakpoint: 640
+    group_basics:
+      children:
+        - field_behalf
+        - body
+      label: Basics
+      region: content
+      parent_name: group_tabs
+      weight: 5
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-basics
+        formatter: open
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: Y9Fc4HTjWXKlc8d5-ZSscFSmj5oEGdYh9hD30-Zi4UY
+id: node.comment.default
+targetEntityType: node
+bundle: comment
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_behalf:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_date_published: true
+  field_ref_node: true
+  langcode: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  translation: true
+  uid: true
+  url_redirects: true

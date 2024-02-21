@@ -6,6 +6,7 @@ dependencies:
     - field.storage.paragraph.field_block_ref
     - field.storage.paragraph.field_view
     - filter.format.basic_html
+    - filter.format.comment_html
     - filter.format.minimal_html
     - media.type.image
     - media.type.logo_image
@@ -13,10 +14,12 @@ dependencies:
     - media.type.sponsor
     - media.type.user_profile_picture
     - node.type.article
+    - node.type.comment
     - node.type.date
     - node.type.event
     - node.type.location
     - node.type.profile
+    - workflows.workflow.comment
     - workflows.workflow.draften
     - workflows.workflow.draften_member
   module:
@@ -48,6 +51,7 @@ permissions:
   - 'cancel account'
   - 'cancel smart date recur instances'
   - 'change own username'
+  - 'create comment content'
   - 'create date content'
   - 'create event content'
   - 'create image media'
@@ -69,6 +73,7 @@ permissions:
   - 'create user_profile_picture media'
   - 'delete media'
   - 'delete own article content'
+  - 'delete own comment content'
   - 'delete own date content'
   - 'delete own event content'
   - 'delete own files'
@@ -109,11 +114,14 @@ permissions:
   - 'update paragraph content media_mention'
   - 'update paragraph content member'
   - 'update paragraph content text'
+  - 'use comment transition create_new_draft'
+  - 'use comment transition to_review'
   - 'use draften transition create_new_draft'
   - 'use draften transition to_review'
   - 'use draften_member transition create_new_draft'
   - 'use draften_member transition to_review'
   - 'use text format basic_html'
+  - 'use text format comment_html'
   - 'use text format minimal_html'
   - 'view Terms and Conditions'
   - 'view field_block_ref'

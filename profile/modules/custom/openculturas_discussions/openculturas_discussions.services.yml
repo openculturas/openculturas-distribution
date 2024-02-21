@@ -1,0 +1,7 @@
+services:
+  openculturas_discussions.uninstall_validator:
+    class: Drupal\openculturas_discussions\OpenCulturasDiscussionsUninstallValidator
+    arguments: [ '@entity_type.manager', '@string_translation']
+    tags:
+      - { name: module_install.uninstall_validator }
+    lazy: true

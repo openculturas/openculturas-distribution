@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.location.field_address_data
     - field.field.node.location.field_allow_claiming
     - field.field.node.location.field_category
+    - field.field.node.location.field_comments
+    - field.field.node.location.field_comments_mode
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
     - field.field.node.location.field_logo
@@ -43,14 +45,15 @@ third_party_settings:
   field_group:
     group_administrative:
       children:
-        - langcode
-        - uid
         - created
-        - promote
-        - sticky
+        - field_comments_mode
+        - langcode
         - path
-        - url_redirects
+        - promote
         - simple_sitemap
+        - sticky
+        - uid
+        - url_redirects
       label: Administrative
       region: content
       parent_name: ''
@@ -291,6 +294,12 @@ content:
     settings:
       configuration_options: ''
     third_party_settings: {  }
+  field_comments_mode:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_contact_data:
     type: paragraphs
     weight: 6
@@ -524,6 +533,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_comments: true
   field_mention_by_art_view_ref: true
   field_recommendations: true
   field_recommended_by_view_ref: true

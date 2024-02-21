@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - node
+  enforced:
+    module:
+      - openculturas_discussions
+id: comment
+label: Comment
+type: 'canonical_entities:node'
+pattern: 'discussion/[node:field_ref_node:target_id]/comment/[node:nid]'
+selection_criteria:
+  a2734a18-a8e4-484a-8148-0c0afabf0364:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: a2734a18-a8e4-484a-8148-0c0afabf0364
+    context_mapping:
+      node: node
+    bundles:
+      comment: comment
+  d7cd8dbb-694e-4a7c-ad93-06c869eac660:
+    id: language
+    negate: false
+    uuid: d7cd8dbb-694e-4a7c-ad93-06c869eac660
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      en: en
+selection_logic: and
+weight: -5
+relationships:
+  'node:langcode:language':
+    label: Language

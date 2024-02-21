@@ -1,0 +1,74 @@
+label: Kommentare
+description: 'Kommentare auflisten und moderieren.'
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        title:
+          label: Titel
+        body:
+          label: Inhalt
+        type_1:
+          label: Typ
+        moderation_state:
+          label: Moderationsstatus
+        type:
+          label: Typ
+        name:
+          label: 'Verfasst von'
+        revision_uid:
+          label: 'letzte Bearbeitung von'
+        changed:
+          label: Aktualisiert
+        operations:
+          label: Aktionen
+      pager:
+        options:
+          expose:
+            items_per_page_label: Anzahl/Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      exposed_form:
+        options:
+          submit_button: Filtern
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area_text_custom:
+          content: 'Es stehen keine Kommentare zur Moderation an.'
+      filters:
+        type:
+          expose:
+            label: Typ
+        body_value:
+          expose:
+            label: Kommentar
+        moderation_state:
+          expose:
+            label: Moderationsstatus
+          group_info:
+            label: Moderationsstatus
+            group_items:
+              1:
+                title: Entwurf
+              2:
+                title: 'Bitte um Freigabe'
+              3:
+                title: Veröffentlicht
+              4:
+                title: 'Nicht veröffentlicht'
+        uid:
+          expose:
+            label: 'Verfasst von'
+        langcode:
+          expose:
+            label: Sprache
+  moderated_comments:
+    display_title: Kommentare
+    display_options:
+      menu:
+        title: Kommentare
+        local_task_link_title: Kommentare

@@ -20,7 +20,9 @@ use function dirname;
 use function pathinfo;
 use function preg_match;
 use function reset;
+use function str_contains;
 use function str_ends_with;
+use function str_starts_with;
 
 /**
  * OpenCulturas Customizing event subscriber.
@@ -64,9 +66,19 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       }
     }
 
-    if ($config_name === 'user.role.oc_admin') {
+    if ($extension === 'openculturas-profile' && $config_name === 'user.role.oc_admin') {
       $this->excludeOpenCulturasFaq($configDevelSaveEvent);
       $this->excludeRoleDelegation($configDevelSaveEvent);
+    }
+
+    if ($extension === 'openculturas-profile' && (
+      $config_name === 'field.field.paragraph.view.field_view' ||
+      $config_name === 'views.view.moderated_content' ||
+      str_starts_with($config_name, 'core.entity_form_display.node') ||
+      str_starts_with($config_name, 'core.entity_view_display.node') ||
+      str_starts_with($config_name, 'user.role.')
+    )) {
+      $this->excludeOpenCulturasDiscussions($configDevelSaveEvent);
     }
 
     // // @phpstan-ignore-next-line
@@ -143,6 +155,66 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     }
 
     $data['permissions'] = array_values($data['permissions']);
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * OpenCulturas Discussions is an optional module.
+   */
+  private function excludeOpenCulturasDiscussions(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    if (isset($data['dependencies']['config'])) {
+      foreach ($data['dependencies']['config'] as $index => $config_name) {
+        if (
+          $config_name === 'filter.format.comment_html' ||
+          $config_name === 'node.type.comment' ||
+          $config_name === 'workflows.workflow.comment' ||
+          str_ends_with($config_name, 'field_comments') || str_ends_with($config_name, 'field_comments_mode')
+        ) {
+          unset($data['dependencies']['config'][$index]);
+        }
+      }
+
+      $data['dependencies']['config'] = array_values($data['dependencies']['config']);
+    }
+
+    if (isset($data['third_party_settings']['field_group']['group_administrative']['children'])) {
+      foreach ($data['third_party_settings']['field_group']['group_administrative']['children'] as $index => $config_name) {
+        if ($config_name === 'field_comments_mode') {
+          unset($data['third_party_settings']['field_group']['group_administrative']['children'][$index]);
+        }
+      }
+
+      $data['third_party_settings']['field_group']['group_administrative']['children'] = array_values($data['third_party_settings']['field_group']['group_administrative']['children']);
+    }
+
+    if ($data['id'] === 'moderated_content' && isset($data['display']['default']['display_options']['filters']['type'])) {
+      $data['display']['default']['display_options']['filters']['type']['exposed'] = TRUE;
+      $data['display']['default']['display_options']['filters']['type']['operator'] = 'in';
+      $data['display']['default']['display_options']['filters']['type']['value'] = [];
+    }
+
+    if (isset($data['permissions'])) {
+      foreach ($data['permissions'] as $index => $permission) {
+        if (str_ends_with($permission, 'comment content') ||
+          str_starts_with($permission, 'use comment transition') ||
+          str_contains($permission, 'comment_html') ||
+          str_ends_with($permission, 'comment revisions')) {
+          unset($data['permissions'][$index]);
+        }
+      }
+
+      $data['permissions'] = array_values($data['permissions']);
+    }
+
+    unset(
+      $data['content']['field_comments_mode'],
+      $data['content']['field_comments'],
+      $data['hidden']['field_comments'],
+      $data['hidden']['field_comments_mode'],
+      $data['third_party_settings']['field_group']['group_comments'],
+      $data['settings']['allowed_views']['related_comments'],
+    );
     $configDevelSaveEvent->setData($data);
   }
 

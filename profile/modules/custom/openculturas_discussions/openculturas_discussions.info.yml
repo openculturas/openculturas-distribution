@@ -1,0 +1,66 @@
+name: "OpenCulturas - Discussions"
+type: module
+description: 'Manages configurations content type comment.'
+package: OpenCulturas
+core_version_requirement: ^10
+lifecycle: experimental
+lifecycle_link: 'https://www.drupal.org/project/openculturas/issues/3404947'
+dependencies:
+  - drupal:node
+  - drupal:views
+  - drupal:options
+  - drupal:menu_ui
+  - drupal:user
+  - drupal:language
+  - drupal:workflows
+  - drupal:content_moderation
+  - drupal:contextual
+  - drupal:datetime
+  - field_permissions:field_permissions
+  - pathauto:pathauto
+  - smart_trim:smart_trim
+  - views_conditional:views_conditional
+  - views_add_button:views_add_button
+  - views_conditional:views_conditional
+  - views_infinite_scroll:views_infinite_scroll
+  - viewfield:viewfield
+  - views_local_tasks:views_local_tasks
+
+config_devel:
+  install:
+    - auto_entitylabel.settings.node.comment
+    - filter.format.comment_html
+    - field.storage.node.field_comments
+    - field.storage.node.field_comments_mode
+    - field.storage.node.field_behalf
+    - field.storage.node.field_ref_node
+    - language.content_settings.node.comment
+    - node.type.comment
+    - pathauto.pattern.comment
+    - pathauto.pattern.comment_de
+    - workflows.workflow.comment
+    - views.view.oc_discussions_entity_reference_node
+    - views.view.related_comments
+  optional:
+    - core.base_field_override.node.comment.promote
+    - core.base_field_override.node.comment.status
+    - core.entity_form_display.node.comment.default
+    - core.entity_view_display.node.comment.default
+    - core.entity_view_display.node.comment.full
+    - core.entity_view_display.node.comment.teaser
+    - editor.editor.comment_html
+    - field.field.node.article.field_comments
+    - field.field.node.article.field_comments_mode
+    - field.field.node.comment.body
+    - field.field.node.comment.field_behalf
+    - field.field.node.comment.field_date_published
+    - field.field.node.comment.field_ref_node
+    - field.field.node.event.field_comments
+    - field.field.node.event.field_comments_mode
+    - field.field.node.location.field_comments
+    - field.field.node.location.field_comments_mode
+    - field.field.node.profile.field_comments
+    - field.field.node.profile.field_comments_mode
+    - field.field.node.article.field_comments
+    - field.field.node.article.field_comments_mode
+    - views.view.oc_comments

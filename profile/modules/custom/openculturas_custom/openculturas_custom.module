@@ -714,6 +714,9 @@ function openculturas_custom_theme_suggestions_details_alter(array &$suggestions
 function openculturas_custom_config_schema_info_alter(array &$definitions): void {
   if (isset($definitions['field.field_settings.viewfield']['mapping']['allowed_views'])) {
     $definitions['field.field_settings.viewfield']['mapping']['allowed_views']['orderby'] = 'key';
+  }
+
+  if (isset($definitions['field.field_settings.viewfield']['mapping']['allowed_display_types'])) {
     $definitions['field.field_settings.viewfield']['mapping']['allowed_display_types']['orderby'] = 'key';
   }
 

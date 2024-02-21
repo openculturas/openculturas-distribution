@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for OpenCulturas - Discussions module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+use Drupal\user\Entity\User;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function openculturas_discussions_node_view_alter(array &$build, NodeInterface $node): void {
+  if ($build['#view_mode'] === 'full' && isset($build['field_comments'])) {
+    $mode = $node->get('field_comments_mode')->value ?? NULL;
+    $build['field_comments']['#access'] = in_array($mode, ['active', 'freeze'], TRUE);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_prepare_form().
+ */
+function openculturas_discussions_node_prepare_form(NodeInterface $node): void {
+  $is_comment_entity = $node->bundle() === 'comment' && $node->isNew();
+  $request = \Drupal::request();
+  if ($is_comment_entity && $request->query->has('content_id')) {
+    $content_id = $request->get('content_id');
+    if (empty($content_id)) {
+      return;
+    }
+
+    $content_entity = Node::load($content_id);
+    if (!$content_entity instanceof NodeInterface) {
+      return;
+    }
+
+    $node->set('field_ref_node', ['target_id' => $content_entity->id()]);
+
+    if ($node->isNew() && $node->hasField('field_behalf') && $node->get('field_behalf')->isEmpty()) {
+      /** @var \Drupal\user\UserInterface|null $user */
+      $user = User::load(\Drupal::currentUser()->id());
+      $main_profile_non_empty = $user instanceof UserInterface && $user->hasField('field_main_profile') && !$user->get('field_main_profile')->isEmpty();
+      if ($main_profile_non_empty) {
+        /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+        $field = $user->get('field_main_profile');
+        $main_profile = current($field->referencedEntities());
+        if ($main_profile instanceof NodeInterface) {
+          $node->set('field_behalf', ['target_id' => $main_profile->id()]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function openculturas_discussions_views_data_alter(array &$data): void {
+  $data['openculturas_discussions']['table']['group'] = 'OpenCulturas - Discussions';
+  $data['openculturas_discussions']['table']['join'] = [
+    // #global is a special flag which allows a table to appear all the time.
+    '#global' => [],
+  ];
+
+  $data['openculturas_discussions']['openculturas_discussions_login_link'] = [
+    'title' => t('Login link'),
+    'help' => t('Provides a login link for the anonymous user.'),
+    'area' => [
+      'id' => 'openculturas_discussions_login_link',
+    ],
+  ];
+  $data['openculturas_discussions']['openculturas_discussions_add_button'] = [
+    'title' => t('Add button'),
+    'help' => t('Provides a link to add new comment.'),
+    'area' => [
+      'id' => 'openculturas_discussions_add_button',
+    ],
+  ];
+}

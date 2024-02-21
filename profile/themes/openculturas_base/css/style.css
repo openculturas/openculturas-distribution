@@ -13559,6 +13559,52 @@ a.menu-item--toggle .menu-item--open a.menu-item--toggle:before {
   display: none;
 }
 
+@media screen and (min-width: 48rem) {
+  .comment-submitted {
+    border: 1px solid var(--color-divider-light);
+    border-width: 1px 0 0;
+    display: flex;
+    gap: 0.625rem 2.5rem;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 48rem) and (min-width: 48rem) {
+  .comment-submitted {
+    flex-flow: row nowrap;
+  }
+}
+.comment-submitted time,
+.comment-submitted .field--name-field-subtitle {
+  color: var(--color-text-muted);
+}
+
+.discussions .bundle {
+  font-weight: normal;
+  font-size: var(--font-size-default);
+}
+.discussions .node--workflow-pending::before,
+.discussions .node--unpublished::before {
+  display: inline;
+  padding: 0.5rem 1.5rem;
+}
+
+.comments-overview td:nth-child(1) {
+  min-width: 4rem;
+}
+.comments-overview td:nth-child(3) {
+  min-width: 50%;
+}
+.comments-overview .node--unpublished::before,
+.comments-overview .node--workflow-pending::before {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+}
+.comments-overview .comment-date {
+  color: var(--color-text-muted);
+}
+
 .teaser-big {
   background-color: var(--color-primary);
   position: relative;
@@ -15608,7 +15654,7 @@ h3.field__label {
 }
 @media screen and (min-width: 48rem) {
   .view-header .button {
-    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 }
 .view-header p:last-child {

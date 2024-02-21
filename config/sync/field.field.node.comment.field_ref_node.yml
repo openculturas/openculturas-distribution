@@ -1,0 +1,27 @@
+uuid: ea446f53-e7f0-4390-886a-e7419c1ed62a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ref_node
+    - node.type.comment
+_core:
+  default_config_hash: wiDGCgwLn3sp7sl0f86V7hc2eeUuRPSzyiS761JABHI
+id: node.comment.field_ref_node
+field_name: field_ref_node
+entity_type: node
+bundle: comment
+label: 'Comment on'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: oc_discussions_entity_reference_node
+      display_name: entity_reference_is_commentable
+      arguments: {  }
+field_type: entity_reference

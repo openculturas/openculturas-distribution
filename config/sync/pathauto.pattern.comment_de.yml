@@ -1,0 +1,38 @@
+uuid: 19292b13-2479-44f2-a947-647692cf1d8d
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - node
+  enforced:
+    module:
+      - openculturas_discussions
+_core:
+  default_config_hash: XrdwbE5Nf-iGsSwhN14bwL9v_JkW2tRPTLa8R0aTt3U
+id: comment_de
+label: 'Comment DE'
+type: 'canonical_entities:node'
+pattern: 'diskussion/[node:field_ref_node:target_id]/kommentar/[node:nid]'
+selection_criteria:
+  171081cd-a508-4ae0-91ee-77c795ad5b1c:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 171081cd-a508-4ae0-91ee-77c795ad5b1c
+    context_mapping:
+      node: node
+    bundles:
+      comment: comment
+  b15ec20e-e6bc-467a-9464-27e54d1c1aa3:
+    id: language
+    negate: false
+    uuid: b15ec20e-e6bc-467a-9464-27e54d1c1aa3
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      de: de
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Language
