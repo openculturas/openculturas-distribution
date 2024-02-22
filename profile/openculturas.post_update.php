@@ -573,3 +573,43 @@ function openculturas_post_update_related_content_via_term_node_tid_depth(): str
   // Output logged messages to related channel of update execution.
   return $updater->logger()->output();
 }
+
+/**
+ * Enable missing media edit button.
+ */
+function openculturas_post_update_enable_media_edit(): void {
+  if (\Drupal::moduleHandler()->moduleExists('media_library_edit') === FALSE) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $entityFormDisplay = $entity_display->getFormDisplay('node', 'location');
+  if (!$entityFormDisplay->isNew() && $entityFormDisplay->getComponent('field_supporters')) {
+    $component = $entityFormDisplay->getComponent('field_supporters');
+    $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
+    $entityFormDisplay->setComponent('field_supporters', $component);
+    $entityFormDisplay->save();
+  }
+
+  $entityFormDisplay = $entity_display->getFormDisplay('node', 'profile');
+  if (!$entityFormDisplay->isNew() && $entityFormDisplay->getComponent('field_logo')) {
+    $component = $entityFormDisplay->getComponent('field_logo');
+    $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
+    $entityFormDisplay->setComponent('field_logo', $component);
+    $entityFormDisplay->save();
+  }
+
+  $entityFormDisplay = $entity_display->getFormDisplay('node', 'event');
+
+  foreach (['field_gallery', 'field_mood_image', 'field_supporters'] as $field_name) {
+    if (!$entityFormDisplay->isNew() && $entityFormDisplay->getComponent($field_name)) {
+      $component = $entityFormDisplay->getComponent($field_name);
+      $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
+      $entityFormDisplay->setComponent($field_name, $component);
+    }
+  }
+
+  $entityFormDisplay->save();
+}
