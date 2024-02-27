@@ -21,6 +21,9 @@ function openculturas_map_install(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
   if ($field instanceof FieldConfigInterface) {
+    if ($field->getSetting('selection') !== 'categories') {
+      return;
+    }
     $selection_settings = $field->getSetting('selection_settings');
     $selection_settings['categories']['OpenCulturas - Map'] = 'OpenCulturas - Map';
     $field->setSetting('selection_settings', $selection_settings);
@@ -39,6 +42,9 @@ function openculturas_map_uninstall(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
   if ($field instanceof FieldConfigInterface) {
+    if ($field->getSetting('selection') !== 'categories') {
+      return;
+    }
     $selection_settings = $field->getSetting('selection_settings');
     unset($selection_settings['categories']['OpenCulturas - Map']);
     $field->setSetting('selection_settings', $selection_settings);
