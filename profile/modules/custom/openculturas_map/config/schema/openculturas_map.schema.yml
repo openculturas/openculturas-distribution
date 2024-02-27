@@ -1,0 +1,72 @@
+openculturas_map.settings:
+  type: config_object
+  label: 'OpenCulturas - Map settings'
+  mapping:
+    marker_icon_path:
+      type: string
+      label: 'Icon which will be used as marker on the map'
+    marker_icon_width:
+      type: integer
+      label: 'Marker width (in pixels)'
+    marker_icon_height:
+      type: integer
+      label: 'Marker height (in pixels)'
+    marker_anchor_width:
+      type: integer
+      label: 'Point of the marker width which will correspond to markers location (in pixels)'
+    marker_anchor_height:
+      type: integer
+      label: 'Point of the marker height which will correspond to markers location (in pixels)'
+    marker_anchor_popup_width:
+      type: integer
+      label: 'Point from which the popup should open relative to the marker width (in pixels)'
+    marker_anchor_popup_height:
+      type: integer
+      label: 'Point from which the popup should open relative to the marker height (in pixels)'
+    marker_cluster_anchor_popup_width:
+      type: integer
+      label: 'Point from which the popup should open relative to the cluster marker width (in pixels)'
+    marker_cluster_anchor_popup_height:
+      type: integer
+      label: 'Point from which the popup should open relative to the cluster marker height (in pixels)'
+    start_lat_position:
+      type: float
+      label: 'Starting Latitude Coordinate (Used if User was not located)'
+    start_lng_position:
+      type: float
+      label: 'Starting Longitude Coordinate (Used if User was not located)'
+    start_zoom_position:
+      type: integer
+      label: 'Starting Zoom (1-19)'
+    radius_base:
+      type: float
+      label: 'Base Number for Radius Calculation: Higher = Bigger Radius'
+
+
+block.settings.openculturas_map_block:
+  type: block_settings
+  mapping:
+    type:
+      type: string
+    show_filter:
+      type: boolean
+    show_results:
+      type: boolean
+    refresh_results_on_user_interaction:
+      type: boolean
+    control_locate:
+      type: boolean
+    control_geocode:
+      type: boolean
+    control_reset:
+      type: boolean
+    start_lat_position:
+      type: integer
+    start_lng_position:
+      type: integer
+    start_zoom_position:
+      type: integer
+    show_radius:
+      type: sequence
+      sequence:
+        type: string

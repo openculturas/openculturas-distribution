@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openculturas_map module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function openculturas_map_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
+  if ($field instanceof FieldConfigInterface) {
+    $selection_settings = $field->getSetting('selection_settings');
+    $selection_settings['categories']['OpenCulturas - Map'] = 'OpenCulturas - Map';
+    $field->setSetting('selection_settings', $selection_settings);
+    $field->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openculturas_map_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
+  if ($field instanceof FieldConfigInterface) {
+    $selection_settings = $field->getSetting('selection_settings');
+    unset($selection_settings['categories']['OpenCulturas - Map']);
+    $field->setSetting('selection_settings', $selection_settings);
+    $field->save();
+  }
+}

@@ -1,0 +1,320 @@
+// Map container
+
+.openculturas--map {
+
+  &[data-loading=true] {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  &[data-dirty=true] {
+    .openculturas--map--reload {
+      opacity: 1;
+    }
+  }
+}
+
+// Reload (results update) button on map
+
+.openculturas--map--reload {
+  @extend %button-small;
+  @extend %oc-button--primary;
+  @include icon(search);
+  opacity: 0;
+  transition: opacity 1s;
+  //background-color: $color-primary;
+  //color: $color-text-inverted;
+  //border-radius: $button-border-radius;
+  translate: 0px -29.2rem;
+  font-size: var(--font-size-s);
+  //min-height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin: 0rem auto;
+
+  &:before {
+    margin-right: .5em;
+  }
+}
+
+// Results list (teasers)
+
+.openculturas--map--results {
+
+  .map-link {
+    white-space: nowrap;
+    @include icon('map-marked');
+    @extend %button-small;
+    &::before {
+      margin-right: 0.75rem;
+    }
+  }
+}
+
+.openculturas--map--results--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: calc($grid-gutter * 2);
+}
+
+.openculturas--map--results--list > div {
+  display: flex;
+  flex-flow: column;
+  gap: 0 $grid-gutter;
+  align-items: center;
+  justify-content: space-between;
+  @include breakpoint(m) {
+    flex-flow: row nowrap;
+  }
+}
+
+.openculturas--map--container,
+body .block-system-main-block > article.layout-wide.view-mode-full .attachment-before.openculturas--map--container {
+  grid-column: 1/-1;
+  min-height: 20rem;
+  position: relative;
+}
+
+// OC adjustments to Leaflet defaults (interaction elements)
+
+.openculturas--map--leaflet {
+  min-height: 30rem;
+
+  .leaflet-div-icon {
+    background: none;
+    border: none;
+    position: relative;
+
+    .custom-cluster-icon {
+      position: relative;
+
+      img {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      span {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        background-color: $color-link;
+        color: $color-text-inverted;
+        text-align: center;
+        border-radius: 1rem;
+        margin-left: 0.0625rem;
+      }
+    }
+  }
+
+  .marker-located {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 100%;
+    // @todo: replace the following with oc custom properties
+    background: var(--color-info);
+    border: 1px solid var(--color-bg-light);
+    outline: 4px solid #6495ED4C;
+  }
+
+  .marker-cluster div {
+    width: 1.875rem;
+    height: 1.875rem;
+    line-height: 1.875rem;
+    margin-left: 0.3rem;
+    margin-top: 0.3rem;
+    text-align: center;
+  }
+
+  .marker-cluster-group-link {
+    cursor: pointer;
+  }
+
+  // Marker popups
+
+  .popup-grid {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-evenly;
+
+
+    //@todo if possible, replace px with rem measures
+    &:has(.image) {
+      min-width: 300px;
+
+      &:has(.popup-list) {
+        min-width: 400px;
+      }
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      p {
+        margin: 0;
+      }
+    }
+
+    .image {
+      max-width: 38%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        border-radius: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .leaflet-control-geocoder-icon {
+    &:focus {
+      background-color: #f4f4f4;
+    }
+  }
+
+  .leaflet-control-geocoder-expanded {
+    border: 1px solid $color-divider-dark;
+    background: $color-bg-light;
+    input {
+      &:focus {
+        border-bottom-color: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .leaflet-control-geocoder-alternatives {
+    li {
+      a {
+        &:focus,
+        &:hover {
+        color: var( --color-interaction);
+      }
+      }
+    }
+  }
+
+  .leaflet-popup-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      &:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  // Search radius
+
+  .leaflet-pane > svg path.leaflet-interactive {
+    stroke: var(--color-info);
+    fill: var(--color-info);
+  }
+}
+
+.openculturas--map--container {
+  position: relative;
+  height: 30rem;
+  overflow: visible;
+
+  .openculturas--map--leaflet {
+    height: 100%;
+    width: 100%;
+    isolation: isolate;
+  }
+}
+
+// Results filter block, toggleable
+
+.openculturas--map--overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.6rem 0 0 0;
+  padding: .25rem;
+  width: 2.5rem;
+  min-height: 4.5rem;
+  transition: transform 300ms ease;
+  z-index: +1;
+  background: $color-bg-form;
+  box-shadow: -.5rem 0.5rem 1rem -0.5rem var(--color-text);
+
+  @include icon(sliders) {
+    color: var(--color-interaction);
+    position: absolute;
+    padding: 0.5em;
+    top: .25rem;
+    right: .25em;
+    font-size: 1rem;
+  }
+
+  & > summary:before {
+    transform: rotate(90deg);
+    font-size: var(--font-size-default);
+    float: none;
+    position: absolute;
+    right: 0;
+    top: 1.75rem;
+  }
+
+  &[open] {
+    width: auto;
+    min-width: 12rem;
+    max-width: 24rem;
+    padding: 0;
+
+    & > summary:before {
+      transform: rotate(-90deg);
+      z-index: +1;
+    }
+  }
+}
+
+.openculturas--map--filter--form {
+  font-size: 1rem;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+    margin: .25rem 1.25rem;
+    background: transparent; // parent element already has form bg
+  }
+
+  .js-form-item-field-category-target-id,
+  .js-form-item-field-sub-type-target-id {
+    flex-basis: calc(50% - 0.5rem/2);
+  }
+
+  .form-item {
+    flex-grow: 1;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  input[size='30'] {
+    @include breakpoint(l) {
+      max-width: unset;
+    }
+  }
+  .ss-main {
+    width: 100%;
+  }
+}

@@ -91,6 +91,9 @@ a.menu-item--toggle:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before,
+.openculturas--map--overlay:before,
+.openculturas--map--results .map-link:before,
+.openculturas--map--reload:before,
 .button--add:before,
 .form-submit.danger:before,
 .button.danger:before,
@@ -11045,6 +11048,11 @@ textarea.error {
   background-position: right 0.5rem center !important;
 }
 
+.ui-autocomplete li.ui-menu-item {
+  background-color: var(--color-bg-light);
+  font-size: var(--font-size-s);
+}
+
 input[size] {
   width: 100%;
   max-width: 100%;
@@ -11511,7 +11519,7 @@ button {
 }
 
 .cookies-fallback .cookies-fallback--link, .cookies-fallback .cookies-fallback--btn, .cookiesjsr-layer .cookiesjsr-btn, .add-to-calendar.modal a, .leaflet-container a.leaflet-popup-close-button, .shariff .button-style-icon a, .flag a,
-.flag button, .extra-field-social-media-buttons button,
+.flag button, .extra-field-social-media-buttons button, .openculturas--map--results .map-link, .openculturas--map--reload,
 .button-small,
 .button,
 button,
@@ -11528,7 +11536,7 @@ input[type=submit] {
   border-radius: var(--button-border-radius);
   background-color: var(--color-bg-light);
 }
-.inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .flag a, .flag .inverted a, .inverted .extra-field-social-media-buttons button, .extra-field-social-media-buttons .inverted button,
+.inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .flag a, .flag .inverted a, .inverted .extra-field-social-media-buttons button, .extra-field-social-media-buttons .inverted button, .inverted .openculturas--map--results .map-link, .openculturas--map--results .inverted .map-link, .inverted .openculturas--map--reload,
 .inverted .button-small,
 .inverted .button,
 .inverted button,
@@ -11536,8 +11544,8 @@ input[type=submit] {
 .inverted input[type=submit] {
   border-color: var(--color-text-inverted);
 }
-.cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .cookiesjsr-layer .cookiesjsr-btn:focus, .add-to-calendar.modal a:focus, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .flag a:focus, .extra-field-social-media-buttons button:focus,
-.button-small:focus, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover, .flag a:not([disabled]):hover,
+.cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .cookiesjsr-layer .cookiesjsr-btn:focus, .add-to-calendar.modal a:focus, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .flag a:focus, .extra-field-social-media-buttons button:focus, .openculturas--map--results .map-link:focus, .openculturas--map--reload:focus,
+.button-small:focus, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover, .flag a:not([disabled]):hover, .openculturas--map--results .map-link:not([disabled]):hover, .openculturas--map--reload:not([disabled]):hover,
 .button-small:not([disabled]):hover,
 .button:focus,
 .button:not([disabled]):hover,
@@ -11552,14 +11560,15 @@ input[type=submit]:not([disabled]):hover {
 }
 
 .flag a,
-.flag button, .extra-field-social-media-buttons button,
+.flag button, .extra-field-social-media-buttons button, .openculturas--map--results .map-link, .openculturas--map--reload,
 .button-small {
   padding: 0.25em 1em;
   font-size: var(--font-size-s);
 }
 
 .form-submit:not([data-drupal-selector=edit-reset]),
-.button--cta {
+.button--cta,
+.openculturas--map--reload {
   color: var(--color-text-inverted);
   border-color: var(--color-link);
   background-color: var(--color-link);
@@ -11641,7 +11650,7 @@ button[type=submit].button--danger:before {
   line-height: 1;
 }
 
-.cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .cookiesjsr-layer .cookiesjsr-btn:active, .add-to-calendar.modal a:active, .leaflet-container a.leaflet-popup-close-button:active, .flag a:active, .extra-field-social-media-buttons button:active,
+.cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .cookiesjsr-layer .cookiesjsr-btn:active, .add-to-calendar.modal a:active, .leaflet-container a.leaflet-popup-close-button:active, .flag a:active, .extra-field-social-media-buttons button:active, .openculturas--map--results .map-link:active, .openculturas--map--reload:active,
 .button-small:active, .shariff .button-style-icon a:active,
 .button:active,
 button:active,
@@ -12477,6 +12486,280 @@ div.description.formtips-processed,
     top: 1.25rem;
     margin-bottom: 1.25rem;
   }
+}
+
+.openculturas--map[data-loading=true] {
+  opacity: 0.8;
+  pointer-events: none;
+}
+.openculturas--map[data-dirty=true] .openculturas--map--reload {
+  opacity: 1;
+}
+
+.openculturas--map--reload {
+  opacity: 0;
+  transition: opacity 1s;
+  translate: 0px -29.2rem;
+  font-size: var(--font-size-s);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin: 0rem auto;
+}
+.openculturas--map--reload:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f002";
+}
+.openculturas--map--reload:before {
+  margin-right: 0.5em;
+}
+
+.openculturas--map--results .map-link {
+  white-space: nowrap;
+}
+.openculturas--map--results .map-link:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f59f";
+}
+.openculturas--map--results .map-link::before {
+  margin-right: 0.75rem;
+}
+
+.openculturas--map--results--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.openculturas--map--results--list > div {
+  display: flex;
+  flex-flow: column;
+  gap: 0 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (min-width: 48rem) {
+  .openculturas--map--results--list > div {
+    flex-flow: row nowrap;
+  }
+}
+
+.openculturas--map--container,
+body .block-system-main-block > article.layout-wide.view-mode-full .attachment-before.openculturas--map--container {
+  grid-column: 1/-1;
+  min-height: 20rem;
+  position: relative;
+}
+
+.openculturas--map--leaflet {
+  min-height: 30rem;
+}
+.openculturas--map--leaflet .leaflet-div-icon {
+  background: none;
+  border: none;
+  position: relative;
+}
+.openculturas--map--leaflet .leaflet-div-icon .custom-cluster-icon {
+  position: relative;
+}
+.openculturas--map--leaflet .leaflet-div-icon .custom-cluster-icon img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.openculturas--map--leaflet .leaflet-div-icon .custom-cluster-icon span {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  background-color: var(--color-link);
+  color: var(--color-text-inverted);
+  text-align: center;
+  border-radius: 1rem;
+  margin-left: 0.0625rem;
+}
+.openculturas--map--leaflet .marker-located {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 100%;
+  background: var(--color-info);
+  border: 1px solid var(--color-bg-light);
+  outline: 4px solid rgba(100, 149, 237, 0.2980392157);
+}
+.openculturas--map--leaflet .marker-cluster div {
+  width: 1.875rem;
+  height: 1.875rem;
+  line-height: 1.875rem;
+  margin-left: 0.3rem;
+  margin-top: 0.3rem;
+  text-align: center;
+}
+.openculturas--map--leaflet .marker-cluster-group-link {
+  cursor: pointer;
+}
+.openculturas--map--leaflet .popup-grid {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+.openculturas--map--leaflet .popup-grid:has(.image) {
+  min-width: 300px;
+}
+.openculturas--map--leaflet .popup-grid:has(.image):has(.popup-list) {
+  min-width: 400px;
+}
+.openculturas--map--leaflet .popup-grid .details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.openculturas--map--leaflet .popup-grid .details p {
+  margin: 0;
+}
+.openculturas--map--leaflet .popup-grid .image {
+  max-width: 38%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.openculturas--map--leaflet .popup-grid .image img {
+  border-radius: 100%;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.openculturas--map--leaflet .leaflet-control-geocoder-icon:focus {
+  background-color: #f4f4f4;
+}
+.openculturas--map--leaflet .leaflet-control-geocoder-expanded {
+  border: 1px solid var(--color-divider-dark);
+  background: var(--color-bg-light);
+}
+.openculturas--map--leaflet .leaflet-control-geocoder-expanded input:focus {
+  border-bottom-color: none;
+  box-shadow: none;
+}
+.openculturas--map--leaflet .leaflet-control-geocoder-alternatives li a:focus, .openculturas--map--leaflet .leaflet-control-geocoder-alternatives li a:hover {
+  color: var(--color-interaction);
+}
+.openculturas--map--leaflet .leaflet-popup-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.openculturas--map--leaflet .leaflet-popup-content ul li:first-child {
+  margin-top: 1rem;
+}
+.openculturas--map--leaflet .leaflet-pane > svg path.leaflet-interactive {
+  stroke: var(--color-info);
+  fill: var(--color-info);
+}
+
+.openculturas--map--container {
+  position: relative;
+  height: 30rem;
+  overflow: visible;
+}
+.openculturas--map--container .openculturas--map--leaflet {
+  height: 100%;
+  width: 100%;
+  isolation: isolate;
+}
+
+.openculturas--map--overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.6rem 0 0 0;
+  padding: 0.25rem;
+  width: 2.5rem;
+  min-height: 4.5rem;
+  transition: transform 300ms ease;
+  z-index: 1;
+  background: var(--color-bg-form);
+  box-shadow: -0.5rem 0.5rem 1rem -0.5rem var(--color-text);
+}
+.openculturas--map--overlay:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  color: var(--color-interaction);
+  position: absolute;
+  padding: 0.5em;
+  top: 0.25rem;
+  right: 0.25em;
+  font-size: 1rem;
+  content: "\f1de";
+}
+.openculturas--map--overlay > summary:before {
+  transform: rotate(90deg);
+  font-size: var(--font-size-default);
+  float: none;
+  position: absolute;
+  right: 0;
+  top: 1.75rem;
+}
+.openculturas--map--overlay[open] {
+  width: auto;
+  min-width: 12rem;
+  max-width: 24rem;
+  padding: 0;
+}
+.openculturas--map--overlay[open] > summary:before {
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+
+.openculturas--map--filter--form {
+  font-size: 1rem;
+}
+.openculturas--map--filter--form form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  margin: 0.25rem 1.25rem;
+  background: transparent;
+}
+.openculturas--map--filter--form .js-form-item-field-category-target-id,
+.openculturas--map--filter--form .js-form-item-field-sub-type-target-id {
+  flex-basis: calc(50% - 0.25rem);
+}
+.openculturas--map--filter--form .form-item {
+  flex-grow: 1;
+}
+.openculturas--map--filter--form select {
+  width: 100%;
+}
+@media screen and (min-width: 62rem) {
+  .openculturas--map--filter--form input[size="30"] {
+    max-width: unset;
+  }
+}
+.openculturas--map--filter--form .ss-main {
+  width: 100%;
 }
 
 .block-social-media-links-block .block-social-media-links--wrapper {
@@ -13870,28 +14153,32 @@ body:not(.path-frontpage) .node.view-mode-full > .node__content > details.grid-c
 .profile-teaser.view-mode-compact {
   align-items: center;
 }
-.profile-teaser.view-mode-teaser .profile--picture,
-.profile-teaser.view-mode-compact .profile--picture {
+.profile-teaser.view-mode-teaser .profile--picture, .profile-teaser.view-mode-teaser .profile--spacing,
+.profile-teaser.view-mode-compact .profile--picture,
+.profile-teaser.view-mode-compact .profile--spacing {
   text-align: center;
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
 }
 @media screen and (min-width: 48rem) {
-  .profile-teaser.view-mode-teaser .profile--picture,
-  .profile-teaser.view-mode-compact .profile--picture {
+  .profile-teaser.view-mode-teaser .profile--picture, .profile-teaser.view-mode-teaser .profile--spacing,
+  .profile-teaser.view-mode-compact .profile--picture,
+  .profile-teaser.view-mode-compact .profile--spacing {
     width: 7rem;
     height: 7rem;
     min-width: 7rem;
   }
 }
-.profile-teaser.view-mode-teaser .profile--picture:before,
-.profile-teaser.view-mode-compact .profile--picture:before {
+.profile-teaser.view-mode-teaser .profile--picture:before, .profile-teaser.view-mode-teaser .profile--spacing:before,
+.profile-teaser.view-mode-compact .profile--picture:before,
+.profile-teaser.view-mode-compact .profile--spacing:before {
   font-size: 2rem;
 }
 @media screen and (min-width: 48rem) {
-  .profile-teaser.view-mode-teaser .profile--picture:before,
-  .profile-teaser.view-mode-compact .profile--picture:before {
+  .profile-teaser.view-mode-teaser .profile--picture:before, .profile-teaser.view-mode-teaser .profile--spacing:before,
+  .profile-teaser.view-mode-compact .profile--picture:before,
+  .profile-teaser.view-mode-compact .profile--spacing:before {
     font-size: 4rem;
   }
 }
@@ -13913,23 +14200,23 @@ body:not(.path-frontpage) .node.view-mode-full > .node__content > details.grid-c
 .profile-teaser.view-mode-compact {
   gap: 1.25rem;
 }
-.profile-teaser.view-mode-compact .profile--picture {
+.profile-teaser.view-mode-compact .profile--picture, .profile-teaser.view-mode-compact .profile--spacing {
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
 }
 @media screen and (min-width: 48rem) {
-  .profile-teaser.view-mode-compact .profile--picture {
+  .profile-teaser.view-mode-compact .profile--picture, .profile-teaser.view-mode-compact .profile--spacing {
     width: 4rem;
     height: 4rem;
     min-width: 4rem;
   }
 }
-.profile-teaser.view-mode-compact .profile--picture:before {
+.profile-teaser.view-mode-compact .profile--picture:before, .profile-teaser.view-mode-compact .profile--spacing:before {
   font-size: 2rem;
 }
 @media screen and (min-width: 48rem) {
-  .profile-teaser.view-mode-compact .profile--picture:before {
+  .profile-teaser.view-mode-compact .profile--picture:before, .profile-teaser.view-mode-compact .profile--spacing:before {
     font-size: 2rem;
   }
 }
@@ -13942,13 +14229,13 @@ body:not(.path-frontpage) .node.view-mode-full > .node__content > details.grid-c
 .profile-teaser.view-mode-legal .profile-basics {
   align-items: left;
 }
-.profile-teaser.view-mode-legal .profile--picture {
+.profile-teaser.view-mode-legal .profile--picture, .profile-teaser.view-mode-legal .profile--spacing {
   text-align: center;
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
 }
-.profile-teaser.view-mode-legal .profile--picture:before {
+.profile-teaser.view-mode-legal .profile--picture:before, .profile-teaser.view-mode-legal .profile--spacing:before {
   font-size: 2rem;
 }
 

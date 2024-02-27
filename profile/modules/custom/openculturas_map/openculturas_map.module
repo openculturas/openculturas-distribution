@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for OpenCulturas Map module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Cache\CacheableMetadata;
+
+/**
+ * Implements hook_theme().
+ */
+function openculturas_map_theme(): array {
+  return [
+    'block__openculturas_map' => [
+      'base hook' => 'block',
+      'template' => 'block--openculturas-map',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block.
+ */
+function openculturas_map_preprocess_block(array &$variables): void {
+  if ($variables['elements']['#plugin_id'] === 'openculturas_map_block') {
+    $id = Html::getUniqueId('openculturas_map');
+    // Create Unique-Id and attach to configuration and drupalSettings.
+    $variables['configuration']['identifier'] = $id;
+    $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id] = $variables['configuration'];
+    if (isset($variables['elements']['content']['filter']['form']['#pager']->options)) {
+      $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id]['pager'] = $variables['elements']['content']['filter']['form']['#pager']->options;
+    }
+
+    $config = \Drupal::config('openculturas_map.settings');
+    foreach ($config->getRawData() as $configKey => $configValue) {
+      if (str_starts_with($configKey, "_")) {
+        continue;
+      }
+
+      if ($configKey === 'marker_icon_path' && trim($configValue, '/') === 'default') {
+        $configValue = "/" . \Drupal::service('module_handler')->getModule('openculturas_map')->getPath() . "/assets/map_marker.svg";
+      }
+
+      $variables['#attached']['drupalSettings']['openCulturasMap']['global'][$configKey] = $configValue;
+    }
+
+    // Attach Library.
+    $variables['#attached']['library'][] = 'openculturas_map/openculturas_map_block';
+
+    $cache = new CacheableMetadata();
+    $cache->addCacheableDependency($config);
+    $cache->applyTo($variables);
+  }
+}

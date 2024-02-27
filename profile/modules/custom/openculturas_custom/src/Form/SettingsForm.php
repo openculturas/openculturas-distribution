@@ -29,7 +29,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $formState) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $classMap = $this->config('openculturas_custom.settings')
       ->get('allowed_classes');
     $classes = [];
@@ -44,30 +44,30 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('One class|label pair per line, use only letters and underscores (no dashes or spaces) in label.'),
       '#default_value' => implode("\r\n", $classes),
     ];
-    return parent::buildForm($form, $formState);
+    return parent::buildForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $formState): void {
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
     try {
-      $this->explodeClasses($formState->getValue('allowed_classes'));
+      $this->explodeClasses($form_state->getValue('allowed_classes'));
     }
     catch (InvalidFormatException $invalidFormatException) {
-      $formState->setErrorByName('allowed_classes', $invalidFormatException->getMessage());
+      $form_state->setErrorByName('allowed_classes', $invalidFormatException->getMessage());
     }
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $formState): void {
-    $classMap = $this->explodeClasses($formState->getValue('allowed_classes'));
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $classMap = $this->explodeClasses($form_state->getValue('allowed_classes'));
     $this->config('openculturas_custom.settings')
       ->set('allowed_classes', $classMap)
       ->save();
-    parent::submitForm($form, $formState);
+    parent::submitForm($form, $form_state);
   }
 
   /**
