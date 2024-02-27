@@ -21,11 +21,14 @@ function openculturas_map_install(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
   if ($field instanceof FieldConfigInterface) {
-    if ($field->getSetting('selection') !== 'categories') {
-      return;
-    }
     $selection_settings = $field->getSetting('selection_settings');
-    $selection_settings['categories']['OpenCulturas - Map'] = 'OpenCulturas - Map';
+    if ($field->getSetting('selection') === 'categories') {
+      $selection_settings['categories']['OpenCulturas - Map'] = 'OpenCulturas - Map';
+    }
+    elseif ($field->getSetting('selection') === 'blocks') {
+      $selection_settings['plugin_ids']['openculturas_map_block'] = 'openculturas_map_block';
+    }
+
     $field->setSetting('selection_settings', $selection_settings);
     $field->save();
   }
@@ -42,11 +45,14 @@ function openculturas_map_uninstall(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'block', 'field_block_ref');
   if ($field instanceof FieldConfigInterface) {
-    if ($field->getSetting('selection') !== 'categories') {
-      return;
-    }
     $selection_settings = $field->getSetting('selection_settings');
-    unset($selection_settings['categories']['OpenCulturas - Map']);
+    if ($field->getSetting('selection') === 'categories') {
+      unset($selection_settings['categories']['OpenCulturas - Map']);
+    }
+    elseif ($field->getSetting('selection') === 'blocks') {
+      unset($selection_settings['plugin_ids']['openculturas_map_block']);
+    }
+
     $field->setSetting('selection_settings', $selection_settings);
     $field->save();
   }
