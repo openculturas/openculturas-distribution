@@ -79,8 +79,8 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $formState): array {
-    $form = parent::buildConfigurationForm($form, $formState);
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::buildConfigurationForm($form, $form_state);
     $form['page_title_block'] = [
       '#type' => 'details',
       '#title' => $this->t('Components'),
@@ -114,11 +114,11 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function blockSubmit($form, FormStateInterface $formState): void {
-    $this->configuration['subheadline_display'] = $formState->getValue(['page_title_block', 'subheadline_display']);
-    $this->configuration['subtype_display'] = $formState->getValue(['page_title_block', 'subtype_display']);
-    $this->configuration['profilepicture_display'] = $formState->getValue(['page_title_block', 'profilepicture_display']);
-    parent::blockSubmit($form, $formState);
+  public function blockSubmit($form, FormStateInterface $form_state): void {
+    $this->configuration['subheadline_display'] = $form_state->getValue(['page_title_block', 'subheadline_display']);
+    $this->configuration['subtype_display'] = $form_state->getValue(['page_title_block', 'subtype_display']);
+    $this->configuration['profilepicture_display'] = $form_state->getValue(['page_title_block', 'profilepicture_display']);
+    parent::blockSubmit($form, $form_state);
   }
 
   /**

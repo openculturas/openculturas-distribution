@@ -48,7 +48,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $formState): array {
+  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
 
     $form['#type'] = 'details';
@@ -83,7 +83,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
   /**
    * Find the first media reference field in entity's selected viewmode.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $contentEntity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity.
    * @param string $viewMode
    *   Selected viewmode.
@@ -94,24 +94,24 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function getTeaserMediaId(ContentEntityInterface $contentEntity, string $viewMode): ?int {
-    $entityType = $contentEntity->getEntityTypeId();
-    $bundle = $contentEntity->bundle();
+  protected function getTeaserMediaId(ContentEntityInterface $entity, string $viewMode): ?int {
+    $entityType = $entity->getEntityTypeId();
+    $bundle = $entity->bundle();
 
-    $layoutBuilderEntityViewDisplayStorage = $this->entityTypeManager->getStorage('entity_view_display');
-    $display = $layoutBuilderEntityViewDisplayStorage->load(sprintf('%s.%s.%s', $entityType, $bundle, $viewMode));
+    $viewModeStorage = $this->entityTypeManager->getStorage('entity_view_display');
+    $display = $viewModeStorage->load(sprintf('%s.%s.%s', $entityType, $bundle, $viewMode));
     if ($display instanceof EntityViewDisplayInterface) {
       foreach ($display->getComponents() as $key => $item) {
         if ($item['type'] == 'entity_reference_entity_view') {
           /** @var \Drupal\Core\Field\FieldConfigInterface|null $fieldConfig */
-          $fieldConfig = $contentEntity->getFieldDefinition($key);
+          $fieldConfig = $entity->getFieldDefinition($key);
           if (!$fieldConfig instanceof FieldConfigInterface) {
             return NULL;
           }
 
           $handler = $fieldConfig->getSetting('handler');
           if ($handler == 'default:media') {
-            $mediaReferenceItem = $contentEntity->get($key)->first();
+            $mediaReferenceItem = $entity->get($key)->first();
             if ($mediaReferenceItem instanceof EntityReferenceItem) {
               return (int) ($mediaReferenceItem->target_id);
             }

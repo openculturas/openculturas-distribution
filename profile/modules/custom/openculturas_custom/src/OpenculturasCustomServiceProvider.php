@@ -18,20 +18,20 @@ class OpenculturasCustomServiceProvider extends ServiceProviderBase {
   /**
    * {@inheritdoc}
    */
-  public function alter(ContainerBuilder $containerBuilder): void {
-    $filter_protocols = $containerBuilder->getParameter('filter_protocols');
+  public function alter(ContainerBuilder $container): void {
+    $filter_protocols = $container->getParameter('filter_protocols');
     if (is_array($filter_protocols)) {
       $filter_protocols[] = 'geo';
-      $containerBuilder->setParameter('filter_protocols', $filter_protocols);
+      $container->setParameter('filter_protocols', $filter_protocols);
     }
 
-    $modules = $containerBuilder->getParameter('container.modules');
+    $modules = $container->getParameter('container.modules');
     if (is_array($modules) && isset($modules['default_content'])) {
-      $definition = new Definition(Normalizer::class, [
+      $service_definition = new Definition(Normalizer::class, [
         new Reference('default_content_fixes.normalizer.inner'),
       ]);
-      $definition->setDecoratedService('default_content.content_entity_normalizer', NULL, 9);
-      $containerBuilder->setDefinition('default_content_fixes.normalizer', $definition);
+      $service_definition->setDecoratedService('default_content.content_entity_normalizer', NULL, 9);
+      $container->setDefinition('default_content_fixes.normalizer', $service_definition);
     }
   }
 

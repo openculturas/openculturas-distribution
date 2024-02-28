@@ -27,8 +27,8 @@ final class EventMoodImage extends ExtraFieldBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $contentEntity): array {
-    $build = parent::viewElements($contentEntity);
+  public function viewElements(ContentEntityInterface $entity): array {
+    $build = parent::viewElements($entity);
     if ($build !== [] && $this->eventEntity instanceof NodeInterface && is_array($this->referenceViewFormatterSettings)) {
       $renderArray = $this->eventEntity->get($this->getFieldNameInEntityReference())->view($this->referenceViewFormatterSettings);
       $build['#markup'] = $this->renderer->render($renderArray);

@@ -43,7 +43,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $formState, ?Url $url = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?Url $url = NULL): array {
     $config = $this->configFactory()->getEditable('openculturas_calendar_widget.settings');
     $iframe_src = $url instanceof Url ? $url->toString() : '';
     $form['container'] = [
@@ -99,7 +99,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $formState): void {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
   }
 
   public static function embedCodeWidgetElement(array &$element, ?string $iframe_src): void {

@@ -26,7 +26,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $entityViewDisplay, $view_mode): void {
+  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $originalField = $build['field_url_single_value'][0];
     $url = $originalField['#url'];
@@ -61,8 +61,8 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $formState): array {
-    parent::buildBehaviorForm($paragraph, $form, $formState);
+  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
+    parent::buildBehaviorForm($paragraph, $form, $form_state);
     // Pay attention to the hash(#) !
     unset($form['title']);
     $form['#title'] = $this->t('Additional teaser content');
@@ -72,14 +72,14 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public static function isApplicable(ParagraphsTypeInterface $paragraphsType): bool {
+  public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $fieldManager */
     $fieldManager = \Drupal::service('entity_field.manager');
-    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphsType->id());
+    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
     $ef = $fieldManager->getBaseFieldDefinitions('paragraph');
     $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
-    foreach ($fieldKeys as $fieldKey) {
-      $fieldDefinition = $fd[$fieldKey];
+    foreach ($fieldKeys as $item) {
+      $fieldDefinition = $fd[$item];
       if ($fieldDefinition->getType() == 'link') {
         return TRUE;
       }

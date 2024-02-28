@@ -19,23 +19,23 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
    */
   protected TermBreadcrumbBuilder $breadcrumbBuilder;
 
-  public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $termBreadcrumbBuilder): void {
-    $this->breadcrumbBuilder = $termBreadcrumbBuilder;
+  public function setTermBreadcrumbBuilder(TermBreadcrumbBuilder $breadcrumbBuilder): void {
+    $this->breadcrumbBuilder = $breadcrumbBuilder;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function applies(RouteMatchInterface $routeMatch) {
-    return $this->breadcrumbBuilder->applies($routeMatch);
+  public function applies(RouteMatchInterface $route_match) {
+    return $this->breadcrumbBuilder->applies($route_match);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function build(RouteMatchInterface $routeMatch): Breadcrumb {
-    $breadcrumb_by_path = parent::build($routeMatch);
-    $breadcrumb_by_term = $this->breadcrumbBuilder->build($routeMatch);
+  public function build(RouteMatchInterface $route_match): Breadcrumb {
+    $breadcrumb_by_path = parent::build($route_match);
+    $breadcrumb_by_term = $this->breadcrumbBuilder->build($route_match);
 
     if (count($breadcrumb_by_path->getLinks()) > 1) {
       return $breadcrumb_by_path;

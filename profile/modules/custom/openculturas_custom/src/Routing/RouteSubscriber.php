@@ -16,28 +16,28 @@ class RouteSubscriber extends RouteSubscriberBase {
   /**
    * {@inheritdoc}
    */
-  protected function alterRoutes(RouteCollection $routeCollection): void {
+  protected function alterRoutes(RouteCollection $collection): void {
     // Display account edit in frontend theme.
-    if (($route = $routeCollection->get('entity.user.edit_form')) instanceof Route) {
+    if (($route = $collection->get('entity.user.edit_form')) instanceof Route) {
       $route->setOption('_admin_route', FALSE);
       return;
     }
 
-    if (($route = $routeCollection->get('entity.user.cancel_form')) instanceof Route) {
+    if (($route = $collection->get('entity.user.cancel_form')) instanceof Route) {
       $route->setOption('_admin_route', FALSE);
       return;
     }
 
-    if (($route = $routeCollection->get('user.register')) instanceof Route) {
+    if (($route = $collection->get('user.register')) instanceof Route) {
       $route->setRequirement('_user_is_logged_in', 'FALSE');
     }
 
-    if (($route = $routeCollection->get('checklistapi.checklists.update_helper_checklist')) instanceof Route) {
+    if (($route = $collection->get('checklistapi.checklists.update_helper_checklist')) instanceof Route) {
       $route->setDefault('_title', 'OpenCulturas update instructions');
     }
 
     // Always deny access to '/admin/config/development/update-helper/clear'.
-    if (($route = $routeCollection->get('checklistapi.checklists.update_helper_checklist.clear')) instanceof Route) {
+    if (($route = $collection->get('checklistapi.checklists.update_helper_checklist.clear')) instanceof Route) {
       $route->setRequirement('_access', 'FALSE');
     }
 

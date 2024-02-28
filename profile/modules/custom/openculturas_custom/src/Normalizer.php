@@ -14,16 +14,16 @@ use function is_callable;
  */
 class Normalizer implements ContentEntityNormalizerInterface {
 
-  public function __construct(private readonly ContentEntityNormalizer $contentEntityNormalizer) {
+  public function __construct(private readonly ContentEntityNormalizer $inner) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function normalize(ContentEntityInterface $contentEntity) {
-    $data = $this->contentEntityNormalizer->normalize($contentEntity);
-    $path = $contentEntity->path ?? NULL;
-    if (!$contentEntity->isNew() && $path) {
+  public function normalize(ContentEntityInterface $entity) {
+    $data = $this->inner->normalize($entity);
+    $path = $entity->path ?? NULL;
+    if (!$entity->isNew() && $path) {
       foreach ($path as $item) {
         if (!$item->pathauto && $item->pid) {
           $value = $item->getValue();
@@ -40,7 +40,7 @@ class Normalizer implements ContentEntityNormalizerInterface {
    * {@inheritdoc}
    */
   public function denormalize(array $data) {
-    return $this->contentEntityNormalizer->denormalize($data);
+    return $this->inner->denormalize($data);
   }
 
   /**
@@ -53,8 +53,8 @@ class Normalizer implements ContentEntityNormalizerInterface {
    *   The return value of method call.
    */
   public function __call($method, mixed $args) {
-    if (is_callable([$this->contentEntityNormalizer, $method])) {
-      return ($this->contentEntityNormalizer->{$method})(...$args);
+    if (is_callable([$this->inner, $method])) {
+      return ($this->inner->{$method})(...$args);
     }
 
     return NULL;

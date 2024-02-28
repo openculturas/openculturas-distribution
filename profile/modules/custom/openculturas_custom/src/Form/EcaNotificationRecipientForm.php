@@ -20,9 +20,9 @@ class EcaNotificationRecipientForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, FormStateInterface $formState): array {
+  public function form(array $form, FormStateInterface $form_state): array {
 
-    $form = parent::form($form, $formState);
+    $form = parent::form($form, $form_state);
 
     $form['label'] = [
       '#type' => 'email',
@@ -81,14 +81,14 @@ class EcaNotificationRecipientForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $formState) {
-    $result = parent::save($form, $formState);
+  public function save(array $form, FormStateInterface $form_state) {
+    $result = parent::save($form, $form_state);
     $message_args = ['%label' => $this->entity->label()];
     $message = $result == SAVED_NEW
       ? $this->t('Created new notification recipient %label.', $message_args)
       : $this->t('Updated notification recipient %label.', $message_args);
     $this->messenger()->addStatus($message);
-    $formState->setRedirectUrl($this->entity->toUrl('collection'));
+    $form_state->setRedirectUrl($this->entity->toUrl('collection'));
     return $result;
   }
 

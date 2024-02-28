@@ -101,9 +101,9 @@ function openculturas_base_preprocess_node(array &$variables): void {
       'field_portrait',
       'field_premiere',
     ];
-    foreach ($hidden_fields as $hidden_field) {
-      if (isset($variables['content'][$hidden_field])) {
-        $variables["content"][$hidden_field]['#access'] = FALSE;
+    foreach ($hidden_fields as $name) {
+      if (isset($variables['content'][$name])) {
+        $variables["content"][$name]['#access'] = FALSE;
       }
     }
 

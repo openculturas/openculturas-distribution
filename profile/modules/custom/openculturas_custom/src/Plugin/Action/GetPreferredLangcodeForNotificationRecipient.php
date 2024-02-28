@@ -32,8 +32,8 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $formState): array {
-    $form = parent::buildConfigurationForm($form, $formState);
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::buildConfigurationForm($form, $form_state);
     $form['recipient'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email of recipient'),
@@ -52,10 +52,10 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $formState): void {
-    $this->configuration['token_name'] = $formState->getValue('token_name');
-    $this->configuration['recipient'] = $formState->getValue('recipient');
-    parent::submitConfigurationForm($form, $formState);
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
+    $this->configuration['token_name'] = $form_state->getValue('token_name');
+    $this->configuration['recipient'] = $form_state->getValue('recipient');
+    parent::submitConfigurationForm($form, $form_state);
   }
 
   /**

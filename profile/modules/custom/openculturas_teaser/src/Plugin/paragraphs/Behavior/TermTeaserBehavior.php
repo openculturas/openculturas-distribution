@@ -30,8 +30,8 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $formState): array {
-    parent::buildBehaviorForm($paragraph, $form, $formState);
+  public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
+    parent::buildBehaviorForm($paragraph, $form, $form_state);
     $referenceItems = $paragraph->get('field_term')->referencedEntities();
     $entity = reset($referenceItems);
     if ($entity instanceof TermInterface && !$entity->hasField('field_subtitle')) {
@@ -44,7 +44,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $entityViewDisplay, $view_mode): void {
+  public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $buildTerm = &$build['field_term'][0];
     $this->cacheTags = $build['#cache']['tags'];
@@ -65,13 +65,13 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public static function isApplicable(ParagraphsTypeInterface $paragraphsType): bool {
+  public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
     $fieldManager = \Drupal::service('entity_field.manager');
-    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphsType->id());
+    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
     $ef = $fieldManager->getBaseFieldDefinitions('paragraph');
     $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
-    foreach ($fieldKeys as $fieldKey) {
-      $fieldDefinition = $fd[$fieldKey];
+    foreach ($fieldKeys as $item) {
+      $fieldDefinition = $fd[$item];
       if ($fieldDefinition->getType() == 'entity_reference') {
         $handler = $fieldDefinition->getSetting('handler');
         if ($handler == 'default:taxonomy_term') {

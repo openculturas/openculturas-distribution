@@ -43,12 +43,12 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
   /**
    * Adds enforced dependency and adds back the uuid for view config entities.
    *
-   * @param \Drupal\config_devel\Event\ConfigDevelSaveEvent $configDevelSaveEvent
+   * @param \Drupal\config_devel\Event\ConfigDevelSaveEvent $event
    *   The ConfigDevelSaveEvent event object.
    */
-  public function onConfigDevelSave(ConfigDevelSaveEvent $configDevelSaveEvent): void {
-    $data = $configDevelSaveEvent->getData();
-    $file_names = $configDevelSaveEvent->getFileNames();
+  public function onConfigDevelSave(ConfigDevelSaveEvent $event): void {
+    $data = $event->getData();
+    $file_names = $event->getFileNames();
     $file_path = reset($file_names);
     $config_name = pathinfo((string) $file_path, PATHINFO_FILENAME);
     $entity_type_id = $this->configManager->getEntityTypeIdByName($config_name);
@@ -62,13 +62,13 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $configEntity = $this->configManager->loadConfigEntityByName($config_name);
       if ($configEntity instanceof ViewEntityInterface && $configEntity->uuid() !== NULL) {
         $data = ['uuid' => $configEntity->uuid()] + $data;
-        $configDevelSaveEvent->setData($data);
+        $event->setData($data);
       }
     }
 
     if ($extension === 'openculturas-profile' && $config_name === 'user.role.oc_admin') {
-      $this->excludeOpenCulturasFaq($configDevelSaveEvent);
-      $this->excludeRoleDelegation($configDevelSaveEvent);
+      $this->excludeOpenCulturasFaq($event);
+      $this->excludeRoleDelegation($event);
     }
 
     if ($extension === 'openculturas-profile' && (
@@ -78,7 +78,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       str_starts_with($config_name, 'core.entity_view_display.node') ||
       str_starts_with($config_name, 'user.role.')
     )) {
-      $this->excludeOpenCulturasDiscussions($configDevelSaveEvent);
+      $this->excludeOpenCulturasDiscussions($event);
     }
 
     // // @phpstan-ignore-next-line
@@ -97,7 +97,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     $data['dependencies']['enforced']['module'][] = $extension;
     $data['dependencies']['enforced']['module'] = array_unique($data['dependencies']['enforced']['module']);
 
-    $configDevelSaveEvent->setData($data);
+    $event->setData($data);
   }
 
   /**

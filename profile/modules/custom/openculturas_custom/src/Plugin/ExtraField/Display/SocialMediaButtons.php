@@ -61,7 +61,7 @@ final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function viewElements(ContentEntityInterface $contentEntity): array {
+  public function viewElements(ContentEntityInterface $entity): array {
     /** @var \Drupal\shariff\Plugin\Block\ShariffBlock $block */
     $block = $this->pluginManager->createInstance('shariff_block');
     return $block->build();

@@ -27,14 +27,14 @@ class OpenCulturasFaqUninstallValidator implements ModuleUninstallValidatorInter
   /**
    * Constructs a new OpenCulturasFrequentlyAskedQuestionsUninstallValidator.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    *   The entity manager.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, TranslationInterface $translation) {
-    $this->nodeStorage = $entityTypeManager->getStorage('node');
-    $this->setStringTranslation($translation);
+  public function __construct(EntityTypeManagerInterface $entity_manager, TranslationInterface $string_translation) {
+    $this->nodeStorage = $entity_manager->getStorage('node');
+    $this->setStringTranslation($string_translation);
   }
 
   /**

@@ -79,13 +79,13 @@ function openculturas_faq_update_9304(): void {
  * Deletes removed update_helper_checklist updates.
  */
 function openculturas_faq_update_9401(): void {
-  $entityStorage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
+  $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
 
   $checklist_items = [
     'openculturas_faq:openculturas_faq_update_9001',
     'openculturas_faq:openculturas_faq_update_9302',
     'openculturas_faq:openculturas_faq_update_9303',
   ];
-  $entities = $entityStorage->loadMultiple($checklist_items);
-  $entityStorage->delete($entities);
+  $entities = $storage->loadMultiple($checklist_items);
+  $storage->delete($entities);
 }

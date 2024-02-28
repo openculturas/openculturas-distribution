@@ -33,15 +33,15 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
   /**
    * {@inheritdoc}
    */
-  public function buildOptionsForm(array &$form, FormStateInterface $formState, array $options_parents, $is_exposed = FALSE): void {
-    parent::buildOptionsForm($form, $formState, $options_parents, $is_exposed);
+  public function buildOptionsForm(array &$form, FormStateInterface $form_state, array $options_parents, $is_exposed = FALSE): void {
+    parent::buildOptionsForm($form, $form_state, $options_parents, $is_exposed);
 
     if (!$is_exposed) {
 
       $form['settings']['#access'] = FALSE;
       $form['use_autocomplete']['#access'] = FALSE;
 
-      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), static fn(FilterPluginBase $filterPluginBase): bool => $filterPluginBase instanceof GeocodeOriginCombine);
+      $filters = array_filter($this->viewHandler->view->getDisplay()->getHandlers('filter'), static fn(FilterPluginBase $filter): bool => $filter instanceof GeocodeOriginCombine);
       $filter_options = [];
       foreach ($filters as $id => $filter) {
         $filter_options[$id] = $filter->adminLabel();
@@ -92,8 +92,8 @@ final class GeocodeOriginFromCombine extends GeocodeOrigin {
     }
   }
 
-  public function findMyLocationAfterBuild(array $element, FormStateInterface $formState): array {
-    $form = $formState->getCompleteForm();
+  public function findMyLocationAfterBuild(array $element, FormStateInterface $form_state): array {
+    $form = $form_state->getCompleteForm();
     array_pop($element['#array_parents']);
     $key_exists = NULL;
     $container = NestedArray::getValue($form, $element['#array_parents'], $key_exists);

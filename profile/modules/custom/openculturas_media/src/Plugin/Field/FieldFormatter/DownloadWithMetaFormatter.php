@@ -41,20 +41,20 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $downloadWithMetaFormatter = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $downloadWithMetaFormatter->mimeFormatter = $container->get('openculturas_media.readable_mime');
-    $downloadWithMetaFormatter->languageManager = $container->get('language_manager');
-    return $downloadWithMetaFormatter;
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->mimeFormatter = $container->get('openculturas_media.readable_mime');
+    $instance->languageManager = $container->get('language_manager');
+    return $instance;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $fieldItemList, $langcode): array {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
 
     $build = [];
-    $elements = parent::viewElements($fieldItemList, $langcode);
-    $parentAdapter = $fieldItemList->getParent();
+    $elements = parent::viewElements($items, $langcode);
+    $parentAdapter = $items->getParent();
     if ($parentAdapter instanceof EntityAdapter) {
       /** @var \Drupal\media\MediaInterface|null $parent */
       $parent = $parentAdapter->getValue();
@@ -63,7 +63,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
       }
 
       $predefined = $this->languageManager->getStandardLanguageList();
-      foreach ($fieldItemList as $delta => $item) {
+      foreach ($items as $delta => $item) {
         $attribute = new Attribute();
         $build[$delta] = [
           '#theme' => 'media_download',

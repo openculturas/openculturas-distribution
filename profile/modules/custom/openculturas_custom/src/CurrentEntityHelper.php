@@ -26,8 +26,8 @@ final class CurrentEntityHelper {
     }
 
     $types = array_keys(\Drupal::entityTypeManager()->getDefinitions());
-    $routeMatch = \Drupal::routeMatch();
-    $params = $routeMatch->getParameters()->all();
+    $route = \Drupal::routeMatch();
+    $params = $route->getParameters()->all();
     foreach ($types as $type) {
       if (empty($params[$type])) {
         continue;
@@ -51,28 +51,28 @@ final class CurrentEntityHelper {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public static function getEventReference(?ContentEntityInterface $contentEntity): ?ContentEntityInterface {
-    if (!$contentEntity instanceof ContentEntityInterface) {
-      return $contentEntity;
+  public static function getEventReference(?ContentEntityInterface $entity): ?ContentEntityInterface {
+    if (!$entity instanceof ContentEntityInterface) {
+      return $entity;
     }
 
-    if ($contentEntity->bundle() !== 'date') {
-      return $contentEntity;
+    if ($entity->bundle() !== 'date') {
+      return $entity;
     }
 
-    if (!$contentEntity->hasField('field_event_description')) {
-      return $contentEntity;
+    if (!$entity->hasField('field_event_description')) {
+      return $entity;
     }
 
-    if ($contentEntity->get('field_event_description')->isEmpty()) {
-      return $contentEntity;
+    if ($entity->get('field_event_description')->isEmpty()) {
+      return $entity;
     }
 
-    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $fieldItemList */
-    $fieldItemList = $contentEntity->get('field_event_description');
-    $event_item = $fieldItemList->first();
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
+    $event_list = $entity->get('field_event_description');
+    $event_item = $event_list->first();
     if (!$event_item instanceof EntityReferenceItem) {
-      return $contentEntity;
+      return $entity;
     }
 
     assert($event_item->entity instanceof NodeInterface);

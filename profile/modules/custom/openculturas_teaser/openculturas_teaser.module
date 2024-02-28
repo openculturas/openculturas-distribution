@@ -29,7 +29,7 @@ function openculturas_teaser_theme(array $existing, string $type, string $theme,
 /**
  * Implements hook_field_widget_single_element_form_alter().
  */
-function openculturas_teaser_field_widget_single_element_form_alter(array &$element, FormStateInterface $formState, array $context): void {
+function openculturas_teaser_field_widget_single_element_form_alter(array &$element, FormStateInterface $form_state, array $context): void {
   if (array_key_exists('#paragraph_type', $element)) {
     switch ($element['#paragraph_type']) {
       case 'teaser_node':

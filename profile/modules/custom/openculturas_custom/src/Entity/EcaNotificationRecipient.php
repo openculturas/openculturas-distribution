@@ -94,9 +94,9 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $entityStorage): void {
+  public function preSave(EntityStorageInterface $storage): void {
     $this->eca_model = array_filter($this->eca_model);
-    parent::preSave($entityStorage);
+    parent::preSave($storage);
   }
 
   /**

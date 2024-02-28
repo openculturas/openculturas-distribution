@@ -37,22 +37,22 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $downloadUrlFormatter = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $downloadUrlFormatter->fileStorage = $container->get('entity_type.manager')->getStorage('file');
-    return $downloadUrlFormatter;
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->fileStorage = $container->get('entity_type.manager')->getStorage('file');
+    return $instance;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $fieldItemList, $langcode): array {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
     $settings = $this->getSettings();
-    $parentAdapter = $fieldItemList->getParent();
+    $parentAdapter = $items->getParent();
     if ($parentAdapter instanceof EntityAdapter) {
       $parent = $parentAdapter->getValue()->id();
 
-      foreach ($fieldItemList as $delta => $item) {
+      foreach ($items as $delta => $item) {
 
         $route_parameters = ['media' => $parent];
         $url_options = [];

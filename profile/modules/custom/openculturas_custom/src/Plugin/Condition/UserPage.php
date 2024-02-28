@@ -50,7 +50,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $formState): array {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form['enabled'] = [
       '#title' => $this->t('Enable condition'),
       '#type' => 'checkbox',
@@ -61,16 +61,16 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
       '#type' => 'checkbox',
       '#default_value' => $this->configuration['only_for_owner'],
     ];
-    return parent::buildConfigurationForm($form, $formState);
+    return parent::buildConfigurationForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $formState): void {
-    $this->configuration['enabled'] = (bool) $formState->getValue('enabled');
-    $this->configuration['only_for_owner'] = (bool) $formState->getValue('only_for_owner');
-    parent::submitConfigurationForm($form, $formState);
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
+    $this->configuration['enabled'] = (bool) $form_state->getValue('enabled');
+    $this->configuration['only_for_owner'] = (bool) $form_state->getValue('only_for_owner');
+    parent::submitConfigurationForm($form, $form_state);
   }
 
   /**

@@ -152,7 +152,7 @@ function openculturas_update_last_removed(): int {
  * Deletes removed update_helper_checklist updates.
  */
 function openculturas_update_9401(): void {
-  $entityStorage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
+  $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
 
   $checklist_items = [
     'openculturas:openculturas_update_9002',
@@ -219,8 +219,8 @@ function openculturas_update_9401(): void {
     'openculturas:openculturas_post_update_views_refactor_0011',
   ];
 
-  $entities = $entityStorage->loadMultiple($checklist_items);
-  $entityStorage->delete($entities);
+  $entities = $storage->loadMultiple($checklist_items);
+  $storage->delete($entities);
 }
 
 /**

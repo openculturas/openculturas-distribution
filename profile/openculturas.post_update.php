@@ -96,9 +96,9 @@ function openculturas_post_update_0045(): string {
   return $updater->logger()->output();
 }
 
-function _openculturas_post_update_interaction_button_section_remove_bookmark(string $component, EntityViewDisplayInterface $entityViewDisplay): void {
-  $entityViewDisplay->removeComponent($component);
-  $group_interact = $entityViewDisplay->getThirdPartySetting('field_group', 'group_interact');
+function _openculturas_post_update_interaction_button_section_remove_bookmark(string $component, EntityViewDisplayInterface $display): void {
+  $display->removeComponent($component);
+  $group_interact = $display->getThirdPartySetting('field_group', 'group_interact');
   if ($group_interact) {
     foreach ($group_interact['children'] as $key => $child) {
       if ($child === $component) {
@@ -107,7 +107,7 @@ function _openculturas_post_update_interaction_button_section_remove_bookmark(st
       }
     }
 
-    $entityViewDisplay->setThirdPartySetting('field_group', 'group_interact', $group_interact);
+    $display->setThirdPartySetting('field_group', 'group_interact', $group_interact);
   }
 }
 
@@ -175,8 +175,8 @@ function openculturas_post_update_password_policy(): string {
   }
 
   $displays_ids = ['default', 'compact', 'full'];
-  foreach ($displays_ids as $display_id) {
-    $display = $entity_display->getViewDisplay('user', 'user', $display_id);
+  foreach ($displays_ids as $displays_id) {
+    $display = $entity_display->getViewDisplay('user', 'user', $displays_id);
     if (!$display->isNew()) {
       $display->removeComponent('field_last_password_reset');
       $display->removeComponent('field_password_expiration');
@@ -237,9 +237,9 @@ function openculturas_post_update_field_block_ref_cleanup(): void {
  * Updates all field storage config from type viewfield due missing handler setting.
  */
 function openculturas_post_update_viewfield_missing_handler(?array &$sandbox = NULL): void {
-  $configEntityUpdater = \Drupal::classResolver(ConfigEntityUpdater::class);
+  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
   $callback = static fn(FieldStorageConfigInterface $fieldStorageConfig): bool => $fieldStorageConfig->getType() === 'viewfield';
-  $configEntityUpdater->update($sandbox, 'field_storage_config', $callback);
+  $config_entity_updater->update($sandbox, 'field_storage_config', $callback);
 }
 
 /**
@@ -268,8 +268,8 @@ function openculturas_post_update_install_admin_toolbar_links_access_filter(): v
  * Replace formtips selector for people_reference field.
  */
 function openculturas_post_update_formtips_replace_people_reference_selector(): void {
-  $configFactory = \Drupal::configFactory();
-  $config = $configFactory->getEditable('formtips.settings');
+  $conficFactory = \Drupal::configFactory();
+  $config = $conficFactory->getEditable('formtips.settings');
   if (!$config->isNew()) {
     $formtips_selectors = $config->get('formtips_selectors');
     $config->set('formtips_selectors', str_replace("[id^='edit-field-people-reference-0-subform-field-member-0-target-id']", "[id^='edit-field-people-reference-']", (string) $formtips_selectors));
@@ -281,9 +281,9 @@ function openculturas_post_update_formtips_replace_people_reference_selector(): 
  * Add filter_autop filter to minimal_html filter_format.
  */
 function openculturas_post_update_add_filter_autop_to_minimal_html(): void {
-  $configEntityStorage = \Drupal::entityTypeManager()->getStorage('filter_format');
+  $filterFormatStorage = \Drupal::entityTypeManager()->getStorage('filter_format');
   /** @var \Drupal\filter\FilterFormatInterface|null $filterFormat */
-  $filterFormat = $configEntityStorage->load('minimal_html');
+  $filterFormat = $filterFormatStorage->load('minimal_html');
   if ($filterFormat instanceof FilterFormatInterface) {
     /** @var \Drupal\filter\Plugin\FilterInterface $filter */
     $filter = $filterFormat->filters('filter_autop');
