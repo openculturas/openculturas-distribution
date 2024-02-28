@@ -51,7 +51,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -108,7 +108,10 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
     return $build;
   }
 
-  public function view(ContentEntityInterface $entity) {
+  /**
+   * {@inheritdoc}
+   */
+  public function view(ContentEntityInterface $entity): array {
     return $this->viewElements($entity);
   }
 
