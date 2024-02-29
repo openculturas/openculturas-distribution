@@ -63,6 +63,17 @@
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
  *
+ * OpenCulturas classes: optionally use either
+ * 'teaser-fully-linked' OR 'teaser-image-linked'
+ * for extended teaser click behaviour.
+ * See ../js/openculturas-base.js, l 172 resp. 203
+ * Set class correspondingly in:
+ * universal-teaser.html.twig,
+ * teaser-unified.html.twig,
+ * node--teaser-big.html.twig,
+ * your custom override of openculturas_teaser/templates/teaser.html.twig,
+ * and "Related date" views displays
+ *
  * @see template_preprocess_node()
  *
  */
@@ -77,7 +88,8 @@
   view_mode ? 'view-mode-' ~ view_mode|clean_class,
   'clearfix',
   'universal-teaser',
-  'unified-teaser'
+  'unified-teaser',
+  'teaser-image-linked'
 ]
 %}
 {% set mood_image = content.field_mood_image|render|trim is not empty %}

@@ -1,5 +1,9 @@
 .view-related-date {
 
+  h3.teaser {
+    margin-top: 0;
+  }
+
   .views-row {
     margin-bottom: (2 * $grid-gutter);
 
@@ -65,4 +69,28 @@
     display: none;
   }
 
+}
+
+// OC 2.1.x remove redundant fields
+
+.view-related-date.no-teaser-image {
+  .views-row {
+    @include breakpoint(s) {
+      flex-direction: row;
+    }
+  }
+  .universal-teaser {
+    width: 100%;
+  }
+}
+
+// Fix add-buttons margins more specifically
+
+.view-header .button {
+  .view-related-date & {
+    @include breakpoint(m) {
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+  }
 }

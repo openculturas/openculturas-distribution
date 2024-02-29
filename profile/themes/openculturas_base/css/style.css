@@ -19,6 +19,8 @@
   --color-bg-light: #fff;
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
+  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 7%, transparent);
+  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
   --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
   --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
   --font-size-xxl: 2rem;
@@ -14401,6 +14403,64 @@ h6.teaser {
   }
 }
 
+.teaser-fully-linked {
+  border: 1px solid transparent;
+}
+.teaser-fully-linked:focus-within, .teaser-fully-linked:hover {
+  background-color: var(--color-bg-link-translucent);
+  border-color: var(--color-link);
+  cursor: pointer;
+  margin: -0.625rem -1.25rem;
+  padding: 0.625rem 1.25rem;
+}
+.views-row:first-child .teaser-fully-linked:focus-within, .views-row:first-child .teaser-fully-linked:hover {
+  margin: 0.625rem -1.25rem -0.625rem;
+}
+
+.calendar .universal-teaser.teaser-fully-linked:focus-within, .calendar .universal-teaser.teaser-fully-linked:hover {
+  border-color: transparent;
+  outline: 1px solid var(--color-link);
+  outline-offset: 0.625rem;
+  margin: 1.25rem 0;
+  padding: 0;
+}
+.calendar .universal-teaser.teaser-fully-linked .teaser--date {
+  margin: 0;
+}
+.views-row:first-child .calendar .universal-teaser.teaser-fully-linked {
+  margin: 0;
+}
+
+.teaser-image-linked .field--name-field-mood-image .field__items {
+  display: inline-block;
+  overflow: hidden;
+}
+.teaser-image-linked .field--name-field-mood-image .field__items .field__items {
+  overflow: unset;
+}
+.teaser-image-linked .field--name-field-mood-image img {
+  transition: transform 300ms ease;
+}
+.teaser-image-linked:focus-within .field--name-field-mood-image .field__items, .teaser-image-linked:hover .field--name-field-mood-image .field__items {
+  outline: 2px solid var(--color-link);
+  outline-offset: 0;
+  cursor: pointer;
+}
+.teaser-image-linked:focus-within .field--name-field-mood-image .field__items .field__items, .teaser-image-linked:hover .field--name-field-mood-image .field__items .field__items {
+  outline: unset;
+}
+.teaser-image-linked:focus-within .field--name-field-mood-image img, .teaser-image-linked:hover .field--name-field-mood-image img {
+  transform: scale(1.2);
+}
+
+.calendar .universal-teaser.teaser-image-linked {
+  margin: 0;
+}
+.calendar .universal-teaser.teaser-image-linked .teaser--date {
+  margin: 0;
+  text-align: left;
+}
+
 #cookiesjsr {
   --default-margin: 1.25rem;
   --layer-body-bg-color: var(--color-bg-slight-contrast);
@@ -15793,6 +15853,9 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   }
 }
 
+.view-related-date h3.teaser {
+  margin-top: 0;
+}
 .view-related-date .views-row {
   margin-bottom: 2.5rem;
 }
@@ -15842,6 +15905,22 @@ ul[data-drupal-views-infinite-scroll-pager] li {
 }
 .view-related-date .EventScheduled .field--name-field-event-status {
   display: none;
+}
+
+@media screen and (min-width: 30rem) {
+  .view-related-date.no-teaser-image .views-row {
+    flex-direction: row;
+  }
+}
+.view-related-date.no-teaser-image .universal-teaser {
+  width: 100%;
+}
+
+@media screen and (min-width: 48rem) {
+  .view-related-date .view-header .button {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
 }
 
 .view-related-sponsor {

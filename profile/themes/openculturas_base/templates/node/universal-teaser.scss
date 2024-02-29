@@ -1,7 +1,7 @@
 .teaser {
   @include all-headings {
     font-family: $font-base;
-    font-size: $font-size-l; 
+    font-size: $font-size-l;
     font-weight: bold;
     letter-spacing: unset;
     line-height: 1.4;
@@ -141,7 +141,7 @@ h6.teaser {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: auto;
     column-gap: $grid-gutter;
-    grid-template-areas: 
+    grid-template-areas:
       "text text text text text text image image image image"
       "foot foot foot foot foot foot foot foot foot foot";
 
@@ -158,7 +158,7 @@ h6.teaser {
   }
 }
 
-// Teaser big too verbose for small screens 
+// Teaser big too verbose for small screens
 
 .view-mode-teaser-big .field--name-body {
   display: none;
@@ -167,16 +167,102 @@ h6.teaser {
   }
 }
 
-
-// side-by-side teasers 
-
+// side-by-side teasers
 
 .grid-2-m,
-.grid-3-l { 
+.grid-3-l {
   .universal-teaser {
     @include breakpoint(m) {
       display: flex;
       flex-flow: column;
+    }
+  }
+}
+
+// following 2 types of teaser clickable area extension
+// see ../js/openculturas-base.js, l 172 resp. 203
+// set class correspondingly (teaser-fully-linked or teaser-image-linked)
+// in universal-teaser.html.twig, teaser-unified.html.twig,
+// node--teaser-big.html.twig, and date views
+
+// 1. fully linked teasers
+
+.teaser-fully-linked {
+  border: 1px solid transparent;
+
+  &:focus-within,
+  &:hover {
+    background-color: var(--color-bg-link-translucent);
+    border-color: var(--color-link);
+    cursor: pointer;
+    margin: calc(-0.5 * $grid-gutter) calc(-1 * $grid-gutter);
+    padding: calc(0.5 * $grid-gutter) $grid-gutter;
+
+    .views-row:first-child & {
+      //  margin: $grid-gutter 0; // inherited from .universal-teaser
+      margin: calc(0.5 * $grid-gutter) calc(-1 * $grid-gutter) calc(-0.5 * $grid-gutter);
+    }
+  }
+}
+
+.calendar {
+  .universal-teaser.teaser-fully-linked {
+    &:focus-within,
+    &:hover {
+      border-color: transparent;
+      outline: 1px solid var(--color-link);
+      outline-offset: calc(0.5 * $grid-gutter);
+      margin: $grid-gutter 0;
+      padding: 0;
+    }
+    .teaser--date {
+      margin: 0;
+    }
+    .views-row:first-child & {
+      margin: 0;
+    }
+  }
+}
+
+// 2. teaser images linked via js
+
+.teaser-image-linked {
+  .field--name-field-mood-image {
+     .field__items {
+       display: inline-block;
+       overflow: hidden;
+       .field__items {
+         overflow: unset;
+       }
+    }
+    img {
+      transition: transform 300ms ease;
+    }
+  }
+  &:focus-within,
+  &:hover {
+    .field--name-field-mood-image {
+       .field__items {
+         outline: 2px solid var(--color-link);
+         outline-offset: 0;
+         cursor: pointer;
+         .field__items {
+           outline: unset;
+         }
+        }
+      img {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.calendar {
+  .universal-teaser.teaser-image-linked {
+    margin: 0;
+    .teaser--date {
+      margin: 0;
+      text-align: left;
     }
   }
 }
