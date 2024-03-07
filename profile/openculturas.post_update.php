@@ -613,3 +613,28 @@ function openculturas_post_update_enable_media_edit(): void {
 
   $entityFormDisplay->save();
 }
+
+/**
+ * Adds the missing permission 'download media'.
+ */
+function openculturas_post_update_missing_permission_media_entity_download(): void {
+  if (\Drupal::moduleHandler()->moduleExists('media_entity_download') === FALSE) {
+    return;
+  }
+
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load(RoleInterface::ANONYMOUS_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('download media');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('download media');
+    $role->save();
+  }
+}
