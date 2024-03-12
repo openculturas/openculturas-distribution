@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use function array_key_exists;
 use function is_array;
 use function is_string;
+use function parse_url;
 use function sprintf;
 use function strip_tags;
 
@@ -108,12 +109,14 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#attributes' => ['target' => '_blank'],
     ];
     $build['#attached']['html_head'][] = [$head, 'oc_iframe_base'];
+    $hostname = NULL;
+    $wildcard = NULL;
     if ($limit_access && $this->request instanceof Request) {
       $token = $this->request->get('access_token');
       $host_list = $config->get('host_list');
-      $hostname = NULL;
       if (!empty($token) && is_array($host_list) && array_key_exists($token, $host_list)) {
         $hostname = $config->get('host_list')[$token]['hostname'] ?? NULL;
+        $wildcard = $config->get('host_list')[$token]['wildcard'] ?? NULL;
         $css = $config->get('host_list')[$token]['css'] ?? NULL;
         if ($css) {
           $build['container']['css'] = [
@@ -129,7 +132,11 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     $response = $this->bareHtmlPageRenderer->renderBarePage($build, (string) $this->t('Upcoming dates'), 'page');
     if ($limit_access) {
       $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
-      if (isset($hostname) && is_string($hostname)) {
+      if (is_string($hostname)) {
+        if ($wildcard) {
+          $hostname = sprintf('%s %s://*.%s', $hostname, parse_url($hostname, PHP_URL_SCHEME), parse_url($hostname, PHP_URL_HOST));
+        }
+
         $response->headers->set('Content-Security-Policy', [sprintf('frame-ancestors %s', $hostname)]);
       }
     }

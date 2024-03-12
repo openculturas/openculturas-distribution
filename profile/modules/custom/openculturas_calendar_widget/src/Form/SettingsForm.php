@@ -71,6 +71,7 @@ final class SettingsForm extends ConfigFormBase {
     $form['host_list'] = [
       '#type' => 'details',
       '#title' => $this->t('Websites'),
+      '#description' => $this->t('When wildcard enabled, then all subdomains of the given hostname are allowed.'),
       '#open' => count($items) < 10,
       '#states' => [
         'visible' => [
@@ -83,6 +84,7 @@ final class SettingsForm extends ConfigFormBase {
       '#type' => 'table',
       '#header' => [
         $this->t('Website'),
+        $this->t('Wildcard'),
         $this->t('Public access token'),
         $this->t('Url'),
         $this->t('Embed code'),
@@ -104,6 +106,17 @@ final class SettingsForm extends ConfigFormBase {
         '#placeholder' => 'https://example.org',
         '#states' => [
           'required' => [
+            ':input[name="limit_access"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+      $form['host_list']['items'][$token]['wildcard'] = [
+        '#title' => $this->t('Wildcard'),
+        '#title_display' => 'invisible',
+        '#type' => 'checkbox',
+        '#default_value' => $values['wildcard'] ?? FALSE,
+        '#states' => [
+          'visible' => [
             ':input[name="limit_access"]' => ['checked' => TRUE],
           ],
         ],
@@ -261,7 +274,7 @@ final class SettingsForm extends ConfigFormBase {
           unset($host_list[$token]);
         }
 
-        if ($form_state->getTriggeringElement()['#name'] === 'add_host' && $hostname !== '' && in_array($hostname, $hostnames, TRUE)) {
+        if ($hostname !== '' && in_array($hostname, $hostnames, TRUE) && $form_state->getTriggeringElement()['#name'] === 'add_host') {
           $form_state->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicate hostname'));
           return;
         }
@@ -296,6 +309,7 @@ final class SettingsForm extends ConfigFormBase {
 
         $values = [];
         $values['hostname'] = trim((string) $input_values['hostname']);
+        $values['wildcard'] = $input_values['wildcard'];
         $values['iframe_src'] = trim((string) $input_values['iframe_src']);
         $values['css'] = trim((string) $input_values['css']);
         if (empty($values['hostname'])) {
