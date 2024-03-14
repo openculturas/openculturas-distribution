@@ -142,17 +142,22 @@ function openculturas_base_preprocess_node(array &$variables): void {
 }
 
 /**
- * Implements hook_preprocess_HOOK().
- *
- * Adds a class depending on referenced entity to links of entity_reference fields.
+ * Implements hook_preprocess_HOOK() for field.html.twig.
  */
 function openculturas_base_preprocess_field(array &$variables): void {
+  // Adds a class depending on referenced entity to links of entity_reference fields.
   if ($variables['field_type'] === 'entity_reference') {
     foreach ($variables["items"] as $item) {
-      if (isset($item['content']['#options']['entity_type']) && isset($item['content']['#options']['entity'])) {
+      if (isset($item['content']['#options']['entity_type'], $item['content']['#options']['entity'])) {
         $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"]);
         $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"] . '--' . $item["content"]["#options"]["entity"]->bundle());
       }
+    }
+  }
+
+  if ($variables['field_name'] === 'field_badges') {
+    foreach ($variables['items'] as $delta => $item) {
+      $item['attributes']->addClass('badge--' . $variables['element']['#items']->get($delta)->value);
     }
   }
 }

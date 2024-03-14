@@ -1,0 +1,53 @@
+// @todo: finalize position in layout, then finish styling
+
+.field--name-field-badges {
+  font-weight: bold;
+
+  * {
+    display: inline;
+  }
+}
+
+.badge--peer {
+  @include icon(medal);
+}
+.badge--peer::before {
+  display: inline-block;
+  margin-right: .5rem;
+  font-weight: normal;
+  background: var(--color-bg-slight-contrast);
+  border-radius: 50%;
+  padding: .25em;
+  border: 1px solid;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+// place badge overlapping picture
+.profile-teaser {
+  .profile--top {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "picture";
+    justify-items: center;
+  }
+
+  .profile--picture,
+  .field--name-field-badges {
+    grid-area: picture;
+  }
+
+  .field--name-field-badges {
+    margin: 0;
+    left: 2em;
+
+    .field__item {
+      display: inline-block;
+      overflow: hidden;
+      width: calc(2rem + 2px);
+      height: calc(2rem + 2px);
+    }
+  }
+}
+

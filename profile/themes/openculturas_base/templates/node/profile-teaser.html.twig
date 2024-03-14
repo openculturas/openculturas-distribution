@@ -84,8 +84,14 @@
 {{ attach_library('classy/node') }}
  {% block content_wrapper %}
   <{{ wrapper_tag }}{{ attributes.addClass(classes)|without('role') }}>
-    <div class="profile--picture">
-      {{ content.field_portrait }}
+    <div class="profile--top">
+      <div class="profile--picture">
+        {{ content.field_portrait }}
+      </div>
+     {% if node.bundle == 'profile' and node.hasField('field_badges') %}
+       {#     Reuse field from viewmode full for all viewmodes which use the template. #}
+       {{ drupal_field('field_badges', 'node', node.id, 'full') }}
+     {% endif %}
     </div>
     <div class="profile--content">
       {{ title_prefix }}
@@ -103,7 +109,7 @@
       {% endif %}
       {{ title_suffix }}
       <div{{ content_attributes.addClass('node__content') }}>
-        {{ content | without('field_portrait', 'field_sub_type') }}
+        {{ content | without('field_portrait', 'field_sub_type', 'field_badges') }}
       </div>
     </div>
   </{{ wrapper_tag }}>

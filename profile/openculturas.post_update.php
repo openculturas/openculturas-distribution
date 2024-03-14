@@ -14,9 +14,12 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\filter\FilterFormatInterface;
+use Drupal\language\Config\LanguageConfigOverride;
+use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\views\Views;
 
 /**
  * Implements hook_removed_post_updates().
@@ -637,4 +640,127 @@ function openculturas_post_update_missing_permission_media_entity_download(): vo
     $role->grantPermission('download media');
     $role->save();
   }
+}
+
+/**
+ * Adds a new field field_badges.
+ */
+function openculturas_post_update_add_field_badges(): string {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  $successfully = $updater->executeUpdate('openculturas', 'openculturas_post_update_add_field_badges');
+  if (!$successfully) {
+    return $updater->logger()->output();
+  }
+
+  $languageManager = \Drupal::languageManager();
+  if ($languageManager instanceof ConfigurableLanguageManagerInterface) {
+    $configTranslation = $languageManager->getLanguageConfigOverride('de', 'field.storage.node.field_badges');
+    if ($configTranslation instanceof LanguageConfigOverride) {
+      $configTranslation->set('settings.allowed_values.0.label', 'Ausgezeichnet als Kulturguide');
+      $configTranslation->save();
+    }
+
+    $configTranslation = $languageManager->getLanguageConfigOverride('de', 'views.view.related_profile');
+    if ($configTranslation instanceof LanguageConfigOverride) {
+      $configTranslation->set('display.related_profile_term_artist.display_title', 'Künstler:innen - nach Fokuskategorie');
+      $configTranslation->set('display.related_profile_term_artist.display_options.title', 'Künstler:innen - nach Fokuskategorie');
+      $configTranslation->set('display.related_profile_term_organizer.display_title', 'Veranstalter:innen - nach Fokuskategorie');
+      $configTranslation->set('display.related_profile_term_organizer.display_options.title', 'Veranstalter:innen - nach Fokuskategorie');
+      $configTranslation->save();
+    }
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $field_name = 'field_badges';
+  $entityFormDisplay = $entity_display->getFormDisplay('node', 'profile');
+  if (!$entityFormDisplay->isNew()) {
+    $group_id = 'group_administrative';
+    $group = $entityFormDisplay->getThirdPartySetting('field_group', $group_id);
+    if (isset($group['children']) && is_array($group['children'])) {
+      $group['children'] = array_values(array_unique(array_merge(['created', 'uid', $field_name], $group['children'])));
+      $entityFormDisplay->setThirdPartySetting('field_group', $group_id, $group);
+      $weight = 0;
+      if (!$entityFormDisplay->getComponent($field_name)) {
+        $entityFormDisplay->setComponent($field_name, [
+          'type' => 'options_buttons',
+          'region' => 'content',
+          'settings' => [],
+          'third_party_settings' => [],
+          'weight' => 0,
+        ]);
+      }
+
+      foreach ($group['children'] as $child) {
+        ++$weight;
+        if ($component = $entityFormDisplay->getComponent($child)) {
+          $component['weight'] = $weight;
+          $entityFormDisplay->setComponent($child, $component);
+        }
+      }
+
+      $entityFormDisplay->save();
+    }
+  }
+
+  $entityViewDisplay = $entity_display->getViewDisplay('node', 'profile', 'full');
+
+  $weight = $entityViewDisplay->getThirdPartySetting('field_group', 'group_workflow') ? $entityViewDisplay->getThirdPartySetting('field_group', 'group_workflow')['weight'] : $entityViewDisplay->getHighestWeight();
+  if (!$entityViewDisplay->isNew()) {
+    $component = [
+      'label' => 'hidden',
+      'weight' => $weight + 1,
+      'type' => 'list_default',
+      'region' => 'content',
+      'settings' => [],
+      'third_party_settings' => [
+        'field_formatter_class' => [
+          'class' => '',
+        ],
+      ],
+    ];
+    $entityViewDisplay->setComponent($field_name, $component);
+    $entityViewDisplay->save();
+  }
+
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load(RoleInterface::ANONYMOUS_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view field_badges');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view field_badges');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('edit field_badges');
+    $role->save();
+  }
+
+  $view = Views::getView('related_profile');
+  if ($view) {
+    $display = $view->getDisplay();
+    $sorts = $display->getOption('sorts');
+    if (isset($sorts['sticky'])) {
+      $sticky = $sorts['sticky'];
+      unset($sorts['sticky']);
+      $sorts = array_merge(['sticky' => $sticky], $sorts);
+      $display->setOption('sorts', $sorts);
+      $view->save();
+    }
+  }
+
+  return $updater->logger()->output();
 }

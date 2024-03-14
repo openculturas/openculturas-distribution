@@ -80,7 +80,6 @@ function openculturas_discussions_install(bool $is_syncing): void {
       if (is_array($settings)) {
         $settings['children'][] = 'field_comments_mode';
         $settings['children'] = array_values($settings['children']);
-        sort($settings['children']);
         $display->setThirdPartySetting('field_group', 'group_administrative', $settings);
       }
 
