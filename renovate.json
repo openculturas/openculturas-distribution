@@ -4,6 +4,7 @@
     "local>devops/renovate-config",
     ":semanticCommitTypeAll(chore)"
   ],
+  "rangeStrategy": "bump",
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
@@ -11,6 +12,13 @@
     "profile/themes/openculturas_base/starterkits/**"
   ],
   "packageRules": [
+    {
+      "description" : "Do not try to update php",
+      "matchDepNames": [
+        "php"
+      ],
+      "enabled": false
+    },
     {
       "matchPackageNames": [
         "ajaxorg/ace-builds",
