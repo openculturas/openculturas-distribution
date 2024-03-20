@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
  * Implements hook_theme().
@@ -37,12 +38,22 @@ function openculturas_map_preprocess_block(array &$variables): void {
 
     $config = \Drupal::config('openculturas_map.settings');
     foreach ($config->getRawData() as $configKey => $configValue) {
-      if (str_starts_with($configKey, "_")) {
+      if (str_starts_with($configKey, '_')) {
         continue;
       }
 
-      if ($configKey === 'marker_icon_path' && trim($configValue, '/') === 'default') {
-        $configValue = "/" . \Drupal::service('module_handler')->getModule('openculturas_map')->getPath() . "/assets/map_marker.svg";
+      if ($configKey === 'marker_icon_path') {
+        $configValue = is_string($configValue) ? trim($configValue) : NULL;
+        if ($configValue !== NULL && StreamWrapperManager::getScheme($configValue) && file_exists($configValue)) {
+          /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
+          $fileUrlGenerator = \Drupal::service('file_url_generator');
+          $configValue = $fileUrlGenerator->generateString($configValue);
+        }
+        else {
+          $configValue = \Drupal::service('module_handler')->getModule('openculturas_map')->getPath() . '/assets/map_marker.svg';
+        }
+
+        $configValue = '/' . ltrim($configValue, '/');
       }
 
       $variables['#attached']['drupalSettings']['openCulturasMap']['global'][$configKey] = $configValue;

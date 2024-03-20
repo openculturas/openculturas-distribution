@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_map\Form;
 
+use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Image\ImageFactory;
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\file\FileInterface;
+use Drupal\file\FileRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function file_save_upload;
+use function is_string;
+use function round;
+use function trim;
 
 /**
  * Settings form for the OpenCulturas map configuration.
@@ -17,16 +24,28 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class SettingsForm extends ConfigFormBase {
 
   /**
-   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   * @var \Drupal\Core\File\FileSystemInterface
    */
-  private FileUrlGeneratorInterface $fileUrlGenerator;
+  protected FileSystemInterface $fileSystem;
+
+  /**
+   * @var \Drupal\Core\Image\ImageFactory
+   */
+  protected ImageFactory $imageFactory;
+
+  /**
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected FileRepositoryInterface $fileRepository;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): self {
     $instance = parent::create($container);
-    $instance->fileUrlGenerator = $container->get('file_url_generator');
+    $instance->fileSystem = $container->get('file_system');
+    $instance->imageFactory = $container->get('image.factory');
+    $instance->fileRepository = $container->get('file.repository');
     return $instance;
   }
 
@@ -90,12 +109,46 @@ final class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Marker icon'),
     ];
 
+    $form['marker_icon']['marker_icon_default'] = [
+      '#group' => 'marker_icon',
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use the marker icon supplied by the module'),
+      '#default_value' => $config->get('marker_icon_default'),
+    ];
+
+    $form['marker_icon']['marker_icon_path'] = [
+      '#group' => 'marker_icon',
+      '#type' => 'textfield',
+      '#title' => $this->t('Path to custom marker icon'),
+      '#default_value' => $config->get('marker_icon_path'),
+      '#states' => [
+        'visible' => [
+          ':input[name="marker_icon_default"]' => ['checked' => FALSE],
+        ],
+      ],
+    ];
+    $element = &$form['marker_icon']['marker_icon_path'];
+    $friendly_path = NULL;
+    $original_path = $element['#default_value'];
+    $default = 'openculturas_map/map_maker.svg';
+    if (is_string($original_path) && StreamWrapperManager::getScheme($original_path) === 'public') {
+      $friendly_path = StreamWrapperManager::getTarget($original_path);
+      $element['#default_value'] = $friendly_path;
+    }
+
+    $element['#description'] = $this->t('Examples: <code>@implicit-public-file</code> (for a file in the public filesystem), <code>@explicit-file</code>.', [
+      '@implicit-public-file' => $friendly_path ?? $default,
+      '@explicit-file' => is_string($original_path) && StreamWrapperManager::getScheme($original_path) !== FALSE ? $original_path : 'public://' . $default,
+    ]);
     $form['marker_icon']['marker_icon_upload'] = [
       '#group' => 'marker_icon',
       '#type' => 'file',
       '#title' => $this->t('Upload the icon which will be used as marker on the map'),
-      '#default_value' => $config->get('marker_icon_path'),
-      '#element_validate' => ['::validateUpload'],
+      '#states' => [
+        'visible' => [
+          ':input[name="marker_icon_default"]' => ['checked' => FALSE],
+        ],
+      ],
     ];
 
     $form['marker_icon']['marker_icon_width'] = [
@@ -187,31 +240,53 @@ final class SettingsForm extends ConfigFormBase {
 
   }
 
-  public static function validateUpload(array &$element, FormStateInterface $form_state): void {
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
+    parent::validateForm($form, $form_state);
+    if ($form_state->getValue('marker_icon_default')) {
+      return;
+    }
+
+    if ($form_state->getValue('marker_icon_path')) {
+      $path = $this->validatePath(ltrim($form_state->getValue('marker_icon_path'), '/'));
+      if (!$path) {
+        $form_state->setErrorByName('marker_icon_path', (string) $this->t('The custom marker path is invalid.'));
+        return;
+      }
+    }
+
+    if (!$form_state->getValue('marker_icon_upload')) {
+      return;
+    }
+
     $validators = [
-      'file_validate_extensions' => ['jpg jpeg png gif svg webp'],
-      'file_validate_size' => [1_048_576],
+      'FileIsImage' => [],
+      'FileSizeLimit' => ['fileLimit' => 1_048_576],
     ];
 
     $directoryPath = 'public://openculturas_map';
     $nameOfUploadField = 'marker_icon_upload';
     $uploadedFile = file_save_upload($nameOfUploadField, $validators, FALSE, 0, FileSystemInterface::EXISTS_REPLACE);
-    if ($uploadedFile) {
-      $existingDirectory = \Drupal::service('file_system')->prepareDirectory($directoryPath);
+    if ($uploadedFile instanceof FileInterface) {
+      $existingDirectory = $this->fileSystem->prepareDirectory($directoryPath);
 
       if (!$existingDirectory) {
-        \Drupal::service('file_system')->prepareDirectory($directoryPath, FileSystemInterface::CREATE_DIRECTORY);
-      }
-
-      if (!$uploadedFile instanceof FileInterface) {
-        $form_state->setErrorByName($nameOfUploadField, (string) t('Invalid file uploaded!'));
-        return;
+        $this->fileSystem->prepareDirectory($directoryPath, FileSystemInterface::CREATE_DIRECTORY);
       }
 
       $destination = $directoryPath . '/' . $uploadedFile->getFilename();
-      $savedFile = \Drupal::service('file.repository')->move($uploadedFile, $destination, FileSystemInterface::EXISTS_REPLACE);
-      $savedImage = \Drupal::service('image.factory')->get($savedFile->getFileUri());
-      $form_state->setValue('marker_icon_upload', $destination);
+      try {
+        $savedFile = $this->fileRepository->move($uploadedFile, $destination, FileSystemInterface::EXISTS_REPLACE);
+      }
+      catch (\Throwable $exception) {
+        $form_state->setErrorByName($nameOfUploadField, $exception->getMessage());
+        return;
+      }
+
+      $savedImage = $this->imageFactory->get($savedFile->getFileUri());
+      $form_state->setValue('marker_icon_upload', $savedFile);
       $form_state->setValue('marker_icon_width', $savedImage->getWidth() ?? 25);
       $form_state->setValue('marker_icon_height', $savedImage->getHeight() ?? 34);
       $form_state->setValue('marker_anchor_width', round($form_state->getValue('marker_icon_width') / 2));
@@ -224,14 +299,52 @@ final class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('openculturas_map.settings');
+    $values = $form_state->getValues();
+    $file_uri = NULL;
+    try {
+      if (isset($values['marker_icon_upload']) && $values['marker_icon_upload'] instanceof FileInterface) {
+        $file_uri = $values['marker_icon_upload']->getFileUri();
+      }
+    }
+    catch (FileException) {
+      // Ignore.
+    }
+
+    $values['marker_icon_path'] = ltrim(trim($values['marker_icon_path']), '/');
+    if ($values['marker_icon_path'] !== '') {
+      $file_uri = $values['marker_icon_path'];
+    }
+
+    if ($file_uri) {
+      $valid_path = $this->validatePath($file_uri);
+      if ($valid_path) {
+        $config->set('marker_icon_path', $valid_path);
+      }
+      else {
+        $file_uri = NULL;
+      }
+    }
+
+    if (!$file_uri || $form_state->getValue('marker_icon_default')) {
+      $config->set('marker_icon_path', NULL);
+      $config->set('marker_icon_default', TRUE);
+      // Resets this values.
+      $config->set('marker_icon_width', 25);
+      $config->set('marker_icon_height', 34);
+      $config->set('marker_anchor_width', 13);
+      $config->set('marker_anchor_height', 34);
+    }
+    else {
+      $config->set('marker_icon_default', $form_state->getValue('marker_icon_default'));
+      $config->set('marker_icon_width', $form_state->getValue('marker_icon_width'));
+      $config->set('marker_icon_height', $form_state->getValue('marker_icon_height'));
+      $config->set('marker_anchor_width', $form_state->getValue('marker_anchor_width'));
+      $config->set('marker_anchor_height', $form_state->getValue('marker_anchor_height'));
+    }
+
     $config->set('start_lat_position', $form_state->getValue('start_lat_position'));
     $config->set('start_lng_position', $form_state->getValue('start_lng_position'));
     $config->set('start_zoom_position', $form_state->getValue('start_zoom_position'));
-    $config->set('marker_icon_path', ($form_state->getValue('marker_icon_upload') && $form_state->getValue('marker_icon_upload') === "/default") ? "default" : $this->fileUrlGenerator->generate($form_state->getValue('marker_icon_upload'))->toString());
-    $config->set('marker_icon_width', $form_state->getValue('marker_icon_width'));
-    $config->set('marker_icon_height', $form_state->getValue('marker_icon_height'));
-    $config->set('marker_anchor_width', $form_state->getValue('marker_anchor_width'));
-    $config->set('marker_anchor_height', $form_state->getValue('marker_anchor_height'));
     $config->set('marker_anchor_popup_width', $form_state->getValue('marker_anchor_popup_width'));
     $config->set('marker_anchor_popup_height', $form_state->getValue('marker_anchor_popup_height'));
     $config->set('marker_cluster_anchor_popup_width', $form_state->getValue('marker_cluster_anchor_popup_width'));
@@ -239,6 +352,29 @@ final class SettingsForm extends ConfigFormBase {
     $config->set('radius_base', $form_state->getValue('radius_base'));
     $config->save();
     parent::submitForm($form, $form_state);
+  }
+
+  protected function validatePath(string $path): false|string {
+    // Absolute local file paths are invalid.
+    if ($this->fileSystem->realpath($path) === $path) {
+      return FALSE;
+    }
+
+    // A path relative to the Drupal root or a fully qualified URI is valid.
+    if (is_file($path)) {
+      return $path;
+    }
+
+    // Prepend 'public://' for relative file paths within public filesystem.
+    if (StreamWrapperManager::getScheme($path) === FALSE) {
+      $path = 'public://' . $path;
+    }
+
+    if (is_file($path)) {
+      return $path;
+    }
+
+    return FALSE;
   }
 
 }
