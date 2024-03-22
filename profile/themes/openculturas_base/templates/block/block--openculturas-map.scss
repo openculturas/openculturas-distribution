@@ -28,6 +28,7 @@
   cursor: pointer;
   position: relative;
   margin: 0rem auto;
+  box-shadow: 0 0.5rem 1rem -0.5rem var(--color-text);
 
   &:before {
     margin-right: .5em;
@@ -311,4 +312,23 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   .ss-main {
     width: 100%;
   }
+}
+
+// Leaflet popups generic
+
+.leaflet-popup-close-button {
+  @include icon(close);
+
+  span {
+    display: none;
+  }
+
+  .leaflet-container .leaflet-popup & {
+    top: .5em;
+    right: .5em;
+  }
+}
+
+.leaflet-popup-content {
+  margin: 1rem 2rem 1.5rem 1rem;
 }
