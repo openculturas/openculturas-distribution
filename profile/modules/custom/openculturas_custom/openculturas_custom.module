@@ -391,7 +391,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem|null $delta_item */
       $delta_item = $field->get($delta);
       if ($delta_item instanceof SmartDateItem) {
-        $field->setValue(array_slice($field->getValue(), (int) $delta));
+        $field->setValue([$delta_item->getValue()]);
 
         $display_settings = \Drupal::service('entity_display.repository')->getViewDisplay(
           'node',
@@ -513,6 +513,38 @@ function openculturas_custom_views_pre_render(ViewExecutable $view): void {
     }
 
     $view->result = $result;
+  }
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function openculturas_custom_views_post_execute(ViewExecutable $view): void {
+  if ($view->current_display === 'related_date_alternative' && $view->id() === 'related_date') {
+    $routeMatch = \Drupal::routeMatch();
+    $displayedNode = $routeMatch->getParameter('node');
+    if (!$displayedNode instanceof NodeInterface) {
+      return;
+    }
+
+    foreach ($view->result as $row) {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $row->_entity;
+      if ($node->id() === $displayedNode->id()) {
+        $date_delta = $view->getRequest()->get('date_delta');
+        if ($date_delta && property_exists($row, 'node__field_date_delta') && (int) $row->node__field_date_delta === (int) $date_delta) {
+          unset($view->result[$row->index]);
+          --$view->total_rows;
+          break;
+        }
+
+        if ($date_delta === NULL) {
+          unset($view->result[$row->index]);
+          --$view->total_rows;
+          break;
+        }
+      }
+    }
   }
 }
 

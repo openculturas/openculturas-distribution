@@ -764,3 +764,21 @@ function openculturas_post_update_add_field_badges(): string {
 
   return $updater->logger()->output();
 }
+
+/**
+ * Sets the offset to 0.
+ */
+function openculturas_post_update_related_date_alternative_pager_offset(): void {
+  $view = Views::getView('related_date');
+  if ($view) {
+    $display = $view->setDisplay('related_date_alternative');
+    if ($display) {
+      $pager = $view->getDisplay()->getOption('pager');
+      if (isset($pager['options']['offset'])) {
+        $pager['options']['offset'] = 0;
+        $view->getDisplay()->setOption('pager', $pager);
+        $view->save();
+      }
+    }
+  }
+}
