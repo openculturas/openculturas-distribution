@@ -93,10 +93,6 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
       }
 
       $this->eventEntity = $this->entityRepository->getTranslationFromContext($this->eventEntity);
-      if (!$this->eventEntity instanceof NodeInterface) {
-        return $build;
-      }
-
       $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
         $this->eventEntity->getEntityTypeId(),
         $this->eventEntity->bundle(),
