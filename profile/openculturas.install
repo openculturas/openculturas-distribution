@@ -339,24 +339,10 @@ function openculturas_update_10101(): void {
 }
 
 /**
- * Revert asset_injector.css.oc_gin_theme_overrides.
+ * No-op update.
  */
-function openculturas_update_10102(): string {
-  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
-  $configUpdater = \Drupal::service('config_update.config_update');
-  /** @var \Drupal\update_helper\UpdateLogger $logger */
-  $logger = \Drupal::service('update_helper.logger');
-  $full_config_name = 'asset_injector.css.oc_gin_theme_overrides';
-  $config_name = ConfigName::createByFullName($full_config_name);
+function openculturas_update_10102(): void {
 
-  if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
-    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
-  }
-  else {
-    $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
-  }
-
-  return $logger->output();
 }
 
 /**
@@ -384,6 +370,27 @@ function openculturas_update_10104(): string {
   }
   elseif ($configUpdater->import($config_name->getType(), $config_name->getName())) {
     $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Revert asset_injector.css.oc_gin_theme_overrides.
+ */
+function openculturas_update_10105(): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $full_config_name = 'asset_injector.css.oc_gin_theme_overrides';
+  $config_name = ConfigName::createByFullName($full_config_name);
+
+  if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+  }
+  else {
+    $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
   }
 
   return $logger->output();
