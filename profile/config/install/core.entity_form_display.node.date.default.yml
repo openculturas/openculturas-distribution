@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.compact
     - field.field.node.date.field_accessibility
     - field.field.node.date.field_attendance_mode
     - field.field.node.date.field_body_addon
@@ -27,8 +28,10 @@ dependencies:
     - workflows.workflow.draften
   module:
     - allowed_formats
+    - conditional_fields
     - content_moderation
     - field_group
+    - ief_complex_open
     - link
     - paragraphs
     - path
@@ -101,6 +104,7 @@ third_party_settings:
         - group_date_group_location
         - field_event_status
         - field_date
+        - field_organizer
       label: Basics
       region: content
       parent_name: group_date_tabs_container
@@ -182,7 +186,6 @@ third_party_settings:
         required_fields: true
     group_date_tab_people:
       children:
-        - field_organizer
         - field_people_reference
       label: People
       region: content
@@ -317,14 +320,22 @@ content:
       display_label: true
     third_party_settings: {  }
   field_location:
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex_open
     weight: 6
     region: content
     settings:
+      form_mode: compact
+      override_labels: '1'
+      label_singular: Location
+      label_plural: Locations
+      allow_new: '1'
+      allow_existing: '1'
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      removed_reference: keep
+      revision: 0
+      collapsible: 0
+      collapsed: 0
+      allow_duplicate: 0
     third_party_settings:
       conditional_fields:
         6c52f6b1-20cf-44fc-9122-4fa67d18ad8e:

@@ -387,11 +387,20 @@ function openculturas_update_10105(): string {
   $config_name = ConfigName::createByFullName($full_config_name);
 
   if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
-    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
   }
   else {
     $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
   }
 
   return $logger->output();
+}
+
+/**
+ * Installs inline_entity_form, ief_complex_open.
+ */
+function openculturas_update_10106(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['inline_entity_form', 'ief_complex_open']);
 }

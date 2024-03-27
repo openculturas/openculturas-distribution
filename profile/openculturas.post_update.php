@@ -782,3 +782,111 @@ function openculturas_post_update_related_date_alternative_pager_offset(): void 
     }
   }
 }
+
+/**
+ * Setups IEF for the location reference field in date entity.
+ */
+function openculturas_post_update_add_ief_for_location_ref_in_date(): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $new_configs = [
+    'core.entity_form_mode.node.compact',
+    'core.entity_form_display.node.location.compact',
+    'asset_injector.css.oc_gin_ief_overrides',
+  ];
+  foreach ($new_configs as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
+    }
+    elseif ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('field.field.node.date.field_location');
+  if (!$config->isNew()) {
+    $config->set('description', "Start typing the location's name and wait for autocompletion. Not found? Then create one. You can edit it later and add more information.");
+    $config->save();
+  }
+
+  $languageManager = \Drupal::languageManager();
+  if ($languageManager instanceof ConfigurableLanguageManagerInterface) {
+    $configTranslation = $languageManager->getLanguageConfigOverride('de', 'core.entity_form_display.node.location.compact');
+    if ($configTranslation instanceof LanguageConfigOverride) {
+      $configTranslation->set('third_party_settings.field_group.group_location_tab_basics.label', 'Basis-Informationen');
+      $configTranslation->save();
+    }
+
+    $configTranslation = $languageManager->getLanguageConfigOverride('de', 'field.field.node.date.field_location');
+    if ($configTranslation instanceof LanguageConfigOverride) {
+      $configTranslation->set('description', 'Autovervollständigung: Vorschläge kommen bei Eingabe. Nicht gefunden? Dann neuen Ort erstellen. Dieser kann später noch bearbeitet und um mehr Informationen ergänzt werden.');
+      $configTranslation->save();
+    }
+
+    $configTranslation = $languageManager->getLanguageConfigOverride('de', 'field.field.node.date.field_people_reference');
+    if ($configTranslation instanceof LanguageConfigOverride) {
+      $configTranslation->set('description', 'Wer tritt auf? Einträge können durch Ziehen sortiert werden.');
+      $configTranslation->save();
+    }
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+  $form_display = $entity_display->getFormDisplay('node', 'date', 'default');
+  if (!$form_display->isNew()) {
+    // Move organizer to the first tab.
+    $old_group_id = 'group_date_tab_people';
+    $group = $form_display->getThirdPartySetting('field_group', $old_group_id);
+    if (isset($group['children']) && is_array($group['children'])) {
+      $key = array_search('field_organizer', $group['children'], TRUE);
+      if ($key !== FALSE) {
+        unset($group['children'][$key]);
+      }
+
+      $group['children'] = array_values(array_unique($group['children']));
+      $form_display->setThirdPartySetting('field_group', $old_group_id, $group);
+    }
+
+    $new_group_id = 'group_date_tab_basics';
+    $group = $form_display->getThirdPartySetting('field_group', $new_group_id);
+    if (isset($group['children']) && is_array($group['children'])) {
+      $group['children'][] = 'field_organizer';
+      $group['children'] = array_values(array_unique($group['children']));
+      $form_display->setThirdPartySetting('field_group', $new_group_id, $group);
+    }
+
+    // Change widget of field_location to inline_entity_form_complex_open.
+    $field_location_component = $form_display->getComponent('field_location');
+    if (is_array($field_location_component) && $field_location_component['type'] !== 'inline_entity_form_complex_open') {
+      $field_location_component['type'] = 'inline_entity_form_complex_open';
+      $field_location_component['settings'] = [
+        'form_mode' => 'compact',
+        'override_labels' => '1',
+        'label_singular' => 'Location',
+        'label_plural' => 'Locations',
+        'allow_new' => '1',
+        'allow_existing' => '1',
+        'match_operator' => 'CONTAINS',
+        'removed_reference' => 'keep',
+        'revision' => 0,
+        'collapsible' => 0,
+        'collapsed' => 0,
+        'allow_duplicate' => 0,
+      ];
+      $form_display->setComponent('field_location', $field_location_component);
+    }
+
+    $form_display->save();
+  }
+
+  return $logger->output();
+}
