@@ -1,0 +1,33 @@
+uuid: 6c90c968-7939-4ecb-8571-2e0b8f984690
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.oc_er_mod_states
+  module:
+    - node
+    - views
+  theme:
+    - openculturas_base
+id: openculturas_er_mod_states
+theme: openculturas_base
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:oc_er_mod_states-block_states_info'
+settings:
+  id: 'views_block:oc_er_mod_states-block_states_info'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      date: date

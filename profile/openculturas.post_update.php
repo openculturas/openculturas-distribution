@@ -890,3 +890,60 @@ function openculturas_post_update_add_ief_for_location_ref_in_date(): string {
 
   return $logger->output();
 }
+
+/**
+ * Place a new block for the openculturas theme.
+ */
+function openculturas_post_update_add_info_block_about_moderation_states_for_date(): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $new_or_changed_configs = [
+    'views.view.oc_er_mod_states',
+    'block.block.a11y_features',
+    'block.block.call_to_action',
+    'block.block.oc_search_input',
+    'block.block.openculturas_base_breadcrumbs',
+    'block.block.openculturas_base_content',
+    'block.block.openculturas_base_help',
+    'block.block.openculturas_base_local_actions',
+    'block.block.openculturas_base_local_tasks',
+    'block.block.openculturas_base_messages',
+    'block.block.openculturas_er_mod_states',
+    'block.block.pagetitlewithsubtitle',
+    'block.block.typetaxonomytermname',
+    'block.block.userlogin',
+  ];
+  foreach ($new_or_changed_configs as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
+    }
+    elseif ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  $languageManager = \Drupal::languageManager();
+  if ($languageManager instanceof ConfigurableLanguageManagerInterface) {
+    $configTranslation = $languageManager->getLanguageConfigOverride('de', 'views.view.oc_er_mod_states');
+    if ($configTranslation instanceof LanguageConfigOverride) {
+      $configTranslation->set('display.default.display_options.title', 'Moderationsstatus verbundener Inhalte');
+      $configTranslation->set('display.default.display_options.fields.title.alter.text', 'Veranstaltungsbeschreibung: {{ title }} ({{ moderation_state }})');
+      $configTranslation->set('display.default.display_options.fields.title_1.alter.text', 'Ort: {{ title_1 }} ({{ moderation_state_1 }})');
+      $configTranslation->set('display.default.display_options.fields.title_2.alter.text', 'Veranstalter*in: {{ title_2 }} ({{ moderation_state_2 }})');
+      $configTranslation->set('display.default.display_options.fields.title_3.alter.text', 'Veranstaltungsreihe: {{ title_3 }} ({{ moderation_state_3 }})');
+      $configTranslation->set('display.default.display_options.fields.title_4.alter.text', 'Termine in dieser Reihe: {{ title_4 }} ({{ moderation_state_4 }})');
+      $configTranslation->set('display.default.display_options.footer.area_text_custom.content', '<div class="description">Diese Information ist nur sichtbar, weil du berechtigt bist, diesen Inhalt zu bearbeiten.</div>');
+      $configTranslation->save();
+    }
+  }
+
+  return $logger->output();
+}
