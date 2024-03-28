@@ -8,23 +8,25 @@ dependencies:
     - image.style.media_library
     - media.type.user_profile_picture
   module:
-    - focal_point
+    - image_widget_crop
 id: media.user_profile_picture.media_library
 targetEntityType: media
 bundle: user_profile_picture
 mode: media_library
 content:
   field_media_image:
-    type: image_focal_point
+    type: image_widget_crop
     weight: 1
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: media_library
-      preview_link: true
-      offsets: '50,50'
-      preview_styles:
-        profile: profile
+      crop_preview_image_style: crop_thumbnail
+      crop_list: {  }
+      crop_types_required: {  }
+      warn_multiple_usages: true
+      show_crop_area: false
+      show_default_crop: true
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -33,6 +35,11 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

@@ -2,16 +2,25 @@ uuid: 1939787d-1ac9-4a24-b4b6-bc6f573cd91d
 langcode: en
 status: true
 dependencies:
+  config:
+    - crop.type.16_9
   module:
-    - focal_point
+    - crop
 name: teaser
 label: 'Teaser 16:9'
 effects:
-  04fd299c-d3b2-48a7-8b62-7f2dea0f9b52:
-    uuid: 04fd299c-d3b2-48a7-8b62-7f2dea0f9b52
-    id: focal_point_scale_and_crop
+  f3e25f09-d64a-4de9-96f1-4e02eea46dbe:
+    uuid: f3e25f09-d64a-4de9-96f1-4e02eea46dbe
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: '16_9'
+      automatic_crop_provider: null
+  bd44b270-b522-4790-abd2-ae392699c1fa:
+    uuid: bd44b270-b522-4790-abd2-ae392699c1fa
+    id: image_scale_and_crop
     weight: 2
     data:
       width: 260
       height: 146
-      crop_type: focal_point
+      anchor: center-center

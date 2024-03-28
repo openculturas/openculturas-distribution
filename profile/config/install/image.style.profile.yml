@@ -1,16 +1,25 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - crop.type.1_1
   module:
-    - focal_point
+    - crop
 name: profile
 label: 'Profile image'
 effects:
-  accab7c1-8cfc-480a-96ad-c0da28f79af9:
-    uuid: accab7c1-8cfc-480a-96ad-c0da28f79af9
-    id: focal_point_scale_and_crop
+  07d0590c-d6fc-41e4-b711-01c36d1009dc:
+    uuid: 07d0590c-d6fc-41e4-b711-01c36d1009dc
+    id: crop_crop
     weight: 1
+    data:
+      crop_type: '1_1'
+      automatic_crop_provider: null
+  d0e333ce-08d8-4173-8496-ea0c1692ea10:
+    uuid: d0e333ce-08d8-4173-8496-ea0c1692ea10
+    id: image_scale_and_crop
+    weight: 2
     data:
       width: 190
       height: 190
-      crop_type: focal_point
+      anchor: center-center

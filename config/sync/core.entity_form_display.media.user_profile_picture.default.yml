@@ -8,7 +8,7 @@ dependencies:
     - media.type.user_profile_picture
   module:
     - field_group
-    - focal_point
+    - image_widget_crop
 third_party_settings:
   field_group:
     group_administrative:
@@ -37,16 +37,19 @@ bundle: user_profile_picture
 mode: default
 content:
   field_media_image:
-    type: image_focal_point
+    type: image_widget_crop
     weight: 1
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: media_library
-      preview_link: true
-      offsets: '50,50'
-      preview_styles:
-        profile: profile
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - '1_1'
+      crop_types_required: {  }
+      warn_multiple_usages: false
+      show_crop_area: true
+      show_default_crop: true
     third_party_settings: {  }
   name:
     type: string_textfield

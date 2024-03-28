@@ -1,15 +1,26 @@
 uuid: 26266a36-d133-4c65-9e1e-2443d6057989
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - crop.type.free_format
+  module:
+    - crop
 name: gallery
 label: 'Gallery (450 h)'
 effects:
   43582abf-adf2-4258-86ce-9267350b4129:
     uuid: 43582abf-adf2-4258-86ce-9267350b4129
     id: image_scale
-    weight: 1
+    weight: -9
     data:
       width: null
       height: 450
       upscale: false
+  1661846e-5f02-4fb0-b52f-951ebcee5479:
+    uuid: 1661846e-5f02-4fb0-b52f-951ebcee5479
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: free_format
+      automatic_crop_provider: null

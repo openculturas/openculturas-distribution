@@ -947,3 +947,46 @@ function openculturas_post_update_add_info_block_about_moderation_states_for_dat
 
   return $logger->output();
 }
+
+/**
+ * Replace focal point field widget with the image crop field widget.
+ */
+function openculturas_post_update_replace_focal_point_with_image_crop(): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $new_or_changed_configs = [
+    'crop.type.16_9',
+    'crop.type.1_1',
+    'crop.type.free_format',
+    'crop.type.image_crop',
+    'core.entity_form_display.media.image.default',
+    'core.entity_form_display.media.image.media_library',
+    'core.entity_form_display.media.user_profile_picture.default',
+    'core.entity_form_display.media.user_profile_picture.media_library',
+    'image.style.content_image',
+    'image.style.gallery',
+    'image.style.header_image',
+    'image.style.profile',
+    'image.style.teaser',
+    'image.style.teaser_big',
+    'image_widget_crop.settings',
+  ];
+  foreach ($new_or_changed_configs as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
+    }
+    elseif ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  return $logger->output();
+}

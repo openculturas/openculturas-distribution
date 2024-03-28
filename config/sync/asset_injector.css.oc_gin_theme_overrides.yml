@@ -355,6 +355,41 @@ code: |-
     font-size: var(--font-size-s);
     color: var(--gin-color-text-light);
   }
+
+  /* Top-align preview image in complex media add forms */
+
+  .media-library-add-form__preview {
+    align-self: flex-start;
+  }
+
+  /* Add icon to crop details summary  */
+
+  .media-library-add-form__media {
+    align-items: flex-start;
+  }
+
+  .image-data__crop-wrapper .claro-details__summary {
+    position: relative;
+  }
+
+  .image-data__crop-wrapper .claro-details__summary-summary {
+    display: inline;
+  }
+
+  .image-data__crop-wrapper .claro-details__summary-summary::after {
+    font-family: "Font Awesome 6 Free",sans-serif;
+    display: inline;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    content: "\f565";
+    height: 2rem;
+    width: 2rem;
+    font-size: 1rem;
+    padding-left: .25rem;
+    color: var(--gin-color-primary)
+  }
 media: all
 preprocess: false
 conditions:

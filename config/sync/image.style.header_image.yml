@@ -2,16 +2,25 @@ uuid: 0ce0e28c-7fe8-42ad-afef-6cc1fe383a04
 langcode: en
 status: true
 dependencies:
+  config:
+    - crop.type.image_crop
   module:
-    - focal_point
+    - crop
 name: header_image
 label: 'Header image 2:1'
 effects:
-  1a602bff-cb12-45ca-b1c7-589760fcce86:
-    uuid: 1a602bff-cb12-45ca-b1c7-589760fcce86
-    id: focal_point_scale_and_crop
-    weight: 2
+  928daccc-7084-4c6d-90f1-0957b9ea598a:
+    uuid: 928daccc-7084-4c6d-90f1-0957b9ea598a
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: image_crop
+      automatic_crop_provider: null
+  7b8b82d1-c8a9-46e5-9e3f-e22017cac3a7:
+    uuid: 7b8b82d1-c8a9-46e5-9e3f-e22017cac3a7
+    id: image_scale_and_crop
+    weight: -9
     data:
       width: 1100
       height: 550
-      crop_type: focal_point
+      anchor: center-center

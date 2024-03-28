@@ -1,14 +1,25 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - crop.type.free_format
+  module:
+    - crop
 name: content_image
 label: 'Content image (680 w)'
 effects:
   e9d2300b-db6f-429d-9c16-ad82c481401d:
     uuid: e9d2300b-db6f-429d-9c16-ad82c481401d
     id: image_scale
-    weight: 1
+    weight: -9
     data:
       width: 680
       height: null
       upscale: false
+  b96bb8c4-9670-4b72-b7a6-bd20a730d8f8:
+    uuid: b96bb8c4-9670-4b72-b7a6-bd20a730d8f8
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: free_format
+      automatic_crop_provider: null
