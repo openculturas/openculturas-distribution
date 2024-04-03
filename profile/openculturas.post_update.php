@@ -990,3 +990,17 @@ function openculturas_post_update_replace_focal_point_with_image_crop(): string 
 
   return $logger->output();
 }
+
+/**
+ * Enable default filename sanitization configuration.
+ */
+function openculturas_post_update_enable_default_filename_sanitization_configuration(): void {
+  $config = \Drupal::configFactory()->getEditable('file.settings');
+  $config->set('filename_sanitization.transliterate', TRUE);
+  $config->set('filename_sanitization.replace_whitespace', TRUE);
+  $config->set('filename_sanitization.replace_non_alphanumeric', TRUE);
+  $config->set('filename_sanitization.deduplicate_separators', TRUE);
+  $config->set('filename_sanitization.lowercase', TRUE);
+  $config->set('filename_sanitization.replacement_character', '-');
+  $config->save();
+}

@@ -413,3 +413,12 @@ function openculturas_update_10107(): void {
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->install(['image_widget_crop']);
 }
+
+/**
+ * Uninstalls transliterate_filenames.
+ */
+function openculturas_update_10108(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->uninstall(['transliterate_filenames']);
+}
