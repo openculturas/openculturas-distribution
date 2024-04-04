@@ -6,22 +6,47 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.pageSocialShare = {
+    offcanvasMenuSelector: 'oc--social-share--layer',
+    burgerButtonsSelector: 'oc--social-share--button',
+
     attach: function (context, settings) {
-      once('init-offcanvas', '#oc--social-share--button', context).forEach((button) => {
-        button.addEventListener('click', this.toggleOffcanvasSocial)
+      once('init-offcanvas', `#${this.burgerButtonsSelector}`, context).forEach((button) => {
+        button.addEventListener('click', () => {
+          this.handleSocialShareClick();
+        });
+        document.body.addEventListener('click', (event) => {
+          this.handleBodyClick(event);
+        });
       });
     },
-    toggleOffcanvasSocial: function(e= null) {
-      const $offcanvasMenu = document.getElementById('oc--social-share--layer');
-      const $burgerButtons = document.getElementById('oc--social-share--button');
-      const $wasOpen = document.body.classList.contains('socialshare-open');
+    handleSocialShareClick: function () {
+      const $willOpen = !document.body.classList.contains('socialshare-open');
 
-      document.body.classList.toggle('socialshare-open');
+      this.toggleOffcanvasSocial($willOpen);
+    },
+    handleBodyClick: function (event) {
+      // Abort if no event was found
+      if (!event) {
+        return;
+      }
+
+      const isBackdrop = !(event.target.closest(`#${this.offcanvasMenuSelector}`))
+        && !(event.target.closest(`#${this.burgerButtonsSelector}`));
+
+      if (isBackdrop) {
+        this.toggleOffcanvasSocial(false);
+      }
+    },
+    toggleOffcanvasSocial: function (willOpen) {
+      const $offcanvasMenu = document.getElementById(this.offcanvasMenuSelector);
+      const $burgerButtons = document.getElementById(this.burgerButtonsSelector);
+
+      document.body.classList.toggle('socialshare-open', willOpen);
 
       // Accessibility tweaks.
-      $burgerButtons.setAttribute('aria-expanded', !($burgerButtons.getAttribute('aria-expanded') === 'true'));
-      $offcanvasMenu.setAttribute('aria-hidden', !($offcanvasMenu.getAttribute('aria-hidden') === 'true'));
-      if (!$wasOpen) {
+      $burgerButtons.setAttribute('aria-expanded', willOpen);
+      $offcanvasMenu.setAttribute('aria-hidden', !willOpen);
+      if (willOpen) {
         $offcanvasMenu.children.item(0).focus();
       }
     }
