@@ -418,7 +418,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $flag_bundles = ['bookmark_node', 'recommendation_node'];
     foreach ($flag_bundles as $flag_bundle) {
       $flag = Flag::load($flag_bundle);
-      if ($event instanceof NodeInterface && $flag instanceof Flag) {
+      if ($flag instanceof Flag) {
         $build_key = 'flag_' . $flag->id();
         if (isset($build[$build_key])) {
           $build[$build_key] = array_merge($build[$build_key], [
