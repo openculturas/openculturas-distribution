@@ -69,6 +69,11 @@ More information about ddev cli command https://ddev.readthedocs.io/en/stable/us
 
 ### Composer scripts
 
+### Info files:
+
+To update the version, sort list like dependencies in openculturas modules, run:
+`composer run info_file_normalizer`
+
 #### Updating initial content
 * Fetch latest changes and install site: `git pull && ddev composer install && ddev composer run si`
 * Change content via UI

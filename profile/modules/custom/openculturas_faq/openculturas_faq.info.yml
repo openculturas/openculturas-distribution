@@ -1,49 +1,51 @@
 name: 'OpenCulturas - Frequently Asked Questions'
 type: module
+core_version_requirement: ^10
 description: 'Manages configuration of questions for a FAQ page.'
 package: OpenCulturas
-core_version_requirement: ^10
+version: 2.0.5
+project: openculturas
 dependencies:
-  - drupal:field
-  - drupal:node
-  - drupal:taxonomy
-  - drupal:pathauto
-  - drupal:views
-  - field_permissions:field_permissions
-  - simple_sitemap:simple_sitemap
-  - viewfield:viewfield
+  - 'drupal:field'
+  - 'drupal:node'
+  - 'drupal:pathauto'
+  - 'drupal:taxonomy'
+  - 'drupal:views'
+  - 'field_permissions:field_permissions'
+  - 'simple_sitemap:simple_sitemap'
+  - 'viewfield:viewfield'
 
 config_devel:
   install:
     - core.entity_view_mode.node.synopsis
-    - node.type.faq
-    - taxonomy.vocabulary.faq_category
     - field.storage.node.field_detailed_question
     - field.storage.node.field_faq_category
     - field.storage.taxonomy_term.field_related_faq_view_ref
+    - node.type.faq
     - pathauto.pattern.faq_all_languages
     - pathauto.pattern.faq_term_all_languages
     - simple_sitemap.bundle_settings.default.node.faq
     - simple_sitemap.bundle_settings.default.taxonomy_term.faq_category
+    - taxonomy.vocabulary.faq_category
   optional:
     - core.base_field_override.node.faq.metatag
     - core.base_field_override.node.faq.promote
     - core.base_field_override.node.faq.sticky
     - core.base_field_override.node.faq.title
-    - core.entity_form_display.node.faq.default
+    - core.base_field_override.taxonomy_term.faq_category.changed
+    - core.base_field_override.taxonomy_term.faq_category.metatag
     - core.entity_form_display.node.faq.bulk_edit
-    - core.entity_view_display.node.faq.teaser_big
+    - core.entity_form_display.node.faq.default
+    - core.entity_form_display.taxonomy_term.faq_category.default
     - core.entity_view_display.node.faq.compact
     - core.entity_view_display.node.faq.default
     - core.entity_view_display.node.faq.full
-    - core.entity_view_display.node.faq.synopsis
     - core.entity_view_display.node.faq.search_index
     - core.entity_view_display.node.faq.search_result
+    - core.entity_view_display.node.faq.synopsis
     - core.entity_view_display.node.faq.teaser
+    - core.entity_view_display.node.faq.teaser_big
     - core.entity_view_display.node.faq.teaser_unified
-    - core.base_field_override.taxonomy_term.faq_category.changed
-    - core.base_field_override.taxonomy_term.faq_category.metatag
-    - core.entity_form_display.taxonomy_term.faq_category.default
     - core.entity_view_display.taxonomy_term.faq_category.default
     - core.entity_view_display.taxonomy_term.faq_category.full
     - core.entity_view_display.taxonomy_term.faq_category.teaser

@@ -1,15 +1,17 @@
 name: 'OpenCulturas - Map'
 type: module
-description: Provides a dynamic leaflet map for OpenCulturas
+core_version_requirement: ^10
+description: 'Provides a dynamic leaflet map for OpenCulturas'
 package: OpenCulturas
-core_version_requirement: ^10.1
+version: 2.0.5
+project: openculturas
 dependencies:
-  - drupal:media
-  - leaflet:leaflet
+  - 'drupal:media'
+  - 'leaflet:leaflet'
 
 configure: openculturas_map.settings_form
 
 config_devel:
   install:
-    - views.view.oc_map_locations
     - openculturas_map.settings
+    - views.view.oc_map_locations
