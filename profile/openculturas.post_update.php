@@ -615,6 +615,25 @@ function openculturas_post_update_enable_media_edit(): void {
   }
 
   $entityFormDisplay->save();
+
+  $entityFormDisplay = $entity_display->getFormDisplay('paragraph', 'download');
+
+  if (!$entityFormDisplay->isNew() && $entityFormDisplay->getComponent('field_media_multiple')) {
+    $component = $entityFormDisplay->getComponent('field_media_multiple');
+    $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
+    $entityFormDisplay->setComponent('field_media_multiple', $component);
+    $entityFormDisplay->save();
+  }
+
+  $entityFormDisplay = $entity_display->getFormDisplay('paragraph', 'gallery');
+
+  if (!$entityFormDisplay->isNew() && $entityFormDisplay->getComponent('field_gallery')) {
+    $component = $entityFormDisplay->getComponent('field_gallery');
+    $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
+    $entityFormDisplay->setComponent('field_gallery', $component);
+    $entityFormDisplay->save();
+  }
+
 }
 
 /**

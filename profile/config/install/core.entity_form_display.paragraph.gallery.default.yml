@@ -6,6 +6,7 @@ dependencies:
     - paragraphs.paragraphs_type.gallery
   module:
     - media_library
+    - media_library_edit
 id: paragraph.gallery.default
 targetEntityType: paragraph
 bundle: gallery
@@ -16,7 +17,16 @@ content:
     weight: 0
     region: content
     settings:
-      media_types: {  }
+      media_types:
+        - image
+        - remote_video
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
