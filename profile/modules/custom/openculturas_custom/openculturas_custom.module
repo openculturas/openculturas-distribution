@@ -490,6 +490,20 @@ function openculturas_custom_event_submit_handler(array &$form, FormStateInterfa
 }
 
 /**
+ * Implements hook_views_data_alter().
+ */
+function openculturas_custom_views_data_alter(array &$data): void {
+  $data['views']['non_translatable_nothing'] = [
+    'title' => t('Custom text (non translatable)'),
+    'help' => t('Provide custom text or link.'),
+    'field' => [
+      'id' => 'non_translatable_custom',
+      'click sortable' => FALSE,
+    ],
+  ];
+}
+
+/**
  * Implements hook_views_pre_render().
  */
 function openculturas_custom_views_pre_render(ViewExecutable $view): void {
