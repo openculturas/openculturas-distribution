@@ -115,7 +115,9 @@ function _openculturas_post_update_interaction_button_section_remove_bookmark(st
 }
 
 /**
- * Disable bookmark as field and enable it as block, re-order of interact field_group fields.
+ * Disable bookmark as field and enable it as block.
+ *
+ * And re-order of interact field_group fields.
  */
 function openculturas_post_update_interaction_button_section(): string {
 
@@ -237,7 +239,9 @@ function openculturas_post_update_field_block_ref_cleanup(): void {
 }
 
 /**
- * Updates all field storage config from type viewfield due missing handler setting.
+ * Updates all field storage config from type viewfield.
+ *
+ * (due missing handler setting)
  */
 function openculturas_post_update_viewfield_missing_handler(?array &$sandbox = NULL): void {
   $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);

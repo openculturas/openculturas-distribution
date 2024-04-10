@@ -802,3 +802,18 @@ function openculturas_custom_locale_translation_projects_alter(array &$projects)
     }
   }
 }
+
+/**
+ * Set dynamic allowed values for the event_status field. (Entity type node)
+ *
+ * @see options_allowed_values()
+ */
+function openculturas_custom_event_status_allowed_values_function(): array {
+  return [
+    'EventCancelled' => t('Cancelled', [], ['context' => 'event_status']),
+    'EventMovedOnline' => t('Moved online', [], ['context' => 'event_status']),
+    'EventPostponed' => t('Postponed', [], ['context' => 'event_status']),
+    'EventRescheduled' => t('Rescheduled', [], ['context' => 'event_status']),
+    'EventScheduled' => t('Scheduled', [], ['context' => 'event_status']),
+  ];
+}
