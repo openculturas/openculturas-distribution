@@ -770,4 +770,35 @@ function openculturas_custom_config_schema_info_alter(array &$definitions): void
     $definitions['block_field_selection.categories']['mapping']['categories']['orderby'] = 'key';
   }
 
+  if (isset($definitions['node.type.*'])) {
+    $definitions['node.type.*']['mapping']['name']['translation context'] = 'entity_bundle_name';
+  }
+}
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function openculturas_custom_locale_translation_projects_alter(array &$projects): void {
+  if (isset($projects['openculturas'])) {
+    $projects['openculturas']['info']['name'] = 'OpenCulturas';
+    /** @var \Drupal\Core\Extension\ExtensionList $extension_list_module */
+    $extension_list_module = \Drupal::service('extension.list.module');
+    foreach ($projects['openculturas']['includes'] as $project => $project_name) {
+      if ($project === 'openculturas') {
+        continue;
+      }
+
+      $path = $extension_list_module->getPath($project);
+      if (is_dir($path . '/translations') === FALSE) {
+        continue;
+      }
+
+      $info = $extension_list_module->getExtensionInfo($project);
+      $projects[$project] = $projects['openculturas'];
+      unset($projects[$project]['includes']);
+      $projects[$project]['name'] = $project;
+      $projects[$project]['info'] = $info;
+      $projects[$project]['info']['interface translation server pattern'] = $path . '/translations/%language.po';
+    }
+  }
 }
