@@ -79,6 +79,12 @@ To update the version, sort list like dependencies in openculturas modules, run:
 * Change content via UI
 * Export content `ddev composer run export-content`
 
+### drush scripts
+
+At the moment l.d.o does not find the labels of field_group. Therefore we generate the strings.
+
+`drush scr scripts/generate_field_group_strings.php`
+
 ### Configuration files
 
 All configuration are managed via [config_devel](https://www.drupal.org/project/config_devel).
