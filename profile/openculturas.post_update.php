@@ -1055,3 +1055,44 @@ function openculturas_post_update_add_missing_default_translation_filter(): stri
 
   return $logger->output();
 }
+
+/**
+ * Change details field_group to div html-element (term types).
+ */
+function openculturas_post_update_change_field_group_type_type_terms(): void {
+  $term_bundles = [
+    'article_type' => 'group_articles',
+    'event_type' => 'group_events',
+    'faq_category' => 'group_related_questions',
+    'location_type' => 'group_locations',
+    'page_type' => 'group_pages',
+  ];
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+  foreach ($term_bundles as $term_bundle => $group_id) {
+    $view_display = $entity_display->getViewDisplay('taxonomy_term', $term_bundle, 'full');
+    if (!$view_display->isNew()) {
+      $group = $view_display->getThirdPartySetting('field_group', $group_id);
+      if ($group['format_type'] !== 'details') {
+        continue;
+      }
+
+      $group['format_type'] = 'html_element';
+      $group['format_settings']['classes'] = 'related_content';
+      $group['format_settings'] += [
+        'element' => 'div',
+        'show_label' => 0,
+        'label_element' => 'h3',
+        'label_element_classes' => '',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'attributes' => '',
+        'show_empty_fields' => FALSE,
+      ];
+      unset($group['format_settings']['open'], $group['format_settings']['required_fields'], $group['format_settings']['description']);
+
+      $view_display->setThirdPartySetting('field_group', $group_id, $group);
+      $view_display->save();
+    }
+  }
+}
