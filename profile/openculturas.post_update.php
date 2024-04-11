@@ -1027,3 +1027,30 @@ function openculturas_post_update_enable_default_filename_sanitization_configura
   $config->set('filename_sanitization.replacement_character', '-');
   $config->save();
 }
+
+/**
+ * Add missing default translation filter to view recommended_by.
+ */
+function openculturas_post_update_add_missing_default_translation_filter(): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $new_or_changed_configs = [
+    'views.view.recommended_by',
+    'views.view.related_event',
+  ];
+  foreach ($new_or_changed_configs as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  return $logger->output();
+}
