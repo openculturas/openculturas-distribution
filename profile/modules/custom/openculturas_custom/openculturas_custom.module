@@ -781,6 +781,10 @@ function openculturas_custom_config_schema_info_alter(array &$definitions): void
   if (isset($definitions['core.entity_view_display.*.*.*.third_party.field_group']['sequence'][0]['mapping']['label'])) {
     $definitions['core.entity_view_display.*.*.*.third_party.field_group']['sequence'][0]['mapping']['label']['translation context'] = 'field_group_label';
   }
+
+  if (isset($definitions['paragraphs.paragraphs_type.*']['mapping']['label'])) {
+    $definitions['paragraphs.paragraphs_type.*']['mapping']['label']['translation context'] = 'entity_bundle_name';
+  }
 }
 
 /**
