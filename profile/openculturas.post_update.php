@@ -1029,7 +1029,7 @@ function openculturas_post_update_enable_default_filename_sanitization_configura
 }
 
 /**
- * Add missing default translation filter to view recommended_by.
+ * Add missing default translation filter to some views.
  */
 function openculturas_post_update_add_missing_default_translation_filter(): string {
   /** @var \Drupal\config_update\ConfigReverter $configUpdater */
@@ -1040,6 +1040,7 @@ function openculturas_post_update_add_missing_default_translation_filter(): stri
   $new_or_changed_configs = [
     'views.view.recommended_by',
     'views.view.related_event',
+    'views.view.related_location',
   ];
   foreach ($new_or_changed_configs as $full_config_name) {
     $config_name = ConfigName::createByFullName($full_config_name);
