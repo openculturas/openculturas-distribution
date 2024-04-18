@@ -57,6 +57,7 @@ body {
 .view-related-sponsor .pager__item--next a:after,
 .view-related-sponsor .pager__item--previous a:after,
 .view .more-link:after,
+.text-formatted .more-link:after,
 .contact-data .field__item.field-legal-url a:before,
 .contact-data .field__item.field-url a:before,
 .contact-data .field__item.field-phone a:before,
@@ -16279,12 +16280,14 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   right: 0;
 }
 
-.view .more-link {
+.view .more-link,
+.text-formatted .more-link {
   position: relative;
   margin-top: 1.25rem;
   color: var(--color-link);
 }
-.view .more-link::before {
+.view .more-link::before,
+.text-formatted .more-link::before {
   content: "";
   position: absolute;
   top: 0.5em;
@@ -16293,7 +16296,8 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   height: 0.25em;
   border-bottom: 2px solid var(--color-link);
 }
-.view .more-link:after {
+.view .more-link:after,
+.text-formatted .more-link:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -16303,14 +16307,18 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   line-height: 1;
   content: "\f054";
 }
-.view .more-link a {
+.view .more-link a,
+.text-formatted .more-link a {
   position: relative;
   display: inline-block;
   background-color: var(--color-bg-light);
   padding-left: 0.5em;
   padding-right: 0.5em;
+  border-bottom-width: 0;
 }
-.view .more-link a:focus, .view .more-link a:hover {
+.view .more-link a:focus, .view .more-link a:hover,
+.text-formatted .more-link a:focus,
+.text-formatted .more-link a:hover {
   background-color: var(--color-link);
 }
 
