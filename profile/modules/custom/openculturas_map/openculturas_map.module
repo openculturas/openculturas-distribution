@@ -32,8 +32,13 @@ function openculturas_map_preprocess_block(array &$variables): void {
     // Create Unique-Id and attach to configuration and drupalSettings.
     $variables['configuration']['identifier'] = $id;
     $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id] = $variables['configuration'];
+
     if (isset($variables['elements']['content']['filter']['form']['#pager']->options)) {
       $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id]['pager'] = $variables['elements']['content']['filter']['form']['#pager']->options;
+    }
+
+    if (isset($variables['elements']['content']['filter']['form']['#delta_limit'])) {
+      $variables['#attached']['drupalSettings']['openCulturasMap']['global']['delta_limit'] = $variables['elements']['content']['filter']['form']['#delta_limit'];
     }
 
     $config = \Drupal::config('openculturas_map.settings');

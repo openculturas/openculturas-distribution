@@ -2,14 +2,6 @@
 .recurring-output--wrapper,
 .date {
   display: inline-block;
-  //line-height: 1;
-  font-size: $font-size-s;
-  font-weight: normal;
-
-  .smart-date--time {
-    font-size: $font-size-s;
-    font-weight: normal;
-  }
 
   .item-list > ul {
     margin: 0;
@@ -20,24 +12,28 @@
   }
 }
 
-.smart-date--date .datetime,
-.datetime .smart-date--date {
-  //background: $color_bg-slight-contrast;
-  //margin-left: -.25rem;
-  //padding: 0 .25rem;
-  padding-right: .25rem;
-  font-size: $font-size-l;
-  font-weight: bold;
-}
+// Smart date is missing markup in some scenarios,
+// see https://www.drupal.org/project/smart_date/issues/3386082
+//
+//.smart-date--date .datetime,
+//.datetime .smart-date--date {
+//  //background: $color_bg-slight-contrast;
+//  //margin-left: -.25rem;
+//  //padding: 0 .25rem;
+//  padding-right: .25rem;
+//  font-size: $font-size-l;
+//  font-weight: bold;
+//}
 
 .recurring-output--wrapper {
-  display: block; 
+  display: block;
   width: 100%;
   padding-right: 3rem;
-
+  font-size: var(--font-size-l);
+  font-weight: bold;
 
   button {
-    position: absolute; 
+    position: absolute;
     left: auto;
     right: -3rem;
     font-size: $font-size-default;
@@ -53,8 +49,21 @@
       top: -.25rem;
     }
   }
-
 }
+
+// using "—" (code-induced spaces adjusted)
+.date-join {
+  position: relative;
+  left: -.125em;
+  margin-right: -.25em;
+  font-size: inherit;
+  padding: 0 .25rem;
+}
+
+// if you prefer the old comma, uncomment
+//.time-join::before {
+//  content: ",";
+//}
 
 .add-to-calendar.modal {
   a {
@@ -64,3 +73,4 @@
   }
 }
 
+// see ../views/view-related-date.scss for further date styling

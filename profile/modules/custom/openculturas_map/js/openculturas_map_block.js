@@ -29,10 +29,27 @@
       this._filterElement.addEventListener(`submit`, function(event) {
         event.preventDefault();
         this._filter = {};
-        const inputElements = this._filterElement.querySelectorAll("input[type='text'], select");
+        const inputElements = this._filterElement.querySelectorAll("input[type='text'], select, input[type='checkbox']");
         for(const inputElement of inputElements) {
+
+          if(event.submitter && event.submitter.id && event.submitter.id === "edit-reset" && inputElement) {
+            inputElement.value = '';
+              if(inputElement.checked && inputElement.checked === true) {
+                inputElement.value = '';
+                inputElement.checked = false;
+              }
+          }
+
+          if(inputElement && inputElement.type === 'checkbox') {
+            inputElement.value = (inputElement.checked) ? 1 : '';
+          }
+
           if(inputElement && inputElement.value) {
               this._filter[inputElement.name] = inputElement.value;
+          }
+
+          if(inputElement.classList.contains('slimselect')) {
+            inputElement.dispatchEvent(new CustomEvent('change'))
           }
         }
 
@@ -73,17 +90,29 @@
   }
 
   Drupal.behaviors.OpenCulturasMapBlock = {
-    mapSelector: '.block-openculturas-map .openculturas--map',
+    mapSelector: '.block-openculturas-map .openculturas-map',
     formValues: [],
     // Drupal base function, runs when the behaviour is attached
     attach: function (context, settings) {
       once('init-openculturas-map-block', this.mapSelector, context).forEach((openculturasMapElement) => {
         const openCulturasMapBlock = new Drupal.OpenCulturasMapBlock(openculturasMapElement, function(event) {
           const mapType = openculturasMapElement.dataset.type;
-      
+
           const mapInstance = this.mapInstance;
+          const settings = this.mapInstance.settings;
+
+
           const locationsClient = new Drupal.OpenCulturasMapLocationsClient();
-          const client = locationsClient;
+          const datesClient = new Drupal.OpenCulturasMapDatesClient();
+
+          let client;
+          if(settings.get('type') === 'locations') {
+            client = locationsClient;
+          } else if(settings.get('type') === 'dates') {
+            client = datesClient;
+          } else {
+            throw "No client found for type " + settings.get('type');
+          }
 
           let fetchNew = true;
           if(!event) {
@@ -122,7 +151,7 @@
               this._renderedFilter = this._filter;
             }
           }
-          
+
           if(fetchNew) {
             openculturasMapElement.dataset.loading = true;
             openculturasMapElement.setAttribute("aria-busy", "true");
@@ -136,7 +165,7 @@
                 }
               })
           }
-          
+
 
         }).withFilter(openculturasMapElement.querySelector('form'));
       });

@@ -152,3 +152,61 @@ div.description.formtips-processed,
   color: var(--color-danger);
   font-size: .5rem;
 }
+
+// on-page menu
+.anchorlinks {
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+
+  a {
+    padding: 0 1rem;
+  }
+  @include icon(arrow-down) {
+    position: relative;
+    top: .333rem;
+    margin-right: .25rem;
+    color: var(--color-text-muted);
+  }
+}
+
+// table sort indicators
+.tablesort--desc {
+  @include icon(arrow-down);
+
+  background-image: none;
+}
+.tablesort--asc {
+  @include icon(arrow-up);
+
+  background-image: none;
+}
+
+// for easier icon link styling
+// (ckeditor sanitizes empty tags, thus using FontAwesome method is tricky)
+
+.icon {
+  &::before {
+    margin-right: .666rem;
+  }
+  &::after {
+    margin-left: .666rem;
+  }
+  &.tv {
+    @include icon(tv, fas, before);
+  }
+  &.location-dot {
+    @include icon(location-dot, fas, before);
+  }
+  &.table-list {
+    @include icon(table-list, fas, before);
+  }
+  &.table-cells-large {
+    @include icon(table-cells-large, fas, before);
+  }
+  &.box-archive {
+    @include icon(box-archive, fas, before);
+  }
+}

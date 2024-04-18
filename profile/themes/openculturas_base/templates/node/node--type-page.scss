@@ -83,5 +83,27 @@ body .block-system-main-block > article.layout-wide.view-mode-full {
 
 }
 
-// @todo: possible further paragraphs on same page would need extra grid handling
+// @todo: check further paragraphs types
 
+body .block-system-main-block > article.layout-wide.view-mode-full > .node__content {
+  div.paragraph--type--text,
+  div.paragraph--type--download {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: auto;
+    max-width: 68.75rem;
+    grid-column-gap: 1.25rem;
+    grid-row-gap: 0;
+
+    > div {
+      grid-column: 1 / -1;
+
+      @include breakpoint(m) {
+        grid-column: 2 / -2;
+      }
+      @include breakpoint(l) {
+        grid-column: 4 / -4;
+      }
+    }
+  }
+}

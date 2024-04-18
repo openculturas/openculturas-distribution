@@ -30,10 +30,10 @@ dependencies:
 _core:
   default_config_hash: WFIEv_HaujyHswtIOESHRwe0iB36xVAEYB6TF8Q1FeE
 id: oc_map_locations
-label: 'OC Map Locations'
+label: 'OC Map: Locations'
 module: views
-description: 'This view is only evaluated programmatically via JavaScript, it should not be adapted but only duplicated.'
-tag: 'OpenCulturas Map, JavaScript'
+description: "Complementary view for module OpenCulturas Map. Only change if you know what you're doing, otherwise the module might break."
+tag: 'OpenCulturas, Map, JavaScript'
 base_table: node_field_data
 base_field: nid
 display:
@@ -1016,9 +1016,26 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: none
+        type: full
         options:
           offset: 0
+          items_per_page: 60
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: true
+            items_per_page_label: No/page
+            items_per_page_options: '24, 60, 120, 240'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
       exposed_form:
         type: bef
         options:
@@ -1033,7 +1050,7 @@ display:
           text_input_required_format: advanced_html
           bef:
             general:
-              autosubmit: false
+              autosubmit: true
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_hide: false
@@ -1050,7 +1067,7 @@ display:
                   collapsible: false
                   is_secondary: false
               field_category_target_id:
-                plugin_id: default
+                plugin_id: slimselect
                 advanced:
                   sort_options: false
                   rewrite:
@@ -1062,36 +1079,32 @@ display:
                   allow_deselect: 1
                   close_on_select: 0
               field_sub_type_target_id:
-                plugin_id: default
+                plugin_id: slimselect
                 advanced:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
+                  to_optgroup: 1
+                  select_all: 1
+                  allow_deselect: 1
+                  close_on_select: 0
               field_address_location_proximity:
                 plugin_id: default
                 advanced:
                   collapsible: false
                   is_secondary: false
-              field_address_location_proximity_1:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: false
-              field_address_location_proximity_2:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: false
-              field_is_bookable_value:
-                plugin_id: bef_single
+              field_a11y_features_target_id:
+                plugin_id: slimselect
                 advanced:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
+                  allow_deselect: 1
+                  close_on_select: 0
       access:
         type: perm
         options:
@@ -1234,7 +1247,7 @@ display:
               magazine_editor: '0'
               oc_admin: '0'
               administrator: '0'
-            placeholder: ''
+            placeholder: contains...
             autocomplete_filter: 1
             autocomplete_min_chars: '0'
             autocomplete_items: '10'
@@ -1242,6 +1255,8 @@ display:
             autocomplete_raw_suggestion: 1
             autocomplete_raw_dropdown: 1
             autocomplete_dependent: 0
+            autocomplete_contextual: 0
+            autocomplete_autosubmit: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1314,7 +1329,7 @@ display:
           field: field_sub_type_target_id
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Location type'
           plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
@@ -1331,7 +1346,7 @@ display:
             identifier: location_type
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -1356,7 +1371,7 @@ display:
           reduce_duplicates: false
           vid: location_type
           type: select
-          hierarchy: false
+          hierarchy: true
           limit: true
           error_message: true
         field_address_location_proximity:
@@ -1442,7 +1457,7 @@ display:
             identifier: field_a11y_features_target_id
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -1470,6 +1485,86 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        default_langcode:
+          id: default_langcode
+          table: paragraphs_item_field_data
+          field: default_langcode
+          relationship: field_address_data_target_id_1
+          group_type: group
+          admin_label: ''
+          entity_type: paragraph
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        default_langcode_1:
+          id: default_langcode_1
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
         options:
@@ -1500,7 +1595,7 @@ display:
           group_type: group
           admin_label: 'field_address_data from Location'
           plugin_id: standard
-          required: false
+          required: true
         field_accessibility_target_id:
           id: field_accessibility_target_id
           table: node__field_accessibility
@@ -1512,7 +1607,7 @@ display:
           required: false
       header: {  }
       footer: {  }
-      display_comment: 'This view is only evaluated programmatically via JavaScript, it should not be adapted but only duplicated.'
+      display_comment: 'Caution! Do not remove, translate or change the names of field_id, field_gps, field_result_html, field_popup_html.  Would cause malfunction/errors.'
       rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
     cache_metadata:
@@ -1520,6 +1615,7 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
+        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:

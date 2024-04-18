@@ -61,17 +61,18 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       '#type' => 'container',
       '#attributes' => [
         'class' => [
-          'openculturas--map--filter--form',
+          'openculturas-map--filter-form',
         ],
       ],
     ];
-    $block['filter']['form'] = $this->formBuilder->getForm(OpenCulturasMapFilterForm::class);
+
+    $block['filter']['form'] = $this->formBuilder->getForm(OpenCulturasMapFilterForm::class, $this->configuration['type']);
 
     $block['map'] = [
       '#type' => 'container',
       '#attributes' => [
         'class' => [
-          'openculturas--map--leaflet',
+          'openculturas-map--leaflet',
         ],
       ],
     ];
@@ -80,7 +81,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       '#type' => 'container',
       '#attributes' => [
         'class' => [
-          'openculturas--map--results--list',
+          'openculturas-map--results-list',
         ],
       ],
     ];
@@ -101,6 +102,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       '#type' => 'select',
       '#options' => [
         'locations' => $this->t('Locations'),
+        'dates' => $this->t('Dates'),
       ],
       '#default_value' => $this->configuration['type'],
       '#weight' => 0,

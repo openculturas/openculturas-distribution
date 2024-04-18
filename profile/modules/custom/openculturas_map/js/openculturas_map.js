@@ -317,6 +317,7 @@
       this._lng;
       this._data;
       this._popup_html;
+      this._upcoming_dates;
 
       this._settings = new Drupal.OpenCulturasMapSettings();
       this._icon = L.icon({
@@ -381,6 +382,14 @@
       this._popup_html = popup_html;
     }
 
+    get upcoming_dates() {
+      return this._upcoming_dates;
+    }
+
+    set upcoming_dates(upcoming_dates) {
+      this._upcoming_dates = upcoming_dates;
+    }
+
     get popup() {
       const popup =  Drupal.OpenCulturasMapPopup.factory(this._popup_html).html;
       return popup;
@@ -416,7 +425,7 @@
       );
     }
 
-    static factoryWithGeoJSON(id, title, geoJSON, data, popup_html) {
+    static factoryWithGeoJSON(id, title, geoJSON, data, popup_html, upcoming_dates = false) {
       let marker;
       L.geoJSON(geoJSON, {
         pointToLayer: function (feature, latlng) {
@@ -426,7 +435,8 @@
             latlng.lat,
             latlng.lng,
             data,
-            popup_html
+            popup_html,
+            upcoming_dates
         )
         }.bind(this)
       });
@@ -442,7 +452,8 @@
       lat,
       lng,
       data,
-      popup_html
+      popup_html,
+      upcoming_dates = false
     ) {
         const marker = new this();
         marker.id = id;
@@ -451,6 +462,7 @@
         marker.lng = lng;
         marker.data = data;
         marker.popup_html = popup_html;
+        marker.upcoming_dates = upcoming_dates;
         return marker;
     }
 
@@ -746,6 +758,58 @@
     }
   }
 
+  Drupal.OpenCulturasMapUpcomingDates = class {
+    constructor() {
+      this._dates = new Set();
+      this._settings = new Drupal.OpenCulturasMapSettings();
+    }
+
+    addDate(date) {
+      if (typeof date === "string" && date.match(/datetime="([^"]*)"/)?.[1] ) {
+        this._dates.add(date);
+      }
+    }
+
+    sortDates() {
+
+      if(this._dates.size < 1) {
+        return;
+      }
+
+      this._dates = new Set(Array.from(this._dates).sort((a, b) => {
+        const aDate = new Date(a.match(/datetime="([^"]*)"/)?.[1]);
+        const bDate = new Date(b.match(/datetime="([^"]*)"/)?.[1]);
+
+        if(!aDate || !bDate) {
+          return 1;
+        }
+
+        return aDate - bDate;
+      }));
+    }
+
+    parseHtml(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const datesNode = doc.querySelector('.upcoming--dates');
+      if (datesNode) {
+        const dates = datesNode.innerHTML.split('<br>');
+        dates.forEach(date => this.addDate(date));
+      }
+    }
+
+    injectIntoHtml(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const datesNode = doc.querySelector('.upcoming--dates');
+      if (datesNode) {
+        this.sortDates();
+        datesNode.innerHTML = Array.from(this._dates).slice(0, this._settings.get('delta_limit') ?? 3).join('<br>');
+      }
+      return doc.documentElement.outerHTML;
+    }
+  }
+
   /**
    * OpenCulturasMapLocationsClient
    * Extends OpenCulturasMapHTTPClient to parse data from a location view endpoint.
@@ -817,6 +881,111 @@
     }
   }
 
+  /**
+   * OpenCulturasMapDatesClient
+   * Extends OpenCulturasMapHTTPClient to parse data from a dates view endpoint.
+   */
+  Drupal.OpenCulturasMapDatesClient = class extends Drupal.OpenCulturasMapHTTPClient  {
+    constructor() {
+      super('rest/oc_map_dates');
+      this._collection = new Drupal.OpenCulturasMapEntryCollection();
+      this._upcomingDates = new Map();
+    }
+
+    async asyncMapEntries() {
+      return super.asyncResponse()
+        .then(response => {
+          if(response.status !== 200) {
+            throw new Error("Invalid Response");
+          }
+          if(this.format === "json") {
+            return response.json();
+          }
+          throw new Error("Invalid Format");
+        })
+        .then(clientResponse => {
+          return this.mapEntries(clientResponse);
+        })
+        .catch(error => {
+          console.error(error)
+        });
+    }
+
+    mapEntries(clientResponse) {
+      for(const location of clientResponse) {
+        try {
+          const data = this.createEntryData(location);
+          let marker = this.findExistingMarker(location) || this.createMarker(location, data);
+          if(!marker) {
+            continue;
+          }
+
+          marker.popup_html = this.updatePopupHtml(marker, location);
+          const entry = this.createEntry(location, data, marker);
+
+          this._collection.set(location.field_id, entry);
+        } catch(error) {
+          console.debug(`Skipping Date[id: ${location.field_id}]: ${error}`);
+          console.trace(error);
+        }
+      }
+      return this._collection;
+    }
+
+    createEntryData(location) {
+      return Drupal.OpenCulturasMapEntryData.factory(
+        parseFloat(location.field_address_proximity),
+        parseInt(location.field_id),
+        parseInt(location.field_marker_id || location.field_id),
+        parseInt(location.field_result_id || location.field_id),
+      );
+    }
+
+    findExistingMarker(location) {
+      const existingMarkerEntry = this._collection.findMarkerId(location.field_marker_id)[1];
+      if(existingMarkerEntry) {
+        return existingMarkerEntry.marker;
+      }
+      return null;
+    }
+
+    createMarker(location, data) {
+      return Drupal.OpenCulturasMapMarker.factoryWithGeoJSON(
+        parseInt(location.field_marker_id || location.field_id),
+        location.field_popup_title || Drupal.t('Entry'),
+        Drupal.OpenCulturasMapHTTPClient.parseGeoJson(location.field_gps),
+        data,
+        location.field_popup_html
+      );
+    }
+
+    updatePopupHtml(marker, location) {
+      if(!this._upcomingDates
+        .has(marker._id)
+      ) {
+        this._upcomingDates.set(
+          marker._id,
+          new Drupal.OpenCulturasMapUpcomingDates()
+        )
+      }
+
+      this._upcomingDates.get(marker._id).parseHtml(location.field_popup_html);
+      return this._upcomingDates.get(marker._id).injectIntoHtml(marker.popup_html);
+    }
+
+    createEntry(location, data, marker) {
+      return Drupal.OpenCulturasMapEntry.factory(
+        parseInt(location.field_id),
+        data,
+        marker,
+        Drupal.OpenCulturasMapResult.factory(
+          parseInt(location.field_result_id || location.field_id),
+          location.field_result_html,
+          data
+        )
+      );
+    }
+  }
   /**
    * OpenCulturasMapPager
    * Provides a pager to accurately paginate a OpenCulturasMapEntryCollection.
@@ -898,7 +1067,7 @@
 
       const pagerItemPageNode = document.createElement('a');
       pagerItemPageNode.setAttribute('data-page', pageNo);
-      pagerItemPageNode.setAttribute('aria-label', `${Drupal.t('Go to Page')} ${pageNo}`);
+      pagerItemPageNode.setAttribute('aria-label', Drupal.t('Go to page @number', {'@number': pageNo}));
       pagerItemPageNode.setAttribute('role', 'button')
       pagerItemPageNode.setAttribute('href', '#')
 
@@ -991,12 +1160,12 @@
       this.reloadInteraction = false;
       this.wrapperElement = wrapperElement;
       this.blockElement = wrapperElement.closest('.block');
-      this.mapElement = wrapperElement.querySelector('.openculturas--map--leaflet');
-      this.resultsElement = wrapperElement.querySelector('.openculturas--map--results--list');
-      this.reloadElement = wrapperElement.querySelector('.openculturas--map--reload');
-      this.pagerElement = wrapperElement.querySelector('.openculturas--map--results--pager');
-      this.counterElement = wrapperElement.querySelector('.openculturas--map--results--counter');
-      this.perPageElement = wrapperElement.querySelector('.openculturas--map--results--picker select');
+      this.mapElement = wrapperElement.querySelector('.openculturas-map--leaflet');
+      this.resultsElement = wrapperElement.querySelector('.openculturas-map--results-list');
+      this.reloadElement = wrapperElement.querySelector('.openculturas-map--reload');
+      this.pagerElement = wrapperElement.querySelector('.openculturas-map--results-pager');
+      this.counterElement = wrapperElement.querySelector('.openculturas-map--results-counter');
+      this.perPageElement = wrapperElement.querySelector('.openculturas-map--results-picker select');
 
       this.settings = new Drupal.OpenCulturasMapSettings(this.wrapperElement.dataset.identifier ?? null);
       this.minZoom = Math.min(this.settings.get('start_zoom_position') ?? 4, 4);
@@ -1121,15 +1290,12 @@
 
     _renderResultCounter(start, end, size) {
       const resultsCount = this._entryCollection.size;
-      const counterElement = document.querySelector('.openculturas--map--results--counter');
+      const counterElement = document.querySelector('.openculturas-map--results-counter');
 
       if(size < 1) {
         counterElement.innerText = Drupal.t("No results.");
       } else {
-        counterElement.innerText = Drupal.t(`Displaying`)
-        counterElement.innerText += ` ${start} - ${end} Items `
-        counterElement.innerText += Drupal.t(` of`)
-        counterElement.innerText += ` ${size}`
+        counterElement.innerHTML = Drupal.t('Displaying <strong>@start – @end</strong> of <strong>@total</strong>', {'@start': start, '@end': end, '@total': size});
       }
 
     }
@@ -1282,7 +1448,7 @@
         center: [this.coords.origin.lat, this.coords.origin.lng],
         zoom: this.zoom.origin,
       });
-      if(this.settings.get('show_radius.init')) {
+      if(this.settings.get('show_radius').includes('init')) {
         this._showRadius('origin');
       }
       console.debug("    => Tiles...");
@@ -1305,7 +1471,7 @@
           defaultMarkGeocode: false
         }).on('markgeocode', function(event) {
           this._setCoords(event.geocode.center.lat, event.geocode.center.lng, this.zoom.map, 'map', true);
-          if(this.settings.get('show_radius.geocode')) {
+          if(this.settings.get('show_radius').includes('geocode')) {
             this._showRadius('map');
           }
         }.bind(this)).addTo(this.mapInstance);
@@ -1313,7 +1479,7 @@
       if(this.settings.get('control_locate')) {
         L.control.locate({
           position: "topleft",
-          title: "Locate me",
+          title: Drupal.t("Locate me"),
           zoom: this.zoom.map,
         }).addTo(this.mapInstance);
       }
@@ -1323,7 +1489,7 @@
       if(this.settings.get('control_reset')) {
         L.control.resetView({
           position: "topleft",
-          title: "Reset view",
+          title: Drupal.t("Reset view"),
           latlng: L.latLng([this.coords.origin.lat, this.coords.origin.lng]),
           zoom: this.zoom.origin,
         }).addTo(this.mapInstance);
@@ -1401,7 +1567,7 @@
     _onMoveEnd(event) {
       const latlng = event.target.getCenter();
       this._setCoords(latlng.lat, latlng.lng, event.target['_zoom'], 'map');
-      if((this.settings.get('show_radius.move')) || this._radialShape) {
+      if((this.settings.get('show_radius').includes('move')) || this._radialShape) {
         this._showRadius('map');
       }
     }
@@ -1434,7 +1600,7 @@
       this._setCoords(event.latlng.lat, event.latlng.lng, event.target['_zoom'], 'map');
       this._setCoords(event.latlng.lat, event.latlng.lng, event.target['_zoom'], 'origin');
 
-      if(this.settings.get('show_radius.locate')) {
+      if(this.settings.get('show_radius').includes('locate')) {
         this._showRadius('origin');
       }
 

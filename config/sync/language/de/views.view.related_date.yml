@@ -10,7 +10,7 @@ display:
       empty:
         area:
           content:
-            value: "<p>Aktuell stehen keine Termine im Zusammenhang mit diesem Inhalt.</p>\r\n"
+            value: '<p>Aktuell stehen keine Termine im Zusammenhang mit diesem Inhalt.</p>'
             format: basic_html
       display_comment: 'Der Link zeigt auf den Inhalt des Datumseintrags, verwendet als Linktext aber den Titel der Veranstaltung.'
       exposed_form:
@@ -45,7 +45,7 @@ display:
       title: 'Als Veranstalter:in'
     display_title: 'Nach Organisator:in'
   upcoming_dates:
-    display_title: 'Kommende Termine'
+    display_title: 'Kommende Termine (mit Karte)'
     display_options:
       filters:
         field_date_value_1:
@@ -76,6 +76,10 @@ display:
         field_date_duration:
           expose:
             label: Dauer
+            description: ''
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
           group_info:
             label: 'Mehrtägige ausblenden'
             group_items:
@@ -108,7 +112,7 @@ display:
       empty:
         area:
           content:
-            value: "<p>Momentan stehen keine Termine an.</p>\r\n"
+            value: '<p>Momentan stehen keine Termine an.</p>'
             format: basic_html
   upcoming_dates_map:
     display_options:
@@ -138,16 +142,11 @@ display:
     display_options:
       use_more_text: 'Zum Kalender'
       link_url: /de/kalender
-      header:
-        area:
-          content:
-            value: "<h2>[view:title]</h2>\r\n"
-            format: basic_html
       display_comment: ''
       empty:
         area:
           content:
-            value: "<p>Offenbar gibt es momentan keine anstehenden Termine in der Datenbank.</p>\r\n"
+            value: '<p>Offenbar gibt es momentan keine anstehenden Termine in der Datenbank.</p>'
             format: basic_html
   by_profile:
     display_title: 'Nach Profil'
@@ -162,4 +161,121 @@ display:
     display_title: 'Termine dieser Reihe'
     display_options:
       title: 'Termine in dieser Veranstaltungreihe'
+  block_online:
+    display_title: 'Kommende Online-Termine'
+    display_options:
+      title: 'Online- und Hybrid-Veranstaltungen'
+      pager:
+        options:
+          tags:
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: ab
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+          text_input_required: 'Wähle einen Filter und klicke auf <em>Anwenden</em>, um Ergebnisse zu sehen'
+          bef:
+            general:
+              secondary_label: 'Erweiterte Filter'
+      empty:
+        area:
+          content:
+            value: '<p>Momentan stehen keine Online-Veranstaltungen an.</p>'
+            format: basic_html
+      filters:
+        field_category_target_id:
+          expose:
+            label: Fokus
+        field_sub_type_target_id:
+          admin_label: Typ
+          expose:
+            label: Typ
+        field_date_value_1:
+          expose:
+            label: Startdatum
+            placeholder: TT.MM.JJJJ
+        field_date_end_value:
+          expose:
+            label: Enddatum
+            placeholder: TT.MM.JJJJ
+        field_a11y_features_target_id:
+          expose:
+            label: Barrierefreiheit
+        title:
+          expose:
+            label: 'Veranstalter:in'
+            placeholder: 'Name enthält ...'
+  upcoming_dates_list:
+    display_title: 'Kommende Termine (nur Liste)'
+    display_options:
+      empty:
+        area:
+          content:
+            value: '<p>Momentan stehen keine Termine an.</p>'
+            format: basic_html
+      filters:
+        field_category_target_id:
+          expose:
+            label: Fokus
+        field_sub_type_target_id:
+          admin_label: Typ
+          expose:
+            label: Typ
+        field_date_value_1:
+          expose:
+            label: Startdatum
+            placeholder: TT.MM.YYYY
+        field_date_end_value:
+          expose:
+            label: Enddatum
+            placeholder: TT.MM.YYYY
+        field_date_duration:
+          expose:
+            description: ''
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          group_info:
+            label: 'Mehrtägige ausblenden'
+            group_items:
+              1:
+                title: Ja
+        field_a11y_features_target_id:
+          expose:
+            label: Barrierefreiheit
+        title:
+          expose:
+            label: 'Veranstalter:in'
+            placeholder: 'Name enthält ...'
+        title_1:
+          expose:
+            label: Ort
+            placeholder: 'Name enthält ...'
+      pager:
+        options:
+          tags:
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: ab
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+          bef:
+            general:
+              secondary_label: 'Erweiterte Filter'
 label: 'Verwandte Termine'

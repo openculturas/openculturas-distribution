@@ -15,21 +15,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides a Filter form for the OpenCulturas Map.
  */
-final class OpenCulturasMapFilterForm extends FormBase {
+class OpenCulturasMapFilterForm extends FormBase {
 
   /**
    * Machine name of the View used for the filter.
    *
    * @var string
    */
-  protected string $viewId = 'oc_map_locations';
+  public string $viewId = 'oc_map_locations';
 
   /**
    * Machine name of the display in the view.
    *
    * @var string
    */
-  protected string $viewDisplayId = 'rest_export';
+  public string $viewDisplayId = 'rest_export';
 
   /**
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -60,7 +60,6 @@ final class OpenCulturasMapFilterForm extends FormBase {
   }
 
   public function loadView(string|null $viewId = NULL): self {
-
     $view = Views::getView($viewId ?? $this->viewId);
     if (!$view instanceof ViewExecutable || $view->storage->getOriginalId() !== $this->viewId) {
       throw new \Exception("Could not load view!");
@@ -107,6 +106,11 @@ final class OpenCulturasMapFilterForm extends FormBase {
       'always_process' => TRUE,
     ]);
     $form = $this->container->get('form_builder')->buildForm(ViewsExposedForm::class, $formState);
+
+    if (isset($this->viewExecutable->field['field_date_1'], $this->viewExecutable->field['field_date_1']->options['delta_limit'])) {
+      $form['#delta_limit'] = $this->viewExecutable->field['field_date_1']->options['delta_limit'];
+    }
+
     if ($this->viewExecutable->pager !== NULL) {
       $form['#pager'] = $this->viewExecutable->pager;
     }
@@ -130,6 +134,13 @@ final class OpenCulturasMapFilterForm extends FormBase {
    * @throws \Exception
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    if (!empty($form_state->getBuildInfo()['args'][0]) && in_array($form_state->getBuildInfo()['args'][0], ['locations', 'dates'])) {
+      $this->viewId = 'oc_map_' . $form_state->getBuildInfo()['args'][0];
+      if ($form_state->getBuildInfo()['args'][0] === 'dates') {
+        $this->viewDisplayId = 'rest_export_1';
+      }
+    }
+
     $this->loadView()->loadViewDisplay();
     return $this->getExposedFilterForm();
   }

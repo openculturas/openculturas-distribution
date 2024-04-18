@@ -1,7 +1,12 @@
-.view-related-date {
+.view-related-date,
+.calendar {
 
   h3.teaser {
     margin-top: 0;
+  }
+
+  .universal-teaser {
+    width: 100%;
   }
 
   .views-row {
@@ -93,5 +98,24 @@
       margin-top: 1.25rem;
       margin-bottom: 1.25rem;
     }
+  }
+}
+
+// Date styling in calendars, see ../field/date.scss
+
+.calendar {
+  .smart-date--time {
+    font-weight: normal;
+    font-size: var(--font-size-default);
+    display: inline-flex;
+    flex-flow: row nowrap;
+  }
+
+  .field--type-smartdate,
+  .smart-date--date .datetime,
+  .datetime .smart-date--date {
+    //padding-right: .25rem;
+    font-size: var(--font-size-l);
+    font-weight: bold;
   }
 }

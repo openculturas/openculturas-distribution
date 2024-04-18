@@ -173,88 +173,6 @@ select {
   }
 }
 
-// @todo move slimselect to dedicated scss file
-// place slimselect css in ss module folder
-
-.slimselect {
-  --ss-primary-color: var(--color-interaction);
-  --ss-bg-color: var(--color-bg-light);
-  --ss-font-color: var(--color-text);
-  --ss-font-placeholder-color: #1f1f1f66; // todo later: remove disallowed color functions, use muted color 50%
-  --ss-disabled-color: var(--color-bg-slight-contrast);
-  --ss-border-color: var(--color-interaction);
-  
-  // --ss-highlight-color: ;
-  --ss-success-color: var(--color-success);
-  --ss-error-color: var(--color-danger);
-  --ss-focus-color: var(--color-focus);
-  --ss-main-height: 2.5rem; // adjust to standard select height
-
-  // --ss-content-height: ;
-  --ss-spacing-l: 0.5em; // ! used in removal button
-  --ss-spacing-m: 0.5em;
-  --ss-spacing-s: 0.25em;
-  --ss-animation-timing: 0.2s;
-  --ss-border-radius: var(--button-border-radius);
-}
-
-.ss-main {
-  width: 18rem;
-  padding: 0.5rem 0 0.5rem 1rem;
-  border: 1px solid var(--color-divider-dark);
-  border-radius: 0;
-
-  .ss-arrow {
-    margin: var(--ss-spacing-s) var(--ss-spacing-m) auto var(--ss-spacing-m); // align top
-    padding-right: 2rem;
-    background: $color-bg-light url(../images/chevron-down.svg) no-repeat;
-    background-position: 0.5em;
-    background-size: 1em;
-    path {
-      visibility: hidden;
-    }
-  }
-  .ss-values {
-    // height: 1.3rem;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-    .ss-placeholder {
-      padding: 0;
-    }
-    .ss-value {
-      // background-color: var(--color-primary)!important;
-      .ss-value-text {
-        font-size: var(--font-size-s);
-      }
-      .ss-value-delete {
-        border-left-width: 0;
-      }
-    }
-  }
-}
-
-select[multiple].slimselect:not([data-once]) {
-  height: 2.48rem;
-
-  // background: $color-bg-light;
-  optgroup, option {
-    visibility: hidden;
-  }
-}
-
-// we redefine ss custom properties instead
-// .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected, .ss-option:hover {
-//  //color: var(--color-primary);
-//  background-color: var(--color-primary)!important;
-// }
-
-// end @todo slimselect
-
 input[type="checkbox"],
 input[type="radio"] {
   position: relative;
@@ -322,7 +240,7 @@ input[type="radio"] {
       font-size: 1.5em;
     }
     @include breakpoint(m) {
-      padding-top: 2.25rem;
+      align-self: flex-end;
       padding-bottom: .25rem;
     }
   }
@@ -333,13 +251,25 @@ input[type="radio"] {
 
   // submit button alignment
   .form--inline .form-actions {
+    display: flex;
+    flex-flow: row wrap;
     align-self: flex-end;
+    justify-content: space-between;
+    gap: .75rem 1rem;
+
+    button {
+      margin: 0;
+    }
   }
 
 // /* Secondary filters above default exposed form */
 //  .bef--secondary {
 //    order: -1;
 //  }
+
+  .bef--secondary .details-title {
+    color: var(--color-interaction);
+  }
 
 }
 
@@ -519,4 +449,89 @@ input[type="password"],
   background-color: var(--color-bg-info);
 }
 
+// Date picker widget
 
+.ui-datepicker.ui-widget {
+  padding: .5em .5em 0;
+  border-color: transparent;
+  box-shadow: 0 0 1rem -0.5rem var(--color-text);
+  font-family: var(--font-base);
+}
+
+.ui-datepicker {
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+
+    &::before {
+      content: "\f053";
+      color: var(--color-interaction);
+      font-family: "Font Awesome 6 Free"; // stylelint-disable-line font-family-no-missing-generic-family-keyword
+      line-height: 1.75;
+    }
+
+    .ui-icon {
+      background-image: none;
+    }
+
+    &:focus,
+    &:hover,
+    .ui-state-hover {
+      color: var(--color-text-inverted);
+      border-width: 0;
+      background-color: var(--color-interaction);
+    }
+  }
+
+  .ui-datepicker-next::before {
+    content: "\f054";
+  }
+
+  .ui-datepicker-header {
+    border-width: 0;
+    background-color: unset;
+  }
+
+  tr {
+    border: 0 none;
+  }
+
+  .ui-datepicker-calendar {
+    background-color: var(--color-bg-form);
+  }
+
+  .ui-state-default,
+  .ui-widget-content .ui-state-default,
+  .ui-widget-header .ui-state-default,
+  .ui-button {
+    color: var(--color-text);
+    border: 1px solid var(--color-divider-dark);
+    background: var(--color-bg-light);
+    font-weight: normal;
+
+    &:focus,
+    &:hover {
+      color: var(--color-text-inverted);
+      background: var(--color-interaction);
+    }
+  }
+
+  .ui-state-highlight,
+  .ui-widget-content .ui-state-highlight,
+  .ui-widget-header .ui-state-highlight {
+    color: var(--color-text);
+    border-color: var(--color-divider-dark);
+    background-color: var(--color-warning);
+  }
+
+  .ui-state-active,
+  .ui-widget-content .ui-state-active {
+    color: var(--color-info);
+  }
+
+  .ui-state-disabled {
+    color: var(--color-text-muted) !important;
+  }
+}

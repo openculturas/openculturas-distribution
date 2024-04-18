@@ -1,8 +1,12 @@
 .tabs {
 
   .tabs {
-    border-top: $color-bg-slight-contrast 1px solid;
-    border-bottom: $color-bg-slight-contrast 1px solid;
+    //border-top: $color-bg-slight-contrast 1px solid;
+    //border-bottom: $color-bg-slight-contrast 1px solid;
+    background-color: var(--color-interaction);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 2px;
   }
 
   li {
@@ -10,21 +14,52 @@
     //font-size: small;
     a {
       border-radius: $button-border-radius;
+      color: var(--color-text-inverted);
 
       &:focus,
       &:hover {
-        background: $color-interaction;
-        color: $color-text-inverted;
+        background: var(--color-text-inverted);
+        color: var(--color-interaction);
       }
 
-      &:active {
-        background: $color-text-inverted;
-        color: $color-interaction;
+      &:active,
+      &:focus:active,
+      &:hover:active {
+        background: transparent;
+        color: var(--color-text-inverted);
+        outline: var(--outline-active);
+        outline-color: var(--color-text-inverted);
       }
 
       &.is-active {
         display: none;
       }
+    }
+  }
+}
+
+.tabs .tabs.secondary {
+  border-width: 0;
+  background-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.tabs.secondary {
+  a {
+    box-shadow: none;
+    border: 0 solid currentColor;
+    font-weight: 600;
+    color: var(--color-link);
+    &.current {
+      background: transparent;
+      border-radius: 0;
+      border-width: 0 0 3px;
+    }
+    &:focus,
+    &:hover {
+      background-color: var(--color-interaction);
+      color: var(--color-text-inverted);
     }
   }
 }

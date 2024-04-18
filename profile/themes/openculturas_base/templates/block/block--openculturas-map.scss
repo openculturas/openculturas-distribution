@@ -1,16 +1,53 @@
 // Map container
 
-.openculturas--map {
+.openculturas-map {
   &[data-dirty=true] {
-    .openculturas--map--reload {
+    .openculturas-map--reload {
       opacity: 1;
+    }
+  }
+  // Loading indicator
+  &[aria-busy=true] {
+    .openculturas-map--leaflet {
+        &::before {
+        content: '';
+        position: absolute;
+        z-index: 401;
+        left: calc(50% - 1rem);
+        top: calc(50% - 1rem);
+        // always visible for testing
+        //left: 10px;
+        //top: auto;
+        // bottom: 10px;
+
+        // Progress indicator thanks to
+        // Vineeth.TR published unter MIT license on https://cssloaders.github.io/
+        // todo: decide spinner type and put in mixin (use generic classes for broader use)
+        height: 2rem;
+        width: 2rem;
+        border: 4px solid $color-info;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   }
 }
 
 // Reload (results update) button on map
 
-.openculturas--map--reload {
+.openculturas-map--reload {
   @extend %button-small;
   @extend %oc-button--primary;
   @include icon(search);
@@ -37,7 +74,7 @@
 
 // Results list (teasers)
 
-.openculturas--map--results {
+.openculturas-map--results {
 
   .map-link {
     white-space: nowrap;
@@ -46,17 +83,20 @@
     &::before {
       margin-right: 0.75rem;
     }
+    article & {
+      margin-top: 1rem;
+    }
   }
 }
 
-.openculturas--map--results--header {
+.openculturas-map--results-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: calc($grid-gutter * 2);
 }
 
-.openculturas--map--results--list > div {
+.openculturas-map--results-list > div {
   display: flex;
   flex-flow: column;
   gap: 0 $grid-gutter;
@@ -67,8 +107,8 @@
   }
 }
 
-.openculturas--map--container,
-body .block-system-main-block > article.layout-wide.view-mode-full .attachment-before.openculturas--map--container {
+.openculturas-map--container,
+body .block-system-main-block > article.layout-wide.view-mode-full .attachment-before.openculturas-map--container {
   grid-column: 1/-1;
   min-height: 20rem;
   position: relative;
@@ -76,7 +116,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 
 // OC adjustments to Leaflet defaults (interaction elements)
 
-.openculturas--map--leaflet {
+.openculturas-map--leaflet {
   min-height: 30rem;
 
   .leaflet-div-icon {
@@ -114,7 +154,6 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
     width: 0.9rem;
     height: 0.9rem;
     border-radius: 100%;
-    // @todo: replace the following with oc custom properties
     background: var(--color-info);
     border: 1px solid var(--color-bg-light);
     outline: 4px solid #6495ED4C;
@@ -213,6 +252,10 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
     }
   }
 
+  .upcoming--more-link {
+    margin-top: .5em;
+  }
+
   // Search radius
 
   .leaflet-pane > svg path.leaflet-interactive {
@@ -221,12 +264,12 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   }
 }
 
-.openculturas--map--container {
+.openculturas-map--container {
   position: relative;
   height: 30rem;
   overflow: visible;
 
-  .openculturas--map--leaflet {
+  .openculturas-map--leaflet {
     height: 100%;
     width: 100%;
     isolation: isolate;
@@ -235,7 +278,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 
 // Results filter block, toggleable
 
-.openculturas--map--overlay {
+.openculturas-map--overlay {
   position: absolute;
   top: 0;
   right: 0;
@@ -257,6 +300,11 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
     font-size: 1rem;
   }
 
+  & > summary {
+    height: 4rem; // both icons clickable
+    margin-bottom: -3rem; // ...but do not push form too far down
+  }
+
   & > summary:before {
     transform: rotate(90deg);
     font-size: var(--font-size-default);
@@ -267,19 +315,37 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   }
 
   &[open] {
-    width: auto;
-    min-width: 12rem;
-    max-width: 24rem;
+    width: 20rem;
+    min-width: 20rem;
+    max-width: 90%;
     padding: 0;
+
+    &:has(.bef--secondary[open]) {
+      width: auto;
+    }
+
+    @include breakpoint(m) {
+      width: 27rem; // German buttons still side by side
+
+      &:has(.bef--secondary[open]) {
+        width: 53rem;
+      }
+    }
 
     & > summary:before {
       transform: rotate(-90deg);
       z-index: +1;
+      top: 2rem; // adjust visual center
+      right: .25rem; // adjust visual center
     }
+
+  }
+  details:last-of-type {
+    margin-bottom: unset;
   }
 }
 
-.openculturas--map--filter--form {
+.openculturas-map--filter-form {
   font-size: 1rem;
 
   form {
@@ -291,6 +357,10 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
     background: transparent; // parent element already has form bg
   }
 
+  .bef--secondary {
+    width: 100%;
+  }
+
   .js-form-item-field-category-target-id,
   .js-form-item-field-sub-type-target-id {
     flex-basis: calc(50% - 0.5rem/2);
@@ -298,6 +368,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 
   .form-item {
     flex-grow: 1;
+    flex-shrink: 1;
   }
 
   select {
@@ -311,6 +382,10 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   }
   .ss-main {
     width: 100%;
+  }
+
+  div[class*="form-item-date"] {
+    flex-basis: 10rem;
   }
 }
 
@@ -330,5 +405,27 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 }
 
 .leaflet-popup-content {
-  margin: 1rem 2rem 1.5rem 1rem;
+  margin: 1rem 3rem 1.5rem 1rem;
+
+  .EventScheduled,
+  .EventRescheduled {
+    display: none;
+  }
+
+  .EventCancelled,
+  .EventPostponed {
+    color: var(--color-danger);
+  }
+
+  .EventMovedOnline {
+    color: var(--color-text-muted);
+  }
+
+  span[class^="Event"] {
+    padding-right: .5em;
+  }
+
+  time {
+    padding-right: .25em
+  }
 }

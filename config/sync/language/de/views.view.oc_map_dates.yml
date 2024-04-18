@@ -1,0 +1,67 @@
+display:
+  default:
+    display_options:
+      empty:
+        area:
+          content:
+            value: '<p>Aktuell stehen keine Termine an.</p>'
+            format: basic_html
+      filters:
+        field_date_duration:
+          group_info:
+            label: 'Mehrtägige ausblenden'
+            group_items:
+              1:
+                title: Ja
+        field_category_target_id:
+          expose:
+            label: Fokus
+        field_sub_type_target_id:
+          admin_label: Typ
+          expose:
+            label: Typ
+        field_date_value_1:
+          expose:
+            label: Startdatum
+            placeholder: TT.MM.JJJJ
+        field_date_end_value:
+          expose:
+            label: Enddatum
+            placeholder: TT.MM.JJJJ
+        field_a11y_features_target_id:
+          expose:
+            label: Barrierefreiheit
+        title:
+          expose:
+            label: 'Veranstalter:in'
+            placeholder: 'Name enthält ...'
+        title_1:
+          expose:
+            label: Veranstaltungsort
+            placeholder: 'Name enthält ...'
+      display_comment: 'Achtung! Feldnamen nicht entfernen, übersetzen oder umbenennen, sonst Fehlfunktion!'
+      pager:
+        options:
+          tags:
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: ab
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+          text_input_required: 'Filter setzen, um Ergebnisse zu sehen'
+          bef:
+            general:
+              secondary_label: 'Erweiterte Filter'
+      fields:
+        nid_3:
+          alter:
+            text: 'Zum Kalender dieses Veranstaltungsortes'
+description: 'Gegenstück zum Modul OpenCulturas Map. Vorsicht bei Änderungen! Administrativen Hinweis beachten.'

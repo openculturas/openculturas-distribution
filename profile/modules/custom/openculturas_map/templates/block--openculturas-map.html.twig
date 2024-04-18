@@ -6,13 +6,13 @@
 {% extends 'block.html.twig' %}
 
 {% block content %}
-  <div class="openculturas--map view" data-type="{{ configuration.type ?? 'locations' }}" data-identifier="{{ configuration.identifier }}">
-    <div class="openculturas--map--container leaflet-container attachment-before">
+  <div class="openculturas-map view" data-type="{{ configuration.type ?? 'locations' }}" data-identifier="{{ configuration.identifier }}">
+    <div class="openculturas-map--container leaflet-container attachment-before">
 
       {% if configuration.show_filter %}
-        <details class="openculturas--map--overlay">
-          <summary class="openculturas--map--summary"><h4 class="visually-hidden">Filter</h4></summary>
-          <div class="openculturas--map--filter openculturas--map--details">
+        <details class="openculturas-map--overlay">
+          <summary class="openculturas-map--summary"><h4 class="visually-hidden">Filter</h4></summary>
+          <div class="openculturas-map--filter openculturas-map--details">
 
             {{ content.filter }}
           </div>
@@ -22,7 +22,7 @@
       {{ content.map }}
 
       {% if configuration.show_results and configuration.refresh_results_on_user_interaction %}
-        <button class="openculturas--map--reload">
+        <button class="openculturas-map--reload">
           {% trans %}
             Search in this area
           {% endtrans %}
@@ -30,12 +30,12 @@
       {% endif %}
     </div>
     {% if configuration.show_results %}
-    <div class="openculturas--map--results view-content">
-      <div class="openculturas--map--results--header">
-          <div class="openculturas--map--results--counter"></div>
-          <div class="openculturas--map--results--picker">
-            <label for="openculturas--map--results--picker--select--{{ configuration.identifier }}">{{ content.filter.form['#pager'].options.expose.items_per_page_label ? content.filter.form['#pager'].options.expose.items_per_page_label|trans : 'Items per page'|trans }}:</label>
-            <select id="openculturas--map--results--picker--select--{{ configuration.identifier }}">
+    <div class="openculturas-map--results view-content">
+      <div class="openculturas-map--results-header">
+          <div class="openculturas-map--results-counter"></div>
+          <div class="openculturas-map--results-picker">
+            <label for="openculturas-map--results-picker-select--{{ configuration.identifier }}">{{ content.filter.form['#pager'].options.expose.items_per_page_label ? content.filter.form['#pager'].options.expose.items_per_page_label|trans : 'Items per page'|trans }}:</label>
+            <select id="openculturas-map--results-picker-select--{{ configuration.identifier }}">
               {% if content.filter.form['#pager'].options.expose.items_per_page_options %}
                 {% for amount in content.filter.form['#pager'].options.expose.items_per_page_options|split(', ') %}
                     <option value="{{ amount }}" {{ amount == content.filter.form['#pager'].options.items_per_page ? 'selected' : ''}} >{{ amount }}</option>
@@ -49,9 +49,11 @@
             </select>
           </div>
         </div>
-        {{ content.results }}
-        <div class="openculturas--map--results--footer view-footer">
-          <div class="openculturas--map--results--pager pager"></div>
+        <div class="calendar">
+          {{ content.results }}
+        </div>
+        <div class="openculturas-map--results-footer view-footer">
+          <div class="openculturas-map--results-pager pager"></div>
         </div>
       </div>
     {% endif %}
