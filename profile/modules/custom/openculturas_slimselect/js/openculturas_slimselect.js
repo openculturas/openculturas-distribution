@@ -16,10 +16,10 @@
                   ? parseInt(slimSelectElement.dataset.closeOnSelect, 10)
                   : 0,
               maxValuesMessage: `{number} ${Drupal.t('selected')}`,
-              placeholderText: `${Drupal.t('Select Value')}`,
+              placeholderText: `${Drupal.t('Select value')}`,
               searchPlaceholder: `${Drupal.t('Search')}`,
-              searchText: `${Drupal.t('No Results')}`,
-              searchingText: `${Drupal.t('Searching...')}`,
+              searchText: `${Drupal.t('No results')}`,
+              searchingText: `${Drupal.t('Searching…')}`,
             },
           });
 

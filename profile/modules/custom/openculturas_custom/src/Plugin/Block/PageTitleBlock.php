@@ -85,7 +85,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
       '#type' => 'details',
       '#title' => $this->t('Components'),
       '#open' => TRUE,
-      '#description' => $this->t('The default page title block compose several fields. Deselect here what you prefer to place elsewhere in the layout.'),
+      '#description' => $this->t('The default page title block composes several fields. Deselect here what you prefer to place elsewhere in the layout.'),
     ];
     $form['page_title_block']['page_title_display'] = [
       '#title' => $this->t('Page title'),

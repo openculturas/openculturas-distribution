@@ -99,6 +99,7 @@ final class SettingsForm extends ConfigFormBase {
       '#min' => 1,
       '#max' => 19,
       '#title' => $this->t('Starting zoom level on map (1 - 19)'),
+      '#description' => $this->t('The zoom level at which the map will start. For orientation: 5 would cover most of Europe, 14 an average city'),
       '#default_value' => $config->get('start_zoom_position'),
       '#required' => TRUE,
     ];
@@ -231,7 +232,7 @@ final class SettingsForm extends ConfigFormBase {
       '#group' => 'radius',
       '#type' => 'number',
       '#step' => 0.00001,
-      '#title' => $this->t('Base number for radius calculation: higher = bigger radius'),
+      '#title' => $this->t('Base for radius calculation (higher number = bigger radius)'),
       '#default_value' => $config->get('radius_base'),
       '#required' => TRUE,
     ];

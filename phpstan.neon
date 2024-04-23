@@ -7,10 +7,10 @@ parameters:
     - tests/
   paths:
     - profile/
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
   ignoreErrors:
     - "#^Method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:getForm\\(\\) invoked with 2 parameters, 1 required\\.$#"
+    - identifier: missingType.iterableValue
+    - identifier: missingType.generics
   excludePaths:
     - '*/node_modules/*'
     - 'profile/modules/custom/geofield_proximity_filter_extra/**'
