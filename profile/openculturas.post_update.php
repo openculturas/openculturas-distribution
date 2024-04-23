@@ -11,6 +11,7 @@ use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\block\BlockInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\filter\FilterFormatInterface;
@@ -19,6 +20,7 @@ use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
 /**
@@ -1161,5 +1163,410 @@ function openculturas_post_update_move_field_layout_switcher(): void {
       $role->grantPermission('edit field_layout_switcher');
       $role->save();
     }
+  }
+}
+
+/**
+ * Replaces OC custom views filter plugin with smart date provided filter.
+ */
+function openculturas_post_update_issue_3446002(array &$sandbox): void {
+  // Issue https://www.drupal.org/project/openculturas/issues/3446002.
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', static function (ViewEntityInterface $view): bool {
+      $displays = $view->get('display');
+    if (!is_array($displays)) {
+      return FALSE;
+    }
+
+      $update = FALSE;
+    foreach ($displays as &$display) {
+      if (!isset($display['display_options']['filters'])) {
+        continue;
+      }
+
+      foreach ($display['display_options']['filters'] as &$filter) {
+        if ($filter['plugin_id'] !== 'date') {
+          continue;
+        }
+
+        if ($filter['operator'] === 'starts_on_after' || $filter['operator'] === 'ends_on_after') {
+          $filter['operator'] = 'daterange_starts_or_ends';
+          $update = TRUE;
+        }
+      }
+    }
+
+      unset($display);
+    if ($update) {
+      $view->set('display', $displays);
+    }
+
+      return $update;
+  });
+
+}
+
+/**
+ * Replace http_client_error_status provided condition with core provided condition.
+ */
+function openculturas_post_update_issue_3446003(array &$sandbox): void {
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'block', static function (BlockInterface $block): bool {
+    $visibility = $block->getVisibility();
+    if (!isset($visibility['http_client_error_status'])) {
+      return FALSE;
+    }
+
+    $codes = [];
+    if ($visibility['http_client_error_status']['request_403']) {
+      $codes[] = 403;
+    }
+
+    if ($visibility['http_client_error_status']['request_404']) {
+      $codes[] = 404;
+    }
+
+    $block->setVisibilityConfig('http_client_error_status', []);
+    $block->setVisibilityConfig('response_status', ['status_codes' => $codes]);
+    return TRUE;
+  });
+}
+
+/**
+ * Source string spell corrections.
+ */
+function openculturas_post_update_source_string_spell_corrections(): void {
+  // Letter case, not title case.
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+  $form_display = $entity_display->getFormDisplay('node', 'date', 'default');
+  if (!$form_display->isNew()) {
+    $group_id = 'group_date_tab_attendance';
+    $group = $form_display->getThirdPartySetting('field_group', $group_id);
+    if ($group) {
+      $group['label'] = 'Attendance and tickets';
+      $form_display->setThirdPartySetting('field_group', $group_id, $group);
+    }
+
+    $group_id = 'group_date_group_event_series';
+    $group = $form_display->getThirdPartySetting('field_group', $group_id);
+    if ($group) {
+      $group['label'] = 'Event series';
+      $form_display->setThirdPartySetting('field_group', $group_id, $group);
+      $form_display->save();
+    }
+  }
+
+  $view_display = $entity_display->getFormDisplay('user', 'user', 'full');
+  if (!$view_display->isNew()) {
+    $group_id = 'group_my_bookmarks';
+    $group = $view_display->getThirdPartySetting('field_group', $group_id);
+    if ($group) {
+      $group['label'] = 'My bookmarks';
+      $view_display->setThirdPartySetting('field_group', $group_id, $group);
+      $view_display->save();
+    }
+  }
+
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('block.block.a11y_features');
+  if (!$config->isNew()) {
+    $config->set('settings.label', 'Accessibility features');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('field.field.paragraph.accessibility.field_a11y_features');
+  if (!$config->isNew()) {
+    $config->set('label', 'Accessibility features');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('core.entity_view_mode.media.header_image');
+  if (!$config->isNew()) {
+    $config->set('label', 'Header image');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('taxonomy.vocabulary.article_type');
+  if (!$config->isNew()) {
+    $config->set('name', 'Article type');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('taxonomy.vocabulary.event_type');
+  if (!$config->isNew()) {
+    $config->set('name', 'Event type');
+    $config->set('description', 'Event sub types');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('taxonomy.vocabulary.location_type');
+  if (!$config->isNew()) {
+    $config->set('name', 'Location type');
+    $config->set('description', 'Location sub types');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('taxonomy.vocabulary.page_type');
+  if (!$config->isNew()) {
+    $config->set('name', 'Page type');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('shortcut.set.magazin-redaktion');
+  if (!$config->isNew()) {
+    $config->set('label', 'Magazine editors');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('field.field.media.image.field_caption');
+  if (!$config->isNew()) {
+    $config->set('description', 'Name and caption can be displayed in galleries');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('field.field.node.date.field_attendance_mode');
+  if (!$config->isNew()) {
+    $config->set('label', 'Attendance mode');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('system.menu.call-to-action');
+  if (!$config->isNew()) {
+    $config->set('description', 'Menu with highlighted styling for flexible placement');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.article_types');
+  if (!$config->isNew()) {
+    $config->set('label', 'Article type (all languages)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.categories');
+  if (!$config->isNew()) {
+    $config->set('label', 'Category (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.categories_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Category (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.column');
+  if (!$config->isNew()) {
+    $config->set('label', 'Column (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.column_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Column (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.comment');
+  if (!$config->isNew()) {
+    $config->set('label', 'Comment (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.comment_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Comment (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.dates');
+  if (!$config->isNew()) {
+    $config->set('label', 'Date (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.dates_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Date (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.event_types');
+  if (!$config->isNew()) {
+    $config->set('label', 'Event type (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.event_types_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Event type (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.events');
+  if (!$config->isNew()) {
+    $config->set('label', 'Event (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.events_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Event (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.location_type');
+  if (!$config->isNew()) {
+    $config->set('label', 'Location type (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.location_type_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Location type (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.locations');
+  if (!$config->isNew()) {
+    $config->set('label', 'Location (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.locations_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Location (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.magazine');
+  if (!$config->isNew()) {
+    $config->set('label', 'Magazine (EN)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.magazine_de');
+  if (!$config->isNew()) {
+    $config->set('label', 'Magazine (DE)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.page_type');
+  if (!$config->isNew()) {
+    $config->set('label', 'Page type (all languages)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.profiles');
+  if (!$config->isNew()) {
+    $config->set('label', 'Profile (all languages)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('views.view.locations');
+  if (!$config->isNew()) {
+    $config->set('display.attachment_map.display_options.header.result.content', '<p class="result-counter">Displaying <strong>@start - @end</strong> of <strong>@total</strong></p>');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('views.view.my_content');
+  if (!$config->isNew()) {
+    $config->set('display.my_content_block.display_options.header.area_text_custom.content', '<p class="infobox">To add a new date, start from the event page\'s calendar section.</p>');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('views.view.oc_er_mod_states');
+  if (!$config->isNew()) {
+    $config->set('display.default.display_options.footer.area_text_custom.content', '<p class="description">You are seeing this info because you have permission to edit this content. Otherwise it is invisible.</p>');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('views.view.related_date');
+  if (!$config->isNew()) {
+    if ($config->get('display.default.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.default.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.default.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.default.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.block_front_dates.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.block_front_dates.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.block_front_dates.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.block_front_dates.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.block_online.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.block_online.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.block_online.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.block_online.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.related_date_alternative.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.related_date_alternative.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.related_date_alternative.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.related_date_alternative.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.related_date_event.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.related_date_event.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.related_date_event.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.related_date_event.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.related_date_location.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.related_date_location.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.related_date_location.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.related_date_location.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.upcoming_dates.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.upcoming_dates.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.upcoming_dates.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.upcoming_dates.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.upcoming_dates_map.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.upcoming_dates_map.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.upcoming_dates_list.display_options.fields.nothing.plugin_id')) {
+      $config->set('display.upcoming_dates_list.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.upcoming_dates_list.display_options.fields.nothing_1.plugin_id')) {
+      $config->set('display.upcoming_dates_list.display_options.fields.nothing_1.plugin_id', 'non_translatable_custom');
+    }
+
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('node.type.event');
+  if (!$config->isNew()) {
+    $config->set('help', '<a href="?tour" class="button">Take a tour</a><p class="description">Learn why and how to create an event. The button will reload this page and entries may be lost. To prevent this, save your changes before starting the tour.</p>');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('node.type.location');
+  if (!$config->isNew()) {
+    $config->set('help', '<a href="?tour" class="button">Take a tour</a><p class="description">Learn why and how to create a location profile. The button will reload this page and entries may be lost. To prevent this, save your changes before starting the tour.</p>');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('node.type.profile');
+  if (!$config->isNew()) {
+    $config->set('help', '<a href="?tour" class="button">Take a tour</a><p class="description">Learn why and how to create a profile. The button will reload this page and entries may be lost. To prevent this, save your changes before starting the tour.</p>');
+    $config->save();
   }
 }

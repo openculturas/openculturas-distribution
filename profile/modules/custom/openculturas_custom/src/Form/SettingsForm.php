@@ -42,7 +42,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#required' => TRUE,
       '#title' => $this->t('Allowed classes'),
-      '#description' => $this->t('One class|label pair per line, use only letters and underscores (no dashes or spaces) in label.'),
+      '#description' => $this->t('One class|label pair per line, use only letters and underscores (no dashes or spaces) in class.'),
       '#default_value' => implode("\r\n", $classes),
     ];
     $form['mailsignature'] = [

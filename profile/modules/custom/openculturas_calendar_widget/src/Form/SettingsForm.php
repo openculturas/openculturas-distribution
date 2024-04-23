@@ -88,7 +88,7 @@ final class SettingsForm extends ConfigFormBase {
         $this->t('Public access token'),
         $this->t('Url'),
         $this->t('Embed code'),
-        $this->t('Css'),
+        $this->t('CSS'),
         $this->t('Operations'),
       ],
       '#empty' => $this->t('There are currently no items.'),
@@ -150,7 +150,7 @@ final class SettingsForm extends ConfigFormBase {
 
       EmbedCodeWidget::embedCodeWidgetElement($form['host_list']['items'][$token], $iframe_src);
       $form['host_list']['items'][$token]['css'] = [
-        '#title' => $this->t('Css'),
+        '#title' => $this->t('CSS'),
         '#title_display' => 'invisible',
         '#type' => 'textarea',
         '#rows' => 2,

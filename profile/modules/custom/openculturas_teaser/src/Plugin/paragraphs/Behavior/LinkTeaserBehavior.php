@@ -16,8 +16,8 @@ use Drupal\paragraphs\ParagraphsTypeInterface;
  *
  * @ParagraphsBehavior(
  *   id = "link_teaser",
- *   label = @Translation("Teaser for Links."),
- *   description = @Translation("Generate titel , subtitle & description."),
+ *   label = @Translation("Teaser for external links"),
+ *   description = @Translation("Generate title, subtitle + description"),
  *   weight = 2
  * )
  */

@@ -204,3 +204,30 @@ function openculturas_discussions_uninstall(bool $is_syncing): void {
   $configFactory = \Drupal::configFactory();
   $configFactory->getEditable('auto_entitylabel.settings.node.comment')->delete();
 }
+
+/**
+ * Make markup-only strings non-translatable.
+ */
+function openculturas_discussions_update_10001(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('views.view.related_comments');
+  if (!$config->isNew()) {
+    if ($config->get('display.default.display_options.fields.nothing.plugin_id') === 'custom') {
+      $config->set('display.default.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.block_comments.display_options.fields.nothing.plugin_id') === 'custom') {
+      $config->set('display.block_comments.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.block_recent_comments.display_options.fields.nothing.plugin_id') === 'custom') {
+      $config->set('display.block_recent_comments.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    if ($config->get('display.comments_overview_table.display_options.fields.nothing.plugin_id') === 'custom') {
+      $config->set('display.comments_overview_table.display_options.fields.nothing.plugin_id', 'non_translatable_custom');
+    }
+
+    $config->save();
+  }
+}

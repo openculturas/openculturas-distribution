@@ -52,6 +52,48 @@ function openculturas_faq_post_update_enable_media_edit_2(): void {
     $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
     $entityFormDisplay->setComponent('field_mood_image', $component);
     $entityFormDisplay->save();
+
+  }
+}
+
+/**
+ * Source string spell corrections.
+ */
+function openculturas_faq_post_update_source_string_spell_corrections(): void {
+  // Typos + Replace technical correct wording with user-friendly wording.
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('views.view.faq');
+  if (!$config->isNew()) {
+    if ($config->get('display.page_faq_overview.display_options.fields.status.settings.format_custom_false')) {
+      $config->set('display.page_faq_overview.display_options.fields.status.settings.format_custom_false', 'Unpublished');
+    }
+
+    if ($config->get('display.related_faq_term.display_options.title')) {
+      $config->set('display.related_faq_term.display_options.title', 'Questions in this category');
+    }
+
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('core.entity_view_display.taxonomy_term.faq_category.full');
+  if (!$config->isNew()) {
+    if ($config->get('third_party_settings.field_group.group_related_questions.label')) {
+      $config->set('third_party_settings.field_group.group_related_questions.label', 'Questions in this category');
+    }
+
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.faq_all_languages');
+  if (!$config->isNew()) {
+    $config->set('label', 'FAQ (all languages)');
+    $config->save();
+  }
+
+  $config = $config_factory->getEditable('pathauto.pattern.faq_term_all_languages');
+  if (!$config->isNew()) {
+    $config->set('label', 'FAQ Term (all languages)');
+    $config->save();
   }
 
 }
