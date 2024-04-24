@@ -49,10 +49,12 @@ function openculturas_map_preprocess_block(array &$variables): void {
 
       if ($configKey === 'marker_icon_path') {
         $configValue = is_string($configValue) ? trim($configValue) : NULL;
-        if ($configValue !== NULL && StreamWrapperManager::getScheme($configValue) && file_exists($configValue)) {
-          /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
-          $fileUrlGenerator = \Drupal::service('file_url_generator');
-          $configValue = $fileUrlGenerator->generateString($configValue);
+        if ($configValue !== NULL && file_exists($configValue)) {
+          if (StreamWrapperManager::getScheme($configValue)) {
+            /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
+            $fileUrlGenerator = \Drupal::service('file_url_generator');
+            $configValue = $fileUrlGenerator->generateString($configValue);
+          }
         }
         else {
           $configValue = \Drupal::service('module_handler')->getModule('openculturas_map')->getPath() . '/assets/map_marker.svg';
