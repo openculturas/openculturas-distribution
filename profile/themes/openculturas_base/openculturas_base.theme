@@ -27,6 +27,11 @@ function openculturas_base_preprocess_html(array &$variables): void {
       break;
     }
   }
+
+  if (\Drupal::theme()->getActiveTheme()->getName() === 'openculturas_base') {
+    $config = \Drupal::configFactory()->get('openculturas_base.settings');
+    $variables['custom_favicons'] = !$config->get('favicon.use_default');
+  }
 }
 
 /**
