@@ -1282,6 +1282,7 @@
           }
 
           const result = entry.result;
+          Drupal.attachBehaviors(result.node);
           this.resultsElement.appendChild(result.node);
           index++;
         }
