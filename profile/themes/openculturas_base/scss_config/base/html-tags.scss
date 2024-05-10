@@ -112,6 +112,12 @@ button.link {
   }
 }
 
+.is-active a:focus,
+.is-active a:hover {
+  cursor: default;
+  background-color: transparent;
+}
+
 p {
   margin-bottom: 1em;
 
@@ -308,19 +314,31 @@ mark {
   background-color: $color-bg-slight-contrast;
 }
 
+code,
+kbd,
 pre,
-code {
-  display: inline-block;
-  overflow: scroll;
-  max-width: 100%;
-  padding-bottom: .5rem;
+samp {
   white-space: pre;
   font-family: monospace;
+  font-size: 1em;
 }
 
-samp,
-var {
-  font-family: monospace;
+pre {
+  display: block;
+  overflow: scroll;
+  max-width: 100%;
+  padding: .5rem .5rem .75rem;
+  white-space: pre;
+}
+
+code,
+pre,
+kbd {
+  background-color: var(--color-bg-slight-contrast);
+}
+
+mark {
+  background-color: var(--color-bg-warning);
 }
 
 audio,
@@ -360,26 +378,30 @@ blockquote  {
   p {
     @extend %h3;
 
-    display: inline-block;
-    padding: 0 $grid-gutter;
     color: $color-text-muted;
     font-size: $font-size-l;
     font-style: italic;
   }
 
-  span {
-    @include icon(quote-right, fas, before) {
-      margin-right: 1rem;
-    }
-    @include icon(quote-left, fas, after){
-      display: inline-block;
-      margin-left: 1rem;
-      white-space: nowrap;
-    };
+  p {
+    display: inline-block;
+    padding: 0 $grid-gutter;
   }
+
+  // span {
+  // moved to blockquote because of changed wysiwyg output
+  // }
 
   > *:first-child {
     margin-top: 0;
+  }
+  @include icon(quote-right, fas, before) {
+    margin-right: 1rem;
+  }
+  @include icon(quote-left, fas, after){
+    display: inline-block;
+    margin-left: 1rem;
+    white-space: nowrap;
   }
 
   @include breakpoint(m) {

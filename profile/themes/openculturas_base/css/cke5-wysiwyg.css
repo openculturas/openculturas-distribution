@@ -70,8 +70,8 @@ body {
 .ck-content input[type=submit].danger:before,
 .ck-content button[type=submit].button--danger:before,
 .ck-content details > summary:before,
-.ck-content blockquote span:after,
-.ck-content blockquote span:before {
+.ck-content blockquote:after,
+.ck-content blockquote:before {
   font-family: "Font Awesome 6 Free", sans-serif;
   font-weight: 900;
 }
@@ -10613,6 +10613,11 @@ readers do not read off random characters that represent icons */
 .text-formatted .ck-content button.link {
   border-bottom: 1px solid currentColor;
 }
+.ck-content .is-active a:focus,
+.ck-content .is-active a:hover {
+  cursor: default;
+  background-color: transparent;
+}
 .ck-content p {
   margin-bottom: 1em;
 }
@@ -10767,18 +10772,28 @@ readers do not read off random characters that represent icons */
 .ck-content mark {
   background-color: var(--color-bg-slight-contrast);
 }
+.ck-content code,
+.ck-content kbd,
 .ck-content pre,
-.ck-content code {
-  display: inline-block;
-  overflow: scroll;
-  max-width: 100%;
-  padding-bottom: 0.5rem;
+.ck-content samp {
   white-space: pre;
   font-family: monospace;
+  font-size: 1em;
 }
-.ck-content samp,
-.ck-content var {
-  font-family: monospace;
+.ck-content pre {
+  display: block;
+  overflow: scroll;
+  max-width: 100%;
+  padding: 0.5rem 0.5rem 0.75rem;
+  white-space: pre;
+}
+.ck-content code,
+.ck-content pre,
+.ck-content kbd {
+  background-color: var(--color-bg-slight-contrast);
+}
+.ck-content mark {
+  background-color: var(--color-bg-warning);
 }
 .ck-content audio,
 .ck-content video {
@@ -10810,13 +10825,18 @@ readers do not read off random characters that represent icons */
 }
 .ck-content blockquote,
 .ck-content blockquote p {
-  display: inline-block;
-  padding: 0 1.25rem;
   color: var(--color-text-muted);
   font-size: var(--font-size-l);
   font-style: italic;
 }
-.ck-content blockquote span:before {
+.ck-content blockquote p {
+  display: inline-block;
+  padding: 0 1.25rem;
+}
+.ck-content blockquote > *:first-child {
+  margin-top: 0;
+}
+.ck-content blockquote:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -10827,7 +10847,7 @@ readers do not read off random characters that represent icons */
   margin-right: 1rem;
   content: "\f10e";
 }
-.ck-content blockquote span:after {
+.ck-content blockquote:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -10839,9 +10859,6 @@ readers do not read off random characters that represent icons */
   margin-left: 1rem;
   white-space: nowrap;
   content: "\f10d";
-}
-.ck-content blockquote > *:first-child {
-  margin-top: 0;
 }
 @media screen and (min-width: 48rem) {
   .ck-content blockquote {
@@ -12715,6 +12732,11 @@ readers do not read off random characters that represent icons */
 .text-formatted .ck-content button.link {
   border-bottom: 1px solid currentColor;
 }
+.ck-content .is-active a:focus,
+.ck-content .is-active a:hover {
+  cursor: default;
+  background-color: transparent;
+}
 .ck-content p {
   margin-bottom: 1em;
 }
@@ -12869,18 +12891,28 @@ readers do not read off random characters that represent icons */
 .ck-content mark {
   background-color: var(--color-bg-slight-contrast);
 }
+.ck-content code,
+.ck-content kbd,
 .ck-content pre,
-.ck-content code {
-  display: inline-block;
-  overflow: scroll;
-  max-width: 100%;
-  padding-bottom: 0.5rem;
+.ck-content samp {
   white-space: pre;
   font-family: monospace;
+  font-size: 1em;
 }
-.ck-content samp,
-.ck-content var {
-  font-family: monospace;
+.ck-content pre {
+  display: block;
+  overflow: scroll;
+  max-width: 100%;
+  padding: 0.5rem 0.5rem 0.75rem;
+  white-space: pre;
+}
+.ck-content code,
+.ck-content pre,
+.ck-content kbd {
+  background-color: var(--color-bg-slight-contrast);
+}
+.ck-content mark {
+  background-color: var(--color-bg-warning);
 }
 .ck-content audio,
 .ck-content video {
@@ -12912,13 +12944,18 @@ readers do not read off random characters that represent icons */
 }
 .ck-content blockquote,
 .ck-content blockquote p {
-  display: inline-block;
-  padding: 0 1.25rem;
   color: var(--color-text-muted);
   font-size: var(--font-size-l);
   font-style: italic;
 }
-.ck-content blockquote span:before {
+.ck-content blockquote p {
+  display: inline-block;
+  padding: 0 1.25rem;
+}
+.ck-content blockquote > *:first-child {
+  margin-top: 0;
+}
+.ck-content blockquote:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -12929,7 +12966,7 @@ readers do not read off random characters that represent icons */
   margin-right: 1rem;
   content: "\f10e";
 }
-.ck-content blockquote span:after {
+.ck-content blockquote:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -12941,9 +12978,6 @@ readers do not read off random characters that represent icons */
   margin-left: 1rem;
   white-space: nowrap;
   content: "\f10d";
-}
-.ck-content blockquote > *:first-child {
-  margin-top: 0;
 }
 @media screen and (min-width: 48rem) {
   .ck-content blockquote {
@@ -13188,4 +13222,10 @@ readers do not read off random characters that represent icons */
 .ck-content nav li {
   margin-right: 2rem;
   list-style: none;
+}
+
+.ck-content blockquote::before {
+  color: var(--color-text-muted);
+  background: transparent;
+  font-size: var(--font-size-l);
 }

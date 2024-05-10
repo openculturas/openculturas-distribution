@@ -70,8 +70,8 @@ a.button.danger:before,
 input[type=submit].danger:before,
 button[type=submit].button--danger:before,
 details > summary:before,
-blockquote span:after,
-blockquote span:before {
+blockquote:after,
+blockquote:before {
   font-family: "Font Awesome 6 Free", sans-serif;
   font-weight: 900;
 }
@@ -10623,6 +10623,12 @@ button.link:active {
   border-bottom: 1px solid currentColor;
 }
 
+.is-active a:focus,
+.is-active a:hover {
+  cursor: default;
+  background-color: transparent;
+}
+
 p {
   margin-bottom: 1em;
 }
@@ -10799,19 +10805,31 @@ mark {
   background-color: var(--color-bg-slight-contrast);
 }
 
+code,
+kbd,
 pre,
-code {
-  display: inline-block;
-  overflow: scroll;
-  max-width: 100%;
-  padding-bottom: 0.5rem;
+samp {
   white-space: pre;
   font-family: monospace;
+  font-size: 1em;
 }
 
-samp,
-var {
-  font-family: monospace;
+pre {
+  display: block;
+  overflow: scroll;
+  max-width: 100%;
+  padding: 0.5rem 0.5rem 0.75rem;
+  white-space: pre;
+}
+
+code,
+pre,
+kbd {
+  background-color: var(--color-bg-slight-contrast);
+}
+
+mark {
+  background-color: var(--color-bg-warning);
 }
 
 audio,
@@ -10849,13 +10867,18 @@ blockquote {
 }
 blockquote,
 blockquote p {
-  display: inline-block;
-  padding: 0 1.25rem;
   color: var(--color-text-muted);
   font-size: var(--font-size-l);
   font-style: italic;
 }
-blockquote span:before {
+blockquote p {
+  display: inline-block;
+  padding: 0 1.25rem;
+}
+blockquote > *:first-child {
+  margin-top: 0;
+}
+blockquote:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -10866,7 +10889,7 @@ blockquote span:before {
   margin-right: 1rem;
   content: "\f10e";
 }
-blockquote span:after {
+blockquote:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -10878,9 +10901,6 @@ blockquote span:after {
   margin-left: 1rem;
   white-space: nowrap;
   content: "\f10d";
-}
-blockquote > *:first-child {
-  margin-top: 0;
 }
 @media screen and (min-width: 48rem) {
   blockquote {
@@ -12888,6 +12908,12 @@ button.link:active {
   border-bottom: 1px solid currentColor;
 }
 
+.is-active a:focus,
+.is-active a:hover {
+  cursor: default;
+  background-color: transparent;
+}
+
 p {
   margin-bottom: 1em;
 }
@@ -13064,19 +13090,31 @@ mark {
   background-color: var(--color-bg-slight-contrast);
 }
 
+code,
+kbd,
 pre,
-code {
-  display: inline-block;
-  overflow: scroll;
-  max-width: 100%;
-  padding-bottom: 0.5rem;
+samp {
   white-space: pre;
   font-family: monospace;
+  font-size: 1em;
 }
 
-samp,
-var {
-  font-family: monospace;
+pre {
+  display: block;
+  overflow: scroll;
+  max-width: 100%;
+  padding: 0.5rem 0.5rem 0.75rem;
+  white-space: pre;
+}
+
+code,
+pre,
+kbd {
+  background-color: var(--color-bg-slight-contrast);
+}
+
+mark {
+  background-color: var(--color-bg-warning);
 }
 
 audio,
@@ -13114,13 +13152,18 @@ blockquote {
 }
 blockquote,
 blockquote p {
-  display: inline-block;
-  padding: 0 1.25rem;
   color: var(--color-text-muted);
   font-size: var(--font-size-l);
   font-style: italic;
 }
-blockquote span:before {
+blockquote p {
+  display: inline-block;
+  padding: 0 1.25rem;
+}
+blockquote > *:first-child {
+  margin-top: 0;
+}
+blockquote:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -13131,7 +13174,7 @@ blockquote span:before {
   margin-right: 1rem;
   content: "\f10e";
 }
-blockquote span:after {
+blockquote:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -13143,9 +13186,6 @@ blockquote span:after {
   margin-left: 1rem;
   white-space: nowrap;
   content: "\f10d";
-}
-blockquote > *:first-child {
-  margin-top: 0;
 }
 @media screen and (min-width: 48rem) {
   blockquote {
