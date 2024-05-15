@@ -8,6 +8,7 @@ dependencies:
     - taxonomy.vocabulary.column
   module:
     - media_library
+    - media_library_edit
     - path
     - text
     - viewfield
@@ -30,7 +31,9 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_related_article_view_ref:
     type: viewfield_select
     weight: 6
@@ -61,6 +64,11 @@ content:
   path:
     type: path
     weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
