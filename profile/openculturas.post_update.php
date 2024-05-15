@@ -1096,3 +1096,33 @@ function openculturas_post_update_change_field_group_type_type_terms(): void {
     }
   }
 }
+
+/**
+ * Enable missing media edit button.
+ */
+function openculturas_post_update_enable_media_edit_2(): void {
+  if (\Drupal::moduleHandler()->moduleExists('media_library_edit') === FALSE) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $bundles = [
+    'event_type',
+    'article_type',
+    'column',
+    'category',
+    'location_type',
+    'page_type',
+  ];
+  foreach ($bundles as $bundle) {
+    $entityFormDisplay = $entity_display->getFormDisplay('taxonomy_term', $bundle);
+    if (!$entityFormDisplay->isNew() && $entityFormDisplay->getComponent('field_mood_image')) {
+      $component = $entityFormDisplay->getComponent('field_mood_image');
+      $component['third_party_settings']['media_library_edit']['show_edit'] = '1';
+      $entityFormDisplay->setComponent('field_mood_image', $component);
+      $entityFormDisplay->save();
+    }
+  }
+}

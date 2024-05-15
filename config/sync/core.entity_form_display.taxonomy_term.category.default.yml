@@ -15,6 +15,7 @@ dependencies:
     - taxonomy.vocabulary.category
   module:
     - media_library
+    - media_library_edit
     - path
     - text
 id: taxonomy_term.category.default
@@ -36,7 +37,9 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   langcode:
     type: language_select
     weight: 2
