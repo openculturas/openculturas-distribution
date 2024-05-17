@@ -1126,3 +1126,40 @@ function openculturas_post_update_enable_media_edit_2(): void {
     }
   }
 }
+
+/**
+ * Moves the field layout_switcher to field group administrative.
+ */
+function openculturas_post_update_move_field_layout_switcher(): void {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+  $form_display = $entity_display->getFormDisplay('node', 'page', 'default');
+  if (!$form_display->isNew() && $form_display->getComponent('field_layout_switcher')) {
+    $group = $form_display->getThirdPartySetting('field_group', 'group_basics');
+    if (isset($group['children'])) {
+      $key = array_search('field_layout_switcher', $group['children'], TRUE);
+      unset($group['children'][$key]);
+      $group['children'] = array_values(array_unique($group['children']));
+      $form_display->setThirdPartySetting('field_group', 'group_basics', $group);
+    }
+
+    $group = $form_display->getThirdPartySetting('field_group', 'group_administrative');
+    if (isset($group['children'])) {
+      $group['children'][] = 'field_layout_switcher';
+      $group['children'] = array_values(array_unique($group['children']));
+      $form_display->setThirdPartySetting('field_group', 'group_administrative', $group);
+      $form_display->save();
+    }
+
+    /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+    $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+    /** @var \Drupal\user\RoleInterface|null $role */
+    $role = $roleStorage->load('oc_admin');
+    if ($role instanceof RoleInterface) {
+      $role->grantPermission('create field_layout_switcher');
+      $role->grantPermission('edit own field_layout_switcher');
+      $role->grantPermission('edit field_layout_switcher');
+      $role->save();
+    }
+  }
+}
