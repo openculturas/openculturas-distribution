@@ -838,3 +838,19 @@ function openculturas_custom_premiere_allowed_values_function(): array {
     'special' => t('Special', [], ['context' => 'premiere']),
   ];
 }
+
+/**
+ * Implements hook_mail_alter().
+ */
+function openculturas_custom_mail_alter(array &$message): void {
+  $mail_signature = \Drupal::configFactory()->get('openculturas_custom.settings')->get('mailsignature');
+  if (!is_string($mail_signature)) {
+    return;
+  }
+
+  if ($mail_signature === '') {
+    return;
+  }
+
+  $message['body'][] = $mail_signature;
+}
