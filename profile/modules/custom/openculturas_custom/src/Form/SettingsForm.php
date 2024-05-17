@@ -6,6 +6,7 @@ namespace Drupal\openculturas_custom\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use function implode;
 
 /**
  * Settings form for the OpenCulturas custom configuration.
@@ -44,6 +45,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('One class|label pair per line, use only letters and underscores (no dashes or spaces) in label.'),
       '#default_value' => implode("\r\n", $classes),
     ];
+    $form['mailsignature'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Email signature'),
+      '#description' => $this->t('This signature will be appended to all outgoing emails.'),
+      '#default_value' => $this->config('openculturas_custom.settings')
+        ->get('mailsignature'),
+    ];
     return parent::buildForm($form, $form_state);
   }
 
@@ -66,6 +74,7 @@ class SettingsForm extends ConfigFormBase {
     $classMap = $this->explodeClasses($form_state->getValue('allowed_classes'));
     $this->config('openculturas_custom.settings')
       ->set('allowed_classes', $classMap)
+      ->set('mailsignature', trim($form_state->getValue('mailsignature')))
       ->save();
     parent::submitForm($form, $form_state);
   }

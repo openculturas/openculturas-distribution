@@ -7,6 +7,7 @@ use Drupal\field\FieldStorageConfigInterface;
 use Drupal\language\Config\LanguageConfigOverride;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\locale\StringInterface;
+use Drupal\user\RoleInterface;
 
 /**
  * Set allowed_values_function for field_status in node.
@@ -133,4 +134,19 @@ function openculturas_custom_post_update_set_allowed_values_function_for_field_p
       }
     }
   }
+}
+
+/**
+ * Grant permission administer openculturas_custom configuration to oc_admin role.
+ */
+function openculturas_custom_post_update_grant_administer_openculturas_custom_configuration(): void {
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('administer openculturas_custom configuration');
+    $role->save();
+  }
+
 }
