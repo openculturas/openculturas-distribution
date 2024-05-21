@@ -19,6 +19,7 @@ use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
 /**
@@ -1162,4 +1163,43 @@ function openculturas_post_update_move_field_layout_switcher(): void {
       $role->save();
     }
   }
+}
+
+/**
+ * Replaces OC custom views filter plugin with smart date provided filter.
+ */
+function openculturas_post_update_issue_3446002(array &$sandbox): void {
+  // Issue https://www.drupal.org/project/openculturas/issues/3446002.
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', static function (ViewEntityInterface $view): bool {
+      $displays = $view->get('display');
+    if (!is_array($displays)) {
+      return FALSE;
+    }
+
+      $update = FALSE;
+    foreach ($displays as &$display) {
+      if (!isset($display['display_options']['filters'])) {
+        continue;
+      }
+
+      foreach ($display['display_options']['filters'] as &$filter) {
+        if ($filter['plugin_id'] !== 'date') {
+          continue;
+        }
+
+        if ($filter['operator'] === 'starts_on_after' || $filter['operator'] === 'ends_on_after') {
+          $filter['operator'] = 'daterange_starts_or_ends';
+          $update = TRUE;
+        }
+      }
+    }
+
+      unset($display);
+    if ($update) {
+      $view->set('display', $displays);
+    }
+
+      return $update;
+  });
+
 }

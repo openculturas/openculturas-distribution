@@ -26,7 +26,6 @@ use Drupal\media\MediaInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
-use Drupal\openculturas_custom\Plugin\views\filter\Date;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
 use Drupal\taxonomy\TermInterface;
@@ -641,25 +640,6 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
   }
 
   Cache::invalidateTags(array_unique($tags));
-}
-
-/**
- * Implements hook_module_implements_alter().
- */
-function openculturas_custom_module_implements_alter(array &$implementations, string $hook): void {
-  if ($hook === 'views_plugins_filter_alter') {
-    $group = $implementations['openculturas_custom'];
-    unset($implementations['openculturas_custom']);
-    $implementations['openculturas_custom'] = $group;
-  }
-}
-
-/**
- * Implements hook_views_plugins_filter_alter().
- */
-function openculturas_custom_views_plugins_filter_alter(array &$plugins): void {
-  $plugins['date']['class'] = Date::class;
-  $plugins['date']['provider'] = 'openculturas_custom';
 }
 
 /**
