@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - http_client_error_status
+    - system
     - user
   theme:
     - openculturas_base
@@ -19,9 +19,8 @@ settings:
   label_display: '0'
   provider: user
 visibility:
-  http_client_error_status:
-    id: http_client_error_status
+  response_status:
+    id: response_status
+    status_codes:
+      - 403
     negate: false
-    request_401: false
-    request_403: true
-    request_404: false

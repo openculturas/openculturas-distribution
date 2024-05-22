@@ -11,6 +11,7 @@ use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\block\BlockInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\filter\FilterFormatInterface;
@@ -1202,4 +1203,29 @@ function openculturas_post_update_issue_3446002(array &$sandbox): void {
       return $update;
   });
 
+}
+
+/**
+ * Replace http_client_error_status provided condition with core provided condition.
+ */
+function openculturas_post_update_issue_3446003(array &$sandbox): void {
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'block', static function (BlockInterface $block): bool {
+    $visibility = $block->getVisibility();
+    if (!isset($visibility['http_client_error_status'])) {
+      return FALSE;
+    }
+
+    $codes = [];
+    if ($visibility['http_client_error_status']['request_403']) {
+      $codes[] = 403;
+    }
+
+    if ($visibility['http_client_error_status']['request_404']) {
+      $codes[] = 404;
+    }
+
+    $block->setVisibilityConfig('http_client_error_status', []);
+    $block->setVisibilityConfig('response_status', ['status_codes' => $codes]);
+    return TRUE;
+  });
 }
