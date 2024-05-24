@@ -1448,6 +1448,7 @@
       this.mapInstance = L.map(this.mapElement, {
         center: [this.coords.origin.lat, this.coords.origin.lng],
         zoom: this.zoom.origin,
+        gestureHandling: true,
       });
       if(this.settings.get('show_radius').includes('init')) {
         this._showRadius('origin');
