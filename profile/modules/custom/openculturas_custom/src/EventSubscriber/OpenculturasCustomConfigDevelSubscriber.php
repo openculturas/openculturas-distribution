@@ -68,6 +68,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     if ($extension === 'openculturas-profile' && $config_name === 'user.role.oc_admin') {
       $this->excludeOpenCulturasFaq($event);
+      $this->excludeOpenCulturasMap($event);
       $this->excludeRoleDelegation($event);
     }
 
@@ -130,6 +131,29 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     $configDevelSaveEvent->setData($data);
     foreach ($data['permissions'] as $index => $permission) {
       if (str_contains($permission, 'faq')) {
+        unset($data['permissions'][$index]);
+      }
+    }
+
+    $data['permissions'] = array_values($data['permissions']);
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * OpenCulturas Map will be installed after the profile is installed.
+   */
+  private function excludeOpenCulturasMap(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    foreach ($data['dependencies']['module'] as $index => $dependency) {
+      if ($dependency === 'openculturas_map') {
+        unset($data['dependencies']['module'][$index]);
+      }
+    }
+
+    $data['dependencies']['module'] = array_values($data['dependencies']['module']);
+
+    foreach ($data['permissions'] as $index => $permission) {
+      if ($permission === 'administer openculturas_map configuration') {
         unset($data['permissions'][$index]);
       }
     }

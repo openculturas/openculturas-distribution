@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\user\RoleInterface;
 
 /**
  * Implements hook_install().
@@ -32,6 +33,16 @@ function openculturas_map_install(bool $is_syncing): void {
     $field->setSetting('selection_settings', $selection_settings);
     $field->save();
   }
+
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('administer openculturas_map configuration');
+    $role->save();
+  }
+
 }
 
 /**
@@ -55,5 +66,19 @@ function openculturas_map_uninstall(bool $is_syncing): void {
 
     $field->setSetting('selection_settings', $selection_settings);
     $field->save();
+  }
+}
+
+/**
+ * Grant permission administer openculturas_map configuration to oc_admin role.
+ */
+function openculturas_map_update_10001(): void {
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('administer openculturas_map configuration');
+    $role->save();
   }
 }
