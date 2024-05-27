@@ -29,7 +29,7 @@
       this._filterElement.addEventListener(`submit`, function(event) {
         event.preventDefault();
         this._filter = {};
-        const inputElements = this._filterElement.querySelectorAll("input[type='text'], select, input[type='checkbox']");
+        const inputElements = this._filterElement.querySelectorAll("input[type='text'], select, input[type='checkbox'], input[type='date']");
         for(const inputElement of inputElements) {
 
           if(event.submitter && event.submitter.id && event.submitter.id === "edit-reset" && inputElement) {
