@@ -82,3 +82,13 @@ function openculturas_map_update_10001(): void {
     $role->save();
   }
 }
+
+/**
+ * Always show reset button (views.view.oc_map_locations).
+ */
+function openculturas_map_update_10002(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('views.view.oc_map_locations');
+  $config->set('display.default.display_options.exposed_form.options.bef.general.reset_button_always_show', TRUE);
+  $config->save();
+}
