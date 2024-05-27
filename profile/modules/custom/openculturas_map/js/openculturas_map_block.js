@@ -32,7 +32,7 @@
         const inputElements = this._filterElement.querySelectorAll("input[type='text'], select, input[type='checkbox'], input[type='date']");
         for(const inputElement of inputElements) {
 
-          if(event.submitter && event.submitter.id && event.submitter.id === "edit-reset" && inputElement) {
+          if(event.submitter && event.submitter.id && event.submitter.id.startsWith("edit-reset") && inputElement) {
             inputElement.value = '';
               if(inputElement.checked && inputElement.checked === true) {
                 inputElement.value = '';
