@@ -545,7 +545,7 @@ function openculturas_custom_views_post_execute(ViewExecutable $view): void {
       $node = $row->_entity;
       if ($node->id() === $displayedNode->id()) {
         $date_delta = $view->getRequest()->get('date_delta');
-        if ($date_delta && property_exists($row, 'node__field_date_delta') && (int) $row->node__field_date_delta === (int) $date_delta) {
+        if ($date_delta !== NULL && property_exists($row, 'node__field_date_delta') && (int) $row->node__field_date_delta === (int) $date_delta) {
           unset($view->result[$row->index]);
           --$view->total_rows;
           break;
