@@ -1251,12 +1251,16 @@
         this.pager.pages = Math.ceil(collection.size / this.pager.perPage);
         this.limit = (this.pager && this.pager.pages > 1) ? this.pager.perPage : 0;
         this.offset = (this.pager && this.pager.pages > 1) ? this.pager.perPage*(this.pager.page-1) : (this.settings.get('pager').offset ?? 0);
-        this.perPageElement.parentNode.style.display = 'block';
+        if (this.perPageElement) {
+          this.perPageElement.parentNode.style.display = 'block';
+        }
         this._renderPager();
       } else {
         this.limit = 0;
         this.offset = 0;
-        this.perPageElement.parentNode.style.display = 'none';
+        if (this.perPageElement) {
+          this.perPageElement.parentNode.style.display = 'none';
+        }
       }
 
       this._renderResults(collection);
@@ -1438,8 +1442,10 @@
     _initPager() {
       if(this.pagerElement) {
         this.pager = new Drupal.OpenCulturasMapPager(this.pagerElement)
-                          .withSettings(this.settings.get('pager'))
-                          .withSelect(this.perPageElement);
+                          .withSettings(this.settings.get('pager'));
+        if (this.perPageElement) {
+          this.pager.withSelect(this.perPageElement);
+        }
       }
     }
 
