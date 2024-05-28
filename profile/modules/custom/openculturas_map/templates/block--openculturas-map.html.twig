@@ -30,24 +30,26 @@
       {% endif %}
     </div>
     {% if configuration.show_results %}
-    <div class="openculturas-map--results view-content">
-      <div class="openculturas-map--results-header">
+      <div class="openculturas-map--results view-content">
+        <div class="openculturas-map--results-header">
           <div class="openculturas-map--results-counter"></div>
-          <div class="openculturas-map--results-picker">
-            <label for="openculturas-map--results-picker-select--{{ configuration.identifier }}">{{ content.filter.form['#pager'].options.expose.items_per_page_label ? content.filter.form['#pager'].options.expose.items_per_page_label|trans : 'Items per page'|trans }}:</label>
-            <select id="openculturas-map--results-picker-select--{{ configuration.identifier }}">
-              {% if content.filter.form['#pager'].options.expose.items_per_page_options %}
-                {% for amount in content.filter.form['#pager'].options.expose.items_per_page_options|split(', ') %}
-                    <option value="{{ amount }}" {{ amount == content.filter.form['#pager'].options.items_per_page ? 'selected' : ''}} >{{ amount }}</option>
-                {% endfor %}
-              {% else %}
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
-              {% endif %}
-            </select>
-          </div>
+          {% if content.filter.form['#pager'].options.expose.items_per_page %}
+            <div class="openculturas-map--results-picker">
+              <label for="openculturas-map--results-picker-select--{{ configuration.identifier }}">{{ content.filter.form['#pager'].options.expose.items_per_page_label ? content.filter.form['#pager'].options.expose.items_per_page_label|trans : 'Items per page'|trans }}:</label>
+              <select id="openculturas-map--results-picker-select--{{ configuration.identifier }}">
+                {% if content.filter.form['#pager'].options.expose.items_per_page_options %}
+                  {% for amount in content.filter.form['#pager'].options.expose.items_per_page_options|split(', ') %}
+                      <option value="{{ amount }}" {{ amount == content.filter.form['#pager'].options.items_per_page ? 'selected' : ''}} >{{ amount }}</option>
+                  {% endfor %}
+                {% else %}
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                  <option>100</option>
+                {% endif %}
+              </select>
+            </div>
+          {% endif %}
         </div>
         <div class="calendar">
           {{ content.results }}
