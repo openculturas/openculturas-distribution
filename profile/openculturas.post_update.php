@@ -219,8 +219,9 @@ function openculturas_post_update_field_block_ref_cleanup(): void {
     if ($categories_configured !== []) {
       /** @var \Drupal\block_field\BlockFieldManagerInterface $block_field_manager */
       $block_field_manager = \Drupal::service('block_field.manager');
+      /** @var string[]|TranslatableMarkup[]  $all_categories */
       $all_categories = array_values($block_field_manager->getBlockCategories());
-      $all_categories = array_map(static fn(string|TranslatableMarkup $category): string => (string) $category, $all_categories);
+      $all_categories = array_map(static fn(string|TranslatableMarkup $category): string => is_string($category) ? $category : (string) $category, $all_categories);
 
       foreach ($categories_configured as $category_configured => $status) {
         if (!in_array($category_configured, $all_categories, TRUE)) {
