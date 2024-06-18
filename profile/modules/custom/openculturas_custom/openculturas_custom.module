@@ -398,6 +398,9 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
           'full'
         )->getComponent('field_date');
         if (is_array($display_settings)) {
+          if (isset($display_settings['settings']['past_display'])) {
+            $display_settings['settings']['past_display'] = 1;
+          }
           $build['field_date'] = $field->view($display_settings);
         }
       }
