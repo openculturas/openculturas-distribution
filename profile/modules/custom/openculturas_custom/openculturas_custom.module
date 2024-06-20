@@ -466,6 +466,7 @@ function openculturas_custom_form_node_form_alter(array &$form, FormStateInterfa
     $form['actions']['openculturas_custom_event_submit'] = $form['actions']['submit'];
     $form['actions']['openculturas_custom_event_submit']['#value'] = t('Save and add date');
     $form['actions']['openculturas_custom_event_submit']['#button_type'] = 'secondary';
+    $form['actions']['openculturas_custom_event_submit']['#gin_action_item'] = TRUE;
     $form['actions']['openculturas_custom_event_submit']['#submit'][] = 'openculturas_custom_event_submit_handler';
   }
 }
