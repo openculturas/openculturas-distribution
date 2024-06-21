@@ -8,10 +8,14 @@
   },
   "scripts": {
     "lint:js": "eslint --ext .js .",
-    "lint:css": "stylelint \"profile/themes/openculturas_base/css/*.css\" \"profile/modules/**/*.css\"",
+    "lint:css": "stylelint \"profile/modules/**/*.css\"",
+    "lint:css:fix": "stylelint --fix \"profile/modules/**/*.css\"",
     "lint:scss": "stylelint --config=.stylelintrc.scss.json \"profile/themes/openculturas_base/scss_config/**/*.scss\"",
+    "lint:scss:fix": "stylelint --fix --config=.stylelintrc.scss.json \"profile/themes/openculturas_base/scss_config/**/*.scss\"",
     "lint:yaml": "eslint --ext .yml .",
-    "prettier": "prettier --write \"./**/*.js\""
+    "prettier": "prettier \"./**/*.js\"",
+    "prettier:css": "prettier --write \"profile/modules/**/*.css\"",
+    "prettier:scss": "prettier --write \"profile/themes/openculturas_base/scss_config/**/*.scss\""
   },
   "devDependencies": {
     "eslint": "^8.57.0",
@@ -26,6 +30,7 @@
     "stylelint-config-standard": "^34.0.0",
     "stylelint-config-standard-scss": "^11.1.0",
     "stylelint-formatter-gitlab": "^1.0.2",
-    "stylelint-order": "^6.0.4"
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^4.1.0"
   }
 }

@@ -1,8 +1,6 @@
 // @file:
 //  Variables definition file.
 
-
-
 //  Grid base definition.
 // _
 //  Has effect on the grid wherever it is used.
@@ -10,7 +8,6 @@
 $grid-gutter: 1.25rem; // The grid gap between columns.
 $grid-column-count: 16; // The default amount of columns added to a grid if there is no override.
 $grid-layout-max-width: 68.75rem; // Maximum width of the grid to prevent the site from getting to wide on large screens.
-
 
 // Utility Classes Grid system definition.
 // _
@@ -21,12 +18,11 @@ $grid-layout-max-width: 68.75rem; // Maximum width of the grid to prevent the si
 // These settings will only have an effect on the utility classes and not on the main layout grid.
 
 $utility-grids: (
-  'grid-1': 1,
-  'grid-2': 2,
-  'grid-3': 3,
-  'grid-4': 4
+  "grid-1": 1,
+  "grid-2": 2,
+  "grid-3": 3,
+  "grid-4": 4,
 );
-
 
 // Selectors for setting the grid on sub-elements with utility classes.
 // _
@@ -35,8 +31,7 @@ $utility-grids: (
 // Instead, it will be set on the following selectors beneath the set class element.
 // You can add more selectors to this setting if you need the grid to work on more elements.
 
-$utility-grids-container-selectors: '> .view-content, > .field__items, > .details-wrapper';
-
+$utility-grids-container-selectors: "> .view-content, > .field__items, > .details-wrapper";
 
 // Breakpoint definitions.
 // _
@@ -49,7 +44,7 @@ $utility-grids-container-selectors: '> .view-content, > .field__items, > .detail
 // _
 // CAUTION: It is NOT recommended to DELETE any of the default breakpoint definitions below.
 // Since they are used by the scss files, this would most likely result in a broken compilation process.
-
+// prettier-ignore
 $breakpoints: (                // Size at default font size 16px;
   xs: 'max-width: 29.9999rem', // < 480px
   s: 'min-width: 30rem',       // 480px
@@ -57,7 +52,6 @@ $breakpoints: (                // Size at default font size 16px;
   l: 'min-width: 62rem',       // 992px
   xl: 'min-width: #{$grid-layout-max-width}'
 );
-
 
 // Colors.
 // _
@@ -68,7 +62,7 @@ $breakpoints: (                // Size at default font size 16px;
   // Default colors
 
   --color-primary: #a1167f;
-  --color-interaction:  #483d8b; // Secondary
+  --color-interaction: #483d8b; // Secondary
   --color-text: #1f1f1f;
   --color-text-muted: #7b7d85;
   --color-text-inverted: #fff;
@@ -79,7 +73,7 @@ $breakpoints: (                // Size at default font size 16px;
   --color-info: #1f71b8;
   --color-success: #188009;
   --color-warning: #ffc400;
-  --color-neutral-canvas: #F6F6F6;
+  --color-neutral-canvas: #f6f6f6;
   --color-bg-dark: #303236;
   --color-bg-slight-contrast: #e8e9eb;
   --color-bg-hardly-any-contrast: #f5f5f5;
@@ -89,12 +83,10 @@ $breakpoints: (                // Size at default font size 16px;
   --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 7%, transparent);
   --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
 
-
   // Optional OC gradients (use in background-image declaration)
 
   --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
   --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
-
 
   // Default font-sizes
 
@@ -102,9 +94,8 @@ $breakpoints: (                // Size at default font size 16px;
   --font-size-xl: 1.5rem;
   --font-size-l: 1.25rem;
   --font-size-default: 1rem;
-  --font-size-s: .875rem;
+  --font-size-s: 0.875rem;
   --font-size-icon: 1.5rem;
-
 
   // Other
 
@@ -116,7 +107,6 @@ $breakpoints: (                // Size at default font size 16px;
   }
 }
 
-
 // SASS-color-variables containing CSS-variables
 // _
 // Why we reassign CSS vars to SASS variables?
@@ -126,7 +116,6 @@ $breakpoints: (                // Size at default font size 16px;
 // - Native SASS color functions are disabled and throw errors when used.
 //  --> Make use of Hexadecimal opacity:
 //      #0000007F not rgba(0, 0, 0, 0.5)
-
 
 $color-primary: var(--color-primary);
 $color-interaction: var(--color-interaction);
@@ -163,11 +152,9 @@ $color-bg-link-opacity: var(--color-link--opacity);
 // Other
 $border-radius-button: var(--border-radius-button);
 
-
 // Default color derivates
 // are changed when base colors are changed by css_color_variables or Color module settings.
 // NOTE: CSS variables should be reassigned here.
-
 
 body {
   // Messages (system feedback)
@@ -187,7 +174,6 @@ body {
   --outline-active: 2px dashed var(--color-interaction, #483d8b);
   --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
 }
-
 
 //  Default font mapping for headlines and body text.
 // _
@@ -210,7 +196,6 @@ $outline-active: var(--outline-active);
 // Button radius
 $button-border-radius: var(--button-border-radius);
 
-
 // Fontawesome 6.
 // _
 // openculturas_base theme use the Fontawesome 6 free version.
@@ -223,7 +208,6 @@ $button-border-radius: var(--button-border-radius);
 
 $fa-font-path: "/libraries/font-awesome/webfonts";
 
-
 // Fontawesome extend-only selectors for webfont names.
 // _
 // As long as you are using fontawesome 6 this should not need a change.
@@ -234,13 +218,13 @@ $fa-font-path: "/libraries/font-awesome/webfonts";
 %far,
 %fas,
 %fa-solid {
-  font-family: 'Font Awesome 6 Free', sans-serif;
+  font-family: "Font Awesome 6 Free", sans-serif;
   font-weight: 900;
 }
 
 %fab,
 %fa-brands {
-  font-family: 'Font Awesome 6 Brands', sans-serif;
+  font-family: "Font Awesome 6 Brands", sans-serif;
   font-weight: 400;
 }
 

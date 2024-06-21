@@ -9,9 +9,6 @@ import concat from 'gulp-concat';
 import environments from 'gulp-environments';
 const development = environments.development,
 production = environments.production;
-
-let browserSyncConfig;
-
 const paths = {
   styles: {
     src: [

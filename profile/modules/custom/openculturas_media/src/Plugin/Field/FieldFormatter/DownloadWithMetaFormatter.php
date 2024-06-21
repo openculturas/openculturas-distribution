@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\ByteSizeMarkup;
 use Drupal\Core\Template\Attribute;
+use Drupal\file\IconMimeTypes;
 use Drupal\media\MediaInterface;
 use Drupal\media_entity_download\Plugin\Field\FieldFormatter\DownloadLinkFieldFormatter;
 use Drupal\openculturas_media\Service\ReadableMime;
@@ -64,7 +65,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
         return $elements;
       }
 
-      $predefined = $this->languageManager->getStandardLanguageList();
+      $predefined = $this->languageManager::getStandardLanguageList();
       foreach ($items as $delta => $item) {
         $attribute = new Attribute();
         $build[$delta] = [
@@ -86,7 +87,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
           $build[$delta]['#mimetype'] = [
             '#markup' => $readable,
           ];
-          $attribute->addClass('file--' . file_icon_class($mimetype));
+          $attribute->addClass('file--' . IconMimeTypes::getIconClass($mimetype));
         }
 
         if ($parent->hasField('field_inlanguage') && !$parent->get('field_inlanguage')->isEmpty()) {

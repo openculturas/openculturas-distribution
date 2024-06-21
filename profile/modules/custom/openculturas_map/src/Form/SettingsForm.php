@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\openculturas_map\Form;
 
 use Drupal\Core\File\Exception\FileException;
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -269,7 +270,7 @@ final class SettingsForm extends ConfigFormBase {
 
     $directoryPath = 'public://openculturas_map';
     $nameOfUploadField = 'marker_icon_upload';
-    $uploadedFile = file_save_upload($nameOfUploadField, $validators, FALSE, 0, FileSystemInterface::EXISTS_REPLACE);
+    $uploadedFile = file_save_upload($nameOfUploadField, $validators, FALSE, 0, FileExists::Replace);
     if ($uploadedFile instanceof FileInterface) {
       $existingDirectory = $this->fileSystem->prepareDirectory($directoryPath);
 
@@ -279,7 +280,7 @@ final class SettingsForm extends ConfigFormBase {
 
       $destination = $directoryPath . '/' . $uploadedFile->getFilename();
       try {
-        $savedFile = $this->fileRepository->move($uploadedFile, $destination, FileSystemInterface::EXISTS_REPLACE);
+        $savedFile = $this->fileRepository->move($uploadedFile, $destination, FileExists::Replace);
       }
       catch (\Throwable $exception) {
         $form_state->setErrorByName($nameOfUploadField, $exception->getMessage());

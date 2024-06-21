@@ -54,7 +54,6 @@
   }
 }
 
-
 // Helper mixin for breakpoints.
 // _
 // @param $name
@@ -68,11 +67,11 @@
 //   }
 
 @mixin breakpoint($name: xs) {
+  // prettier-ignore
   @media screen and (#{map_get($breakpoints, $name)}) { // stylelint-disable-line media-query-no-invalid
     @content;
   }
 }
-
 
 // Helper mixin for quickly setting a font style from the list in _variables.scss.
 // _
@@ -87,7 +86,6 @@
 @mixin typo($name: body) {
   @error 'Mixing hase been removed';
 }
-
 
 // Helper mixin for making an image fit to its's container.
 // _
@@ -125,7 +123,6 @@
   }
 }
 
-
 // Helper mixin for adding an icon to an element via scss.
 // Optionally you can select another fontawesome set of icons and the location of the icon (::before or ::after).
 // _
@@ -152,7 +149,6 @@
 //        @include icon(arrow-up, fas, after);
 //    }
 
-
 @mixin icon($icon: arrow-right, $iconset: fas, $position: before) {
   &:#{$position} {
     @include fa-icon;
@@ -163,9 +159,7 @@
   }
 }
 
-
 // Helper mixin for defining the profile image circle size and styling.
-
 
 @mixin profile-circle() {
   position: relative;
@@ -194,7 +188,6 @@
   }
 }
 
-
 // Helper mixin for defining social links styling.
 
 @mixin social-links() {
@@ -203,8 +196,8 @@
   margin: 0 auto $grid-gutter auto;
 
   // @include breakpoint(l) {
-    // @include grid(repeat(10, 1fr));
-   // }
+  // @include grid(repeat(10, 1fr));
+  // }
 
   .field__item {
     display: block;
@@ -212,14 +205,14 @@
     // width: fit-content;
     // max-width: 100%;
 
-     // @include breakpoint(l) {
-       // &:nth-child(odd) {
-         // grid-column: 1/6;
-       // }
-       // &:nth-child(even) {
-         // grid-column: 7/11;
-       // }
-     // }
+    // @include breakpoint(l) {
+    // &:nth-child(odd) {
+    // grid-column: 1/6;
+    // }
+    // &:nth-child(even) {
+    // grid-column: 7/11;
+    // }
+    // }
 
     &.field-email a {
       @include icon(envelope);
@@ -242,7 +235,7 @@
       // padding-left: 2px; // A little nicer hover bg.
 
       margin: 0.25rem 0;
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
 
       // overflow: hidden;
       word-break: keep-all;
@@ -274,7 +267,6 @@
   }
 }
 
-
 // Helper mixin for defining screenreader-only text.
 
 @mixin visually-hidden() {
@@ -286,7 +278,6 @@
   word-wrap: normal;
 }
 
-
 // Default clearfix implementation to be used in conjunction with floating elements.
 // _
 // @usage
@@ -297,16 +288,15 @@
 //     }
 //  }
 
-
 @mixin clearfix() {
   &::after {
     display: table;
     clear: both;
-    content: '';
+    content: "";
   }
 }
 
-
+// prettier-ignore
 @mixin all-headings {
   h1, .h1,
   h2, .h2,

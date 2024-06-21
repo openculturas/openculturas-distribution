@@ -4,7 +4,6 @@
 // or views for setting layouts. So the utility classes respect the drupal views/field rendering and only work with them,
 // because when setting classes in the drupal backend they will most of the time be set on the container, not the values.
 
-
 // Grids
 // _
 // The key of the map defines the selector and the value how many columns the grid should have.
@@ -13,13 +12,12 @@
 
 // stylelint-disable annotation-no-unknown
 $utility-grids: (
-  'grid-1': 1,
-  'grid-2': 2,
-  'grid-3': 3,
-  'grid-4': 4
+  "grid-1": 1,
+  "grid-2": 2,
+  "grid-3": 3,
+  "grid-4": 4,
 ) !default;
 // stylelint-enable annotation-no-unknown
-
 
 // Selectors for setting the grid on sub-elements.
 // _
@@ -30,7 +28,7 @@ $utility-grids: (
 // _
 // If you want to override this value, please do so in your _variables.scss file in the subtheme.
 
-$utility-grids-container-selectors: '> .view-content, > .field__items, > .details-wrapper' !default; // stylelint-disable-line annotation-no-unknown
+$utility-grids-container-selectors: "> .view-content, > .field__items, > .details-wrapper" !default; // stylelint-disable-line annotation-no-unknown
 
 // Print grid utility classes without breakpoint limitations (f.e. 'grid-2').
 @each $utility_name, $count in $utility_grids {
@@ -94,12 +92,10 @@ $utility-grids-container-selectors: '> .view-content, > .field__items, > .detail
   }
 }
 
-
 // Fullwidth child class.
 // _
 // If you want a certain grid-CHILD to ignore the grid layout and take the full width anyway,
 // you can add this class to the child. It will always take the full width of the parent grid.
-
 
 .grid-child-fullwidth {
   grid-column: 1 / -1;
@@ -109,13 +105,11 @@ $utility-grids-container-selectors: '> .view-content, > .field__items, > .detail
   }
 }
 
-
 // Inline-block layout class.
 // _
 // If you do not need a "real" grid and are fine with placing the childs of a field or view as inline-blocks so they
 // behave like inline elements but with the ability to style their layouts, you can use this utility class instead of
 // the above. Useful f.e. for a list of buttons where their size should be determined by their text content.
-
 
 .grid-inline-block {
   #{$utility-grids-container-selectors} {
@@ -124,7 +118,6 @@ $utility-grids-container-selectors: '> .view-content, > .field__items, > .detail
     }
   }
 }
-
 
 // Flexbox layout class.
 // _
@@ -142,13 +135,12 @@ $utility-grids-container-selectors: '> .view-content, > .field__items, > .detail
 %flex {
   display: flex;
   flex-flow: column;
-  gap: (.5 * $grid-gutter);
+  gap: (0.5 * $grid-gutter);
   text-align: center;
 
   @include breakpoint(m) {
     flex-flow: row nowrap;
-    gap: (.5 * $grid-gutter) (2 * $grid-gutter);
+    gap: (0.5 * $grid-gutter) (2 * $grid-gutter);
     text-align: left;
   }
-
 }

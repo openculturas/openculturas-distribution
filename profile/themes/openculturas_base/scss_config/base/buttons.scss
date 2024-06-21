@@ -7,11 +7,11 @@ button {
 %button,
 .button,
 button,
-input[type='button'],
-input[type='submit'] {
+input[type="button"],
+input[type="submit"] {
   display: inline-block;
   margin-bottom: 1em;
-  padding: .5em 2em;
+  padding: 0.5em 2em;
   text-decoration: none;
   color: $color-interaction;
   border-width: 1px;
@@ -29,17 +29,17 @@ input[type='submit'] {
     color: $color-text-inverted;
     background-color: $color-interaction;
   }
-
 }
 
 %button-small,
 .button-small {
   @extend %button;
 
-  padding: .25em 1em;
+  padding: 0.25em 1em;
   font-size: var(--font-size-s);
 }
 
+// prettier-ignore
 .form-submit:not([data-drupal-selector="edit-reset"]),
 .button--cta,
 %oc-button--primary { // stylelint-disable-line scss/percent-placeholder-pattern
@@ -58,7 +58,6 @@ input[type='submit'] {
     color: $color-interaction;
     background-color: $color-bg-light;
   }
-
 }
 
 // Danger/alert buttons (potentially destructive function).
@@ -80,9 +79,8 @@ button[type="submit"].button--danger {
     background-color: $color-danger;
   }
   @include icon(xmark) {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
-
 }
 
 .shariff {
@@ -105,7 +103,7 @@ button[type="submit"].button--danger {
 
     width: 2em;
     height: 2em;
-    padding: .5em;
+    padding: 0.5em;
     text-align: center;
     border-radius: 50%;
     font-size: var(--font-size-icon);
@@ -113,13 +111,12 @@ button[type="submit"].button--danger {
   }
 }
 
-
 // active pseudo class must be declared last
 %button,
 .button,
 button,
-input[type='button'],
-input[type='submit'] {
+input[type="button"],
+input[type="submit"] {
   &:active {
     color: $color-interaction;
     border-color: $color-bg-light;
@@ -133,7 +130,7 @@ input[type='submit'] {
 .button--add {
   margin-left: 0;
   @include icon(circle-plus) {
-    margin-right: .5rem;
-    margin-left: -.5rem;
+    margin-right: 0.5rem;
+    margin-left: -0.5rem;
   }
 }

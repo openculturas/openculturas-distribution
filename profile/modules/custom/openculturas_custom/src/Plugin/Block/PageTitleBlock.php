@@ -47,7 +47,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): PageTitleBlock {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     $instance->entityRepository = $container->get('entity.repository');
@@ -57,7 +57,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function setTitle($title): PageTitleBlock {
+  public function setTitle($title): self {
     $this->title = $title;
     return $this;
   }
@@ -136,7 +136,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
       if ($page_entity instanceof ContentEntityInterface && $page_entity->hasField('field_premiere')
         && !$page_entity->get('field_premiere')->isEmpty()) {
         $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
-        $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderPlain($field_premiere_render_array))) . ': '];
+        $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderInIsolation($field_premiere_render_array))) . ': '];
       }
 
       /** @var \Drupal\Core\Entity\ContentEntityInterface $current_entity */
