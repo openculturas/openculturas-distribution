@@ -160,7 +160,7 @@ final class SettingsForm extends ConfigFormBase {
       $form['host_list']['items'][$token]['remove'] = [
         '#type' => 'submit',
         '#value' => $this->t('Remove'),
-        '#submit' => [$this->removeRowSubmit(...)],
+        '#submit' => [[$this, 'removeRowSubmit']],
         '#name' => 'host_remove' . $token,
         '#ajax' => [
           'callback' => [self::class, 'ajaxRefreshCallback'],
@@ -176,7 +176,7 @@ final class SettingsForm extends ConfigFormBase {
       $form['host_list']['actions']['add'] = [
         '#type' => 'submit',
         '#value' => $this->t('Add one more'),
-        '#submit' => [$this->addRowSubmit(...)],
+        '#submit' => [[$this, 'addRowSubmit']],
         '#name' => 'add_host',
         '#ajax' => [
           'callback' => [self::class, 'ajaxRefreshCallback'],
