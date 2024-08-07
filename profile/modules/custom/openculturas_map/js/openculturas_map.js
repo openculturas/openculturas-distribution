@@ -574,6 +574,7 @@
         showCoverageOnHover: false,
         zoomToBoundsOnClick: true,
         spiderLegPolylineOptions: { weight: 0, color: '#fff', opacity: 0 },
+        maxClusterRadius: 30,
         iconCreateFunction: function(cluster) {
           return new L.DivIcon({...this._icon, html: `<div class="custom-cluster-icon"><img src="${this._settings.get('marker_icon_path')}"/><span>${cluster.getChildCount()}</span></div>`})
         }.bind(this)
