@@ -1027,7 +1027,7 @@ display:
     position: 4
     display_options:
       pager:
-        type: full
+        type: infinite_scroll
         options:
           offset: 0
           items_per_page: 6
@@ -1036,8 +1036,6 @@ display:
           tags:
             next: ››
             previous: ‹‹
-            first: '« First'
-            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -1046,7 +1044,10 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
+          views_infinite_scroll:
+            button_text: 'Show more'
+            automatically_load_content: false
+            initially_load_all_pages: false
       defaults:
         pager: false
       display_description: ''

@@ -1571,3 +1571,25 @@ function openculturas_post_update_source_string_spell_corrections(): void {
     $config->save();
   }
 }
+
+/**
+ * Change pager type of view related_article and display related_article_term to views_infinite_scroll.
+ */
+function openculturas_post_update_related_article_term_pager_views_infinite_scroll(): void {
+  $view = Views::getView('related_article');
+  if ($view) {
+    $display = $view->setDisplay('related_article_term');
+    if ($display && !$view->getDisplay()->isDefaulted('pager')) {
+      $pager = $view->getDisplay()->getOption('pager');
+      $pager['type'] = 'infinite_scroll';
+      $pager['options']['views_infinite_scroll'] = [
+        'button_text' => 'Show more',
+        'automatically_load_content' => FALSE,
+        'initially_load_all_pages' => FALSE,
+      ];
+      unset($pager['options']['quantity'], $pager['options']['tags']['first'], $pager['options']['tags']['last']);
+      $view->getDisplay()->setOption('pager', $pager);
+      $view->save();
+    }
+  }
+}
