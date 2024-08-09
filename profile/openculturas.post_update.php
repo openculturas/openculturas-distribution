@@ -1592,3 +1592,17 @@ function openculturas_post_update_related_article_term_pager_views_infinite_scro
     }
   }
 }
+
+/**
+ * Disable display feed_1 in view oc_frontpage.
+ */
+function openculturas_post_update_oc_frontpage_disable_feed(): void {
+  $view = Views::getView('oc_frontpage');
+  if ($view) {
+    $display = $view->setDisplay('feed_1');
+    if ($display) {
+      $view->getDisplay()->setOption('enabled', FALSE);
+      $view->save();
+    }
+  }
+}
