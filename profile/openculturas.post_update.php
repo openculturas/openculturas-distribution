@@ -1607,3 +1607,15 @@ function openculturas_post_update_oc_frontpage_disable_feed(): void {
     }
   }
 }
+
+/**
+ * Replace div with p-element in display upcoming_dates_map of view related_date.
+ */
+function openculturas_post_update_upcoming_dates_map_local_safe(): void {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('views.view.related_date');
+  if (!$config->isNew() && $config->get('display.upcoming_dates_map.display_options.header.result.content')) {
+    $config->set('display.upcoming_dates_map.display_options.header.result.content', '<p class="result-counter">Displaying <strong>@start - @end</strong> of <strong>@total</strong></p>');
+    $config->save();
+  }
+}
