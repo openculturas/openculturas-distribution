@@ -1166,17 +1166,24 @@ function openculturas_post_update_move_field_layout_switcher(): void {
 }
 
 /**
- * Replaces OC custom views filter plugin with smart date provided filter.
+ * No-op update. Replaced by openculturas_post_update_issue_3446002_1.
  */
 function openculturas_post_update_issue_3446002(array &$sandbox): void {
+
+}
+
+/**
+ * Replaces OC custom views filter plugin with smart date provided filter.
+ */
+function openculturas_post_update_issue_3446002_1(array &$sandbox): void {
   // Issue https://www.drupal.org/project/openculturas/issues/3446002.
   \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', static function (ViewEntityInterface $view): bool {
-      $displays = $view->get('display');
+    $displays = $view->get('display');
     if (!is_array($displays)) {
       return FALSE;
     }
 
-      $update = FALSE;
+    $update = FALSE;
     foreach ($displays as &$display) {
       if (!isset($display['display_options']['filters'])) {
         continue;
@@ -1194,20 +1201,27 @@ function openculturas_post_update_issue_3446002(array &$sandbox): void {
       }
     }
 
-      unset($display);
+    unset($display);
     if ($update) {
       $view->set('display', $displays);
     }
 
-      return $update;
+    return $update;
   });
+
+}
+
+/**
+ * No-op update. Replaced by openculturas_post_update_issue_3446003_1.
+ */
+function openculturas_post_update_issue_3446003(array &$sandbox): void {
 
 }
 
 /**
  * Replace http_client_error_status provided condition with core provided condition.
  */
-function openculturas_post_update_issue_3446003(array &$sandbox): void {
+function openculturas_post_update_issue_3446003_1(array &$sandbox): void {
   \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'block', static function (BlockInterface $block): bool {
     $visibility = $block->getVisibility();
     if (!isset($visibility['http_client_error_status'])) {
