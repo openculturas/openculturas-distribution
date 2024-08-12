@@ -266,12 +266,10 @@ function openculturas_post_update_tour_access(): void {
 }
 
 /**
- * Install admin_toolbar_links_access_filter.
+ * No-op update.
  */
 function openculturas_post_update_install_admin_toolbar_links_access_filter(): void {
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
-  $moduleInstaller = \Drupal::service('module_installer');
-  $moduleInstaller->install(['admin_toolbar_links_access_filter']);
+  // Replaced by core. See admin_toolbar_update_8003.
 }
 
 /**
