@@ -70,25 +70,8 @@ function openculturas_map_uninstall(bool $is_syncing): void {
 }
 
 /**
- * Grant permission administer openculturas_map configuration to oc_admin role.
+ * Implements hook_update_last_removed().
  */
-function openculturas_map_update_10001(): void {
-  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
-  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
-  /** @var \Drupal\user\RoleInterface|null $role */
-  $role = $roleStorage->load('oc_admin');
-  if ($role instanceof RoleInterface) {
-    $role->grantPermission('administer openculturas_map configuration');
-    $role->save();
-  }
-}
-
-/**
- * Always show reset button (views.view.oc_map_locations).
- */
-function openculturas_map_update_10002(): void {
-  $configFactory = \Drupal::configFactory();
-  $config = $configFactory->getEditable('views.view.oc_map_locations');
-  $config->set('display.default.display_options.exposed_form.options.bef.general.reset_button_always_show', TRUE);
-  $config->save();
+function openculturas_map_update_last_removed(): int {
+  return 10002;
 }

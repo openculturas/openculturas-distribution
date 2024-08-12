@@ -54,37 +54,17 @@ function openculturas_faq_install(bool $is_syncing): void {
  * Implements hook_update_last_removed().
  */
 function openculturas_faq_update_last_removed(): int {
-  return 9303;
-}
-
-/**
- * Deletes invalid path component in entity_view_display configurations.
- */
-function openculturas_faq_update_9304(): void {
-  $configFactory = \Drupal::configFactory();
-  foreach ($configFactory->listAll('core.entity_view_display.node.faq') as $config_name) {
-    $config = $configFactory->getEditable($config_name);
-    if ($config->isNew()) {
-      continue;
-    }
-
-    $configData = $config->getRawData();
-    unset($configData['content']['path']);
-    $config->setData($configData);
-    $config->save(TRUE);
-  }
+  return 9401;
 }
 
 /**
  * Deletes removed update_helper_checklist updates.
  */
-function openculturas_faq_update_9401(): void {
+function openculturas_faq_update_10001(): void {
   $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
 
   $checklist_items = [
-    'openculturas_faq:openculturas_faq_update_9001',
-    'openculturas_faq:openculturas_faq_update_9302',
-    'openculturas_faq:openculturas_faq_update_9303',
+    'openculturas_faq:openculturas_faq_post_update_interaction_button_section',
   ];
   $entities = $storage->loadMultiple($checklist_items);
   $storage->delete($entities);

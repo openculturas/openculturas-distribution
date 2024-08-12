@@ -8,8 +8,6 @@
 declare(strict_types=1);
 
 use Drupal\node\NodeInterface;
-use Drupal\update_helper\ConfigName;
-use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
 
@@ -163,265 +161,30 @@ function openculturas_install_openculturas_modules(): void {
  * Implements hook_update_last_removed().
  */
 function openculturas_update_last_removed(): int {
-  return 9307;
+  return 10108;
 }
 
 /**
  * Deletes removed update_helper_checklist updates.
  */
-function openculturas_update_9401(): void {
+function openculturas_update_10109(): void {
   $storage = \Drupal::entityTypeManager()->getStorage('update_helper_checklist_update');
 
   $checklist_items = [
-    'openculturas:openculturas_update_9002',
-    'openculturas:openculturas_update_9302',
-    'openculturas:openculturas_update_9303',
-    'openculturas:openculturas_update_9304',
-    'openculturas:openculturas_update_9305',
-    'openculturas:openculturas_update_9306',
-    'openculturas:openculturas_post_update_0001',
-    'openculturas:openculturas_post_update_0002',
-    'openculturas:openculturas_post_update_0003',
-    'openculturas:openculturas_post_update_0004',
-    'openculturas:openculturas_post_update_0005',
-    'openculturas:openculturas_post_update_0006',
-    'openculturas:openculturas_post_update_0007',
-    'openculturas:openculturas_post_update_0008',
-    'openculturas:openculturas_post_update_0009',
-    'openculturas:openculturas_post_update_0010',
-    'openculturas:openculturas_post_update_0011',
-    'openculturas:openculturas_post_update_0012',
-    'openculturas:openculturas_post_update_0013',
-    'openculturas:openculturas_post_update_0014',
-    'openculturas:openculturas_post_update_0015',
-    'openculturas:openculturas_post_update_0016',
-    'openculturas:openculturas_post_update_0017',
-    'openculturas:openculturas_post_update_0018',
-    'openculturas:openculturas_post_update_0019',
-    'openculturas:openculturas_post_update_0020',
-    'openculturas:openculturas_post_update_0021',
-    'openculturas:openculturas_post_update_0022',
-    'openculturas:openculturas_post_update_0023',
-    'openculturas:openculturas_post_update_0024',
-    'openculturas:openculturas_post_update_0025',
-    'openculturas:openculturas_post_update_0026',
-    'openculturas:openculturas_post_update_0027',
-    'openculturas:openculturas_post_update_0028',
-    'openculturas:openculturas_post_update_0029',
-    'openculturas:openculturas_post_update_0030',
-    'openculturas:openculturas_post_update_0031',
-    'openculturas:openculturas_post_update_0032',
-    'openculturas:openculturas_post_update_0033',
-    'openculturas:openculturas_post_update_0034',
-    'openculturas:openculturas_post_update_0035',
-    'openculturas:openculturas_post_update_0036',
-    'openculturas:openculturas_post_update_0037',
-    'openculturas:openculturas_post_update_0038',
-    'openculturas:openculturas_post_update_0039',
-    'openculturas:openculturas_post_update_0040',
-    'openculturas:openculturas_post_update_0041',
-    'openculturas:openculturas_post_update_0042',
-    'openculturas:openculturas_post_update_0043',
-    'openculturas:openculturas_post_update_0044',
-    'openculturas:openculturas_post_update_oc_gin_theme_overrides_paragraphs_behaviors',
-    'openculturas:openculturas_post_update_views_refactor_0001',
-    'openculturas:openculturas_post_update_views_refactor_0002',
-    'openculturas:openculturas_post_update_views_refactor_0003',
-    'openculturas:openculturas_post_update_views_refactor_0004',
-    'openculturas:openculturas_post_update_views_refactor_0005',
-    'openculturas:openculturas_post_update_views_refactor_0006',
-    'openculturas:openculturas_post_update_views_refactor_0007',
-    'openculturas:openculturas_post_update_views_refactor_0008',
-    'openculturas:openculturas_post_update_views_refactor_0009',
-    'openculturas:openculturas_post_update_views_refactor_0010',
-    'openculturas:openculturas_post_update_views_refactor_0011',
+    'openculturas:openculturas_update_9402',
+    'openculturas:openculturas_update_9403',
+    'openculturas:openculturas_update_9404',
+    'openculturas:openculturas_post_update_0045',
+    'openculturas:openculturas_post_update_interaction_button_section',
+    'openculturas:openculturas_post_update_password_policy',
+    'openculturas:openculturas_post_update_related_content_via_term_node_tid_depth',
+    'openculturas:openculturas_post_update_add_field_badges',
   ];
 
   $entities = $storage->loadMultiple($checklist_items);
   $storage->delete($entities);
-}
+  /** @var \Drupal\checklistapi\Storage\StateStorage $checklistapi_storage */
+  $checklistapi_storage = \Drupal::service('checklistapi_storage.state');
+  $checklistapi_storage->setChecklistId('update_helper_checklist')->deleteSavedProgress();
 
-/**
- * Add pricing info, enhance date layout.
- */
-function openculturas_update_9402(): string {
-  /** @var \Drupal\update_helper\Updater $updater */
-  $updater = \Drupal::service('update_helper.updater');
-
-  // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas', 'openculturas_update_9402');
-
-  // Output logged messages to related channel of update execution.
-  return $updater->logger()->output();
-}
-
-/**
- * Search results enhancements.
- */
-function openculturas_update_9403(): string {
-  /** @var \Drupal\update_helper\Updater $updater */
-  $updater = \Drupal::service('update_helper.updater');
-
-  // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas', 'openculturas_update_9403');
-
-  // Output logged messages to related channel of update execution.
-  return $updater->logger()->output();
-}
-
-/**
- * Search results enhancements - exposed filter.
- */
-function openculturas_update_9404(): string {
-  // Extra update hook to avoid the error:
-  // [warning] The "views_exposed_filter_block:search-search_page" was not found.
-  // The view needs to update first to enable exposed,
-  // then views knows this is valid exposed block.
-  /** @var \Drupal\update_helper\Updater $updater */
-  $updater = \Drupal::service('update_helper.updater');
-
-  // Execute configuration update definitions with logging of success.
-  $updater->executeUpdate('openculturas', 'openculturas_update_9404');
-
-  // Output logged messages to related channel of update execution.
-  return $updater->logger()->output();
-}
-
-/**
- * Revoke stale permissions.
- */
-function openculturas_update_9405(): void {
-  $role = Role::load('magazine_editor');
-  if ($role instanceof Role) {
-    $role->revokePermission('use magazine_article transition review');
-    $role->save();
-  }
-
-  $role = Role::load('oc_admin');
-  if ($role instanceof Role) {
-    $permissions = [
-      'create field_claim_ownership_resolved',
-      'create field_report_abuse_resolved',
-      'create field_resolved',
-      'edit field_claim_ownership_resolved',
-      'edit field_report_abuse_resolved',
-      'edit field_resolved',
-      'edit own field_claim_ownership_resolved',
-      'edit own field_report_abuse_resolved',
-      'edit own field_resolved',
-      'view field_claim_ownership_resolved',
-      'view field_report_abuse_resolved',
-      'view field_resolved',
-      'view own field_claim_ownership_resolved',
-      'view own field_report_abuse_resolved',
-      'view own field_resolved',
-      'use draften transition review',
-      'use magazine_article transition review',
-    ];
-    foreach ($permissions as $permission) {
-      $role->revokePermission($permission);
-    }
-
-    $role->save();
-  }
-
-}
-
-/**
- * No-op update.
- */
-function openculturas_update_9406(): void {
-
-}
-
-/**
- * No-op update.
- */
-function openculturas_update_10101(): void {
-
-}
-
-/**
- * No-op update.
- */
-function openculturas_update_10102(): void {
-
-}
-
-/**
- * Install node_edit_protection module.
- */
-function openculturas_update_10103(): void {
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
-  $moduleInstaller = \Drupal::service('module_installer');
-  $moduleInstaller->install(['node_edit_protection']);
-}
-
-/**
- * Import/Revert metatag.metatag_defaults.node__date.
- */
-function openculturas_update_10104(): string {
-  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
-  $configUpdater = \Drupal::service('config_update.config_update');
-  /** @var \Drupal\update_helper\UpdateLogger $logger */
-  $logger = \Drupal::service('update_helper.logger');
-  $full_config_name = 'metatag.metatag_defaults.node__date';
-  $config_name = ConfigName::createByFullName($full_config_name);
-
-  if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
-    $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
-  }
-  elseif ($configUpdater->import($config_name->getType(), $config_name->getName())) {
-    $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
-  }
-
-  return $logger->output();
-}
-
-/**
- * Revert asset_injector.css.oc_gin_theme_overrides.
- */
-function openculturas_update_10105(): string {
-  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
-  $configUpdater = \Drupal::service('config_update.config_update');
-  /** @var \Drupal\update_helper\UpdateLogger $logger */
-  $logger = \Drupal::service('update_helper.logger');
-  $full_config_name = 'asset_injector.css.oc_gin_theme_overrides';
-  $config_name = ConfigName::createByFullName($full_config_name);
-
-  if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
-    $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
-  }
-  else {
-    $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
-  }
-
-  return $logger->output();
-}
-
-/**
- * Installs inline_entity_form, ief_complex_open.
- */
-function openculturas_update_10106(): void {
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
-  $moduleInstaller = \Drupal::service('module_installer');
-  $moduleInstaller->install(['inline_entity_form', 'ief_complex_open']);
-}
-
-/**
- * Installs image_widget_crop.
- */
-function openculturas_update_10107(): void {
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
-  $moduleInstaller = \Drupal::service('module_installer');
-  $moduleInstaller->install(['image_widget_crop']);
-}
-
-/**
- * Uninstalls transliterate_filenames.
- */
-function openculturas_update_10108(): void {
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
-  $moduleInstaller = \Drupal::service('module_installer');
-  $moduleInstaller->uninstall(['transliterate_filenames']);
 }
