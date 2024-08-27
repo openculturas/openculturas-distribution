@@ -11,6 +11,7 @@ dependencies:
     - field.field.paragraph.contact_data.field_url
     - paragraphs.paragraphs_type.contact_data
   module:
+    - field_formatter_class
     - link
     - social_media_links_field
     - telephone
@@ -40,11 +41,13 @@ content:
     settings:
       appearance:
         orientation: v
-        show_name: '1'
+        show_name: true
       link_attributes:
         target: '<none>'
         rel: nofollow
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 3
     region: content
   field_url:
