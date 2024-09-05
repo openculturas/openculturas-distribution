@@ -1,0 +1,25 @@
+name: 'OpenCulturas - Section'
+type: module
+core_version_requirement: ^10
+description: 'Provides vocabulary and corresponding fields that can be used to color-code content.'
+package: OpenCulturas
+version: 2.2.0
+project: openculturas
+dependencies:
+  - 'drupal:node'
+  - 'drupal:taxonomy'
+  - 'paragraphs:paragraphs'
+
+config_devel:
+  install:
+    - core.entity_form_display.taxonomy_term.oc_section.default
+    - core.entity_view_display.taxonomy_term.oc_section.default
+    - field.field.node.article.field_section
+    - field.field.node.event.field_section
+    - field.field.node.location.field_section
+    - field.field.node.profile.field_section
+    - field.field.taxonomy_term.oc_section.field_colorcode
+    - field.storage.node.field_section
+    - field.storage.taxonomy_term.field_colorcode
+    - language.content_settings.taxonomy_term.oc_section
+    - taxonomy.vocabulary.oc_section

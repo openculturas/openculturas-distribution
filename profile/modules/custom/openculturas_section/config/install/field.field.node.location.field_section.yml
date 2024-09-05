@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_section
+    - node.type.location
+    - taxonomy.vocabulary.oc_section
+  enforced:
+    module:
+      - openculturas_section
+id: node.location.field_section
+field_name: field_section
+entity_type: node
+bundle: location
+label: Section
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      oc_section: oc_section
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

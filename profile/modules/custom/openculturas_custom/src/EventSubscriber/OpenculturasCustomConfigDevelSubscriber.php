@@ -80,6 +80,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       str_starts_with($config_name, 'user.role.')
     )) {
       $this->excludeOpenCulturasDiscussions($event);
+      $this->excludeOpenCulturasSection($event);
     }
 
     // // @phpstan-ignore-next-line
@@ -112,6 +113,40 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     return [
       ConfigDevelEvents::SAVE => ['onConfigDevelSave'],
     ];
+  }
+
+  /**
+   * OpenCulturas-Section is an optional module.
+   */
+  private function excludeOpenCulturasSection(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    unset($data['content']['field_section'], $data['hidden']['field_section']);
+    if (isset($data['dependencies']['config'])) {
+      foreach ($data['dependencies']['config'] as $index => $config_name) {
+        if (str_ends_with($config_name, 'field_section')) {
+          unset($data['dependencies']['config'][$index]);
+        }
+      }
+
+      $data['dependencies']['config'] = array_values($data['dependencies']['config']);
+    }
+
+    if (isset($data['third_party_settings']['field_group'])) {
+      foreach ($data['third_party_settings']['field_group'] as $field_id => $field_group_data) {
+        if (isset($field_group_data['children'])) {
+          $index = array_search('field_section', $field_group_data['children'], TRUE);
+          if ($index !== FALSE) {
+            unset($field_group_data['children'][$index]);
+          }
+
+          $field_group_data['children'] = array_values($field_group_data['children']);
+          $data['third_party_settings']['field_group'][$field_id] = $field_group_data;
+        }
+
+      }
+    }
+
+    $configDevelSaveEvent->setData($data);
   }
 
   /**

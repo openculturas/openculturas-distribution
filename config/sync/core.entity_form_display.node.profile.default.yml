@@ -27,6 +27,7 @@ dependencies:
     - field.field.node.profile.field_recommendations
     - field.field.node.profile.field_recommended_by_view_ref
     - field.field.node.profile.field_reference_title
+    - field.field.node.profile.field_section
     - field.field.node.profile.field_started
     - field.field.node.profile.field_subtitle
     - field.field.node.profile.field_upcoming_dates_by_profile
@@ -144,6 +145,7 @@ third_party_settings:
     group_profile_tab_advanced:
       children:
         - field_press_quotes
+        - field_section
       label: Advanced
       region: content
       parent_name: group_profile_tabs_container
@@ -351,7 +353,7 @@ content:
         show_edit: '1'
   field_press_quotes:
     type: paragraphs
-    weight: 5
+    weight: 1
     region: content
     settings:
       title: 'Press quote'
@@ -407,6 +409,12 @@ content:
             effect: show
             effect_options: {  }
             selector: ''
+  field_section:
+    type: options_buttons
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_started:
     type: datetime_datelist_no_time
     weight: 10

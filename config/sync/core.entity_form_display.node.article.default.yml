@@ -15,10 +15,11 @@ dependencies:
     - field.field.node.article.field_mood_image
     - field.field.node.article.field_recommended_by_view_ref
     - field.field.node.article.field_references
+    - field.field.node.article.field_section
     - field.field.node.article.field_sub_type
     - field.field.node.article.field_subtitle
     - node.type.article
-    - workflows.workflow.draften_member
+    - workflows.workflow.magazine_article
   module:
     - allowed_formats
     - choices
@@ -130,6 +131,7 @@ third_party_settings:
         - field_column
         - field_sub_type
         - field_category
+        - field_section
       label: 'Tags wrapper'
       region: content
       parent_name: group_meta_information
@@ -193,14 +195,14 @@ content:
     third_party_settings: {  }
   field_category:
     type: choices_widget
-    weight: 13
+    weight: 3
     region: content
     settings:
       configuration_options: ''
     third_party_settings: {  }
   field_column:
     type: options_select
-    weight: 11
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -262,9 +264,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_section:
+    type: options_buttons
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_sub_type:
     type: options_select
-    weight: 12
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }

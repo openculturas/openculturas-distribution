@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function openculturas_section_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  $bundles = [
+    'article' => 'group_tags_wrapper',
+    'event' => 'group_event_tab_advanced',
+    'location' => 'group_location_tab_advanced',
+    'profile' => 'group_profile_tab_advanced',
+  ];
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+  foreach ($bundles as $bundle => $field_group_id) {
+    $formDisplay = $entityDisplayRepository->getFormDisplay('node', $bundle);
+    $field_group = $formDisplay->getThirdPartySetting('field_group', $field_group_id);
+    if ($field_group && $field_group['region'] === 'content') {
+      $formDisplay->setComponent('field_section', [
+        'type' => 'options_buttons',
+      ]);
+      $field_group['children'][] = 'field_section';
+      $formDisplay->setThirdPartySetting('field_group', $field_group_id, $field_group);
+      $weight = 0;
+      foreach ($field_group['children'] as $child_id) {
+        if ($componentOptions = $formDisplay->getComponent($child_id)) {
+          $componentOptions['weight'] = ++$weight;
+          $formDisplay->setComponent($child_id, $componentOptions);
+        }
+      }
+
+      $formDisplay->save();
+    }
+  }
+}

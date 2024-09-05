@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\openculturas_custom\CurrentEntityHelper;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openculturas_section_preprocess_node(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $node = CurrentEntityHelper::getEventReference($node);
+  // Adds the colorcode to node template attributes as css class.
+  if ($node instanceof ContentEntityInterface && $node->hasField('field_section') && !$node->get('field_section')->isEmpty()) {
+    /** @var \Drupal\taxonomy\TermInterface[] $entities */
+    $entities = $node->get('field_section')->referencedEntities();
+    /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository */
+    $entity_repository = \Drupal::service('entity.repository');
+    foreach ($entities as $entity) {
+      $translated_entity = $entity_repository->getTranslationFromContext($entity);
+      if ($translated_entity->hasField('field_colorcode') && !$translated_entity->get('field_colorcode')->isEmpty()) {
+        $variables['attributes']['class'][] = $translated_entity->get('field_colorcode')->value;
+      }
+    }
+  }
+}
