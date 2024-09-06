@@ -1,0 +1,10 @@
+services:
+  openculturas_address_links.address_service:
+    class: Drupal\openculturas_address_links\AddressService
+    arguments:
+      - '@address.address_format_repository'
+      - '@address.country_repository'
+      - '@address.subdivision_repository'
+      - '@language_manager'
+      - '@config.factory'
+      - '@token'

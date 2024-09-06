@@ -1,0 +1,28 @@
+openculturas_address_links.settings:
+  type: config_object
+  label: 'OpenCulturas Address Links config'
+  mapping:
+    directions:
+      type: uri
+      label: 'Directions provider URL'
+      nullable: true
+    public_transport:
+      type: uri
+      label: 'Public transport provider URL'
+      nullable: true
+
+field.formatter.settings.address_link:
+  type: mapping
+  label: 'Address link format settings'
+  mapping:
+    title:
+      type: label
+      label: 'Title'
+
+field.formatter.settings.directions:
+  type: field.formatter.settings.address_link
+  label: 'Directions Link format settings'
+
+field.formatter.settings.public_transport:
+  type: field.formatter.settings.address_link
+  label: 'Public Transport Link format settings'

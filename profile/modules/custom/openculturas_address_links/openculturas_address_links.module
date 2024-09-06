@@ -1,0 +1,78 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_token_info().
+ */
+function openculturas_address_links_token_info(): array {
+  return [
+    'types' => [
+      'address' => [
+        'name' => t('Address'),
+        'description' => t('Address tokens.'),
+      ],
+      'geofield' => [
+        'name' => t('Geofield'),
+        'description' => t('Geofield tokens.'),
+      ],
+    ],
+    'tokens' => [
+      'address' => [
+        'address' => [
+          'name' => t('Address'),
+          'description' => t('Plaintext address in a single line.'),
+        ],
+      ],
+      'geofield' => [
+        'lat' => [
+          'name' => t('Latitude'),
+          'description' => t('Latitude of the address geofield.'),
+        ],
+        'lon' => [
+          'name' => t('Longitude'),
+          'description' => t('Longitude of the address geofield.'),
+        ],
+        'latlon' => [
+          'name' => t('Latitude/longitude'),
+          'description' => t('Latitude and longitude of the address geofield, separated by comma.'),
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function openculturas_address_links_tokens(string $type, array $tokens, array $data): array {
+  $replacements = [];
+  /** @var \Drupal\openculturas_address_links\AddressService $addressService */
+  $addressService = \Drupal::service('openculturas_address_links.address_service');
+  if ($type === 'address') {
+    foreach ($tokens as $name => $original) {
+      if ($name === 'address') {
+        $replacements[$original] = $addressService->getPlainAddress($data['address']);
+      }
+    }
+  }
+  elseif ($type === 'geofield') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'lat':
+          $replacements[$original] = $data['geofield']->lat;
+          break;
+
+        case 'lon':
+          $replacements[$original] = $data['geofield']->lon;
+          break;
+
+        case 'latlon':
+          $replacements[$original] = $data['geofield']->latlon;
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}

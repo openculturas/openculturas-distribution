@@ -10,7 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
-use Drupal\Core\Url;
+use Drupal\address\AddressInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 use Drupal\image\ImageStyleInterface;
 use Drupal\media\MediaInterface;
@@ -184,19 +184,44 @@ function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggest
  * Implements hook_preprocess_HOOK() for paragraph.html.twig.
  */
 function openculturas_base_preprocess_paragraph(array &$variables): void {
+  $variables['address_links'] = NULL;
   $render_array = [];
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
-  if ($paragraph->bundle() === 'address_data' && $paragraph->hasField('field_address_location') && !$paragraph->get('field_address_location')->isEmpty()) {
-    /** @var \Drupal\geofield\Plugin\Field\FieldType\GeofieldItem|null $item */
-    $item = $paragraph->get('field_address_location')->first();
-    if (!$item instanceof GeofieldItem) {
-      return;
+  if ($paragraph->bundle() === 'address_data' && \Drupal::hasService('openculturas_address_links.address_service')) {
+    $links = [];
+    if ($paragraph->hasField('field_address_location') && !$paragraph->get('field_address_location')->isEmpty()) {
+      /** @var \Drupal\geofield\Plugin\Field\FieldType\GeofieldItem|null $item */
+      $item = $paragraph->get('field_address_location')->first();
+      if ($item instanceof GeofieldItem) {
+        /** @var \Drupal\openculturas_address_links\AddressService $addressService */
+        $addressService = \Drupal::service('openculturas_address_links.address_service');
+        if ($url = $addressService->buildUrlFromGeofield($item, 'directions')) {
+          $links['directions'] = [
+            '#type' => 'link',
+            '#title' => t('Navigation'),
+            '#url' => $url,
+          ];
+        }
+      }
     }
 
-    $values = $item->getValue();
-    $variables['address_links'] = NULL;
-    if (is_array($values) && isset($values['latlon'])) {
+    if ($paragraph->hasField('field_address') && !$paragraph->get('field_address')->isEmpty()) {
+      $item = $paragraph->get('field_address')->first();
+      if ($item instanceof AddressInterface) {
+        /** @var \Drupal\openculturas_address_links\AddressService $addressService */
+        $addressService = \Drupal::service('openculturas_address_links.address_service');
+        if ($url = $addressService->buildUrlFromAddress($item, 'public_transport')) {
+          $links['public_transport'] = [
+            '#type' => 'link',
+            '#title' => t('Public Transport'),
+            '#url' => $url,
+          ];
+        }
+      }
+    }
+
+    if ($links !== []) {
       $render_array['wrapper'] = [
         '#type' => 'container',
         '#attributes' => [
@@ -204,12 +229,7 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
             'address-navigation',
           ],
         ],
-      ];
-      $render_array['wrapper']['link'] = [
-        '#type' => 'link',
-        '#title' => t('Navigation'),
-        '#url' => Url::fromUri(sprintf('geo:%s', $values['latlon'])),
-      ];
+      ] + $links;
       $variables['address_links'] = $render_array;
     }
   }

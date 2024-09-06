@@ -188,3 +188,12 @@ function openculturas_update_10109(): void {
   $checklistapi_storage->setChecklistId('update_helper_checklist')->deleteSavedProgress();
 
 }
+
+/**
+ * Installs openculturas_address_links.
+ */
+function openculturas_update_10110(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['openculturas_address_links']);
+}
