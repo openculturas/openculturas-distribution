@@ -34,7 +34,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $static = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $static->allowedClasses = [static::NONE => t('None')];
+    $static->allowedClasses = [self::NONE => t('None')];
     $allowedClasses = $container->get('config.factory')
       ->get('openculturas_custom.settings')
       ->get('allowed_classes');
@@ -57,7 +57,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $class = $settings['class'];
-    if ($class != static::NONE) {
+    if ($class != self::NONE) {
       $build['#attributes']['class'][] = $class;
     }
   }
