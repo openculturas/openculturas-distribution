@@ -526,3 +526,33 @@ input[type="password"],
     color: var(--color-text-muted) !important;
   }
 }
+
+// Native dialog replacing jquery modals
+
+dialog.modal {
+  padding: 1.25rem;
+  border: 1px solid var(--color-interaction);
+  border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
+  background: var(--color-bg-light);
+
+  &:has(.dialog-titlebar, .dialog-content) {
+    padding: 0;
+  }
+
+  .dialog-titlebar {
+    padding: 0.5rem 1.25rem;
+    color: var(--color-text-inverted);
+    background-color: var(--color-interaction);
+  }
+
+  .dialog-content {
+    padding: 1.25rem;
+    font-size: var(--font-size-default);
+    font-weight: normal;
+  }
+
+  &::backdrop {
+    opacity: 0.8;
+    background: var(--color-neutral-canvas);
+  }
+}

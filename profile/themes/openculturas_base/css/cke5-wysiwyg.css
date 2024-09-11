@@ -62,6 +62,8 @@ body {
 .ck-content .tablesort--asc:before,
 .ck-content .tablesort--desc:before,
 .ck-content .anchorlinks:before,
+.ck-content button.close:before,
+.ck-content dialog.modal button.close:before,
 .ck-content .button--add:before,
 .ck-content .form-submit.danger:before,
 .ck-content .button.danger:before,
@@ -11365,6 +11367,29 @@ readers do not read off random characters that represent icons */
 .ck-content .ui-datepicker .ui-state-disabled {
   color: var(--color-text-muted) !important;
 }
+.ck-content dialog.modal {
+  padding: 1.25rem;
+  border: 1px solid var(--color-interaction);
+  border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
+  background: var(--color-bg-light);
+}
+.ck-content dialog.modal:has(.dialog-titlebar, .dialog-content) {
+  padding: 0;
+}
+.ck-content dialog.modal .dialog-titlebar {
+  padding: 0.5rem 1.25rem;
+  color: var(--color-text-inverted);
+  background-color: var(--color-interaction);
+}
+.ck-content dialog.modal .dialog-content {
+  padding: 1.25rem;
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+.ck-content dialog.modal::backdrop {
+  opacity: 0.8;
+  background: var(--color-neutral-canvas);
+}
 .ck-content .details-title {
   display: inline-block;
   width: calc(100% - 2 * var(--font-size-icon));
@@ -11649,6 +11674,35 @@ readers do not read off random characters that represent icons */
   margin-right: 0.5rem;
   margin-left: -0.5rem;
   content: "\f055";
+}
+.ck-content button.close,
+.ck-content dialog.modal button.close {
+  top: 0.5rem;
+  right: 0.5rem;
+  width: var(--font-size-icon);
+  height: var(--font-size-icon);
+  margin: 0;
+  padding: 0;
+  border-color: var(--color-text-inverted);
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+.ck-content button.close:before,
+.ck-content dialog.modal button.close:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f00d";
+}
+.ck-content button.close::before, .ck-content button.close::after,
+.ck-content dialog.modal button.close::before,
+.ck-content dialog.modal button.close::after {
+  padding: 0;
+  line-height: var(--font-size-icon);
 }
 .ck-content .inverted {
   color: var(--color-text-inverted);
@@ -12008,6 +12062,35 @@ readers do not read off random characters that represent icons */
   margin-right: 0.5rem;
   margin-left: -0.5rem;
   content: "\f055";
+}
+.ck-content button.close,
+.ck-content dialog.modal button.close {
+  top: 0.5rem;
+  right: 0.5rem;
+  width: var(--font-size-icon);
+  height: var(--font-size-icon);
+  margin: 0;
+  padding: 0;
+  border-color: var(--color-text-inverted);
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+.ck-content button.close:before,
+.ck-content dialog.modal button.close:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f00d";
+}
+.ck-content button.close::before, .ck-content button.close::after,
+.ck-content dialog.modal button.close::before,
+.ck-content dialog.modal button.close::after {
+  padding: 0;
+  line-height: var(--font-size-icon);
 }
 .ck-content .details-title {
   display: inline-block;
@@ -12633,6 +12716,29 @@ readers do not read off random characters that represent icons */
 }
 .ck-content .ui-datepicker .ui-state-disabled {
   color: var(--color-text-muted) !important;
+}
+.ck-content dialog.modal {
+  padding: 1.25rem;
+  border: 1px solid var(--color-interaction);
+  border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
+  background: var(--color-bg-light);
+}
+.ck-content dialog.modal:has(.dialog-titlebar, .dialog-content) {
+  padding: 0;
+}
+.ck-content dialog.modal .dialog-titlebar {
+  padding: 0.5rem 1.25rem;
+  color: var(--color-text-inverted);
+  background-color: var(--color-interaction);
+}
+.ck-content dialog.modal .dialog-content {
+  padding: 1.25rem;
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+.ck-content dialog.modal::backdrop {
+  opacity: 0.8;
+  background: var(--color-neutral-canvas);
 }
 .ck-content *,
 .ck-content *::before,

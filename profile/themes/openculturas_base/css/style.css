@@ -90,7 +90,7 @@ a.menu-item--toggle:before,
 .swiffy-slider .slider-nav:after,
 .extra-field-social-media-buttons button:before,
 .badge--peer:before,
-.recurring-output--wrapper button:before,
+.recurring-output--wrapper button.button:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-legal-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before,
@@ -107,6 +107,8 @@ a.menu-item--toggle:before,
 .tablesort--asc:before,
 .tablesort--desc:before,
 .anchorlinks:before,
+button.close:before,
+dialog.modal button.close:before,
 .button--add:before,
 .form-submit.danger:before,
 .button.danger:before,
@@ -11522,6 +11524,30 @@ input[type=password],
   color: var(--color-text-muted) !important;
 }
 
+dialog.modal {
+  padding: 1.25rem;
+  border: 1px solid var(--color-interaction);
+  border-radius: 0 0 var(--button-border-radius) var(--button-border-radius);
+  background: var(--color-bg-light);
+}
+dialog.modal:has(.dialog-titlebar, .dialog-content) {
+  padding: 0;
+}
+dialog.modal .dialog-titlebar {
+  padding: 0.5rem 1.25rem;
+  color: var(--color-text-inverted);
+  background-color: var(--color-interaction);
+}
+dialog.modal .dialog-content {
+  padding: 1.25rem;
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+dialog.modal::backdrop {
+  opacity: 0.8;
+  background: var(--color-neutral-canvas);
+}
+
 .details-title {
   display: inline-block;
   width: calc(100% - 2 * var(--font-size-icon));
@@ -11833,6 +11859,36 @@ input[type=submit]:active {
   margin-right: 0.5rem;
   margin-left: -0.5rem;
   content: "\f055";
+}
+
+button.close,
+dialog.modal button.close {
+  top: 0.5rem;
+  right: 0.5rem;
+  width: var(--font-size-icon);
+  height: var(--font-size-icon);
+  margin: 0;
+  padding: 0;
+  border-color: var(--color-text-inverted);
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+button.close:before,
+dialog.modal button.close:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f00d";
+}
+button.close::before, button.close::after,
+dialog.modal button.close::before,
+dialog.modal button.close::after {
+  padding: 0;
+  line-height: var(--font-size-icon);
 }
 
 .inverted {
@@ -13270,7 +13326,11 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   font-size: var(--font-size-l);
   font-weight: bold;
 }
-.recurring-output--wrapper button {
+.recurring-output--wrapper dialog {
+  font-size: var(--font-size-default);
+  font-weight: normal;
+}
+.recurring-output--wrapper button.button {
   position: absolute;
   left: auto;
   right: -3rem;
@@ -13281,7 +13341,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
-.recurring-output--wrapper button:before {
+.recurring-output--wrapper button.button:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;

@@ -134,3 +134,24 @@ input[type="submit"] {
     margin-left: -0.5rem;
   }
 }
+
+button.close,
+dialog.modal button.close {
+  @include icon(xmark);
+
+  top: 0.5rem;
+  right: 0.5rem;
+  width: var(--font-size-icon);
+  height: var(--font-size-icon);
+  margin: 0;
+  padding: 0;
+  border-color: var(--color-text-inverted);
+  font-size: var(--font-size-default);
+  font-weight: normal;
+
+  &::before,
+  &::after {
+    padding: 0;
+    line-height: var(--font-size-icon);
+  }
+}
