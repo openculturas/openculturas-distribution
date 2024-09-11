@@ -12,7 +12,6 @@ use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
@@ -411,28 +410,25 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
   if ($entity->hasField('field_event_description') && !$entity->get('field_event_description')->isEmpty()) {
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $event_list */
     $event_list = $entity->get('field_event_description');
-    $event_item = $event_list->first();
-    if (!$event_item instanceof EntityReferenceItem) {
-      return;
-    }
-
-    $event = $event_item->entity;
-    assert($event instanceof NodeInterface);
-    $flag_bundles = ['bookmark_node', 'recommendation_node'];
-    foreach ($flag_bundles as $flag_bundle) {
-      $flag = Flag::load($flag_bundle);
-      if ($flag instanceof Flag) {
-        $build_key = 'flag_' . $flag->id();
-        if (isset($build[$build_key])) {
-          $build[$build_key] = array_merge($build[$build_key], [
-            '#lazy_builder' => [
-              'flag.link_builder:build', [
-                $event->getEntityTypeId(),
-                $event->id(),
-                $flag->id(),
+    $events = $event_list->referencedEntities();
+    $event = reset($events);
+    if ($event instanceof NodeInterface) {
+      $flag_bundles = ['bookmark_node', 'recommendation_node'];
+      foreach ($flag_bundles as $flag_bundle) {
+        $flag = Flag::load($flag_bundle);
+        if ($flag instanceof Flag) {
+          $build_key = 'flag_' . $flag->id();
+          if (isset($build[$build_key])) {
+            $build[$build_key] = array_merge($build[$build_key], [
+              '#lazy_builder' => [
+                'flag.link_builder:build', [
+                  $event->getEntityTypeId(),
+                  $event->id(),
+                  $flag->id(),
+                ],
               ],
-            ],
-          ]);
+            ]);
+          }
         }
       }
     }
