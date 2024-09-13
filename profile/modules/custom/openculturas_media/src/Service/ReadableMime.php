@@ -6,6 +6,7 @@ namespace Drupal\openculturas_media\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use Symfony\Component\Yaml\Yaml;
+use function is_array;
 
 /**
  * Service class for readable mimetypes.
@@ -63,8 +64,8 @@ final class ReadableMime {
     // @todo Find a nicer way to str_replace all keys containing _@_ to .
     // See https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Config%21ConfigBase.php/function/ConfigBase%3A%3AvalidateKeys/8.2.x
     $niceFileMimesReplaced = str_replace('_@_', '.', Yaml::dump($niceFileMimesTemp));
-
-    return Yaml::parse($niceFileMimesReplaced);
+    $mimeTypes = Yaml::parse($niceFileMimesReplaced);
+    return is_array($mimeTypes) ? $mimeTypes : [];
   }
 
 }

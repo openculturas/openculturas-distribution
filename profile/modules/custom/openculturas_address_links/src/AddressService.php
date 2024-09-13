@@ -14,6 +14,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Utility\Token;
 use Drupal\address\AddressInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
+use function is_array;
 use function is_string;
 
 /**
@@ -93,7 +94,8 @@ class AddressService {
    *   The config.
    */
   protected function getConfig(): array {
-    return $this->configFactory->get('openculturas_address_links.settings')->get();
+    $value = $this->configFactory->get('openculturas_address_links.settings')->get();
+    return is_array($value) ? $value : [];
   }
 
   /**

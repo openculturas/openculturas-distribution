@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Install, update and uninstall functions for the openculturas_section module.
+ */
+
 declare(strict_types=1);
 
 /**
@@ -21,7 +26,7 @@ function openculturas_section_install(bool $is_syncing): void {
   foreach ($bundles as $bundle => $field_group_id) {
     $formDisplay = $entityDisplayRepository->getFormDisplay('node', $bundle);
     $field_group = $formDisplay->getThirdPartySetting('field_group', $field_group_id);
-    if ($field_group && $field_group['region'] === 'content') {
+    if (is_array($field_group) && $field_group['region'] === 'content') {
       $formDisplay->setComponent('field_section', [
         'type' => 'options_buttons',
       ]);
@@ -29,6 +34,10 @@ function openculturas_section_install(bool $is_syncing): void {
       $formDisplay->setThirdPartySetting('field_group', $field_group_id, $field_group);
       $weight = 0;
       foreach ($field_group['children'] as $child_id) {
+        if (!is_string($child_id)) {
+          continue;
+        }
+
         if ($componentOptions = $formDisplay->getComponent($child_id)) {
           $componentOptions['weight'] = ++$weight;
           $formDisplay->setComponent($child_id, $componentOptions);

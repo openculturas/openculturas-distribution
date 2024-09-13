@@ -7,9 +7,11 @@ namespace Drupal\openculturas_slimselect_bef\Plugin\better_exposed_filters\filte
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\better_exposed_filters\Plugin\better_exposed_filters\filter\FilterWidgetBase;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Plugin\views\filter\TaxonomyIndexTid;
+use Drupal\taxonomy\TermInterface;
+use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function array_map;
 
 /**
  * Default widget implementation.
@@ -40,7 +42,7 @@ final class SlimSelect extends FilterWidgetBase implements ContainerFactoryPlugi
    */
   public static function isApplicable($filter = NULL, array $filter_options = []): bool {
     return !empty($filter_options['type'])
-      && $filter_options['type'] === "select";
+      && $filter_options['type'] === 'select';
   }
 
   /**
@@ -48,12 +50,12 @@ final class SlimSelect extends FilterWidgetBase implements ContainerFactoryPlugi
    *
    * @throws \Exception
    */
-  public function exposedFormAlter(array &$form, FormStateInterface $formState): void {
+  public function exposedFormAlter(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
     $filter_id = $this->getExposedFilterFieldId();
 
-    parent::exposedFormAlter($form, $formState);
+    parent::exposedFormAlter($form, $form_state);
 
     $form[$filter_id]['#type'] = "select";
     $form[$filter_id]['#attributes']['class'][] = 'slimselect';
@@ -112,10 +114,10 @@ final class SlimSelect extends FilterWidgetBase implements ContainerFactoryPlugi
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $formState): array {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
-    $form = parent::buildConfigurationForm($form, $formState);
+    $form = parent::buildConfigurationForm($form, $form_state);
 
     if (
       !empty($filter->options['expose']['multiple'])
@@ -155,58 +157,39 @@ final class SlimSelect extends FilterWidgetBase implements ContainerFactoryPlugi
     return $form;
   }
 
-  /**
-   * @throws \Exception
-   */
-  private function getTaxonomyTermsForVid(string $vid): array {
-    // Load taxonomy Terms.
-    $terms = $this->container->get('entity_type.manager')->getStorage('taxonomy_term');
-
+  protected function getTaxonomyTermsForVid(string $vid): array {
     // Load tree for specified $vid terms.
-    $terms = $terms->loadTree($vid, 0, NULL, TRUE);
+    $terms = $this->getTermStorage()->loadTree($vid, 0, NULL, TRUE);
     return $this->translateTerms($terms);
   }
 
-  /**
-   * @throws \Exception
-   */
-  private function getTaxonomyTermParents(Term $term, ?string $langCode = NULL): array {
-    // Load Parents of Term.
-    $parentTerms = $this->container->get('entity_type.manager')->getStorage('taxonomy_term')->loadParents($term->get('tid')->value);
-    return $this->translateTerms($parentTerms, $langCode);
+  protected function getTaxonomyTermParents(TermInterface $term): array {
+    $parentTerms = $this->getTermStorage()->loadParents((int) $term->id());
+    return $this->translateTerms($parentTerms);
+  }
+
+  protected function getTaxonomyTermChildren(TermInterface $term): array {
+    $childTerms = $this->getTermStorage()->loadChildren((int) $term->id());
+    return $this->translateTerms($childTerms);
   }
 
   /**
-   * @throws \Exception
+   * Takes the origin term entities and replace them with translated terms.
+   *
+   * @return \Drupal\taxonomy\TermInterface[]
+   *   An array of translated terms.
    */
-  private function getTaxonomyTermChildren(Term $term, ?string $langCode = NULL): array {
-    // Load Children of Term.
-    $childTerms = $this->container->get('entity_type.manager')->getStorage('taxonomy_term')->loadChildren($term->get('tid')->value);
-    return $this->translateTerms($childTerms, $langCode);
+  protected function translateTerms(array $terms): array {
+    /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
+    $entityRepository = $this->container->get('entity.repository');
+
+    return array_map(static function (TermInterface $term) use ($entityRepository) {
+      return $entityRepository->getTranslationFromContext($term);
+    }, $terms);
   }
 
-  /**
-   * @throws \Exception
-   */
-  private function translateTerms(array $terms, ?string $langCode = NULL): array {
-    // Get current langauge if none specified.
-    if ($langCode === NULL) {
-      $langCode = $this->container->get('language_manager')->getCurrentLanguage()->getId();
-    }
-
-    // Get translation for terms (if available).
-    foreach ($terms as &$term) {
-
-      if (!$term instanceof Term) {
-        throw new \Exception("translateTerms() expects an array with Term Instances.");
-      }
-
-      if ($term->hasTranslation($langCode)) {
-        $term = $term->getTranslation($langCode);
-      }
-    }
-
-    return $terms;
+  protected function getTermStorage(): TermStorageInterface {
+    return $this->container->get('entity_type.manager')->getStorage('taxonomy_term');
   }
 
 }

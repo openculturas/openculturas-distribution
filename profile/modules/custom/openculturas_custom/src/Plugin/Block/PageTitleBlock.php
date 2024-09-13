@@ -126,7 +126,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
    */
   public function build(): array {
     $page_entity = CurrentEntityHelper::get_current_page_entity();
-    $current_entity = CurrentEntityHelper::getEventReference($page_entity);
+    $current_entity = $page_entity instanceof ContentEntityInterface ? CurrentEntityHelper::getEventReference($page_entity) : NULL;
     $subtitle = NULL;
     $sub_type = NULL;
     $profile_image = NULL;

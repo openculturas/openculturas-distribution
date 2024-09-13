@@ -378,7 +378,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
   }
 
-  if ($entity->bundle() === 'date' && $build['#view_mode'] === 'full') {
+  if ($build['#view_mode'] === 'full' && $entity->bundle() === 'date') {
     $request = \Drupal::request();
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
@@ -546,7 +546,7 @@ function openculturas_custom_views_post_execute(ViewExecutable $view): void {
       $node = $row->_entity;
       if ($node->id() === $displayedNode->id()) {
         $date_delta = $view->getRequest()->get('date_delta');
-        if ($date_delta !== NULL && property_exists($row, 'node__field_date_delta') && (int) $row->node__field_date_delta === (int) $date_delta) {
+        if (is_scalar($date_delta) && property_exists($row, 'node__field_date_delta') && (int) $row->node__field_date_delta === (int) $date_delta) {
           unset($view->result[$row->index]);
           --$view->total_rows;
           break;
@@ -574,7 +574,7 @@ function openculturas_custom_media_is_creative_commons(MediaInterface $media): b
     }
 
     $value = $field_item->getValue();
-    if (isset($value['license'])) {
+    if (is_array($value) && isset($value['license'])) {
       return $value['license'] !== 'all_rights_reserved';
     }
   }
@@ -626,16 +626,28 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
   foreach ($node_reference_fields as $field_name) {
     if ($node->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
-      foreach ($refs as $ref) {
-        $tags[] = 'node:' . $ref['target_id'];
+      if (is_array($refs)) {
+        foreach ($refs as $ref) {
+          if (!isset($ref['target_id'])) {
+            continue;
+          }
+
+          $tags[] = 'node:' . $ref['target_id'];
+        }
       }
     }
 
     // If the field changes, also invalidate the original value.
     if ($node->original !== NULL && $node->original->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
-      foreach ($refs as $ref) {
-        $tags[] = 'node:' . $ref['target_id'];
+      if (is_array($refs)) {
+        foreach ($refs as $ref) {
+          if (!isset($ref['target_id'])) {
+            continue;
+          }
+
+          $tags[] = 'node:' . $ref['target_id'];
+        }
       }
     }
   }

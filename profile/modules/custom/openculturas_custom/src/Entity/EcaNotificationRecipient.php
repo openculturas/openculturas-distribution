@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\eca\Entity\Eca;
 use Drupal\openculturas_custom\EcaNotificationRecipientInterface;
 use function array_filter;
+use function is_array;
 
 /**
  * Defines the eca notification recipient entity type.
@@ -144,7 +145,8 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
    * {@inheritdoc}
    */
   public function isEcaModelEnabledForRecipient(string $model): bool {
-    return (array_filter($this->get('eca_model')) === [] || $model === '') || ($this->get('eca_model')[$model] ?? FALSE);
+    $ecaModel = is_array($this->get('eca_model')) ? $this->get('eca_model') : [];
+    return (array_filter($ecaModel) === [] || $model === '') || ($ecaModel[$model] ?? FALSE);
   }
 
   /**

@@ -88,8 +88,9 @@ function openculturas_base_form_system_theme_settings_validate(array &$form, For
     $form_state->unsetValue('background_image_path');
   }
 
-  if ($form_state->getValue('background_image_path')) {
-    $path = _openculturas_base_form_system_theme_settings_validate_path($form_state->getValue('background_image_path'));
+  $background_image_path = $form_state->getValue('background_image_path');
+  if ($background_image_path) {
+    $path = is_string($background_image_path) ? _openculturas_base_form_system_theme_settings_validate_path($background_image_path) : FALSE;
     if (!$path) {
       $form_state->setErrorByName('background_image_path', (string) t('The custom image path is invalid.'));
     }

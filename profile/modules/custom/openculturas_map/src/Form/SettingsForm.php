@@ -251,8 +251,9 @@ final class SettingsForm extends ConfigFormBase {
       return;
     }
 
-    if ($form_state->getValue('marker_icon_path')) {
-      $path = $this->validatePath(ltrim($form_state->getValue('marker_icon_path'), '/'));
+    $marker_image_path = $form_state->getValue('marker_icon_path');
+    if ($marker_image_path) {
+      $path = is_string($marker_image_path) ? $this->validatePath(ltrim($marker_image_path, '/')) : FALSE;
       if (!$path) {
         $form_state->setErrorByName('marker_icon_path', (string) $this->t('The custom marker path is invalid.'));
         return;

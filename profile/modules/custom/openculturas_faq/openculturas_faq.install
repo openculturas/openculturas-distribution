@@ -42,7 +42,7 @@ function openculturas_faq_install(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
   if ($field instanceof FieldConfigInterface) {
-    $allowed_views_setting = $field->getSetting('allowed_views');
+    $allowed_views_setting = is_array($field->getSetting('allowed_views')) ? $field->getSetting('allowed_views') : [];
     $allowed_views_setting['faq'] = 'faq';
     $field->setSetting('allowed_views', $allowed_views_setting);
     $field->save();

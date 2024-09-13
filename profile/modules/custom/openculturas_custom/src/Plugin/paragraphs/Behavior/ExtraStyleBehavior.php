@@ -9,6 +9,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsBehaviorBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function is_array;
+use function is_string;
+use function t;
 
 /**
  * @ParagraphsBehavior(
@@ -24,31 +27,30 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
 
   /**
    * List of allowed classes from module settings.
-   *
-   * @var array
    */
   protected array $allowedClasses = [];
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $static = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $static->allowedClasses = [self::NONE => t('None')];
-    $allowedClasses = $container->get('config.factory')
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->allowedClasses = [self::NONE => t('None')];
+    $configuredAllowedClasses = $container->get('config.factory')
       ->get('openculturas_custom.settings')
       ->get('allowed_classes');
-    if (empty($allowedClasses)) {
-      $container->get('messenger')->addWarning('No style for selection defined, contact your sidebuilder.');
-    }
-    else {
-      foreach ($allowedClasses as $class => $label) {
+    if (is_array($configuredAllowedClasses)) {
+      foreach ($configuredAllowedClasses as $class => $label) {
+        if (!is_string($label)) {
+          continue;
+        }
+
         // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
-        $static->allowedClasses[$class] = t($label);
+        $instance->allowedClasses[$class] = t($label);
       }
     }
 
-    return $static;
+    return $instance;
   }
 
   /**
@@ -57,7 +59,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
     $class = $settings['class'];
-    if ($class != self::NONE) {
+    if ($class !== self::NONE) {
       $build['#attributes']['class'][] = $class;
     }
   }

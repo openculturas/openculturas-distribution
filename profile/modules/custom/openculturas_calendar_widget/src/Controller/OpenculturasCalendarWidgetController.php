@@ -79,8 +79,8 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     ];
     $build['container']['header'] = [
       '#type' => 'processed_text',
-      '#text' => $config->get('header')['value'] ?? '',
-      '#format' => $config->get('header')['format'] ?? NULL,
+      '#text' => is_array($config->get('header')) ? ($config->get('header')['value'] ?? '') : '',
+      '#format' => is_array($config->get('header')) ? ($config->get('header')['format'] ?? NULL) : NULL,
     ];
     $build['container']['view'] = [
       '#type' => 'view',
@@ -99,8 +99,8 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
 
     $build['container']['footer'] = [
       '#type' => 'processed_text',
-      '#text' => $config->get('footer')['value'] ?? '',
-      '#format' => $config->get('footer')['format'] ?? NULL,
+      '#text' => is_array($config->get('footer')) ? ($config->get('footer')['value'] ?? '') : '',
+      '#format' => is_array($config->get('footer')) ? ($config->get('footer')['format'] ?? NULL) : NULL,
     ];
     $build['#attached']['library'][] = 'openculturas_calendar_widget/widget';
     $head = [
@@ -114,15 +114,15 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     if ($limit_access && $this->request instanceof Request) {
       $token = $this->request->get('access_token');
       $host_list = $config->get('host_list');
-      if (!empty($token) && is_array($host_list) && array_key_exists($token, $host_list)) {
-        $hostname = $config->get('host_list')[$token]['hostname'] ?? NULL;
-        $wildcard = $config->get('host_list')[$token]['wildcard'] ?? NULL;
-        $css = $config->get('host_list')[$token]['css'] ?? NULL;
-        if ($css) {
+      if (is_string($token) && is_array($host_list) && array_key_exists($token, $host_list)) {
+        $hostname = $host_list[$token]['hostname'] ?? NULL;
+        $wildcard = $host_list[$token]['wildcard'] ?? NULL;
+        $css = $host_list[$token]['css'] ?? NULL;
+        if (is_string($css) && $css !== '') {
           $build['container']['css'] = [
             '#type' => 'html_tag',
             '#tag' => 'style',
-            '#value' => Html::decodeEntities(strip_tags((string) $css)),
+            '#value' => Html::decodeEntities(strip_tags($css)),
           ];
         }
       }

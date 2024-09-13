@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Drupal\file\FileStorageInterface;
+use Drupal\media\MediaInterface;
 use Drupal\media_entity_download\Plugin\Field\FieldFormatter\DownloadLinkFieldFormatter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -50,21 +51,23 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
     $settings = $this->getSettings();
     $parentAdapter = $items->getParent();
     if ($parentAdapter instanceof EntityAdapter) {
-      $parent = $parentAdapter->getValue()->id();
+      $entity = $parentAdapter->getValue();
+      $parent = $entity instanceof MediaInterface ? $entity->id() : NULL;
+      if (!$parent) {
+        return $elements;
+      }
 
       foreach ($items as $delta => $item) {
+        /** @var \Drupal\file\FileInterface|null $file */
+        $file = $this->fileStorage->load($item->target_id);
+        if (!$file instanceof FileInterface) {
+          continue;
+        }
 
         $route_parameters = ['media' => $parent];
         $url_options = [];
         if ($delta > 0) {
           $route_parameters['query']['delta'] = $delta;
-        }
-
-        /** @var \Drupal\file\FileInterface|null $file */
-        $file = $this->fileStorage->load($item->target_id);
-
-        if (!$file instanceof FileInterface) {
-          continue;
         }
 
         // Add download variant.

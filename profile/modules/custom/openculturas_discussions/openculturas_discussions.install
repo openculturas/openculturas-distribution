@@ -125,7 +125,7 @@ function openculturas_discussions_install(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
   if ($field instanceof FieldConfigInterface) {
-    $allowed_views_setting = $field->getSetting('allowed_views');
+    $allowed_views_setting = is_array($field->getSetting('allowed_views')) ? $field->getSetting('allowed_views') : [];
     $allowed_views_setting['related_comments'] = 'related_comments';
     ksort($allowed_views_setting);
     $field->setSetting('allowed_views', $allowed_views_setting);
@@ -157,7 +157,7 @@ function openculturas_discussions_uninstall(bool $is_syncing): void {
   /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
   $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
   if ($field instanceof FieldConfigInterface) {
-    $allowed_views_setting = $field->getSetting('allowed_views');
+    $allowed_views_setting = is_array($field->getSetting('allowed_views')) ? $field->getSetting('allowed_views') : [];
     unset($allowed_views_setting['related_comments']);
     $field->setSetting('allowed_views', $allowed_views_setting);
     $field->save();

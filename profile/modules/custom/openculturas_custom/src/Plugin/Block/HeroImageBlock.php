@@ -49,7 +49,7 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
   public function build(): array {
     $build = [];
     $page_entity = CurrentEntityHelper::get_current_page_entity();
-    $current_entity = CurrentEntityHelper::getEventReference($page_entity);
+    $current_entity = $page_entity instanceof ContentEntityInterface ? CurrentEntityHelper::getEventReference($page_entity) : NULL;
     if (!$current_entity instanceof ContentEntityInterface) {
       return $build;
     }

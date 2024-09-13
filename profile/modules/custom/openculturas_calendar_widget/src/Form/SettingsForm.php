@@ -141,7 +141,7 @@ final class SettingsForm extends ConfigFormBase {
       $iframe_src = $values['iframe_src'] ?? NULL;
       if (is_string($iframe_src)) {
         $url = Url::fromUri($iframe_src);
-        $query = $url->getOption('query') ?? [];
+        $query = is_array($url->getOption('query')) ? $url->getOption('query') : [];
         $query['access_token'] = $token;
         $url->setOption('query', $query);
         /** @var string $iframe_src */
@@ -185,19 +185,21 @@ final class SettingsForm extends ConfigFormBase {
       ];
     }
 
+    $configured_header_value = $this->config('openculturas_calendar_widget.settings')->get('header');
+    $configured_footer_value = $this->config('openculturas_calendar_widget.settings')->get('footer');
     $form['header'] = [
       '#type' => 'text_format',
-      '#format' => $this->config('openculturas_calendar_widget.settings')->get('header')['format'] ?? NULL,
+      '#format' => is_array($configured_header_value) ? ($configured_header_value['format'] ?? NULL) : NULL,
       '#title' => $this->t('Header'),
       '#description' => $this->t('Will be displayed above of the calendar'),
-      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('header')['value'] ?? NULL,
+      '#default_value' => is_array($configured_header_value) ? ($configured_header_value['value'] ?? NULL) : NULL,
     ];
     $form['footer'] = [
       '#type' => 'text_format',
-      '#format' => $this->config('openculturas_calendar_widget.settings')->get('footer')['format'] ?? NULL,
+      '#format' => is_array($configured_footer_value) ? ($configured_footer_value['format'] ?? NULL) : NULL,
       '#title' => $this->t('Footer'),
       '#description' => $this->t('Will be displayed below the calendar'),
-      '#default_value' => $this->config('openculturas_calendar_widget.settings')->get('footer')['value'] ?? NULL,
+      '#default_value' => is_array($configured_footer_value) ? ($configured_footer_value['value'] ?? NULL) : NULL,
     ];
     $form['#attached']['library'][] = 'openculturas_calendar_widget/widget';
     return parent::buildForm($form, $form_state);
@@ -215,7 +217,7 @@ final class SettingsForm extends ConfigFormBase {
    */
   public function addRowSubmit(array &$form, FormStateInterface $form_state): void {
     if ($form_state->hasTemporaryValue('host_list')) {
-      $items = $form_state->getTemporaryValue('host_list');
+      $items = is_array($form_state->getTemporaryValue('host_list')) ? $form_state->getTemporaryValue('host_list') : [];
       $items[Crypt::randomBytesBase64()] = '';
       $form_state->setTemporaryValue('host_list', $items);
       $form_state->setRebuild();
@@ -240,7 +242,10 @@ final class SettingsForm extends ConfigFormBase {
     $id = $form_state->getTriggeringElement()['#ajax']['id'];
     if ($form_state->hasTemporaryValue('host_list')) {
       $items = $form_state->getTemporaryValue('host_list');
-      unset($items[$id]);
+      if (is_array($items)) {
+        unset($items[$id]);
+      }
+
       $form_state->setTemporaryValue('host_list', $items);
       $form_state->setRebuild();
       $this->messenger->addWarning($this->t('You have unsaved changes.'));

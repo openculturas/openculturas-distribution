@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_map\Plugin\Form\OpenCulturasMapFilterForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function is_array;
 
 /**
  * @Block(
@@ -211,19 +212,27 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       $this->configuration[$blockSetting] = $form_state->getValue($blockSetting);
     }
 
-    $this->configuration['show_radius'] = array_values($form_state->getValue('show_radius'));
+    $show_radius_value = $form_state->getValue('show_radius');
+    $this->configuration['show_radius'] = is_array($show_radius_value) ? array_values($show_radius_value) : [];
 
     $controlSettings = ['control_locate', 'control_geocode', 'control_reset'];
-    foreach ($controlSettings as $controlSetting) {
-      $this->configuration[$controlSetting] = $form_state->getValue('controls')[$controlSetting] ?? 0;
+    $controls_values = $form_state->getValue('controls');
+    if (is_array($controls_values)) {
+      foreach ($controlSettings as $controlSetting) {
+        $this->configuration[$controlSetting] = $controls_values[$controlSetting] ?? 0;
+      }
     }
 
     $overrideSettings = ['start_lat_position', 'start_lng_position', 'start_zoom_position'];
-    foreach ($overrideSettings as $overrideSetting) {
-      if ($form_state->getValue('overrides')[$overrideSetting] > 0) {
-        $this->configuration[$overrideSetting] = $form_state->getValue('overrides')[$overrideSetting];
+    $overridden_values = $form_state->getValue('overrides');
+    if (is_array($overridden_values)) {
+      foreach ($overrideSettings as $overrideSetting) {
+        if ($overridden_values[$overrideSetting] > 0) {
+          $this->configuration[$overrideSetting] = $overridden_values[$overrideSetting];
+        }
       }
     }
+
   }
 
 }

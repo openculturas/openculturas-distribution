@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\openculturas_custom\Entity\EcaNotificationRecipient;
 use function in_array;
+use function is_array;
 
 /**
  * ECA notification recipient form.
@@ -59,12 +60,12 @@ class EcaNotificationRecipientForm extends EntityForm {
       $options[$entity->id()] = $entity->label();
     }
 
-    $models = $this->entity->get('eca_model') ?? [];
+    $models = $this->entity->get('eca_model');
     $form['eca_model'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Notifications'),
       '#options' => $options,
-      '#default_value' => array_keys(array_filter($models)),
+      '#default_value' => is_array($models) ? array_keys(array_filter($models)) : [],
       '#description' => $this->t('Leave blank to get all notifications.'),
     ];
     $form['preferred_langcode'] = [
