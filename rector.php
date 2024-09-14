@@ -3,12 +3,11 @@
 
 declare(strict_types=1);
 
-use DrupalFinder\DrupalFinder;
+use DrupalFinder\DrupalFinderComposerRuntime;
 use DrupalRector\Set\Drupal10SetList;
 use Rector\Config\RectorConfig;
 
-$drupalFinder = new DrupalFinder();
-$drupalFinder->locateRoot(__DIR__);
+$drupalFinder = new DrupalFinderComposerRuntime();
 $drupalRoot = $drupalFinder->getDrupalRoot();
 
 
