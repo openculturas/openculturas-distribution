@@ -48,6 +48,17 @@ function openculturas_faq_install(bool $is_syncing): void {
     $field->save();
   }
 
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'teaser_term', 'field_term');
+  if ($field instanceof FieldConfigInterface) {
+    $handler_settings = is_array($field->getSetting('handler_settings')) ? $field->getSetting('handler_settings') : [];
+    if ($handler_settings !== [] && array_key_exists('target_bundles', $handler_settings)) {
+      $handler_settings['target_bundles']['faq_category'] = 'faq_category';
+      asort($handler_settings['target_bundles']);
+      $field->setSetting('handler_settings', $handler_settings);
+      $field->save();
+    }
+  }
 }
 
 /**
@@ -68,4 +79,21 @@ function openculturas_faq_update_10001(): void {
   ];
   $entities = $storage->loadMultiple($checklist_items);
   $storage->delete($entities);
+}
+
+/**
+ * Adds faq_category as target bundle to the teaser_term paragraph.
+ */
+function openculturas_faq_update_10002(): void {
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'teaser_term', 'field_term');
+  if ($field instanceof FieldConfigInterface) {
+    $handler_settings = is_array($field->getSetting('handler_settings')) ? $field->getSetting('handler_settings') : [];
+    if ($handler_settings !== [] && array_key_exists('target_bundles', $handler_settings)) {
+      $handler_settings['target_bundles']['faq_category'] = 'faq_category';
+      asort($handler_settings['target_bundles']);
+      $field->setSetting('handler_settings', $handler_settings);
+      $field->save();
+    }
+  }
 }

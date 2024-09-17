@@ -67,9 +67,13 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     }
 
     if ($extension === 'openculturas-profile' && $config_name === 'user.role.oc_admin') {
-      $this->excludeOpenCulturasFaq($event);
+      $this->excludeOpenCulturasFaq($event, $config_name);
       $this->excludeOpenCulturasMap($event);
       $this->excludeRoleDelegation($event);
+    }
+
+    if ($extension === 'openculturas-profile' && $config_name === 'field.field.paragraph.teaser_term.field_term') {
+      $this->excludeOpenCulturasFaq($event, $config_name);
     }
 
     if ($extension === 'openculturas-profile' && (
@@ -142,7 +146,6 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
           $field_group_data['children'] = array_values($field_group_data['children']);
           $data['third_party_settings']['field_group'][$field_id] = $field_group_data;
         }
-
       }
     }
 
@@ -152,8 +155,11 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
   /**
    * OpenCulturas FAQ is an optional module.
    */
-  private function excludeOpenCulturasFaq(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+  private function excludeOpenCulturasFaq(ConfigDevelSaveEvent $configDevelSaveEvent, string $current_config_name): void {
     $data = $configDevelSaveEvent->getData();
+
+    unset($data['settings']['handler_settings']['target_bundles']['faq_category']);
+
     $config_names = ['node.type.faq', 'taxonomy.vocabulary.faq_category'];
     foreach ($config_names as $config_name) {
       $index = array_search($config_name, $data['dependencies']['config'], TRUE);
@@ -163,14 +169,17 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     }
 
     $data['dependencies']['config'] = array_values($data['dependencies']['config']);
-    $configDevelSaveEvent->setData($data);
-    foreach ($data['permissions'] as $index => $permission) {
-      if (str_contains($permission, 'faq')) {
-        unset($data['permissions'][$index]);
+
+    if ($current_config_name === 'user.role.oc_admin') {
+      foreach ($data['permissions'] as $index => $permission) {
+        if (str_contains($permission, 'faq')) {
+          unset($data['permissions'][$index]);
+        }
       }
+
+      $data['permissions'] = array_values($data['permissions']);
     }
 
-    $data['permissions'] = array_values($data['permissions']);
     $configDevelSaveEvent->setData($data);
   }
 
