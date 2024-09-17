@@ -185,7 +185,6 @@ function openculturas_base_theme_suggestions_taxonomy_term_alter(array &$suggest
  */
 function openculturas_base_preprocess_paragraph(array &$variables): void {
   $variables['address_links'] = NULL;
-  $render_array = [];
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
   if ($paragraph->bundle() === 'address_data' && \Drupal::hasService('openculturas_address_links.address_service')) {
@@ -201,6 +200,11 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
             '#type' => 'link',
             '#title' => t('Navigation'),
             '#url' => $url,
+            '#theme_wrappers' => [
+              'container' => [
+                '#attributes' => ['class' => ['address-navigation']],
+              ],
+            ],
           ];
         }
       }
@@ -216,21 +220,18 @@ function openculturas_base_preprocess_paragraph(array &$variables): void {
             '#type' => 'link',
             '#title' => t('Public Transport'),
             '#url' => $url,
+            '#theme_wrappers' => [
+              'container' => [
+                '#attributes' => ['class' => ['public-transport']],
+              ],
+            ],
           ];
         }
       }
     }
 
     if ($links !== []) {
-      $render_array['wrapper'] = [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => [
-            'address-navigation',
-          ],
-        ],
-      ] + $links;
-      $variables['address_links'] = $render_array;
+      $variables['address_links'] = $links;
     }
   }
 
