@@ -382,26 +382,42 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $request = \Drupal::request();
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
-    if ($request->query->has('date_delta') && $entity->hasField('field_date') && ($delta = $request->get('date_delta'))) {
-      $cloned_entity = clone $entity;
+    if ($entity->hasField('field_date')) {
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
-      $field = $cloned_entity->get('field_date');
-      /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem|null $delta_item */
-      $delta_item = $field->get($delta);
-      if ($delta_item instanceof SmartDateItem) {
-        $field->setValue([$delta_item->getValue()]);
+      $field = $entity->get('field_date');
+      if ($request->query->has('date_delta') && ($delta = $request->get('date_delta'))) {
+        $cloned_entity = clone $entity;
+        /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
+        $field = $cloned_entity->get('field_date');
+        /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem|null $delta_item */
+        $delta_item = $field->get($delta);
+        if ($delta_item instanceof SmartDateItem) {
+          $field->setValue([$delta_item->getValue()]);
+        }
+      }
 
-        $display_settings = \Drupal::service('entity_display.repository')->getViewDisplay(
-          'node',
-          'date',
-          'full'
-        )->getComponent('field_date');
-        if (is_array($display_settings)) {
-          if (isset($display_settings['settings']['past_display'])) {
-            $display_settings['settings']['past_display'] = 1;
+      $display_settings = \Drupal::service('entity_display.repository')->getViewDisplay(
+        'node',
+        'date',
+        'full'
+      )->getComponent('field_date');
+      if (is_array($display_settings)) {
+        if (isset($display_settings['settings']['past_display'])) {
+          $display_settings['settings']['past_display'] = 1;
+        }
+
+        $build['field_date'] = $field->view($display_settings);
+      }
+
+      if (isset($build['field_date'])) {
+        $children = Element::getVisibleChildren($build['field_date']);
+        foreach ($children as $index) {
+          if (isset($build['field_date'][$index]['#past_display'], $build['field_date'][$index]['#next_display']['#children'])) {
+            $children_next = Element::getVisibleChildren($build['field_date'][$index]['#next_display']['#children']);
+            if ($children_next) {
+              $build['field_date'][$index]['#past_display']['#access'] = FALSE;
+            }
           }
-
-          $build['field_date'] = $field->view($display_settings);
         }
       }
     }
