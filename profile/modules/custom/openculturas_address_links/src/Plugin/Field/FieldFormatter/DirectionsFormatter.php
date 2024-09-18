@@ -14,7 +14,7 @@ use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
  *
  * @FieldFormatter(
  *   id = "directions",
- *   label = @Translation("Directions Link"),
+ *   label = @Translation("Directions link"),
  *   field_types = {
  *     "address",
  *     "geofield",

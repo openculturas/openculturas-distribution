@@ -10,7 +10,7 @@ use Drupal\address\AddressInterface;
  *
  * @FieldFormatter(
  *   id = "public_transport",
- *   label = @Translation("Public Transport Link"),
+ *   label = @Translation("Public transport link"),
  *   field_types = {
  *     "address",
  *   },
