@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\block\BlockInterface;
+use Drupal\content_translation\BundleTranslationSettingsInterface;
 use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
@@ -240,5 +241,18 @@ function openculturas_post_update_media_bundles_language_switcher(): void {
         }
       }
     }
+  }
+}
+
+/**
+ * Disable 'Hide non translatable fields on translation forms'.
+ */
+function openculturas_post_update_paragraph_member_non_translatable_fields(): void {
+  /** @var \Drupal\content_translation\ContentTranslationManagerInterface $contentTranslationManager */
+  $contentTranslationManager = \Drupal::service('content_translation.manager');
+  if ($contentTranslationManager instanceof BundleTranslationSettingsInterface && $contentTranslationManager->isEnabled('paragraph', 'member')) {
+    $settings = $contentTranslationManager->getBundleTranslationSettings('paragraph', 'member');
+    $settings['untranslatable_fields_hide'] = '0';
+    $contentTranslationManager->setBundleTranslationSettings('paragraph', 'member', $settings);
   }
 }
