@@ -11,29 +11,8 @@ dependencies:
   module:
     - allowed_formats
     - attribution
-    - field_group
     - image_widget_crop
     - text
-third_party_settings:
-  field_group:
-    group_administrative:
-      children:
-        - status
-        - created
-        - path
-      label: Administrative
-      region: hidden
-      parent_name: ''
-      weight: 7
-      format_type: details_sidebar
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-        weight: 0
 id: media.image.default
 targetEntityType: media
 bundle: image
@@ -88,11 +67,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  translation:
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 4
@@ -107,3 +81,4 @@ hidden:
   created: true
   path: true
   status: true
+  translation: true

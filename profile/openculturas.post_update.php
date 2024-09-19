@@ -174,3 +174,71 @@ function openculturas_post_update_upcoming_dates_map_local_safe(): void {
     $config->save();
   }
 }
+
+/**
+ * Move language switcher into default, media_library form mode.
+ */
+function openculturas_post_update_media_bundles_language_switcher(): void {
+  /** @var \Drupal\content_translation\ContentTranslationManagerInterface $contentTranslationManager */
+  $contentTranslationManager = \Drupal::service('content_translation.manager');
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+  $media_types = ['audio', 'document', 'image', 'logo_image', 'remote_video', 'user_profile_picture', 'sponsor'];
+  foreach ($media_types as $media_type) {
+    if ($contentTranslationManager->isEnabled('media', $media_type)) {
+      $formDisplay = $entityDisplayRepository->getFormDisplay('media', $media_type);
+      $field_group_id = 'group_administrative';
+      /** @var array|null $current_field_group */
+      $current_field_group = $formDisplay->getThirdPartySetting('field_group', $field_group_id);
+
+      if (is_array($current_field_group) && isset($current_field_group['region']) && $current_field_group['region'] === 'hidden') {
+        if (isset($current_field_group['children']) && is_array($current_field_group['children'])) {
+          foreach ($current_field_group['children'] as $child_id) {
+            if (!is_string($child_id)) {
+              continue;
+            }
+
+            $formDisplay->removeComponent($child_id);
+          }
+        }
+
+        $formDisplay->unsetThirdPartySetting('field_group', $field_group_id);
+      }
+
+      $currentSettings = $formDisplay->getComponent('langcode');
+      if (!is_array($currentSettings)) {
+        $formDisplay->setComponent('langcode');
+      }
+
+      $formDisplay->removeComponent('translation');
+      $formDisplay->save();
+      $formDisplay = $entityDisplayRepository->getFormDisplay('media', $media_type, 'media_library');
+      if (!$formDisplay->isNew()) {
+        $formDisplay->removeComponent('translation');
+        $weight = $formDisplay->getHighestWeight();
+        $currentSettings = $formDisplay->getComponent('name');
+        if (is_array($currentSettings)) {
+          $weight = $currentSettings['weight'] ?? $weight;
+        }
+        else {
+          $formDisplay->setComponent('name', ['weight' => $weight]);
+        }
+
+        $formDisplay->setComponent('langcode', ['weight' => ++$weight]);
+        $formDisplay->save();
+      }
+    }
+    else {
+      // Translations not enabled. Just in case lets remove the components.
+      $form_modes = ['default', 'media_library'];
+      foreach ($form_modes as $form_mode) {
+        $formDisplay = $entityDisplayRepository->getFormDisplay('media', $media_type, $form_mode);
+        if (!$formDisplay->isNew()) {
+          $formDisplay->removeComponent('translation');
+          $formDisplay->removeComponent('langcode');
+          $formDisplay->save();
+        }
+      }
+    }
+  }
+}

@@ -9,33 +9,8 @@ dependencies:
     - field.field.media.document.field_mimetype
     - media.type.document
   module:
-    - field_group
     - file
     - languagefield
-third_party_settings:
-  field_group:
-    group_administrative:
-      children:
-        - langcode
-        - status
-        - created
-        - path
-        - field_filesize
-        - field_mimetype
-        - translation
-      label: Administrative
-      region: hidden
-      parent_name: ''
-      weight: 5
-      format_type: details_sidebar
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-        weight: 0
 id: media.document.default
 targetEntityType: media
 bundle: document
@@ -55,6 +30,13 @@ content:
     region: content
     settings:
       progress_indicator: throbber
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 26
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -78,7 +60,6 @@ hidden:
   created: true
   field_filesize: true
   field_mimetype: true
-  langcode: true
   path: true
   status: true
   translation: true

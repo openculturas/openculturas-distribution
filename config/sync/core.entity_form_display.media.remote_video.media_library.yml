@@ -10,12 +10,26 @@ id: media.remote_video.media_library
 targetEntityType: media
 bundle: remote_video
 mode: media_library
-content: {  }
+content:
+  langcode:
+    type: language_select
+    weight: 26
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 25
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   field_media_oembed_video: true
-  langcode: true
-  name: true
   path: true
   status: true
+  translation: true
   uid: true
