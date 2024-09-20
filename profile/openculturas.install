@@ -197,3 +197,15 @@ function openculturas_update_10110(): void {
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->install(['openculturas_address_links']);
 }
+
+/**
+ * Do not set 'Promote to front page' for location by default.
+ */
+function openculturas_update_10111(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('core.base_field_override.node.location.promote');
+  if (!$config->isNew()) {
+    $config->set('default_value', [['value' => 0]]);
+    $config->save();
+  }
+}
