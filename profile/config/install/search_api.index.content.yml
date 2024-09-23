@@ -14,6 +14,7 @@ dependencies:
     - node
     - paragraphs
     - search_api
+    - search_api_exclude_entity
 id: content
 name: Content
 description: ''
@@ -140,6 +141,10 @@ processor_settings:
   language_with_fallback: {  }
   rendered_item: {  }
   reverse_entity_references: {  }
+  search_api_exclude_entity_processor:
+    fields:
+      node:
+        - field_search_api_exclude
   transliteration:
     weights:
       preprocess_index: -49

@@ -209,3 +209,12 @@ function openculturas_update_10111(): void {
     $config->save();
   }
 }
+
+/**
+ * Install 'Search API Exclude Entity' module.
+ */
+function openculturas_update_10112(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->install(['search_api_exclude_entity']);
+}

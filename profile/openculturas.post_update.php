@@ -10,6 +10,8 @@ declare(strict_types=1);
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\block\BlockInterface;
 use Drupal\content_translation\BundleTranslationSettingsInterface;
+use Drupal\search_api\Entity\Index;
+use Drupal\update_helper\ConfigName;
 use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
@@ -255,4 +257,65 @@ function openculturas_post_update_paragraph_member_non_translatable_fields(): vo
     $settings['untranslatable_fields_hide'] = '0';
     $contentTranslationManager->setBundleTranslationSettings('paragraph', 'member', $settings);
   }
+}
+
+/**
+ * Setup 'Search API Exclude Entity' module.
+ */
+function openculturas_post_update_setup_search_api_exclude_entity(): string {
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager */
+  $entityFieldManager = \Drupal::service('entity_field.manager');
+  $field_map = $entityFieldManager->getFieldMapByFieldType('search_api_exclude_entity');
+  if ($field_map !== []) {
+    return 'Skip setup. Already done?';
+  }
+
+  $full_config_names = [
+    'field.storage.node.field_search_api_exclude',
+    'field.field.node.page.field_search_api_exclude',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+
+    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+  $viewDisplay = $entityDisplayRepository->getViewDisplay('node', 'page');
+  $viewDisplay->removeComponent('field_search_api_exclude');
+  $viewDisplay->save();
+
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'page');
+  $settingsFieldMetaTags = $formDisplay->getComponent('field_meta_tags');
+  $settingsFieldSearchApiExclude = $formDisplay->getComponent('field_search_api_exclude');
+  $weight = $settingsFieldMetaTags['weight'] ?? $formDisplay->getHighestWeight();
+  $settingsFieldSearchApiExclude['weight'] = ++$weight;
+  $settingsFieldSearchApiExclude['settings']['field_label'] = 'Yes, exclude this page from the search index.';
+  $formDisplay->setComponent('field_search_api_exclude', $settingsFieldSearchApiExclude);
+  $formDisplay->save();
+
+  /** @var \Drupal\search_api\Processor\ProcessorPluginManager $processManager */
+  $processManager = \Drupal::service('plugin.manager.search_api.processor');
+  /** @var \Drupal\search_api_exclude_entity\Plugin\search_api\processor\SearchApiExcludeEntityProcessor $instance */
+  $instance = $processManager->createInstance('search_api_exclude_entity_processor', ['fields' => ['node' => ['field_search_api_exclude']]]);
+
+  /** @var \Drupal\search_api\IndexInterface|null $index */
+  $index = Index::load('content');
+  if ($index) {
+    $index->addProcessor($instance);
+    $index->save();
+  }
+
+  return $logger->output();
+
 }
