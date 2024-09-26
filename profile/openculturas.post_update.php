@@ -8,10 +8,14 @@
 declare(strict_types=1);
 
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
+use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\block\BlockInterface;
 use Drupal\content_translation\BundleTranslationSettingsInterface;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\search_api\Entity\Index;
 use Drupal\update_helper\ConfigName;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
@@ -355,4 +359,26 @@ function openculturas_post_update_related_sponsor_more_displays(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Setup 'Simple image rotation' module.
+ */
+function openculturas_post_update_setup_simple_image_rotate(): void {
+  $media_bundles = ['image', 'logo_image', 'user_profile_picture'];
+  foreach ($media_bundles as $media_bundle) {
+    /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+    $field = FieldConfig::loadByName('media', $media_bundle, 'field_media_image');
+    if ($field instanceof FieldConfigInterface) {
+      $field->setThirdPartySetting('simple_image_rotate', 'enable_rotate', TRUE);
+      $field->save();
+    }
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('rotate images');
+    $role->save();
+  }
 }
