@@ -471,3 +471,66 @@ function openculturas_post_update_buttons_in_user_dashboard_permanently(): void 
     $view->save();
   }
 }
+
+/**
+ * Prepare past dates field outputs.
+ */
+function openculturas_post_update_setup_past_dates_archive(): string {
+  $full_config_names = [
+    'views.view.related_dates_archive',
+    'field.storage.node.field_past_dates_view_ref',
+    'field.field.node.event.field_past_dates_view_ref',
+    'field.field.node.location.field_past_dates_view_ref',
+    'field.field.node.profile.field_past_dates_view_ref',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $view = Views::getView('related_dates_archive');
+  if ($view) {
+    $logger->warning(sprintf('Skipped %s. View related_dates_archive already exists.', __FUNCTION__));
+    return $logger->output();
+  }
+
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $bundles = ['event', 'profile', 'location'];
+  foreach ($bundles as $bundle) {
+    $viewDisplay = $entityDisplayRepository->getViewDisplay('node', $bundle, 'full');
+    if ($viewDisplay->getThirdPartySetting('field_group', 'group_past_dates') === NULL) {
+      $group = [
+        'children' => ['field_past_dates_view_ref'],
+        'label' => 'Past dates',
+        'parent_name' => '',
+        'region' => 'hidden',
+        'weight' => $viewDisplay->getHighestWeight(),
+        'format_type' => 'details',
+        'format_settings' => [
+          'classes' => '',
+          'show_empty_fields' => FALSE,
+          'id' => 'section-dates-archive',
+          'label_as_html' => FALSE,
+          'open' => FALSE,
+          'description' => '',
+          'required_fields' => FALSE,
+        ],
+      ];
+      $viewDisplay->setThirdPartySetting('field_group', 'group_past_dates', $group);
+      $viewDisplay->save();
+    }
+  }
+
+  return $logger->output();
+}

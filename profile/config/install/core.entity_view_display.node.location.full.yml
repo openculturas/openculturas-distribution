@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.location.field_mention_by_art_view_ref
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_past_dates_view_ref
     - field.field.node.location.field_people_reference
     - field.field.node.location.field_portrait
     - field.field.node.location.field_press_quotes
@@ -267,6 +268,22 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+    group_past_dates:
+      children:
+        - field_past_dates_view_ref
+      label: 'Past dates'
+      parent_name: ''
+      region: hidden
+      weight: 26
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: section-dates-archive
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: false
 id: node.location.full
 targetEntityType: node
 bundle: location
@@ -495,6 +512,7 @@ content:
 hidden:
   field_allow_claiming: true
   field_mood_image: true
+  field_past_dates_view_ref: true
   field_sub_type: true
   field_subtitle: true
   flag_bookmark_node: true

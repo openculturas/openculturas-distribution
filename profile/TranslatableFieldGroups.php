@@ -47,6 +47,7 @@ t('Organizer', [], ['context' => 'field_group_label']);
 t('Organizers', [], ['context' => 'field_group_label']);
 t('Pages', [], ['context' => 'field_group_label']);
 t('Part of event series', [], ['context' => 'field_group_label']);
+t('Past dates', [], ['context' => 'field_group_label']);
 t('People', [], ['context' => 'field_group_label']);
 t('Press quotes', [], ['context' => 'field_group_label']);
 t('Profile', [], ['context' => 'field_group_label']);

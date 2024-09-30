@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.event.field_mention_by_art_view_ref
     - field.field.node.event.field_min_age
     - field.field.node.event.field_mood_image
+    - field.field.node.event.field_past_dates_view_ref
     - field.field.node.event.field_people_reference
     - field.field.node.event.field_press_quotes
     - field.field.node.event.field_recommended_by_view_ref
@@ -287,6 +288,22 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_past_dates:
+      children:
+        - field_past_dates_view_ref
+      label: 'Past dates'
+      parent_name: ''
+      region: hidden
+      weight: 17
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: section-dates-archive
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: false
 id: node.event.full
 targetEntityType: node
 bundle: event
@@ -504,6 +521,7 @@ hidden:
   field_comments_mode: true
   field_is_bookable: true
   field_mood_image: true
+  field_past_dates_view_ref: true
   field_section: true
   field_sub_type: true
   field_subtitle: true
