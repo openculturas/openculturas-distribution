@@ -382,3 +382,34 @@ function openculturas_post_update_setup_simple_image_rotate(): void {
     $role->save();
   }
 }
+
+/**
+ * Use optimized swiffy config (w/ autohide nav) in gallery + sponsor fields.
+ */
+function openculturas_post_update_swiffyslider_autohide(): void {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $bundles = ['event', 'location', 'page'];
+  foreach ($bundles as $bundle) {
+    $viewDisplay = $entityDisplayRepository->getViewDisplay('node', $bundle, 'full');
+    if (!$viewDisplay->isNew()) {
+      $displayOptions = $viewDisplay->getComponent('field_supporters');
+      if (is_array($displayOptions) && $displayOptions['type'] === 'swiffy_slider_entity_reference') {
+        $displayOptions['settings']['swiffy_slider_permalink'] = 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale';
+        $viewDisplay->setComponent('field_supporters', $displayOptions);
+        $viewDisplay->save();
+      }
+    }
+  }
+
+  $viewDisplay = $entityDisplayRepository->getViewDisplay('paragraph', 'gallery');
+  if (!$viewDisplay->isNew()) {
+    $displayOptions = $viewDisplay->getComponent('field_gallery');
+    if (is_array($displayOptions) && $displayOptions['type'] === 'swiffy_slider_entity_reference') {
+      $displayOptions['settings']['swiffy_slider_permalink'] = 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale';
+      $viewDisplay->setComponent('field_gallery', $displayOptions);
+      $viewDisplay->save();
+    }
+  }
+}
