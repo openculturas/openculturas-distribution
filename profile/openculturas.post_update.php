@@ -413,3 +413,61 @@ function openculturas_post_update_swiffyslider_autohide(): void {
     }
   }
 }
+
+/**
+ * Show profile/location add buttons permanently in dashboard.
+ */
+function openculturas_post_update_buttons_in_user_dashboard_permanently(): void {
+  $view = Views::getView('my_content');
+  if ($view) {
+
+    if ($view->setDisplay('block_my_locations')) {
+      $display = $view->getDisplay();
+      if (!$display->isDefaulted('empty')) {
+        $empty_option = $display->getOption('empty');
+        if (isset($empty_option['views_add_button'])) {
+          $display->setOverride('footer', FALSE);
+          $footer = $display->getOption('footer');
+          if (!isset($footer['views_add_button'])) {
+            $footer['views_add_button'] = $empty_option['views_add_button'];
+            $footer['views_add_button']['button_text'] = 'Add location';
+            $footer['views_add_button']['empty'] = FALSE;
+            $display->setOption('footer', $footer);
+            unset($empty_option['views_add_button']);
+            $display->setOption('empty', $empty_option);
+          }
+        }
+      }
+
+      if (!$display->isDefaulted('header')) {
+        $header_option = $display->getOption('header');
+        if (isset($header_option['area'])) {
+          $header_option['area']['content']['value'] = '<h3 class="field__label">My locations</h3>';
+          $display->setOption('header', $header_option);
+        }
+      }
+
+    }
+
+    if ($view->setDisplay('block_my_profiles')) {
+      $display = $view->getDisplay();
+      if (!$display->isDefaulted('empty')) {
+        $empty_option = $display->getOption('empty');
+        if (isset($empty_option['views_add_button'])) {
+          $display->setOverride('footer', FALSE);
+          $footer = $display->getOption('footer');
+          if (!isset($footer['views_add_button'])) {
+            $footer['views_add_button'] = $empty_option['views_add_button'];
+            $footer['views_add_button']['button_text'] = 'Add profile';
+            $footer['views_add_button']['empty'] = FALSE;
+            $display->setOption('footer', $footer);
+            unset($empty_option['views_add_button']);
+            $display->setOption('empty', $empty_option);
+          }
+        }
+      }
+    }
+
+    $view->save();
+  }
+}
