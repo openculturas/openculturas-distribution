@@ -271,6 +271,7 @@
         "drupal/core-composer-scaffold": "~10.3.5",
         "drupal/core-dev": "~10.3.5",
         "drupal/core-recommended": "~10.3.5",
+        "drupal/core-vendor-hardening": "10.3.5",
         "drupal/devel": "^5.3.1",
         "drupal/stage_file_proxy": "^3.1.2",
         "drupal/upgrade_status": "^4.3.5",
@@ -314,10 +315,16 @@
             "oomphinc/composer-installers-extender": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpstan/extension-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "drupal/core-vendor-hardening": true
         },
         "platform": {
             "php": "8.1.16"
+        },
+        "audit": {
+            "ignore": {
+                "GHSA-mg8j-w93w-xjgc": "core/authorize.php does not exists."
+            }
         }
     },
     "scripts": {
@@ -352,6 +359,9 @@
         "info_file_normalizer": "@php scripts/info_file_normalizer.php"
     },
     "extra": {
+        "drupal-core-vendor-hardening": {
+            "drupal/core": ["install.php", "authorize.php", "rebuild.php"]
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
@@ -360,6 +370,7 @@
                 "[project-root]/.gitattributes": false,
                 "[web-root]/.csslintrc": false,
                 "[web-root]/.ht.router.php": false,
+                "[web-root]/update.php": false,
                 "[web-root]/INSTALL.txt": false,
                 "[web-root]/README.md": false,
                 "[web-root]/example.gitignore": false,
