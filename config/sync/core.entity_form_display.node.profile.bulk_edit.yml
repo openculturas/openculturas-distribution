@@ -34,7 +34,7 @@ dependencies:
     - field.field.node.profile.field_subtitle
     - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
-    - workflows.workflow.magazine_article
+    - workflows.workflow.draften_member
   module:
     - content_moderation
 id: node.profile.bulk_edit
@@ -54,26 +54,32 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   field_allow_claiming:
     type: boolean_checkbox
-    weight: 6
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_comments_mode:
     type: options_select
-    weight: 5
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_section:
+    type: options_buttons
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 1
+    weight: 2
     region: content
     settings:
       include_locked: true
@@ -86,26 +92,26 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   translation:
-    weight: 10
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -137,7 +143,6 @@ hidden:
   field_recommendations: true
   field_recommended_by_view_ref: true
   field_reference_title: true
-  field_section: true
   field_started: true
   field_subtitle: true
   field_upcoming_dates_by_profile: true

@@ -181,14 +181,9 @@ display:
             format: default_summary
           specify_validation: true
           validate:
-            type: 'entity:taxonomy_term'
+            type: none
             fail: empty
-          validate_options:
-            bundles:
-              category: category
-            access: false
-            operation: view
-            multiple: 0
+          validate_options: {  }
           break_phrase: false
           depth: 1
           use_taxonomy_term_path: false
@@ -362,6 +357,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 6
           total_pages: null
           id: 0
@@ -379,7 +375,6 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-          pagination_heading_level: h4
       arguments:
         field_sub_type_target_id:
           id: field_sub_type_target_id
@@ -823,6 +818,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 6
           total_pages: null
           id: 0
@@ -840,7 +836,6 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-          pagination_heading_level: h4
       arguments:
         term_node_tid_depth:
           id: term_node_tid_depth
@@ -916,6 +911,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 6
           total_pages: null
           id: 0
@@ -933,7 +929,6 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-          pagination_heading_level: h4
       empty:
         area:
           id: area
@@ -1028,7 +1023,7 @@ display:
       tags: {  }
   related_article_term:
     id: related_article_term
-    display_title: 'By focus category - on term page'
+    display_title: 'By term - on term page'
     display_plugin: block
     position: 4
     display_options:

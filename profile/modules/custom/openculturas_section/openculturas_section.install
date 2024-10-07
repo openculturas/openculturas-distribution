@@ -7,6 +7,9 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\field\Entity\FieldConfig;
+
 /**
  * Implements hook_install().
  */
@@ -31,6 +34,7 @@ function openculturas_section_install(bool $is_syncing): void {
         'type' => 'options_buttons',
       ]);
       $field_group['children'][] = 'field_section';
+      $field_group['children'] = array_values(array_unique($field_group['children']));
       $formDisplay->setThirdPartySetting('field_group', $field_group_id, $field_group);
       $weight = 0;
       foreach ($field_group['children'] as $child_id) {
@@ -45,6 +49,25 @@ function openculturas_section_install(bool $is_syncing): void {
       }
 
       $formDisplay->save();
+    }
+
+    $formDisplay = $entityDisplayRepository->getFormDisplay('node', $bundle, 'bulk_edit');
+    $formDisplay->setComponent('field_section', [
+      'type' => 'options_buttons',
+    ]);
+    $formDisplay->save();
+
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'teaser_term', 'field_term');
+  if ($field instanceof FieldConfigInterface) {
+    $handler_settings = is_array($field->getSetting('handler_settings')) ? $field->getSetting('handler_settings') : [];
+    if ($handler_settings !== [] && array_key_exists('target_bundles', $handler_settings)) {
+      $handler_settings['target_bundles']['oc_section'] = 'oc_section';
+      asort($handler_settings['target_bundles']);
+      $field->setSetting('handler_settings', $handler_settings);
+      $field->save();
     }
   }
 }

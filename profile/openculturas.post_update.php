@@ -17,6 +17,7 @@ use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\views\ViewEntityInterface;
+use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
 /**
@@ -533,4 +534,89 @@ function openculturas_post_update_setup_past_dates_archive(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Removes the validation in term related displays to not limit to category.
+ */
+function openculturas_post_update_remove_term_validation_in_views_displays(): void {
+
+  $remove_validation = static function (ViewExecutable $view): void {
+    $display = $view->getDisplay();
+    $arguments_option = $display->getOption('arguments');
+    if (isset($arguments_option['term_node_tid_depth'])) {
+      $arguments_option['term_node_tid_depth']['validate']['type'] = 'none';
+      $arguments_option['term_node_tid_depth']['validate_options'] = [];
+      $display->setOption('arguments', $arguments_option);
+    }
+  };
+
+  $view = Views::getView('related_article');
+  if ($view) {
+    if ($view->setDisplay('default')) {
+      $remove_validation($view);
+    }
+
+    if ($view->setDisplay('related_article_term')) {
+      $display = $view->getDisplay();
+      $display->display['display_title'] = 'By term - on term page';
+    }
+
+    $view->save();
+  }
+
+  $view = Views::getView('related_date');
+  if ($view) {
+    if ($view->setDisplay('by_term')) {
+      $remove_validation($view);
+    }
+
+    $view->save();
+  }
+
+  $view = Views::getView('related_event');
+  if ($view) {
+    if ($view->setDisplay('default')) {
+      $remove_validation($view);
+    }
+
+    if ($view->setDisplay('related_event_term')) {
+      $display = $view->getDisplay();
+      $display->display['display_title'] = 'By term - on term page';
+    }
+
+    $view->save();
+  }
+
+  $view = Views::getView('related_location');
+  if ($view) {
+    if ($view->setDisplay('default')) {
+      $remove_validation($view);
+    }
+
+    if ($view->setDisplay('related_location')) {
+      $display = $view->getDisplay();
+      $display->display['display_title'] = 'By term - on term page';
+    }
+
+    $view->save();
+  }
+
+  $view = Views::getView('related_profile');
+  if ($view) {
+    if ($view->setDisplay('related_profile_term_artist')) {
+      $display = $view->getDisplay();
+      $display->display['display_title'] = 'Artists - by term';
+      $remove_validation($view);
+    }
+
+    if ($view->setDisplay('related_profile_term_organizer')) {
+      $display = $view->getDisplay();
+      $display->display['display_title'] = 'Organizers - by term';
+      $remove_validation($view);
+    }
+
+    $view->save();
+  }
+
 }

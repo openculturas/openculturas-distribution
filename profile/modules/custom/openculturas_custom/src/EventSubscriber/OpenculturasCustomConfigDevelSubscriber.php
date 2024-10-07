@@ -74,6 +74,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     if ($extension === 'openculturas-profile' && $config_name === 'field.field.paragraph.teaser_term.field_term') {
       $this->excludeOpenCulturasFaq($event, $config_name);
+      $this->excludeOpenCulturasSection($event);
     }
 
     if ($extension === 'openculturas-profile' && (
@@ -124,10 +125,11 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
    */
   private function excludeOpenCulturasSection(ConfigDevelSaveEvent $configDevelSaveEvent): void {
     $data = $configDevelSaveEvent->getData();
-    unset($data['content']['field_section'], $data['hidden']['field_section']);
+
+    unset($data['content']['field_section'], $data['hidden']['field_section'], $data['settings']['handler_settings']['target_bundles']['oc_section']);
     if (isset($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $config_name) {
-        if (str_ends_with($config_name, 'field_section')) {
+        if (str_ends_with($config_name, 'field_section') || str_ends_with($config_name, 'oc_section')) {
           unset($data['dependencies']['config'][$index]);
         }
       }

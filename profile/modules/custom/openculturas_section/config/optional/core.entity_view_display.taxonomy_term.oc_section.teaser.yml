@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.teaser
+    - field.field.taxonomy_term.oc_section.field_colorcode
+    - field.field.taxonomy_term.oc_section.field_mood_image
+    - field.field.taxonomy_term.oc_section.field_related_article_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_artist_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_event_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_location_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_organizer_view_ref
+    - field.field.taxonomy_term.oc_section.field_upcoming_dates_view_ref
+    - taxonomy.vocabulary.oc_section
+  module:
+    - field_formatter_class
+id: taxonomy_term.oc_section.teaser
+targetEntityType: taxonomy_term
+bundle: oc_section
+mode: teaser
+content:
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser_image_big
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  description: true
+  extra_field_social_media_buttons: true
+  field_colorcode: true
+  field_related_article_view_ref: true
+  field_related_artist_view_ref: true
+  field_related_event_view_ref: true
+  field_related_location_view_ref: true
+  field_related_organizer_view_ref: true
+  field_upcoming_dates_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

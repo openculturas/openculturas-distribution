@@ -1,18 +1,24 @@
-uuid: 81415369-5e63-4e01-9d7a-77da8717330f
+uuid: ed787476-df88-4e33-a933-2a70616a2814
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.taxonomy_term.oc_section.field_colorcode
+    - field.field.taxonomy_term.oc_section.field_mood_image
+    - field.field.taxonomy_term.oc_section.field_related_article_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_artist_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_event_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_location_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_organizer_view_ref
+    - field.field.taxonomy_term.oc_section.field_upcoming_dates_view_ref
     - taxonomy.vocabulary.oc_section
   module:
+    - media_library
+    - media_library_edit
     - path
     - text
-  enforced:
-    module:
-      - openculturas_section
 _core:
-  default_config_hash: wtk5HFCEzkGIrnRBfhRyzcClSWQtCAgar5Cp3bmseMA
+  default_config_hash: 4MjUa7PwxYNUEiCcPzWU2bUx5ao6ivGwuhMl4ydo22U
 id: taxonomy_term.oc_section.default
 targetEntityType: taxonomy_term
 bundle: oc_section
@@ -34,6 +40,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_mood_image:
+    type: media_library_widget
+    weight: 4
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   langcode:
     type: language_select
     weight: 3
@@ -51,20 +66,31 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   simple_sitemap:
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
-hidden: {  }
+  translation:
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_related_article_view_ref: true
+  field_related_artist_view_ref: true
+  field_related_event_view_ref: true
+  field_related_location_view_ref: true
+  field_related_organizer_view_ref: true
+  field_upcoming_dates_view_ref: true

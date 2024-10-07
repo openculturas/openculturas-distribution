@@ -18,11 +18,27 @@ function openculturas_section_preprocess_node(array &$variables): void {
     $entities = $node->get('field_section')->referencedEntities();
     /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository */
     $entity_repository = \Drupal::service('entity.repository');
-    foreach ($entities as $entity) {
+    foreach ($entities as $delta => $entity) {
       $translated_entity = $entity_repository->getTranslationFromContext($entity);
       if ($translated_entity->hasField('field_colorcode') && !$translated_entity->get('field_colorcode')->isEmpty()) {
         $variables['attributes']['class'][] = $translated_entity->get('field_colorcode')->value;
+        // In case the field itself is also printed, add a data attribute,
+        // which can be used for styling per value.
+        if (isset($variables['content']['field_section'])) {
+          $variables['content']['field_section'][$delta]['#attributes']['data-field_colorcode'] = $translated_entity->get('field_colorcode')->value;
+        }
       }
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openculturas_section_preprocess_taxonomy_term(array &$variables): void {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['term'];
+  if ($term->hasField('field_colorcode') && !$term->get('field_colorcode')->isEmpty()) {
+    $variables['attributes']['class'][] = $term->get('field_colorcode')->value;
   }
 }
