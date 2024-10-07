@@ -269,7 +269,7 @@ foreach ($finder->getIterator() as $file) {
 
   $altered_contents = Yaml::encode($new_info);
   $altered_with_comments = $comments->inject(explode("\n", $altered_contents));
-  file_put_contents($file->getPathname(), trim(implode("\n", $altered_with_comments)));
+  file_put_contents($file->getPathname(), trim(implode("\n", $altered_with_comments)) . "\n");
 }
 
 
