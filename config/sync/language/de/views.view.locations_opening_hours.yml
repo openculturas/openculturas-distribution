@@ -1,0 +1,54 @@
+description: 'OpenCulturas: filterbare Liste aller Veranstaltungsorte mit Öffnungszeiten, mit angehängter Landkarte'
+display:
+  default:
+    display_options:
+      title: Orte
+      filters:
+        title:
+          expose:
+            placeholder: 'enthält ...'
+        field_address_location_proximity:
+          expose:
+            label: Umkreis
+        field_category_target_id_1:
+          expose:
+            label: Fokus
+        field_sub_type_target_id:
+          admin_label: Typ
+          expose:
+            label: Typ
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          bef:
+            general:
+              secondary_label: 'Erweiterte Filter'
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+          text_input_required: 'Wähle einen Filter und klicke auf <em>Anwenden</em>, um Ergebnisse zu sehen'
+      pager:
+        options:
+          tags:
+            next: 'Nächste ›'
+            previous: '‹ Vorige'
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anz./Seite
+            items_per_page_options_all_label: '- Alle -'
+      fields:
+        counter:
+          admin_label: Sprunganker-Link
+      empty:
+        area:
+          content:
+            value: '<p>Keine Ergebnisse.</p>'
+            format: advanced_html
+    display_title: Standard
+  attachment_map:
+    display_title: 'Anhang: Landkarte'
+  block_locations_office_hours:
+    display_title: 'Orte mit Öffnungszeiten'
+label: 'Orte mit Öffnungszeiten'

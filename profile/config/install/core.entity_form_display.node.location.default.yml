@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.location.field_logo
     - field.field.node.location.field_mention_by_art_view_ref
     - field.field.node.location.field_mood_image
+    - field.field.node.location.field_office_hours
     - field.field.node.location.field_opening_hours
     - field.field.node.location.field_past_dates_view_ref
     - field.field.node.location.field_people_reference
@@ -37,6 +38,7 @@ dependencies:
     - field_group
     - media_library
     - media_library_edit
+    - office_hours
     - paragraphs
     - path
     - text
@@ -44,14 +46,14 @@ third_party_settings:
   field_group:
     group_administrative:
       children:
-        - created
         - langcode
-        - path
-        - promote
-        - simple_sitemap
-        - sticky
         - uid
+        - created
+        - promote
+        - sticky
+        - path
         - url_redirects
+        - simple_sitemap
       label: Administrative
       region: content
       parent_name: ''
@@ -90,6 +92,7 @@ third_party_settings:
         - group_about
         - group_location_tab_performer
         - group_location_tab_media
+        - group_opening_hours
         - group_location_tab_advanced
       label: Tabs
       region: content
@@ -142,14 +145,13 @@ third_party_settings:
     group_location_tab_advanced:
       children:
         - field_accessibility
-        - field_opening_hours
         - field_safety_info
         - field_additional_information
         - field_press_quotes
       label: Advanced
       region: content
       parent_name: group_location_tabs_container
-      weight: 5
+      weight: 6
       format_type: tab
       format_settings:
         classes: ''
@@ -194,6 +196,23 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+        required_fields: true
+    group_opening_hours:
+      children:
+        - field_opening_hours
+        - field_office_hours
+      label: 'Opening hours'
+      region: content
+      parent_name: group_location_tabs_container
+      weight: 5
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: opening_hours
+        label_as_html: false
+        formatter: closed
+        description: ''
         required_fields: true
 id: node.location.default
 targetEntityType: node
@@ -340,9 +359,16 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_office_hours:
+    type: office_hours_exceptions
+    weight: 1
+    region: content
+    settings:
+      collapsed: false
+    third_party_settings: {  }
   field_opening_hours:
     type: text_textarea
-    weight: 2
+    weight: 0
     region: content
     settings:
       rows: 5

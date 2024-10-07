@@ -620,3 +620,133 @@ function openculturas_post_update_remove_term_validation_in_views_displays(): vo
   }
 
 }
+
+/**
+ * Prepare 'Office hours' integration.
+ */
+function openculturas_post_update_setup_office_hours(): string {
+  $full_config_names = [
+    'field.storage.node.field_office_hours',
+    'field.field.node.location.field_office_hours',
+    'views.view.locations_opening_hours',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $viewDisplay = $entityDisplayRepository->getViewDisplay('node', 'location', 'full');
+  if ($viewDisplay->getThirdPartySetting('field_group', 'group_opening_hours') === NULL) {
+    $group = [
+      'children' => ['field_office_hours'],
+      'label' => 'Opening hours',
+      'parent_name' => '',
+      'region' => 'hidden',
+      'weight' => 0,
+      'format_type' => 'html_element',
+      'format_settings' => [
+        'classes' => '',
+        'show_empty_fields' => FALSE,
+        'id' => '',
+        'label_as_html' => FALSE,
+        'element' => 'div',
+        'show_label' => TRUE,
+        'label_element' => 'div',
+        'label_element_classes' => 'field__label',
+        'attributes' => '',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ],
+    ];
+    $viewDisplay->setThirdPartySetting('field_group', 'group_opening_hours', $group);
+    $viewDisplay->save();
+  }
+
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'location');
+  /** @var array|null $group_location_tab_media */
+  $group_location_tab_media = $formDisplay->getThirdPartySetting('field_group', 'group_location_tab_media');
+
+  if ($formDisplay->getThirdPartySetting('field_group', 'group_opening_hours') === NULL) {
+    $group_group_opening_hours = [
+      'children' => [
+        'field_opening_hours',
+        'field_office_hours',
+      ],
+      'label' => 'Opening hours',
+      'parent_name' => 'group_location_tabs_container',
+      'region' => 'content',
+      'weight' => isset($group_location_tab_media['weight']) ? ++$group_location_tab_media['weight'] : 5,
+      'format_type' => 'tab',
+      'format_settings' => [
+        'classes' => '',
+        'show_empty_fields' => FALSE,
+        'id' => 'opening_hours',
+        'label_as_html' => FALSE,
+        'formatter' => 'closed',
+        'description' => '',
+        'required_fields' => TRUE,
+      ],
+    ];
+
+    $field_opening_hours = $formDisplay->getComponent('field_opening_hours');
+    if ($field_opening_hours) {
+      $field_opening_hours['weight'] = 0;
+      $formDisplay->setComponent('field_opening_hours', $field_opening_hours);
+    }
+
+    $formDisplay->setComponent('field_office_hours', [
+      'type' => 'office_hours_exceptions',
+      'weight' => 1,
+    ]);
+    $formDisplay->setThirdPartySetting('field_group', 'group_opening_hours', $group_group_opening_hours);
+    $group_location_tab_advanced = $formDisplay->getThirdPartySetting('field_group', 'group_location_tab_advanced');
+    if (is_array($group_location_tab_advanced)) {
+      $group_location_tab_advanced['weight'] = ++$group_group_opening_hours['weight'];
+      $children = $group_location_tab_advanced['children'];
+      $field_opening_hours_key = array_search('field_opening_hours', $children, TRUE);
+      unset($children[$field_opening_hours_key]);
+      $group_location_tab_advanced['children'] = array_values(array_unique($children));
+      $formDisplay->setThirdPartySetting('field_group', 'group_location_tab_advanced', $group_location_tab_advanced);
+    }
+
+    $group_location_tabs_container = $formDisplay->getThirdPartySetting('field_group', 'group_location_tabs_container');
+    if (is_array($group_location_tabs_container)) {
+      $group_location_tabs_container['children'][] = 'group_opening_hours';
+      $group_location_tabs_container['children'] = array_values(array_unique($group_location_tabs_container['children']));
+      $formDisplay->setThirdPartySetting('field_group', 'group_location_tabs_container', $group_location_tabs_container);
+    }
+
+    $formDisplay->save();
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'view', 'field_view');
+  if ($field instanceof FieldConfigInterface) {
+    $allowed_views_setting = is_array($field->getSetting('allowed_views')) ? $field->getSetting('allowed_views') : [];
+    $allowed_views_setting['locations_opening_hours'] = 'locations_opening_hours';
+    $field->setSetting('allowed_views', $allowed_views_setting);
+    $field->save();
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('node', 'location', 'field_opening_hours');
+  if ($field instanceof FieldConfigInterface) {
+    $field->setLabel('Opening hours info');
+    $field->save();
+  }
+
+  return $logger->output();
+}
