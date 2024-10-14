@@ -329,6 +329,7 @@ function openculturas_custom_entity_view_alter(array &$build, EntityInterface $e
 <div class="flag flag-bookmark-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}"></a></div>
 EOF
         ,
+        '#weight' => $build['flag_bookmark_node']['#weight'],
       ];
     }
 
@@ -339,6 +340,7 @@ EOF
 <div class="flag flag-recommendation-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to recommend'| t}}">{{'Recommend'|t}}</a></div>
 EOF
         ,
+        '#weight' => $build['flag_recommendation_node']['#weight'],
       ];
     }
 
@@ -353,6 +355,7 @@ EOF
 <div class="flag flag-claim-ownership action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to claim this' | t}}">{{'Claim ownership'|t}}</a></div>
 EOF
           ,
+          '#weight' => $build['flag_claim_ownership']['#weight'],
         ];
       }
     }
@@ -364,6 +367,7 @@ EOF
 <div class="flag flag-report-abuse action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to report abuse' | t}}">{{'Report abuse'|t}}</a></div>
 EOF
         ,
+        '#weight' => $build['flag_report_abuse']['#weight'],
       ];
     }
   }
