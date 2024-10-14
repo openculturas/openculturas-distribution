@@ -33,7 +33,7 @@ dependencies:
     - field.field.node.location.field_subtitle
     - field.field.node.location.field_supporters
     - node.type.location
-    - workflows.workflow.draften
+    - workflows.workflow.draften_member
   module:
     - allowed_formats
     - choices
@@ -50,15 +50,15 @@ third_party_settings:
   field_group:
     group_administrative:
       children:
-        - created
         - field_comments_mode
         - langcode
-        - path
-        - promote
-        - simple_sitemap
-        - sticky
         - uid
+        - created
+        - promote
+        - sticky
+        - path
         - url_redirects
+        - simple_sitemap
       label: Administrative
       region: content
       parent_name: ''
@@ -97,8 +97,8 @@ third_party_settings:
         - group_about
         - group_location_tab_performer
         - group_location_tab_media
-        - group_location_tab_advanced
         - group_opening_hours
+        - group_location_tab_advanced
       label: Tabs
       region: content
       parent_name: ''
