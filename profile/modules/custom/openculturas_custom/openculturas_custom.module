@@ -333,6 +333,17 @@ EOF
       ];
     }
 
+    if (isset($build['flag_bookmark_term'])) {
+      $build['flag_bookmark_term'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-bookmark-term action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}"></a></div>
+EOF
+        ,
+        '#weight' => $build['flag_bookmark_term']['#weight'],
+      ];
+    }
+
     if (isset($build['flag_recommendation_node'])) {
       $build['flag_recommendation_node'] = [
         '#type' => 'inline_template',
