@@ -49,7 +49,7 @@ display:
       exposed_form:
         type: bef
         options:
-          submit_button: Apply
+          submit_button: Search
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -293,7 +293,7 @@ display:
           exposed: true
           expose:
             operator_id: search_api_fulltext_op
-            label: ''
+            label: Search
             description: ''
             use_operator: false
             operator: search_api_fulltext_op
@@ -314,12 +314,16 @@ display:
             expose_fields: false
             placeholder: 'Enter some keywords'
             searched_fields_id: search_api_fulltext_searched_fields
+            value_maxlength: 128
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
             autocomplete_items: '10'
+            autocomplete_field: ''
             autocomplete_raw_suggestion: 1
             autocomplete_raw_dropdown: 1
             autocomplete_dependent: 0
+            autocomplete_contextual: 0
+            autocomplete_autosubmit: 0
           is_grouped: false
           group_info:
             label: ''

@@ -773,3 +773,34 @@ function openculturas_post_update_pager_id_my_content_block(): void {
     $view->save();
   }
 }
+
+/**
+ * Add missing input label to the search input filter.
+ */
+function openculturas_post_update_search_input_label(): void {
+  $view = Views::getView('search');
+  if ($view) {
+    if ($view->setDisplay('default')) {
+      $display = $view->getDisplay();
+      $options = $display->getOption('exposed_form');
+      $options['options']['submit_button'] = 'Search';
+      $display->setOption('exposed_form', $options);
+    }
+
+    if ($view->setDisplay('search_input')) {
+      $display = $view->getDisplay();
+      /** @var \Drupal\views\Plugin\views\ViewsHandlerInterface|null $handler */
+      $handler = &$display->getHandler('filter', 'search_api_fulltext');
+      if ($handler) {
+        $options = $display->getOption('filters');
+        $filter_options = &$options['search_api_fulltext'];
+        if ($filter_options && $filter_options['expose']['label'] === '') {
+          $filter_options['expose']['label'] = 'Search';
+          $display->setOption('filters', $options);
+        }
+      }
+    }
+
+    $view->save();
+  }
+}
