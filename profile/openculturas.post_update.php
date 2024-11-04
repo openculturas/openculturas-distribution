@@ -750,3 +750,26 @@ function openculturas_post_update_setup_office_hours(): string {
 
   return $logger->output();
 }
+
+/**
+ * Add Pager ID to the my_content_block view display of view my_content.
+ */
+function openculturas_post_update_pager_id_my_content_block(): void {
+  $view = Views::getView('my_content');
+  if ($view) {
+    if ($view->setDisplay('my_content_block')) {
+      $display = $view->getDisplay();
+      /** @var \Drupal\views\Plugin\views\ViewsPluginInterface|null $plugin */
+      $plugin = $display->getPlugin('pager');
+      if ($plugin && $plugin->getPluginId() === 'full') {
+        $plugin_options = $display->getOption('pager');
+        if ($plugin_options['options']['id'] === 0) {
+          $plugin_options['options']['id'] = 1;
+          $display->setOption('pager', $plugin_options);
+        }
+      }
+    }
+
+    $view->save();
+  }
+}
