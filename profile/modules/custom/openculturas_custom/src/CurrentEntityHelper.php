@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItemInterface;
 use Drupal\node\NodeInterface;
 use function reset;
 
@@ -73,16 +72,12 @@ final class CurrentEntityHelper {
       return $entity;
     }
 
-    $event_item = reset($entities);
-    if (!$event_item instanceof EntityReferenceItemInterface) {
+    $event_node = reset($entities);
+    if (!$event_node instanceof NodeInterface) {
       return $entity;
     }
 
-    if (isset($event_item->entity) && $event_item->entity instanceof NodeInterface) {
-      return $event_item->entity;
-    }
-
-    return NULL;
+    return $event_node;
   }
 
 }
