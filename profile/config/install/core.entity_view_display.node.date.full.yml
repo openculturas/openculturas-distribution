@@ -236,8 +236,8 @@ third_party_settings:
       children:
         - field_attendance_mode
         - field_location_virtual
-        - extra_field_location_address_data
         - field_location
+        - extra_field_location_address_data
         - field_safety_info
       label: 'Event location'
       parent_name: ''
@@ -325,8 +325,9 @@ content:
       time_wrapper: true
       localize: false
       parts:
-        - start
-        - end
+        start: start
+        end: end
+        duration: '0'
       duration:
         separator: ' | '
         unit: ''
@@ -351,9 +352,13 @@ content:
               event_title: '[node:field_premiere] [node:field_event_description:entity:title]'
               location: '[node:field_location:entity:field_address_data]'
               description: "[node:field_event_description:entity:field_subtitle]\r\n[node:field_body_addon]\r\n[node:field_event_description:entity:body]\r\n\r\n[current-page:url]?date_delta=[current-page:query:date_delta]"
+              retain_spacing: false
+              icons: false
               max_desc: 0
+              ellipsis: false
               past_events: false
               target: modal
+              ignore_timezone_if_UTC: true
           augmenter_settings:
             fields__field_date__settings_edit_form__third_party_settings__date_augmenter__instances__augmenter_settings__active_tab: ''
         rule:
@@ -369,9 +374,13 @@ content:
               event_title: ''
               location: ''
               description: ''
+              retain_spacing: false
+              icons: false
               max_desc: 60
+              ellipsis: false
               past_events: false
               target: ''
+              ignore_timezone_if_UTC: true
           augmenter_settings:
             fields__field_date__settings_edit_form__third_party_settings__date_augmenter__rule__augmenter_settings__active_tab: ''
       field_formatter_class:

@@ -31,6 +31,7 @@ dependencies:
     - allowed_formats
     - conditional_fields
     - content_moderation
+    - field_formatter_class
     - field_group
     - ief_complex_open
     - link
@@ -274,8 +275,11 @@ content:
       hide_date: false
       allday: true
       remove_seconds: false
+      duration_overlay: true
       separator: to
     third_party_settings:
+      field_formatter_class:
+        class: ''
       smart_date_recur:
         modal: true
         allowed_recur_freq_values:
