@@ -48,8 +48,7 @@ return RectorConfig::configure()
     [
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
       \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
-      \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class,
-      \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class => [
+      \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class => [
         __DIR__ . '/profile/'
       ],
       __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
