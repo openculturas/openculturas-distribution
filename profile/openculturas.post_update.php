@@ -828,3 +828,22 @@ function openculturas_post_update_user_admin_people_add_realname(): string {
 
   return $logger->output();
 }
+
+/**
+ * Unset the relationship of "last edit by" field in the content moderation view.
+ */
+function openculturas_post_update_content_moderation_revision_uid_relationship(): void {
+  $view = Views::getView('moderated_content');
+  if ($view) {
+    if ($view->setDisplay('default')) {
+      $display = $view->getDisplay();
+      $options = $display->getOption('fields');
+      if ($options['revision_uid']['relationship'] === 'nid') {
+        $options['revision_uid']['relationship'] = 'none';
+        $display->setOption('fields', $options);
+      }
+    }
+
+    $view->save();
+  }
+}
