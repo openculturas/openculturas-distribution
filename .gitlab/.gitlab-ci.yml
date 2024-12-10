@@ -4,6 +4,10 @@ include:
     file:
       - 'drupal.yml'
 
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+
 stages:
   - ".pre"
   - validate
