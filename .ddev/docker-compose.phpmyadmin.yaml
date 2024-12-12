@@ -2,12 +2,15 @@
 services:
   phpmyadmin:
     container_name: ddev-${DDEV_SITENAME}-phpmyadmin
-    image: phpmyadmin:5
+    image: phpmyadmin:5.2.0
     working_dir: "/root"
     restart: "no"
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
+    volumes:
+    - ".:/mnt/ddev_config"
+    - "ddev-global-cache:/mnt/ddev-global-cache"
     expose:
       - "80"
     environment:
