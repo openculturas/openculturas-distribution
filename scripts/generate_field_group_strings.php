@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 $labels = [];
 
-$exlude_list = ['[node:title]'];
+$exclude_list = ['[node:title]'];
 foreach (['entity_form_display', 'entity_view_display'] as $entity_type) {
   foreach (\Drupal::entityTypeManager()->getStorage($entity_type)->loadMultiple() as $display) {
     /** @var \Drupal\Core\Entity\Display\EntityDisplayInterface $display */
     if (in_array('field_group', $display->getThirdPartyProviders(), TRUE)) {
       $field_groups = $display->getThirdPartySettings('field_group');
       foreach ($field_groups as $field_group) {
-        if (isset($field_group['label']) && ($label = trim($field_group['label'])) && !in_array($label, $exlude_list, TRUE)) {
+        if (isset($field_group['label']) && ($label = trim($field_group['label'])) && !in_array($label, $exclude_list, TRUE)) {
           $labels[] = $field_group['label'];
         }
       }
@@ -20,7 +20,7 @@ foreach (['entity_form_display', 'entity_view_display'] as $entity_type) {
 }
 
 $file = __FILE__;
-$twigcode = <<<EOF
+$twig_code = <<<EOF
 <?php
 
 declare(strict_types=1);
@@ -36,5 +36,5 @@ EOF;
 /** @var \Drupal\Core\Template\TwigEnvironment $twig */
 $twig = \Drupal::service('twig');
 natsort($labels);
-$content = (string) $twig->renderInline($twigcode, ['labels' => array_unique($labels)]);
+$content = (string) $twig->renderInline($twig_code, ['labels' => array_unique($labels)]);
 file_put_contents('../profile/TranslatableFieldGroups.php', $content);
