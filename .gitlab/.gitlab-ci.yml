@@ -162,8 +162,6 @@ rector dry-run:
 
 .stylelint:
   extends: .composer_npm
-  variables:
-    STYLELINT_CODE_QUALITY_REPORT: gl-code-quality-report.json
   stage: validate
   interruptible: true
   before_script:
@@ -185,7 +183,7 @@ lint scss:
         - .stylelintcache
       when: always
   script:
-    - npx stylelint --cache --custom-formatter=node_modules/stylelint-formatter-gitlab --config=.stylelintrc.scss.json "profile/themes/openculturas_base/scss_config/**/*.scss"
+    - npm run lint:scss -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json
 
 lint css:
   extends: .stylelint
@@ -196,7 +194,7 @@ lint css:
         - .stylelintcache
       when: always
   script:
-    - npx stylelint --cache --custom-formatter=node_modules/stylelint-formatter-gitlab "profile/modules/**/*.css"
+    - npm run lint:css -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json
 
 .eslint:
   extends: .composer_npm
