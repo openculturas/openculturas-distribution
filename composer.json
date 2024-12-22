@@ -1,8 +1,8 @@
 {
     "name": "openculturas/openculturas-distribution",
     "description": "OpenCulturas: arts + culture portal software for regional marketing.",
-    "type": "drupal-profile",
     "license": "GPL-2.0-or-later",
+    "type": "drupal-profile",
     "authors": [
         {
             "name": "Stefan Auditor",
@@ -19,136 +19,6 @@
         {
             "name": "Peter Gerken",
             "email": "peter.gerken@erdfisch.de"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "leaflet/leaflet.fullscreen",
-                "version": "v1.0.2",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/Leaflet/Leaflet.fullscreen/archive/refs/tags/v1.0.2.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "elmarquis/leaflet.gesture-handling",
-                "version": "v1.2.2",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/elmarquis/Leaflet.GestureHandling/archive/refs/tags/v1.2.2.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "leaflet/leaflet.markercluster",
-                "version": "v1.4.1",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/Leaflet/Leaflet.markercluster/archive/refs/tags/v1.4.1.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "choices-js/choices.js",
-                "version": "v10.1.0",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/Choices-js/Choices/archive/refs/tags/v10.1.0.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "heiseonline/shariff",
-                "version": "3.2.1",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/heiseonline/shariff/releases/download/3.2.1/shariff-3.2.1.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "ajaxorg/ace-builds",
-                "version": "1.13.1",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "ace-builds"
-                },
-                "dist": {
-                    "url": "https://github.com/ajaxorg/ace-builds/archive/v1.13.1.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "fortawesome/font-awesome",
-                "version": "6.5.2",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "font-awesome"
-                },
-                "dist": {
-                    "url": "https://github.com/FortAwesome/Font-Awesome/archive/refs/tags/6.5.2.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "fengyuanchen/cropperjs",
-                "version": "v1.6.1",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "cropperjs"
-                },
-                "dist": {
-                    "url": "https://github.com/fengyuanchen/cropperjs/archive/refs/tags/v1.6.1.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "fengyuanchen/jquery-cropper",
-                "version": "v1.0.1",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "jquery-cropper"
-                },
-                "dist": {
-                    "url": "https://github.com/fengyuanchen/jquery-cropper/archive/refs/tags/v1.0.1.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        },
-        {
-            "type": "path",
-            "url": "profile"
         }
     ],
     "require": {
@@ -291,25 +161,153 @@
         "rector/rector": "^1.2.10",
         "weitzman/drupal-test-traits": "^2.5.0"
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Drupal\\Tests\\openculturas\\": "tests/src"
-        }
-    },
-    "conflict": {
-        "drupal/drupal": "*"
-    },
     "replace": {
         "symfony/polyfill-php72": "*",
         "symfony/polyfill-php73": "*",
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*"
     },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "leaflet/leaflet.fullscreen",
+                "type": "drupal-library",
+                "version": "v1.0.2",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/Leaflet/Leaflet.fullscreen/archive/refs/tags/v1.0.2.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "elmarquis/leaflet.gesture-handling",
+                "type": "drupal-library",
+                "version": "v1.2.2",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/elmarquis/Leaflet.GestureHandling/archive/refs/tags/v1.2.2.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "leaflet/leaflet.markercluster",
+                "type": "drupal-library",
+                "version": "v1.4.1",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/Leaflet/Leaflet.markercluster/archive/refs/tags/v1.4.1.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "choices-js/choices.js",
+                "type": "drupal-library",
+                "version": "v10.1.0",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/Choices-js/Choices/archive/refs/tags/v10.1.0.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "heiseonline/shariff",
+                "type": "drupal-library",
+                "version": "3.2.1",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/heiseonline/shariff/releases/download/3.2.1/shariff-3.2.1.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ajaxorg/ace-builds",
+                "type": "drupal-library",
+                "version": "1.13.1",
+                "extra": {
+                    "installer-name": "ace-builds"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/ajaxorg/ace-builds/archive/v1.13.1.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "fortawesome/font-awesome",
+                "type": "drupal-library",
+                "version": "6.5.2",
+                "extra": {
+                    "installer-name": "font-awesome"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/FortAwesome/Font-Awesome/archive/refs/tags/6.5.2.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "fengyuanchen/cropperjs",
+                "type": "drupal-library",
+                "version": "v1.6.1",
+                "extra": {
+                    "installer-name": "cropperjs"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/fengyuanchen/cropperjs/archive/refs/tags/v1.6.1.zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "fengyuanchen/jquery-cropper",
+                "type": "drupal-library",
+                "version": "v1.0.1",
+                "extra": {
+                    "installer-name": "jquery-cropper"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/fengyuanchen/jquery-cropper/archive/refs/tags/v1.0.1.zip"
+                }
+            }
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "path",
+            "url": "profile"
+        }
+    ],
     "minimum-stability": "alpha",
     "prefer-stable": true,
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\openculturas\\": "tests/src"
+        }
+    },
     "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
             "cweagans/composer-patches": true,
@@ -324,68 +322,45 @@
         },
         "platform": {
             "php": "8.1.16"
-        }
-    },
-    "scripts": {
-        "export-content": [
-            "drush pm:install default_content --yes",
-            "rm -rf web/profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
-            "drush default-content:export-references node --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
-            "drush default-content:export-references media --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
-            "drush default-content:export-references menu_link_content --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
-            "drush default-content:export-references taxonomy_term --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
-            "drush pm:uninstall default_content --yes"
-        ],
-        "si": [
-            "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
-            "drush site:install --yes"
-        ],
-        "cde" : [
-            "drush pm:install config_devel --yes",
-            "drush cde openculturas",
-            "drush cde openculturas_faq",
-            "drush cde openculturas_discussions",
-            "drush cde openculturas_map",
-            "drush cde openculturas_section"
-        ],
-        "php:cs": "phpcs -s",
-        "php:cs-fix": "phpcbf",
-        "php:phpstan": "phpstan",
-        "php:rector": "rector process --dry-run",
-        "php:rector-fix": "rector process",
-        "php:lint": ["parallel-lint --colors --show-deprecated -e php,module,install,profile,theme profile"],
-        "php:qa": ["@php:lint", "@php:cs", "@php:phpstan", "@php:rector"],
-        "info_file_normalizer": "@php scripts/info_file_normalizer.php"
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "extra": {
+        "composer-exit-on-patch-failure": true,
         "drupal-core-vendor-hardening": {
-            "drupal/core": ["install.php", "authorize.php", "rebuild.php"]
+            "drupal/core": [
+                "install.php",
+                "authorize.php",
+                "rebuild.php"
+            ]
         },
         "drupal-scaffold": {
-            "locations": {
-                "web-root": "web/"
-            },
             "file-mapping": {
                 "[project-root]/.gitattributes": false,
                 "[web-root]/.csslintrc": false,
                 "[web-root]/.ht.router.php": false,
-                "[web-root]/update.php": false,
                 "[web-root]/INSTALL.txt": false,
                 "[web-root]/README.md": false,
                 "[web-root]/example.gitignore": false,
-                "[web-root]/web.config": false,
-                "[web-root]/sites/README.txt": false,
                 "[web-root]/modules/README.txt": false,
                 "[web-root]/profiles/README.txt": false,
-                "[web-root]/themes/README.txt": false,
+                "[web-root]/sites/README.txt": false,
                 "[web-root]/sites/development.services.yml": {
                     "mode": "replace",
-                    "path": "assets/development.services.yml",
-                    "overwrite": false
+                    "overwrite": false,
+                    "path": "assets/development.services.yml"
                 },
-                "[web-root]/sites/example.sites.php": false
+                "[web-root]/sites/example.sites.php": false,
+                "[web-root]/themes/README.txt": false,
+                "[web-root]/update.php": false,
+                "[web-root]/web.config": false
+            },
+            "locations": {
+                "web-root": "web/"
             }
         },
+        "enable-patching": true,
         "installer-paths": {
             "web/core": [
                 "type:drupal-core"
@@ -415,22 +390,18 @@
                 "type:drupal-custom-theme"
             ]
         },
-        "enable-patching": true,
-        "composer-exit-on-patch-failure": true,
         "patchLevel": {
             "drupal/core": "-p2"
         },
         "patches": {
-            "drupal/flag": {
-                "Issue #3260640: A11y: Send the status message via drupal.announce": "https://www.drupal.org/files/issues/2022-12-22/flag-3260640-ajax-link-message-announce-8.patch",
-                "Issue #3143606: missing global value when saving flagging with form field entry": "https://www.drupal.org/files/issues/2020-05-28/flagging_global-3143606-3.patch",
-                "Issue #3059976: 'Unflag not allowed text' not showing up": "https://www.drupal.org/files/issues/2022-12-01/flag-not-allowed-text-3059976-12.patch"
+            "drupal/address_display": {
+                "https://www.drupal.org/project/address_display/issues/3492898: Verify that the label for address_line3 is available": "https://www.drupal.org/files/issues/2024-12-10/address_display_3492898-addressLine3.patch"
             },
-            "drupal/views_infinite_scroll": {
-                "Issue #3267139: Make Load more markup more accessible": "https://www.drupal.org/files/issues/2022-07-18/views_infinite_scroll-3267139-missing-pager-headline-10.patch"
+            "drupal/asset_injector": {
+                "Issue #3082195: Support loading ACE editor locally w/o CDN": "https://www.drupal.org/files/issues/2024-08-09/asset_injector-3082195-24.patch"
             },
-            "drupal/core_needs_rebuild": {
-                "Issue #2818017: A number of Views combined fields filter operators are currently pointless to an end user": "https://www.drupal.org/files/issues/2023-02-07/2818017-30.patch"
+            "drupal/block_field": {
+                "Issue #3165388: Field Widget broke in translation node": "https://www.drupal.org/files/issues/2023-06-07/block_field-3165388-10.patch"
             },
             "drupal/core": {
                 "Issue #3221375: Wrong language field labels after drupal_rebuild()": "https://www.drupal.org/files/issues/2021-12-01/3221375-27-workaround.patch",
@@ -441,6 +412,16 @@
                 "Issue #3466040: Dialog button/inputs not visible when open details element": "https://www.drupal.org/files/issues/2024-08-05/drupal-core-3466040-10.3.x.patch",
                 "https://www.drupal.org/project/drupal/issues/3477527: Remove datepicker polyfills attributes for datetime element": "https://www.drupal.org/files/issues/2024-10-07/drupal-core-3477527.patch"
             },
+            "drupal/core_needs_rebuild": {
+                "Issue #2818017: A number of Views combined fields filter operators are currently pointless to an end user": "https://www.drupal.org/files/issues/2023-02-07/2818017-30.patch"
+            },
+            "drupal/duration_field": {
+                "Issue #3053506: Error when adding duration field": "https://www.drupal.org/files/issues/2019-08-19/improper-granularityStringInterface-implementation-3053506-5.patch"
+            },
+            "drupal/eca": {
+                "Issue #3327075: Language handling": "https://www.drupal.org/files/issues/2023-03-29/eca-3327075-language-handling.patch",
+                "Issue #3343942: Return also the current language for type url": "https://www.drupal.org/files/issues/2023-02-23/eca-3343942.patch"
+            },
             "drupal/entity_reference_revisions": {
                 "Issue #2799479: Views doesn't recognize relationship to host": "https://www.drupal.org/files/issues/2023-06-29/entity_reference_revisions-2799479-fix-only.patch"
             },
@@ -448,56 +429,86 @@
                 "Issue #2787179: Ensure visibility of invalid fields (JS)": "https://www.drupal.org/files/issues/2024-08-05/2787179-highlight-html5-validation-101.patch",
                 "Issue #3395375: Duplicated required marks in field tabs with GIn admin theme": "https://www.drupal.org/files/issues/2024-08-06/3395375-6.patch"
             },
-            "drupal/formtips": {
-                "Issue #3292882: Filter tips are hardly readable in GIN": "https://git.drupalcode.org/project/formtips/-/merge_requests/3.diff"
-            },
-            "drupal/asset_injector": {
-                "Issue #3082195: Support loading ACE editor locally w/o CDN": "https://www.drupal.org/files/issues/2024-08-09/asset_injector-3082195-24.patch"
-            },
-            "drupal/eca": {
-                "Issue #3327075: Language handling": "https://www.drupal.org/files/issues/2023-03-29/eca-3327075-language-handling.patch",
-                "Issue #3343942: Return also the current language for type url": "https://www.drupal.org/files/issues/2023-02-23/eca-3343942.patch"
-            },
-            "drupal/media_entity_download": {
-                "Issue #3308048: Use label as link text": "https://git.drupalcode.org/project/media_entity_download/-/merge_requests/6.diff"
-            },
-            "drupal/paragraphs": {
-                "Issue #3350698: make behaviours translatable": "https://www.drupal.org/files/issues/2023-03-28/3350698--3.patch"
-            },
-            "drupal/duration_field": {
-                "Issue #3053506: Error when adding duration field": "https://www.drupal.org/files/issues/2019-08-19/improper-granularityStringInterface-implementation-3053506-5.patch"
-            },
             "drupal/field_permissions": {
                 "Issue #3342508: RuntimeException: Adding non-existent permissions to a role is not allowed.": "https://www.drupal.org/files/issues/2023-11-09/field_permissions-3342508.patch"
             },
-            "drupal/block_field": {
-                "Issue #3165388: Field Widget broke in translation node": "https://www.drupal.org/files/issues/2023-06-07/block_field-3165388-10.patch"
+            "drupal/flag": {
+                "Issue #3260640: A11y: Send the status message via drupal.announce": "https://www.drupal.org/files/issues/2022-12-22/flag-3260640-ajax-link-message-announce-8.patch",
+                "Issue #3143606: missing global value when saving flagging with form field entry": "https://www.drupal.org/files/issues/2020-05-28/flagging_global-3143606-3.patch",
+                "Issue #3059976: 'Unflag not allowed text' not showing up": "https://www.drupal.org/files/issues/2022-12-01/flag-not-allowed-text-3059976-12.patch"
             },
-            "drupal/image_widget_crop": {
-                "Issue #3093928: The Cropper library used is deprecated": "https://www.drupal.org/files/issues/2023-02-17/3093928-17.patch"
+            "drupal/formtips": {
+                "Issue #3292882: Filter tips are hardly readable in GIN": "https://git.drupalcode.org/project/formtips/-/merge_requests/3.diff"
             },
             "drupal/ief_complex_open": {
                 "Issue #3440010: Missing config schema": "https://git.drupalcode.org/project/ief_complex_open/-/merge_requests/6.diff"
             },
-            "drupal/tour": {
-                "Issue #2911208: Add support for details/vertical tabs ": "https://www.drupal.org/files/issues/2024-04-22/tour-2911208.patch"
+            "drupal/image_widget_crop": {
+                "Issue #3093928: The Cropper library used is deprecated": "https://www.drupal.org/files/issues/2023-02-17/3093928-17.patch"
             },
-            "drupal/smart_date": {
-                "Issue #3446002: Restore origin starts/ends filter": "https://www.drupal.org/files/issues/2024-06-18/smart_date-3446002.patch"
+            "drupal/media_entity_download": {
+                "Issue #3308048: Use label as link text": "https://git.drupalcode.org/project/media_entity_download/-/merge_requests/6.diff"
             },
             "drupal/node_edit_protection": {
                 "Issue #3455823: Fix the warning issue that occurs when pressing the save submit button in the Gin Admin theme": "https://www.drupal.org/files/issues/2024-08-05/node-edit-protection-3455823-fix-the-warning-22.patch"
+            },
+            "drupal/office_hours": {
+                "https://www.drupal.org/project/office_hours/issues/3476793: Fix accessibility issues in form": "https://www.drupal.org/files/issues/2024-10-07/office_hours-3476793.patch"
+            },
+            "drupal/paragraphs": {
+                "Issue #3350698: make behaviours translatable": "https://www.drupal.org/files/issues/2023-03-28/3350698--3.patch"
             },
             "drupal/simple_image_rotate": {
                 "https://www.drupal.org/project/simple_image_rotate/issues/3317110: simple_image_rotate_rotate_image isn't idempotent": "https://www.drupal.org/files/issues/2022-10-23/simple_image_rotate_idempotent.patch",
                 "https://www.drupal.org/project/simple_image_rotate/issues/3476687: Replace link with button": "https://www.drupal.org/files/issues/2024-09-26/simple_image_rotate-3476687-replace-link-with-button.patch"
             },
-            "drupal/office_hours": {
-                "https://www.drupal.org/project/office_hours/issues/3476793: Fix accessibility issues in form": "https://www.drupal.org/files/issues/2024-10-07/office_hours-3476793.patch"
+            "drupal/smart_date": {
+                "Issue #3446002: Restore origin starts/ends filter": "https://www.drupal.org/files/issues/2024-06-18/smart_date-3446002.patch"
             },
-            "drupal/address_display" : {
-                "https://www.drupal.org/project/address_display/issues/3492898: Verify that the label for address_line3 is available": "https://www.drupal.org/files/issues/2024-12-10/address_display_3492898-addressLine3.patch"
+            "drupal/tour": {
+                "Issue #2911208: Add support for details/vertical tabs ": "https://www.drupal.org/files/issues/2024-04-22/tour-2911208.patch"
+            },
+            "drupal/views_infinite_scroll": {
+                "Issue #3267139: Make Load more markup more accessible": "https://www.drupal.org/files/issues/2022-07-18/views_infinite_scroll-3267139-missing-pager-headline-10.patch"
             }
         }
+    },
+    "scripts": {
+        "cde": [
+            "drush pm:install config_devel --yes",
+            "drush cde openculturas",
+            "drush cde openculturas_faq",
+            "drush cde openculturas_discussions",
+            "drush cde openculturas_map",
+            "drush cde openculturas_section"
+        ],
+        "export-content": [
+            "drush pm:install default_content --yes",
+            "rm -rf web/profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references node --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references media --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references menu_link_content --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush default-content:export-references taxonomy_term --folder=profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
+            "drush pm:uninstall default_content --yes"
+        ],
+        "info_file_normalizer": "@php scripts/info_file_normalizer.php",
+        "php:cs": "phpcs -s",
+        "php:cs-fix": "phpcbf",
+        "php:lint": [
+            "parallel-lint --colors --show-deprecated -e php,module,install,profile,theme profile"
+        ],
+        "php:phpstan": "phpstan",
+        "php:qa": [
+            "@php:lint",
+            "@php:cs",
+            "@php:phpstan",
+            "@php:rector"
+        ],
+        "php:rector": "rector process --dry-run",
+        "php:rector-fix": "rector process",
+        "si": [
+            "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
+            "drush site:install --yes"
+        ]
     }
 }
