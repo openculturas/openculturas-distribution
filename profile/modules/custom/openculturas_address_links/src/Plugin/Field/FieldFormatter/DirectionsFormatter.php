@@ -21,7 +21,7 @@ use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
  *   },
  * )
  */
-final class DirectionsFormatter extends AddressLinkFormatterBase {
+class DirectionsFormatter extends AddressLinkFormatterBase {
 
   /**
    * {@inheritdoc}
