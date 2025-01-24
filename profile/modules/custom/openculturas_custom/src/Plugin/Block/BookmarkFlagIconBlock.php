@@ -56,6 +56,7 @@ final class BookmarkFlagIconBlock extends BlockBase implements ContainerFactoryP
               $current_entity->getEntityTypeId(),
               $current_entity->id(),
               ($current_entity->getEntityTypeId() === 'taxonomy_term') ? 'bookmark_term' : 'bookmark_node',
+              'default',
             ],
           ],
           '#create_placeholder' => TRUE,
