@@ -1,9 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>devops/renovate-config",
-    ":semanticCommitTypeAll(chore)"
-  ],
+  "extends": ["local>devops/renovate-config", ":semanticCommitTypeAll(chore)"],
   "rangeStrategy": "bump",
   "ignorePaths": [
     "**/node_modules/**",
@@ -14,11 +11,8 @@
   ],
   "packageRules": [
     {
-      "description" : "Do not try to update php, node",
-      "matchDepNames": [
-        "php",
-        "node"
-      ],
+      "description": "Do not try to update php, node",
+      "matchDepNames": ["php", "node"],
       "enabled": false
     },
     {
@@ -38,10 +32,7 @@
       "enabled": false
     },
     {
-      "matchPackageNames": [
-        "seleniarm/standalone-chromium",
-        "docker"
-      ],
+      "matchPackageNames": ["seleniarm/standalone-chromium", "docker"],
       "pinDigests": false
     },
     {
@@ -55,15 +46,15 @@
       "groupName": "ECA"
     },
     {
-      "matchPackagePrefixes": ["stylelint", "eslint", "prettier"],
       "matchPackageNames": [
         "eslint",
         "stylelint",
-        "prettier"
+        "prettier",
+        "stylelint{/,}**",
+        "eslint{/,}**",
+        "prettier{/,}**"
       ],
-      "matchUpdateTypes": [
-        "major"
-      ],
+      "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
     }
   ]
