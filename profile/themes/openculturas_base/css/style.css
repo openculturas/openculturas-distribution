@@ -16437,6 +16437,14 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   padding: 0;
 }
 
+.distance {
+  display: block;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .view-display-id-block_profile_search {
   background-color: var(--color-bg-form);
   padding: 1.25rem 2.5rem 1px;
@@ -16500,6 +16508,28 @@ ul[data-drupal-views-infinite-scroll-pager] li {
   .my-content th:last-child,
   .my-content td:last-child {
     text-align: right;
+  }
+}
+
+.locations-opening-hours .views-row {
+  padding: 1rem 0;
+  margin: 1rem 0;
+  border-bottom: 1px solid var(--color-divider-light);
+}
+.locations-opening-hours article {
+  margin: 0;
+}
+.locations-opening-hours .wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+}
+@media screen and (min-width: 48rem) {
+  .locations-opening-hours .wrapper {
+    display: grid;
+    grid-template: "location hours" 1fr/8fr 4fr;
+    grid-gap: 0 2rem;
+    width: 100%;
   }
 }
 

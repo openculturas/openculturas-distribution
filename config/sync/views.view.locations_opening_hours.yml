@@ -15,6 +15,7 @@ dependencies:
     - leaflet_views
     - node
     - office_hours
+    - openculturas_custom
     - paragraphs
     - taxonomy
     - user
@@ -43,7 +44,7 @@ display:
           admin_label: 'Target link'
           plugin_id: counter
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: true
             text: '<a class="visually-hidden" id="result-{{ counter }}"></a>'
@@ -159,7 +160,7 @@ display:
           entity_type: node
           plugin_id: rendered_entity
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -272,7 +273,7 @@ display:
           admin_label: ''
           plugin_id: geofield_proximity_field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -319,7 +320,7 @@ display:
           format_plural: false
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
-          suffix: km
+          suffix: "\_km"
           units: GEOFIELD_KILOMETERS
           source: geofield_origin_from_proximity_filter
           source_configuration:
@@ -333,7 +334,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -381,7 +382,7 @@ display:
             compress: false
             grouped: true
             show_empty: false
-            show_closed: open
+            show_closed: all
             closed_format: Closed
             all_day_format: '00:00-24:00'
             separator:
@@ -397,7 +398,8 @@ display:
             exceptions:
               title: 'Exceptions:'
               replace_exceptions: false
-              restrict_exceptions_to_num_days: 364
+              restrict_exceptions_to_num_days: 30
+              restrict_seasons_to_num_days: 30
               date_format: site_default_date
               all_day_format: '00:00-24:00'
             office_hours_first_day: '1'
@@ -413,28 +415,59 @@ display:
           multi_type: separator
           separator: '<br>'
           field_api_classes: false
+        non_translatable_nothing:
+          id: non_translatable_nothing
+          table: views
+          field: non_translatable_nothing
+          relationship: none
+          group_type: group
+          admin_label: 'Rewritten results'
+          plugin_id: non_translatable_custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: "<div class=\"wrapper\">\r\n<div>{{ counter }}{{ rendered_entity }}<span class=\"distance\">{{ field_address_location_proximity }}</span></div>\r\n<div>{{ field_office_hours }}</div>\r\n</div>"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
       pager:
-        type: full
+        type: none
         options:
           offset: 0
-          pagination_heading_level: h4
-          items_per_page: 60
-          total_pages: null
-          id: 0
-          tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
-          expose:
-            items_per_page: true
-            items_per_page_label: No./page
-            items_per_page_options: '24, 60, 120, 240'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          quantity: 9
       exposed_form:
         type: bef
         options:
@@ -458,10 +491,6 @@ display:
               secondary_label: 'Advanced filters'
               secondary_open: false
               reset_button_always_show: false
-            pager:
-              plugin_id: default
-              advanced:
-                is_secondary: true
             filter:
               field_office_hours:
                 plugin_id: default
@@ -472,7 +501,7 @@ display:
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
-                  is_secondary: true
+                  is_secondary: false
               title:
                 plugin_id: default
                 advanced:
@@ -545,7 +574,41 @@ display:
           source: geofield_origin_from_proximity_filter
           source_configuration:
             source_proximity_filter: field_address_location_proximity
-      arguments: {  }
+      arguments:
+        field_sub_type_target_id:
+          id: field_sub_type_target_id
+          table: node__field_sub_type
+          field: field_sub_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: sub_type
+          plugin_id: entity_target_id
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: true
+          not: false
       filters:
         status:
           id: status
@@ -604,14 +667,14 @@ display:
             reduce: false
           is_grouped: true
           group_info:
-            label: 'Today open'
+            label: 'Currently open'
             description: ''
             identifier: opening_hours
             optional: false
             widget: select
             multiple: false
             remember: false
-            default_group: '1'
+            default_group: '3'
             default_group_multiple: {  }
             group_items:
               1:
@@ -1009,6 +1072,7 @@ display:
           admin_label: 'field_address_data: Paragraph'
           plugin_id: standard
           required: true
+      css_class: ''
       use_ajax: true
       header: {  }
       footer: {  }
@@ -1019,7 +1083,6 @@ display:
       contexts:
         - 'languages:language_interface'
         - url
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1329,10 +1392,32 @@ display:
         header: false
         footer: false
       display_description: ''
-      header: {  }
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: '<p class="result-counter">Displaying <strong>@start - @end</strong> of <strong>@total</strong></p>'
       footer: {  }
+      display_comment: 'Problems with pager. Fix welcome.'
       rendering_language: '***LANGUAGE_language_interface***'
-      display_extenders: {  }
+      display_extenders:
+        matomo:
+          enabled: false
+          keyword_gets: ''
+          keyword_behavior: first
+          keyword_concat_separator: ' '
+          category_behavior: none
+          category_gets: ''
+          category_concat_separator: ' '
+          category_fallback: ''
+          category_facets: {  }
+          category_facets_concat_separator: ', '
       displays:
         block_locations_office_hours: block_locations_office_hours
       inherit_exposed_filters: true
@@ -1351,7 +1436,7 @@ display:
     id: block_locations_office_hours
     display_title: 'Locations opening hours'
     display_plugin: block
-    position: 3
+    position: 1
     display_options:
       title: ''
       pager:
@@ -1361,6 +1446,7 @@ display:
       defaults:
         empty: true
         title: false
+        css_class: false
         style: true
         row: true
         fields: true
@@ -1368,16 +1454,29 @@ display:
         filter_groups: true
         header: true
         footer: false
+      css_class: locations-opening-hours
       display_description: ''
       footer: {  }
       rendering_language: '***LANGUAGE_language_interface***'
-      display_extenders: {  }
+      display_extenders:
+        matomo:
+          enabled: false
+          keyword_gets: ''
+          keyword_behavior: first
+          keyword_concat_separator: ' '
+          category_behavior: none
+          category_gets: ''
+          category_concat_separator: ' '
+          category_fallback: ''
+          category_facets: {  }
+          category_facets_concat_separator: ', '
+      allow:
+        items_per_page: false
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_interface'
         - url
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:
