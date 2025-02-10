@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_map\Plugin\Form;
 
+use Drupal\Component\Datetime\DateTimePlus;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
@@ -30,6 +31,7 @@ class OpenCulturasMapFilterForm extends FormBase {
    * @var string
    */
   public string $viewDisplayId = 'rest_export';
+
 
   /**
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -122,6 +124,31 @@ class OpenCulturasMapFilterForm extends FormBase {
         || in_array($key, $skipKeys)
       ) {
         unset($form[$key]);
+      }
+
+      if (
+        is_array($value)
+        && !empty($value['#type'])
+        && !empty($value['#default_value'])
+        && !empty($value['#value'])
+        && $value['#type'] === 'date'
+        && ($value['#default_value'] === $value['#value'])
+        && str_starts_with($value['#default_value'], '+')
+      ) {
+        $form[$key]['#default_value'] = (new DateTimePlus($value['#default_value']))->format('Y-m-d');
+        $form[$key]['#value'] = $form[$key]['#default_value'];
+      }
+
+    }
+
+    $request = $this->container->get('request_stack')->getCurrentRequest();
+    $queryParams = $request?->query->all() ?? [];
+    if (!empty($queryParams)) {
+      foreach ($queryParams as $key => $value) {
+        if (isset($form[$key])) {
+          $form[$key]['#default_value'] = $value;
+          $form[$key]['#value'] = $form[$key]['#default_value'];
+        }
       }
     }
 

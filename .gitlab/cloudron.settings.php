@@ -32,7 +32,7 @@ $settings['skip_permissions_hardening'] = FALSE;
 $config['smtp.settings']['smtp_on'] = FALSE;
 $settings['reverse_proxy'] = TRUE;
 $settings['reverse_proxy_addresses'] = [getenv('CLOUDRON_PROXY_IP')];
-
+$config['openculturas_map.settings']['development_mode'] = TRUE;
 $settings['config_exclude_modules'] = [
   'devel',
   'stage_file_proxy',

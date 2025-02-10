@@ -42,7 +42,9 @@ function openculturas_map_preprocess_block(array &$variables): void {
     }
 
     $config = \Drupal::config('openculturas_map.settings');
-    foreach ($config->getRawData() as $configKey => $configValue) {
+    /** @var array<string,mixed> $configValues */
+    $configValues = $config->get();
+    foreach ($configValues as $configKey => $configValue) {
       if (str_starts_with($configKey, '_')) {
         continue;
       }
@@ -72,5 +74,27 @@ function openculturas_map_preprocess_block(array &$variables): void {
     $cache = new CacheableMetadata();
     $cache->addCacheableDependency($config);
     $cache->applyTo($variables);
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function openculturas_map_cron(): void {
+  /** @var \Drupal\Core\KeyValueStore\KeyValueExpirableFactory $key_value */
+  $key_value = \Drupal::service('keyvalue.expirable');
+  /** @var \Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface $collection */
+  $collection = $key_value->get('openculturas_map_cron');
+  if ($collection->get('needs_cache_invalidation', TRUE) === FALSE) {
+    return;
+  }
+
+  $cacheTagsInvalidator = \Drupal::service('cache_tags.invalidator');
+  $cacheTagsInvalidator->invalidateTags(['config:views.view.oc_map_dates']);
+
+  $current_timestamp = \Drupal::time()->getCurrentTime();
+  $expire_timestamp = strtotime('tomorrow');
+  if ($current_timestamp < $expire_timestamp) {
+    $collection->setWithExpire('needs_cache_invalidation', FALSE, $expire_timestamp - $current_timestamp);
   }
 }

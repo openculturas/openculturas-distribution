@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openculturas_map\Plugin\Form\OpenCulturasMapFilterForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function in_array;
 use function is_array;
 
 /**
@@ -233,6 +234,18 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       }
     }
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags(): array {
+    $tags = parent::getCacheTags();
+    if (in_array($this->configuration['type'], ['locations', 'dates'])) {
+      $tags[] = 'config:views.view.oc_map_' . $this->configuration['type'];
+    }
+
+    return $tags;
   }
 
 }

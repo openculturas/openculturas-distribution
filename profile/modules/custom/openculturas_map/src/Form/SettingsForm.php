@@ -237,7 +237,12 @@ final class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('radius_base'),
       '#required' => TRUE,
     ];
-
+    $form['development_mode'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Development mode'),
+      '#default_value' => $config->get('development_mode'),
+      '#description' => $this->t('When enabled the credentials/cookies in fetch requests are not omitted. Otherwise basic auth would block the requests.'),
+    ];
     return parent::buildForm($form, $form_state);
 
   }
@@ -353,6 +358,7 @@ final class SettingsForm extends ConfigFormBase {
     $config->set('marker_cluster_anchor_popup_width', $form_state->getValue('marker_cluster_anchor_popup_width'));
     $config->set('marker_cluster_anchor_popup_height', $form_state->getValue('marker_cluster_anchor_popup_height'));
     $config->set('radius_base', $form_state->getValue('radius_base'));
+    $config->set('development_mode', $form_state->getValue('development_mode'));
     $config->save();
     parent::submitForm($form, $form_state);
   }

@@ -649,9 +649,6 @@
       if(typeof param !== "string") {
         throw "param needs to be a string";
       }
-      if(typeof value !== "string") {
-        throw "value needs to be a string";
-      }
 
       this._queryParams[param] = value;
       return this;
@@ -671,13 +668,24 @@
       return this;
     }
 
+    getQueryParam(param) {
+      return this._queryParams[param] ? this._queryParams[param] : false;
+    }
+
     get queryParams() {
       const queryParams = this._queryParams;
       if(!queryParams['_format']) {
         queryParams['_format'] = this.format;
       }
 
-      return Object.keys(queryParams).map((key) => [key, queryParams[key]].join("=")).join("&");
+      return Object.keys(queryParams).map((key) => {
+        const value = queryParams[key];
+        if (Array.isArray(value)) {
+          return value.map((val) => `${key}=${val}`).join("&");
+        } else {
+          return `${key}=${value}`;
+        }
+      }).join("&");
     }
 
     _validate() {
@@ -708,9 +716,10 @@
     async asyncResponse() {
       this._validate();
       this._buildFullUri();
-      if(this._fullUri !== this._lastFullUri) {
+      const development_mode = drupalSettings?.openCulturasMap?.global?.development_mode
+      if (this._fullUri !== this._lastFullUri) {
         this._lastFullUri = this._fullUri;
-        this._lastResponse = fetch(this._fullUri);
+        this._lastResponse = fetch(this._fullUri, development_mode ? {}: {credentials: 'omit'});
       }
 
       return this._lastResponse;
@@ -789,6 +798,10 @@
       }));
     }
 
+    getDateCount() {
+      return this._dates.size;
+    }
+
     parseHtml(html) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
@@ -797,6 +810,8 @@
         const dates = datesNode.innerHTML.split('<br>');
         dates.forEach(date => this.addDate(date));
       }
+
+      return this;
     }
 
     injectIntoHtml(html) {
@@ -833,11 +848,25 @@
               throw new Error("Invalid Format");
             })
             .then(clientResponse => {
-              return this.mapEntries(clientResponse);
+              return (clientResponse.length > 0) ? this.mapEntries(clientResponse) : new Drupal.OpenCulturasMapEntryCollection();
             })
             .catch(error => {
               console.error(error)
             });
+    }
+
+    async* asyncPagedMapEntries(page = 1) {
+      let currentPage = page;
+      while (true) {
+        super.addToQuery("page", `${currentPage}`);
+        const map = await this.asyncMapEntries();
+        if (map.size > 0) {
+          yield [currentPage, map];
+        } else {
+          return [currentPage, undefined];
+        }
+        currentPage++;
+      }
     }
 
     mapEntries(clientResponse) {
@@ -905,23 +934,48 @@
           throw new Error("Invalid Format");
         })
         .then(clientResponse => {
-          return this.mapEntries(clientResponse);
+          return (clientResponse.length > 0) ? this.mapEntries(clientResponse) : new Drupal.OpenCulturasMapEntryCollection();
         })
         .catch(error => {
           console.error(error)
         });
     }
 
+
+    async* asyncPagedMapEntries(page = 1) {
+      let currentPage = page;
+      while (true) {
+        super.addToQuery("page", `${currentPage}`);
+        const map = await this.asyncMapEntries();
+        if (map.size > 0) {
+          yield [currentPage, map];
+        } else {
+          return [currentPage, undefined];
+        }
+        currentPage++;
+      }
+    }
+
+
     mapEntries(clientResponse) {
       for(const location of clientResponse) {
         try {
           const data = this.createEntryData(location);
-          let marker = this.findExistingMarker(location) || this.createMarker(location, data);
+          const existingMarker = this.findExistingMarker(location);
+          let marker = existingMarker || this.createMarker(location, data);
           if(!marker) {
             continue;
           }
 
-          marker.popup_html = this.updatePopupHtml(marker, location);
+          const oldPopupHtml = marker.popup_html;
+          marker.oldlen = oldPopupHtml.length;
+          const newPopupHtml = this.updatePopupHtml(marker, location);
+          marker.newlen = newPopupHtml.length;
+
+          if(newPopupHtml.length > oldPopupHtml.length) {
+            marker.popup_html = newPopupHtml;
+          }
+
           const entry = this.createEntry(location, data, marker);
 
           this._collection.set(location.field_id, entry);
@@ -1212,6 +1266,9 @@
         },
       }
 
+      this._oldFilter = null;
+      this._newFilter = null;
+
       this._init();
     }
 
@@ -1231,6 +1288,9 @@
       if(this.resultsElement) {
         this.resultsElement.replaceChildren();
       }
+
+      this._renderResultCounter(0,0,0);
+      this.pagerElement.replaceChildren();
     }
 
     _renderPager() {
@@ -1240,7 +1300,7 @@
       }
     }
 
-    _renderPagedResults(collection = null) {
+    _renderPagedResults(collection = null, clearResults = false) {
       if(collection === null) {
         collection = this.pager.collection;
       } else {
@@ -1264,14 +1324,22 @@
         }
       }
 
-      this._renderResults(collection);
+      this._renderResults(collection, clearResults);
+      this.renderCollectionResultCounter(collection);
+    }
+
+    renderCollectionResultCounter(collection = null) {
+      if(collection === null) {
+        collection = this.pager.collection;
+      }
       this._renderResultCounter(this.offset+1, (this.limit+this.offset === 0) ? collection.size : Math.min(this.limit+this.offset, collection.size), collection.size);
     }
 
-    _renderResults(collection = null) {
-
+    _renderResults(collection = null, clearResults = false) {
       if(this.resultsElement) {
-        this.resultsElement.replaceChildren();
+        if(clearResults) {
+          this.resultsElement.replaceChildren();
+        }
 
         let index = 0;
         for(const [id, entry] of collection) {
@@ -1288,22 +1356,42 @@
 
           const result = entry.result;
           Drupal.attachBehaviors(result.node);
-          this.resultsElement.appendChild(result.node);
+
+          if(!this.resultsElement.contains(result.node)) {
+            this.resultsElement.appendChild(result.node);
+          }
+
+
           index++;
         }
       }
     }
 
-    _renderResultCounter(start, end, size) {
-      const resultsCount = this._entryCollection.size;
-      const counterElement = document.querySelector('.openculturas-map--results-counter');
+    trackOldFilter(filter) {
+      this._oldFilter = filter;
+    }
 
+    trackNewFilter(filter) {
+      this._newFilter = filter;
+    }
+
+    untrackFilters() {
+      this._oldFilter = null;
+      this._newFilter = null;
+    }
+
+    setResultCounterBusy(bool = true) {
+      this.counterElement.setAttribute('aria-busy', `${bool}`);
+    }
+
+    _renderResultCounter(start, end, size) {
+      const resultsCount = this._entryCollection?.size ?? 0;
+      const counterElement = document.querySelector('.openculturas-map--results-counter');
       if(size < 1) {
-        counterElement.innerText = Drupal.t("No results.");
+        counterElement.innerText = Drupal.t("Searching...");
       } else {
         counterElement.innerHTML = Drupal.t('Displaying <strong>@start – @end</strong> of <strong>@total</strong>', {'@start': start, '@end': end, '@total': size});
       }
-
     }
 
     _clearMarker() {
@@ -1314,7 +1402,6 @@
       this.stopWaiting();
       this._clearMarker();
       this._clearResults();
-      //this.mapInstance.setView(L.latLng(this.coords.origin.lat, this.coords.origin.lng), this.zoom.origin);
     }
 
     setView(lat, lng, zoom = false) {
@@ -1370,17 +1457,24 @@
     }
 
     _renderMarker() {
-      const renderedMarkers = this._getRenderedMarkers();
+      let renderedMarkers = this._getRenderedMarkers();
       const renderedMarkerIds = Object.keys(renderedMarkers);
       let addedMarkerIds = [];
-
+      let addedMarkerPopupLengths = new Map();
       for(const [id, entry] of this._entryCollection) {
-        if(
-          (renderedMarkerIds && renderedMarkerIds.includes(String(entry.data.marker_id)))
-          ||
+
+        if (
+          (renderedMarkerIds && renderedMarkerIds.includes(String(entry.data.marker_id))) ||
           addedMarkerIds.includes(String(entry.data.marker_id))
         ) {
-          continue;
+          const existingMarker = renderedMarkers[entry.data.marker_id];
+          const newMarkerDates = new Drupal.OpenCulturasMapUpcomingDates().parseHtml(entry.marker.popup_html).getDateCount();
+          if (existingMarker && new Drupal.OpenCulturasMapUpcomingDates().parseHtml(existingMarker._popup._content).getDateCount() < newMarkerDates) {
+            this.markerCluster.group.removeLayer(existingMarker);
+            renderedMarkers = this._getRenderedMarkers();
+          } else {
+            continue;
+          }
         }
 
         addedMarkerIds.push(String(entry.data.marker_id));
@@ -1405,7 +1499,15 @@
       this.wrapperElement.dataset.reloadInteraction = "";
     }
 
-    render(render = false) {
+    isWaiting() {
+      return this.reloadInteraction;
+    }
+
+    isDirty() {
+      return this.wrapperElement.dataset.dirty === "true";
+    }
+
+    render(render = false, clearResults = false) {
       if(!this._entryCollection || !(this._entryCollection instanceof Drupal.OpenCulturasMapEntryCollection)) {
         throw "invalid entryCollection, expected Drupal.OpenCulturasMapEntryCollection";
       }
@@ -1413,7 +1515,7 @@
       if(this.reloadInteraction === false) {
         render = true;
       } else {
-        if(this._entryCollection.size > 0 && this._renderedEntryCollection.hash !== this._entryCollection.hash) {
+        if(this._entryCollection.size > 0 && this._renderedEntryCollection.hash !== this._entryCollection.hash && this.resultsElement.children.length > 0) {
           this.wrapperElement.dataset.dirty = "true";
         } else {
           this.wrapperElement.dataset.dirty = "";
@@ -1422,13 +1524,12 @@
 
       this._renderMarker();
 
-      if(!render) {
+      if(!render && this.resultsElement.children.length > 0) {
         console.debug("skipping render of results");
         //this._renderPagedResults(this._renderedEntryCollection);
         return;
       }
-
-      this._renderPagedResults(this._entryCollection);
+      this._renderPagedResults(this._entryCollection, clearResults);
       this._renderedEntryCollection = this._entryCollection;
     }
 
@@ -1683,7 +1784,7 @@
 
     _onResultReloadClick(event) {
       this.stopWaiting();
-      this.render();
+      this.render(false, true);
       this.waitForInteraction();
     }
 
@@ -1696,7 +1797,7 @@
       if(!newPage) { return; }
 
       this.pager.page = parseInt(newPage);
-      this._renderPagedResults();
+      this._renderPagedResults(null, true);
 
       if(this.counterElement) {
         this.counterElement.scrollIntoView();
@@ -1732,7 +1833,7 @@
 
     _onPerPageChange(event) {
       if(this.pager && this.pager.collection) {
-        this._renderPagedResults();
+        this._renderPagedResults(null, true);
       }
     }
 

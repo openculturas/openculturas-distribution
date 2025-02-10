@@ -6,43 +6,6 @@
       opacity: 1;
     }
   }
-  // Loading indicator
-  &[aria-busy=true] {
-    .openculturas-map--leaflet {
-        &::before {
-        content: '';
-        position: absolute;
-        z-index: 401;
-        left: calc(50% - 1rem);
-        top: calc(50% - 1rem);
-        // always visible for testing
-        //left: 10px;
-        //top: auto;
-        // bottom: 10px;
-
-        // Progress indicator thanks to
-        // Vineeth.TR published unter MIT license on https://cssloaders.github.io/
-        // todo: decide spinner type and put in mixin (use generic classes for broader use)
-        height: 2rem;
-        width: 2rem;
-        border: 4px solid $color-info;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-      }
-    }
-
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  }
 }
 
 // Reload (results update) button on map
@@ -94,6 +57,40 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: calc($grid-gutter * 2);
+}
+
+
+.openculturas-map:not([data-dirty=true]) {
+  .openculturas-map--results-counter {
+    // Loading indicator
+    &[aria-busy=true] {
+      &::after {
+        content: '';
+        z-index: 401;
+        // Progress indicator thanks to
+        // Vineeth.TR published unter MIT license on https://cssloaders.github.io/
+        // todo: decide spinner type and put in mixin (use generic classes for broader use)
+        height: 0.75rem;
+        width: 0.75rem;
+        margin-left: 0.75rem;
+        border: 2px solid $color-info;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
 }
 
 .openculturas-map--results-list > div {

@@ -6,10 +6,10 @@
 
   Drupal.OpenCulturasMapBlock = class {
     constructor(mapBlockElement, callback) {
-      if(!mapBlockElement) {
+      if (!mapBlockElement) {
         throw "mapBlockElement needed!"
       }
-      if(!callback && typeof callback !== "function") {
+      if (!callback && typeof callback !== "function") {
         throw "callback function needed!"
       }
       this._mapBlockElement = mapBlockElement;
@@ -25,35 +25,52 @@
     }
 
     _initFilter() {
-      if(!this._filterElement) return;
-      this._filterElement.addEventListener(`submit`, function(event) {
+      if (!this._filterElement) return;
+      this._filterElement.addEventListener(`submit`, function (event) {
         event.preventDefault();
         this._filter = {};
         const inputElements = this._filterElement.querySelectorAll("input[type='text'], select, input[type='checkbox'], input[type='date']");
-        for(const inputElement of inputElements) {
-
-          if(event.submitter && event.submitter.id && event.submitter.id.startsWith("edit-reset") && inputElement) {
+        for (const inputElement of inputElements) {
+          if (event.submitter && event.submitter.id && event.submitter.id.startsWith("edit-reset") && inputElement) {
             inputElement.value = '';
-              if(inputElement.checked && inputElement.checked === true) {
-                inputElement.value = '';
-                inputElement.checked = false;
+            if (inputElement.checked && inputElement.checked === true) {
+              inputElement.value = '';
+              inputElement.checked = false;
+            }
+            if (inputElement.type === 'select-one') {
+              for (const option of inputElement.options) {
+                if (option.value.toLowerCase() === 'all') {
+                  option.selected = true;
+                }
               }
+            }
           }
 
-          if(inputElement && inputElement.type === 'checkbox') {
+          if (inputElement && inputElement.type === 'checkbox') {
             inputElement.value = (inputElement.checked) ? 1 : '';
           }
 
-          if(inputElement && inputElement.value) {
+          if (inputElement && inputElement.value) {
+
+            if (inputElement.multiple && inputElement.selectedOptions) {
+              this._filter[inputElement.name] = [];
+              for (const selectedOption of inputElement.selectedOptions) {
+                if (selectedOption.value) {
+                  this._filter[inputElement.name].push(selectedOption.value);
+                }
+              }
+            } else {
               this._filter[inputElement.name] = inputElement.value;
+            }
+
+
           }
 
-          if(inputElement.classList.contains('slimselect')) {
+          if (inputElement.classList.contains('slimselect')) {
             inputElement.dispatchEvent(new CustomEvent('change'))
           }
         }
-
-        this._callback();
+        this._callback(event);
       }.bind(this));
     }
 
@@ -62,7 +79,7 @@
     }
 
     set filterElement(filterElement) {
-      if(!filterElement) return;
+      if (!filterElement) return;
       this._filterElement = filterElement;
       this._initFilter();
     }
@@ -95,35 +112,37 @@
     // Drupal base function, runs when the behaviour is attached
     attach: function (context, settings) {
       once('init-openculturas-map-block', this.mapSelector, context).forEach((openculturasMapElement) => {
-        const openCulturasMapBlock = new Drupal.OpenCulturasMapBlock(openculturasMapElement, function(event) {
+        let currentFetchOperation = {isActive: false};
+        const openCulturasMapBlock = new Drupal.OpenCulturasMapBlock(openculturasMapElement, function (event) {
+          const originUrlParams = new URLSearchParams(window.location.search);
+          const originUrlParamEntries = originUrlParams.entries();
           const mapType = openculturasMapElement.dataset.type;
 
           const mapInstance = this.mapInstance;
           const settings = this.mapInstance.settings;
 
-
           const locationsClient = new Drupal.OpenCulturasMapLocationsClient();
           const datesClient = new Drupal.OpenCulturasMapDatesClient();
 
           let client;
-          if(settings.get('type') === 'locations') {
+          if (settings.get('type') === 'locations') {
             client = locationsClient;
-          } else if(settings.get('type') === 'dates') {
+          } else if (settings.get('type') === 'dates') {
             client = datesClient;
           } else {
             throw "No client found for type " + settings.get('type');
           }
 
           let fetchNew = true;
-          if(!event) {
+          if (!event || (event && event.type !== 'newcoords')) {
             // Without Map Move
           } else {
-            if(event.detail.distances.pixels < 80 && event.detail.oldCoords.zoom === event.detail.zoom) {
+            if (event.detail.distances.pixels < 80 && event.detail.oldCoords.zoom === event.detail.zoom) {
               fetchNew = false;
             }
           }
 
-          if(
+          if (
             mapInstance
             && mapInstance.radius[mapInstance.zoom.map]
             && mapInstance.coords.map.lat
@@ -136,36 +155,77 @@
               .addToQuery("proximity[origin][lon]", String(mapInstance.coords.map.lng))
           }
 
-          if(this._filter) {
-            for(const [filterKey, filterValue] of Object.entries(this._filter)) {
+          if (this._filter) {
+            for (const [filterKey, filterValue] of Object.entries(this._filter)) {
               client.addToQuery(filterKey, filterValue);
             }
-
-            if(JSON.stringify(this._filter) === "{}") {
-              if(!event) {
-                this.mapInstance.clear();
-                this.mapInstance.toOrigin();
-              }
-            } else if(JSON.stringify(this._filter) !== JSON.stringify(this._renderedFilter)) {
+            if (event && event.type === 'submit' && event.submitter.id.startsWith("edit-reset")) {
+              this.mapInstance.clear();
+            } else if (JSON.stringify(this._filter) !== JSON.stringify(this._renderedFilter)) {
+              mapInstance.trackOldFilter(this._renderedFilter);
+              mapInstance.trackNewFilter(this._filter);
               this.mapInstance.clear();
               this._renderedFilter = this._filter;
             }
-          }
 
-          if(fetchNew) {
-            openculturasMapElement.dataset.loading = true;
-            openculturasMapElement.setAttribute("aria-busy", "true");
-            client.asyncMapEntries()
-              .then(mapEntries => {
-                openculturasMapElement.dataset.loading = false;
-                openculturasMapElement.setAttribute("aria-busy", "false");
-                mapInstance.withEntryCollection(mapEntries).render();
-                if(mapInstance.settings.get('refresh_results_on_user_interaction')) {
-                  mapInstance.waitForInteraction();
+            mapInstance.untrackFilters();
+          }
+          else if(originUrlParamEntries) {
+            for(const [originUrlParamEntryKey, originUrlParamEntryValue] of originUrlParamEntries) {
+              if(client.getQueryParam(originUrlParamEntryKey)) {
+                if(!Array.isArray(client.getQueryParam(originUrlParamEntryKey))) {
+                  client.addToQuery(originUrlParamEntryKey, [client.getQueryParam(originUrlParamEntryKey)]);
                 }
-              })
+                client.addToQuery(originUrlParamEntryKey, [originUrlParamEntryValue, ...client.getQueryParam(originUrlParamEntryKey)])
+              } else {
+                client.addToQuery(originUrlParamEntryKey, originUrlParamEntryValue);
+              }
+            }
           }
+          if (fetchNew) {
+            // abort last fetch operation
+            currentFetchOperation.isActive = false;
 
+            // start new fetch operation
+            currentFetchOperation = {isActive: true};
+            const mapEntryPage = client.asyncPagedMapEntries(0);
+            const operation = currentFetchOperation;
+
+            mapInstance.setResultCounterBusy(
+              (!mapInstance.isWaiting() || !mapInstance.isDirty())
+            );
+
+            function processNextMapEntryPage(result) {
+              if (!result.done && operation.isActive) {
+                mapInstance.setResultCounterBusy(
+                  (!mapInstance.isWaiting() || !mapInstance.isDirty())
+                );
+                mapInstance.withEntryCollection(client._collection).render();
+                mapInstance._renderPagedResults();
+                mapEntryPage.next().then(processNextMapEntryPage.bind(this));
+              }
+
+              if (result.done || !operation.isActive) {
+                mapInstance.waitForInteraction();
+                mapInstance.setResultCounterBusy(false);
+              }
+
+              if(result.done && result.value[0] === 0) {
+
+                if((this._filter && JSON.stringify(this._filter) !== '{}' && JSON.stringify(this._filter) !== '{"a11y_features":"All"}')) {
+                  mapInstance._clearResults();
+                  mapInstance.counterElement.innerText = Drupal.t('No results');
+                } else {
+                  if(Object.keys(mapInstance._getRenderedMarkers()).length === 0) {
+                    mapInstance.counterElement.innerText = Drupal.t('No results');
+                  }
+                }
+
+              }
+            }
+
+            mapEntryPage.next().then(processNextMapEntryPage.bind(this));
+          }
 
         }).withFilter(openculturasMapElement.querySelector('form'));
       });

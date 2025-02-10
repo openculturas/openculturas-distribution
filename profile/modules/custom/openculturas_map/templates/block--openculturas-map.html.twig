@@ -32,7 +32,11 @@
     {% if configuration.show_results %}
       <div class="openculturas-map--results view-content">
         <div class="openculturas-map--results-header">
-          <div class="openculturas-map--results-counter"></div>
+          <div class="openculturas-map--results-counter">
+            {% trans %}
+            Searching...
+            {% endtrans %}
+          </div>
           {% if content.filter.form['#pager'].options.expose.items_per_page %}
             <div class="openculturas-map--results-picker">
               <label for="openculturas-map--results-picker-select--{{ configuration.identifier }}">{{ content.filter.form['#pager'].options.expose.items_per_page_label ? content.filter.form['#pager'].options.expose.items_per_page_label|trans : 'Items per page'|trans }}:</label>
