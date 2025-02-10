@@ -804,3 +804,46 @@ function openculturas_post_update_search_input_label(): void {
     $view->save();
   }
 }
+
+/**
+ * Revert view 'user_admin_people' to improve name filter.
+ */
+function openculturas_post_update_user_admin_people_add_realname(): string {
+  $full_config_names = [
+    'views.view.user_admin_people',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Unset the relationship of "last edit by" field in the content moderation view.
+ */
+function openculturas_post_update_content_moderation_revision_uid_relationship(): void {
+  $view = Views::getView('moderated_content');
+  if ($view) {
+    if ($view->setDisplay('default')) {
+      $display = $view->getDisplay();
+      $options = $display->getOption('fields');
+      if ($options['revision_uid']['relationship'] === 'nid') {
+        $options['revision_uid']['relationship'] = 'none';
+        $display->setOption('fields', $options);
+      }
+    }
+
+    $view->save();
+  }
+}

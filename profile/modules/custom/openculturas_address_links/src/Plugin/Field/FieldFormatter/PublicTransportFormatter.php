@@ -16,7 +16,7 @@ use Drupal\address\AddressInterface;
  *   },
  * )
  */
-final class PublicTransportFormatter extends AddressLinkFormatterBase {
+class PublicTransportFormatter extends AddressLinkFormatterBase {
 
   /**
    * {@inheritdoc}

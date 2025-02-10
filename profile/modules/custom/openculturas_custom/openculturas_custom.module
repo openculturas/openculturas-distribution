@@ -169,9 +169,9 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
       return;
     }
 
-    $property->setAccessible(TRUE);
     /** @var \Drupal\geofield\Plugin\GeofieldProximitySourceInterface $source_plugin */
     $source_plugin = $property->getValue($proximityFilter);
+    /** @var array $value */
     $value = $proximityFilter->value;
     $origin = $source_plugin->getOrigin();
     if (!empty($origin['lat']) && !empty($origin['lon'])) {
@@ -456,6 +456,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
                   $event->getEntityTypeId(),
                   $event->id(),
                   $flag->id(),
+                  'default',
                 ],
               ],
             ]);

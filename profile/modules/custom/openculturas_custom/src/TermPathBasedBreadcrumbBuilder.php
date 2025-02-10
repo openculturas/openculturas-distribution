@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\system\PathBasedBreadcrumbBuilder;
 use Drupal\taxonomy\TermBreadcrumbBuilder;
@@ -26,8 +27,8 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
   /**
    * {@inheritdoc}
    */
-  public function applies(RouteMatchInterface $route_match) {
-    return $this->breadcrumbBuilder->applies($route_match);
+  public function applies(RouteMatchInterface $route_match, ?CacheableMetadata $cacheable_metadata = NULL): bool {
+    return $this->breadcrumbBuilder->applies($route_match, $cacheable_metadata);
   }
 
   /**
