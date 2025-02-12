@@ -51,7 +51,6 @@ return RectorConfig::configure()
         __DIR__ . '/profile/'
       ],
       __DIR__ . '/profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php',
-      __DIR__ . '/profile/modules/custom/geofield_proximity_filter_extra/src/Controller/AutocompleteFiltersController.php',
       __DIR__ . '/profile/modules/custom/openculturas_faq/src/ProxyClass/OpenCulturasFaqUninstallValidator.php',
       __DIR__ . '/profile/modules/custom/openculturas_discussions/src/ProxyClass/OpenCulturasDiscussionsUninstallValidator.php',
     ]
