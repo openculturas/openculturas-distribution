@@ -20,8 +20,18 @@ stages:
 variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
 
+docker:base:
+  script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - echo $BASE_IMAGE_CI_REGISTRY_PASSWORD | docker login -u "$BASE_IMAGE_CI_REGISTRY_USER" --password-stdin $BASE_IMAGE_CI_REGISTRY
+    - docker build --file ./.gitlab/DockerfileBase --pull --rm --tag ${CI_REGISTRY_IMAGE}:base
+      --build-arg CI_PROJECT_NAME=${CI_PROJECT_NAME}
+      --secret id=BASICAUTH_PASSWORD
+      .
+    - docker push ${CI_REGISTRY_IMAGE}:base
+
 .composer:
-  image: $CLOUDRON_BASE_IMAGE
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:26cefb823c13afb9b79496df35e98ae89dfca09b3826e2fcff79df45b5adba82
   stage: validate
   needs:
     - docker:base
@@ -138,7 +148,7 @@ rector dry-run:
 #      codequality: [gl-code-quality-report.json]
 
 .npm:
-  image: $CLOUDRON_BASE_IMAGE
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:26cefb823c13afb9b79496df35e98ae89dfca09b3826e2fcff79df45b5adba82
   stage: validate
   extends: .validate_rules
   needs:

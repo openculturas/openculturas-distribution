@@ -1,21 +1,19 @@
-# syntax=docker/dockerfile:1@sha256:db1ff77fb637a5955317c7a3a62540196396d565f3dd5742e76dddbb6d75c4c5
+# syntax=docker/dockerfile:1@sha256:93bfd3b68c109427185cd78b4779fc82b484b0b7618e36d0f104d4d801e66d25
+# check=error=true
 
-ARG CI_REGISTRY_IMAGE
-FROM $CI_REGISTRY_IMAGE:base as base
-
-FROM base as build
+FROM registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:26cefb823c13afb9b79496df35e98ae89dfca09b3826e2fcff79df45b5adba82 AS build
 ARG APP_ENV
-ENV APP_ENV ${APP_ENV:-UNKNOWN}
-ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV APP_ENV=${APP_ENV:-UNKNOWN}
+ENV COMPOSER_ALLOW_SUPERUSER=1
 WORKDIR /build
 RUN --mount=type=cache,target=/root/.cache/composer --mount=type=cache,target=/root/.npm/_cacache --mount=type=bind,target=/build,readwrite \
   if [ "${APP_ENV:-}" = 'live' ]; then export NO_DEV=1; fi; \
   composer install --no-interaction --optimize-autoloader --no-progress --ansi ${NO_DEV:+--no-dev} && \
   cp -r /build/* /app/code >/dev/null
 
-FROM base
+FROM registry.cowain.dev/lvsn/openculturas-distribution:base
 ARG APP_ENV
-ENV APP_ENV ${APP_ENV:-UNKNOWN}
+ENV APP_ENV=${APP_ENV:-UNKNOWN}
 WORKDIR /app/code
 COPY --from=build --chown=cloudron:cloudron /app/code /app/code
 COPY ./.gitlab/cloudron.settings.php /app/code/web/sites/default/settings.php
