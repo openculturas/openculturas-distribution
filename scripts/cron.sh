@@ -7,10 +7,11 @@ if [[ -n ${DEBUG:-} ]]; then
   set -o xtrace
 fi
 
-readonly __DIR__="$(
+__DIR__="$(
   cd "$(dirname "${0}")"
   pwd
 )"
+readonly __DIR__
 readonly DOCROOT="$__DIR__/../web"
 
 _drush() {
