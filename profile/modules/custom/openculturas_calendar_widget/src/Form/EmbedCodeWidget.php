@@ -123,7 +123,7 @@ final class EmbedCodeWidget extends FormBase {
     }
 
     $element['code']['#value'] = <<<EOF
-<iframe id="calender-upcoming-dates" style="border: none" title="Upcoming dates" width="560" height="800" src="{$iframe_src}" />
+<iframe id="calender-upcoming-dates" style="border: none" title="Upcoming dates" width="560" height="800" src="{$iframe_src}"></iframe>
 EOF;
   }
 
