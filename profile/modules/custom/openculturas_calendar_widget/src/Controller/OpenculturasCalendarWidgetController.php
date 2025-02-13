@@ -133,8 +133,22 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     if ($limit_access) {
       $response->headers->set('Content-Security-Policy', ["frame-ancestors 'none'"]);
       if (is_string($hostname)) {
+        $uri_parts = parse_url($hostname);
+        if ($uri_parts === FALSE) {
+          return $response;
+        }
+
+        $scheme = $uri_parts['scheme'] ?? NULL;
+        $host = $uri_parts['host'] ?? NULL;
+        if (!$scheme || !$host) {
+          return $response;
+        }
+
+        // Input could be https://example.org/path, which is not valid as frame ancestor.
+        $hostname = sprintf('%s://%s', $scheme, $host);
         if ($wildcard) {
-          $hostname = sprintf('%s %s://*.%s', $hostname, parse_url($hostname, PHP_URL_SCHEME), parse_url($hostname, PHP_URL_HOST));
+          // Append a variant with wildcard-domain.
+          $hostname .= sprintf(' %s://*.%s', $scheme, $host);
         }
 
         $response->headers->set('Content-Security-Policy', [sprintf('frame-ancestors %s', $hostname)]);
