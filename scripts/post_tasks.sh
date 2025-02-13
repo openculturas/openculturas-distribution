@@ -8,10 +8,11 @@ if [[ -n ${DEBUG:-} ]]; then
   set -o xtrace
 fi
 
-readonly __DIR__="$(
+__DIR__="$(
   cd "$(dirname "${0}")"
   pwd
 )"
+readonly __DIR__
 
 _drush() {
   PATH="$__DIR__/../vendor/bin:$__DIR__/../bin:$PATH"
@@ -25,11 +26,11 @@ main() {
   if [[ -n ${CLOUDRON:-} ]]; then
     mkdir -p /app/data/private
     mkdir -p /app/data/files/translations
-    chown -R www-data.www-data /app/data
+    chown -R www-data:www-data /app/data
   fi
   _drush deploy
   if [[ -n ${CLOUDRON:-} ]]; then
-    chown -R www-data.www-data /app/data
+    chown -R www-data:www-data /app/data
   fi
 }
 
