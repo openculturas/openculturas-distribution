@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.search_index
     - field.storage.node.field_accessibility
+    - field.storage.node.field_alternative_title
     - field.storage.node.field_category
     - field.storage.node.field_sub_type
     - field.storage.node.field_subtitle
@@ -50,6 +51,15 @@ field_settings:
         - field.storage.paragraph.field_a11y_features
       module:
         - paragraphs
+  field_alternative_title:
+    label: 'Alternative location name'
+    datasource_id: 'entity:node'
+    property_path: field_alternative_title
+    type: text
+    boost: 13.0
+    dependencies:
+      config:
+        - field.storage.node.field_alternative_title
   field_category:
     label: 'Focus (facet)'
     datasource_id: 'entity:node'
@@ -134,6 +144,7 @@ processor_settings:
     fields:
       - category_name
       - field_a11y_features
+      - field_alternative_title
       - field_sub_type
       - field_subtitle
       - rendered_item
@@ -153,6 +164,7 @@ processor_settings:
     fields:
       - category_name
       - field_a11y_features
+      - field_alternative_title
       - field_sub_type
       - field_subtitle
       - rendered_item
@@ -171,6 +183,7 @@ tracker_settings:
     indexing_order: lifo
 options:
   cron_limit: 50
+  delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
 server: content

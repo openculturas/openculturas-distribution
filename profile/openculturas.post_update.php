@@ -12,6 +12,7 @@ use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\block\BlockInterface;
 use Drupal\content_translation\BundleTranslationSettingsInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\search_api\Entity\Index;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
@@ -846,4 +847,118 @@ function openculturas_post_update_content_moderation_revision_uid_relationship()
 
     $view->save();
   }
+}
+
+/**
+ * Adds the new field field_alternative_title.
+ */
+function openculturas_post_update_add_field_alternative_title(): string {
+  $full_config_names = [
+    'field.storage.node.field_alternative_title',
+    'field.field.node.profile.field_alternative_title',
+    'field.field.node.location.field_alternative_title',
+  ];
+  $fieldStorage = FieldStorageConfig::loadByName('node', 'field_alternative_title');
+  if ($fieldStorage) {
+    unset($full_config_names[array_search('field.storage.node.field_alternative_title', $full_config_names, TRUE)]);
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('node', 'location', 'field_alternative_title');
+  if ($field) {
+    unset($full_config_names[array_search('field.field.node.location.field_alternative_title', $full_config_names, TRUE)]);
+  }
+
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('node', 'profile', 'field_alternative_title');
+  if ($field) {
+    unset($full_config_names[array_search('field.field.node.profile.field_alternative_title', $full_config_names, TRUE)]);
+  }
+
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $bundles = ['location', 'profile'];
+  foreach ($bundles as $bundle) {
+    $viewDisplay = $entityDisplayRepository->getViewDisplay('node', $bundle, 'search_index');
+    if (!$viewDisplay->isNew()) {
+      $options = [
+        'type' => 'string',
+        'label' => 'hidden',
+        'settings' => [
+          'link_to_entity' => FALSE,
+        ],
+      ];
+      $viewDisplay->setComponent('field_alternative_title', $options);
+      $viewDisplay->save();
+    }
+  }
+
+  /** @var \Drupal\search_api\Utility\FieldsHelperInterface $fieldsHelper */
+  $fieldsHelper = \Drupal::service('search_api.fields_helper');
+  /** @var Drupal\search_api\Entity\SearchApiConfigEntityStorage $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage('search_api_index');
+  /** @var \Drupal\search_api\IndexInterface|null $index */
+  $index = $storage->load('content');
+  if ($index) {
+    $field = $index->getField('field_alternative_title');
+    if ($field === NULL) {
+      $new_field = $fieldsHelper->createField($index, 'field_alternative_title');
+      $new_field->setBoost(13.0);
+      $new_field->setLabel('Alternative location name');
+      $new_field->setType('text');
+      $new_field->setDatasourceId('entity:node');
+      $new_field->setPropertyPath('field_alternative_title');
+      $index->addField($new_field);
+      $index->save();
+
+      $view = Views::getView('search');
+      $set_field = static function ($display): void {
+        $filters = $display->getOption('filters');
+        $filter_options = &$filters['search_api_fulltext'];
+        if ($filter_options) {
+          $filter_options['fields'][] = 'field_alternative_title';
+          $filter_options['fields'] = array_values(array_unique($filter_options['fields']));
+          $display->setOption('filters', $filters);
+        }
+      };
+      if ($view) {
+        if ($view->setDisplay('default')) {
+          $display = $view->getDisplay();
+          /** @var \Drupal\views\Plugin\views\ViewsHandlerInterface|null $handler */
+          $handler = &$display->getHandler('filter', 'search_api_fulltext');
+          if ($handler) {
+            $set_field($display);
+          }
+        }
+
+        if ($view->setDisplay('search_input')) {
+          $display = $view->getDisplay();
+          /** @var \Drupal\views\Plugin\views\ViewsHandlerInterface|null $handler */
+          $handler = &$display->getHandler('filter', 'search_api_fulltext');
+          if ($handler) {
+            $set_field($display);
+          }
+        }
+
+        $view->save();
+      }
+    }
+  }
+
+  return $logger->output();
 }

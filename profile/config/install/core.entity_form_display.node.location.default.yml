@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.location.field_additional_information
     - field.field.node.location.field_address_data
     - field.field.node.location.field_allow_claiming
+    - field.field.node.location.field_alternative_title
     - field.field.node.location.field_category
     - field.field.node.location.field_contact_data
     - field.field.node.location.field_gallery
@@ -148,6 +149,7 @@ third_party_settings:
         - field_safety_info
         - field_additional_information
         - field_press_quotes
+        - field_alternative_title
       label: Advanced
       region: content
       parent_name: group_location_tabs_container
@@ -244,7 +246,7 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 37
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -269,7 +271,7 @@ content:
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
-    weight: 4
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -303,6 +305,14 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_alternative_title:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_category:
     type: choices_widget
@@ -365,6 +375,7 @@ content:
     region: content
     settings:
       collapsed: false
+      collapsed_exceptions: true
     third_party_settings: {  }
   field_opening_hours:
     type: text_textarea
@@ -407,7 +418,7 @@ content:
         show_edit: '1'
   field_press_quotes:
     type: paragraphs
-    weight: 5
+    weight: 4
     region: content
     settings:
       title: 'Press quote'
@@ -434,7 +445,7 @@ content:
     third_party_settings: {  }
   field_safety_info:
     type: text_textarea
-    weight: 3
+    weight: 2
     region: content
     settings:
       rows: 5
@@ -481,7 +492,7 @@ content:
         show_edit: '1'
   langcode:
     type: language_select
-    weight: 35
+    weight: 2
     region: content
     settings:
       include_locked: true
@@ -494,19 +505,19 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 40
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 38
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 42
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -519,7 +530,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 39
+    weight: 7
     region: content
     settings:
       display_label: true
@@ -539,7 +550,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 36
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -548,7 +559,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 41
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }

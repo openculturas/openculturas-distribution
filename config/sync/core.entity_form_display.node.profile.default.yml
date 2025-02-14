@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.profile.body
     - field.field.node.profile.field_address_data
     - field.field.node.profile.field_allow_claiming
+    - field.field.node.profile.field_alternative_title
     - field.field.node.profile.field_badges
     - field.field.node.profile.field_category
     - field.field.node.profile.field_comments
@@ -146,6 +147,7 @@ third_party_settings:
     group_profile_tab_advanced:
       children:
         - field_press_quotes
+        - field_alternative_title
         - field_section
       label: Advanced
       region: content
@@ -238,6 +240,14 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_alternative_title:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_badges:
     type: options_buttons
@@ -412,7 +422,7 @@ content:
             selector: ''
   field_section:
     type: options_buttons
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -458,7 +468,7 @@ content:
         hide_guidelines: '0'
   langcode:
     type: language_select
-    weight: 5
+    weight: 6
     region: content
     settings:
       include_locked: true
@@ -471,19 +481,19 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -496,7 +506,7 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 9
+    weight: 10
     region: content
     settings:
       display_label: true
@@ -525,7 +535,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
