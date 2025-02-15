@@ -43,6 +43,7 @@ t('My content', [], ['context' => 'field_group_label']);
 t('My interests', [], ['context' => 'field_group_label']);
 t('My profiles', [], ['context' => 'field_group_label']);
 t('My profiles + locations', [], ['context' => 'field_group_label']);
+t('Opening hours', [], ['context' => 'field_group_label']);
 t('Organizer', [], ['context' => 'field_group_label']);
 t('Organizers', [], ['context' => 'field_group_label']);
 t('Pages', [], ['context' => 'field_group_label']);
