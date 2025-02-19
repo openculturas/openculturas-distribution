@@ -390,6 +390,27 @@ code: |-
     padding-left: .25rem;
     color: var(--gin-color-primary)
   }
+
+  /* Radio + checkbox fields more compact */
+
+  .node-form .form-radios {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0 var(--gin-spacing-density-l);
+  }
+
+  @media screen and (min-width: 48rem) {
+    .node-form .form-checkboxes:has(.form-type--checkbox:nth-child(5)) {
+      column-count: 2;
+      column-gap: var(--gin-spacing-density-l);
+    }
+  }
+
+  /* OSM module: hide uninformative field (widget) label */
+
+  .field--type-osm-id > fieldset > legend {
+    display: none;
+  }
 media: all
 preprocess: false
 conditions:

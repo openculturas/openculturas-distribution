@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.location.field_mood_image
     - field.field.node.location.field_office_hours
     - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_osm_id
     - field.field.node.location.field_past_dates_view_ref
     - field.field.node.location.field_people_reference
     - field.field.node.location.field_portrait
@@ -44,6 +45,7 @@ dependencies:
     - media_library
     - media_library_edit
     - office_hours
+    - openculturas_openstreetmap
     - paragraphs
     - path
     - text
@@ -222,6 +224,23 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
+    group_openstreetmap:
+      children:
+        - field_osm_id
+      label: OpenStreetMap
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+        weight: 0
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -269,11 +288,9 @@ content:
       closed_mode_threshold: 0
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: _none
+      default_paragraph_type: a11y_wheelchair
       features:
-        add_above: '0'
         collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
     third_party_settings: {  }
   field_additional_information:
     type: text_textarea
@@ -400,6 +417,12 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
+  field_osm_id:
+    type: osm_id_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_people_reference:
     type: paragraphs
     weight: 36

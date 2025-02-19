@@ -36,6 +36,7 @@ dependencies:
     - entity_reference_revisions
     - field_formatter_class
     - field_group
+    - office_hours
     - swiffy_slider
     - text
     - user
@@ -61,7 +62,7 @@ third_party_settings:
       children:
         - field_contact_data
         - field_address_data
-        - field_opening_hours
+        - group_opening_hours
         - field_safety_info
       label: 'Address and contact'
       parent_name: ''
@@ -288,11 +289,12 @@ third_party_settings:
         required_fields: false
     group_opening_hours:
       children:
+        - field_opening_hours
         - field_office_hours
       label: 'Opening hours'
-      parent_name: ''
-      region: hidden
-      weight: 0
+      parent_name: group_address_contact_info
+      region: content
+      weight: 24
       format_type: html_element
       format_settings:
         classes: ''
@@ -411,12 +413,50 @@ content:
         class: ''
     weight: 12
     region: content
+  field_office_hours:
+    type: office_hours_table
+    label: hidden
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_empty: false
+      show_closed: all
+      closed_format: Closed
+      all_day_format: 'Open all day'
+      separator:
+        days: '<br>'
+        grouped_days: '&nbsp;–&nbsp;'
+        day_hours: ': '
+        hours_hours: '&nbsp;–&nbsp;'
+        more_hours: ', '
+      current_status:
+        position: before
+        open_text: 'Currently open'
+        closed_text: 'Currently closed'
+      exceptions:
+        title: Exceptions
+        replace_exceptions: false
+        restrict_exceptions_to_num_days: 365
+        restrict_seasons_to_num_days: 366
+        date_format: site_default_date
+        all_day_format: 'Open all day'
+      timezone_field: ''
+      office_hours_first_day: ''
+      schema:
+        enabled: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 24
+    region: content
   field_opening_hours:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 24
+    weight: 23
     region: content
   field_people_reference:
     type: entity_reference_revisions_entity_view
@@ -535,7 +575,6 @@ hidden:
   field_allow_claiming: true
   field_alternative_title: true
   field_mood_image: true
-  field_office_hours: true
   field_past_dates_view_ref: true
   field_sub_type: true
   field_subtitle: true

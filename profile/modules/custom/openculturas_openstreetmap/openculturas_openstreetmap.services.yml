@@ -1,0 +1,27 @@
+services:
+  _defaults:
+    autoconfigure: true
+  openculturas_openstreetmap.addressLookup:
+    class: Drupal\openculturas_openstreetmap\AddressLookup
+    autowire: true
+  Drupal\openculturas_openstreetmap\AddressLookup: '@openculturas_openstreetmap.addressLookup'
+
+  openculturas_openstreetmap.event_subscriber:
+    class: Drupal\openculturas_openstreetmap\EventSubscriber\OpenculturasOpenStreetMapSubscriber
+    autowire: true
+    tags:
+      - { name: event_subscriber }
+
+  openculturas_openstreetmap.api_client:
+    class: Drupal\openculturas_openstreetmap\OpenStreetMap\ApiClient
+    autowire: true
+  Drupal\openculturas_openstreetmap\OpenStreetMap\ApiClient: '@openculturas_openstreetmap.api_client'
+
+  openculturas_openstreetmap.search:
+    class: Drupal\openculturas_openstreetmap\PhotonSearch
+    autowire: true
+  Drupal\openculturas_openstreetmap\PhotonSearch: '@openculturas_openstreetmap.search'
+
+  logger.channel.openculturas_openstreetmap:
+    parent: logger.channel_base
+    arguments: ['openculturas_openstreetmap']

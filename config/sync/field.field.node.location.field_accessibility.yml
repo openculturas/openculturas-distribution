@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_accessibility
     - node.type.location
+    - paragraphs.paragraphs_type.a11y_wheelchair
     - paragraphs.paragraphs_type.accessibility
   module:
     - entity_reference_revisions
@@ -19,34 +20,96 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:paragraph'
+  handler: paragraphs_limits
   handler_settings:
     target_bundles:
+      a11y_wheelchair: a11y_wheelchair
       accessibility: accessibility
     negate: 0
     target_bundles_drag_drop:
-      accessibility:
-        weight: 5
+      a11y_wheelchair:
+        weight: -35
         enabled: true
+        lower_limit: 0
+        upper_limit: 1
+      accessibility:
+        weight: -34
+        enabled: true
+        lower_limit: 0
+        upper_limit: 1
       address_data:
-        weight: 6
+        weight: -33
         enabled: false
+        lower_limit: 0
+        upper_limit: 0
       contact_data:
-        weight: 7
+        weight: -32
         enabled: false
-      gallery:
-        weight: 12
-        enabled: false
-      media:
-        weight: 13
-        enabled: false
+        lower_limit: 0
+        upper_limit: 0
       member:
-        weight: 8
+        weight: -31
         enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      gallery:
+        weight: -30
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      media:
+        weight: -29
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
       text:
-        weight: 15
+        weight: -28
         enabled: false
+        lower_limit: 0
+        upper_limit: 0
       view:
-        weight: 16
+        weight: -27
         enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      block:
+        weight: -26
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      bookable_event:
+        weight: -25
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      download:
+        weight: -24
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      media_mention:
+        weight: -23
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      teaser_external:
+        weight: -22
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      teaser_node:
+        weight: -21
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      teaser_term:
+        weight: -20
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
+      teaser_wrapper:
+        weight: -19
+        enabled: false
+        lower_limit: 0
+        upper_limit: 0
 field_type: entity_reference_revisions

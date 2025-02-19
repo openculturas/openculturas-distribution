@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\block\BlockInterface;
 use Drupal\content_translation\BundleTranslationSettingsInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\paragraphs\Entity\ParagraphsType;
 use Drupal\search_api\Entity\Index;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
@@ -958,6 +960,107 @@ function openculturas_post_update_add_field_alternative_title(): string {
         $view->save();
       }
     }
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Setup new paragraphs type a11y_wheelchair.
+ */
+function openculturas_post_update_setup_paragraphs_type_a11y_wheelchair(): string {
+  $full_config_names = [];
+  /** @var \Drupal\paragraphs\ParagraphInterface|null $paragraphs_type */
+  $paragraphs_type = ParagraphsType::load('a11y_wheelchair');
+  if ($paragraphs_type === NULL) {
+    $full_config_names[] = 'paragraphs.paragraphs_type.a11y_wheelchair';
+    $full_config_names[] = 'core.entity_form_display.paragraph.a11y_wheelchair.default';
+    $full_config_names[] = 'core.entity_view_display.paragraph.a11y_wheelchair.default';
+  }
+
+  $fieldStorage = FieldStorageConfig::loadByName('paragraph', 'field_a11y_wheelchair');
+  if ($fieldStorage === NULL) {
+    $full_config_names[] = 'field.storage.paragraph.field_a11y_wheelchair';
+  }
+
+  $fieldStorage = FieldStorageConfig::loadByName('paragraph', 'field_a11y_toilets_wheelchair');
+  if ($fieldStorage === NULL) {
+    $full_config_names[] = 'field.storage.paragraph.field_a11y_toilets_wheelchair';
+  }
+
+  $field = FieldConfig::loadByName('paragraph', 'a11y_wheelchair', 'field_a11y_wheelchair');
+  if ($field === NULL) {
+    $full_config_names[] = 'field.field.paragraph.a11y_wheelchair.field_a11y_wheelchair';
+  }
+
+  $field = FieldConfig::loadByName('paragraph', 'a11y_wheelchair', 'field_a11y_toilets_wheelchair');
+  if ($field === NULL) {
+    $full_config_names[] = 'field.field.paragraph.a11y_wheelchair.field_a11y_toilets_wheelchair';
+  }
+
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  $full_config_names = ['field.field.node.location.field_accessibility', 'asset_injector.css.oc_gin_theme_overrides'];
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to revert %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  $fieldStorage = FieldStorageConfig::loadByName('node', 'field_accessibility');
+  if ($fieldStorage) {
+    $fieldStorage->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+    $fieldStorage->save();
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'location');
+  if (!$formDisplay->isNew()) {
+    $component = $formDisplay->getComponent('field_accessibility');
+    if ($component) {
+      $component['settings']['default_paragraph_type'] = 'a11y_wheelchair';
+      unset($component['settings']['features']['duplicate']);
+      $component['settings']['features'] = array_filter($component['settings']['features']);
+      $formDisplay->setComponent('field_accessibility', $component);
+      $formDisplay->save();
+    }
+  }
+
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load(RoleInterface::ANONYMOUS_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view paragraph content a11y_wheelchair');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('create paragraph content a11y_wheelchair');
+    $role->grantPermission('delete paragraph content a11y_wheelchair');
+    $role->grantPermission('update paragraph content a11y_wheelchair');
+    $role->grantPermission('view paragraph content a11y_wheelchair');
+    $role->save();
   }
 
   return $logger->output();

@@ -1,0 +1,36 @@
+
+field.value.osm_id:
+  type: mapping
+  label: OSM-ID
+  mapping:
+    value:
+      type: string
+      label: Value
+
+field.widget.settings.osm_id_default:
+  type: mapping
+  label: 'OSM-ID default widget settings'
+
+openculturas_openstreetmap.settings:
+  type: config_object
+  label: 'OpenCulturas OpenStreetMap settings'
+  mapping:
+    changeset_footer:
+      type: string
+      requiredKey: false
+    nominatim_email:
+      type: email
+      requiredKey: false
+    predefined_list:
+      type: string
+    bounds:
+      type: mapping
+      mapping:
+        west:
+          type: float
+        south:
+          type: float
+        east:
+          type: float
+        north:
+          type: float

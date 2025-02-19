@@ -1,0 +1,88 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update and uninstall functions for the OpenCulturas - OpenstreetMap module.
+ */
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function openculturas_openstreetmap_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('access openstreetmap push operation');
+    $role->grantPermission('administer oauth2 clients');
+    $role->grantPermission('administer openculturas_openstreetmap configuration');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_member');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('access openstreetmap push operation');
+    $role->save();
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'location');
+  if (!$formDisplay->isNew()) {
+    $group_administrative = $formDisplay->getThirdPartySetting('field_group', 'group_administrative');
+    $group_administrative_weight = (is_array($group_administrative) && isset($group_administrative['weight'])) ? $group_administrative['weight'] : $formDisplay->getHighestWeight();
+    $formDisplay->setComponent('field_osm_id', ['weight' => 1]);
+    $formDisplay->setThirdPartySetting('field_group', 'group_openstreetmap', [
+      'label' => 'OpenStreetMap',
+      'children' => ['field_osm_id'],
+      'format_type' => 'details_sidebar',
+      'parent_name' => '',
+      'region' => 'content',
+      'weight' => (int) $group_administrative_weight + 1,
+      'format_settings' => [
+        'classes' => '',
+        'id' => '',
+        'label_as_html' => FALSE,
+        'open' => FALSE,
+        'required_fields' => TRUE,
+        'description' => '',
+        'weight' => 0,
+        'show_empty_fields' => FALSE,
+      ],
+    ]);
+    $formDisplay->save();
+  }
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openculturas_openstreetmap_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'location');
+  if (!$formDisplay->isNew()) {
+    $group_openstreetmap = $formDisplay->getThirdPartySetting('field_group', 'group_openstreetmap');
+    if (is_array($group_openstreetmap) && isset($group_openstreetmap['children']) && is_array($group_openstreetmap['children']) && ($group_openstreetmap['children'] === [] || (count($group_openstreetmap['children']) === 1 && $group_openstreetmap['children'][0] === 'field_osm_id'))) {
+      $formDisplay->unsetThirdPartySetting('field_group', 'group_openstreetmap');
+      $formDisplay->save();
+    }
+  }
+
+}

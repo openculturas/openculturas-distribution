@@ -86,6 +86,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     )) {
       $this->excludeOpenCulturasDiscussions($event);
       $this->excludeOpenCulturasSection($event);
+      $this->excludeOpenCulturasOpenStreetmapModule($event);
     }
 
     // // @phpstan-ignore-next-line
@@ -285,6 +286,52 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['third_party_settings']['field_group']['group_comments'],
       $data['settings']['allowed_views']['related_comments'],
     );
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * OpenCulturas OpenStreetMap is an optional module.
+   */
+  private function excludeOpenCulturasOpenStreetmapModule(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    if (isset($data['dependencies']['module'])) {
+      foreach ($data['dependencies']['module'] as $index => $dependency) {
+        if ($dependency === 'oauth2_client' || $dependency === 'openculturas_openstreetmap') {
+          unset($data['dependencies']['module'][$index]);
+        }
+      }
+
+      $data['dependencies']['module'] = array_values($data['dependencies']['module']);
+    }
+
+    if (isset($data['dependencies']['config'])) {
+      foreach ($data['dependencies']['config'] as $index => $dependency) {
+        if ($dependency === 'field.field.node.location.field_osm_id') {
+          unset($data['dependencies']['config'][$index]);
+        }
+      }
+
+      $data['dependencies']['config'] = array_values($data['dependencies']['config']);
+    }
+
+    if (isset($data['permissions'])) {
+      foreach ($data['permissions'] as $index => $permission) {
+        if ($permission === 'access openstreetmap push operation' ||
+          $permission === 'administer openculturas_openstreetmap configuration' ||
+          $permission === 'administer oauth2 clients') {
+          unset($data['permissions'][$index]);
+        }
+      }
+
+      $data['permissions'] = array_values($data['permissions']);
+    }
+
+    unset(
+      $data['hidden']['field_osm_id'],
+      $data['third_party_settings']['field_group']['group_openstreetmap'],
+      $data['content']['field_osm_id'],
+    );
+
     $configDevelSaveEvent->setData($data);
   }
 

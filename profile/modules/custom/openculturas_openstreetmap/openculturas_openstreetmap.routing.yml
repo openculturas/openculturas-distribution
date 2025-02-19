@@ -1,0 +1,18 @@
+openculturas_openstreetmap.osm-finder-dialog.step:
+  path: '/openculturas-openstreetmap/{js}/osm-finder-dialog/{step}'
+  defaults:
+    _title: 'OpenStreetMap'
+    _wizard: '\Drupal\openculturas_openstreetmap\Wizard\OSMFormWizard'
+    tempstore_id: 'ctools.wizard.osmfinder'
+    machine_name: 'osmfinder'
+  requirements:
+    _permission: 'access content'
+    js: 'nojs|ajax'
+
+openculturas_openstreetmap.settings:
+  path: '/admin/config/services/openculturas_openstreetmap'
+  defaults:
+    _title: 'OpenCulturas OpenStreetMap settings'
+    _form: 'Drupal\openculturas_openstreetmap\Form\SettingsForm'
+  requirements:
+    _permission: 'administer openculturas_openstreetmap configuration'

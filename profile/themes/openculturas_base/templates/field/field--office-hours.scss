@@ -1,5 +1,5 @@
 .field--type-office-hours tbody th {
-  width: 22ch;
+  width: 12ch;
 }
 
 .office-hours-status {
@@ -9,5 +9,22 @@
 
   &.office-hours-status--open {
     color: var(--color-success);
+  }
+}
+
+.field--type-office-hours {
+  .field__items {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+  }
+
+  .field__item:has(.office-hours-status) {
+    flex-basis: 100%;
+  }
+
+  .field__item {
+    min-width: calc(50% - 1rem);
   }
 }

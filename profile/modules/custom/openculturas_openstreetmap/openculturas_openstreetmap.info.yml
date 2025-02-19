@@ -1,0 +1,22 @@
+name: 'OpenCulturas - OpenStreetMap'
+type: module
+core_version_requirement: ^10
+description: 'Exchange location data with openstreetmap.org'
+package: OpenCulturas
+version: 2.3.2
+project: openculturas
+lifecycle: experimental
+lifecycle_link: 'https://www.drupal.org/project/openculturas/issues/3507490'
+dependencies:
+  - 'key:key'
+  - 'oauth2_client:oauth2_client'
+
+configure: openculturas_openstreetmap.settings
+
+config_devel:
+  install:
+    - key.key.openstreetmap
+    - oauth2_client.oauth2_client.openstreetmap
+  optional:
+    - field.storage.node.field_osm_id
+    - field.field.node.location.field_osm_id
