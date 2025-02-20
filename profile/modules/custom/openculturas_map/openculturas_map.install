@@ -10,6 +10,8 @@ declare(strict_types=1);
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\user\RoleInterface;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
 
 /**
  * Implements hook_install().
@@ -74,4 +76,35 @@ function openculturas_map_uninstall(bool $is_syncing): void {
  */
 function openculturas_map_update_last_removed(): int {
   return 10002;
+}
+
+/**
+ * Set pager type of the rest export display to mini with 60 items.
+ */
+function openculturas_map_update_10003(): void {
+  $set_pager = static function (ViewExecutable $view): void {
+    $display = $view->getDisplay();
+    $pager_plugin_manager = Views::pluginManager('pager');
+    if ($pager_plugin_manager->hasDefinition('mini')) {
+      /** @var \Drupal\views\Plugin\views\pager\Mini $new_pager */
+      $new_pager = $pager_plugin_manager->createInstance('mini');
+      $new_pager->init($view, $display);
+      $new_pager->setItemsPerPage(60);
+      $display->setOption('pager', [
+        'type' => $new_pager->getPluginId(),
+        'options' => $new_pager->options,
+      ]);
+      $view->save();
+    }
+
+  };
+  $view = Views::getView('oc_map_locations');
+  if ($view && $view->setDisplay('rest_export')) {
+    $set_pager($view);
+  }
+
+  $view = Views::getView('oc_map_dates');
+  if ($view && $view->setDisplay('rest_export_1')) {
+    $set_pager($view);
+  }
 }
