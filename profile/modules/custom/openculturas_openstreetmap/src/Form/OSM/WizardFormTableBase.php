@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\openculturas_openstreetmap\Form\OSM;
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -37,6 +38,11 @@ abstract class WizardFormTableBase extends FormBase {
   protected RendererInterface $renderer;
 
   /**
+   * @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface
+   */
+  protected EntityDisplayRepositoryInterface $entityDisplayRepository;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): static {
@@ -45,6 +51,7 @@ abstract class WizardFormTableBase extends FormBase {
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->setStringTranslation($container->get('string_translation'));
     $instance->renderer = $container->get('renderer');
+    $instance->entityDisplayRepository = $container->get('entity_display.repository');
     return $instance;
   }
 
@@ -78,7 +85,8 @@ abstract class WizardFormTableBase extends FormBase {
     $node = NULL;
     if (isset($cached_values['node_id']) && is_numeric($cached_values['node_id'])) {
       $node_id = $cached_values['node_id'];
-      $node = $this->entityTypeManager->getStorage('node')->load((int) $node_id);
+      $node = $this->entityTypeManager->getStorage('node')
+        ->load((int) $node_id);
       if ($node instanceof NodeInterface && $node->bundle() === 'location') {
         $is_new = FALSE;
       }
@@ -92,102 +100,115 @@ abstract class WizardFormTableBase extends FormBase {
 
     $formatter = new StringFormatter();
 
-    $output_local = '';
-    $output_osm = sprintf('%s<br>%s', $location_name, $formatter->format($location, '%S %n<br> %z %L'));
+    $formDisplay = $this->entityDisplayRepository->getFormDisplay('node', 'location');
 
-    if ($node) {
-      $tags = DrupalToOpenStreetMapTransformer::fieldNameToTags('field_address_data');
-      $transformed_data = DrupalToOpenStreetMapTransformer::transformMultiple($node, $tags);
-      $output_local = sprintf('%s<br>%s', $transformed_data['name'], sprintf('%s %s<br> %s %s', $transformed_data['addr:street'], $transformed_data['addr:housenumber'], $transformed_data['addr:postcode'], $transformed_data['addr:city']));
-    }
+    $field_name = 'field_address_data';
+    if ($formDisplay->getComponent($field_name)) {
 
-    $form['data']['field_address_data'] = $this->buildTableRow('field_address_data', [
-      'local' => Markup::create($output_local),
-      'osm' => Markup::create($output_osm),
-    ], $is_new);
+      $output_local = '';
+      $output_osm = sprintf('%s<br>%s', $location_name, $formatter->format($location, '%S %n<br> %z %L'));
 
-    $output_local = '';
-    $output_osm = $extra_tags->opening_hours ?? '';
+      if ($node) {
+        $tags = DrupalToOpenStreetMapTransformer::fieldNameToTags($field_name);
+        $transformed_data = DrupalToOpenStreetMapTransformer::transformMultiple($node, $tags);
+        $output_local = sprintf('%s<br>%s', $transformed_data['name'], sprintf('%s %s<br> %s %s', $transformed_data['addr:street'], $transformed_data['addr:housenumber'], $transformed_data['addr:postcode'], $transformed_data['addr:city']));
+      }
 
-    if ($node) {
-      $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'opening_hours');
-    }
-
-    if ($output_local || $output_osm) {
-      $form['data']['field_office_hours'] = $this->buildTableRow('field_office_hours', [
+      $form['data'][$field_name] = $this->buildTableRow($field_name, [
         'local' => Markup::create($output_local),
         'osm' => Markup::create($output_osm),
       ], $is_new);
     }
 
-    $output_local = '';
-    $output_osm = $extra_tags->{'contact:email'} ?? $extra_tags->email ?? '';
+    $field_name = 'field_office_hours';
+    if ($formDisplay->getComponent($field_name)) {
+      $output_local = '';
+      $output_osm = $extra_tags->opening_hours ?? '';
 
-    if ($node) {
-      $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'email');
+      if ($node) {
+        $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'opening_hours');
+      }
+
+      if ($output_local || $output_osm) {
+        $form['data'][$field_name] = $this->buildTableRow($field_name, [
+          'local' => Markup::create($output_local),
+          'osm' => Markup::create($output_osm),
+        ], $is_new);
+      }
     }
 
-    if ($output_local || $output_osm) {
-      $form['data']['field_email'] = $this->buildTableRow('field_email', [
-        'local' => $output_local,
-        'osm' => $output_osm,
-      ], $is_new);
+    if ($formDisplay->getComponent('field_contact_data')) {
+      $output_local = '';
+      $output_osm = $extra_tags->{'contact:email'} ?? $extra_tags->email ?? '';
+
+      if ($node) {
+        $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'email');
+      }
+
+      if ($output_local || $output_osm) {
+        $form['data']['field_email'] = $this->buildTableRow('field_email', [
+          'local' => $output_local,
+          'osm' => $output_osm,
+        ], $is_new);
+      }
+
+      $output_local = '';
+      $output_osm = $extra_tags->{'contact:phone'} ?? $extra_tags->phone ?? '';
+
+      if ($node) {
+        $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'phone');
+      }
+
+      if ($output_local || $output_osm) {
+        $form['data']['field_phone'] = $this->buildTableRow('field_phone', [
+          'local' => $output_local,
+          'osm' => $output_osm,
+        ], $is_new);
+      }
+
+      $output_local = '';
+      $output_osm = $extra_tags->{'contact:website'} ?? $extra_tags->website ?? '';
+
+      if ($node) {
+        $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'website');
+      }
+
+      if ($output_local || $output_osm) {
+        $form['data']['field_url'] = $this->buildTableRow('field_url', [
+          'local' => $output_local,
+          'osm' => $output_osm,
+        ], $is_new);
+      }
     }
 
-    $output_local = '';
-    $output_osm = $extra_tags->{'contact:phone'} ?? $extra_tags->phone ?? '';
+    if ($formDisplay->getComponent('field_accessibility')) {
+      $output_local = '';
+      $output_osm = $extra_tags->wheelchair ?? '';
 
-    if ($node) {
-      $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'phone');
-    }
+      if ($node) {
+        $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'wheelchair');
+      }
 
-    if ($output_local || $output_osm) {
-      $form['data']['field_phone'] = $this->buildTableRow('field_phone', [
-        'local' => $output_local,
-        'osm' => $output_osm,
-      ], $is_new);
-    }
+      if ($output_local || $output_osm) {
+        $form['data']['field_a11y_wheelchair'] = $this->buildTableRow('field_a11y_wheelchair', [
+          'local' => $output_local,
+          'osm' => $output_osm,
+        ], $is_new);
+      }
 
-    $output_local = '';
-    $output_osm = $extra_tags->{'contact:website'} ?? $extra_tags->website ?? '';
+      $output_local = '';
+      $output_osm = $extra_tags->{'toilets:wheelchair'} ?? '';
 
-    if ($node) {
-      $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'website');
-    }
+      if ($node) {
+        $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'toilets:wheelchair');
+      }
 
-    if ($output_local || $output_osm) {
-      $form['data']['field_url'] = $this->buildTableRow('field_url', [
-        'local' => $output_local,
-        'osm' => $output_osm,
-      ], $is_new);
-    }
-
-    $output_local = '';
-    $output_osm = $extra_tags->wheelchair ?? '';
-
-    if ($node) {
-      $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'wheelchair');
-    }
-
-    if ($output_local || $output_osm) {
-      $form['data']['field_a11y_wheelchair'] = $this->buildTableRow('field_a11y_wheelchair', [
-        'local' => $output_local,
-        'osm' => $output_osm,
-      ], $is_new);
-    }
-
-    $output_local = '';
-    $output_osm = $extra_tags->{'toilets:wheelchair'} ?? '';
-
-    if ($node) {
-      $output_local = DrupalToOpenStreetMapTransformer::transform($node, 'toilets:wheelchair');
-    }
-
-    if ($output_local || $output_osm) {
-      $form['data']['field_a11y_toilets_wheelchair'] = $this->buildTableRow('field_a11y_toilets_wheelchair', [
-        'local' => $output_local,
-        'osm' => $output_osm,
-      ], $is_new);
+      if ($output_local || $output_osm) {
+        $form['data']['field_a11y_toilets_wheelchair'] = $this->buildTableRow('field_a11y_toilets_wheelchair', [
+          'local' => $output_local,
+          'osm' => $output_osm,
+        ], $is_new);
+      }
     }
 
     return $form;
