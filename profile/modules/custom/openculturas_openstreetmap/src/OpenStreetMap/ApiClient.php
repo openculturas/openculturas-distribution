@@ -21,6 +21,8 @@ use function str_replace;
 
 /**
  * @property ClientInterface&\GuzzleHttp\ClientTrait $httpClient
+ *
+ * @link https://wiki.openstreetmap.org/wiki/API_v0.6
  */
 final class ApiClient {
   use AutowireTrait;
@@ -48,7 +50,17 @@ final class ApiClient {
 
   public const DEV_ENDPOINT = 'https://master.apis.dev.openstreetmap.org';
 
-  public const ENDPOINT = 'https://openstreetmap.org';
+  /**
+   * Not really needed, but to keep sync with prod.
+   */
+  public const DEV_API_ENDPOINT = 'https://master.apis.dev.openstreetmap.org';
+
+  public const ENDPOINT = 'https://www.openstreetmap.org';
+
+  /**
+   * The production use another domain for the api.
+   */
+  public const API_ENDPOINT = 'https://api.openstreetmap.org';
 
   public function __construct(
     #[Autowire(service: 'oauth2_client.service')]
@@ -71,14 +83,14 @@ final class ApiClient {
     try {
       if ($development_mode) {
         $this->token = $this->oauth2Client->retrieveAccessToken('openstreetmap_dev')?->getToken();
-        $this->baseUri = self::DEV_ENDPOINT . '/api/0.6';
+        $this->baseUri = self::DEV_API_ENDPOINT . '/api/0.6';
         /** @var string|null $value */
         $value = $this->state->get('openculturas_openstreetmap.settings.osmid');
         $this->osmId = $value;
       }
       else {
         $this->token = $this->oauth2Client->retrieveAccessToken('openstreetmap')?->getToken();
-        $this->baseUri = self::ENDPOINT . '/api/0.6';
+        $this->baseUri = self::API_ENDPOINT . '/api/0.6';
       }
     }
     catch (\Exception $exception) {
