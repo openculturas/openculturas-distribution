@@ -160,10 +160,18 @@ final class OSMIDDefaultWidget extends WidgetBase {
       '#limit_validation_errors' => [],
       '#disabled' => $lockWidget,
     ];
+    $current_osm_id_value = $items[$delta]->value ?? NULL;
 
-    $current_osm_id = $items[$delta]->value ?? NULL;
-    if (is_string($current_osm_id) && $current_osm_id !== '') {
-      $osm_id = substr($current_osm_id, 1, -1);
+    if (is_string($current_osm_id_value) && $current_osm_id_value !== '') {
+      $current_osm_id = $current_osm_id_value;
+      $endpoint = ApiClient::ENDPOINT;
+      if ($this->state->get('openculturas_openstreetmap.settings.devmode', FALSE)) {
+        /** @var string $current_osm_id */
+        $current_osm_id = $this->state->get('openculturas_openstreetmap.settings.osmid');
+        $endpoint = ApiClient::DEV_ENDPOINT;
+      }
+
+      $osm_id = substr($current_osm_id, 1);
       $osm_type_short = $current_osm_id[0];
       $osm_type = NULL;
       try {
@@ -174,15 +182,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
       }
 
       if ($osm_type) {
-        $api_endpoint = ApiClient::ENDPOINT;
-        if ($this->state->get('openculturas_openstreetmap.settings.devmode')) {
-          $osm_type = 'node';
-          $osm_id = $this->state->get('openculturas_openstreetmap.settings.osmid');
-          $api_endpoint = ApiClient::DEV_ENDPOINT;
-        }
-
-        /** @var string $osm_id */
-        $url = Url::fromUri(sprintf('%s/%s/%s', $api_endpoint, $osm_type, $osm_id));
+        $url = Url::fromUri(sprintf('%s/%s/%s', $endpoint, $osm_type, $osm_id));
         $element['current_osmid'] = [
           '#markup' => '<p>' . $this->t('<a href="@osm_url" target="_blank">Open connected location on OpenStreetMap<span class="new-tab"> (in new tab)</span></a>', ['@osm_url' => $url->toString()]) . '</p>',
         ];
@@ -192,7 +192,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
     $element['value'] = [
       '#title' => $this->t('OSM ID'),
       '#type' => 'hidden',
-      '#default_value' => $current_osm_id,
+      '#default_value' => $current_osm_id_value,
       '#maxlength' => OsmIdItem::MAX_LENGTH,
       '#attributes' => [
         'data-osm-id-value' => '',

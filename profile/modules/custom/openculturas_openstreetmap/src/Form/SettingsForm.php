@@ -14,6 +14,8 @@ use Drupal\openculturas_openstreetmap\OpenStreetMap\ApiClient;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function file_exists;
 use function json_encode;
+use function sprintf;
+use function substr;
 
 final class SettingsForm extends ConfigFormBase {
 
@@ -194,7 +196,7 @@ final class SettingsForm extends ConfigFormBase {
     $form['osmid'] = [
       '#type' => 'textfield',
       '#title' => 'OSM ID',
-      '#description' => $this->t('The location ID on the development server to apply your changes to for testing purposes.'),
+      '#description' => $this->t('The location ID on the development server to apply your changes to for testing purposes. Prefixed with N (node) or W (way) or R (relation).'),
       '#default_value' => $this->state->get('openculturas_openstreetmap.settings.osmid'),
       '#states' => [
         'visible' => [
@@ -207,8 +209,22 @@ final class SettingsForm extends ConfigFormBase {
     ];
 
     if ($this->state->get('openculturas_openstreetmap.settings.devmode', FALSE) && $this->state->get('openculturas_openstreetmap.settings.push_enabled', FALSE)) {
-      $url = Url::fromUri(ApiClient::DEV_ENDPOINT . '/node/' . $this->state->get('openculturas_openstreetmap.settings.osmid'));
-      $this->messenger()->addWarning($this->t('Development mode enabled. <br>All changes will be added to: %url', ['%url' => Link::fromTextAndUrl($url->toString(), $url)->toString()]));
+      /** @var string $current_osm_id */
+      $current_osm_id = $this->state->get('openculturas_openstreetmap.settings.osmid');
+      $osm_id = substr($current_osm_id, 1);
+      $osm_type_short = $current_osm_id[0];
+      $osm_type = NULL;
+      try {
+        $osm_type = ApiClient::osmTypeShortToLong($osm_type_short);
+      }
+      catch (\Exception $e) {
+        $this->messenger->addError($e->getMessage());
+      }
+
+      if ($osm_type) {
+        $url = Url::fromUri(sprintf('%s/%s/%s', ApiClient::DEV_ENDPOINT, $osm_type, $osm_id));
+        $this->messenger()->addWarning($this->t('Development mode enabled. <br>All changes will be added to: %url', ['%url' => Link::fromTextAndUrl($url->toString(), $url)->toString()]));
+      }
     }
 
     return parent::buildForm($form, $form_state);
@@ -241,6 +257,18 @@ final class SettingsForm extends ConfigFormBase {
     }
 
     $dev_mode = (bool) $form_state->getValue('devmode');
+    /** @var string $current_osm_id */
+    $current_osm_id = $form_state->getValue('osmid');
+    if ($dev_mode && $current_osm_id !== '') {
+      $osm_type_short = $current_osm_id[0];
+      try {
+        ApiClient::osmTypeShortToLong($osm_type_short);
+      }
+      catch (\Exception $e) {
+        $form_state->setErrorByName('osmid', $e->getMessage());
+      }
+    }
+
     if ($form_state->getValue('push_enabled') && !$this->apiClient->hasToken($dev_mode)) {
       $form_state->setError($form['push_enabled'], $this->t('Now <a href="@edit_url">request a token</a>.', ['@edit_url' => Url::fromRoute('entity.oauth2_client.edit_form', ['oauth2_client' => $dev_mode ? 'openstreetmap_dev' : 'openstreetmap'])->toString()]));
     }

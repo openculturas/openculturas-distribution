@@ -9,8 +9,12 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Error;
 use Drupal\openculturas_openstreetmap\OpenStreetMap\ApiClient;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function sprintf;
+use function substr;
 
 final class PushData extends FormBase {
 
@@ -20,11 +24,17 @@ final class PushData extends FormBase {
   protected StateInterface $state;
 
   /**
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected LoggerInterface $logger;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): PushData {
     $instance = parent::create($container);
     $instance->state = $container->get('state');
+    $instance->logger = $container->get('logger.channel.openculturas_openstreetmap');
     return $instance;
   }
 
@@ -42,8 +52,23 @@ final class PushData extends FormBase {
     /** @var array|null $cached_values */
     $cached_values = $form_state->getTemporaryValue('wizard');
     if ($this->state->get('openculturas_openstreetmap.settings.devmode')) {
-      $url = Url::fromUri(ApiClient::DEV_ENDPOINT . '/node/' . $this->state->get('openculturas_openstreetmap.settings.osmid'));
-      $this->messenger()->addWarning($this->t('Development mode enabled. <br>All changes will be added to: %url', ['%url' => Link::fromTextAndUrl($url->toString(), $url)->toString()]));
+      /** @var string $current_osm_id */
+      $current_osm_id = $this->state->get('openculturas_openstreetmap.settings.osmid');
+      $osm_id = substr($current_osm_id, 1);
+      $osm_type_short = $current_osm_id[0];
+      $osm_type = NULL;
+      try {
+        $osm_type = ApiClient::osmTypeShortToLong($osm_type_short);
+      }
+      catch (\Exception $e) {
+        Error::logException($this->logger, $e);
+      }
+
+      if ($osm_type) {
+        $url = Url::fromUri(sprintf('%s/%s/%s', ApiClient::DEV_ENDPOINT, $osm_type, $osm_id));
+        $this->messenger()->addWarning($this->t('Development mode enabled. <br>All changes will be added to: %url', ['%url' => Link::fromTextAndUrl($url->toString(), $url)->toString()]));
+      }
+
       $form['status_messages'] = [
         '#theme' => 'status_messages',
         '#message_list' => $this->messenger()->deleteAll(),
