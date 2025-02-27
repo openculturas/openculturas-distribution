@@ -161,12 +161,12 @@ final class SettingsForm extends ConfigFormBase {
     $form['oauth_credentials']['client_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Client ID'),
-      '#disabled' => !$client_config || !$client_config->status(),
+      '#disabled' => !$client_config,
     ];
     $form['oauth_credentials']['client_secret'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Client secret'),
-      '#disabled' => !$client_config || !$client_config->status(),
+      '#disabled' => !$client_config,
     ];
     $form['push_enabled'] = [
       '#type' => 'checkbox',
