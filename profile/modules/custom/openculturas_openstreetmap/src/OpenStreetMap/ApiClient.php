@@ -18,6 +18,7 @@ use function is_string;
 use function json_decode;
 use function sprintf;
 use function str_replace;
+use function substr;
 
 /**
  * @property ClientInterface&\GuzzleHttp\ClientTrait $httpClient
@@ -94,9 +95,9 @@ final class ApiClient {
       if ($client) {
         $this->token = $this->oauth2Client->retrieveAccessToken($pluginId)?->getToken();
         $this->baseUri = self::DEV_API_ENDPOINT . '/api/0.6';
-        /** @var string|null $value */
+        /** @var string $value */
         $value = $this->state->get('openculturas_openstreetmap.settings.osmid');
-        $this->osmId = $value;
+        $this->osmId = substr($value, 1);
       }
     }
     else {
@@ -252,7 +253,7 @@ final class ApiClient {
    * @link https://wiki.openstreetmap.org/wiki/API_v0.6#Update:_PUT_/api/0.6/[node|way|relation]/#id
    *   ApiDoc to update a element
    */
-  public function updateElement(string $elementType, string $id, string $changeSetID, string $version, array $tags, string $lat, string $lon): bool {
+  public function updateElement(string $elementType, string $id, string $changeSetID, string $version, array $tags, ?float $lat = NULL, ?float $lon = NULL): bool {
     $id = $this->getOsmId($id);
     $xw = new \XMLWriter();
     $xw->openMemory();
@@ -269,11 +270,14 @@ final class ApiClient {
     $xw->startAttribute('version');
     $xw->text($version);
     $xw->endAttribute();
-    $xw->startAttribute('lat');
-    $xw->text($lat);
-    $xw->endAttribute();
-    $xw->startAttribute('lon');
-    $xw->text($lon);
+    if ($lat && $lon) {
+      $xw->startAttribute('lat');
+      $xw->text((string) $lat);
+      $xw->endAttribute();
+      $xw->startAttribute('lon');
+      $xw->text((string) $lon);
+    }
+
     $xw->endAttribute();
     foreach ($tags as $tag_key => $tag_value) {
       $this->createTagElement($xw, $tag_key, $tag_value);
@@ -320,6 +324,25 @@ final class ApiClient {
     $doc->text($value);
     $doc->endAttribute();
     $doc->endElement();
+  }
+
+  /**
+   * @throw \UnexpectedValueException
+   */
+  public static function osmTypeShortToLong(string $osm_type_short): string {
+    if ($osm_type_short === 'N') {
+      return 'node';
+    }
+
+    if ($osm_type_short === 'W') {
+      return 'way';
+    }
+
+    if ($osm_type_short === 'R') {
+      return 'relation';
+    }
+
+    throw new \UnexpectedValueException(sprintf('Unknown value for OSM type. Got: %s. Valid: N or W or R.', $osm_type_short));
   }
 
 }

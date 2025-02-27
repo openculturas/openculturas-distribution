@@ -15,9 +15,11 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Error;
 use Drupal\openculturas_openstreetmap\Form\OSM\SyncOperation;
 use Drupal\openculturas_openstreetmap\OpenStreetMap\ApiClient;
 use Drupal\openculturas_openstreetmap\Plugin\Field\FieldType\OsmIdItem;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ujamii\OsmOpeningHours\OsmStringToOpeningHoursConverter;
 use function array_merge;
@@ -51,12 +53,18 @@ final class OSMIDDefaultWidget extends WidgetBase {
   protected ApiClient $apiClient;
 
   /**
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected LoggerInterface $logger;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->state = $container->get('state');
     $instance->apiClient = $container->get('openculturas_openstreetmap.api_client');
+    $instance->logger = $container->get('logger.channel.openculturas_openstreetmap');
     return $instance;
   }
 
@@ -158,14 +166,11 @@ final class OSMIDDefaultWidget extends WidgetBase {
       $osm_id = substr($current_osm_id, 1, -1);
       $osm_type_short = $current_osm_id[0];
       $osm_type = NULL;
-      if ($osm_type_short === 'N') {
-        $osm_type = 'node';
+      try {
+        $osm_type = ApiClient::osmTypeShortToLong($osm_type_short);
       }
-      elseif ($osm_type_short === 'W') {
-        $osm_type = 'way';
-      }
-      elseif ($osm_type_short === 'R') {
-        $osm_type = 'relation';
+      catch (\Exception $e) {
+        Error::logException($this->logger, $e);
       }
 
       if ($osm_type) {

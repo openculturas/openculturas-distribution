@@ -8,8 +8,10 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Utility\Error;
 use Drupal\ctools\Ajax\OpenModalWizardCommand;
 use Drupal\ctools\Wizard\FormWizardBase;
 use Drupal\node\NodeInterface;
@@ -32,6 +34,7 @@ use function is_string;
 use function sprintf;
 use function strpos;
 use function substr;
+use function trim;
 
 final class OSMFormWizard extends FormWizardBase {
 
@@ -156,58 +159,73 @@ final class OSMFormWizard extends FormWizardBase {
         /** @var \Drupal\openculturas_openstreetmap\OpenStreetMap\ApiClient $apiClient */
         $apiClient = \Drupal::service('openculturas_openstreetmap.api_client');
         $osm_id = substr($cached_values['locations'], 1);
-        $osm_element = $apiClient->getElement('node', $osm_id);
-        if ($osm_element) {
-          $tags_to_push_list = [];
-          foreach (array_keys($data_to_push) as $field_name) {
-            $tags_to_push_list[] = DrupalToOpenStreetMapTransformer::fieldNameToTags($field_name);
-          }
+        /** @var \Psr\Log\LoggerInterface $logger */
+        $logger = \Drupal::service('logger.channel.openculturas_openstreetmap');
+        try {
+          $osm_type = $apiClient::osmTypeShortToLong($cached_values['locations'][0]);
+        }
+        catch (\Exception $e) {
+          Error::logException($logger, $e);
+          // Generic message. Just to hide the real reason.
+          $response->addCommand(new MessageCommand($this->t('A error occurred while trying to connect to OpenStreetMap. Try again later.'), options: ['type' => 'error']));
+          return $response;
+        }
 
-          $tags_to_push_list = array_filter(array_merge(...$tags_to_push_list));
-          if ($tags_to_push_list !== []) {
-            $existing_tags = (array) ($osm_element->{'tags'} ?? []);
-            $new_tags = DrupalToOpenStreetMapTransformer::transformMultiple($node, $tags_to_push_list);
-            $new_tags_deleted = array_diff($tags_to_push_list, array_keys($new_tags));
-            $new_tags_deleted = array_fill_keys($new_tags_deleted, '');
-            $new_tags = array_merge($new_tags, $new_tags_deleted);
-            $groups_to_strip = ['contact'];
-            foreach (array_keys($existing_tags) as $osm_tag) {
-              if (strpos($osm_tag, ':')) {
-                $group = explode(':', $osm_tag)[0];
-                if (in_array($group, $groups_to_strip)) {
-                  $osm_tag_without_group = explode(':', $osm_tag)[1];
-                  if (isset($new_tags[$osm_tag_without_group])) {
-                    $new_tags[$osm_tag] = $new_tags[$osm_tag_without_group];
-                    unset($new_tags[$osm_tag_without_group]);
-                  }
+        $osm_element = $apiClient->getElement($osm_type, $osm_id);
+        // No Element, something is wrong. Logging is done by api client.
+        if ($osm_element === NULL) {
+          // Generic message. Just to hide the real reason.
+          $response->addCommand(new MessageCommand($this->t('A error occurred while trying to connect to OpenStreetMap. Try again later.'), options: ['type' => 'error']));
+          return $response;
+        }
+
+        $tags_to_push_list = [];
+        foreach (array_keys($data_to_push) as $field_name) {
+          $tags_to_push_list[] = DrupalToOpenStreetMapTransformer::fieldNameToTags($field_name);
+        }
+
+        $tags_to_push_list = array_filter(array_merge(...$tags_to_push_list));
+        if ($tags_to_push_list !== []) {
+          $existing_tags = (array) ($osm_element->{'tags'} ?? []);
+          $new_tags = DrupalToOpenStreetMapTransformer::transformMultiple($node, $tags_to_push_list);
+          $new_tags_deleted = array_diff($tags_to_push_list, array_keys($new_tags));
+          $new_tags_deleted = array_fill_keys($new_tags_deleted, '');
+          $new_tags = array_merge($new_tags, $new_tags_deleted);
+          $groups_to_strip = ['contact'];
+          foreach (array_keys($existing_tags) as $osm_tag) {
+            if (strpos($osm_tag, ':')) {
+              $group = explode(':', $osm_tag)[0];
+              if (in_array($group, $groups_to_strip)) {
+                $osm_tag_without_group = explode(':', $osm_tag)[1];
+                if (isset($new_tags[$osm_tag_without_group])) {
+                  $new_tags[$osm_tag] = $new_tags[$osm_tag_without_group];
+                  unset($new_tags[$osm_tag_without_group]);
                 }
               }
             }
+          }
 
+          $comment = $cached_values['changeset_comment'] ?? '';
+          $config = \Drupal::config('openculturas_openstreetmap.settings');
+          $token = \Drupal::token();
+          if (is_string($config->get('changeset_footer'))) {
+            $comment .= PHP_EOL . $token->replace($config->get('changeset_footer'), ['node' => $node]);
+          }
+
+          $comment = trim($comment) !== '' ? $comment : NULL;
+          $changeSetID = $apiClient->createChangeSet(comment: $comment);
+          if ($changeSetID) {
             $merged_tags = array_filter(array_merge($existing_tags, $new_tags));
             $current_version = (string) $osm_element->version;
-            $lat = (string) $osm_element->lat;
-            $lon = (string) $osm_element->lon;
-            $comment = $cached_values['changeset_comment'] ?? '';
-            $config = \Drupal::config('openculturas_openstreetmap.settings');
-            $token = \Drupal::token();
-            if (is_string($config->get('changeset_footer'))) {
-              $comment .= PHP_EOL . $token->replace($config->get('changeset_footer'), ['node' => $node]);
+            $lat = $osm_element->lat ?? NULL;
+            $lon = $osm_element->lon ?? NULL;
+            $updated = $apiClient->updateElement($osm_type, $osm_id, $changeSetID, $current_version, $merged_tags, $lat, $lon);
+            if ($updated) {
+              $message = sprintf('Update element ID: %s, Changeset-ID: %s, changed tags: %s ', $osm_id, $changeSetID, implode(',', array_keys($new_tags)));
+              $logger->info($message);
             }
 
-            $comment = trim($comment) !== '' ? $comment : NULL;
-            $changeSetID = $apiClient->createChangeSet(comment: $comment);
-            if ($changeSetID) {
-              /** @var \Psr\Log\LoggerInterface $logger */
-              $logger = \Drupal::service('logger.channel.openculturas_openstreetmap');
-              $updated = $apiClient->updateElement('node', $osm_id, $changeSetID, $current_version, $merged_tags, $lat, $lon);
-              if ($updated) {
-                $message = sprintf('Update element ID: %s, Changeset-ID: %s, changed tags: %s ', $osm_id, $changeSetID, implode(',', array_keys($new_tags)));
-                $logger->info($message);
-              }
-
-              $apiClient->closeChangeSet($changeSetID);
-            }
+            $apiClient->closeChangeSet($changeSetID);
           }
         }
       }
