@@ -129,7 +129,8 @@ final class OSMIDDefaultWidget extends WidgetBase {
       }
     }
 
-    if ($this->lockWidget()) {
+    $lockWidget = $this->lockWidget();
+    if ($lockWidget) {
       $element['locked_widget'] = [
         '#markup' => '<p class="messages messages--warning">' . $this->t('This function is disabled because the module is not yet properly configured.') . '</p>',
       ];
@@ -149,7 +150,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
         ],
       ],
       '#limit_validation_errors' => [],
-      '#disabled' => $this->lockWidget(),
+      '#disabled' => $lockWidget,
     ];
 
     $current_osm_id = $items[$delta]->value ?? NULL;

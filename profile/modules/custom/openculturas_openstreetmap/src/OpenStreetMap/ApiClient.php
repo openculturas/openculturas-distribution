@@ -80,21 +80,39 @@ final class ApiClient {
   }
 
   public function setToken(bool $development_mode = FALSE): void {
-    try {
-      if ($development_mode) {
-        $this->token = $this->oauth2Client->retrieveAccessToken('openstreetmap_dev')?->getToken();
+    $client = NULL;
+    if ($development_mode) {
+      $pluginId = 'openstreetmap_dev';
+      try {
+        /** @var \Drupal\oauth2_client\Entity\Oauth2ClientInterface $client */
+        $client = $this->oauth2Client->getClient($pluginId);
+      }
+      catch (\Exception) {
+      }
+
+      // Plugin is valid and client enabled.
+      if ($client) {
+        $this->token = $this->oauth2Client->retrieveAccessToken($pluginId)?->getToken();
         $this->baseUri = self::DEV_API_ENDPOINT . '/api/0.6';
         /** @var string|null $value */
         $value = $this->state->get('openculturas_openstreetmap.settings.osmid');
         $this->osmId = $value;
       }
-      else {
-        $this->token = $this->oauth2Client->retrieveAccessToken('openstreetmap')?->getToken();
+    }
+    else {
+      $pluginId = 'openstreetmap';
+      try {
+        /** @var \Drupal\oauth2_client\Entity\Oauth2ClientInterface $client */
+        $client = $this->oauth2Client->getClient($pluginId);
+      }
+      catch (\Exception) {
+      }
+
+      // Plugin is valid and client enabled.
+      if ($client) {
+        $this->token = $this->oauth2Client->retrieveAccessToken($pluginId)?->getToken();
         $this->baseUri = self::API_ENDPOINT . '/api/0.6';
       }
-    }
-    catch (\Exception $exception) {
-      Error::logException($this->logger, $exception);
     }
   }
 
