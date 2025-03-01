@@ -25,22 +25,22 @@ final class AddButton extends AreaPluginBase {
   /**
    * @var \Drupal\Core\Session\AccountProxyInterface
    */
-  private AccountProxyInterface $accountProxy;
+  protected AccountProxyInterface $accountProxy;
 
   /**
    * @var \Drupal\Core\Routing\RouteMatchInterface
    */
-  private RouteMatchInterface $routeMatch;
+  protected RouteMatchInterface $routeMatch;
 
   /**
    * @var \Drupal\Core\Routing\RedirectDestinationInterface
    */
-  private RedirectDestinationInterface $redirectDestination;
+  protected RedirectDestinationInterface $redirectDestination;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): AddButton {
     $addButton = parent::create($container, $configuration, $plugin_id, $plugin_definition,);
     $addButton->accountProxy = $container->get('current_user');
     $addButton->routeMatch = $container->get('current_route_match');
@@ -51,7 +51,7 @@ final class AddButton extends AreaPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function render($empty = FALSE) {
+  public function render($empty = FALSE): array {
     /** @var \Drupal\node\NodeInterface|null $node */
     $node = $this->routeMatch->getParameter('node');
     if ($this->accountProxy->isAnonymous()) {

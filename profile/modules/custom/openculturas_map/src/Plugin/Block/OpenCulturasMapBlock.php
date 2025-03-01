@@ -24,7 +24,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
   /**
    * @var \Drupal\Core\Form\FormBuilderInterface
    */
-  private FormBuilderInterface $formBuilder;
+  protected FormBuilderInterface $formBuilder;
 
   /**
    * {@inheritdoc}

@@ -25,22 +25,22 @@ final class LoginLink extends AreaPluginBase {
   /**
    * @var \Drupal\Core\Session\AccountProxyInterface
    */
-  private AccountProxyInterface $accountProxy;
+  protected AccountProxyInterface $accountProxy;
 
   /**
    * @var \Drupal\Core\Routing\RouteMatchInterface
    */
-  private RouteMatchInterface $routeMatch;
+  protected RouteMatchInterface $routeMatch;
 
   /**
    * @var \Drupal\Core\Routing\RedirectDestinationInterface
    */
-  private RedirectDestinationInterface $redirectDestination;
+  protected RedirectDestinationInterface $redirectDestination;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): LoginLink {
     $loginLink = parent::create($container, $configuration, $plugin_id, $plugin_definition,);
     $loginLink->accountProxy = $container->get('current_user');
     $loginLink->routeMatch = $container->get('current_route_match');
