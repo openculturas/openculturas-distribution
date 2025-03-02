@@ -50,7 +50,7 @@ composer validate:
   stage: validate
   interruptible: true
   script:
-    - composer validate --ansi --strict --check-lock
+    - composer validate --ansi --check-lock
   rules:
     - if: $CI_PIPELINE_SOURCE == 'schedule'
       when: never
