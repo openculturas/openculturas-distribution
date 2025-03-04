@@ -30,6 +30,19 @@ docker:base:
       .
     - docker push ${CI_REGISTRY_IMAGE}:base
 
+.docker_build_image:
+  script:
+  - DOCKER_IMAGE_TAG="${CI_JOB_ID}"
+  - echo "DOCKER_IMAGE_TAG=${DOCKER_IMAGE_TAG}" >> deploy.env
+  - echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  - echo $BASE_IMAGE_CI_REGISTRY_PASSWORD | docker login -u "$BASE_IMAGE_CI_REGISTRY_USER" --password-stdin $BASE_IMAGE_CI_REGISTRY
+  - docker build --file ./.gitlab/DockerfileApp --rm --tag "${DOCKER_IMAGE_MIRROR_CI_REGISTRY_IMAGE}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${DOCKER_IMAGE_TAG}"
+    --build-arg APP_ENV=${APP_ENV} --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}
+    .
+  - echo $DOCKER_IMAGE_MIRROR_CI_REGISTRY_PASSWORD | docker login -u "$DOCKER_IMAGE_MIRROR_CI_REGISTRY_USER"
+    --password-stdin $DOCKER_IMAGE_MIRROR_CI_REGISTRY
+  - docker push "${DOCKER_IMAGE_MIRROR_CI_REGISTRY_IMAGE}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${DOCKER_IMAGE_TAG}"
+
 .composer:
   image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:ed3cb71ccfd11285e1b0c1f9ae701a4f6674cce7291475c5bc1192808f1e6497
   stage: validate
