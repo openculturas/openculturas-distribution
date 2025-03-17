@@ -102,7 +102,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
     $display = $viewModeStorage->load(sprintf('%s.%s.%s', $entityType, $bundle, $viewMode));
     if ($display instanceof EntityViewDisplayInterface) {
       foreach ($display->getComponents() as $key => $item) {
-        if ($item['type'] == 'entity_reference_entity_view') {
+        if (($item['type'] ?? '') === 'entity_reference_entity_view') {
           /** @var \Drupal\Core\Field\FieldConfigInterface|null $fieldConfig */
           $fieldConfig = $entity->getFieldDefinition($key);
           if (!$fieldConfig instanceof FieldConfigInterface) {
@@ -190,10 +190,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
       }
     }
 
-    $mid = $this->getTeaserMediaId($entity, $viewMode);
-    if (!empty($settings['media'])) {
-      $mid = $settings['media'];
-    }
+    $mid = empty($settings['media']) ? $this->getTeaserMediaId($entity, $viewMode) : $settings['media'];
 
     if ($mid) {
       $media = $this->entityTypeManager->getStorage('media')->load($mid);
