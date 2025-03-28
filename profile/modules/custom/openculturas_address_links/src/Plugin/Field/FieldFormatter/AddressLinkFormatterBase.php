@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\address\AddressInterface;
 use Drupal\openculturas_address_links\AddressService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function is_array;
 use function is_string;
 
 /**
@@ -80,7 +81,10 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     foreach ($items as $delta => $item) {
-      $elements[$delta] = $this->viewElement($item, $langcode);
+      $element = $this->viewElement($item, $langcode);
+      if (is_array($element)) {
+        $elements[$delta] = $element;
+      }
     }
 
     return $elements;
