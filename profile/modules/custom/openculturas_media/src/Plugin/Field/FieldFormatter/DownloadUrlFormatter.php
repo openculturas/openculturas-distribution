@@ -58,8 +58,13 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
       }
 
       foreach ($items as $delta => $item) {
+        $target_id = $item->target_id ?? NULL;
+        if ($target_id === NULL) {
+          continue;
+        }
+
         /** @var \Drupal\file\FileInterface|null $file */
-        $file = $this->fileStorage->load($item->target_id);
+        $file = $this->fileStorage->load($target_id);
         if (!$file instanceof FileInterface) {
           continue;
         }
