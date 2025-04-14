@@ -48,6 +48,7 @@ final class SettingsForm extends ConfigFormBase {
     $instance->state = $container->get('state');
     $instance->apiClient = $container->get('openculturas_openstreetmap.api_client');
     $instance->fileSystem = $container->get('file_system');
+    $instance->messenger = $container->get('messenger');
     return $instance;
   }
 
@@ -218,7 +219,7 @@ final class SettingsForm extends ConfigFormBase {
         $osm_type = ApiClient::osmTypeShortToLong($osm_type_short);
       }
       catch (\Exception $e) {
-        $this->messenger->addError($e->getMessage());
+        $this->messenger()->addError($e->getMessage());
       }
 
       if ($osm_type) {
