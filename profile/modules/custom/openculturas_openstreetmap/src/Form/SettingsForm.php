@@ -344,10 +344,10 @@ final class SettingsForm extends ConfigFormBase {
     }
     elseif ($list === 'ww') {
       $config->set('bounds', [
-        'west' => -169.6,
-        'south' => -84.5,
-        'east' => -168.2,
-        'north' => 84.9,
+        'west' => -180.0,
+        'south' => -85.0,
+        'east' => 180.0,
+        'north' => 85.0,
       ]);
     }
 
