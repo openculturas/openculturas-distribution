@@ -230,21 +230,10 @@ abstract class WizardFormTableBase extends FormBase {
    */
   protected function buildTableRow(string $field_name, array $data, bool $is_new): array {
 
-    $operation = SyncOperation::Pull;
-
-    if ((string) $data['local'] === (string) $data['osm']) {
-      $operation = SyncOperation::None;
-    }
-    elseif ((string) $data['local'] !== '') {
-      $operation = SyncOperation::Push;
-    }
+    $operation = SyncOperation::None;
 
     if ($is_new) {
       $operation = SyncOperation::Pull;
-    }
-
-    if ($operation === SyncOperation::Push && !$is_new && !SyncOperation::canPush()) {
-      $operation = SyncOperation::None;
     }
 
     $build = [];
