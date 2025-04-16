@@ -16,6 +16,8 @@ $comments = new class
   protected array $stored;
   protected array $endComments;
 
+  private array $lineIds;
+
   public function __construct()
   {
     $this->hasStored = false;
