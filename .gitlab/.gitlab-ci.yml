@@ -44,7 +44,7 @@ docker:base:
   - docker push "${DOCKER_IMAGE_MIRROR_CI_REGISTRY_IMAGE}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${DOCKER_IMAGE_TAG}"
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:16bdd5fc2164cc44ff7e76c1dc59411b4670d7a057e898dca60b32b14194a7a6
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:7a93c06f13170dbd6659db302835bb5e9026bb72bcd724b3c22b4d8ce1c42395
   stage: validate
   needs:
     - docker:base
@@ -161,7 +161,7 @@ rector dry-run:
 #      codequality: [gl-code-quality-report.json]
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:16bdd5fc2164cc44ff7e76c1dc59411b4670d7a057e898dca60b32b14194a7a6
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:7a93c06f13170dbd6659db302835bb5e9026bb72bcd724b3c22b4d8ce1c42395
   stage: validate
   extends: .validate_rules
   needs:
