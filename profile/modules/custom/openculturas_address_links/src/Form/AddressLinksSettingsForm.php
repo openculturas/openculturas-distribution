@@ -37,6 +37,7 @@ class AddressLinksSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('directions'),
       '#element_validate' => ['token_element_validate'],
       '#token_types' => $token_types,
+      '#maxlength' => NULL,
     ];
 
     $form['public_transport'] = [
@@ -46,6 +47,7 @@ class AddressLinksSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('public_transport'),
       '#element_validate' => ['token_element_validate'],
       '#token_types' => $token_types,
+      '#maxlength' => NULL,
     ];
 
     $form['token_help'] = [
