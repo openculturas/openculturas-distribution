@@ -75,6 +75,11 @@ class AddressService {
    * Creates a plain address string from a given address object.
    */
   public function getPlainAddress(AddressInterface $address): string {
+    // Remove the organization part from the address, as it gets in our way
+    // when passing to providers.
+    $address = clone $address;
+    $address->set('organization', '');
+
     $formatter = new DefaultFormatter(
       $this->addressFormatRepository,
       $this->countryRepository,
