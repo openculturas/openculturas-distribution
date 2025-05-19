@@ -78,6 +78,7 @@ class OpenCulturasMapFilterForm extends FormBase {
    * @return $this
    *
    * @throws \Exception
+   *
    * phpcs:disable DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable
    */
   public function loadViewDisplay(string|null $viewDisplayId = NULL): self {
