@@ -49,14 +49,8 @@ docker:base:
   needs:
     - docker:base
   variables:
-    COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer"
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
     COMPOSER_MEMORY_LIMIT: -1
-  cache:
-    - key: composer
-      paths:
-        - $COMPOSER_CACHE_DIR
-      when: always
 
 composer validate:
   extends: .composer
@@ -126,7 +120,6 @@ phpstan:
     - composer install --ansi --no-interaction
     - vendor/bin/phpstan.phar --configuration=phpstan.ci.neon --no-interaction --no-progress --error-format=gitlab > gl-code-quality-report.json
   cache:
-    - !reference [ .composer, cache ]
     - key: phpstan
       paths:
         - .phpstancache
@@ -149,7 +142,6 @@ rector dry-run:
     - composer install --ansi --no-interaction
     - vendor/bin/rector --no-progress-bar --dry-run
   cache:
-    - !reference [ .composer, cache ]
     - key: rector
       paths:
         - .rectorcache
@@ -167,21 +159,11 @@ rector dry-run:
   needs:
     - docker:base
     - phplint
-  variables:
-    npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  cache:
-    - key: npm
-      paths:
-        - $npm_config_cache
-      when: always
 
 .composer_npm:
   extends:
     - .composer
     - .npm
-  cache:
-    - !reference [.composer, cache]
-    - !reference [.npm, cache]
 
 .stylelint:
   extends: .composer_npm
@@ -202,7 +184,6 @@ rector dry-run:
 lint scss:
   extends: .stylelint
   cache:
-    - !reference [ .composer_npm, cache ]
     - key: stylelint-scss
       paths:
         - .stylelintcache
@@ -213,7 +194,6 @@ lint scss:
 lint css:
   extends: .stylelint
   cache:
-    - !reference [ .composer_npm, cache ]
     - key: stylelint-css
       paths:
         - .stylelintcache
@@ -232,7 +212,6 @@ lint css:
     - composer install --ansi --no-interaction
     - npm ci --no-audit --prefer-offline
   cache:
-    - !reference [.composer_npm, cache]
     - key: eslint
       paths:
         - .eslintcache
