@@ -34,12 +34,12 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
-    $form = parent::buildConfigurationForm($form, $form_state);
     $form['token_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Name of token'),
       '#default_value' => $this->configuration['token_name'],
       '#description' => $this->t('The recipients will be stored in this token as list.'),
+      '#eca_token_reference' => TRUE,
     ];
     $form['model'] = [
       '#type' => 'textfield',
@@ -47,7 +47,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
       '#default_value' => $this->configuration['model'],
       '#description' => $this->t('Leave empty to send the notification to all recipients.'),
     ];
-    return $form;
+    return parent::buildConfigurationForm($form, $form_state);
   }
 
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state): void {
@@ -96,7 +96,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
         $token_name = 'recipients';
       }
 
-      $this->tokenServices->addTokenData($token_name, $recipients);
+      $this->tokenService->addTokenData($token_name, $recipients);
     }
   }
 

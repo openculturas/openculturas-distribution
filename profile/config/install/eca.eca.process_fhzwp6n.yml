@@ -5,27 +5,26 @@ dependencies:
     - field.field.flagging.claim_ownership.field_comment
     - field.field.flagging.report_abuse.field_comment
     - field.storage.flagging.field_comment
-    - flag.flag.report_abuse
   module:
     - eca_base
     - eca_content
+    - eca_flag
     - eca_language
     - openculturas_custom
 id: process_fhzwp6n
 modeller: bpmn_io
 label: 'Abuse report'
-version: 1.0.0
+version: 2.0.0
 weight: -10
 events:
   Event_0ejsb2d:
-    plugin: 'content_entity:insert'
+    plugin: 'flag:insert'
     label: 'Report abuse created'
-    configuration:
-      type: 'flagging report_abuse'
+    configuration: {  }
     successors:
       -
         id: Activity_15y3smb
-        condition: ''
+        condition: Flow_1lol4s8
 conditions:
   Flow_1y751ge:
     plugin: eca_token_exists
@@ -36,7 +35,7 @@ conditions:
     plugin: eca_scalar
     configuration:
       case: false
-      left: '[preferred_langcode]'
+      left: '[eca_set_current_langcode_langcode]'
       right: de
       operator: equal
       type: value
@@ -46,7 +45,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[preferred_langcode]'
+      left: '[eca_set_current_langcode_langcode]'
       right: de
       operator: equal
       type: value
@@ -54,7 +53,13 @@ conditions:
     plugin: eca_token_exists
     configuration:
       negate: false
-      token_name: preferred_langcode
+      token_name: eca_set_current_langcode_langcode
+  Flow_1lol4s8:
+    plugin: eca_entity_type_bundle
+    configuration:
+      negate: false
+      type: 'flagging report_abuse'
+      entity: 'event:flagging'
   Flow_1ji1mhv:
     plugin: eca_count
     configuration:
@@ -77,17 +82,17 @@ actions:
     label: 'Send email'
     configuration:
       recipient: '[recipient_email]'
-      subject: 'Potential abuse: [entity:title] on [site:name]'
+      subject: 'Potential abuse: [event:entity:title] on [site:name]'
       message: |-
         Someone content on [site:name] has been marked as potential abuse:
-        Title: [entity:title]
-        Link: [entity:url]
+        Title: [event:entity:title]
+        Link: [event:entity:url]
 
 
         It is possible that the site is being abused for inacceptible outcome, please review it right away!
 
         Report comment: 
-        [flagging:field_comment]
+        [event:flagging:field_comment]
 
         For a complete overview, visit
         [site:url]/admin/content/reports
@@ -104,7 +109,7 @@ actions:
       token_name: recipient_email
       method: first
       index: ''
-      list_token: '[recipients]'
+      list_token: recipients
     successors:
       -
         id: Activity_0scf1ls
@@ -114,16 +119,16 @@ actions:
     label: 'Send email'
     configuration:
       recipient: '[recipient_email]'
-      subject: 'Gemeldeter Inhalt: [entity:title] auf [site:name]'
+      subject: 'Gemeldeter Inhalt: [event:entity:title] auf [site:name]'
       message: |-
         Ein Inhalt auf [site:name] wird gemeldet:
-        Titel: [entity:title]
-        Link: [entity:url]
+        Titel: [event:entity:title]
+        Link: [event:entity:url]
 
         Dabei kann es sich um Missbrauch der Plattform zu unerwünschten Zwecken handeln, bitte umgehend prüfen!
 
         Kommentar zur Meldung: 
-        [flagging:field_comment]
+        [event:flagging:field_comment]
 
         Eine komplette Übersicht der gemeldeten Inhalte ist unter 
         [site:url]/admin/content/reports zu finden
@@ -136,7 +141,7 @@ actions:
     plugin: eca_set_current_langcode
     label: 'Set the currently used or negotiated language code.'
     configuration:
-      langcode: '[preferred_langcode]'
+      langcode: _eca_token
     successors:
       -
         id: Activity_1ljuc7j
@@ -148,7 +153,7 @@ actions:
     plugin: openculturas_preferred_langcode_recipients
     label: 'Get the preferred langcode of notification recipient'
     configuration:
-      token_name: preferred_langcode
+      token_name: eca_set_current_langcode_langcode
       recipient: '[recipient_email]'
     successors:
       -

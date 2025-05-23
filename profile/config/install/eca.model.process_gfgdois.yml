@@ -12,7 +12,7 @@ filename: ''
 modeldata: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="Process_gfGDOIs" name="Moderation state (review) was set" isExecutable="true" camunda:versionTag="1.0.0">
+    <bpmn2:process id="Process_gfGDOIs" name="Moderation state (review) was set" isExecutable="true" camunda:versionTag="2.0.0">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="Tags" value="notification" />
@@ -69,7 +69,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_list_remove" />
           </camunda:properties>
           <camunda:field name="list_token">
-            <camunda:string>[recipients]</camunda:string>
+            <camunda:string>recipients</camunda:string>
           </camunda:field>
           <camunda:field name="method">
             <camunda:string>first</camunda:string>
@@ -106,7 +106,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[preferred_langcode]</camunda:string>
+            <camunda:string>[eca_set_current_langcode_langcode]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -158,7 +158,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[preferred_langcode]</camunda:string>
+            <camunda:string>[eca_set_current_langcode_langcode]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -183,7 +183,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_set_current_langcode" />
           </camunda:properties>
           <camunda:field name="langcode">
-            <camunda:string>[preferred_langcode]</camunda:string>
+            <camunda:string>_eca_token</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1jiduqd</bpmn2:incoming>
@@ -200,19 +200,19 @@ modeldata: |
             <camunda:string>[recipient_email]</camunda:string>
           </camunda:field>
           <camunda:field name="token_name">
-            <camunda:string>preferred_langcode</camunda:string>
+            <camunda:string>eca_set_current_langcode_langcode</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1y751ge</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1jiduqd</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1jiduqd" name="Token preferred_langcode is set" camunda:modelerTemplate="org.drupal.condition.eca_token_exists" sourceRef="Activity_0scf1ls" targetRef="Activity_04if7je">
+      <bpmn2:sequenceFlow id="Flow_1jiduqd" name="Token eca_set_current_langcode_langcode is set" camunda:modelerTemplate="org.drupal.condition.eca_token_exists" sourceRef="Activity_0scf1ls" targetRef="Activity_04if7je">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_token_exists" />
           </camunda:properties>
           <camunda:field name="token_name">
-            <camunda:string>preferred_langcode</camunda:string>
+            <camunda:string>eca_set_current_langcode_langcode</camunda:string>
           </camunda:field>
           <camunda:field name="negate">
             <camunda:string>no</camunda:string>
@@ -349,7 +349,7 @@ modeldata: |
           <di:waypoint x="940" y="180" />
           <di:waypoint x="1030" y="180" />
           <bpmndi:BPMNLabel>
-            <dc:Bounds x="947" y="140" width="84" height="40" />
+            <dc:Bounds x="947" y="140" width="85" height="53" />
           </bpmndi:BPMNLabel>
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_0at8ah6_di" bpmnElement="Flow_0at8ah6">

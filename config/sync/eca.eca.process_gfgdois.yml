@@ -10,7 +10,7 @@ dependencies:
 id: process_gfgdois
 modeller: bpmn_io
 label: 'Moderation state (review) was set'
-version: 1.0.0
+version: 2.0.0
 weight: -8
 events:
   Event_1y89lfy:
@@ -37,7 +37,7 @@ conditions:
     plugin: eca_scalar
     configuration:
       case: false
-      left: '[preferred_langcode]'
+      left: '[eca_set_current_langcode_langcode]'
       right: de
       operator: equal
       type: value
@@ -47,7 +47,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[preferred_langcode]'
+      left: '[eca_set_current_langcode_langcode]'
       right: de
       operator: equal
       type: value
@@ -55,7 +55,7 @@ conditions:
     plugin: eca_token_exists
     configuration:
       negate: false
-      token_name: preferred_langcode
+      token_name: eca_set_current_langcode_langcode
   Flow_09fs1sx:
     plugin: eca_token_exists
     configuration:
@@ -104,7 +104,7 @@ actions:
       token_name: recipient_email
       method: first
       index: ''
-      list_token: '[recipients]'
+      list_token: recipients
     successors:
       -
         id: Activity_0scf1ls
@@ -131,7 +131,7 @@ actions:
     plugin: eca_set_current_langcode
     label: 'Set the currently used or negotiated language code.'
     configuration:
-      langcode: '[preferred_langcode]'
+      langcode: _eca_token
     successors:
       -
         id: Activity_1ljuc7j
@@ -143,7 +143,7 @@ actions:
     plugin: openculturas_preferred_langcode_recipients
     label: 'Get the preferred langcode of notification recipient'
     configuration:
-      token_name: preferred_langcode
+      token_name: eca_set_current_langcode_langcode
       recipient: '[recipient_email]'
     successors:
       -

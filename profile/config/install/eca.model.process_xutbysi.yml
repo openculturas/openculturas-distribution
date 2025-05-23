@@ -12,7 +12,7 @@ filename: ''
 modeldata: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="Process_xUtbYSI" name="Claim ownership" isExecutable="true" camunda:versionTag="1.0.0">
+    <bpmn2:process id="Process_xUtbYSI" name="Claim ownership" isExecutable="true" camunda:versionTag="2.0.0">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="Tags" value="notification" />
@@ -27,15 +27,15 @@ modeldata: |
             <camunda:string>[recipient_email]</camunda:string>
           </camunda:field>
           <camunda:field name="subject">
-            <camunda:string>Ownership claimed: [entity:title] on [site:name]</camunda:string>
+            <camunda:string>Ownership claimed: [event:entity:title] on [site:name]</camunda:string>
           </camunda:field>
           <camunda:field name="message">
             <camunda:string>Someone has claimed ownership for a content on [site:name]:
-  Title: [entity:title]
-  Link: [entity:url]
+  Title: [event:entity:title]
+  Link: [event:entity:url]
 
   Comment:
-  [flagging:field_comment]
+  [event:flagging:field_comment]
 
   For a complete overview, visit
   [site:url]/admin/content/claims
@@ -54,7 +54,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_list_remove" />
           </camunda:properties>
           <camunda:field name="list_token">
-            <camunda:string>[recipients]</camunda:string>
+            <camunda:string>recipients</camunda:string>
           </camunda:field>
           <camunda:field name="method">
             <camunda:string>first</camunda:string>
@@ -91,7 +91,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[preferred_langcode]</camunda:string>
+            <camunda:string>[eca_set_current_langcode_langcode]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -119,15 +119,15 @@ modeldata: |
             <camunda:string>[recipient_email]</camunda:string>
           </camunda:field>
           <camunda:field name="subject">
-            <camunda:string>Übernahme beantragt: [entity:title] auf [site:name]</camunda:string>
+            <camunda:string>Übernahme beantragt: [event:entity:title] auf [site:name]</camunda:string>
           </camunda:field>
           <camunda:field name="message">
             <camunda:string>Für einen Inhalt auf [site:name] wird die Übernahme beantragt:
-  Titel: [entity:title]
-  Link: [entity:url]
+  Titel: [event:entity:title]
+  Link: [event:entity:url]
 
   Kommentar: 
-  [flagging:field_comment]
+  [event:flagging:field_comment]
 
   Eine komplette Übersicht ist unter 
   [site:url]/admin/content/claims zu finden
@@ -146,7 +146,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_scalar" />
           </camunda:properties>
           <camunda:field name="left">
-            <camunda:string>[preferred_langcode]</camunda:string>
+            <camunda:string>[eca_set_current_langcode_langcode]</camunda:string>
           </camunda:field>
           <camunda:field name="operator">
             <camunda:string>equal</camunda:string>
@@ -171,7 +171,7 @@ modeldata: |
             <camunda:property name="pluginid" value="eca_set_current_langcode" />
           </camunda:properties>
           <camunda:field name="langcode">
-            <camunda:string>[preferred_langcode]</camunda:string>
+            <camunda:string>_eca_token</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1jiduqd</bpmn2:incoming>
@@ -187,19 +187,19 @@ modeldata: |
             <camunda:string>[recipient_email]</camunda:string>
           </camunda:field>
           <camunda:field name="token_name">
-            <camunda:string>preferred_langcode</camunda:string>
+            <camunda:string>eca_set_current_langcode_langcode</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
         <bpmn2:incoming>Flow_1y751ge</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1jiduqd</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1jiduqd" name="Token preferred_langcode is set" camunda:modelerTemplate="org.drupal.condition.eca_token_exists" sourceRef="Activity_0scf1ls" targetRef="Activity_04if7je">
+      <bpmn2:sequenceFlow id="Flow_1jiduqd" name="Token eca_set_current_langcode_langcode is set" camunda:modelerTemplate="org.drupal.condition.eca_token_exists" sourceRef="Activity_0scf1ls" targetRef="Activity_04if7je">
         <bpmn2:extensionElements>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_token_exists" />
           </camunda:properties>
           <camunda:field name="token_name">
-            <camunda:string>preferred_langcode</camunda:string>
+            <camunda:string>eca_set_current_langcode_langcode</camunda:string>
           </camunda:field>
           <camunda:field name="negate">
             <camunda:string>no</camunda:string>
@@ -221,18 +221,22 @@ modeldata: |
         <bpmn2:incoming>Flow_1lol4s8</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1u63pgp</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:startEvent id="Event_0ejsb2d" name="Ownership claimed" camunda:modelerTemplate="org.drupal.event.content_entity:insert">
+      <bpmn2:sequenceFlow id="Flow_1lol4s8" name="Is Type flagging and bundle claim ownership" camunda:modelerTemplate="org.drupal.condition.eca_entity_type_bundle" sourceRef="Event_109aomn" targetRef="Activity_15y3smb">
         <bpmn2:extensionElements>
           <camunda:properties>
-            <camunda:property name="pluginid" value="content_entity:insert" />
+            <camunda:property name="pluginid" value="eca_entity_type_bundle" />
           </camunda:properties>
           <camunda:field name="type">
             <camunda:string>flagging claim_ownership</camunda:string>
           </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity">
+            <camunda:string>event:flagging</camunda:string>
+          </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:outgoing>Flow_1lol4s8</bpmn2:outgoing>
-      </bpmn2:startEvent>
-      <bpmn2:sequenceFlow id="Flow_1lol4s8" sourceRef="Event_0ejsb2d" targetRef="Activity_15y3smb" />
+      </bpmn2:sequenceFlow>
       <bpmn2:exclusiveGateway id="Gateway_09bnpzd">
         <bpmn2:incoming>Flow_1u63pgp</bpmn2:incoming>
         <bpmn2:incoming>Flow_0gw81ml</bpmn2:incoming>
@@ -267,6 +271,14 @@ modeldata: |
       </bpmn2:sequenceFlow>
       <bpmn2:sequenceFlow id="Flow_0gw81ml" sourceRef="Activity_10wjb4y" targetRef="Gateway_09bnpzd" />
       <bpmn2:sequenceFlow id="Flow_18g0dcc" sourceRef="Activity_1ljuc7j" targetRef="Gateway_09bnpzd" />
+      <bpmn2:startEvent id="Event_109aomn" name="Ownership claimed" camunda:modelerTemplate="org.drupal.event.flag:insert">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="flag:insert" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_1lol4s8</bpmn2:outgoing>
+      </bpmn2:startEvent>
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-30006dac-b440-43dd-aa3c-369c34d7e4e0">
       <bpmndi:BPMNPlane id="sid-e7f832e2-f23e-4a19-b366-92be2f03edf8" bpmnElement="Process_xUtbYSI">
@@ -294,14 +306,14 @@ modeldata: |
           <dc:Bounds x="310" y="140" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Event_0ejsb2d_di" bpmnElement="Event_0ejsb2d">
-          <dc:Bounds x="172" y="162" width="36" height="36" />
-          <bpmndi:BPMNLabel>
-            <dc:Bounds x="165" y="125" width="53" height="27" />
-          </bpmndi:BPMNLabel>
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_09bnpzd_di" bpmnElement="Gateway_09bnpzd" isMarkerVisible="true">
           <dc:Bounds x="495" y="155" width="50" height="50" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Event_109aomn_di" bpmnElement="Event_109aomn">
+          <dc:Bounds x="132" y="162" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="122" y="126" width="56" height="27" />
+          </bpmndi:BPMNLabel>
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1y751ge_di" bpmnElement="Flow_1y751ge">
           <di:waypoint x="760" y="180" />
@@ -330,12 +342,15 @@ modeldata: |
           <di:waypoint x="980" y="180" />
           <di:waypoint x="1100" y="180" />
           <bpmndi:BPMNLabel>
-            <dc:Bounds x="999" y="140" width="84" height="40" />
+            <dc:Bounds x="999" y="140" width="85" height="53" />
           </bpmndi:BPMNLabel>
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1lol4s8_di" bpmnElement="Flow_1lol4s8">
-          <di:waypoint x="208" y="180" />
+          <di:waypoint x="168" y="180" />
           <di:waypoint x="310" y="180" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="204" y="140" width="87" height="40" />
+          </bpmndi:BPMNLabel>
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1u63pgp_di" bpmnElement="Flow_1u63pgp">
           <di:waypoint x="410" y="180" />
