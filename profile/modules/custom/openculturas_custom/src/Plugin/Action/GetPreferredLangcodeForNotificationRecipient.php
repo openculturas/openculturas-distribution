@@ -33,20 +33,21 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
-    $form = parent::buildConfigurationForm($form, $form_state);
     $form['recipient'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email of recipient'),
       '#default_value' => $this->configuration['recipient'],
-      '#description' => $this->t('Example: <em>mail@example.org</em>. This field supports tokens.'),
+      '#description' => $this->t('Example: <em>mail@example.org</em>.'),
+      '#eca_token_replacement' => TRUE,
     ];
     $form['token_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Name of token'),
       '#default_value' => $this->configuration['token_name'],
       '#description' => $this->t('The preferred langcode will be stored in this token'),
+      '#eca_token_reference' => TRUE,
     ];
-    return $form;
+    return parent::buildConfigurationForm($form, $form_state);
   }
 
   /**
@@ -62,7 +63,7 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
    * {@inheritdoc}
    */
   public function execute(): void {
-    $recipient = trim((string) $this->tokenServices->replaceClear($this->configuration['recipient']));
+    $recipient = trim((string) $this->tokenService->replaceClear($this->configuration['recipient']));
     if ($recipient === '') {
       throw new \InvalidArgumentException("No recipient specified.");
     }
@@ -73,10 +74,10 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
       if ($entity->label() === $recipient) {
         $token_name = trim($this->configuration['token_name'] ?? '');
         if ($token_name === '') {
-          $token_name = 'preferred_langcode';
+          $token_name = 'eca_set_current_langcode_langcode';
         }
 
-        $this->tokenServices->addTokenData($token_name, $entity->getPreferredLangcode());
+        $this->tokenService->addTokenData($token_name, $entity->getPreferredLangcode());
         break;
       }
     }

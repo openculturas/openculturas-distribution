@@ -9,7 +9,7 @@ dependencies:
 id: process_zo0uuo3
 modeller: bpmn_io
 label: 'Moderation state (published) was set'
-version: 1.0.0
+version: 2.0.0
 weight: -7
 events:
   Event_1y89lfy:
@@ -28,7 +28,7 @@ conditions:
     plugin: eca_scalar
     configuration:
       case: false
-      left: '[preferred_langcode]'
+      left: '[eca_set_current_langcode_langcode]'
       right: de
       operator: equal
       type: value
@@ -38,7 +38,7 @@ conditions:
     configuration:
       negate: false
       case: false
-      left: '[preferred_langcode]'
+      left: '[eca_set_current_langcode_langcode]'
       right: de
       operator: equal
       type: value
@@ -46,7 +46,7 @@ conditions:
     plugin: eca_token_exists
     configuration:
       negate: false
-      token_name: preferred_langcode
+      token_name: eca_set_current_langcode_langcode
 gateways: {  }
 actions:
   Activity_1ljuc7j:
@@ -79,7 +79,7 @@ actions:
     plugin: eca_set_current_langcode
     label: 'Set the currently used or negotiated language code.'
     configuration:
-      langcode: '[preferred_langcode]'
+      langcode: _eca_token
     successors:
       -
         id: Activity_1ljuc7j
@@ -91,8 +91,8 @@ actions:
     plugin: eca_get_preferred_langcode
     label: 'Get the preferred langcode of notification recipient'
     configuration:
-      token_name: preferred_langcode
-      object: '[current-user]'
+      token_name: eca_set_current_langcode_langcode
+      object: current-user
     successors:
       -
         id: Activity_04if7je

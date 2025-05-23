@@ -1065,3 +1065,35 @@ function openculturas_post_update_setup_paragraphs_type_a11y_wheelchair(): strin
 
   return $logger->output();
 }
+
+/**
+ * Updates config for eca 2.x upgrade.
+ */
+function openculturas_post_update_eca_upgrade_2(): string {
+  $full_config_names = [
+    'eca.eca.process_fhzwp6n',
+    'eca.eca.process_xutbysi',
+    'eca.eca.process_zo0uuo3',
+    'eca.eca.process_gfgdois',
+    'eca.model.process_fhzwp6n',
+    'eca.model.process_xutbysi',
+    'eca.model.process_zo0uuo3',
+    'eca.model.process_gfgdois',
+  ];
+
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to revert %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  return $logger->output();
+}
