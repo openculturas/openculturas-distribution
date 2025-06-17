@@ -1223,7 +1223,7 @@
       this.perPageElement = wrapperElement.querySelector('.openculturas-map--results-picker select');
 
       this.settings = new Drupal.OpenCulturasMapSettings(this.wrapperElement.dataset.identifier ?? null);
-      this.minZoom = Math.min(this.settings.get('start_zoom_position') ?? 4, 4);
+      this.minZoom = Math.min(this.settings.get('start_zoom_position') ?? 1, 1);
       this.maxZoom = 19;
 
       this.radiusBase = parseFloat(this.settings.get('radius_base')) ?? 0.0430;
