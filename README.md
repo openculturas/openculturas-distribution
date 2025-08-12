@@ -13,8 +13,7 @@
 OpenCulturas is built as a pre-configured platform for cultural-focused communities, empowering actors in the cultural field to own their data and make their information accessible to a wide audience.
 
 ## Requirements
-* https://www.drupal.org/docs/system-requirements for Drupal 9
-  * PHP 8.1
+* https://www.drupal.org/docs/system-requirements for Drupal 10
 * A bunch of drupal modules and external libraries.
 
 ## Installation
