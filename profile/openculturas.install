@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
@@ -165,6 +166,17 @@ function openculturas_update_last_removed(): int {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openculturas_update_dependencies(): array {
+  $dependencies = [];
+  $dependencies['openculturas_update'][10116] = [
+    'duration_field' => 8201,
+  ];
+  return $dependencies;
+}
+
+/**
  * Deletes removed update_helper_checklist updates.
  */
 function openculturas_update_10109(): void {
@@ -244,4 +256,54 @@ function openculturas_update_10115(): void {
   /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->install(['paragraphs_limits']);
+}
+
+/**
+ * Rerun duration_field_update_8201, but with a proper API.
+ */
+function openculturas_update_10116(): void {
+  $field_type = 'duration';
+  $entity_type_manager = \Drupal::entityTypeManager();
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_field_map = $entity_field_manager->getFieldMapByFieldType($field_type);
+  $database = \Drupal::database();
+  $entity_def_manager = \Drupal::entityDefinitionUpdateManager();
+  $property = 'weeks';
+  foreach ($entity_field_map as $entity_type_id => $field_map) {
+    $entity_storage = $entity_type_manager->getStorage($entity_type_id);
+
+    // Only SQL storage based entities are supported / throw known exception.
+    if (!($entity_storage instanceof SqlContentEntityStorage)) {
+      continue;
+    }
+
+    $field_storage_definitions = $entity_field_manager->getFieldStorageDefinitions($entity_type_id);
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage_definition */
+    foreach (array_intersect_key($field_storage_definitions, $field_map) as $field_storage_definition) {
+      $field_name = $field_storage_definition->getName();
+      $table_mapping = $entity_storage->getTableMapping([
+        $field_name => $field_storage_definition,
+      ]);
+      if (!method_exists($table_mapping, 'getDedicatedTableNames')) {
+        continue;
+      }
+
+      $table_names = $table_mapping->getDedicatedTableNames();
+      $columns = $table_mapping->getColumnNames($field_name);
+      $field_schema = $field_storage_definition->getSchema();
+      $schema = $database->schema();
+      foreach ($table_names as $table_name) {
+        $field_exists = $schema->fieldExists($table_name, $columns[$property]);
+        $table_exists = $schema->tableExists($table_name);
+        if (!$field_exists && $table_exists) {
+          $schema->addField($table_name, $columns[$property], $field_schema['columns'][$property]);
+        }
+      }
+
+      $entity_def_manager->updateFieldStorageDefinition(
+        $field_storage_definition
+      );
+    }
+  }
 }
