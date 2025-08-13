@@ -170,8 +170,11 @@ function openculturas_update_last_removed(): int {
  */
 function openculturas_update_dependencies(): array {
   $dependencies = [];
-  $dependencies['openculturas_update'][10116] = [
+  $dependencies['openculturas'][10116] = [
     'duration_field' => 8201,
+  ];
+  $dependencies['openculturas'][10117] = [
+    'tour' => 10309,
   ];
   return $dependencies;
 }
@@ -306,4 +309,22 @@ function openculturas_update_10116(): void {
       );
     }
   }
+}
+
+/**
+ * Enable option: 'Hide tour when empty'.
+ */
+function openculturas_update_10117(): void {
+  \Drupal::configFactory()->getEditable('tour.settings')
+    ->set('hide_tour_when_empty', TRUE)
+    ->save();
+}
+
+/**
+ * Uninstall tour_enhancements, tour_ui module.
+ */
+function openculturas_update_10118(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
+  $moduleInstaller = \Drupal::service('module_installer');
+  $moduleInstaller->uninstall(['tour_enhancements', 'tour_ui']);
 }
