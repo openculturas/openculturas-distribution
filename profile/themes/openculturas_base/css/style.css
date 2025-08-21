@@ -13669,7 +13669,7 @@ body .interact {
   --ss-border-color: var(--color-interaction);
   --ss-success-color: var(--color-success);
   --ss-error-color: var(--color-danger);
-  --ss-focus-color: var(--color-focus);
+  --ss-focus-color: var(--color-info);
   --ss-main-height: 2.5rem;
   --ss-spacing-l: 0.5em;
   --ss-spacing-m: 0.5em;
@@ -13678,11 +13678,20 @@ body .interact {
   --ss-border-radius: var(--button-border-radius);
 }
 
+.ss-content .ss-search input:focus {
+  border-color: var(--color-info);
+  box-shadow: 0 3px 2px 0 var(--ss-focus-color);
+}
+
 .ss-main {
   width: 18rem;
   padding: 0.5rem 0 0.5rem 1rem;
   border: 1px solid var(--color-divider-dark);
   border-radius: 0;
+}
+.ss-main:focus {
+  border-color: var(--color-info);
+  box-shadow: 0 3px 2px 0 var(--ss-focus-color);
 }
 .ss-main .ss-arrow {
   margin: var(--ss-spacing-s) var(--ss-spacing-m) auto var(--ss-spacing-m);
@@ -15826,8 +15835,7 @@ body.gin--vertical-toolbar.offcanvas-open .header__offcanvas-menu--grid {
     width: 100vw;
     height: 50vw;
     background-color: rgba(244, 244, 255, 0.4509803922);
-    -webkit-backdrop-filter: blur(7px);
-            backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px);
   }
 }
 .layout-container {
