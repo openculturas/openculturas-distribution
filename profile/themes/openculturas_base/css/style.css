@@ -104,6 +104,11 @@ a.menu-item--toggle:before,
 .extra-field-social-media-buttons button:before,
 .badge--peer:before,
 .recurring-output--wrapper button.button:before,
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/logout"]:before,
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path=user]:before,
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/register"]:before,
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/login"]:before,
+.account-toggle--wrapper .button-popover-trigger:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-legal-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before,
@@ -113,6 +118,7 @@ a.menu-item--toggle:before,
 .openculturas-map--overlay:before,
 .openculturas-map--results .map-link:before,
 .openculturas-map--reload:before,
+.language-toggle--wrapper .button-popover-trigger:before,
 .mode-toggle.toggle-dark:before,
 .dark-mode-toggle--popover-button[data-icon=dark]:before,
 .mode-toggle.toggle-light:before,
@@ -12906,6 +12912,60 @@ button.mode-toggle:focus, button.mode-toggle:hover, button.mode-toggle:active {
   padding: 0.625rem 1.25rem;
 }
 
+.language-toggle--wrapper {
+  min-width: 4rem;
+}
+.language-toggle--wrapper .button-popover-trigger:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f0ac";
+}
+
+.language-toggle--popover-content {
+  inset: unset;
+}
+
+@supports (anchor-name: --language-toggle-trigger) {
+  .language-toggle--trigger {
+    anchor-name: --language-toggle-trigger;
+  }
+  .language-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --language-toggle-trigger;
+  }
+}
+.block-language .language-toggle--popover-content ul.links {
+  margin: 0;
+  padding: 0.25rem 1rem;
+  flex-flow: column;
+}
+.block-language .language-toggle--popover-content ul.links::before {
+  display: none;
+}
+
+.language-toggle--wrapper::after {
+  color: var(--color-text-muted);
+  display: inline-block;
+}
+
+.popover-content-language:has(.de.is-active)::after {
+  content: "DE";
+}
+
+.popover-content-language:has(.en.is-active)::after {
+  content: "EN";
+}
+
+.popover-content-language:has(.fr.is-active)::after {
+  content: "FR";
+}
+
 .block-openculturas-custom-hero-image .field {
   margin: 0;
 }
@@ -13386,6 +13446,7 @@ html.dark .openculturas-map--overlay {
 
 .utility-toggle--wrapper {
   margin-right: 1rem;
+  display: inline-block;
 }
 
 .button-popover-trigger {
@@ -13532,6 +13593,111 @@ html.dark .openculturas-map--overlay {
   transform: translate3d(0, 0, 0);
   border-radius: var(--button-border-radius);
   z-index: 1;
+}
+
+.region-utilities-links .account-toggle--wrapper .menu {
+  flex-flow: column;
+  gap: 0;
+  margin: 0;
+}
+
+.account-toggle--wrapper .button-popover-trigger:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f007";
+}
+
+.account-toggle--popover-content {
+  width: -moz-max-content;
+  width: max-content;
+  inset: unset;
+}
+
+@supports (anchor-name: --account-menu-trigger) {
+  .account-toggle--trigger {
+    anchor-name: --account-menu-trigger;
+  }
+  .account-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --account-menu-trigger;
+  }
+}
+.region-utilities-links .account-toggle--wrapper .menu {
+  margin: 0;
+  padding: 0.25rem 1rem;
+}
+.region-utilities-links .account-toggle--wrapper .menu li a {
+  padding-inline: 2em 1em;
+  color: var(--color-link);
+}
+.region-utilities-links .account-toggle--wrapper .menu li a:focus, .region-utilities-links .account-toggle--wrapper .menu li a:hover {
+  color: var(--color-text-inverted);
+}
+.region-utilities-links .account-toggle--wrapper .menu li a::before {
+  position: relative;
+  left: -1.5em;
+  margin-right: -1em;
+}
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/login"]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f090";
+}
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/register"]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f234";
+}
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path=user]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f007";
+}
+.region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/logout"]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f08b";
+}
+.region-utilities-links .account-toggle--wrapper .menu.is-active a,
+.region-utilities-links .account-toggle--wrapper .menu a.is-active {
+  color: var(--color-text-muted);
+  border-bottom: 1px solid;
+  background-color: transparent;
+  cursor: default;
+}
+.region-utilities-links .account-toggle--wrapper .menu.is-active a:focus, .region-utilities-links .account-toggle--wrapper .menu.is-active a:hover,
+.region-utilities-links .account-toggle--wrapper .menu a.is-active:focus,
+.region-utilities-links .account-toggle--wrapper .menu a.is-active:hover {
+  color: var(--color-text-muted);
+  border-bottom: 1px solid;
+  background-color: transparent;
+  cursor: default;
 }
 
 .block .block--title {

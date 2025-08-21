@@ -1,0 +1,91 @@
+// unset regular menu style
+.region-utilities-links .account-toggle--wrapper .menu {
+  flex-flow: column;
+  gap: 0;
+  margin: 0;
+}
+
+// toggle
+.account-toggle--wrapper {
+  .button-popover-trigger {
+    @include icon(user);
+  }
+}
+
+.account-toggle--popover-content {
+  width: max-content;
+  inset: unset;
+}
+
+@supports (anchor-name: --account-menu-trigger) {
+  .account-toggle--trigger  {
+    anchor-name: --account-menu-trigger;
+  }
+
+  .account-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --account-menu-trigger;
+  }
+}
+
+// List icons
+
+// default links in region too specific
+// @todo in v2
+.region-utilities-links .account-toggle--wrapper .menu {
+  margin: 0;
+  padding: .25rem 1rem;
+
+  li {
+    a {
+      padding-inline: 2em 1em;
+      color: var(--color-link);
+
+      &:focus,
+      &:hover {
+        color: var(--color-text-inverted);
+      }
+          }
+
+    a::before {
+      position: relative;
+      left: -1.5em;
+      margin-right: -1em;
+    }
+
+    a[data-drupal-link-system-path="user/login"] {
+      @include icon(arrow-right-to-bracket, fas, before);
+    }
+
+    a[data-drupal-link-system-path="user/register"] {
+      @include icon(user-plus, fas, before);
+    }
+
+    a[data-drupal-link-system-path="user"] {
+      @include icon(user, fas, before);
+    }
+
+    a[data-drupal-link-system-path="user/logout"] {
+      @include icon(arrow-right-from-bracket, fas, before);
+    }
+  }
+
+  &.is-active a,
+  a.is-active {
+    color: var(--color-text-muted);
+    border-bottom: 1px solid;
+    background-color: transparent;
+    cursor: default;
+
+    &:focus,
+    &:hover {
+      color: var(--color-text-muted);
+      border-bottom: 1px solid;
+      background-color: transparent;
+      cursor: default;
+    }
+  }
+}
+
+// @todo icons suitable for rtl languages

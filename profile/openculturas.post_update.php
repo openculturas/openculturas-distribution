@@ -11,6 +11,7 @@ use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\block\BlockInterface;
+use Drupal\block\Entity\Block;
 use Drupal\content_translation\BundleTranslationSettingsInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -22,6 +23,24 @@ use Drupal\user\RoleInterface;
 use Drupal\views\ViewEntityInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
+
+function _openculturas_post_update_import_config(array $full_config_names): string {
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  return $logger->output();
+}
 
 /**
  * Implements hook_removed_post_updates().
@@ -1120,4 +1139,51 @@ function openculturas_post_update_revert_gin_theme_overrides_1(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Imports the new block utility_menu_account.
+ */
+function openculturas_post_update_import_block_utility_menu_account(): string {
+  $block = Block::load('utility_menu_account');
+  if ($block instanceof BlockInterface) {
+    return 'Skipped importing block utility_menu_account.';
+  }
+
+  $full_config_names = [
+    'block.block.utility_menu_account',
+  ];
+  $output = _openculturas_post_update_import_config($full_config_names);
+  $block = Block::load('utility_menu_account');
+  if ($block instanceof BlockInterface) {
+    // Make this block optional.
+    $block->disable();
+    $block->save();
+  }
+
+  return $output;
+}
+
+/**
+ * Imports the new block language_toggle.
+ */
+function openculturas_post_update_import_block_language_toggle(): string {
+  $block = Block::load('language_toggle');
+  if ($block instanceof BlockInterface) {
+    return 'Skipped importing block language_toggle.';
+  }
+
+  $full_config_names = [
+    'block.block.language_toggle',
+  ];
+
+  $output = _openculturas_post_update_import_config($full_config_names);
+  $block = Block::load('language_toggle');
+  if ($block instanceof BlockInterface) {
+    // Make this block optional.
+    $block->disable();
+    $block->save();
+  }
+
+  return $output;
 }

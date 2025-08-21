@@ -1,0 +1,57 @@
+// see also: templates/menu/menu.scss
+// see also: block--popover.scss
+
+.language-toggle--wrapper {
+  min-width: 4rem;
+
+  .button-popover-trigger {
+    @include icon(globe);
+  }
+}
+
+// Do not delete this, it is needed for the popover to work.
+.language-toggle--popover-content {
+  inset: unset;
+}
+
+@supports (anchor-name: --language-toggle-trigger) {
+  .language-toggle--trigger {
+    anchor-name: --language-toggle-trigger;
+  }
+
+  .language-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --language-toggle-trigger;
+  }
+}
+
+.block-language .language-toggle--popover-content {
+  // does not inherit correctly, legacy too specific
+  ul.links {
+    margin: 0;
+    padding: .25rem 1rem;
+    flex-flow: column;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+// selected language indicator
+
+.language-toggle--wrapper::after {
+  color: var(--color-text-muted);
+  display: inline-block;
+}
+
+.popover-content-language:has(.de.is-active)::after {
+  content: 'DE';
+}
+.popover-content-language:has(.en.is-active)::after {
+  content: 'EN';
+}
+.popover-content-language:has(.fr.is-active)::after {
+  content: 'FR';
+}
