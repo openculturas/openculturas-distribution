@@ -27,7 +27,13 @@ Q: How can I ignore patches?
 
 A: The package which we use to patch dependencies allows to ignore patches. For more information go to https://github.com/cweagans/composer-patches#ignoring-patches.
 
+Q: How can I contribute to OpenCulturas?
+
+A: Please read the [Contribution gudelines](CONTRIBUTING.md).
+
 ## Development
+
+Please read the [Development guidelines](DEVELOPMENT.md) before you start.
 
 We recommend to use https://ddev.com for development.
 
@@ -96,3 +102,7 @@ After that, enable config_devel and run `ddev drush cde openculturas` or `ddev d
 This command updates all configuration which are listed in the info file and removes the key `_core` and `uuid` except for
 views configuration. The uuid is needed because the uuid is used in other configuration as default value, without this
 the default value would be not set/broken.
+
+## Security
+
+Concerns about the software security? Or have you found a vulnerability? Please follow the principles of Responsible Disclosure. You'll find all information you need in [SECURITY.md](SECURITY.md).
