@@ -97,9 +97,12 @@
     img {
       aspect-ratio: 16/9;
       height: auto;
-      transition: transform 300ms ease;
       vertical-align: bottom;
       width: 100%;
+      transition: transform 300ms ease;
+      @media (prefers-reduced-motion: reduce) {
+        transition-duration: 10ms;
+      }
     }
 
     .taxonomy-term--tag {
@@ -117,6 +120,13 @@
         width: 100%;
         height: auto;
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        img {
+          transform: scale(1);
+        }
+      }
+
 
       .taxonomy-term--tag {
         background: $color-text-muted;
@@ -143,7 +153,7 @@
   }
 }
 
-// Facets 
+// Facets
 
 .facet-item a {
   background-color: var(--color-bg-light);

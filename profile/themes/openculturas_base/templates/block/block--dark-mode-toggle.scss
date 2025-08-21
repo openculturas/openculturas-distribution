@@ -1,0 +1,94 @@
+// Reduce toggle button to icon
+.dark-mode-toggle--popover-button {
+  border-width: 0;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 2rem;
+  height: 2.1rem;
+  margin: 0;
+  position: relative;
+  &::before {
+    @extend %button;
+    border-color: transparent;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    left: 0;
+    padding: .5rem .333rem;
+  }
+}
+
+html.dark {
+  .dark-mode-toggle--popover-button {
+    background-color: var(--color-interaction);
+    color: var(--color-text-inverted);
+    border-width: 1px;
+    &::before {
+      background-color: var(--color-interaction);
+      color: var(--color-text-inverted);
+    }
+    &:focus,
+    &:hover,
+    &:active {
+      background-color: var(--color-interaction);
+      color: var(--color-interaction);
+      &::before {
+        background-color: var(--color-text-inverted);
+        color: var(--color-interaction);
+      }
+    }
+  }
+}
+
+
+// Button icons (toggle button indicates current selection)
+
+.mode-toggle.toggle-system,
+.dark-mode-toggle--popover-button[data-icon="system"]{
+  @include icon(circle-half-stroke);
+}
+
+.mode-toggle.toggle-light,
+.dark-mode-toggle--popover-button[data-icon="light"] {
+  @include icon(sun);
+}
+
+.mode-toggle.toggle-dark,
+.dark-mode-toggle--popover-button[data-icon="dark"]{
+  @include icon(moon);
+}
+
+button.mode-toggle::before {
+  position: relative;
+  left: -.5em;
+}
+
+// Make toggle buttons look like list items
+
+button.mode-toggle {
+  border: 0;
+  display: block;
+  margin: 0;
+  padding-inline-start: 1.5em;
+  padding-inline-end: 1em;
+  padding-top: .25em;
+  padding-bottom: .25em;
+  border-radius: 0;
+  width: 100%;
+  text-align: left;
+
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: var(--color-interaction);
+    color: var(--color-text-inverted);
+  }
+}
+
+// Currently selected item
+
+.mode-toggle[data-active="true"] {
+  border-bottom: 1px solid var(--color-interaction);
+  color: var(--color-text-muted);
+}

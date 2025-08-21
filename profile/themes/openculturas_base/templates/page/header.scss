@@ -20,6 +20,7 @@
 .header__utilities {
   grid-area: utilities;
   text-align: right;
+  padding-right: 3rem;
 
   .flag {
     display: inline-block;
@@ -30,9 +31,11 @@
 .header__branding {
   grid-area: branding;
   align-self: center;
+  min-width: 8rem;
 
   img, figure, svg {
-    height: 5rem;
+    height: auto;
+    width: 8rem;
   }
 }
 
@@ -87,4 +90,22 @@
 .header__burger {
   grid-area: burger;
   align-self: center;
+}
+
+html.dark {
+  #home-link a {
+    background: url(/profiles/contrib/openculturas-profile/themes/openculturas_base/logo_negative.svg) no-repeat;
+    position: relative;
+    top: .25rem;
+    left: -1rem;
+  }
+  #home-link a img {
+    opacity: 0;
+  }
+}
+
+// Move contextual menu trigger for icon buttons
+
+header .contextual {
+  left: 1.75rem;
 }

@@ -1097,3 +1097,27 @@ function openculturas_post_update_eca_upgrade_2(): string {
 
   return $logger->output();
 }
+
+/**
+ * Revert gin theme overrides to fix a11y issues.
+ */
+function openculturas_post_update_revert_gin_theme_overrides_1(): string {
+  $full_config_names = [
+    'asset_injector.css.oc_gin_theme_overrides',
+  ];
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  foreach ($full_config_names as $full_config_name) {
+    $config_name = ConfigName::createByFullName($full_config_name);
+    if ($configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to revert %s config, because configuration file is not found.', $full_config_name));
+    }
+  }
+
+  return $logger->output();
+}

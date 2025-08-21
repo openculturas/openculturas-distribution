@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the dark mode toggle.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the container element.
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('dark_mode_toggle/dark-mode-toggle') }}
+<ul class="dark-mode-toggle--selector">
+  <li><button value="light" class="mode-toggle toggle-light dark-mode-toggle--light">{% trans %}Light{% endtrans %}</button></li>
+  <li><button value="system" class="mode-toggle toggle-system dark-mode-toggle--system">{% trans %}Auto{% endtrans %}</button></li>
+  <li><button value="dark" class="mode-toggle toggle-dark dark-mode-toggle--dark">{% trans %}Dark{% endtrans %}</button></li>
+</ul>

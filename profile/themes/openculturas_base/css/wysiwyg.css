@@ -21,8 +21,19 @@
   --color-divider-dark: #7b7d85;
   --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 7%, transparent);
   --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
+  --color-bg-page-layout: #f4f4ff73;
   --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
   --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+  --ss-primary-color: var(--color-info);
+  --ss-bg-color: var(--color-bg-light);
+  --ss-font-color: var(--color-text);
+  --ss-font-placeholder-color: var(--color-text-muted);
+  --ss-disabled-color: var(--color-text-muted);
+  --ss-border-color: var(--color-divider-dark);
+  --ss-highlight-color: var(--color-warning);
+  --ss-success-color: var(--color-success);
+  --ss-error-color: var(--color-danger);
+  --ss-focus-color: var(--color-info);
   --font-size-xxl: 2rem;
   --font-size-xl: 1.5rem;
   --font-size-l: 1.25rem;
@@ -30,6 +41,8 @@
   --font-size-s: 0.875rem;
   --font-size-icon: 1.5rem;
   --button-border-radius: 4px;
+  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #0000004d);
+  --box-shadow-utilities: 0rem 0.5rem 1rem -0.25rem color-mix(in sRGB, var(--color-bg-dark) 45%, transparent);
 }
 @media screen and (min-width: 48rem) {
   :root {
@@ -92,6 +105,52 @@ blockquote:before {
 
 .fa-5x {
   font-size: 5rem;
+}
+
+:root.dark {
+  --color-primary: #a1167f;
+  --color-interaction: #9e95d0;
+  --color-text: #fafafa;
+  --color-text-muted: #9b9d9a;
+  --color-text-inverted: #191919;
+  --color-headline: #efefef;
+  --color-link: #ea62c8;
+  --color-link--opacity: #ea62c8a3;
+  --color-danger: #f53337;
+  --color-info: #8ccaff;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  --color-neutral-canvas: #191919;
+  --color-bg-dark: #8b8d95;
+  --color-bg-slight-contrast: #000;
+  --color-bg-hardly-any-contrast: #1c1c1c;
+  --color-bg-light: #191919;
+  --color-divider-light: #38393b;
+  --color-divider-dark: #8b8d95;
+  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 10%, transparent);
+  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
+  --color-bg-page-layout: #000000d0;
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+}
+:root.dark body {
+  --color-bg-danger: color-mix(in sRGB, var(--color-danger) 15%, transparent);
+  --color-danger-dark: #a00f12;
+  --color-bg-danger-light: #4c2c2d;
+  --color-bg-info: #0e314f;
+  --color-info-dark: #18558a;
+  --color-bg-success: color-mix(in sRGB, var(--color-success) 15%, transparent);
+  --color-success-dark: #126007;
+  --color-bg-warning: color-mix(in sRGB, var(--color-warning) 15%, transparent);
+  --color-warning-dark: #c09300;
+  --color-bg-form: #f6f6fa11;
+  --color-bg-fieldset: #483d8b07;
+  --outline-active: 2px dashed var(--color-interaction, #483d8b);
+  --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
+  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #ffffff4d);
+}
+:root.dark .inverted {
+  --color-text-inverted: var(--color-text);
 }
 
 /*!
@@ -11065,6 +11124,13 @@ label.option {
 }
 
 input,
+optgroup,
+select,
+textarea {
+  color: var(--color-text);
+}
+
+input,
 select,
 textarea {
   padding: 0.5rem 1rem;
@@ -11340,6 +11406,10 @@ input[type=password],
   padding-left: 0;
 }
 
+.password-strength__meter {
+  background-color: var(--color-bg-slight-contrast);
+}
+
 .password-strength__indicator {
   border: 1px solid transparent;
 }
@@ -11471,6 +11541,13 @@ dialog.modal::backdrop {
   background: var(--color-neutral-canvas);
 }
 
+.formtips-processed ul.tips,
+div.description.formtips-processed,
+.form-item .description.formtips-processed,
+.form-item__description.formtips-processed {
+  color: var(--color-text-inverted);
+}
+
 .details-title {
   display: inline-block;
   width: calc(100% - 2 * var(--font-size-icon));
@@ -11553,6 +11630,11 @@ details > summary.form-required h2::after {
   content: "*";
   color: var(--color-danger);
 }
+@media (prefers-reduced-motion: reduce) {
+  details > summary::before {
+    transition-duration: 10ms;
+  }
+}
 details[open] > summary::before {
   transform: rotate(-180deg);
 }
@@ -11629,7 +11711,8 @@ button {
 .button,
 button,
 input[type=button],
-input[type=submit] {
+input[type=submit],
+.form-submit:not([data-drupal-selector^=edit-reset]) {
   display: inline-block;
   margin-bottom: 1em;
   padding: 0.5em 2em;
@@ -11646,7 +11729,8 @@ input[type=submit] {
 .inverted .button,
 .inverted button,
 .inverted input[type=button],
-.inverted input[type=submit] {
+.inverted input[type=submit],
+.inverted .form-submit:not([data-drupal-selector^=edit-reset]) {
   border-color: var(--color-text-inverted);
 }
 .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus,
@@ -11659,7 +11743,9 @@ button:not([disabled]):hover,
 input[type=button]:focus,
 input[type=button]:not([disabled]):hover,
 input[type=submit]:focus,
-input[type=submit]:not([disabled]):hover {
+input[type=submit]:not([disabled]):hover,
+.form-submit:not([data-drupal-selector^=edit-reset]):focus,
+.form-submit:not([data-drupal-selector^=edit-reset]):not([disabled]):hover {
   color: var(--color-text-inverted);
   background-color: var(--color-interaction);
 }
@@ -11669,7 +11755,7 @@ input[type=submit]:not([disabled]):hover {
   font-size: var(--font-size-s);
 }
 
-.form-submit:not([data-drupal-selector=edit-reset]),
+.form-submit:not([data-drupal-selector^=edit-reset]),
 .button--cta {
   color: var(--color-text-inverted);
   border-color: var(--color-link);
@@ -12048,7 +12134,8 @@ button {
 .button,
 button,
 input[type=button],
-input[type=submit] {
+input[type=submit],
+.form-submit:not([data-drupal-selector^=edit-reset]) {
   display: inline-block;
   margin-bottom: 1em;
   padding: 0.5em 2em;
@@ -12064,7 +12151,8 @@ input[type=submit] {
 .inverted .button,
 .inverted button,
 .inverted input[type=button],
-.inverted input[type=submit] {
+.inverted input[type=submit],
+.inverted .form-submit:not([data-drupal-selector^=edit-reset]) {
   border-color: var(--color-text-inverted);
 }
 .button-small:focus, .shariff .button-style-icon a:focus, .leaflet-container a.leaflet-popup-close-button:focus,
@@ -12076,7 +12164,9 @@ button:not([disabled]):hover,
 input[type=button]:focus,
 input[type=button]:not([disabled]):hover,
 input[type=submit]:focus,
-input[type=submit]:not([disabled]):hover {
+input[type=submit]:not([disabled]):hover,
+.form-submit:not([data-drupal-selector^=edit-reset]):focus,
+.form-submit:not([data-drupal-selector^=edit-reset]):not([disabled]):hover {
   color: var(--color-text-inverted);
   background-color: var(--color-interaction);
 }
@@ -12086,7 +12176,7 @@ input[type=submit]:not([disabled]):hover {
   font-size: var(--font-size-s);
 }
 
-.form-submit:not([data-drupal-selector=edit-reset]),
+.form-submit:not([data-drupal-selector^=edit-reset]),
 .button--cta {
   color: var(--color-text-inverted);
   border-color: var(--color-link);
@@ -12216,6 +12306,19 @@ dialog.modal button.close::after {
   line-height: var(--font-size-icon);
 }
 
+select {
+  background-image: url(../images/chevron-down-inv.svg);
+}
+
+button.shwpd {
+  background-color: var(--color-interaction);
+}
+
+button:not([disabled]).shwpd:focus,
+button:not([disabled]).shwpd:hover {
+  background-color: var(--color-link);
+}
+
 .details-title {
   display: inline-block;
   width: calc(100% - 2 * var(--font-size-icon));
@@ -12297,6 +12400,11 @@ details > summary.form-required::after {
 details > summary.form-required h2::after {
   content: "*";
   color: var(--color-danger);
+}
+@media (prefers-reduced-motion: reduce) {
+  details > summary::before {
+    transition-duration: 10ms;
+  }
 }
 details[open] > summary::before {
   transform: rotate(-180deg);
@@ -12497,6 +12605,13 @@ label {
 }
 label.option {
   display: inline-block;
+}
+
+input,
+optgroup,
+select,
+textarea {
+  color: var(--color-text);
 }
 
 input,
@@ -12775,6 +12890,10 @@ input[type=password],
   padding-left: 0;
 }
 
+.password-strength__meter {
+  background-color: var(--color-bg-slight-contrast);
+}
+
 .password-strength__indicator {
   border: 1px solid transparent;
 }
@@ -12904,6 +13023,13 @@ dialog.modal .dialog-content {
 dialog.modal::backdrop {
   opacity: 0.8;
   background: var(--color-neutral-canvas);
+}
+
+.formtips-processed ul.tips,
+div.description.formtips-processed,
+.form-item .description.formtips-processed,
+.form-item__description.formtips-processed {
+  color: var(--color-text-inverted);
 }
 
 *,

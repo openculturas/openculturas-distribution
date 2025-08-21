@@ -57,6 +57,11 @@
       }
     }
   }
+
+  &:focus-within {
+    border-color: var(--color-info);
+    box-shadow: 0 3px 2px 0 var(--color-info); // cf. form.scss select:focus
+  }
 }
 
 select[multiple].slimselect:not([data-once]) {
@@ -74,5 +79,12 @@ select[multiple].slimselect:not([data-once]) {
   svg {
     width: 1em;
     height: 1em;
+  }
+}
+
+html.dark {
+  .ss-main .ss-arrow {
+    background: $color-bg-light url(../images/chevron-down-inv.svg) no-repeat;
+    background-position: 1rem;
   }
 }

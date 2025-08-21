@@ -8,7 +8,8 @@ button {
 .button,
 button,
 input[type="button"],
-input[type="submit"] {
+input[type="submit"],
+.form-submit:not([data-drupal-selector^="edit-reset"]) {
   display: inline-block;
   margin-bottom: 1em;
   padding: 0.5em 2em;
@@ -41,7 +42,7 @@ input[type="submit"] {
 
 // stylelint-disable scss/percent-placeholder-pattern
 // prettier-ignore
-.form-submit:not([data-drupal-selector="edit-reset"]),
+.form-submit:not([data-drupal-selector^="edit-reset"]),
 .button--cta,
 %oc-button--primary {
   color: $color-text-inverted;

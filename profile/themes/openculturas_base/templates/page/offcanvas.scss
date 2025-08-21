@@ -14,8 +14,11 @@
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 10ms;
+  }
 
   .offcanvas-open & {
     transform: translate3d(0, 0, 0);
@@ -205,9 +208,12 @@
   width: 1.5em;
   outline-offset: 3px;
   outline-width: 2px;
+  position: relative;
 
   @include breakpoint(m) {
     font-size: 1.75rem;
+    margin-bottom: 0;
+    top: .5rem;
   }
 
   &:before,
@@ -220,8 +226,11 @@
     position: relative;
     text-align: center;
     top: 0;
-    transition: top 300ms ease;
     width: inherit;
+    transition: top 300ms ease;
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 10ms;
+    }
   }
 
   &:after {

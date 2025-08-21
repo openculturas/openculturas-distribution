@@ -286,7 +286,10 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   transition: transform 300ms ease;
   z-index: +1;
   background: $color-bg-form;
-  box-shadow: -.5rem 0.5rem 1rem -0.5rem var(--color-text);
+  box-shadow: var(--box-shadow);
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 10ms;
+  }
 
   @include icon(sliders) {
     color: var(--color-interaction);
@@ -425,5 +428,11 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 
   time {
     padding-right: .25em
+  }
+}
+
+html.dark {
+  .openculturas-map--overlay {
+    background-color: var(--color-bg-light-translucent);
   }
 }

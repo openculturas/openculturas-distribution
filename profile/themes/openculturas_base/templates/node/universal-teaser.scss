@@ -237,6 +237,9 @@ h6.teaser {
     }
     img {
       transition: transform 300ms ease;
+      @media (prefers-reduced-motion: reduce) {
+        transition-duration: 10ms;
+      }
     }
   }
   &:focus-within,
@@ -252,6 +255,9 @@ h6.teaser {
         }
       img {
         transform: scale(1.2);
+        @media (prefers-reduced-motion: reduce) {
+          transform: scale(1);
+        }
       }
     }
   }

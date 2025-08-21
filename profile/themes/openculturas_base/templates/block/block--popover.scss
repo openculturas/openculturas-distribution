@@ -1,0 +1,45 @@
+// dark mode toggle (when module enabled)
+// language toggle (when block title present)
+
+.header .region-utilities-links .contextual {
+  left: -1rem;
+}
+
+.utility-toggle--wrapper {
+  margin-right: 1rem;
+}
+
+.button-popover-trigger {
+  border-width: 0;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 2rem;
+  height: 2.1rem;
+  margin: 0;
+  position: relative;
+  @include icon(ellipsis-vertical);
+
+  &::before {
+    @extend %button;
+    border-color: transparent;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    left: 0;
+    padding: .5rem .333rem;
+  }
+}
+
+.popover-content {
+  background: var(--color-bg-light);
+  box-shadow: var(--box-shadow-utilities);
+  border: 0;
+  ul {
+    display: block;
+    margin: 0;
+    padding: .25rem 1rem;
+    list-style: none;
+    text-align: start;
+  }
+}

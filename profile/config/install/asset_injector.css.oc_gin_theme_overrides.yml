@@ -5,7 +5,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |-
+code: |+
   /*
    * Formtip
    */
@@ -88,6 +88,11 @@ code: |-
     border-radius: var(--gin-border-m);
   }
 
+  .is-focused .choices__inner,
+  .is-open .choices__inner {
+    border-color: var(--gin-border-color-form-element);
+  }
+
   .choices__input {
     background-color: var(--gin-bg-input);
     padding-top: .5rem;
@@ -97,6 +102,7 @@ code: |-
   .choices__list--multiple .choices__item {
     background-color: var(--gin-color-primary);
     border-color:var(--gin-color-primary);
+    color: var(--gin-color-button-text);
   }
 
   .choices__list--multiple .choices__item:focus,
@@ -104,6 +110,21 @@ code: |-
     background-color: var(--gin-color-primary-hover) !important;
     border-color: var(--gin-color-primary-hover) !important;
   }
+
+  .choices__list--dropdown,
+  .choices__list[aria-expanded] {
+    background-color: var(--gin-bg-input);
+    border: 1px solid var(--gin-border-color-form-element);
+    color: var(--gin-color-text);
+  }
+
+  .choices__list--dropdown .choices__item--selectable.is-highlighted,
+  .choices__list[aria-expanded] .choices__item--selectable.is-highlighted,
+  .choices__list--multiple .choices__item.is-highlighted {
+      color: var(--gin-color-primary-hover);
+      background-color: var(--gin-bg-item-hover);
+  }
+
 
   /* Adjust Choices to CKEditor 5 z-index */
   .choices__list.choices__list--dropdown {
@@ -410,6 +431,20 @@ code: |-
   .field--type-osm-id > fieldset > legend {
     display: none;
   }
+
+  /* Dark mode fixes (higher specificity) */
+
+  .gin--dark-mode table.diff .diff-context {
+      background-color: transparent;
+  }
+
+
+  /* Moderation form collides with tabs */
+
+  .gin-node-edit-form div:not(.entity-content-form-footer) > .field--widget-moderation-state-default .form-wrapper {
+    margin-top: .5rem;
+  }
+
 media: all
 preprocess: false
 conditions:

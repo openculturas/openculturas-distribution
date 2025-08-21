@@ -21,8 +21,19 @@
   --color-divider-dark: #7b7d85;
   --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 7%, transparent);
   --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
+  --color-bg-page-layout: #f4f4ff73;
   --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
   --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+  --ss-primary-color: var(--color-info);
+  --ss-bg-color: var(--color-bg-light);
+  --ss-font-color: var(--color-text);
+  --ss-font-placeholder-color: var(--color-text-muted);
+  --ss-disabled-color: var(--color-text-muted);
+  --ss-border-color: var(--color-divider-dark);
+  --ss-highlight-color: var(--color-warning);
+  --ss-success-color: var(--color-success);
+  --ss-error-color: var(--color-danger);
+  --ss-focus-color: var(--color-info);
   --font-size-xxl: 2rem;
   --font-size-xl: 1.5rem;
   --font-size-l: 1.25rem;
@@ -30,6 +41,8 @@
   --font-size-s: 0.875rem;
   --font-size-icon: 1.5rem;
   --button-border-radius: 4px;
+  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #0000004d);
+  --box-shadow-utilities: 0rem 0.5rem 1rem -0.25rem color-mix(in sRGB, var(--color-bg-dark) 45%, transparent);
 }
 @media screen and (min-width: 48rem) {
   :root {
@@ -95,10 +108,17 @@ a.menu-item--toggle:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-email a:before,
+.button-popover-trigger:before,
 .leaflet-popup-close-button:before,
 .openculturas-map--overlay:before,
 .openculturas-map--results .map-link:before,
 .openculturas-map--reload:before,
+.mode-toggle.toggle-dark:before,
+.dark-mode-toggle--popover-button[data-icon=dark]:before,
+.mode-toggle.toggle-light:before,
+.dark-mode-toggle--popover-button[data-icon=light]:before,
+.mode-toggle.toggle-system:before,
+.dark-mode-toggle--popover-button[data-icon=system]:before,
 .icon.box-archive:before,
 .icon.table-cells-large:before,
 .icon.table-list:before,
@@ -137,6 +157,52 @@ blockquote:before {
 
 .fa-5x {
   font-size: 5rem;
+}
+
+:root.dark {
+  --color-primary: #a1167f;
+  --color-interaction: #9e95d0;
+  --color-text: #fafafa;
+  --color-text-muted: #9b9d9a;
+  --color-text-inverted: #191919;
+  --color-headline: #efefef;
+  --color-link: #ea62c8;
+  --color-link--opacity: #ea62c8a3;
+  --color-danger: #f53337;
+  --color-info: #8ccaff;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  --color-neutral-canvas: #191919;
+  --color-bg-dark: #8b8d95;
+  --color-bg-slight-contrast: #000;
+  --color-bg-hardly-any-contrast: #1c1c1c;
+  --color-bg-light: #191919;
+  --color-divider-light: #38393b;
+  --color-divider-dark: #8b8d95;
+  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 10%, transparent);
+  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
+  --color-bg-page-layout: #000000d0;
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+}
+:root.dark body {
+  --color-bg-danger: color-mix(in sRGB, var(--color-danger) 15%, transparent);
+  --color-danger-dark: #a00f12;
+  --color-bg-danger-light: #4c2c2d;
+  --color-bg-info: #0e314f;
+  --color-info-dark: #18558a;
+  --color-bg-success: color-mix(in sRGB, var(--color-success) 15%, transparent);
+  --color-success-dark: #126007;
+  --color-bg-warning: color-mix(in sRGB, var(--color-warning) 15%, transparent);
+  --color-warning-dark: #c09300;
+  --color-bg-form: #f6f6fa11;
+  --color-bg-fieldset: #483d8b07;
+  --outline-active: 2px dashed var(--color-interaction, #483d8b);
+  --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
+  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #ffffff4d);
+}
+:root.dark .inverted {
+  --color-text-inverted: var(--color-text);
 }
 
 /*!
@@ -11142,6 +11208,13 @@ label.option {
 }
 
 input,
+optgroup,
+select,
+textarea {
+  color: var(--color-text);
+}
+
+input,
 select,
 textarea {
   padding: 0.5rem 1rem;
@@ -11417,6 +11490,10 @@ input[type=password],
   padding-left: 0;
 }
 
+.password-strength__meter {
+  background-color: var(--color-bg-slight-contrast);
+}
+
 .password-strength__indicator {
   border: 1px solid transparent;
 }
@@ -11548,6 +11625,13 @@ dialog.modal::backdrop {
   background: var(--color-neutral-canvas);
 }
 
+.formtips-processed ul.tips,
+div.description.formtips-processed,
+.form-item .description.formtips-processed,
+.form-item__description.formtips-processed {
+  color: var(--color-text-inverted);
+}
+
 .details-title {
   display: inline-block;
   width: calc(100% - 2 * var(--font-size-icon));
@@ -11630,6 +11714,11 @@ details > summary.form-required h2::after {
   content: "*";
   color: var(--color-danger);
 }
+@media (prefers-reduced-motion: reduce) {
+  details > summary::before {
+    transition-duration: 10ms;
+  }
+}
 details[open] > summary::before {
   transform: rotate(-180deg);
 }
@@ -11701,13 +11790,14 @@ button {
   word-wrap: normal;
 }
 
-.cookies-fallback .cookies-fallback--link, .cookies-fallback .cookies-fallback--btn, .cookiesjsr-layer .cookiesjsr-btn, .add-to-calendar.modal a, .leaflet-container a.leaflet-popup-close-button, .shariff .button-style-icon a, .flag a,
+.cookies-fallback .cookies-fallback--link, .cookies-fallback .cookies-fallback--btn, .cookiesjsr-layer .cookiesjsr-btn, .add-to-calendar.modal a, .button-popover-trigger::before, .dark-mode-toggle--popover-button::before, .leaflet-container a.leaflet-popup-close-button, .shariff .button-style-icon a, .flag a,
 .flag button, .extra-field-social-media-buttons button, .openculturas-map--results .map-link, .openculturas-map--reload,
 .button-small,
 .button,
 button,
 input[type=button],
-input[type=submit] {
+input[type=submit],
+.form-submit:not([data-drupal-selector^=edit-reset]) {
   display: inline-block;
   margin-bottom: 1em;
   padding: 0.5em 2em;
@@ -11719,16 +11809,17 @@ input[type=submit] {
   border-radius: var(--button-border-radius);
   background-color: var(--color-bg-light);
 }
-.inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .flag a, .flag .inverted a, .inverted .extra-field-social-media-buttons button, .extra-field-social-media-buttons .inverted button, .inverted .openculturas-map--results .map-link, .openculturas-map--results .inverted .map-link, .inverted .openculturas-map--reload,
+.inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .button-popover-trigger::before, .inverted .dark-mode-toggle--popover-button::before, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .flag a, .flag .inverted a, .inverted .extra-field-social-media-buttons button, .extra-field-social-media-buttons .inverted button, .inverted .openculturas-map--results .map-link, .openculturas-map--results .inverted .map-link, .inverted .openculturas-map--reload,
 .inverted .button-small,
 .inverted .button,
 .inverted button,
 .inverted input[type=button],
-.inverted input[type=submit] {
+.inverted input[type=submit],
+.inverted .form-submit:not([data-drupal-selector^=edit-reset]) {
   border-color: var(--color-text-inverted);
 }
-.cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .cookiesjsr-layer .cookiesjsr-btn:focus, .add-to-calendar.modal a:focus, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .flag a:focus, .extra-field-social-media-buttons button:focus, .openculturas-map--results .map-link:focus, .openculturas-map--reload:focus,
-.button-small:focus, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover, .flag a:not([disabled]):hover, .openculturas-map--results .map-link:not([disabled]):hover, .openculturas-map--reload:not([disabled]):hover,
+.cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .cookiesjsr-layer .cookiesjsr-btn:focus, .add-to-calendar.modal a:focus, .button-popover-trigger:focus::before, .dark-mode-toggle--popover-button:focus::before, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .flag a:focus, .extra-field-social-media-buttons button:focus, .openculturas-map--results .map-link:focus, .openculturas-map--reload:focus,
+.button-small:focus, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .button-popover-trigger:not([disabled]):hover::before, .dark-mode-toggle--popover-button:not([disabled]):hover::before, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover, .flag a:not([disabled]):hover, .openculturas-map--results .map-link:not([disabled]):hover, .openculturas-map--reload:not([disabled]):hover,
 .button-small:not([disabled]):hover,
 .button:focus,
 .button:not([disabled]):hover,
@@ -11737,7 +11828,9 @@ button:not([disabled]):hover,
 input[type=button]:focus,
 input[type=button]:not([disabled]):hover,
 input[type=submit]:focus,
-input[type=submit]:not([disabled]):hover {
+input[type=submit]:not([disabled]):hover,
+.form-submit:not([data-drupal-selector^=edit-reset]):focus,
+.form-submit:not([data-drupal-selector^=edit-reset]):not([disabled]):hover {
   color: var(--color-text-inverted);
   background-color: var(--color-interaction);
 }
@@ -11749,7 +11842,7 @@ input[type=submit]:not([disabled]):hover {
   font-size: var(--font-size-s);
 }
 
-.form-submit:not([data-drupal-selector=edit-reset]),
+.form-submit:not([data-drupal-selector^=edit-reset]),
 .button--cta,
 .openculturas-map--reload {
   color: var(--color-text-inverted);
@@ -11833,7 +11926,7 @@ button[type=submit].button--danger:before {
   line-height: 1;
 }
 
-.cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .cookiesjsr-layer .cookiesjsr-btn:active, .add-to-calendar.modal a:active, .leaflet-container a.leaflet-popup-close-button:active, .flag a:active, .extra-field-social-media-buttons button:active, .openculturas-map--results .map-link:active, .openculturas-map--reload:active,
+.cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .cookiesjsr-layer .cookiesjsr-btn:active, .add-to-calendar.modal a:active, .button-popover-trigger:active::before, .dark-mode-toggle--popover-button:active::before, .leaflet-container a.leaflet-popup-close-button:active, .flag a:active, .extra-field-social-media-buttons button:active, .openculturas-map--results .map-link:active, .openculturas-map--reload:active,
 .button-small:active, .shariff .button-style-icon a:active,
 .button:active,
 button:active,
@@ -12709,6 +12802,106 @@ div.description.formtips-processed,
   }
 }
 
+.dark-mode-toggle--popover-button {
+  border-width: 0;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 2rem;
+  height: 2.1rem;
+  margin: 0;
+  position: relative;
+}
+.dark-mode-toggle--popover-button::before {
+  border-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+  left: 0;
+  padding: 0.5rem 0.333rem;
+}
+
+html.dark .dark-mode-toggle--popover-button {
+  background-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+  border-width: 1px;
+}
+html.dark .dark-mode-toggle--popover-button::before {
+  background-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+html.dark .dark-mode-toggle--popover-button:focus, html.dark .dark-mode-toggle--popover-button:hover, html.dark .dark-mode-toggle--popover-button:active {
+  background-color: var(--color-interaction);
+  color: var(--color-interaction);
+}
+html.dark .dark-mode-toggle--popover-button:focus::before, html.dark .dark-mode-toggle--popover-button:hover::before, html.dark .dark-mode-toggle--popover-button:active::before {
+  background-color: var(--color-text-inverted);
+  color: var(--color-interaction);
+}
+
+.mode-toggle.toggle-system:before,
+.dark-mode-toggle--popover-button[data-icon=system]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f042";
+}
+
+.mode-toggle.toggle-light:before,
+.dark-mode-toggle--popover-button[data-icon=light]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f185";
+}
+
+.mode-toggle.toggle-dark:before,
+.dark-mode-toggle--popover-button[data-icon=dark]:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f186";
+}
+
+button.mode-toggle::before {
+  position: relative;
+  left: -0.5em;
+}
+
+button.mode-toggle {
+  border: 0;
+  display: block;
+  margin: 0;
+  padding-inline-start: 1.5em;
+  padding-inline-end: 1em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  border-radius: 0;
+  width: 100%;
+  text-align: left;
+}
+button.mode-toggle:focus, button.mode-toggle:hover, button.mode-toggle:active {
+  background-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+
+.mode-toggle[data-active=true] {
+  border-bottom: 1px solid var(--color-interaction);
+  color: var(--color-text-muted);
+}
+
 .block-facets h4 {
   padding: 0.625rem 1.25rem;
 }
@@ -13044,7 +13237,12 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   transition: transform 300ms ease;
   z-index: 1;
   background: var(--color-bg-form);
-  box-shadow: -0.5rem 0.5rem 1rem -0.5rem var(--color-text);
+  box-shadow: var(--box-shadow);
+}
+@media (prefers-reduced-motion: reduce) {
+  .openculturas-map--overlay {
+    transition-duration: 10ms;
+  }
 }
 .openculturas-map--overlay:before {
   -webkit-font-smoothing: antialiased;
@@ -13178,6 +13376,60 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   padding-right: 0.25em;
 }
 
+html.dark .openculturas-map--overlay {
+  background-color: var(--color-bg-light-translucent);
+}
+
+.header .region-utilities-links .contextual {
+  left: -1rem;
+}
+
+.utility-toggle--wrapper {
+  margin-right: 1rem;
+}
+
+.button-popover-trigger {
+  border-width: 0;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 2rem;
+  height: 2.1rem;
+  margin: 0;
+  position: relative;
+}
+.button-popover-trigger:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f142";
+}
+.button-popover-trigger::before {
+  border-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+  left: 0;
+  padding: 0.5rem 0.333rem;
+}
+
+.popover-content {
+  background: var(--color-bg-light);
+  box-shadow: var(--box-shadow-utilities);
+  border: 0;
+}
+.popover-content ul {
+  display: block;
+  margin: 0;
+  padding: 0.25rem 1rem;
+  list-style: none;
+  text-align: start;
+}
+
 .block-social-media-links-block .block-social-media-links--wrapper {
   max-width: 100%;
   margin: 0 auto 1.25rem auto;
@@ -13260,6 +13512,11 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   overflow: hidden;
   transition: transform 300ms ease height 300ms ease width 300ms ease;
   transform: translate3d(100%, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  #oc--social-share--layer {
+    transition-duration: 10ms;
+  }
 }
 
 .socialshare-open #oc--social-share--layer {
@@ -13630,6 +13887,18 @@ body .interact {
   content: "";
 }
 
+html.dark .leaflet-tile-container img {
+  filter: brightness(1) contrast(1.125) grayscale(1) hue-rotate(20deg) invert(1);
+}
+html.dark .leaflet-container .leaflet-control-attribution {
+  background: #000;
+  background: rgba(0, 0, 0, 0.8);
+}
+html.dark .leaflet-control-attribution,
+html.dark .leaflet-control-scale-line {
+  color: #777;
+}
+
 .leaflet-control-container {
   height: 100%;
 }
@@ -13658,6 +13927,13 @@ body .interact {
 .leaflet-container,
 .marker-cluster div {
   font-family: var(--font-base);
+}
+
+html.dark .leaflet-marker-icon[src*="openculturas_base/images/map_marker.svg"],
+html.dark .leaflet-marker-icon[src*="openculturas_map/assets/map_marker.svg"],
+html.dark .custom-cluster-icon img[src*="openculturas_base/images/map_marker.svg"],
+html.dark .custom-cluster-icon img[src*="openculturas_map/assets/map_marker.svg"] {
+  filter: hue-rotate(28deg) brightness(3.5) contrast(0.75);
 }
 
 .slimselect {
@@ -13712,6 +13988,10 @@ body .interact {
 .ss-main .ss-values .ss-value .ss-value-delete {
   border-left-width: 0;
 }
+.ss-main:focus-within {
+  border-color: var(--color-info);
+  box-shadow: 0 3px 2px 0 var(--color-info);
+}
 
 select[multiple].slimselect:not([data-once]) {
   height: 2.48rem;
@@ -13726,6 +14006,11 @@ select[multiple].slimselect:not([data-once]) optgroup, select[multiple].slimsele
 .ss-content .ss-list .ss-optgroup .ss-optgroup-label .ss-optgroup-actions .ss-selectall svg {
   width: 1em;
   height: 1em;
+}
+
+html.dark .ss-main .ss-arrow {
+  background: var(--color-bg-light) url(../images/chevron-down-inv.svg) no-repeat;
+  background-position: 1rem;
 }
 
 .swiffy-slider {
@@ -14061,6 +14346,86 @@ select[multiple].slimselect:not([data-once]) optgroup, select[multiple].slimsele
   border-color: var(--color-danger);
 }
 
+.choices.is-disabled .choices__inner,
+.choices.is-disabled .choices__input {
+  background-color: var(--color-bg-light, #eaeaea);
+  opacity: 0.5;
+}
+
+.choices[data-type*=select-one] .choices__input {
+  border-bottom-color: var(--color-divider-light, #ddd);
+  background-color: var(--color-bg-light, #fff);
+}
+
+.choices[data-type*=select-one] .choices__button:focus {
+  box-shadow: 0 0 0 2px var(--color-info, #00bcd4);
+}
+
+.choices[data-type*=select-one]::after {
+  border-color: var(--color-divider-dark, #333) transparent transparent transparent;
+}
+
+.choices[data-type*=select-one].is-open::after {
+  border-color: transparent transparent var(--color-divider-dark, #333) transparent;
+}
+
+.choices[data-type*=select-multiple] .choices__button,
+.choices[data-type*=text] .choices__button {
+  border-left: 1px solid rgba(0, 0, 0, 0.8509803922);
+}
+
+.choices__inner {
+  background-color: var(--color-bg-light, #f9f9f9);
+  border: 1px solid var(--color-divider-light, #ddd);
+}
+
+.is-focused .choices__inner,
+.is-open .choices__inner {
+  border-color: var(--color-divider-light, #b7b7b7);
+}
+
+.choices__list--multiple .choices__item {
+  background-color: var(--color-info, #00bcd4);
+  border: 1px solid var(--color-info, #00a5bb);
+  color: var(--color-bg-light, #fff);
+}
+
+.choices__list--multiple .choices__item.is-highlighted {
+  background-color: var(--color-interaction, #00a5bb);
+  border: 1px solid var(--color-interaction, #008fa1);
+}
+
+.is-disabled .choices__list--multiple .choices__item {
+  background-color: var(--color-bg-light, #aaaaaa);
+  border: 1px solid var(--color-divider-light, #919191);
+  opacity: 0.5;
+}
+
+.choices__list--dropdown,
+.choices__list[aria-expanded] {
+  background-color: var(--color-bg-light, #fff);
+  border: 1px solid var(--color-divider-light, #ddd);
+}
+
+.is-open .choices__list--dropdown,
+.is-open .choices__list[aria-expanded] {
+  border-color: var(--color-divider-light, #b7b7b7);
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+  background-color: var(--color-bg-light, #fff);
+}
+
+.choices__heading {
+  border-bottom: 1px solid var(--color-divider-light, #f7f7f7);
+  color: var(--color-text-muted, gray);
+}
+
+.choices__input {
+  background-color: var(--color-bg-light, #fff);
+}
+
 #color-schema-ui {
   top: 4rem;
   left: 4rem;
@@ -14249,7 +14614,7 @@ ul.links > li > ul {
 }
 
 ul.menu a.is-active {
-  color: unset;
+  color: var(--color-text-muted);
 }
 
 .menu-item,
@@ -14372,7 +14737,7 @@ a.menu-item--toggle .menu-item--open a.menu-item--toggle:before {
 }
 
 .block-language .links {
-  margin-right: 3rem;
+  margin-right: 2rem;
 }
 .block-language .links:before {
   -webkit-font-smoothing: antialiased;
@@ -15092,6 +15457,11 @@ h6.teaser {
 .teaser-image-linked .field--name-field-mood-image img {
   transition: transform 300ms ease;
 }
+@media (prefers-reduced-motion: reduce) {
+  .teaser-image-linked .field--name-field-mood-image img {
+    transition-duration: 10ms;
+  }
+}
 .teaser-image-linked:focus-within .field--name-field-mood-image .field__items, .teaser-image-linked:hover .field--name-field-mood-image .field__items {
   outline: 2px solid var(--color-link);
   outline-offset: 0;
@@ -15102,6 +15472,11 @@ h6.teaser {
 }
 .teaser-image-linked:focus-within .field--name-field-mood-image img, .teaser-image-linked:hover .field--name-field-mood-image img {
   transform: scale(1.2);
+}
+@media (prefers-reduced-motion: reduce) {
+  .teaser-image-linked:focus-within .field--name-field-mood-image img, .teaser-image-linked:hover .field--name-field-mood-image img {
+    transform: scale(1);
+  }
 }
 
 .calendar .universal-teaser.teaser-image-linked {
@@ -15217,6 +15592,11 @@ h6.teaser {
     transition: transform 300ms ease;
   }
 }
+@media screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .cookiesjsr-layer .cookiesjsr-service-group--tab:before {
+    transition-duration: 10ms;
+  }
+}
 @media screen and (max-width: 767px) {
   .cookiesjsr-layer .cookiesjsr-service-group {
     margin: 0 1.25rem 1.25rem;
@@ -15296,6 +15676,10 @@ h6.teaser {
   .footer--container {
     padding: 3.75rem 0 1.25rem;
   }
+}
+
+html.dark .footer--container {
+  background: var(--color-bg-slight-contrast);
 }
 
 .footer {
@@ -15389,6 +15773,7 @@ h6.teaser {
 .header__utilities {
   grid-area: utilities;
   text-align: right;
+  padding-right: 3rem;
 }
 .header__utilities .flag {
   display: inline-block;
@@ -15398,9 +15783,11 @@ h6.teaser {
 .header__branding {
   grid-area: branding;
   align-self: center;
+  min-width: 8rem;
 }
 .header__branding img, .header__branding figure, .header__branding svg {
-  height: 5rem;
+  height: auto;
+  width: 8rem;
 }
 
 .site-logo {
@@ -15444,6 +15831,20 @@ h6.teaser {
 .header__burger {
   grid-area: burger;
   align-self: center;
+}
+
+html.dark #home-link a {
+  background: url(/profiles/contrib/openculturas-profile/themes/openculturas_base/logo_negative.svg) no-repeat;
+  position: relative;
+  top: 0.25rem;
+  left: -1rem;
+}
+html.dark #home-link a img {
+  opacity: 0;
+}
+
+header .contextual {
+  left: 1.75rem;
 }
 
 .messages {
@@ -15584,8 +15985,13 @@ html[lang=de] .node--workflow-pending:before {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  transition: transform 300ms ease, box-shadow 300ms ease;
   transform: translate3d(100%, 0, 0);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .header__offcanvas-menu {
+    transition-duration: 10ms;
+  }
 }
 .offcanvas-open .header__offcanvas-menu {
   transform: translate3d(0, 0, 0);
@@ -15767,6 +16173,7 @@ html[lang=de] .node--workflow-pending:before {
   width: 1.5em;
   outline-offset: 3px;
   outline-width: 2px;
+  position: relative;
 }
 .header__burger--buttons:before {
   -webkit-font-smoothing: antialiased;
@@ -15781,6 +16188,8 @@ html[lang=de] .node--workflow-pending:before {
 @media screen and (min-width: 48rem) {
   .header__burger--buttons {
     font-size: 1.75rem;
+    margin-bottom: 0;
+    top: 0.5rem;
   }
 }
 .header__burger--buttons:before, .header__burger--buttons:after {
@@ -15792,8 +16201,13 @@ html[lang=de] .node--workflow-pending:before {
   position: relative;
   text-align: center;
   top: 0;
-  transition: top 300ms ease;
   width: inherit;
+  transition: top 300ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .header__burger--buttons:before, .header__burger--buttons:after {
+    transition-duration: 10ms;
+  }
 }
 .header__burger--buttons:after {
   content: "\f00d";
@@ -15825,9 +16239,8 @@ body.gin--vertical-toolbar.offcanvas-open .header__offcanvas-menu--grid {
     display: block;
     width: 100vw;
     height: 50vw;
-    background-color: rgba(244, 244, 255, 0.4509803922);
-    -webkit-backdrop-filter: blur(7px);
-            backdrop-filter: blur(7px);
+    background-color: var(--color-bg-page-layout);
+    backdrop-filter: blur(7px);
   }
 }
 .layout-container {
@@ -16320,9 +16733,14 @@ a.public-transport:before {
 .taxonomy-term.term--view-mode-teaser .content.with-image img {
   aspect-ratio: 16/9;
   height: auto;
-  transition: transform 300ms ease;
   vertical-align: bottom;
   width: 100%;
+  transition: transform 300ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .taxonomy-term.term--view-mode-teaser .content.with-image img {
+    transition-duration: 10ms;
+  }
 }
 .taxonomy-term.term--view-mode-teaser .content.with-image .taxonomy-term--tag {
   margin: 0;
@@ -16336,6 +16754,11 @@ a.public-transport:before {
   transform: scale(1.2);
   width: 100%;
   height: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .taxonomy-term.term--view-mode-teaser .content.with-image:focus-within img, .taxonomy-term.term--view-mode-teaser .content.with-image:hover img {
+    transform: scale(1);
+  }
 }
 .taxonomy-term.term--view-mode-teaser .content.with-image:focus-within .taxonomy-term--tag, .taxonomy-term.term--view-mode-teaser .content.with-image:hover .taxonomy-term--tag {
   background: var(--color-text-muted);
@@ -16873,4 +17296,19 @@ h3.field__label {
 /* Maps */
 .view .leaflet-container {
   margin-bottom: 2.5rem;
+}
+
+html.dark *:focus-visible {
+  outline-color: var(--color-info);
+  outline-offset: 2px;
+}
+html.dark select {
+  background-image: url(../images/chevron-down-inv.svg);
+}
+html.dark button.shwpd {
+  background-color: var(--color-interaction);
+}
+html.dark button:not([disabled]).shwpd:focus,
+html.dark button:not([disabled]).shwpd:hover {
+  background-color: var(--color-link);
 }

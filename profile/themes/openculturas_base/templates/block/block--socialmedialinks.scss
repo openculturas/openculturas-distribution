@@ -20,6 +20,9 @@
   overflow: hidden;
   transition: transform 300ms ease height 300ms ease width 300ms ease;
   transform: translate3d(100%, 0, 0);
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 10ms;
+  }
 }
 
 .socialshare-open #oc--social-share--layer {

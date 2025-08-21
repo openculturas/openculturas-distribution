@@ -1,0 +1,79 @@
+// preps for OC back-end theme
+
+.choices.is-disabled .choices__inner,
+.choices.is-disabled .choices__input {
+  background-color: var(--color-bg-light, #eaeaea);
+  opacity: .5;
+}
+
+.choices[data-type*=select-one] .choices__input {
+  border-bottom-color: var(--color-divider-light, #ddd);
+  background-color: var(--color-bg-light, #fff);
+}
+
+.choices[data-type*=select-one] .choices__button:focus {
+  box-shadow: 0 0 0 2px var(--color-info, #00bcd4);
+}
+
+.choices[data-type*=select-one]::after {
+  border-color: var(--color-divider-dark, #333) transparent transparent transparent;
+}
+
+.choices[data-type*=select-one].is-open::after {
+  border-color: transparent transparent var(--color-divider-dark, #333) transparent;
+}
+
+.choices[data-type*=select-multiple] .choices__button,
+.choices[data-type*=text] .choices__button {
+  border-left: 1px solid #000000d9;
+}
+
+.choices__inner {
+  background-color: var(--color-bg-light, #f9f9f9);
+  border: 1px solid var(--color-divider-light, #ddd);
+}
+.is-focused .choices__inner,
+.is-open .choices__inner {
+  border-color: var(--color-divider-light, #b7b7b7);
+}
+
+.choices__list--multiple .choices__item {
+  background-color: var(--color-info, #00bcd4);
+  border: 1px solid var(--color-info, #00a5bb);
+  color: var(--color-bg-light, #fff);
+}
+
+.choices__list--multiple .choices__item.is-highlighted {
+  background-color: var(--color-interaction, #00a5bb);
+  border: 1px solid var(--color-interaction, #008fa1);
+}
+.is-disabled .choices__list--multiple .choices__item {
+  background-color: var(--color-bg-light, #aaaaaa);
+  border: 1px solid var(--color-divider-light, #919191);
+  opacity: .5;
+}
+
+.choices__list--dropdown,
+.choices__list[aria-expanded] {
+  background-color: var(--color-bg-light, #fff);
+  border: 1px solid var(--color-divider-light, #ddd);
+}
+
+.is-open .choices__list--dropdown,
+.is-open .choices__list[aria-expanded] {
+  border-color: var(--color-divider-light, #b7b7b7);
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+  background-color: var(--color-bg-light, #fff);
+}
+
+.choices__heading {
+  border-bottom: 1px solid var(--color-divider-light, #f7f7f7);
+  color: var(--color-text-muted, gray);
+}
+
+.choices__input {
+  background-color: var(--color-bg-light, #fff);
+}

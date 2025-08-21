@@ -82,11 +82,24 @@ $breakpoints: (                // Size at default font size 16px;
   --color-divider-dark: #7b7d85;
   --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 7%, transparent);
   --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
+  --color-bg-page-layout: #f4f4ff73;
 
   // Optional OC gradients (use in background-image declaration)
 
   --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
   --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+
+  // Slim select overrides
+  --ss-primary-color: var(--color-info);
+  --ss-bg-color: var(--color-bg-light);
+  --ss-font-color: var(--color-text);
+  --ss-font-placeholder-color: var(--color-text-muted);
+  --ss-disabled-color: var(--color-text-muted);
+  --ss-border-color: var(--color-divider-dark);
+  --ss-highlight-color: var(--color-warning);
+  --ss-success-color: var(--color-success);
+  --ss-error-color: var(--color-danger);
+  --ss-focus-color: var(--color-info);
 
   // Default font-sizes
 
@@ -100,7 +113,8 @@ $breakpoints: (                // Size at default font size 16px;
   // Other
 
   --button-border-radius: 4px;
-
+  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #0000004d);
+  --box-shadow-utilities: 0rem 0.5rem 1rem -0.25rem color-mix(in sRGB, var(--color-bg-dark) 45%, transparent);
   @include breakpoint(m) {
     --font-size-xxl: 2.5rem;
     --font-size-xl: 1.75rem;
@@ -240,4 +254,55 @@ $fa-font-path: "/libraries/font-awesome/webfonts";
 }
 .fa-5x {
   font-size: 5rem;
+}
+
+:root.dark {
+  // Default colors
+  --color-primary: #a1167f;
+  --color-interaction: #9e95d0; // Secondary
+  --color-text: #fafafa;
+  --color-text-muted: #9b9d9a;
+  --color-text-inverted: #191919;
+  --color-headline: #efefef;
+  --color-link: #ea62c8;
+  --color-link--opacity: #ea62c8a3; // 64% transparent link color
+  --color-danger: #f53337;
+  --color-info: #8ccaff;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  --color-neutral-canvas: #191919;
+  --color-bg-dark: #8b8d95;
+  --color-bg-slight-contrast: #000;
+  --color-bg-hardly-any-contrast: #1c1c1c;
+  --color-bg-light: #191919;
+  --color-divider-light: #38393b;
+  --color-divider-dark: #8b8d95;
+  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 10%, transparent);
+  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
+  --color-bg-page-layout: #000000d0;
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+  body {
+    // Messages (system feedback)
+    --color-bg-danger: color-mix(in sRGB, var(--color-danger) 15%, transparent);
+    --color-danger-dark: #a00f12;
+    --color-bg-danger-light: #4c2c2d;
+    --color-bg-info: #0e314f;
+    --color-info-dark: #18558a;
+    --color-bg-success: color-mix(in sRGB, var(--color-success) 15%, transparent);
+    --color-success-dark: #126007;
+    --color-bg-warning: color-mix(in sRGB, var(--color-warning) 15%, transparent);
+    --color-warning-dark: #c09300;
+
+    // Form & other colors
+    --color-bg-form: #f6f6fa11;
+    --color-bg-fieldset: #483d8b07;
+    --outline-active: 2px dashed var(--color-interaction, #483d8b);
+    --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
+    --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #ffffff4d);
+  }
+
+  .inverted {
+    --color-text-inverted: var(--color-text);
+  }
 }

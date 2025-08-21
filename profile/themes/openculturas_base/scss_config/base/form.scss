@@ -97,6 +97,13 @@ label {
 }
 
 input,
+optgroup,
+select,
+textarea {
+  color: var(--color-text);
+}
+
+input,
 select,
 textarea {
   padding: 0.5rem 1rem;
@@ -412,6 +419,10 @@ input[type="password"],
 
 // Password indicator (@todo check back with contrib classy theme)
 
+.password-strength__meter {
+  background-color: var(--color-bg-slight-contrast);
+}
+
 .password-strength__indicator {
   border: 1px solid transparent;
 
@@ -555,4 +566,13 @@ dialog.modal {
     opacity: 0.8;
     background: var(--color-neutral-canvas);
   }
+}
+
+// formtips
+
+.formtips-processed ul.tips,
+div.description.formtips-processed,
+.form-item .description.formtips-processed,
+.form-item__description.formtips-processed {
+  color: var(--color-text-inverted);
 }

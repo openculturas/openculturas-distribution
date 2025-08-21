@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Dark Mode Toggle module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme().
+ */
+function dark_mode_toggle_theme(): array {
+  return [
+    'dark_mode_toggle' => [
+      'variables' => [
+        'attributes' => [],
+      ],
+    ],
+    'block__dark_mode_toggle' => [
+      'base hook' => 'block',
+      'variables' => [
+        'attributes' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_toolbar().
+ */
+function dark_mode_toggle_toolbar(): array {
+  return [
+    'dark_mode_toggle' => [
+      '#type' => 'toolbar_item',
+      'tab' => [
+        '#type' => 'link',
+        '#title' => t('Color scheme'),
+        '#url' => Url::fromRoute('<none>'),
+        '#attributes' => [
+          'class' => ['toolbar-icon', 'toolbar-icon-dark_mode_toggle', 'dark-mode-toggle--trigger'],
+        ],
+      ],
+      'tray' => [
+        '#theme' => 'dark_mode_toggle',
+      ],
+    ],
+  ];
+}
