@@ -903,7 +903,6 @@
         } catch(error) {
           console.debug("Skipping Location[id: " + location.field_id + "]: " + error);
           console.trace(error);
-          continue;
         }
 
       }
@@ -1123,6 +1122,7 @@
       const pagerItemPageNode = document.createElement('a');
       pagerItemPageNode.setAttribute('data-page', pageNo);
       pagerItemPageNode.setAttribute('aria-label', Drupal.t('Go to page @number', {'@number': pageNo}));
+      pagerItemPageNode.setAttribute('title', Drupal.t('Go to page @number', {'@number': pageNo}));
       pagerItemPageNode.setAttribute('role', 'button')
       pagerItemPageNode.setAttribute('href', '#')
 
@@ -1136,24 +1136,39 @@
     }
 
     get() {
-      if(this.page > this.pages) {
+      if (this.page > this.pages) {
         this.page = this.pages;
       }
 
       const pagerItems = this._buildPagerItemsNode();
-
-      if(this.page > 1) {
-        pagerItems.appendChild(this._buildPagerItemNode(1, (this.settings && this.settings.tags.first) ? `${Drupal.t(this.settings.tags.first)}` : `« ${Drupal.t("First")}`));
-        pagerItems.appendChild(this._buildPagerItemNode(this.page - 1, (this.settings && this.settings.tags.previous) ? `${Drupal.t(this.settings.tags.previous)}` : "‹‹"));
+      if (this.plugin === "mini") {
+        if (this.page > 1) {
+          pagerItems.appendChild(this._buildPagerItemNode(this.page - 1, this.settings && this.settings.tags.previous ? `${Drupal.t(this.settings.tags.previous)}` : '‹‹'));
+        }
+        pagerItems.appendChild(this._buildPagerItemNode(this.page, this.page));
+        if (this.page !== this.pages) {
+          pagerItems.appendChild(this._buildPagerItemNode(this.page + 1, this.settings && this.settings.tags.next ? `${Drupal.t(this.settings.tags.next)}` : '››'));
+        }
       }
-
-      for (let i = 1; i < this.pages+1; i++) {
-        pagerItems.appendChild(this._buildPagerItemNode(i, i));
-      }
-
-      if(this.page !== this.pages) {
-        pagerItems.appendChild(this._buildPagerItemNode(this.page + 1, (this.settings && this.settings.tags.next) ? `${Drupal.t(this.settings.tags.next)}` : "››"));
-        pagerItems.appendChild(this._buildPagerItemNode(this.pages, (this.settings && this.settings.tags.last) ? `${Drupal.t(this.settings.tags.last)}` : `${Drupal.t("Last")} »`));
+      else {
+        const quantity = this.settings.quantity ?? 9;
+        if (this.page > 1) {
+          pagerItems.appendChild(this._buildPagerItemNode(1, (this.settings && this.settings.tags.first) ? `${Drupal.t(this.settings.tags.first)}` : `« ${Drupal.t("First")}`));
+          pagerItems.appendChild(this._buildPagerItemNode(this.page - 1, (this.settings && this.settings.tags.previous) ? `${Drupal.t(this.settings.tags.previous)}` : "‹‹"));
+          if (this.page === this.pages) {
+            pagerItems.appendChild(this._buildPagerItemNode(this.page - 1 , this.page - 1));
+          }
+        }
+        const next_max = this.page + quantity;
+        for (let i = this.page; i <= next_max; i++) {
+          if (i <= this.pages) {
+            pagerItems.appendChild(this._buildPagerItemNode(i, i));
+          }
+        }
+        if (this.page !== this.pages) {
+          pagerItems.appendChild(this._buildPagerItemNode(this.page + 1, (this.settings && this.settings.tags.next) ? `${Drupal.t(this.settings.tags.next)}` : "››"));
+          pagerItems.appendChild(this._buildPagerItemNode(this.pages, (this.settings && this.settings.tags.last) ? `${Drupal.t(this.settings.tags.last)}` : `${Drupal.t("Last")} »`));
+        }
       }
 
       const pager = this._buildPagerNode();
@@ -1310,6 +1325,7 @@
 
       if(this.settings.get('pager.expose')) {
         this.pager.pages = Math.ceil(collection.size / this.pager.perPage);
+        this.pager.plugin = this.settings.get('pagerPluginId');
         this.limit = (this.pager && this.pager.pages > 1) ? this.pager.perPage : 0;
         this.offset = (this.pager && this.pager.pages > 1) ? this.pager.perPage*(this.pager.page-1) : (this.settings.get('pager').offset ?? 0);
         if (this.perPageElement) {

@@ -35,6 +35,7 @@ function openculturas_map_preprocess_block(array &$variables): void {
 
     if (isset($variables['elements']['content']['filter']['form']['#pager']->options)) {
       $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id]['pager'] = $variables['elements']['content']['filter']['form']['#pager']->options;
+      $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id]['pagerPluginId'] = $variables['elements']['content']['filter']['form']['#pager']->getPluginId();
     }
 
     if (isset($variables['elements']['content']['filter']['form']['#delta_limit'])) {
