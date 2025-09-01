@@ -1187,3 +1187,64 @@ function openculturas_post_update_import_block_language_toggle(): string {
 
   return $output;
 }
+
+/**
+ * Imports the new paragraph type text_slider.
+ */
+function openculturas_post_update_import_text_slider(): string {
+  $full_config_names = [
+    'core.entity_view_mode.paragraph.slider_multiple',
+    'paragraphs.paragraphs_type.text_slider',
+    'field.storage.paragraph.field_slider_card',
+    'core.base_field_override.paragraph.text_slider.behavior_settings',
+    'core.base_field_override.paragraph.text_slider.created',
+    'core.entity_form_display.paragraph.text_slider.default',
+    'core.entity_view_display.paragraph.text_slider.default',
+    'core.entity_view_display.paragraph.text_slider.slider_multiple',
+    'field.field.paragraph.text_slider.field_slider_card',
+    'field.field.paragraph.text_slider.paragraph_view_mode',
+    'language.content_settings.paragraph.text_slider',
+  ];
+
+  $output = _openculturas_post_update_import_config($full_config_names);
+  $bundles = ['article', 'page'];
+  foreach ($bundles as $bundle) {
+    /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+    $field = FieldConfig::loadByName('node', $bundle, 'field_content_paragraphs');
+    if ($field instanceof FieldConfigInterface) {
+      $handler_settings = is_array($field->getSetting('handler_settings')) ? $field->getSetting('handler_settings') : [];
+      if ($handler_settings !== [] && array_key_exists('target_bundles_drag_drop', $handler_settings)) {
+        $weight = count($handler_settings['target_bundles_drag_drop']) + 1;
+        $handler_settings['target_bundles_drag_drop']['text_slider'] = ['enabled' => TRUE, 'weight' => $weight];
+        $handler_settings['target_bundles']['text_slider'] = 'text_slider';
+        $field->setSetting('handler_settings', $handler_settings);
+        $field->save();
+      }
+    }
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load(RoleInterface::ANONYMOUS_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view paragraph content text_slider');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view paragraph content text_slider');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('magazine_editor');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('create paragraph content text_slider');
+    $role->grantPermission('update paragraph content text_slider');
+    $role->grantPermission('delete paragraph content text_slider');
+    $role->save();
+  }
+
+  return $output;
+}

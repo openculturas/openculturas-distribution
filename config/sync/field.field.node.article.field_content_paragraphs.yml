@@ -6,11 +6,10 @@ dependencies:
     - field.storage.node.field_content_paragraphs
     - node.type.article
     - paragraphs.paragraphs_type.block
-    - paragraphs.paragraphs_type.download
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.media
-    - paragraphs.paragraphs_type.teaser_wrapper
     - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.text_slider
     - paragraphs.paragraphs_type.view
   module:
     - entity_reference_revisions
@@ -28,46 +27,66 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      block: block
-      download: download
-      gallery: gallery
-      media: media
-      teaser_wrapper: teaser_wrapper
       text: text
+      media: media
+      gallery: gallery
+      text_slider: text_slider
+      block: block
       view: view
     negate: 0
     target_bundles_drag_drop:
+      a11y_wheelchair:
+        weight: -26
+        enabled: false
       accessibility:
-        weight: 9
+        weight: -31
         enabled: false
       address_data:
-        weight: 10
+        weight: -30
         enabled: false
       block:
-        weight: 12
+        weight: -33
         enabled: true
       bookable_event:
-        weight: 15
+        weight: -27
         enabled: false
       contact_data:
-        weight: 11
+        weight: -29
+        enabled: false
+      download:
+        weight: -24
         enabled: false
       gallery:
-        weight: 12
+        weight: -35
         enabled: true
       media:
-        weight: 13
+        weight: -36
         enabled: true
       media_mention:
-        weight: 19
+        weight: -25
         enabled: false
       member:
-        weight: 14
+        weight: -28
+        enabled: false
+      teaser_external:
+        weight: -23
+        enabled: false
+      teaser_node:
+        weight: -22
+        enabled: false
+      teaser_term:
+        weight: -21
+        enabled: false
+      teaser_wrapper:
+        weight: -20
         enabled: false
       text:
-        weight: 15
+        weight: -37
+        enabled: true
+      text_slider:
+        weight: -34
         enabled: true
       view:
-        weight: 16
+        weight: -32
         enabled: true
 field_type: entity_reference_revisions

@@ -1,0 +1,43 @@
+uuid: 6b974816-c6d8-4166-829d-0c3183f1a48d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text_slider.field_slider_card
+    - field.field.paragraph.text_slider.paragraph_view_mode
+    - paragraphs.paragraphs_type.text_slider
+  module:
+    - paragraph_view_mode
+    - text
+id: paragraph.text_slider.default
+targetEntityType: paragraph
+bundle: text_slider
+mode: default
+content:
+  field_slider_card:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  paragraph_view_mode:
+    type: paragraph_view_mode
+    weight: -100
+    region: content
+    settings:
+      view_modes:
+        default: Default
+      default_view_mode: default
+      form_mode_bind: true
+      apply_to_preview: false
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
