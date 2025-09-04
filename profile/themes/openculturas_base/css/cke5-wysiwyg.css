@@ -10565,9 +10565,6 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
   font-style: normal;
 }
-.ck-content {
-  /* %link-default */
-}
 .ck-content *,
 .ck-content *::before,
 .ck-content *::after {
@@ -10649,6 +10646,9 @@ readers do not read off random characters that represent icons */
 .ck-content h6,
 .ck-content .h6 {
   font-size: var(--font-size-default);
+}
+.ck-content {
+  /* %link-default */
 }
 .ck-content a,
 .ck-content .leaflet-popup-content a,
@@ -11490,11 +11490,6 @@ readers do not read off random characters that represent icons */
   margin-bottom: 1.25rem;
   border-bottom: 1px solid var(--color-divider-light);
 }
-.ck-content details > summary {
-  position: relative;
-  padding: 0;
-  list-style: none;
-}
 .ck-content details > summary:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11504,6 +11499,11 @@ readers do not read off random characters that represent icons */
   font-weight: normal;
   line-height: 1;
   content: "\f078";
+}
+.ck-content details > summary {
+  position: relative;
+  padding: 0;
+  list-style: none;
 }
 .ck-content details > summary::-webkit-details-marker {
   display: none;
@@ -11757,6 +11757,17 @@ readers do not read off random characters that represent icons */
   margin-left: -0.5rem;
   content: "\f055";
 }
+.ck-content button.close:before,
+.ck-content dialog.modal button.close:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f00d";
+}
 .ck-content button.close,
 .ck-content dialog.modal button.close {
   top: 0.5rem;
@@ -11768,17 +11779,6 @@ readers do not read off random characters that represent icons */
   border-color: var(--color-text-inverted);
   font-size: var(--font-size-default);
   font-weight: normal;
-}
-.ck-content button.close:before,
-.ck-content dialog.modal button.close:before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: 1;
-  content: "\f00d";
 }
 .ck-content button.close::before, .ck-content button.close::after,
 .ck-content dialog.modal button.close::before,
@@ -11924,9 +11924,6 @@ readers do not read off random characters that represent icons */
   color: var(--color-text-muted);
   content: "\f063";
 }
-.ck-content .tablesort--desc {
-  background-image: none;
-}
 .ck-content .tablesort--desc:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11937,7 +11934,7 @@ readers do not read off random characters that represent icons */
   line-height: 1;
   content: "\f063";
 }
-.ck-content .tablesort--asc {
+.ck-content .tablesort--desc {
   background-image: none;
 }
 .ck-content .tablesort--asc:before {
@@ -11949,6 +11946,9 @@ readers do not read off random characters that represent icons */
   font-weight: normal;
   line-height: 1;
   content: "\f062";
+}
+.ck-content .tablesort--asc {
+  background-image: none;
 }
 .ck-content .icon::before {
   margin-right: 0.666rem;
