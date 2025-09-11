@@ -20,18 +20,13 @@ $databases['default']['default'] = [
 ];
 $settings['allow_authorize_operations'] = FALSE;
 
-# Taken from https://github.com/amazeeio/drupal-example/blob/master/web/sites/default/settings.php#L117
-$settings['trusted_host_patterns'] = [
-  '^' . str_replace(['.', 'https://', 'http://', ','], ['\.', '', '', '|'], getenv('CLOUDRON_APP_DOMAIN')) . '$', // escape dots, remove schema, use commas as regex separator
-];
+$settings['trusted_host_patterns'] = ['.*'];
 $settings['config_sync_directory'] = '../config/sync';
 $settings['file_temp_path'] = '/tmp';
 $settings['file_private_path'] = '/app/data/private';
 $config['locale.settings']['translation']['path'] = '/app/data/files/translations';
 $settings['skip_permissions_hardening'] = FALSE;
 $config['smtp.settings']['smtp_on'] = FALSE;
-$settings['reverse_proxy'] = TRUE;
-$settings['reverse_proxy_addresses'] = [getenv('CLOUDRON_PROXY_IP')];
 $config['openculturas_map.settings']['development_mode'] = TRUE;
 $settings['config_exclude_modules'] = [
   'devel',
@@ -49,3 +44,9 @@ if (getenv('STAGE_FILE_PROXY_ORIGIN')) {
   $settings['simple_environment_anonymous'] = TRUE;
   $settings['simple_environment_indicator'] = '#000000/#ffdd00 Stage';
 }
+
+if (file_exists('/app/data/settings.local.php')) {
+  include '/app/data/settings.local.php';
+}
+
+$settings['container_yamls'][] = '/app/data/local.services.yml';
