@@ -21,6 +21,13 @@ $databases['default']['default'] = [
 $settings['allow_authorize_operations'] = FALSE;
 
 $settings['trusted_host_patterns'] = ['.*'];
+// We are behind the cloudron proxy and use apache mod remoteip.
+// The mod sets the REMOTE_ADDR to client ip which would without the mod the ip of the proxy.
+// Therefore we need to use the REMOTE_ADDR as a reverse proxy address.
+// So that Drupal use https (HTTP_X_FORWARDED_PROTO) for scheme which is without enabled proxy the value of REQUEST_SCHEME (http).
+$settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy_addresses'] = [$_SERVER['REMOTE_ADDR']];
+
 $settings['config_sync_directory'] = '../config/sync';
 $settings['file_temp_path'] = '/tmp';
 $settings['file_private_path'] = '/app/data/private';
