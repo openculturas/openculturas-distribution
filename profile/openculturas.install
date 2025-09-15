@@ -173,7 +173,13 @@ function openculturas_update_dependencies(): array {
   $dependencies['openculturas'][10116] = [
     'duration_field' => 8201,
   ];
-  $dependencies['openculturas'][10117] = [
+  // We need to uninstall tour_enhancements, tour_ui module, because
+  // tour_ui code is not compatible with tour v2.
+  $dependencies['tour'][10300] = [
+    'openculturas' => 10119,
+  ];
+  // Revert changes from tour_update_10309.
+  $dependencies['openculturas'][10120] = [
     'tour' => 10309,
   ];
   return $dependencies;
@@ -312,19 +318,33 @@ function openculturas_update_10116(): void {
 }
 
 /**
- * Enable option: 'Hide tour when empty'.
+ * No op. Moved to openculturas_update_10120.
  */
 function openculturas_update_10117(): void {
-  \Drupal::configFactory()->getEditable('tour.settings')
-    ->set('hide_tour_when_empty', TRUE)
-    ->save();
+
+}
+
+/**
+ * No op. Moved to openculturas_update_10119.
+ */
+function openculturas_update_10118(): void {
+
 }
 
 /**
  * Uninstall tour_enhancements, tour_ui module.
  */
-function openculturas_update_10118(): void {
+function openculturas_update_10119(): void {
   /** @var \Drupal\Core\Extension\ModuleInstallerInterface $moduleInstaller */
   $moduleInstaller = \Drupal::service('module_installer');
   $moduleInstaller->uninstall(['tour_enhancements', 'tour_ui']);
+}
+
+/**
+ * Enable option: 'Hide tour when empty'.
+ */
+function openculturas_update_10120(): void {
+  \Drupal::configFactory()->getEditable('tour.settings')
+    ->set('hide_tour_when_empty', TRUE)
+    ->save();
 }
