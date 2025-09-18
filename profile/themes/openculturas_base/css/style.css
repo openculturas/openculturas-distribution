@@ -11774,11 +11774,15 @@ details details:last-of-type {
   border-bottom-width: 0;
 }
 details details > summary::before {
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-default);
 }
 details details .details-wrapper {
   padding-top: 0;
   padding-right: 2.5rem;
+}
+
+.faq details {
+  margin-block: 0;
 }
 
 .legal-login details .details-wrapper {
@@ -11805,7 +11809,7 @@ details.bef--secondary > summary::before {
   border-width: 0 0 1px;
 }
 .block-facets details > summary.h4::before {
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-default);
 }
 @media screen and (min-width: 48rem) {
   .block-facets details > summary.h4::before {
@@ -13605,7 +13609,7 @@ header .contextual {
 }
 @media (prefers-reduced-motion) {
   .header__utilities .block-views-exposed-filter-blocksearch-search-input input input {
-    transition-duration: 0;
+    transition-duration: 0s;
   }
 }
 .header__utilities .block-views-exposed-filter-blocksearch-search-input button {
@@ -15582,7 +15586,7 @@ body:not(.path-frontpage) .node.view-mode-full > .node__content > details.grid-c
 .profile-teaser.view-mode-legal {
   text-align: left;
   flex-flow: column;
-  align-items: left;
+  align-items: start;
 }
 .profile-teaser.view-mode-legal .profile-basics {
   align-items: left;
@@ -15837,7 +15841,7 @@ h6.teaser {
   --layer-font-dark: var(--color-text);
   --layer-footer-bg-color: var(--color-bg-slight-contrast);
   --layer-footer-font-color: var(--color-text);
-  --layer-tab-active-bg-color: var(color-bg-light);
+  --layer-tab-active-bg-color: var(--color-bg-light);
   --layer-tab-active-font-color: var(--color-text);
   --layer-tab-font-color: var(--color-text);
   --layer-border-color: transparent;
@@ -16087,7 +16091,6 @@ h6.teaser {
 .header {
   --padding-header-top: .5rem;
   display: grid;
-  grid-template-columns: 4fr 10fr 2fr;
   grid-template-columns: subgrid;
   grid-template-rows: auto;
   margin-top: 0;
@@ -16097,7 +16100,6 @@ h6.teaser {
 }
 @media screen and (min-width: 48rem) {
   .header {
-    grid-template-columns: 3fr 12fr 1fr;
     grid-template-columns: subgrid;
     grid-template-rows: auto;
   }
