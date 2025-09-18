@@ -1,0 +1,173 @@
+//
+// Manually placed search form in paragraph
+//
+
+.paragraph .block-views-exposed-filter-blocksearch-search-input .form-actions {
+  margin: 0;
+}
+
+//
+// Search form in header
+//
+
+.header__utilities .block-views-exposed-filter-blocksearch-search-input {
+  // hide to avoid jumping icon because flex needs time to calculate
+  form {
+    opacity: 0;
+  }
+}
+
+.header__utilities .block-views-exposed-filter-blocksearch-search-input {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: -.125rem;
+
+  form {
+    padding: 0;
+    margin: 0;
+  }
+  .form--inline {
+    display: flex;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .form-item,
+  .form-actions {
+    margin: 0;
+  }
+
+  .form-item:has(input) {
+    background-color: var(--color-bg-light);
+    position: absolute;
+    right: 0;
+    @include icon(search, fas, after);
+
+    &::after {
+      color: var(--color-interaction);
+      display: inline-block;
+      position: absolute;
+      right: .575rem;
+      top: .6rem;
+      padding: 0;
+      z-index: -1;
+      cursor: pointer;
+    }
+  }
+
+  input {
+    position: absolute;
+    width: 4rem;
+    min-width: 4ch;
+    transition: width .5s ease;
+    border-radius: var(--border-radius);
+    border-color: transparent;
+    background-color: transparent;
+    margin: 0;
+    top: -.0625rem;
+    right: 0;
+    padding-inline: 0;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:focus-within,
+    &:focus {
+      width: 25rem;
+      min-width: 25ch;
+      background-color: var(--color-bg-light);
+      border-color: var(--color-info);
+      border-radius: var(--button-border-radius);
+      box-shadow: inset 0 0 0.25rem 0.125rem color-mix(in oklab, var(--color-info) 50%, transparent);
+      padding-block: .5rem;
+      padding-inline: 1rem 2.5rem;
+
+      @include breakpoint(m) {
+        min-width: 30ch;
+      }
+
+      &::placeholder {
+        color: var(--color-text-muted);
+      }
+    }
+
+    @media(prefers-reduced-motion) {
+      input {
+        transition-duration: 0;
+      }
+    }
+  }
+
+  button {
+    display: none; // displayed after focus
+    border-width: 0;
+    background-color: transparent;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+    width: 2rem;
+    height: 2.1rem;
+    margin: 0;
+    position: relative;
+    @include icon(search);
+
+    &::before {
+      background-color: transparent;
+      border-color: transparent;
+      width: 2rem;
+      height: 2rem;
+      line-height: 1.333;
+      position: relative;
+      top: -.125rem;
+      left: 0;
+      padding: .5rem .333rem;
+      margin: 0;
+      display: none;
+    }
+
+    span {
+      display: none; // button text hidden
+    }
+  }
+
+  form:has(input:focus, :focus-within) {
+    button,
+    button::before {
+      display: inline-block;
+      background-color: var(--color-interaction);
+      border-radius: 0 var(--button-border-radius) var(--button-border-radius) 0;
+    }
+
+    .form-item::after {
+      visibility: hidden;
+    }
+  }
+}
+
+// jumping icon avoided, now it's to to reveal
+
+@keyframes lazyopacity {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.header__utilities .block-views-exposed-filter-blocksearch-search-input {
+  form {
+    animation: .5s ease .5s forwards lazyopacity;
+  }
+}

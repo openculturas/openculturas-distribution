@@ -24,9 +24,9 @@
 
 .layout-container {
    @include grid();
-   background: $color-bg-light;
+   background: var(--color-bg-light);
    margin: 0 auto;
-   max-width: $grid-layout-max-width;
+   max-width: var(--grid-layout-max-width);
 
   .header {
     grid-column: 2 / 16;
@@ -64,11 +64,11 @@
     .main__page-title {
       grid-column: 2 / 16;
       grid-row: 1;
-      margin: 0 (-1 * $grid-gutter);
-      background: $color-bg-light;
+      margin: 0 calc(-1 * var(--grid-gutter));
+      background: var(--color-bg-light);
       position: relative;
       min-height: 2rem;
-      padding: 0 $grid-gutter;
+      padding: 0 var(--grid-gutter);
 
       @include breakpoint(m) {
         grid-column: 3 / 15;
@@ -98,7 +98,7 @@
 
       .region-content {
         @include grid();
-        margin-bottom: $grid-gutter;
+        margin-bottom: var(--grid-gutter);
         min-height: 20rem;
 
         > .grid-child-fullwidth {
@@ -123,7 +123,7 @@
 // This is as simple as possible on purpose, so it can be overridden easily.
 .region-content > .block {
   grid-column: 2 / 16;
-  margin: $grid-gutter 0;
+  margin: var(--grid-gutter) 0;
   @include breakpoint(m) {
     grid-column: 4 / 14;
   }

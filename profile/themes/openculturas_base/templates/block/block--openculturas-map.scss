@@ -1,3 +1,5 @@
+// Has dark mode adjustments, see dark-mode/misc.scss
+
 // Map container
 
 .openculturas-map {
@@ -16,18 +18,14 @@
   @include icon(search);
   opacity: 0;
   transition: opacity 1s;
-  //background-color: $color-primary;
-  //color: $color-text-inverted;
-  //border-radius: $button-border-radius;
   translate: 0px -29.2rem;
   font-size: var(--font-size-s);
-  //min-height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   position: relative;
-  margin: 0rem auto;
+  margin: 0 auto;
   box-shadow: 0 0.5rem 1rem -0.5rem var(--color-text);
 
   &:before {
@@ -56,7 +54,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: calc($grid-gutter * 2);
+  margin-bottom: calc(var(--grid-gutter) * 2);
 }
 
 
@@ -73,7 +71,7 @@
         height: 0.75rem;
         width: 0.75rem;
         margin-left: 0.75rem;
-        border: 2px solid $color-info;
+        border: 2px solid var(--color-info);
         border-bottom-color: transparent;
         border-radius: 50%;
         display: inline-block;
@@ -96,7 +94,7 @@
 .openculturas-map--results-list > div {
   display: flex;
   flex-flow: column;
-  gap: 0 $grid-gutter;
+  gap: 0 var(--grid-gutter);
   align-items: center;
   justify-content: space-between;
   @include breakpoint(m) {
@@ -138,8 +136,8 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
         width: 1.5rem;
         height: 1.5rem;
         line-height: 1.5rem;
-        background-color: $color-link;
-        color: $color-text-inverted;
+        background-color: var(--color-map-marker);
+        color: var(--color-text-inverted);
         text-align: center;
         border-radius: 1rem;
         margin-left: 0.0625rem;
@@ -153,7 +151,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
     border-radius: 100%;
     background: var(--color-info);
     border: 1px solid var(--color-bg-light);
-    outline: 4px solid #6495ED4C;
+    outline: var(--outline-active);
   }
 
   .marker-cluster div {
@@ -211,16 +209,16 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 
   .leaflet-control-geocoder-icon {
     &:focus {
-      background-color: #f4f4f4;
+      background-color: var(--color-bg-light);
     }
   }
 
   .leaflet-control-geocoder-expanded {
-    border: 1px solid $color-divider-dark;
-    background: $color-bg-light;
+    border: 1px solid var(--color-divider-dark);
+    background: var(--color-bg-light);
     input {
       &:focus {
-        border-bottom-color: none;
+        border-bottom-color: transparent;
         box-shadow: none;
       }
     }
@@ -285,7 +283,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   min-height: 4.5rem;
   transition: transform 300ms ease;
   z-index: +1;
-  background: $color-bg-form;
+  background: var(--color-bg-form);
   box-shadow: var(--box-shadow);
   @media (prefers-reduced-motion: reduce) {
     transition-duration: 10ms;
@@ -428,11 +426,5 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
 
   time {
     padding-right: .25em
-  }
-}
-
-html.dark {
-  .openculturas-map--overlay {
-    background-color: var(--color-bg-light-translucent);
   }
 }

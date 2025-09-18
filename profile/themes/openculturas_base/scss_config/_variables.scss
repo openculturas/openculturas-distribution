@@ -9,6 +9,15 @@ $grid-gutter: 1.25rem; // The grid gap between columns.
 $grid-column-count: 16; // The default amount of columns added to a grid if there is no override.
 $grid-layout-max-width: 68.75rem; // Maximum width of the grid to prevent the site from getting to wide on large screens.
 
+:root {
+  --grid-gutter: 1.25rem; // The grid gap between columns.
+  --grid-column-count: 16; // The default amount of columns added to a grid if there is no override.
+  --row-gap: 1.25rem; // The grid gap between rows.
+  --grid-layout-max-width: 68.75rem; // Maximum width of the grid to prevent the site from getting too wide on large screens.
+  --grid-gutter-count: calc(var(--grid-column-count) - 1);
+  --grid-column-width: calc(calc(100% - calc(var(--grid-gutter-count) * var(--grid-gutter))) / var(--grid-column-count));
+}
+
 // Utility Classes Grid system definition.
 // _
 // If you need more info on how this works, have a look into grid.scss.
@@ -39,9 +48,6 @@ $utility-grids-container-selectors: "> .view-content, > .field__items, > .detail
 // _
 // Have a look at the 'breakpoint' mixin in mixins.scss for more info on how to use it.
 // _
-// You can change the values to match your design better, by changing the media selectors.
-// Add new breakpoints if you need them.
-// _
 // CAUTION: It is NOT recommended to DELETE any of the default breakpoint definitions below.
 // Since they are used by the scss files, this would most likely result in a broken compilation process.
 // prettier-ignore
@@ -55,39 +61,54 @@ $breakpoints: (                // Size at default font size 16px;
 
 // Colors.
 // _
-// CAUTION:
-// Do not change CSS color variable names (in openculturas_base theme)
+// CAUTION: Do not change CSS color variable names (in openculturas_base theme)
 
 :root {
   // Default colors
-
   --color-primary: #a1167f;
-  --color-interaction: #483d8b; // Secondary
+  --color-secondary: #483d8b;
   --color-text: #1f1f1f;
   --color-text-muted: #7b7d85;
+  --color-text-muted--opacity: color-mix(in sRGB, var(--color-text-muted) 50%, transparent);
   --color-text-inverted: #fff;
   --color-headline: #1f1f1f;
+  --color-map-marker: var(--color-primary);
+
+  // Functional colors
   --color-link: #a1167f;
   --color-link--opacity: #a1167f5c; // 64% transparent link color
+  --color-interaction: #483d8b;
   --color-danger: #d51317;
   --color-info: #1f71b8;
   --color-success: #188009;
   --color-warning: #ffc400;
+
+  // Contrast colors
+  --color-oc-spectrum-1: #d41317; // oc red
+  --color-oc-spectrum-2: #da5914; // oc orange
+  --color-oc-spectrum-3: #fd0; // oc yellow
+  --color-oc-spectrum-4: #008d36; // oc green
+  --color-oc-spectrum-5: #1d70b7; // oc blue
+
+  // Background colors
   --color-neutral-canvas: #f6f6f6;
   --color-bg-dark: #303236;
   --color-bg-slight-contrast: #e8e9eb;
   --color-bg-hardly-any-contrast: #f5f5f5;
   --color-bg-light: #fff;
+  --color-bg-link-translucent: color-mix(in oklab, var(--color-link) 7%, transparent);
+  --color-bg-light-translucent: color-mix(in oklab, var(--color-bg-light) 85%, transparent);
+  --color-bg-light-opaque: color-mix(in oklab, var(--color-bg-light) 85%, transparent);
+  --color-bg-page-layout: color-mix(in oklab, var(--color-bg-light) 85%, transparent);
+  --color-bg-footer: #111;
+
+  // Divider (line) colors
   --color-divider-light: #e8e9eb;
   --color-divider-dark: #7b7d85;
-  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 7%, transparent);
-  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
-  --color-bg-page-layout: #f4f4ff73;
 
-  // Optional OC gradients (use in background-image declaration)
-
-  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
-  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+  // Gradients (use in background-image declaration)
+  --color-gradient-smooth: linear-gradient(90deg, var(--color-oc-spectrum-1), var(--color-oc-spectrum-2), var(--color-oc-spectrum-3), var(--color-oc-spectrum-4), var(--color-oc-spectrum-5));
+  --color-gradient-blocks: linear-gradient(90deg, var(--color-oc-spectrum-1) 0%, var(--color-oc-spectrum-1) 20%, var(--color-oc-spectrum-2) 20%, var(--color-oc-spectrum-2) 40%, var(--color-oc-spectrum-3) 40%, var(--color-oc-spectrum-3) 60%, var(--color-oc-spectrum-4) 60%, var(--color-oc-spectrum-4) 80%, var(--color-oc-spectrum-5) 80%, var(--color-oc-spectrum-5) 100%);
 
   // Slim select overrides
   --ss-primary-color: var(--color-info);
@@ -100,36 +121,91 @@ $breakpoints: (                // Size at default font size 16px;
   --ss-success-color: var(--color-success);
   --ss-error-color: var(--color-danger);
   --ss-focus-color: var(--color-info);
+}
 
-  // Default font-sizes
+body {
+  // Messages (system feedback)
+  --color-bg-danger: color-mix(in oklab, var(--color-danger) 15%, var(--color-bg-light));
+  --color-danger-dark: color-mix(in oklab, var(--color-danger) 60%, var(--color-bg-dark));
+  --color-bg-info: color-mix(in oklab, var(--color-info) 20%, var(--color-bg-light));
+  --color-info-dark: color-mix(in oklab, var(--color-info) 60%, var(--color-bg-dark));
+  --color-bg-success: color-mix(in oklab, var(--color-success) 10%, var(--color-bg-light));
+  --color-success-dark: color-mix(in oklab, var(--color-success) 60%, var(--color-bg-dark));
+  --color-bg-warning: color-mix(in oklab, var(--color-warning) 20%, var(--color-bg-light));
+  --color-warning-dark: color-mix(in oklab, var(--color-warning) 30%, var(--color-bg-dark));
 
-  --font-size-xxl: 2rem;
-  --font-size-xl: 1.5rem;
-  --font-size-l: 1.25rem;
-  --font-size-default: 1rem;
-  --font-size-s: 0.875rem;
-  --font-size-icon: 1.5rem;
+  // Form & other colors
+  --color-bg-form: color-mix(in oklab, var(--color-interaction) 5%, var(--color-bg-light));
+  --color-bg-fieldset: color-mix(in oklab, var(--color-interaction) 5%, transparent);
+  --outline-active: 2px dashed var(--color-interaction);
+  --color-bg-cluster-icon: var(--color-link);
 
-  // Other
-
-  --button-border-radius: 4px;
-  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #0000004d);
+  // Miscellaneous
+  --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, transparent);
   --box-shadow-utilities: 0rem 0.5rem 1rem -0.25rem color-mix(in sRGB, var(--color-bg-dark) 45%, transparent);
-  @include breakpoint(m) {
-    --font-size-xxl: 2.5rem;
-    --font-size-xl: 1.75rem;
+  --button-border-radius: 4px;
+  --image-chevron: url(../images/chevron-down.svg);
+}
+
+// Dark theme derivates
+
+:root.dark {
+  // Default colors
+  --color-primary: #a1167f;
+  --color-interaction: #9e95d0; // Secondary
+  --color-text: #fafafa;
+  --color-text-muted: #9b9d9a;
+  --color-text-inverted: #191919;
+  --color-headline: #efefef;
+  --color-link: #ea62c8;
+  --color-link--opacity: #ea62c8a3; // 64% transparent link color
+  --color-danger: #f53337;
+  --color-info: #8ccaff;
+  --color-success: #188009;
+  --color-warning: #ffc400;
+  --color-neutral-canvas: #191919;
+  --color-bg-dark: #8b8d95;
+  --color-bg-slight-contrast: #000;
+  --color-bg-hardly-any-contrast: #1c1c1c;
+  --color-bg-light: #191919;
+  --color-divider-light: #38393b;
+  --color-divider-dark: #8b8d95;
+  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 10%, transparent);
+  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, transparent);
+  --color-bg-page-layout: color-mix(in sRGB, var(--color-bg-light) 85%, transparent);
+  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
+  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
+
+  body {
+    // Messages (system feedback)
+    --color-bg-danger: color-mix(in sRGB, var(--color-danger) 15%, transparent);
+    --color-danger-dark: #a00f12;
+    --color-bg-danger-light: #4c2c2d;
+    --color-bg-info: #0e314f;
+    --color-info-dark: #18558a;
+    --color-bg-success: color-mix(in sRGB, var(--color-success) 15%, transparent);
+    --color-success-dark: #126007;
+    --color-bg-warning: color-mix(in sRGB, var(--color-warning) 15%, transparent);
+    --color-warning-dark: #c09300;
+
+    // Form & other colors
+    --color-bg-form: #f6f6fa11;
+    --color-bg-fieldset: #483d8b07;
+    --outline-active: 2px dashed var(--color-interaction, #483d8b);
+    --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
+    --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, transparent);
+    --image-chevron: url(../images/chevron-down-inv.svg);
+  }
+
+  .inverted {
+    --color-text-inverted: var(--color-text);
   }
 }
 
 // SASS-color-variables containing CSS-variables
 // _
-// Why we reassign CSS vars to SASS variables?
-// + Base theme uses SASS-based color scheme (undefined CSS vars would fail silently).
-// + A clearly defined set of CSS variables keeps sub-themes working.
-// Disadvantage:
-// - Native SASS color functions are disabled and throw errors when used.
-//  --> Make use of Hexadecimal opacity:
-//      #0000007F not rgba(0, 0, 0, 0.5)
+// Deprecation warning: sass variables will be replaced by custom properties ("CSS variables")
+// Kept for legacy reasons until
 
 $color-primary: var(--color-primary);
 $color-interaction: var(--color-interaction);
@@ -166,27 +242,22 @@ $color-bg-link-opacity: var(--color-link--opacity);
 // Other
 $border-radius-button: var(--border-radius-button);
 
-// Default color derivates
-// are changed when base colors are changed by css_color_variables or Color module settings.
-// NOTE: CSS variables should be reassigned here.
+// Fonts.
 
-body {
-  // Messages (system feedback)
-  --color-bg-danger: #f9dcdd;
-  --color-danger-dark: #a00f12;
-  --color-bg-danger-light: #fceced;
-  --color-bg-info: #f1f6fe;
-  --color-info-dark: #18558a;
-  --color-bg-success: #ddecdb;
-  --color-success-dark: #126007;
-  --color-bg-warning: #fff7d9;
-  --color-warning-dark: #c09300;
+// Font sizes
 
-  // Form & other colors
-  --color-bg-form: #f6f6fa;
-  --color-bg-fieldset: #483d8b07;
-  --outline-active: 2px dashed var(--color-interaction, #483d8b);
-  --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
+:root {
+  --font-size-xxl: 2rem;
+  --font-size-xl: 1.5rem;
+  --font-size-l: 1.25rem;
+  --font-size-default: 1rem;
+  --font-size-s: 0.875rem;
+  --font-size-icon: 1.5rem;
+
+  @include breakpoint(m) {
+    --font-size-xxl: 2.5rem;
+    --font-size-xl: 1.75rem;
+  }
 }
 
 //  Default font mapping for headlines and body text.
@@ -254,55 +325,4 @@ $fa-font-path: "/libraries/font-awesome/webfonts";
 }
 .fa-5x {
   font-size: 5rem;
-}
-
-:root.dark {
-  // Default colors
-  --color-primary: #a1167f;
-  --color-interaction: #9e95d0; // Secondary
-  --color-text: #fafafa;
-  --color-text-muted: #9b9d9a;
-  --color-text-inverted: #191919;
-  --color-headline: #efefef;
-  --color-link: #ea62c8;
-  --color-link--opacity: #ea62c8a3; // 64% transparent link color
-  --color-danger: #f53337;
-  --color-info: #8ccaff;
-  --color-success: #188009;
-  --color-warning: #ffc400;
-  --color-neutral-canvas: #191919;
-  --color-bg-dark: #8b8d95;
-  --color-bg-slight-contrast: #000;
-  --color-bg-hardly-any-contrast: #1c1c1c;
-  --color-bg-light: #191919;
-  --color-divider-light: #38393b;
-  --color-divider-dark: #8b8d95;
-  --color-bg-link-translucent: color-mix(in sRGB, var(--color-link) 10%, transparent);
-  --color-bg-light-translucent: color-mix(in sRGB, var(--color-bg-light) 85%, #ffffffd9);
-  --color-bg-page-layout: #000000d0;
-  --color-gradient-smooth: linear-gradient(90deg, #d41317, #da5914, #fd0, #008d36, #1d70b7);
-  --color-gradient-blocks: linear-gradient(90deg, #d41317 0%, #d41317 20%, #da5914 20%, #da5914 40%, #fd0 40%, #fd0 60%, #008d36 60%, #008d36 80%, #1d70b7 80%, #1d70b7 100%);
-  body {
-    // Messages (system feedback)
-    --color-bg-danger: color-mix(in sRGB, var(--color-danger) 15%, transparent);
-    --color-danger-dark: #a00f12;
-    --color-bg-danger-light: #4c2c2d;
-    --color-bg-info: #0e314f;
-    --color-info-dark: #18558a;
-    --color-bg-success: color-mix(in sRGB, var(--color-success) 15%, transparent);
-    --color-success-dark: #126007;
-    --color-bg-warning: color-mix(in sRGB, var(--color-warning) 15%, transparent);
-    --color-warning-dark: #c09300;
-
-    // Form & other colors
-    --color-bg-form: #f6f6fa11;
-    --color-bg-fieldset: #483d8b07;
-    --outline-active: 2px dashed var(--color-interaction, #483d8b);
-    --color-bg-cluster-icon: var(--color-link--opacity, #a1167fa3);
-    --box-shadow: -0.5rem 0.5rem 1rem -0.5rem color-mix(in sRGB, var(--color-bg-dark) 85%, #ffffff4d);
-  }
-
-  .inverted {
-    --color-text-inverted: var(--color-text);
-  }
 }

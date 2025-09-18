@@ -3,27 +3,21 @@
 .below-footer--container {
   @include grid();
   margin: 0 auto;
-  padding: $grid-gutter 0;
+  padding: var(--grid-gutter) 0;
 }
 
 .footer--container {
-  background: $color-bg-dark;
-  padding: (2 * $grid-gutter) 0 $grid-gutter;
+  background: var(--color-bg-footer);
+  padding: calc(2 * var(--grid-gutter)) 0 var(--grid-gutter);
 
   @include breakpoint(m) {
-    padding: (3 * $grid-gutter) 0 $grid-gutter;
+    padding: calc(3 * var(--grid-gutter)) 0 var(--grid-gutter);
   }
 }
 
-html.dark {
-  .footer--container {
-    background: var(--color-bg-slight-contrast);
-  }
-}
-
-// Content.
+// Content
 .footer {
-  background: $color-neutral-canvas;
+  background: var(--color-neutral-canvas);
 }
 
 .region-footer {
@@ -33,7 +27,7 @@ html.dark {
   grid-column: 2 / 16;
 
   @include breakpoint(m) {
-    margin: 0 (-0.5 * $grid-gutter) 0 (-0.5 * $grid-gutter);
+    margin: 0 calc(-0.5 * var(--grid-gutter));
   }
 
   @include breakpoint(m) {
@@ -45,10 +39,10 @@ html.dark {
     min-width: 10rem;
     flex-grow: 1;
     flex-basis: 0;
-    margin: 0 0 $grid-gutter 0;
+    margin: 0 0 var(--grid-gutter) 0;
 
     @include breakpoint(m) {
-      margin: 0 (.5 * $grid-gutter) $grid-gutter;
+      margin: 0 calc(.5 * var(--grid-gutter)) var(--grid-gutter);
     }
 
     > *:first-child {
@@ -57,13 +51,13 @@ html.dark {
   }
 
   .block--title {
-    margin-bottom: $grid-gutter;
+    margin-bottom: var(--grid-gutter);
   }
 
   h2,
   h3 {
-    font-family: $font-base;
-    font-size: $font-size-l;
+    font-family: var(--font-base);
+    font-size: var(--font-size-l);
   }
 }
 
@@ -74,7 +68,7 @@ html.dark {
   grid-column: 2 / 16;
 
   @include breakpoint(m) {
-    margin: 0 (-0.5 * $grid-gutter) 0 (-0.5 * $grid-gutter);
+    margin: 0 calc(-0.5 * var(--grid-gutter));
   }
 
   @include breakpoint(m) {
@@ -84,6 +78,6 @@ html.dark {
 
   h2, h4, p, span {
     display: inline-block;
-    font-size: $font-size-s;
+    font-size: var(--font-size-s);
   }
 }

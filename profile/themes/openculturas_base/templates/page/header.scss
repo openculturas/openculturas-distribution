@@ -1,41 +1,99 @@
+// Has dark mode adjustments, see dark-mode/misc.scss
+
 .header {
-  @include grid(1fr auto auto,
-  "utilities utilities utilities"
-  "branding highlights burger"
-  ". . ."
-  );
-  grid-template-rows: 2.5rem auto $grid-gutter;
-  margin: 0 0 $grid-gutter;
-  //border-bottom: 1px solid $color-divider-light;
+  --padding-header-top: .5rem;
+
+  display: grid;
+  //grid-template-areas:
+  //"utilities burger"
+  //"branding ."
+  //"highlights highlights";
+  grid-template-columns: 4fr 10fr 2fr;
+  grid-template-columns: subgrid;
+  grid-template-rows: auto;
+  margin-top: 0; // required for offcanvas overlay
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  margin-bottom: .5rem;
 
   @include breakpoint(m) {
-    grid-column: 4 / 14;
+    //grid-template-areas:
+    //  "branding utilities burger"
+    //  "branding highlights burger";
+    grid-template-columns: 3fr 12fr 1fr;
+    grid-template-columns: subgrid;
+    grid-template-rows: auto;
   }
 
   @include breakpoint(l) {
-    grid-column: 3 / 15;
-  }
-}
-
-.header__utilities {
-  grid-area: utilities;
-  text-align: right;
-  padding-right: 3rem;
-
-  .flag {
-    display: inline-block;
-    margin-left: $grid-gutter;
+    grid-row-gap: 0;
   }
 }
 
 .header__branding {
-  grid-area: branding;
-  align-self: center;
+  //grid-area: branding;
+  grid-column: 1 / span 3;
+  grid-row: 1 / span 2;
+  align-self: end;
+
+  @include breakpoint(m) {
+    grid-row: 1;
+  }
+
+  @include breakpoint(l) {
+    grid-row: 1 / span 2;
+  }
+}
+
+.header__burger {
+  //grid-area: burger;
+  grid-column: 15 / span 2;
+  grid-row: 1;
+}
+
+.header__utilities {
+  //grid-area: utilities;
+  grid-column: 4 / span 9;
+  grid-row: 1;
+  padding-top: var(--padding-header-top);
+}
+
+.header__highlights-menu {
+  //grid-area: highlights;
+  grid-column: 4 / span 12;
+  grid-row: 2;
+
+  @include breakpoint(m) {
+    grid-column: 1 / span 16;
+    grid-row: 2;
+    margin-block-start: var(--row-gap);
+  }
+
+  @include breakpoint(l) {
+    grid-column: 4 / span 12;
+    grid-row: 2 ;
+  }
+}
+
+.region-utilities-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+
+.header__branding {
   min-width: 8rem;
+  padding-block-start: 1rem;
+  padding-block-end: 0.75rem;
 
   img, figure, svg {
     height: auto;
     width: 8rem;
+  }
+
+  @include breakpoint(l) {
+    padding-block-start: 0;
   }
 }
 
@@ -60,12 +118,17 @@
 
 
 .header__highlights-menu {
-  grid-area: highlights;
   align-self: end;
   display: none;
+  left: 1.5rem; // logo typo position
+  max-width: 100%;
 
   @include breakpoint(m) {
     display: block;
+  }
+
+  @include breakpoint(l) {
+    margin-block: 1rem 0;
   }
 
   ul.menu {
@@ -88,24 +151,29 @@
 }
 
 .header__burger {
-  grid-area: burger;
-  align-self: center;
+  align-self: start;
+  justify-self: end;
+  //padding-top: var(--padding-header-top);
+  padding-block-start: 1rem;
+  padding-inline-end: 1rem;
+  //min-width: calc(var(--grid-column-width) - var(--grid-gutter);
 }
 
-html.dark {
-  #home-link a {
-    background: url(/profiles/contrib/openculturas-profile/themes/openculturas_base/logo_negative.svg) no-repeat;
-    position: relative;
-    top: .25rem;
-    left: -1rem;
-  }
-  #home-link a img {
-    opacity: 0;
+.header .header__utilities button[class*="trigger"] {
+  padding-block: 0;
+  padding-inline-start: 0;
+  &::before {
+    margin: 0;
+    padding: 0.333rem;
+    @extend %centericon;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+    }
   }
 }
 
-// Move contextual menu trigger for icon buttons
-
-header .contextual {
-  left: 1.75rem;
+header .header__burger--buttons {
+  font-size: 1.25rem;
 }

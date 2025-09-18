@@ -1,8 +1,10 @@
+// Has dark mode adjustments, see dark-mode/misc.scss
+
 .slimselect {
   --ss-primary-color: var(--color-interaction);
   --ss-bg-color: var(--color-bg-light);
   --ss-font-color: var(--color-text);
-  --ss-font-placeholder-color: #1f1f1f66; // todo after removal of disallowed color functions: use muted color 50%
+  --ss-font-placeholder-color: var(--color-text-muted--opacity);
   --ss-disabled-color: var(--color-bg-slight-contrast);
   --ss-border-color: var(--color-interaction);
 
@@ -45,7 +47,7 @@
   .ss-arrow {
     margin: var(--ss-spacing-s) var(--ss-spacing-m) auto var(--ss-spacing-m); // align top
     padding-right: 2rem;
-    background: $color-bg-light url(../images/chevron-down.svg) no-repeat;
+    background: var(--color-bg-light) var(--image-chevron) no-repeat;
     background-position: 0.5em;
     background-size: 1em;
     path {
@@ -93,9 +95,3 @@ select[multiple].slimselect:not([data-once]) {
   }
 }
 
-html.dark {
-  .ss-main .ss-arrow {
-    background: $color-bg-light url(../images/chevron-down-inv.svg) no-repeat;
-    background-position: 1rem;
-  }
-}

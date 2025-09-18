@@ -6,7 +6,6 @@
 }
 
 .utility-toggle--wrapper {
-  margin-right: 1rem;
   display: inline-block;
 }
 
@@ -19,16 +18,27 @@
   height: 2.1rem;
   margin: 0;
   position: relative;
+  background-color: transparent;
+  border-color: transparent;
   @include icon(ellipsis-vertical);
 
   &::before {
     @extend %button;
     border-color: transparent;
+    background-color: transparent;
     width: 2rem;
     height: 2rem;
     position: relative;
     left: 0;
     padding: .5rem .333rem;
+  }
+
+  &:focus,
+  &:hover {
+    &::before {
+      background-color: var(--color-interaction);
+      color: var(--color-text-inverted);
+    }
   }
 }
 
@@ -43,4 +53,9 @@
     list-style: none;
     text-align: start;
   }
+}
+
+// Move contextual menu trigger for icon buttons
+header .contextual {
+  left: 1.75rem;
 }

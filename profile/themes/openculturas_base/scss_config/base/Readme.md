@@ -1,8 +1,8 @@
 # Base Styles
 
-A base rule is applied to an element using an element selector, a descendent selector, 
-or a child selector, along with any pseudo-classes. It does not include any 
-class or ID selectors. It defines the default styling for how that element should 
+A base rule is applied to an element using an element selector, a descendent selector,
+or a child selector, along with any pseudo-classes. It does not include any
+class or ID selectors. It defines the default styling for how that element should
 look in all occurrences on the page.
 
 Example Base Styles:
@@ -15,12 +15,12 @@ form {
 }
 
 a {
-    color: #039;
+    text-decoration: underline;
 }
 
 a:hover {
-    color: #03F;
+    text-decoration: none;
 }
 ```
 
-This is also basic for the WYSIWYG editor stylesheet. 
+This is also basic for the WYSIWYG editor stylesheet.

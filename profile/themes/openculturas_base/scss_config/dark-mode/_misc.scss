@@ -1,0 +1,112 @@
+// All these styles are prefixed with html.dark in dark-mode/_index.scss
+
+// @todo: solution for transparent images
+
+// Page header
+// see templates/page/header.scss
+
+#home-link a {
+  position: relative;
+  top: 0.25rem;
+  left: -1rem;
+  background: url(../logo_negative.svg) no-repeat;
+}
+#home-link a img {
+  opacity: 0;
+}
+
+// Crumb trail
+// see templates/menu/breadcrumbs.scss
+
+.breadcrumbs {
+  color: var(--color-text);
+
+  a {
+    color: var(--color-text);
+  }
+}
+
+// Page footer
+// see templates/page/footer.scss
+
+.footer--container {
+  background: var(--color-bg-slight-contrast);
+}
+
+// Form overrides
+// see base/form.scss
+
+*:focus-visible {
+  outline-color: var(--color-info);
+  outline-offset: 2px;
+}
+
+select {
+  background-image: var(--image-chevron);
+}
+
+button.shwpd {
+  background-color: var(--color-interaction);
+}
+button:not([disabled]).shwpd:focus,
+button:not([disabled]).shwpd:hover {
+  background-color: var(--color-link);
+}
+
+// Slim select
+// see templates/field/slimselect.scss
+
+.ss-main .ss-arrow {
+  background: var(--color-bg-light) var(--image-chevron) no-repeat;
+  background-position: 1rem;
+}
+
+// Map filter
+// see templates/block/block--openculturas-map.scss
+
+.openculturas-map--overlay {
+  background-color: var(--color-bg-light-translucent);
+}
+
+// Maps
+
+.leaflet-tile-container img {
+  filter: brightness(1) contrast(1.125) grayscale(1) hue-rotate(20deg) invert(1);
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: #000;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+  color: #777;
+}
+
+.leaflet-bar a,
+.leaflet-bar button {
+  filter: invert(1);
+  outline: 1px solid var(--color-text-muted);
+}
+
+.leaflet-bar button {
+  background-color: #fff;
+}
+
+// Leaflet marker icons
+// see templates/field/leaflet-marker.scss
+
+.leaflet-marker-icon[src*="openculturas_base/images/map_marker.svg"],
+.leaflet-marker-icon[src*="openculturas_map/assets/map_marker.svg"],
+.custom-cluster-icon img[src*="openculturas_base/images/map_marker.svg"],
+.custom-cluster-icon img[src*="openculturas_map/assets/map_marker.svg"] {
+  filter: hue-rotate(28deg) brightness(3.5) contrast(0.75);
+}
+
+// Taxonomy term image teaser
+// see templates/taxonomy-term/taxonomy-term.scss
+
+.taxonomy-term.term--view-mode-teaser .content.with-image .taxonomy-term--tagwrapper::before {
+  background-color: var(--color-bg-light);
+}
