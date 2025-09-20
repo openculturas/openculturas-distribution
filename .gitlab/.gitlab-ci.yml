@@ -78,17 +78,17 @@ docker:base:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_REF_PROTECTED
 
 .validate_rules_php:
   rules:
+    - !reference [.validate_rules, rules]
     - if: $CI_COMMIT_BRANCH
       changes:
         paths:
           - composer.json
           - composer.lock
           - "**/*.{php,install,module}"
-    - !reference [.validate_rules, rules]
 
 composer validate:
   extends: .composer
@@ -178,6 +178,7 @@ rector dry-run:
 
 .validate_rules_npm:
   rules:
+    - !reference [.validate_rules, rules]
     - if: $CI_COMMIT_BRANCH
       changes:
         paths:
@@ -186,7 +187,6 @@ rector dry-run:
           - "**/package.json"
           - "**/package-lock.json"
           - "**/*.{scss,css,js}"
-    - !reference [.validate_rules, rules]
 
 .npm:
   image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:31677f54af46b91cac7ca0e31f80dc4867aba40ab692fc31b84d5ba06c7d4bf0
