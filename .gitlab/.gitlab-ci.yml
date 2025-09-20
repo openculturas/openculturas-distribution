@@ -21,6 +21,7 @@ variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
 
 docker:base:
+  stage: build
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - echo $BASE_IMAGE_CI_REGISTRY_PASSWORD | docker login -u "$BASE_IMAGE_CI_REGISTRY_USER" --password-stdin $BASE_IMAGE_CI_REGISTRY
@@ -29,8 +30,20 @@ docker:base:
       --secret id=BASICAUTH_PASSWORD
       .
     - docker push ${CI_REGISTRY_IMAGE}:base
+  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'schedule'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: "$CI_COMMIT_REF_NAME == $PRELIVE_BRANCH_NAME"
+      when: always
+    - if: $CI_COMMIT_BRANCH
 
 .docker_build_image:
+  needs:
+    - job: docker:base
+      optional: true
   script:
   - DOCKER_IMAGE_TAG="${CI_JOB_ID}"
   - echo "DOCKER_IMAGE_TAG=${DOCKER_IMAGE_TAG}" >> deploy.env
@@ -42,15 +55,40 @@ docker:base:
   - echo $DOCKER_IMAGE_MIRROR_CI_REGISTRY_PASSWORD | docker login -u "$DOCKER_IMAGE_MIRROR_CI_REGISTRY_USER"
     --password-stdin $DOCKER_IMAGE_MIRROR_CI_REGISTRY
   - docker push "${DOCKER_IMAGE_MIRROR_CI_REGISTRY_IMAGE}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${DOCKER_IMAGE_TAG}"
+  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'schedule'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: "$CI_COMMIT_REF_NAME == $PRELIVE_BRANCH_NAME"
+      when: always
+    - if: $CI_COMMIT_BRANCH
 
 .composer:
   image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:31677f54af46b91cac7ca0e31f80dc4867aba40ab692fc31b84d5ba06c7d4bf0
   stage: validate
-  needs:
-    - docker:base
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
     COMPOSER_MEMORY_LIMIT: -1
+
+.validate_rules:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'schedule'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+.validate_rules_php:
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      changes:
+        paths:
+          - composer.json
+          - composer.lock
+          - "**/*.{php,install,module}"
+    - !reference [.validate_rules, rules]
 
 composer validate:
   extends: .composer
@@ -59,26 +97,12 @@ composer validate:
   script:
     - composer validate --ansi --check-lock
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-      when: never
-    - if: $CI_COMMIT_BRANCH
-      changes:
-        paths:
-          - "composer.json"
-          - "composer.lock"
-
-.validate_rules:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: $CI_COMMIT_BRANCH
+    - !reference [.validate_rules_php, rules]
 
 phplint:
   extends:
     - .composer
-    - .validate_rules
+    - .validate_rules_php
   stage: validate
   interruptible: true
   script:
@@ -93,7 +117,7 @@ phplint:
 phpcs:
   extends:
     - .composer
-    - .validate_rules
+    - .validate_rules_php
   needs:
     - phplint
   stage: validate
@@ -111,7 +135,7 @@ phpcs:
 phpstan:
   extends:
     - .composer
-    - .validate_rules
+    - .validate_rules_php
   needs:
     - phplint
   stage: validate
@@ -133,7 +157,7 @@ phpstan:
 rector dry-run:
   extends:
     - .composer
-    - .validate_rules
+    - .validate_rules_php
   needs:
     - phplint
   stage: validate
@@ -152,12 +176,23 @@ rector dry-run:
 #    reports:
 #      codequality: [gl-code-quality-report.json]
 
+.validate_rules_npm:
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      changes:
+        paths:
+          - package.json
+          - package-lock.json
+          - "**/package.json"
+          - "**/package-lock.json"
+          - "**/*.{scss,css,js}"
+    - !reference [.validate_rules, rules]
+
 .npm:
   image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:31677f54af46b91cac7ca0e31f80dc4867aba40ab692fc31b84d5ba06c7d4bf0
   stage: validate
-  extends: .validate_rules
+  extends: .validate_rules_npm
   needs:
-    - docker:base
     - phplint
 
 .composer_npm:
