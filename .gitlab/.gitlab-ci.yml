@@ -66,7 +66,7 @@ docker:base:
     - if: $CI_COMMIT_BRANCH
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:31677f54af46b91cac7ca0e31f80dc4867aba40ab692fc31b84d5ba06c7d4bf0
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:76607beda8299ba8c8bd1a97fa830dec9d23fff6c8689024ebb934c1d47bad47
   stage: validate
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
@@ -189,7 +189,7 @@ rector dry-run:
           - "**/*.{scss,css,js}"
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:31677f54af46b91cac7ca0e31f80dc4867aba40ab692fc31b84d5ba06c7d4bf0
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:76607beda8299ba8c8bd1a97fa830dec9d23fff6c8689024ebb934c1d47bad47
   stage: validate
   extends: .validate_rules_npm
   needs:
