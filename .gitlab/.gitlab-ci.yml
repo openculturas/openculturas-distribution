@@ -1,12 +1,12 @@
-include:
-  - project: 'devops/gitlab-ci-templates'
-    ref: 3.0.7
-    file:
-      - 'drupal.yml'
-
 workflow:
   auto_cancel:
     on_new_commit: interruptible
+
+include:
+  - project: 'devops/gitlab-ci-templates'
+    ref: 3.1.0
+    file:
+      - 'drupal.yml'
 
 stages:
   - ".pre"
@@ -19,51 +19,6 @@ stages:
 
 variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
-
-docker:base:
-  stage: build
-  script:
-    - echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - echo $BASE_IMAGE_CI_REGISTRY_PASSWORD | docker login -u "$BASE_IMAGE_CI_REGISTRY_USER" --password-stdin $BASE_IMAGE_CI_REGISTRY
-    - docker build --file ./.gitlab/DockerfileBase --pull --rm --tag ${CI_REGISTRY_IMAGE}:base
-      --build-arg CI_PROJECT_NAME=${CI_PROJECT_NAME}
-      --secret id=BASICAUTH_PASSWORD
-      .
-    - docker push ${CI_REGISTRY_IMAGE}:base
-  when: manual
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: "$CI_COMMIT_REF_NAME == $PRELIVE_BRANCH_NAME"
-      when: always
-    - if: $CI_COMMIT_BRANCH
-
-.docker_build_image:
-  needs:
-    - job: docker:base
-      optional: true
-  script:
-  - DOCKER_IMAGE_TAG="${CI_JOB_ID}"
-  - echo "DOCKER_IMAGE_TAG=${DOCKER_IMAGE_TAG}" >> deploy.env
-  - echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-  - echo $BASE_IMAGE_CI_REGISTRY_PASSWORD | docker login -u "$BASE_IMAGE_CI_REGISTRY_USER" --password-stdin $BASE_IMAGE_CI_REGISTRY
-  - docker build --file ./.gitlab/DockerfileApp --rm --tag "${DOCKER_IMAGE_MIRROR_CI_REGISTRY_IMAGE}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${DOCKER_IMAGE_TAG}"
-    --build-arg APP_ENV=${APP_ENV} --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}
-    .
-  - echo $DOCKER_IMAGE_MIRROR_CI_REGISTRY_PASSWORD | docker login -u "$DOCKER_IMAGE_MIRROR_CI_REGISTRY_USER"
-    --password-stdin $DOCKER_IMAGE_MIRROR_CI_REGISTRY
-  - docker push "${DOCKER_IMAGE_MIRROR_CI_REGISTRY_IMAGE}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${DOCKER_IMAGE_TAG}"
-  when: manual
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: "$CI_COMMIT_REF_NAME == $PRELIVE_BRANCH_NAME"
-      when: always
-    - if: $CI_COMMIT_BRANCH
 
 .composer:
   image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:ae48ea61238751d4992b97d32a79df54a7664281fb07ad12437c6d9ba4035206
@@ -260,13 +215,20 @@ eslint:
   script:
     - npx eslint --cache --format gitlab .
 
-build:image:stage:
-  extends: .build:image:stage
+build:artifacts:
+  extends: .build:artifacts
+  image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:ae48ea61238751d4992b97d32a79df54a7664281fb07ad12437c6d9ba4035206
+
+.docker_build_image:
+  needs:
+    - job: build:image:base
+      optional: true
+    - job: build:artifacts
+      artifacts: true
 
 deploy:stage:
   extends:
     - .deploy_cloudron:stage
-    - .only_stage_rules_manually
   needs:
     - build:image:stage
 

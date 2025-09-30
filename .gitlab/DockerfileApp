@@ -1,20 +1,19 @@
 # syntax=docker/dockerfile:1@sha256:dabfc0969b935b2080555ace70ee69a5261af8a8f1b4df97b9e7fbcf6722eddf
 # check=error=true
 
-FROM registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:ae48ea61238751d4992b97d32a79df54a7664281fb07ad12437c6d9ba4035206 AS build
-ARG APP_ENV
-ENV APP_ENV=${APP_ENV:-UNKNOWN}
-ENV COMPOSER_ALLOW_SUPERUSER=1
-WORKDIR /build
-RUN --mount=type=cache,target=/root/.cache/composer --mount=type=cache,target=/root/.npm/_cacache --mount=type=bind,target=/build,readwrite \
-  if [ "${APP_ENV:-}" = 'live' ]; then export NO_DEV=1; fi; \
-  composer install --no-interaction --optimize-autoloader --no-progress --ansi ${NO_DEV:+--no-dev} && \
-  cp -r /build/* /app/code >/dev/null
-
 FROM registry.cowain.dev/lvsn/openculturas-distribution:base
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV:-UNKNOWN}
+
 WORKDIR /app/code
-COPY --from=build --chown=cloudron:cloudron /app/code /app/code
+
+COPY ./composer.json /app/code/composer.json
+COPY ./composer.lock /app/code/composer.lock
+COPY ./scripts/ /app/code/scripts
+COPY ./config/ /app/code/config
+COPY ./vendor/ /app/code/vendor
+COPY ./web/ /app/code/web
+COPY ./profile/ /app/code/profile
 COPY ./.gitlab/cloudron.settings.php /app/code/web/sites/default/settings.php
+
 RUN ln -sf /app/data/files /app/code/web/sites/default/files
