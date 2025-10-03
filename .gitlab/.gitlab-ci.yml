@@ -19,6 +19,7 @@ stages:
 
 variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
+  SKIP_STAGING: 1
 
 .composer:
   image: registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-sdk@sha256:69a2392c5f474eedee8dc850095c4b2af10a5b297e057650873274dfda51c15a
@@ -225,6 +226,11 @@ build:artifacts:
       optional: true
     - job: build:artifacts
       artifacts: true
+
+
+build:image:base:
+  rules:
+    - when: never
 
 deploy:stage:
   extends:
