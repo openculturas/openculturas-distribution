@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1@sha256:dabfc0969b935b2080555ace70ee69a5261af8a8f1b4df97b9e7fbcf6722eddf
 # check=error=true
 
-FROM registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-app@sha256:92e9c395f49d27c6f3987c5511657a79835de08877236a2c51685b5b6c418060
+FROM registry.gzevd.de/safeserver/cloudron-base:v7-php8.1-app@sha256:18581a442f23fca6c6de71c806fe52295010ff16cc2530450e9af4c07ce5f85a
 ARG CI_PROJECT_NAME
 RUN --mount=type=secret,id=BASICAUTH_PASSWORD \
   BASICAUTH_PASSWORD=$(cat /run/secrets/BASICAUTH_PASSWORD); \
