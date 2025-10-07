@@ -108,3 +108,33 @@ function openculturas_map_update_10003(): void {
     $set_pager($view);
   }
 }
+
+/**
+ * Add the sort end date, title to the oc_map_dates view.
+ */
+function openculturas_map_update_10004(): void {
+  $view = Views::getView('oc_map_dates');
+  if ($view && $view->setDisplay('default')) {
+    $display = $view->getDisplay();
+    $existing_sorts = $display->getOption('sorts');
+    $changed = FALSE;
+    if (!isset($existing_sorts['title'])) {
+      $view->addHandler('default', 'sort', 'node_field_data', 'title');
+      $changed = TRUE;
+    }
+
+    if (!isset($existing_sorts['field_date_end_value'])) {
+      $view->addHandler('default', 'sort', 'node__field_date', 'field_date_end_value');
+      $changed = TRUE;
+    }
+
+    if ($changed) {
+      $updated_sorts = $display->getOption('sorts');
+      $title = $updated_sorts['title'];
+      unset($updated_sorts['title']);
+      $updated_sorts['title'] = $title;
+      $display->setOption('sorts', $updated_sorts);
+      $view->save();
+    }
+  }
+}
