@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.text_slider.paragraph_view_mode
     - paragraphs.paragraphs_type.text_slider
   module:
+    - field_formatter_class
     - paragraph_view_mode
     - text
 id: paragraph.text_slider.default
@@ -27,11 +28,14 @@ content:
     region: content
     settings:
       view_modes:
-        default: Default
+        default: default
+        slider_multiple: slider_multiple
       default_view_mode: default
       form_mode_bind: true
       apply_to_preview: false
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
   translation:
     weight: 10
     region: content

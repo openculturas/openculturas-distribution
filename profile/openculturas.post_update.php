@@ -24,15 +24,18 @@ use Drupal\views\ViewEntityInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
-function _openculturas_post_update_import_config(array $full_config_names): string {
+function _openculturas_post_update_import_or_revert_config(array $full_config_names, bool $revert = FALSE): string {
   /** @var \Drupal\config_update\ConfigReverter $configUpdater */
   $configUpdater = \Drupal::service('config_update.config_update');
   /** @var \Drupal\update_helper\UpdateLogger $logger */
   $logger = \Drupal::service('update_helper.logger');
   foreach ($full_config_names as $full_config_name) {
     $config_name = ConfigName::createByFullName($full_config_name);
-    if ($configUpdater->import($config_name->getType(), $config_name->getName())) {
+    if (!$revert && $configUpdater->import($config_name->getType(), $config_name->getName())) {
       $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
+    }
+    elseif ($revert && $configUpdater->revert($config_name->getType(), $config_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully reverted.', $full_config_name));
     }
     else {
       $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
@@ -1153,7 +1156,7 @@ function openculturas_post_update_import_block_utility_menu_account(): string {
   $full_config_names = [
     'block.block.utility_menu_account',
   ];
-  $output = _openculturas_post_update_import_config($full_config_names);
+  $output = _openculturas_post_update_import_or_revert_config($full_config_names);
   $block = Block::load('utility_menu_account');
   if ($block instanceof BlockInterface) {
     // Make this block optional.
@@ -1177,7 +1180,7 @@ function openculturas_post_update_import_block_language_toggle(): string {
     'block.block.language_toggle',
   ];
 
-  $output = _openculturas_post_update_import_config($full_config_names);
+  $output = _openculturas_post_update_import_or_revert_config($full_config_names);
   $block = Block::load('language_toggle');
   if ($block instanceof BlockInterface) {
     // Make this block optional.
@@ -1206,7 +1209,7 @@ function openculturas_post_update_import_text_slider(): string {
     'language.content_settings.paragraph.text_slider',
   ];
 
-  $output = _openculturas_post_update_import_config($full_config_names);
+  $output = _openculturas_post_update_import_or_revert_config($full_config_names);
   $bundles = ['article', 'page'];
   foreach ($bundles as $bundle) {
     /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
@@ -1247,4 +1250,17 @@ function openculturas_post_update_import_text_slider(): string {
   }
 
   return $output;
+}
+
+/**
+ * Adds missing swiffy slider configuration for paragraph type text_slider.
+ */
+function openculturas_post_update_text_slider_setup_swiffy_slider(): string {
+  $full_config_names = [
+    'core.entity_form_display.paragraph.text_slider.default',
+    'core.entity_view_display.paragraph.text_slider.default',
+    'core.entity_view_display.paragraph.text_slider.slider_multiple',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
