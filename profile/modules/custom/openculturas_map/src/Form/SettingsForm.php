@@ -132,7 +132,7 @@ final class SettingsForm extends ConfigFormBase {
     $element = &$form['marker_icon']['marker_icon_path'];
     $friendly_path = NULL;
     $original_path = $element['#default_value'];
-    $default = 'openculturas_map/map_maker.svg';
+    $default = 'openculturas_map/map_marker.svg';
     if (is_string($original_path) && StreamWrapperManager::getScheme($original_path) === 'public') {
       $friendly_path = StreamWrapperManager::getTarget($original_path);
       $element['#default_value'] = $friendly_path;
@@ -271,6 +271,7 @@ final class SettingsForm extends ConfigFormBase {
 
     $validators = [
       'FileIsImage' => [],
+      'FileExtension' => ['extensions' => 'jpg jpeg png gif svg'],
       'FileSizeLimit' => ['fileLimit' => 1_048_576],
     ];
 

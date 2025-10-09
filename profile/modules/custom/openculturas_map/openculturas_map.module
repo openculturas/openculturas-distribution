@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\openculturas_custom\GetConfiguredMapMaker;
 
 /**
  * Implements hook_theme().
@@ -28,8 +28,8 @@ function openculturas_map_theme(): array {
  */
 function openculturas_map_preprocess_block(array &$variables): void {
   if ($variables['elements']['#plugin_id'] === 'openculturas_map_block') {
-    $id = Html::getUniqueId('openculturas_map');
     // Create Unique-Id and attach to configuration and drupalSettings.
+    $id = Html::getUniqueId('openculturas_map');
     $variables['configuration']['identifier'] = $id;
     $variables['#attached']['drupalSettings']['openCulturasMap']['block'][$id] = $variables['configuration'];
 
@@ -51,25 +51,12 @@ function openculturas_map_preprocess_block(array &$variables): void {
       }
 
       if ($configKey === 'marker_icon_path') {
-        $configValue = is_string($configValue) ? trim($configValue) : NULL;
-        if ($configValue !== NULL && file_exists($configValue)) {
-          if (StreamWrapperManager::getScheme($configValue)) {
-            /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
-            $fileUrlGenerator = \Drupal::service('file_url_generator');
-            $configValue = $fileUrlGenerator->generateString($configValue);
-          }
-        }
-        else {
-          $configValue = \Drupal::service('module_handler')->getModule('openculturas_map')->getPath() . '/assets/map_marker.svg';
-        }
-
-        $configValue = '/' . ltrim($configValue, '/');
+        $configValue = GetConfiguredMapMaker::getPath();
       }
 
       $variables['#attached']['drupalSettings']['openCulturasMap']['global'][$configKey] = $configValue;
     }
 
-    // Attach Library.
     $variables['#attached']['library'][] = 'openculturas_map/openculturas_map_block';
 
     $cache = new CacheableMetadata();

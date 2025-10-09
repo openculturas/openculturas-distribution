@@ -25,6 +25,7 @@ use Drupal\leaflet_views\Plugin\views\style\LeafletMap;
 use Drupal\media\MediaInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openculturas_custom\GetConfiguredMapMaker;
 use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
@@ -895,4 +896,13 @@ function openculturas_custom_mail_alter(array &$message): void {
   }
 
   $message['body'][] = $mail_signature;
+}
+
+/**
+ * Implements hook_leaflet_map_info_alter().
+ */
+function openculturas_custom_leaflet_map_info_alter(array &$map_info): void {
+  // A field formatter can override this.
+  // See web/modules/contrib/leaflet/src/Plugin/Field/FieldFormatter/LeafletDefaultFormatter.php:363.
+  $map_info['OSM Mapnik']['icon']['iconUrl'] = GetConfiguredMapMaker::getPath();
 }

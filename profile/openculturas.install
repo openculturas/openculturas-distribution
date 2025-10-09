@@ -101,25 +101,6 @@ function openculturas_install_content(): void {
 
   $config->save();
 
-  // Fix path to marker, when installed as a dependency.
-  if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg')) {
-    $config = $configFactory->getEditable('views.view.locations');
-    $config->set('display.default.display_options.style.options.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg');
-    $config->save();
-
-    $config = $configFactory->getEditable('views.view.related_date');
-    $config->set('display.upcoming_dates_map.display_options.style.options.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg');
-    $config->save();
-
-    $config = $configFactory->getEditable('core.entity_view_display.paragraph.address_data.default');
-    $config->set('content.field_address_location.settings.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg');
-    $config->save();
-
-    $config = $configFactory->getEditable('core.entity_view_display.paragraph.address_data.map');
-    $config->set('content.field_address_location.settings.icon.iconUrl', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/images/map_marker.svg');
-    $config->save();
-  }
-
   if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png')) {
     $config = $configFactory->getEditable('gin.settings');
     $config->set('favicon.path', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png');

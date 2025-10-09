@@ -7,9 +7,13 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Config\Entity\ConfigEntityUpdater;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\openculturas_custom\GetConfiguredMapMaker;
 use Drupal\user\RoleInterface;
+use Drupal\views\ViewEntityInterface;
 
 /**
  * Implements hook_install().
@@ -73,5 +77,108 @@ function openculturas_map_uninstall(bool $is_syncing): void {
  * Implements hook_update_last_removed().
  */
 function openculturas_map_update_last_removed(): int {
-  return 10003;
+  return 10004;
+}
+
+/**
+ * Update the leaflet_formatter_default view display to remove the iconUrl.
+ */
+function openculturas_map_update_10005(array &$sandbox): void {
+  $pathConfigured = GetConfiguredMapMaker::getPath();
+  $pathFallBack = \Drupal::service('extension.list.theme')->getPath('openculturas_base') . '/images/map_marker.svg';
+  $pathFallBack = '/' . ltrim($pathFallBack, '/');
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'entity_view_display', function (EntityViewDisplayInterface $entityViewDisplay) use ($pathConfigured, $pathFallBack): bool {
+    $update = FALSE;
+    /** @var array<array<string, array>> $components */
+    $components = $entityViewDisplay->getComponents();
+    foreach ($components as $name => $component) {
+      if (!isset($component['type'])) {
+        continue;
+      }
+
+      if ($component['type'] != 'leaflet_formatter_default') {
+        continue;
+      }
+
+      if (!isset($component['settings']['icon']['iconUrl'])) {
+        continue;
+      }
+
+      if (!isset($component['settings']['icon']['iconType'])) {
+        continue;
+      }
+
+      if ($component['settings']['icon']['iconType'] !== 'marker') {
+        continue;
+      }
+
+      if ($component['settings']['icon']['iconUrl'] === '') {
+        continue;
+      }
+
+      if (!is_string($name)) {
+        continue;
+      }
+
+      // Only remove the icon if it is the configured one or the fallback one.
+      if ($component['settings']['icon']['iconUrl'] === $pathConfigured || $component['settings']['icon']['iconUrl'] === $pathFallBack) {
+        $component['settings']['icon']['iconUrl'] = '';
+        $entityViewDisplay->setComponent($name, $component);
+        $update = TRUE;
+      }
+    }
+
+    return $update;
+  });
+}
+
+/**
+ * Update the leaflet_map view display to remove the iconUrl.
+ */
+function openculturas_map_update_10006(array &$sandbox): void {
+  $pathConfigured = GetConfiguredMapMaker::getPath();
+  $pathFallBack = \Drupal::service('extension.list.theme')->getPath('openculturas_base') . '/images/map_marker.svg';
+  $pathFallBack = '/' . ltrim($pathFallBack, '/');
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', function (ViewEntityInterface $view) use ($pathConfigured, $pathFallBack): bool {
+    $displays = $view->get('display');
+    if (!is_array($displays)) {
+      return FALSE;
+    }
+
+    $update = FALSE;
+    foreach ($displays as &$display) {
+      if (!is_array($display)) {
+        continue;
+      }
+
+      $display_options = $display['display_options'] ?? NULL;
+      if (!is_array($display_options)) {
+        continue;
+      }
+
+      $style = $display_options['style'] ?? NULL;
+      if (!is_array($style)) {
+        continue;
+      }
+
+      $style_type = $style['type'] ?? NULL;
+      if (!is_string($style_type)) {
+        continue;
+      }
+
+      /** @var array{"display_options": array{"style": array{"type": string, "options" : array{"icon": array{"iconType":string, "iconUrl": string}}}}} $display */
+      // Only remove the icon if it is the configured one or the fallback one.
+      if ($style_type === 'leaflet_map' && $display['display_options']['style']['options']['icon']['iconType'] === 'marker' && ($display['display_options']['style']['options']['icon']['iconUrl'] === $pathConfigured || $display['display_options']['style']['options']['icon']['iconUrl'] === $pathFallBack)) {
+        $display['display_options']['style']['options']['icon']['iconUrl'] = '';
+        $update = TRUE;
+      }
+    }
+
+    unset($display);
+    if ($update) {
+      $view->set('display', $displays);
+    }
+
+    return $update;
+  });
 }
