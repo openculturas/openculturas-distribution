@@ -11,6 +11,7 @@ use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\views\Views;
 
 /**
  * Implements hook_install().
@@ -95,5 +96,19 @@ function openculturas_faq_update_10002(): void {
       $field->setSetting('handler_settings', $handler_settings);
       $field->save();
     }
+  }
+}
+
+/**
+ * Increase the number of items per page in the faq view.
+ */
+function openculturas_faq_update_10003(): void {
+  $view = Views::getView('faq');
+  if ($view && $view->setDisplay('default')) {
+    $pager = $view->getDisplay()->getOption('pager');
+    $pager['options']['items_per_page'] = 96;
+    $pager['options']['pagination_heading_level'] = 'h4';
+    $view->getDisplay()->setOption('pager', $pager);
+    $view->save();
   }
 }
