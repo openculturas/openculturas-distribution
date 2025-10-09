@@ -1264,3 +1264,13 @@ function openculturas_post_update_text_slider_setup_swiffy_slider(): string {
 
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Revert gin theme overrides to remove CSS for .paragraphs-tabs-wrapper.
+ */
+function openculturas_post_update_revert_gin_theme_overrides_2(): string {
+  $full_config_names = [
+    'asset_injector.css.oc_gin_theme_overrides',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}
