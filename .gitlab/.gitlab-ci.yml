@@ -226,19 +226,10 @@ build:artifacts:
     - job: build:artifacts
       artifacts: true
 
-build:image:stage:dry-run:
-  extends:
-    - .docker_build_image
-    - .only_stage_rules
-  variables:
-    APP_ENV: stage
-
 build:image:stage:
-  extends:
-    - .docker_build_image_push
-    - .only_stage_rules_manually
-  variables:
-    APP_ENV: stage
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - !reference [.only_stage_rules_manually_optional, rules]
 
 deploy:stage:
   extends:
