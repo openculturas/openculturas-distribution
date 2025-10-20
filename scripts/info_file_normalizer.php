@@ -238,7 +238,7 @@ $comments = new class
 
 $finder = (new Finder())->files()->in('profile/')->exclude('config/')->name('*.info.yml');
 
-const VERSION = '2.5.1';
+const VERSION = '2.6.x-dev';
 foreach ($finder->getIterator() as $file) {
   $yamlContent = $file->getContents();
   $comments->collect(explode("\n", $yamlContent));
@@ -268,7 +268,6 @@ foreach ($finder->getIterator() as $file) {
     'version' => VERSION,
     'project' => 'openculturas'
   ] + $info;
-
   $altered_contents = Yaml::encode($new_info);
   $altered_with_comments = $comments->inject(explode("\n", $altered_contents));
   file_put_contents($file->getPathname(), trim(implode("\n", $altered_with_comments)) . "\n");
