@@ -7,6 +7,24 @@ dependencies:
     - paragraphs.paragraphs_type.address_data
   module:
     - address
+    - content_translation
+third_party_settings:
+  content_translation:
+    translation_sync:
+      langcode: langcode
+      country_code: country_code
+      administrative_area: administrative_area
+      locality: locality
+      dependent_locality: dependent_locality
+      postal_code: postal_code
+      sorting_code: sorting_code
+      address_line1: address_line1
+      address_line2: address_line2
+      address_line3: address_line3
+      organization: organization
+      given_name: given_name
+      additional_name: additional_name
+      family_name: family_name
 id: paragraph.address_data.field_address
 field_name: field_address
 entity_type: paragraph
@@ -17,7 +35,7 @@ required: false
 translatable: true
 default_value:
   -
-    langcode: en
+    langcode: null
     country_code: DE
     administrative_area: null
     locality: ''
@@ -26,6 +44,7 @@ default_value:
     sorting_code: null
     address_line1: ''
     address_line2: ''
+    address_line3: ''
     organization: ''
     given_name: null
     additional_name: null
@@ -46,6 +65,8 @@ settings:
     addressLine1:
       override: optional
     addressLine2:
+      override: optional
+    addressLine3:
       override: optional
     postalCode:
       override: optional
