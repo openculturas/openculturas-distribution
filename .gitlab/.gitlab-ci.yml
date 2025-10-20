@@ -229,6 +229,7 @@ build:artifacts:
 build:image:stage:
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: never
     - !reference [.only_stage_rules_manually_optional, rules]
 
 deploy:stage:
@@ -236,6 +237,10 @@ deploy:stage:
     - .deploy_cloudron:stage
   needs:
     - build:image:stage
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: never
+    - !reference [.only_stage_rules_manually_optional, rules]
 
 deploy:stage:remove:
   extends: .deploy_cloudron:stage:remove
