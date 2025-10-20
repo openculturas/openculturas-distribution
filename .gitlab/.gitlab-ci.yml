@@ -246,6 +246,10 @@ deploy:stage:remove:
   extends: .deploy_cloudron:stage:remove
   needs:
     - deploy:stage
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: never
+    - !reference [.only_stage_rules_manually_optional, rules]
 
 build:image:prelive:
   extends: .build:image:prelive
