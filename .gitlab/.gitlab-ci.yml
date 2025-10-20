@@ -97,7 +97,10 @@ phpstan:
   interruptible: true
   script:
     - composer install --ansi --no-interaction
-    - vendor/bin/phpstan.phar --configuration=phpstan.ci.neon --no-interaction --no-progress --error-format=gitlab > gl-code-quality-report.json
+    - php $CI_PROJECT_DIR/vendor/bin/phpstan --configuration=phpstan.ci.neon --no-progress --error-format=junit analyze > $CI_PROJECT_DIR/junit.xml || true
+    - php $CI_PROJECT_DIR/vendor/bin/phpstan --configuration=phpstan.ci.neon --no-progress --error-format=gitlab analyze > $CI_PROJECT_DIR/phpstan-quality-report.json || true
+    - php $CI_PROJECT_DIR/vendor/bin/phpstan --configuration=phpstan.ci.neon --no-progress analyze || EXIT_CODE=$?
+    - exit $EXIT_CODE
   cache:
     - key: phpstan
       paths:
@@ -106,8 +109,10 @@ phpstan:
   artifacts:
     name: "$CI_JOB_NAME artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     when: always
+    expire_in: 6 mos
     reports:
-      codequality: [gl-code-quality-report.json]
+      codequality: [phpstan-quality-report.json]
+      junit: [junit.xml]
 
 rector dry-run:
   extends:
