@@ -226,6 +226,20 @@ build:artifacts:
     - job: build:artifacts
       artifacts: true
 
+build:image:stage:dry-run:
+  extends:
+    - .docker_build_image
+    - .only_stage_rules
+  variables:
+    APP_ENV: stage
+
+build:image:stage:
+  extends:
+    - .docker_build_image_push
+    - .only_stage_rules_manually
+  variables:
+    APP_ENV: stage
+
 deploy:stage:
   extends:
     - .deploy_cloudron:stage
