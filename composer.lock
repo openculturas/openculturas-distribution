@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2407d19d82e549ce45f941a418b11cdc",
+    "content-hash": "5a7702b99b28a851c50a3d64ab629b35",
     "packages": [
         {
             "name": "ajaxorg/ace-builds",
@@ -3004,40 +3004,46 @@
         },
         {
             "name": "drupal/extra_field",
-            "version": "2.3.0",
+            "version": "3.0.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/extra_field.git",
-                "reference": "8.x-2.3"
+                "reference": "3.0.0-beta2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/extra_field-8.x-2.3.zip",
-                "reference": "8.x-2.3",
-                "shasum": "ef46b8577b36ff751effbc63d409ee9298471813"
+                "url": "https://ftp.drupal.org/files/projects/extra_field-3.0.0-beta2.zip",
+                "reference": "3.0.0-beta2",
+                "shasum": "9a44fe914fab68d73dac66db47eb3f3061843f8e"
             },
             "require": {
-                "drupal/core": "^9 || ^10"
+                "drupal/core": "^10.2 || ^11"
+            },
+            "conflict": {
+                "drush/drush": "<12"
+            },
+            "require-dev": {
+                "chi-teck/drupal-code-generator": "^4"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.3",
-                    "datestamp": "1664136134",
+                    "version": "3.0.0-beta2",
+                    "datestamp": "1757085763",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^10"
+                        "drush.services.yml": ">=10"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
@@ -3052,7 +3058,8 @@
             "description": "Provides a plugin type for extra fields that look like real fields, but do not store data.",
             "homepage": "https://www.drupal.org/project/extra_field",
             "support": {
-                "source": "https://git.drupalcode.org/project/extra_field"
+                "source": "https://www.drupal.org/project/extra_field",
+                "issues": "https://www.drupal.org/project/issues/extra_field"
             }
         },
         {
@@ -21713,6 +21720,7 @@
         "drupal/conditional_fields": 15,
         "drupal/config_update": 15,
         "drupal/default_content": 15,
+        "drupal/extra_field": 10,
         "drupal/inline_entity_form": 5,
         "drupal/simple_image_rotate": 15,
         "drupal/viewfield": 10,
