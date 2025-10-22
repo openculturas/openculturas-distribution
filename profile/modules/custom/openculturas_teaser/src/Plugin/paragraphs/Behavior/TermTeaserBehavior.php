@@ -6,20 +6,19 @@ namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
+use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
 use Drupal\taxonomy\TermInterface;
 
-/**
- *
- * @ParagraphsBehavior(
- *   id = "term_teaser",
- *   label = @Translation("Term teaser."),
- *   description = @Translation("Allow overriding term's teaser values."),
- *   weight = 2
- * )
- */
+#[ParagraphsBehavior(
+  id: 'term_teaser',
+  label: new TranslatableMarkup('Term teaser.'),
+  description: new TranslatableMarkup("Allow overriding term's teaser values."),
+  weight: 2
+)]
 class TermTeaserBehavior extends TeaserBehaviorBase {
 
   /**

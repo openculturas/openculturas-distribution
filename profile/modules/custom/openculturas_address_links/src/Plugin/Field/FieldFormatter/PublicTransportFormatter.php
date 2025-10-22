@@ -2,20 +2,19 @@
 
 namespace Drupal\openculturas_address_links\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\address\AddressInterface;
 
 /**
  * Plugin implementation of the 'public_transport' formatter.
- *
- * @FieldFormatter(
- *   id = "public_transport",
- *   label = @Translation("Public transport link"),
- *   field_types = {
- *     "address",
- *   },
- * )
  */
+#[FieldFormatter(
+  id: 'public_transport',
+  label: new TranslatableMarkup('Public transport link'),
+  field_types: ['address'],
+)]
 class PublicTransportFormatter extends AddressLinkFormatterBase {
 
   /**

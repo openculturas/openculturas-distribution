@@ -10,6 +10,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\views\Attribute\ViewsArea;
 use Drupal\views\Plugin\views\area\AreaPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -17,9 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Views area handler.
  *
  * @ingroup views_area_handlers
- *
- * @ViewsArea("openculturas_discussions_add_button")
  */
+#[ViewsArea('openculturas_discussions_add_button')]
 final class AddButton extends AreaPluginBase {
 
   /**

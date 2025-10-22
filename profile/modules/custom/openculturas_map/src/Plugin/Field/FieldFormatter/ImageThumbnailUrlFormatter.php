@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_map\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceEntityFormatter;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\image\ImageStyleInterface;
@@ -15,16 +17,12 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'image_thumbnail_url_formatter' formatter.
- *
- * @FieldFormatter(
- *   id = "image_thumbnail_url_formatter",
- *   label = @Translation("Image Thumbnail URL"),
- *   field_types = {
- *      "entity_reference",
- *      "entity_reference_revisions"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'image_thumbnail_url_formatter',
+  label: new TranslatableMarkup('Image Thumbnail URL'),
+  field_types: ['entity_reference', 'entity_reference_revisions'],
+)]
 class ImageThumbnailUrlFormatter extends EntityReferenceEntityFormatter {
 
   /**

@@ -6,6 +6,8 @@ namespace Drupal\openculturas_custom\Plugin\paragraphs\Behavior;
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsBehaviorBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,14 +15,12 @@ use function is_array;
 use function is_string;
 use function t;
 
-/**
- * @ParagraphsBehavior(
- *   id = "extra_style",
- *   label = @Translation("Extra style."),
- *   description = @Translation("Select an additional style."),
- *   weight = 2
- * )
- */
+#[ParagraphsBehavior(
+  id: 'extra_style',
+  label: new TranslatableMarkup('Extra style.'),
+  description: new TranslatableMarkup('Select an additional style.'),
+  weight: 2
+)]
 final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
 
   public const NONE = 'none';

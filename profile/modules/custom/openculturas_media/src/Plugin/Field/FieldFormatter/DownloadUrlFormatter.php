@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Drupal\openculturas_media\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Drupal\file\FileStorageInterface;
@@ -15,17 +17,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
- * Plugin implementation of the 'media_entity_download_download_link' formatter.
- *
- * @FieldFormatter(
- *   id = "media_entity_download_url",
- *   label = @Translation("Download Url"),
- *   field_types = {
- *     "file",
- *     "image"
- *   }
- * )
+ * Plugin implementation of the 'media_entity_download_link' formatter.
  */
+#[FieldFormatter(
+  id: 'media_entity_download_url',
+  label: new TranslatableMarkup('Download Url'),
+  field_types: ['file', 'image'],
+)]
 final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
 
   /**

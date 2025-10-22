@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_address_links\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\address\AddressInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 
 /**
  * Plugin implementation of the 'directions' formatter.
- *
- * @FieldFormatter(
- *   id = "directions",
- *   label = @Translation("Directions link"),
- *   field_types = {
- *     "address",
- *     "geofield",
- *   },
- * )
  */
+#[FieldFormatter(
+  id: 'directions',
+  label: new TranslatableMarkup('Directions link'),
+  field_types: ['address', 'geofield'],
+)]
 class DirectionsFormatter extends AddressLinkFormatterBase {
 
   /**

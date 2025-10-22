@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
 
-/**
- *
- * @ParagraphsBehavior(
- *   id = "node_teaser",
- *   label = @Translation("Node teaser."),
- *   description = @Translation("Allow overriding node's teaser values."),
- *   weight = 2
- * )
- */
+#[ParagraphsBehavior(
+  id: 'node_teaser',
+  label: new TranslatableMarkup('Node teaser.'),
+  description: new TranslatableMarkup("Allow overriding node's teaser values."),
+  weight: 2
+)]
 class NodeTeaserBehavior extends TeaserBehaviorBase {
 
   /**

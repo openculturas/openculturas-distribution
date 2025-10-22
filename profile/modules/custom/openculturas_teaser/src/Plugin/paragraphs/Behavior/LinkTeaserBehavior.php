@@ -7,20 +7,19 @@ namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
 use Drupal\media\MediaInterface;
+use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
 
-/**
- *
- * @ParagraphsBehavior(
- *   id = "link_teaser",
- *   label = @Translation("Teaser for external links"),
- *   description = @Translation("Generate title, subtitle + description"),
- *   weight = 2
- * )
- */
+#[ParagraphsBehavior(
+  id: 'link_teaser',
+  label: new TranslatableMarkup('Teaser for external links'),
+  description: new TranslatableMarkup('Generate title, subtitle + description'),
+  weight: 2
+)]
 class LinkTeaserBehavior extends TeaserBehaviorBase {
 
   /**

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_map\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\smart_date\Plugin\Field\FieldFormatter\SmartDateDefaultFormatter;
 
 /**
@@ -13,15 +15,12 @@ use Drupal\smart_date\Plugin\Field\FieldFormatter\SmartDateDefaultFormatter;
  * This formatter renders the time range using <time> elements, with
  * configurable date formats (from the list of configured formats) and a
  * separator.
- *
- * @FieldFormatter(
- *   id = "smartdate_default_upcoming",
- *   label = @Translation("Smart Date Formatter (Upcoming)"),
- *   field_types = {
- *     "smartdate",
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'smartdate_default_upcoming',
+  label: new TranslatableMarkup('Smart Date Formatter (Upcoming)'),
+  field_types: ['smartdate'],
+)]
 final class SmartDateUpcomingFormatter extends SmartDateDefaultFormatter {
 
   /**

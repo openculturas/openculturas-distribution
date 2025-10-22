@@ -4,23 +4,28 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Condition;
 
+use Drupal\Core\Condition\Attribute\Condition;
 use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Plugin\Context\EntityContextDefinition;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'User page' condition.
- *
- * @Condition(
- *   id = "user_page",
- *   label = @Translation("User page"),
- *   context_definitions = {
- *     "current_user" = @ContextDefinition("entity:user", label = @Translation("User"))
- *   }
- * )
  */
+#[Condition(
+  id: 'user_page',
+  label: new TranslatableMarkup('User page'),
+  context_definitions: [
+    'current_user' => new EntityContextDefinition(
+      data_type: 'entity:user',
+      label: new TranslatableMarkup('User')
+    ),
+  ]
+)]
 final class UserPage extends ConditionPluginBase implements ContainerFactoryPluginInterface {
 
   /**

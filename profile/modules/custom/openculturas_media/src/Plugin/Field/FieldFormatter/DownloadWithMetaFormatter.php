@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Drupal\openculturas_media\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\ByteSizeMarkup;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
 use Drupal\file\IconMimeTypes;
 use Drupal\media\MediaInterface;
@@ -17,17 +19,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use function is_numeric;
 
 /**
- * Plugin implementation of the 'media_entity_download_download_link' formatter.
- *
- * @FieldFormatter(
- *   id = "media_entity_download_meta",
- *   label = @Translation("Download link with meta data"),
- *   field_types = {
- *     "file",
- *     "image"
- *   }
- * )
+ * Plugin implementation of the 'media_entity_download_meta' formatter.
  */
+#[FieldFormatter(
+  id: 'media_entity_download_meta',
+  label: new TranslatableMarkup('Download link with meta data'),
+  field_types: ['file', 'image'],
+)]
 final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
 
   /**
