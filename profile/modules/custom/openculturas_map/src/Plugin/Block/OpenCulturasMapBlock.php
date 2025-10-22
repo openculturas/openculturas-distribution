@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_map\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openculturas_map\Plugin\Form\OpenCulturasMapFilterForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function in_array;
 use function is_array;
 
-/**
- * @Block(
- *   id = "openculturas_map_block",
- *   admin_label = @Translation("OpenCulturas - Map"),
- * )
- */
+#[Block(
+  id: 'openculturas_map_block',
+  admin_label:  new TranslatableMarkup('OpenCulturas - Map')
+)]
 final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**

@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a hero image from current entity block.
- *
- * @Block(
- *   id = "openculturas_custom_hero_image",
- *   admin_label = @Translation("Hero image from current entity (from field_mood_image)")
- * )
+ * Provides a hero image from the current entity block.
  */
+#[Block(
+  id: 'openculturas_custom_hero_image',
+  admin_label:  new TranslatableMarkup('Hero image from current entity (from field_mood_image)')
+)]
 final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**

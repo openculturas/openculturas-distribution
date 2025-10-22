@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Cache\Cache;
@@ -12,19 +13,19 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function rtrim;
 use function strip_tags;
 
 /**
- * Provides a page title with subtitle block.
- *
- * @Block(
- *   id = "openculturas_custom_page_title",
- *   admin_label = @Translation("Page title with subtitle")
- * )
+ * Provides a page title with a subtitle block.
  */
+#[Block(
+  id: 'openculturas_custom_page_title',
+  admin_label:  new TranslatableMarkup('Page title with subtitle')
+)]
 final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterface, ContainerFactoryPluginInterface {
 
   /**

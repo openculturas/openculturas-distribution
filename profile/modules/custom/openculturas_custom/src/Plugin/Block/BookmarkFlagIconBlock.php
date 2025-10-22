@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\UncacheableDependencyTrait;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openculturas_custom\CurrentEntityHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a bookmark flag icon block.
- *
- * @Block(
- *   id = "openculturas_custom_bookmark_flag_icon",
- *   admin_label = @Translation("Bookmark flag icon")
- * )
  */
+#[Block(
+  id: 'openculturas_custom_bookmark_flag_icon',
+  admin_label:  new TranslatableMarkup('Bookmark flag icon')
+)]
 final class BookmarkFlagIconBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   use UncacheableDependencyTrait;
