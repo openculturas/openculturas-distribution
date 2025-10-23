@@ -8,19 +8,8 @@
 declare(strict_types=1);
 
 /**
- * Set zoom level of directions.
+ * Implements hook_update_last_removed().
  */
-function openculturas_address_links_update_10001(): void {
-  $configFactory = \Drupal::configFactory();
-  $config = $configFactory->getEditable('openculturas_address_links.settings');
-  if ($config->isNew()) {
-    return;
-  }
-
-  if ($config->get('directions') !== 'https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=;[geofield:latlon]') {
-    return;
-  }
-
-  $config->set('directions', 'https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=;[geofield:latlon]#map=8/[geofield:lat]/[geofield:lon]');
-  $config->save();
+function openculturas_address_links_update_last_removed(): int {
+  return 10001;
 }

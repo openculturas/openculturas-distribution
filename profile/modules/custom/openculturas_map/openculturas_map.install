@@ -10,8 +10,6 @@ declare(strict_types=1);
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\user\RoleInterface;
-use Drupal\views\ViewExecutable;
-use Drupal\views\Views;
 
 /**
  * Implements hook_install().
@@ -75,66 +73,5 @@ function openculturas_map_uninstall(bool $is_syncing): void {
  * Implements hook_update_last_removed().
  */
 function openculturas_map_update_last_removed(): int {
-  return 10002;
-}
-
-/**
- * Set pager type of the rest export display to mini with 60 items.
- */
-function openculturas_map_update_10003(): void {
-  $set_pager = static function (ViewExecutable $view): void {
-    $display = $view->getDisplay();
-    $pager_plugin_manager = Views::pluginManager('pager');
-    if ($pager_plugin_manager->hasDefinition('mini')) {
-      /** @var \Drupal\views\Plugin\views\pager\Mini $new_pager */
-      $new_pager = $pager_plugin_manager->createInstance('mini');
-      $new_pager->init($view, $display);
-      $new_pager->setItemsPerPage(60);
-      $display->setOption('pager', [
-        'type' => $new_pager->getPluginId(),
-        'options' => $new_pager->options,
-      ]);
-      $view->save();
-    }
-
-  };
-  $view = Views::getView('oc_map_locations');
-  if ($view && $view->setDisplay('rest_export')) {
-    $set_pager($view);
-  }
-
-  $view = Views::getView('oc_map_dates');
-  if ($view && $view->setDisplay('rest_export_1')) {
-    $set_pager($view);
-  }
-}
-
-/**
- * Add the sort end date, title to the oc_map_dates view.
- */
-function openculturas_map_update_10004(): void {
-  $view = Views::getView('oc_map_dates');
-  if ($view && $view->setDisplay('default')) {
-    $display = $view->getDisplay();
-    $existing_sorts = $display->getOption('sorts');
-    $changed = FALSE;
-    if (!isset($existing_sorts['title'])) {
-      $view->addHandler('default', 'sort', 'node_field_data', 'title');
-      $changed = TRUE;
-    }
-
-    if (!isset($existing_sorts['field_date_end_value'])) {
-      $view->addHandler('default', 'sort', 'node__field_date', 'field_date_end_value');
-      $changed = TRUE;
-    }
-
-    if ($changed) {
-      $updated_sorts = $display->getOption('sorts');
-      $title = $updated_sorts['title'];
-      unset($updated_sorts['title']);
-      $updated_sorts['title'] = $title;
-      $display->setOption('sorts', $updated_sorts);
-      $view->save();
-    }
-  }
+  return 10003;
 }
