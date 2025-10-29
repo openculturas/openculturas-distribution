@@ -10,6 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -400,6 +401,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     if ($entity->hasField('field_date')) {
       /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
       $field = $entity->get('field_date');
+      $hasDelta = FALSE;
       if ($request->query->has('date_delta') && ($delta = $request->get('date_delta'))) {
         $cloned_entity = clone $entity;
         /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
@@ -408,6 +410,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
         $delta_item = $field->get($delta);
         if ($delta_item instanceof SmartDateItem) {
           $field->setValue([$delta_item->getValue()]);
+          $hasDelta = TRUE;
         }
       }
 
@@ -422,6 +425,11 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
         }
 
         $build['field_date'] = $field->view($display_settings);
+        if ($hasDelta) {
+          $cacheMetadata = CacheableMetadata::createFromRenderArray($build['field_date']);
+          $cacheMetadata->setCacheContexts(['url.query_args:date_delta']);
+          $cacheMetadata->applyTo($build['field_date']);
+        }
       }
 
       if (isset($build['field_date'])) {
