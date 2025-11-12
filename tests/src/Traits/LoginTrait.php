@@ -23,7 +23,7 @@ trait LoginTrait {
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The account interface.
    */
-  protected function drupalLogin(AccountInterface $account) {
+  protected function drupalLogin(AccountInterface $account): void {
     if ($this->loggedInUser) {
       $this->drupalLogout();
     }
