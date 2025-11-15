@@ -70,7 +70,7 @@ phplint:
     reports:
       codequality: [gl-code-quality-report.json]
 
-phpcs:
+🧹 PHP Coding standards (PHPCS):
   extends:
     - .composer
     - .validate_rules_php
@@ -92,7 +92,7 @@ phpcs:
       codequality: [phpcs-quality-report.json]
       junit: [junit.xml]
 
-phpstan:
+🧹 PHP Static Analysis (phpstan) :
   extends:
     - .composer
     - .validate_rules_php
@@ -179,7 +179,7 @@ rector dry-run:
       codequality: [gl-code-quality-report.json]
   allow_failure: true
 
-lint scss:
+🧹 SCSS linting (stylelint):
   extends: .stylelint
   cache:
     - key: stylelint-scss
@@ -189,7 +189,7 @@ lint scss:
   script:
     - npm run lint:scss -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json
 
-lint css:
+🧹 CSS linting (stylelint):
   extends: .stylelint
   cache:
     - key: stylelint-css
@@ -220,10 +220,10 @@ lint css:
     reports:
       codequality: [gl-code-quality-report.json]
 
-eslint:
+🧹 JavaScript linting (eslint):
   extends: .eslint
   script:
-    - npx eslint --cache --format gitlab .
+    - npm run lint:js -- --cache --format gitlab .
 
 build:artifacts:
   extends: .build:artifacts
