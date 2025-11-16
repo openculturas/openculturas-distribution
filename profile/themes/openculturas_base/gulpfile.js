@@ -40,7 +40,7 @@ gulp.task('sass', function () {
     .pipe(sassGlob())
     .pipe(development(sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
-    .pipe(production(gulpAutoprefixer()))
+    .pipe(production(gulpAutoprefixer({ cascade: false })))
     .pipe(development(sourcemaps.write()))
     .pipe(gulp.dest(paths.styles.dest));
 });

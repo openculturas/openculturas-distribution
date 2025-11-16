@@ -33,9 +33,9 @@
 @mixin grid($columns-definition: false, $area-names: false, $row-gap: 0) {
   display: grid;
   grid-template-rows: auto;
-  grid-row-gap: $row-gap;
-  grid-column-gap: $grid-gutter;
   max-width: $grid-layout-max-width;
+  column-gap: $grid-gutter;
+  row-gap: $row-gap;
   @if $columns-definition {
     grid-template-columns: $columns-definition;
   } @else {
@@ -272,10 +272,10 @@
 @mixin visually-hidden() {
   position: absolute !important;
   overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
+  clip: rect(1px, 1px, 1px, 1px); // stylelint-disable-line property-no-deprecated
   width: 1px;
   height: 1px;
-  word-wrap: normal;
+  overflow-wrap: normal;
 }
 
 // Default clearfix implementation to be used in conjunction with floating elements.
@@ -289,6 +289,7 @@
 //  }
 
 @mixin clearfix() {
+  // stylelint-disable-next-line nesting-selector-no-missing-scoping-root
   &::after {
     display: table;
     clear: both;
