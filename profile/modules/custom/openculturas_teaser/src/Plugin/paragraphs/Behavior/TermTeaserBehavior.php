@@ -44,7 +44,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
+    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $buildTerm = &$build['field_term'][0];
     $this->cacheTags = $build['#cache']['tags'];
 
@@ -71,9 +71,9 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
     $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
     foreach ($fieldKeys as $item) {
       $fieldDefinition = $fd[$item];
-      if ($fieldDefinition->getType() == 'entity_reference') {
+      if ($fieldDefinition->getType() === 'entity_reference') {
         $handler = $fieldDefinition->getSetting('handler');
-        if ($handler == 'default:taxonomy_term') {
+        if ($handler === 'default:taxonomy_term') {
           return TRUE;
         }
       }
