@@ -27,7 +27,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
+    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $originalField = $build['field_url_single_value'][0];
     $url = $originalField['#url'];
     $this->cacheTags = $build['#cache']['tags'];
@@ -80,7 +80,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
     $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
     foreach ($fieldKeys as $item) {
       $fieldDefinition = $fd[$item];
-      if ($fieldDefinition->getType() == 'link') {
+      if ($fieldDefinition->getType() === 'link') {
         return TRUE;
       }
     }

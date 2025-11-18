@@ -57,10 +57,12 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
-    $class = $settings['class'];
-    if ($class !== self::NONE) {
-      $build['#attributes']['class'][] = $class;
+    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
+    if ($settings !== [] && array_key_exists('class', $settings)) {
+      $class = $settings['class'];
+      if ($class !== self::NONE) {
+        $build['#attributes']['class'][] = $class;
+      }
     }
   }
 

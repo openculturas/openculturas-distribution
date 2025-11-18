@@ -49,7 +49,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
+    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
 
     $form['#type'] = 'details';
     $form += [
@@ -110,7 +110,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
           }
 
           $handler = $fieldConfig->getSetting('handler');
-          if ($handler == 'default:media') {
+          if ($handler === 'default:media') {
             $mediaReferenceItem = $entity->get($key)->first();
             if ($mediaReferenceItem instanceof EntityReferenceItem) {
               return (int) ($mediaReferenceItem->target_id);
@@ -133,7 +133,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    * @param array $settings
    *   Paragraph's settings.
    * @param string $entityKey
-   *   The array key, that contains the entity to tease.
+   *   The array key that contains the entity to teaser.
    *
    * @return array
    *   The complete render array.

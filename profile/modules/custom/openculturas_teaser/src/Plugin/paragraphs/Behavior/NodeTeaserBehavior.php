@@ -25,7 +25,7 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
+    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $buildNode = &$build['field_article'][0];
 
     $this->cacheTags = $build['#cache']['tags'];
@@ -55,9 +55,9 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
     $fieldKeys = array_diff(array_keys($fieldDefinitions), array_keys($baseFieldDefinitions));
     foreach ($fieldKeys as $item) {
       $fieldDefinition = $fieldDefinitions[$item];
-      if ($fieldDefinition->getType() == 'entity_reference') {
+      if ($fieldDefinition->getType() === 'entity_reference') {
         $handler = $fieldDefinition->getSetting('handler');
-        if ($handler == 'default:node') {
+        if ($handler === 'default:node') {
           return TRUE;
         }
       }
