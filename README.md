@@ -13,7 +13,7 @@
 OpenCulturas is built as a pre-configured platform for cultural-focused communities, empowering actors in the cultural field to own their data and make their information accessible to a wide audience.
 
 ## Requirements
-* https://www.drupal.org/docs/system-requirements for Drupal 9
+* https://www.drupal.org/docs/system-requirements for Drupal
   * PHP 8.1
 * A bunch of drupal modules and external libraries.
 
@@ -35,7 +35,7 @@ A: Please read the [Contribution gudelines](CONTRIBUTING.md).
 
 Please read the [Development guidelines](DEVELOPMENT.md) before you start.
 
-We recommend to use https://ddev.com for development.
+We recommend using https://ddev.com for development.
 
 At the moment the source code is privately hosted and mirrored to https://github.com/openculturas/openculturas-distribution.
 To create a new release on drupal.org we push the used git branch/tag to https://git.drupalcode.org/project/openculturas.
@@ -87,20 +87,24 @@ To update the version, sort list like dependencies in openculturas modules, run:
 
 ### drush scripts
 
-At the moment l.d.o does not find the labels of field_group. Therefore we generate the strings.
+At the moment l.d.o does not find the labels of field_group. Therefore, we generate the strings.
 
 `drush scr scripts/generate_field_group_strings.php`
 
+Download the composer.json from drupal/core-dev and update the adjusted core-dev composer.json based on the current Drupal version.
+
+`drush scr scripts/update_drupal_core_dev.php`
+
 ### Configuration files
 
-All configuration are managed via [config_devel](https://www.drupal.org/project/config_devel).
+All configurations are managed via [config_devel](https://www.drupal.org/project/config_devel).
 Each configuration is listed in the info file of the profile or submodule.
 So any new configuration needs to be added to the info file.
 
 After that, enable config_devel and run `ddev drush cde openculturas` or `ddev drush cde submodule`.
 
 This command updates all configuration which are listed in the info file and removes the key `_core` and `uuid` except for
-views configuration. The uuid is needed because the uuid is used in other configuration as default value, without this
+views configuration. The uuid is needed because the uuid is used in other configuration as a default value, without this
 the default value would be not set/broken.
 
 ## Security
