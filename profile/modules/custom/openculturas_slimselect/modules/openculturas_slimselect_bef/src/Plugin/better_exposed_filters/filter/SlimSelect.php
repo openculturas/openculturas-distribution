@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\openculturas_slimselect_bef\Plugin\better_exposed_filters\filter;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\better_exposed_filters\Plugin\better_exposed_filters\filter\FilterWidgetBase;
 use Drupal\taxonomy\Plugin\views\filter\TaxonomyIndexTid;
 use Drupal\taxonomy\TermInterface;
@@ -21,7 +20,7 @@ use function array_map;
  *   label = "Slim Select",
  * )
  */
-final class SlimSelect extends FilterWidgetBase implements ContainerFactoryPluginInterface {
+final class SlimSelect extends FilterWidgetBase {
 
   /**
    * Dependency Injection.
@@ -31,8 +30,8 @@ final class SlimSelect extends FilterWidgetBase implements ContainerFactoryPlugi
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SlimSelect {
-    $instance = new self($configuration, $plugin_id, $plugin_definition);
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->container = $container;
     return $instance;
   }
