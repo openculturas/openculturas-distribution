@@ -12,8 +12,6 @@ $databases['default']['default']['init_commands'] = [
   'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
 ];
 
-require_once $app_root . '/sites/example.settings.local.php';
-
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
 }
