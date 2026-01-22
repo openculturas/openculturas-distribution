@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * phpcs:ignore
- * field_gallery via field_event_description reference.
- *
- * @ExtraFieldDisplay(
- *   id = "event_gallery",
- *   label = @Translation("Gallery"),
- *   description = "field_gallery via field_event_description reference",
- *   visible = false,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Field field_gallery via field_event_description reference.
  */
+#[ExtraFieldDisplay(
+  id: "event_gallery",
+  label: new TranslatableMarkup("Gallery"),
+  description: new TranslatableMarkup("field_gallery via field_event_description reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE,
+)]
 final class EventGallery extends ExtraFieldBase {
 
   /**

@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 
 /**
- * phpcs:ignore
- * body field via field_event_description reference.
- *
- * @ExtraFieldDisplay(
- *   id = "event_body",
- *   label = @Translation("Body"),
- *   description = "Body field via field_event_description reference",
- *   visible = FALSE,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Body field via field_event_description reference.
  */
+#[ExtraFieldDisplay(
+  id: "event_body",
+  label: new TranslatableMarkup("Body"),
+  description: new TranslatableMarkup("Body field via field_event_description reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE
+)]
 final class EventBody extends ExtraFieldBase {
 
   /**

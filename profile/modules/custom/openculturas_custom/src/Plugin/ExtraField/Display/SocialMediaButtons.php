@@ -7,22 +7,23 @@ namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Social media buttons.
- *
- * @ExtraFieldDisplay(
- *   id = "social_media_buttons",
- *   label = @Translation("Social media buttons"),
- *   visible = FALSE,
- *   bundles = {
- *     "node.*",
- *     "taxonomy_term.*",
- *   }
- * )
  */
+#[ExtraFieldDisplay(
+  id: "social_media_buttons",
+  label: new TranslatableMarkup("Social media buttons"),
+  bundles: [
+    "node.*",
+    "taxonomy_term.*",
+  ],
+  visible: FALSE,
+)]
 final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface {
 
   use StringTranslationTrait;

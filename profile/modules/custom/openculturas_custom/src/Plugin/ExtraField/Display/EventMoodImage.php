@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * phpcs:ignore
- * field_mood_image via field_event_description reference.
- *
- * @ExtraFieldDisplay(
- *   id = "event_mood_image",
- *   label = "Main image",
- *   description = "field_mood_image via field_event_description reference",
- *   visible = FALSE,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Field field_mood_image via field_event_description reference.
  */
+#[ExtraFieldDisplay(
+  id: "event_mood_image",
+  label: new TranslatableMarkup("Main image"),
+  description: new TranslatableMarkup("field_mood_image via field_event_description reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE,
+)]
 final class EventMoodImage extends ExtraFieldBase {
 
   /**

@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * phpcs:ignore
- * field_category field via field_event_description reference.
- *
- * @ExtraFieldDisplay(
- *   id = "event_category",
- *   label = @Translation("Category"),
- *   description = "field_category field via field_event_description reference",
- *   visible = false,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Field field_category via field_event_description reference.
  */
+#[ExtraFieldDisplay(
+  id: "event_category",
+  label: new TranslatableMarkup("Category"),
+  description: new TranslatableMarkup("field_category field via field_event_description reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE,
+)]
 final class EventCategory extends ExtraFieldBase {
 
   /**

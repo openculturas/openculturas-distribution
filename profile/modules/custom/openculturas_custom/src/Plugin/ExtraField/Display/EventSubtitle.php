@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * phpcs:ignore
- * field_subtitle field from field_event_description.
- *
- * @ExtraFieldDisplay(
- *   id = "event_subtitle",
- *   label = @Translation("Subtitle"),
- *   description = "Subtitle field via field_event_description reference",
- *   visible = false,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Subtitle field via field_event_description reference.
  */
+#[ExtraFieldDisplay(
+  id: "event_subtitle",
+  label: new TranslatableMarkup("Subtitle"),
+  description: new TranslatableMarkup("Subtitle field via field_event_description reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE,
+)]
 final class EventSubtitle extends ExtraFieldBase {
 
   /**

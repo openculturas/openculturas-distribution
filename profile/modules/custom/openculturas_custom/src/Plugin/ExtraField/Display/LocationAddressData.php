@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * phpcs:ignore
- * field_address_data from field_location reference.
- *
- * @ExtraFieldDisplay(
- *   id = "location_address_data",
- *   label = @Translation("Address data"),
- *   description = "field_address_data from field_location reference",
- *   visible = false,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Field field_address_data from field_location reference.
  */
+#[ExtraFieldDisplay(
+  id: "location_address_data",
+  label: new TranslatableMarkup("Address data"),
+  description: new TranslatableMarkup("Field field_address_data from field_location reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE,
+)]
 final class LocationAddressData extends ExtraFieldBase {
 
   /**
