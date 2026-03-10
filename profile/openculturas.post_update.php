@@ -181,3 +181,42 @@ function openculturas_post_update_revert_gin_theme_overrides_2(): string {
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Updates the field_mood_image view mode to teaser_image_big in node view mode teaser_unified, teaser_big.
+ */
+function openculturas_post_update_teaser_unified_teaser_image_big(): string {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  /** @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info */
+  $bundle_info = \Drupal::service('entity_type.bundle.info');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $entity_types = [
+    'taxonomy_term' => array_keys($bundle_info->getBundleInfo('taxonomy_term')),
+    'node' => array_keys($bundle_info->getBundleInfo('node')),
+  ];
+
+  foreach ($entity_types as $entity_type => $bundles) {
+    foreach ($bundles as $bundle) {
+      foreach (['teaser_unified', 'teaser_big'] as $view_mode) {
+        $view_display = $entity_display_repository->getViewDisplay($entity_type, $bundle, $view_mode);
+        if ($view_display->isNew()) {
+          continue;
+        }
+
+        $component = $view_display->getComponent('field_mood_image');
+
+        if ($component && isset($component['settings']['view_mode']) && $component['settings']['view_mode'] !== 'teaser_image_big') {
+          $component['settings']['view_mode'] = 'teaser_image_big';
+          $view_display->setComponent('field_mood_image', $component);
+          $view_display->save();
+          $logger->info(sprintf('Updated field_mood_image view_mode to teaser_image_big in %s.%s.%s.', $entity_type, $bundle, $view_mode));
+        }
+      }
+    }
+  }
+
+  return $logger->output();
+}
