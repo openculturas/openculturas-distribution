@@ -18,7 +18,14 @@ function _openculturas_post_update_import_or_revert_config(array $full_config_na
   $configUpdater = \Drupal::service('config_update.config_update');
   /** @var \Drupal\update_helper\UpdateLogger $logger */
   $logger = \Drupal::service('update_helper.logger');
+  $configFactory = \Drupal::configFactory();
   foreach ($full_config_names as $full_config_name) {
+    if (!$revert && !$configFactory->get($full_config_name)->isNew()) {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file exits already.', $full_config_name));
+      // Do not try to import config that exits.
+      continue;
+    }
+
     $config_name = ConfigName::createByFullName($full_config_name);
     if (!$revert && $configUpdater->import($config_name->getType(), $config_name->getName())) {
       $logger->info(sprintf('Configuration %s has been successfully imported.', $full_config_name));
@@ -219,4 +226,15 @@ function openculturas_post_update_teaser_unified_teaser_image_big(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Add missing view mode (compact) for the content type 'page'.
+ */
+function openculturas_post_update_node_page_view_mode_compact(): string {
+  $full_config_names = [
+    'core.entity_view_display.node.page.compact',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
 }
