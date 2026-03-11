@@ -1,0 +1,119 @@
+uuid: 8e3cfc75-5ada-462f-b1a5-49906823bab5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.wrapper_section.field_content_paragraphs
+    - field.field.paragraph.wrapper_section.field_heading
+    - field.field.paragraph.wrapper_section.field_intro
+    - field.field.paragraph.wrapper_section.field_url_single_value
+    - field.field.paragraph.wrapper_section.paragraph_view_mode
+    - paragraphs.paragraphs_type.wrapper_section
+  module:
+    - allowed_formats
+    - field_formatter_class
+    - field_group
+    - heading
+    - link
+    - paragraph_view_mode
+    - paragraphs
+    - text
+third_party_settings:
+  field_group:
+    group_editorial:
+      children:
+        - paragraph_view_mode
+        - field_heading
+        - field_intro
+        - field_url_single_value
+      label: 'Editorial + layout'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
+id: paragraph.wrapper_section.default
+targetEntityType: paragraph
+bundle: wrapper_section
+mode: default
+content:
+  field_content_paragraphs:
+    type: paragraphs
+    weight: 2
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        convert: '0'
+        duplicate: '0'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  field_heading:
+    type: heading
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_intro:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
+      field_formatter_class:
+        class: ''
+  field_url_single_value:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  paragraph_view_mode:
+    type: paragraph_view_mode
+    weight: 1
+    region: content
+    settings:
+      view_modes:
+        default: default
+        grid: grid
+      default_view_mode: default
+      form_mode_bind: true
+      apply_to_preview: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  status:
+    type: boolean_checkbox
+    weight: 0
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  translation: true

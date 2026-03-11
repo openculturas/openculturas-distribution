@@ -126,3 +126,12 @@ function openculturas_install_openculturas_modules(): void {
 function openculturas_update_last_removed(): int {
   return 10120;
 }
+
+/**
+ * Install heading module.
+ */
+function openculturas_update_10121(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  $module_installer->install(['heading']);
+}

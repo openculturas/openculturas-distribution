@@ -7,9 +7,11 @@ dependencies:
     - paragraphs.paragraphs_type.block
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.teaser_wrapper
     - paragraphs.paragraphs_type.text
     - paragraphs.paragraphs_type.text_slider
     - paragraphs.paragraphs_type.view
+    - paragraphs.paragraphs_type.wrapper_section
   module:
     - entity_reference_revisions
 id: node.article.field_content_paragraphs
@@ -32,6 +34,8 @@ settings:
       text_slider: text_slider
       block: block
       view: view
+      wrapper_section: wrapper_section
+      teaser_wrapper: teaser_wrapper
     negate: 0
     target_bundles_drag_drop:
       a11y_wheelchair:
@@ -77,8 +81,8 @@ settings:
         weight: -21
         enabled: false
       teaser_wrapper:
-        weight: -20
-        enabled: false
+        weight: 20
+        enabled: true
       text:
         weight: -37
         enabled: true
@@ -87,5 +91,8 @@ settings:
         enabled: true
       view:
         weight: -32
+        enabled: true
+      wrapper_section:
+        weight: 19
         enabled: true
 field_type: entity_reference_revisions

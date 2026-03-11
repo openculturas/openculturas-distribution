@@ -110,6 +110,7 @@ install:
   - 'geocoder:geocoder_geofield'
   - 'geofield:geofield'
   - 'gin_toolbar:gin_toolbar'
+  - 'heading:heading'
   - 'honeypot:honeypot'
   - 'ief_complex_open:ief_complex_open'
   - 'image_widget_crop:image_widget_crop'
@@ -407,6 +408,8 @@ config_devel:
     - core.base_field_override.paragraph.text_slider.created
     - core.base_field_override.paragraph.view.created
     - core.base_field_override.paragraph.view.status
+    - core.base_field_override.paragraph.wrapper_section.behavior_settings
+    - core.base_field_override.paragraph.wrapper_section.created
     - core.base_field_override.shortcut.default.metatag
     - core.base_field_override.shortcut.default.title
     - core.base_field_override.shortcut.magazin-redaktion.metatag
@@ -513,6 +516,7 @@ config_devel:
     - core.entity_form_display.paragraph.text.default
     - core.entity_form_display.paragraph.text_slider.default
     - core.entity_form_display.paragraph.view.default
+    - core.entity_form_display.paragraph.wrapper_section.default
     - core.entity_form_display.taxonomy_term.article_type.default
     - core.entity_form_display.taxonomy_term.category.default
     - core.entity_form_display.taxonomy_term.column.default
@@ -642,6 +646,8 @@ config_devel:
     - core.entity_view_display.paragraph.text_slider.default
     - core.entity_view_display.paragraph.text_slider.slider_multiple
     - core.entity_view_display.paragraph.view.default
+    - core.entity_view_display.paragraph.wrapper_section.default
+    - core.entity_view_display.paragraph.wrapper_section.grid
     - core.entity_view_display.taxonomy_term.article_type.default
     - core.entity_view_display.taxonomy_term.article_type.full
     - core.entity_view_display.taxonomy_term.article_type.teaser
@@ -917,6 +923,11 @@ config_devel:
     - field.field.paragraph.text_slider.field_slider_card
     - field.field.paragraph.text_slider.paragraph_view_mode
     - field.field.paragraph.view.field_view
+    - field.field.paragraph.wrapper_section.field_content_paragraphs
+    - field.field.paragraph.wrapper_section.field_heading
+    - field.field.paragraph.wrapper_section.field_intro
+    - field.field.paragraph.wrapper_section.field_url_single_value
+    - field.field.paragraph.wrapper_section.paragraph_view_mode
     - field.field.taxonomy_term.article_type.field_mood_image
     - field.field.taxonomy_term.article_type.field_related_article_view_ref
     - field.field.taxonomy_term.article_type.field_term_children_view_ref
@@ -1042,8 +1053,11 @@ config_devel:
     - field.storage.paragraph.field_body
     - field.storage.paragraph.field_caption
     - field.storage.paragraph.field_contact_person
+    - field.storage.paragraph.field_content_paragraphs
     - field.storage.paragraph.field_email
     - field.storage.paragraph.field_gallery
+    - field.storage.paragraph.field_heading
+    - field.storage.paragraph.field_intro
     - field.storage.paragraph.field_legal_info
     - field.storage.paragraph.field_legal_url
     - field.storage.paragraph.field_media
@@ -1151,6 +1165,7 @@ config_devel:
     - language.content_settings.paragraph.text
     - language.content_settings.paragraph.text_slider
     - language.content_settings.paragraph.view
+    - language.content_settings.paragraph.wrapper_section
     - language.content_settings.path_alias.path_alias
     - language.content_settings.redirect.redirect
     - language.content_settings.shortcut.default
@@ -1225,6 +1240,7 @@ config_devel:
     - paragraphs.paragraphs_type.text
     - paragraphs.paragraphs_type.text_slider
     - paragraphs.paragraphs_type.view
+    - paragraphs.paragraphs_type.wrapper_section
     - paragraphs.settings
     - password_policy.password_policy.users
     - pathauto.pattern.article_types

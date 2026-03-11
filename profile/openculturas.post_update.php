@@ -383,3 +383,82 @@ function openculturas_post_update_article_teaser_author_2(): string {
 
   return $logger->output();
 }
+
+/**
+ * Imports paragraph type wrapper_section.
+ */
+function openculturas_post_update_wrapper_section_1(): string {
+  $full_config_names = [
+    'paragraphs.paragraphs_type.wrapper_section',
+    'field.storage.paragraph.field_content_paragraphs',
+    'field.storage.paragraph.field_heading',
+    'field.storage.paragraph.field_intro',
+    'core.entity_view_display.paragraph.wrapper_section.default',
+    'core.entity_view_display.paragraph.wrapper_section.grid',
+    'field.field.paragraph.wrapper_section.field_content_paragraphs',
+    'field.field.paragraph.wrapper_section.field_heading',
+    'field.field.paragraph.wrapper_section.field_intro',
+    'field.field.paragraph.wrapper_section.field_url_single_value',
+    'field.field.paragraph.wrapper_section.paragraph_view_mode',
+    'language.content_settings.paragraph.wrapper_section',
+    'core.base_field_override.paragraph.wrapper_section.behavior_settings',
+    'core.base_field_override.paragraph.wrapper_section.created',
+    'core.entity_form_display.paragraph.wrapper_section.default',
+  ];
+  $output = _openculturas_post_update_import_or_revert_config($full_config_names);
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load(RoleInterface::ANONYMOUS_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view paragraph content wrapper_section');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('view paragraph content wrapper_section');
+    $role->save();
+  }
+
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = Role::load('magazine_editor');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('create paragraph content wrapper_section');
+    $role->grantPermission('update paragraph content wrapper_section');
+    $role->grantPermission('delete paragraph content wrapper_section');
+    $role->save();
+  }
+
+  return $output;
+}
+
+/**
+ * Enable the paragraph type wrapper_section, teaser_wrapper in field_content_paragraphs.
+ */
+function openculturas_post_update_wrapper_section_2(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $bundles = ['article', 'page', 'faq'];
+  foreach ($bundles as $bundle) {
+    /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+    $field = FieldConfig::loadByName('node', $bundle, 'field_content_paragraphs');
+    if ($field instanceof FieldConfigInterface) {
+      $handler_settings = is_array($field->getSetting('handler_settings')) ? $field->getSetting('handler_settings') : [];
+      if ($handler_settings !== [] && array_key_exists('target_bundles_drag_drop', $handler_settings)) {
+        $weight = count($handler_settings['target_bundles_drag_drop']) + 1;
+        $handler_settings['target_bundles_drag_drop']['wrapper_section'] = ['enabled' => TRUE, 'weight' => $weight];
+        $handler_settings['target_bundles']['wrapper_section'] = 'wrapper_section';
+        $handler_settings['target_bundles_drag_drop']['teaser_wrapper'] = ['enabled' => TRUE, 'weight' => $weight + 1];
+        $handler_settings['target_bundles']['teaser_wrapper'] = 'teaser_wrapper';
+        $field->setSetting('handler_settings', $handler_settings);
+        $field->save();
+      }
+    }
+    else {
+      $logger->info(sprintf('Could not find a bundle for field "%s"', $bundle));
+    }
+  }
+
+  return $logger->output();
+}

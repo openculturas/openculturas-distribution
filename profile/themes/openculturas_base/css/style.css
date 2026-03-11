@@ -16998,6 +16998,64 @@ a.public-transport:before {
   display: none;
 }
 
+.paragraph--type--wrapper-section {
+  margin-block: var(--row-gap);
+  padding-block: var(--row-gap);
+}
+
+.paragraph--type--wrapper-section.paragraph--view-mode--grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-column-gap: var(--grid-gutter);
+}
+
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: var(--grid-gutter);
+}
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .field--name-field-content-paragraphs {
+  grid-column: 1/-1;
+}
+@media screen and (min-width: 62rem) {
+  .paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .field--name-field-content-paragraphs {
+    grid-column: 2/-1;
+    grid-row: 1/span 2;
+  }
+}
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .intro {
+  grid-column: 1;
+  grid-row: 1;
+  padding-block-start: var(--grid-row);
+}
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .more-link {
+  grid-column: 1;
+  align-self: end;
+}
+@media screen and (min-width: 62rem) {
+  .paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .more-link {
+    grid-row: 2;
+    padding-block-end: var(--grid-row);
+  }
+}
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .field--name-field-content-paragraphs,
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .field--name-field-view,
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .paragraph--type--view,
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.intro) .frontpage {
+  margin-block: 0;
+}
+
+.paragraph--type--wrapper-section .view-header,
+.paragraph--type--wrapper-section .view .more-link,
+.paragraph--type--wrapper-section .block--title {
+  display: none;
+}
+
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.view.locations, .view.profiles) h2 {
+  margin-block-start: 0;
+  padding-block-start: 0;
+}
+
 .paragraph--type--teaser-wrapper {
   margin-top: 3.75rem;
 }
