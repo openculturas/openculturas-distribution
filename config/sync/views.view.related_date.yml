@@ -8738,7 +8738,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: "<div class=\"location\">\r\n{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n{% endif %}\r\n</div>"
+            text: "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<div class=\"location\">\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n</div>\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false

@@ -12,6 +12,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\views\Views;
 
 function _openculturas_post_update_import_or_revert_config(array $full_config_names, bool $revert = FALSE): string {
   /** @var \Drupal\config_update\ConfigReverter $configUpdater */
@@ -237,4 +238,37 @@ function openculturas_post_update_node_page_view_mode_compact(): string {
   ];
 
   return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
+
+/**
+ * Location output in view "related_date", "related_dates_archive" in display "related_date_location".
+ */
+function openculturas_post_update_related_date_location_output(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $view_ids = ['related_date', 'related_dates_archive'];
+  $display_id = 'related_date_location';
+  foreach ($view_ids as $view_id) {
+    $view = Views::getView($view_id);
+    if ($view && $view->setDisplay($display_id)) {
+      $display = $view->getDisplay();
+      /** @var \Drupal\views\Plugin\views\field\FieldHandlerInterface|null $handler */
+      $handler = $display->getHandler('field', 'nothing');
+      if ($handler) {
+        $fields = $display->getOption('fields');
+        $field_nothing = &$fields['nothing'];
+        $field_nothing['alter']['text'] = "{% if field_attendance_mode == 'MixedEventAttendanceMode' %}\r\n<div class=\"location\">\r\n{{ field_attendance_mode_1 }}-{{'Event' | t }}\r\n</div>\r\n{% endif %}";
+        $display->setOption('fields', $fields);
+        $view->save();
+      }
+      else {
+        $logger->notice(sprintf('SKIPPED. Field nothing not found in view %s and display %s.', $view_id, $display_id));
+      }
+    }
+    else {
+      $logger->notice(sprintf('SKIPPED. View (%s) or display (%s) not found.', $view_id, $display_id));
+    }
+  }
+
+  return $logger->output();
 }
