@@ -272,3 +272,31 @@ function openculturas_post_update_related_date_location_output(): string {
 
   return $logger->output();
 }
+
+/**
+ * Add missing paragraph icons.
+ */
+function openculturas_post_update_paragraph_missing_icons(): string {
+  $full_config_names = [
+    'paragraphs.paragraphs_type.a11y_wheelchair',
+    'paragraphs.paragraphs_type.accessibility',
+    'paragraphs.paragraphs_type.address_data',
+    'paragraphs.paragraphs_type.block',
+    'paragraphs.paragraphs_type.bookable_event',
+    'paragraphs.paragraphs_type.contact_data',
+    'paragraphs.paragraphs_type.download',
+    'paragraphs.paragraphs_type.gallery',
+    'paragraphs.paragraphs_type.media',
+    'paragraphs.paragraphs_type.media_mention',
+    'paragraphs.paragraphs_type.member',
+    'paragraphs.paragraphs_type.teaser_external',
+    'paragraphs.paragraphs_type.teaser_node',
+    'paragraphs.paragraphs_type.teaser_term',
+    'paragraphs.paragraphs_type.teaser_wrapper',
+    'paragraphs.paragraphs_type.text',
+    'paragraphs.paragraphs_type.text_slider',
+    'paragraphs.paragraphs_type.view',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}
