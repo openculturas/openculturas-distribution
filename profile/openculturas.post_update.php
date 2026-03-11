@@ -489,3 +489,28 @@ function openculturas_post_update_wrapper_section_4(): string {
 
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Add css_class to view "event_catalogue" in display "default".
+ */
+function openculturas_post_update_event_catalogue_default_css_class(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $view = Views::getView('event_catalogue');
+  if ($view) {
+    $display = $view->getDisplay();
+    if (!$display->getOption('css_class')) {
+      $display->setOption('css_class', 'event-catalogue');
+      $view->save();
+    }
+    else {
+      $logger->notice('SKIPPED. css_class option already set.');
+    }
+  }
+  else {
+    $logger->notice('SKIPPED. View not found.');
+  }
+
+  return $logger->output();
+}
