@@ -335,3 +335,51 @@ function openculturas_post_update_content_type_page_field_mood_image_view_mode()
 
   return $logger->output();
 }
+
+/**
+ * Add a new view mode author for the profile bundle of entity type node.
+ */
+function openculturas_post_update_article_teaser_author_1(): string {
+  $full_config_names = [
+    'core.entity_view_mode.node.author',
+    'core.entity_view_display.node.profile.author',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
+
+/**
+ * Replace used view mode (compact -> author) in 'field_author' in node.article.teaser.
+ */
+function openculturas_post_update_article_teaser_author_2(): string {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $view_display = $entity_display_repository->getViewDisplay('node', 'article', 'teaser');
+  if (!$view_display->isNew()) {
+    $component = $view_display->getComponent('field_author');
+
+    if ($component && isset($component['settings']['view_mode'])) {
+      if ($component['settings']['view_mode'] === 'compact') {
+        $component['settings']['view_mode'] = 'author';
+        $component['label'] = 'visually_hidden';
+        $view_display->setComponent('field_author', $component);
+        $view_display->save();
+        $logger->info('Updated field_author view_mode to author in node.article.teaser.');
+      }
+      else {
+        $logger->notice('SKIPPED. Component field_author in node.article.teaser does not need a update.');
+      }
+    }
+    else {
+      $logger->notice('SKIPPED. Component field_author in node.article.teaser not found.');
+    }
+  }
+  else {
+    $logger->notice('SKIPPED. View display node.article.teaser not found.');
+  }
+
+  return $logger->output();
+}
