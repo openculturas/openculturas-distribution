@@ -514,3 +514,31 @@ function openculturas_post_update_event_catalogue_default_css_class(): string {
 
   return $logger->output();
 }
+
+/**
+ * Change Pager ID to 1 of view display related_article_latest in view related_article.
+ */
+function openculturas_post_update_view_related_article_display_related_article_latest_pager_id(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $view = Views::getView('related_article');
+  if ($view && $view->setDisplay('related_article_latest')) {
+    $display = $view->getDisplay();
+    /** @var \Drupal\views\Plugin\views\ViewsPluginInterface|null $plugin */
+    $plugin = $display->getPlugin('pager');
+    if ($plugin) {
+      $plugin_options = $display->getOption('pager');
+      $plugin_options['options']['id'] = 1;
+      $display->setOption('pager', $plugin_options);
+      $view->save();
+    }
+    else {
+      $logger->notice('SKIPPED. Plugin options not found.');
+    }
+  }
+  else {
+    $logger->notice('SKIPPED. View or display not found.');
+  }
+
+  return $logger->output();
+}
