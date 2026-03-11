@@ -2,25 +2,71 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.teaser_wrapper.field_heading
+    - field.field.paragraph.teaser_wrapper.field_intro
     - field.field.paragraph.teaser_wrapper.field_teasers
     - field.field.paragraph.teaser_wrapper.paragraph_view_mode
     - paragraphs.paragraphs_type.teaser_wrapper
   module:
+    - allowed_formats
+    - field_formatter_class
+    - field_group
+    - heading
     - paragraph_view_mode
     - paragraphs
+    - text
+third_party_settings:
+  field_group:
+    group_editorial:
+      children:
+        - paragraph_view_mode
+        - field_heading
+        - field_intro
+      label: 'Editorial + layout'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
 id: paragraph.teaser_wrapper.default
 targetEntityType: paragraph
 bundle: teaser_wrapper
 mode: default
 content:
+  field_heading:
+    type: heading
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_intro:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
+      field_formatter_class:
+        class: ''
   field_teasers:
     type: paragraphs
-    weight: 0
+    weight: 2
     region: content
     settings:
       title: Teaser
       title_plural: Teasers
-      edit_mode: open
+      edit_mode: closed
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
@@ -30,25 +76,35 @@ content:
       features:
         add_above: add_above
         collapse_edit_all: collapse_edit_all
+        convert: '0'
         duplicate: duplicate
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
   paragraph_view_mode:
     type: paragraph_view_mode
-    weight: -100
+    weight: 1
     region: content
     settings:
       view_modes:
-        default: Default
-        grid: 'Side by side'
-        slider: Slider
-      default_view_mode: default
+        default: default
+        grid: grid
+        slider: slider
+        slider_duo: slider_duo
+        slider_multiple: slider_multiple
+      default_view_mode: grid
       form_mode_bind: true
-    third_party_settings: {  }
-  translation:
-    weight: 10
+      apply_to_preview: true
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  status:
+    type: boolean_checkbox
+    weight: 0
     region: content
-    settings: {  }
+    settings:
+      display_label: true
     third_party_settings: {  }
 hidden:
   created: true
-  status: true
+  translation: true

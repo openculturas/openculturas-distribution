@@ -462,3 +462,30 @@ function openculturas_post_update_wrapper_section_2(): string {
 
   return $logger->output();
 }
+
+/**
+ * New fields (field_heading, field_intro) for teaser wrapper.
+ */
+function openculturas_post_update_wrapper_section_3(): string {
+  $full_config_names = [
+    'core.base_field_override.paragraph.teaser_wrapper.behavior_settings',
+    'field.field.paragraph.teaser_wrapper.field_heading',
+    'field.field.paragraph.teaser_wrapper.field_intro',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
+
+/**
+ * Input/Output of new fields (field_heading, field_intro) for teaser wrapper.
+ */
+function openculturas_post_update_wrapper_section_4(): string {
+  $full_config_names = [
+    'core.entity_form_display.paragraph.teaser_wrapper.default',
+    'core.entity_view_display.paragraph.teaser_wrapper.default',
+    'core.entity_view_display.paragraph.teaser_wrapper.grid',
+    'core.entity_view_display.paragraph.teaser_wrapper.slider',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}
