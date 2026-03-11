@@ -300,3 +300,38 @@ function openculturas_post_update_paragraph_missing_icons(): string {
 
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Fix used view mode in 'field_mood_image' in node.page.teaser.
+ */
+function openculturas_post_update_content_type_page_field_mood_image_view_mode(): string {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $view_display = $entity_display_repository->getViewDisplay('node', 'page', 'teaser');
+  if (!$view_display->isNew()) {
+    $component = $view_display->getComponent('field_mood_image');
+
+    if ($component && isset($component['settings']['view_mode'])) {
+      if ($component['settings']['view_mode'] === 'teaser_image_big') {
+        $component['settings']['view_mode'] = 'teaser_image';
+        $view_display->setComponent('field_mood_image', $component);
+        $view_display->save();
+        $logger->info(sprintf('Updated field_mood_image view_mode to teaser_image in %s.%s.%s.', 'node', 'page', 'teaser'));
+      }
+      else {
+        $logger->notice('SKIPPED. Component field_mood_image in node.page.teaser does not need a update.');
+      }
+    }
+    else {
+      $logger->notice('SKIPPED. Component field_mood_image in node.page.teaser not found.');
+    }
+  }
+  else {
+    $logger->notice('SKIPPED. View display node.page.teaser not found.');
+  }
+
+  return $logger->output();
+}
