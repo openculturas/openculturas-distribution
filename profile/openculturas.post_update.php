@@ -491,6 +491,45 @@ function openculturas_post_update_wrapper_section_4(): string {
 }
 
 /**
+ * Add a new slider type (slider_duo) and view display(s) for teaser_wrapper, text_slider, and gallery.
+ */
+function openculturas_post_update_wrapper_section_5(): string {
+  $full_config_names = [
+    'core.entity_view_mode.paragraph.slider_duo',
+    'field.field.paragraph.gallery.paragraph_view_mode',
+    'core.entity_view_display.paragraph.teaser_wrapper.slider_duo',
+    'core.entity_view_display.paragraph.teaser_wrapper.slider_multiple',
+    'core.entity_view_display.paragraph.text_slider.slider',
+    'core.entity_view_display.paragraph.text_slider.slider_duo',
+    'core.entity_view_display.paragraph.gallery.slider',
+    'core.entity_view_display.paragraph.gallery.slider_duo',
+    'core.entity_view_display.paragraph.gallery.slider_multiple',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
+
+/**
+ * Input/Output for new slider types for text_slider, gallery.
+ */
+function openculturas_post_update_wrapper_section_6(): string {
+  $full_config_names = [
+    // Change label from Slider to Single Slider.
+    'core.entity_view_mode.paragraph.slider',
+    // Change swiffy_slider_permalink url.
+    'core.entity_view_display.paragraph.text_slider.slider_multiple',
+    // Add the paragraph_view_mode field to select a slider type.
+    'core.entity_form_display.paragraph.gallery.default',
+    // More view modes in the field paragraph_view_mode and new default.
+    'core.entity_form_display.paragraph.text_slider.default',
+    // Show by default only 1 slider item. (previous 3)
+    'core.entity_view_display.paragraph.gallery.default',
+  ];
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}
+
+/**
  * Add css_class to view "event_catalogue" in display "default".
  */
 function openculturas_post_update_event_catalogue_default_css_class(): string {

@@ -4,10 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.gallery.field_gallery
+    - field.field.paragraph.gallery.paragraph_view_mode
     - paragraphs.paragraphs_type.gallery
   module:
+    - field_formatter_class
     - media_library
     - media_library_edit
+    - paragraph_view_mode
 id: paragraph.gallery.default
 targetEntityType: paragraph
 bundle: gallery
@@ -24,6 +27,23 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: true
+  paragraph_view_mode:
+    type: paragraph_view_mode
+    weight: -100
+    region: content
+    settings:
+      view_modes:
+        default: default
+        grid: grid
+        slider: slider
+        slider_duo: slider_duo
+        slider_multiple: slider_multiple
+      default_view_mode: slider
+      form_mode_bind: true
+      apply_to_preview: true
+    third_party_settings:
+      field_formatter_class:
+        class: ''
   translation:
     weight: 10
     region: content

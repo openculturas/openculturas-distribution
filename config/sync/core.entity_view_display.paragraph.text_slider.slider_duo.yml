@@ -1,0 +1,30 @@
+uuid: 8588884c-2be3-4aa1-9c5c-5e0f0f2a29ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.slider_duo
+    - field.field.paragraph.text_slider.field_slider_card
+    - field.field.paragraph.text_slider.paragraph_view_mode
+    - paragraphs.paragraphs_type.text_slider
+  module:
+    - field_formatter_class
+    - swiffy_slider
+id: paragraph.text_slider.slider_duo
+targetEntityType: paragraph
+bundle: text_slider
+mode: slider_duo
+content:
+  field_slider_card:
+    type: swiffy_slider_text_default
+    label: hidden
+    settings:
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show2&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true
