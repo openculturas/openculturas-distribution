@@ -65,8 +65,6 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
 
   /**
    * {@inheritdoc}
-   *
-   * @php-return array{label_display: false}
    */
   public function defaultConfiguration(): array {
     return [
