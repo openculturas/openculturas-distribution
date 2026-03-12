@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the openculturas installation profile.
+ * Install, update and uninstall functions.
  */
 
 declare(strict_types=1);
@@ -70,7 +70,7 @@ function openculturas_install_content(): void {
 
   $config = $configFactory->getEditable('system.site');
 
-  // Do not set anything, when installed with existing config.
+  // Do not set anything when installed with existing config.
   if ($config->get('uuid') === '4e1801fb-85a2-40f3-8ad4-11f952d5e819') {
     return;
   }
@@ -155,4 +155,16 @@ function openculturas_update_10122(): void {
     $config->save();
   }
 
+}
+
+/**
+ * Enable the option "Visible on small devices" for indicators (.slider-indicators-sm)
+ */
+function openculturas_update_10123(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('swiffy_slider.settings');
+  if (!$config->isNew()) {
+    $config->set('configuration_url', 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale');
+    $config->save();
+  }
 }
