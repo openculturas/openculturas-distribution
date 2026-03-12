@@ -135,3 +135,24 @@ function openculturas_update_10121(): void {
   $module_installer = \Drupal::service('module_installer');
   $module_installer->install(['heading']);
 }
+
+/**
+ * Add more forms to view_password.settings.
+ */
+function openculturas_update_10122(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('view_password.settings');
+  if (!$config->isNew()) {
+    /** @var string $form_ids_raw */
+    $form_ids_raw = $config->get('form_ids');
+    if (is_string($form_ids_raw)) {
+      $form_ids = explode(',', $form_ids_raw);
+    }
+
+    $form_ids[] = 'user_register_form';
+    $form_ids[] = 'user_form';
+    $config->set('form_ids', implode(',', array_unique($form_ids)));
+    $config->save();
+  }
+
+}
