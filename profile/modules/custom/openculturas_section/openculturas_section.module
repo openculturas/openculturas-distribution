@@ -24,7 +24,7 @@ function openculturas_section_preprocess_node(array &$variables): void {
         $variables['attributes']['class'][] = $translated_entity->get('field_colorcode')->value;
         // In case the field itself is also printed, add a data attribute,
         // which can be used for styling per value.
-        if (isset($variables['content']['field_section'])) {
+        if (isset($variables['content']['field_section'][$delta])) {
           $variables['content']['field_section'][$delta]['#attributes']['data-field_colorcode'] = $translated_entity->get('field_colorcode')->value;
         }
       }
