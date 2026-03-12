@@ -594,3 +594,13 @@ function openculturas_post_update_ckeditor_styles(): string {
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Editor UX enhancements, enhance mobile UX.
+ */
+function openculturas_post_update_revert_gin_theme_overrides_3(): string {
+  $full_config_names = [
+    'asset_injector.css.oc_gin_theme_overrides',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}

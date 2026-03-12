@@ -6,7 +6,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |+
+code: |-
   /*
    * Formtip
    */
@@ -55,6 +55,10 @@ code: |+
   .formtips-processed a:focus,
   .formtips-processed a:hover {
     background: var(--gin-color-primary);
+  }
+
+  .form-item__description.formtips-processed {
+    color: #fff;
   }
 
   /*
@@ -278,7 +282,7 @@ code: |+
     }
   }
 
-  .smartdate--widget .form-element--type-date {
+  .smartdate--widget:not(:has(input:checked)) .form-element--type-date {
     border-radius: var(--gin-border-m) 0 0 var(--gin-border-m);
   }
   .smartdate--widget .form-element--type-time {
@@ -398,6 +402,109 @@ code: |+
     margin-top: .5rem;
   }
 
+  /* 
+   * Editor UX enhancements 
+   */
+
+  /* Paragraphs types less prominent */
+  .paragraphs-tabs-wrapper .paragraph-type-label {
+    opacity: .6;
+    color: var(--gin-color-primary);
+  }
+
+  /* Help spot headlines in preview */
+  .paragraph--view-mode--preview .field--name-field-headline {
+    font-size: 1.25rem;
+  }
+
+  /* Distinction between wrapper paragraph + others (inside) */
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--wrapper-section,
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--teaser-wrapper {
+    border: .085rem dashed var(--gin-border-color-table-header);
+
+  }
+
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--wrapper-section:hover,
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--teaser-wrapper:hover,
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--wrapper-section:focus,
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--teaser-wrapper:focus,
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--wrapper-section:focus-within,
+  .paragraphs-tabs-wrapper .field-multiple-table .draggable.paragraph-type--teaser-wrapper:focus-within {
+    background-color: var(--gin-bg-header);
+  }
+
+  .draggable.paragraph-type--wrapper-section tr.draggable,
+  .draggable.paragraph-type--teaser-wrapper tr.draggable {
+    background-color: var(--oc-color-bg-light);
+  }
+
+  /* Enhance mobile UX */
+
+  @media (max-width: 768px) {
+  	body {
+  	  --gin-spacing-xxs: .125rem;
+  	  --gin-spacing-xs: .125rem;
+  	  --gin-spacing-s: .25rem;
+  	  --gin-spacing-m: .5rem;
+  	  --gin-spacing-l: 1rem;
+  	  --gin-spacing-xl: 1.5rem;
+  	  --space-xs: .125rem;
+  	  --space-s: .25rem;
+      --space-m: .5rem;
+      --space-l: 1rem;
+      --space-xl: 1.5rem;
+  	}
+  	
+  	.claro-details__summary::before {
+    --space-m: 1rem;
+  }
+  	
+  	.js .field--widget-paragraphs .field-multiple-drag {
+  	  min-width: 1.25rem
+  	}
+  	
+  	button.action-link.action-link--extrasmall {
+  	  inset-block-start: -.125em;
+  	}
+  	
+  	.fieldset__label, 
+  	.fieldset__label--group, 
+  	.form-item__label {
+  	  margin-block-end: var(--gin-spacing-m);
+  	}
+  	
+  	:not(.form-checkboxes):not(td):not(.tabledrag-cell-content__item):not(.media-library-item__click-to-select-checkbox):not(.field-content):not(.ajax-new-content):not(.tablesaw-cell-content) > .form-type--checkbox input {
+  	  clip-path: circle(1.5rem at 50% 50%);
+  	  border-radius: 50vi;
+  	}
+  	
+  	.horizontal-tabs ul.horizontal-tabs-list li.horizontal-tab-button a {
+      padding-block-start: var(--gin-spacing-l);
+    }
+    
+    .smartdate--time-inline .form-datetime-wrapper .form-items-inline, 
+  	.smartdate--time-inline div.time-start, 
+  	.smartdate--time-inline div.time-end {
+  	  justify-content: start;
+  	}
+  	
+  	.smartdate--time-inline .smartdate--separator {
+  	  text-align: start;
+  	}
+
+  }
+
+  /* Wrapper paragraphs */
+
+  .heading-widget--container .form-type--textfield input {
+  	font-weight: bold;
+  }
+
+  /* Fix pager hover in media library dialog */
+
+  .ui-dialog .pager__link:hover {
+    color: var(--gin-color-button-text);
+  }
 media: all
 preprocess: false
 conditions:
