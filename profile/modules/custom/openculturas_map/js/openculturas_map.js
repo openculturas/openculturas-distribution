@@ -576,7 +576,20 @@
         spiderLegPolylineOptions: { weight: 0, color: '#fff', opacity: 0 },
         maxClusterRadius: 30,
         iconCreateFunction: function(cluster) {
-          return new L.DivIcon({...this._icon, html: `<div class="custom-cluster-icon"><img src="${this._settings.get('marker_icon_path')}"/><span>${cluster.getChildCount()}</span></div>`})
+          const childCount = cluster.getChildCount();
+          let sizeClass = 'marker-cluster-';
+          if (childCount < 10) {
+            sizeClass += 'small';
+          } else if (childCount < 100) {
+            sizeClass += 'medium';
+          } else {
+            sizeClass += 'large';
+          }
+          return new L.DivIcon({
+            ...this._icon,
+            html: '<div><span>' + childCount + '</span></div>',
+            className: 'marker-cluster ' + sizeClass
+          });
         }.bind(this)
       });
     }
