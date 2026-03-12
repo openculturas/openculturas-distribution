@@ -36,6 +36,7 @@ final class CurrentEntityHelper {
         continue;
       }
 
+      $page_entity = $params[$type];
       return $params[$type];
     }
 
