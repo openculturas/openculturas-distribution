@@ -70,14 +70,14 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()];
+    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $form = [
       '#type' => 'container',
       'class' => [
         '#type' => 'select',
         '#options' => $this->allowedClasses,
         '#title' => $this->t('Style'),
-        '#default_value' => $settings['class'],
+        '#default_value' => $settings['class'] ?? self::NONE,
       ],
     ];
     return [];
