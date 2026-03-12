@@ -60,6 +60,58 @@ strong.textmarker {
   }
 }
 
+// Blockquote styles
+
+.callout {
+  display: inline-flex;
+  padding: var(--row-gap) var(--grid-gutter);
+  color: var(--color-text-inverted);
+  background-color: var(--color-info);
+  block-size: auto; // "height"
+
+  // uncomment when using before/after icons
+  // gap: var(--grid-gutter);
+
+  p {
+    color: var(--color-text-inverted) !important;
+  }
+}
+
+blockquote.plain {
+  padding-inline: calc(2 * var(--grid-gutter));
+
+  &::before,
+  &::after {
+    display: none;
+  }
+}
+
+blockquote.plain,
+blockquote.plain p {
+  text-align: left;
+  border-width: 0;
+  background-color: transparent;
+  font-family: var(--font-base);
+  font-size: var(--font-size-default);
+  font-style: normal;
+}
+
+.quotee {
+  font-size: var(--font-size-default);
+}
+
+blockquote.plain .quotee {
+  font-size: var(--font-size-s);
+}
+
+.text-formatted a.cta,
+.ck-content a.cta {
+  display: inline-block;
+  padding: 0.25em 1em;
+  border: 0.125rem solid var(--color-link);
+  border-radius: 50vi;
+}
+
 // Maps-related
 
 .leaflet-popup-content-wrapper {

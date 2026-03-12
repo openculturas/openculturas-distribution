@@ -10603,6 +10603,10 @@ readers do not read off random characters that represent icons */
 .ck-content .bold {
   font-weight: bold;
 }
+.ck-content em,
+.ck-content .italic {
+  font-style: italic;
+}
 .ck-content h1, .ck-content .h1,
 .ck-content h2, .ck-content .h2,
 .ck-content h3, .ck-content .h3,
@@ -10839,8 +10843,9 @@ readers do not read off random characters that represent icons */
 .ck-content q::after {
   content: "“";
 }
-.ck-content mark {
-  background-color: var(--color-bg-slight-contrast);
+.ck-content mark,
+.ck-content .mark {
+  background-color: var(--color-bg-warning);
 }
 .ck-content code,
 .ck-content kbd,
@@ -11834,6 +11839,44 @@ readers do not read off random characters that represent icons */
     max-width: 16.25rem;
     margin: 0 0 1.25rem 1.25rem;
   }
+}
+.ck-content .callout {
+  background-color: var(--color-info);
+  color: var(--color-text-inverted);
+  padding: var(--row-gap) var(--grid-gutter);
+  block-size: auto;
+  display: inline-flex;
+}
+.ck-content .callout p {
+  color: var(--color-text-inverted) !important;
+}
+.ck-content blockquote.plain {
+  padding-inline: calc(2 * var(--grid-gutter));
+}
+.ck-content blockquote.plain::before, .ck-content blockquote.plain::after {
+  display: none;
+}
+.ck-content blockquote.plain,
+.ck-content blockquote.plain p {
+  background-color: transparent;
+  border-width: 0;
+  font-family: var(--font-base);
+  font-style: normal;
+  font-size: var(--font-size-default);
+  text-align: left;
+}
+.ck-content .quotee {
+  font-size: var(--font-size-default);
+}
+.ck-content blockquote.plain .quotee {
+  font-size: var(--font-size-s);
+}
+.ck-content .text-formatted a.cta,
+.ck-content .ck-content a.cta {
+  display: inline-block;
+  padding: 0.25em 1em;
+  border: 0.125rem solid var(--color-link);
+  border-radius: 50vi;
 }
 .ck-content .leaflet-popup-content-wrapper {
   border-radius: 2px;

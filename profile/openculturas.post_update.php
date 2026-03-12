@@ -581,3 +581,16 @@ function openculturas_post_update_view_related_article_display_related_article_l
 
   return $logger->output();
 }
+
+/**
+ * Provide more generally useful CKEditor styles.
+ */
+function openculturas_post_update_ckeditor_styles(): string {
+  $full_config_names = [
+    'editor.editor.advanced_html',
+    'filter.format.advanced_html',
+    'editor.editor.full_html',
+    'filter.format.full_html',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}
