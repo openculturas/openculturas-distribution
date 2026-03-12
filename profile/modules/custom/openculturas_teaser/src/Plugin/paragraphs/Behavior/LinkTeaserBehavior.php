@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
-use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -28,8 +28,8 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $originalField = $build['field_url_single_value'][0];
+    $cacheableMetadata = CacheableMetadata::createFromRenderArray($build['field_url_single_value'][0]);
     $url = $originalField['#url'];
-    $this->cacheTags = $build['#cache']['tags'];
     $teaser = [
       '#theme' => 'teaser',
     ];
@@ -46,15 +46,17 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
       $mid = $settings['media'];
       $media = $this->entityTypeManager->getStorage('media')->load($mid);
       if ($media instanceof MediaInterface) {
-        $this->cacheTags = Cache::mergeTags($this->cacheTags, $media->getCacheTags());
+        $cacheableMetadata->addCacheableDependency($media);
         $teaser['#media'] = $this->entityTypeManager->getViewBuilder('media')
-          ->view($media, 'teaser_image');
+          ->view($media, 'teaser_image_big');
       }
     }
 
     $teaser['#url'] = $url->toString();
     $teaser['#attributes'] = new Attribute(['class' => ['teaser-external']]);
     $build['field_url_single_value'][0] = $teaser;
+    $cacheableMetadata->addCacheableDependency($paragraph);
+    $cacheableMetadata->applyTo($build['field_url_single_value'][0]);
   }
 
   /**
@@ -65,6 +67,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
     // Pay attention to the hash(#) !
     unset($form['title']);
     $form['#title'] = $this->t('Additional teaser content');
+    // Hint: Do not return the form, or we get the ugly paragraphs-behavior tabs, which we do not want. See internal issue 863.
     return [];
   }
 

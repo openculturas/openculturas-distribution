@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
-use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -24,11 +24,6 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    *   The entity type manager.
    */
   protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * @var array
-   */
-  protected array $cacheTags = [];
 
   /**
    * @var string
@@ -77,6 +72,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
         '#description' => $this->t('Upload or select a teaser image.'),
       ],
     ];
+    // Hint: Do not return the form, or we get the ugly paragraphs-behavior tabs, which we do not want. See internal issue 863.
     return [];
   }
 
@@ -154,7 +150,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
     $build['#theme'] = 'teaser';
     $entity = clone $originalEntity;
     $viewMode = $build['#view_mode'];
-    $this->cacheTags = Cache::mergeTags($this->cacheTags, $originalEntity->getCacheTags());
+    $cacheableMetadata = CacheableMetadata::createFromRenderArray($build);
     if (!empty($settings['title'])) {
       $def = $this->entityTypeManager->getDefinition($entity->getEntityTypeId());
       if ($def instanceof EntityTypeInterface) {
@@ -195,13 +191,14 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
     if ($mid) {
       $media = $this->entityTypeManager->getStorage('media')->load($mid);
       if ($media instanceof MediaInterface) {
-        $this->cacheTags = Cache::mergeTags($this->cacheTags, $media->getCacheTags());
+        $cacheableMetadata->addCacheableDependency($media);
         $build['#media'] = $this->entityTypeManager->getViewBuilder('media')
-          ->view($media, 'teaser_image');
+          ->view($media, 'teaser_image_big');
       }
     }
 
-    $build['#cache']['tags'] = $this->cacheTags;
+    $cacheableMetadata->addCacheableDependency($entity);
+    $cacheableMetadata->applyTo($build);
     $build[$entityKey] = $entity;
     return $build;
   }

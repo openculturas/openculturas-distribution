@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
@@ -26,12 +27,10 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $buildNode = &$build['field_article'][0];
-
-    $this->cacheTags = $build['#cache']['tags'];
     /** @var \Drupal\node\NodeInterface|null $node */
     $node = &$buildNode['#node'];
     if ($node instanceof NodeInterface) {
-      $id = sprintf("%s-%d-%d", $paragraph->bundle(), $paragraph->id(), $node->id());
+      $id = sprintf('%s-%s-%s', $paragraph->bundle(), $paragraph->id(), $node->id());
       $buildNode = $this->getBaseBuildArray($buildNode, $settings, '#node');
       $buildNode['#attributes'] = new Attribute([
         'class' => [
@@ -41,6 +40,13 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
         'id' => $id,
       ]);
     }
+
+    $cacheableMetadata = CacheableMetadata::createFromRenderArray($buildNode);
+    $cacheableMetadata->addCacheableDependency($paragraph);
+    $cacheableMetadata->applyTo($buildNode);
+    // We need an additional cache key, or the field renders all references
+    // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE).
+    $buildNode['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
   }
 
   /**

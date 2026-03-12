@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -12,6 +13,7 @@ use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
 use Drupal\taxonomy\TermInterface;
+use function sprintf;
 
 #[ParagraphsBehavior(
   id: 'term_teaser',
@@ -37,6 +39,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
       unset($form['subtitle']);
     }
 
+    // Hint: Do not return the form, or we get the ugly paragraphs-behavior tabs, which we do not want. See internal issue 863.
     return [];
   }
 
@@ -46,18 +49,24 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $buildTerm = &$build['field_term'][0];
-    $this->cacheTags = $build['#cache']['tags'];
-
     /** @var \Drupal\taxonomy\Entity\Term|NULL $term */
     $term = &$buildTerm['#taxonomy_term'];
     if ($term instanceof TermInterface) {
+      $id = sprintf('%s-%s-%s', $paragraph->bundle(), $paragraph->id(), $term->id());
       $buildTerm = $this->getBaseBuildArray($buildTerm, $settings, '#taxonomy_term');
       $buildTerm['#attributes'] = new Attribute([
         'class' => [
           'teaser-internal',
           'teaser-term',
         ],
+        'id' => $id,
       ]);
+      $cacheableMetadata = CacheableMetadata::createFromRenderArray($buildTerm);
+      $cacheableMetadata->addCacheableDependency($paragraph);
+      $cacheableMetadata->applyTo($buildTerm);
+      // We need an additional cache key, or the field renders all references
+      // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE).
+      $buildTerm['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
     }
   }
 
