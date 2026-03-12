@@ -182,3 +182,15 @@ function openculturas_map_update_10006(array &$sandbox): void {
     return $update;
   });
 }
+
+/**
+ * Add the missing class more-link for the upcoming more link.
+ */
+function openculturas_map_update_10007(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('views.view.oc_map_dates');
+  if (!$config->isNew() && is_array($config->get('display.default.display_options.fields.nothing_2.alter'))) {
+    $config->set('display.default.display_options.fields.nothing_2.alter.text', '<div>\r\n{{ rendered_entity }}\r\n<div class=\"dates-shortlist\">\r\n  <div class=\"dates-shortlist--wrapper\">\r\n    <div class=\"upcoming--more-link more-link\">{{ nid_3 }}</div>\r\n  </div>\r\n</div>');
+    $config->save();
+  }
+}
