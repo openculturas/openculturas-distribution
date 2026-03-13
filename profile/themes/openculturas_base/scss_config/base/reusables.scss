@@ -267,3 +267,11 @@ div.description.formtips-processed,
   display: flex;
   place-content: center;
 }
+
+// More-links in synopsis
+// Related: templates/field/field--field-content-paragraphs--view-mode-synopsis.html.twig
+// Renders a complimentary conditional "more link" for paragraphs, here we hide the redundant link
+
+.synopsis-more-link:has(a) + .synopsis-more-link:has(a) {
+  display: none;
+}

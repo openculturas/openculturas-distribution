@@ -165,6 +165,22 @@ function openculturas_base_preprocess_field(array &$variables): void {
       $item['attributes']->addClass('badge--' . $variables['element']['#items']->get($delta)->value);
     }
   }
+
+  if (
+    $variables['field_name'] === 'field_content_paragraphs' &&
+    $variables['element']['#view_mode'] === 'synopsis'
+  ) {
+    // We want to provide a url as a fallback in case the body text for smart trim
+    // is too short, but the entity has content in this field.
+    $variables['url'] = NULL;
+    $fieldableEntity = $variables['element']['#object'];
+    if ($fieldableEntity instanceof FieldableEntityInterface && $fieldableEntity->hasLinkTemplate('canonical')) {
+      /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
+      $entityRepository = \Drupal::service('entity.repository');
+      $translatedEntity = $entityRepository->getTranslationFromContext($fieldableEntity);
+      $variables['url'] = $translatedEntity->toUrl()->toString();
+    }
+  }
 }
 
 /**

@@ -11841,11 +11841,11 @@ readers do not read off random characters that represent icons */
   }
 }
 .ck-content .callout {
-  background-color: var(--color-info);
-  color: var(--color-text-inverted);
-  padding: var(--row-gap) var(--grid-gutter);
-  block-size: auto;
   display: inline-flex;
+  padding: var(--row-gap) var(--grid-gutter);
+  color: var(--color-text-inverted);
+  background-color: var(--color-info);
+  block-size: auto;
 }
 .ck-content .callout p {
   color: var(--color-text-inverted) !important;
@@ -11858,12 +11858,12 @@ readers do not read off random characters that represent icons */
 }
 .ck-content blockquote.plain,
 .ck-content blockquote.plain p {
-  background-color: transparent;
-  border-width: 0;
-  font-family: var(--font-base);
-  font-style: normal;
-  font-size: var(--font-size-default);
   text-align: left;
+  border-width: 0;
+  background-color: transparent;
+  font-family: var(--font-base);
+  font-size: var(--font-size-default);
+  font-style: normal;
 }
 .ck-content .quotee {
   font-size: var(--font-size-default);
@@ -12051,6 +12051,10 @@ readers do not read off random characters that represent icons */
   line-height: 1;
   content: "\f187";
 }
+.ck-content .synopsis-more-link:has(a) + .synopsis-more-link:has(a) {
+  display: none;
+}
+
 html.dark .ck-content #home-link a {
   position: relative;
   top: 0.25rem;

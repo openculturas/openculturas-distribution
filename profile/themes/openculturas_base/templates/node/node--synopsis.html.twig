@@ -1,3 +1,10 @@
+{#
+/**
+ * @file
+ * (FAQ) view mode synopsis tweak
+ * Related: ../field/field--field-content-paragraphs--view-mode-synopsis.html.twig
+ */
+#}
 {% extends "@openculturas_base/node/universal-teaser.html.twig" %}
 
 {% block content_wrapper %}
@@ -25,7 +32,7 @@
     {% endif %}
     {{ title_suffix }}
     <div{{ content_attributes.addClass('node__content') }}>
-      {{ content }}
+      {{ content|without('field_content_paragraphs')  }}
     </div>
   </{{ wrapper_tag }}>
 {% endblock %}

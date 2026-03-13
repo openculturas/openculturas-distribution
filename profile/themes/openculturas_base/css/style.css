@@ -12055,11 +12055,11 @@ strong.textmarker {
 }
 
 .callout {
-  background-color: var(--color-info);
-  color: var(--color-text-inverted);
-  padding: var(--row-gap) var(--grid-gutter);
-  block-size: auto;
   display: inline-flex;
+  padding: var(--row-gap) var(--grid-gutter);
+  color: var(--color-text-inverted);
+  background-color: var(--color-info);
+  block-size: auto;
 }
 .callout p {
   color: var(--color-text-inverted) !important;
@@ -12074,12 +12074,12 @@ blockquote.plain::before, blockquote.plain::after {
 
 blockquote.plain,
 blockquote.plain p {
-  background-color: transparent;
-  border-width: 0;
-  font-family: var(--font-base);
-  font-style: normal;
-  font-size: var(--font-size-default);
   text-align: left;
+  border-width: 0;
+  background-color: transparent;
+  font-family: var(--font-base);
+  font-size: var(--font-size-default);
+  font-style: normal;
 }
 
 .quotee {
@@ -12286,6 +12286,10 @@ div.description.formtips-processed,
 .header .header__utilities button[class*=trigger]::before {
   display: flex;
   place-content: center;
+}
+
+.synopsis-more-link:has(a) + .synopsis-more-link:has(a) {
+  display: none;
 }
 
 .align-left {
