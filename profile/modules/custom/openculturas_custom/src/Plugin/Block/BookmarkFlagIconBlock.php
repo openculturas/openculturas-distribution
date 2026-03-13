@@ -67,7 +67,7 @@ final class BookmarkFlagIconBlock extends BlockBase implements ContainerFactoryP
         $build['flag_bookmark_' . $current_entity->getEntityTypeId()] = [
           '#type' => 'inline_template',
           '#template' => <<<EOF
-<div class="flag flag-bookmark-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}"></a></div>
+<div class="flag flag-bookmark-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
 EOF
         ];
       }

@@ -23,7 +23,8 @@
 }
 
 
-.flag.action-unflag a {
+.flag.action-unflag a,
+.flag.action-unflag button {
   @extend %button-active;
 
   &:focus::before,
@@ -32,7 +33,8 @@
   }
 }
 
-.flag a.disabled {
+.flag a.disabled,
+.flag button.disabled {
   opacity: .5;
 }
 
@@ -151,7 +153,8 @@
     transform:translateX(calc(-100% - 2rem));
   }
 
-  div[class^="flag flag-bookmark"] a {
+  div[class^="flag flag-bookmark"] a,
+  div[class^="flag flag-bookmark"] button {
     overflow: hidden;
     width: 2rem;
     height: 2rem;
@@ -178,7 +181,8 @@
     right: 1.25rem;
   }
 
-  .action-unflag a {
+  .action-unflag a,
+  .action-unflag button {
     border-color: var(--color-text-inverted);
   }
 }
@@ -187,7 +191,8 @@
 // see views/views.scss
 
 .bookmarks .flag {
-  a {
+  a,
+  button {
     overflow: hidden;
     width: 2em;
     height: 2em;

@@ -328,7 +328,7 @@ function openculturas_custom_entity_view_alter(array &$build, EntityInterface $e
       $build['flag_bookmark_node'] = [
         '#type' => 'inline_template',
         '#template' => <<<EOF
-<div class="flag flag-bookmark-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}"></a></div>
+<div class="flag flag-bookmark-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
 EOF
         ,
         '#weight' => $build['flag_bookmark_node']['#weight'],
@@ -339,7 +339,7 @@ EOF
       $build['flag_bookmark_term'] = [
         '#type' => 'inline_template',
         '#template' => <<<EOF
-<div class="flag flag-bookmark-term action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}"></a></div>
+<div class="flag flag-bookmark-term action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
 EOF
         ,
         '#weight' => $build['flag_bookmark_term']['#weight'],
@@ -350,7 +350,7 @@ EOF
       $build['flag_recommendation_node'] = [
         '#type' => 'inline_template',
         '#template' => <<<EOF
-<div class="flag flag-recommendation-node action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to recommend'| t}}">{{'Recommend'|t}}</a></div>
+<div class="flag flag-recommendation-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to recommend'| t}}">{{ 'Recommend' | t}}</a></div>
 EOF
         ,
         '#weight' => $build['flag_recommendation_node']['#weight'],
@@ -365,7 +365,7 @@ EOF
         $build['flag_claim_ownership'] = [
           '#type' => 'inline_template',
           '#template' => <<<EOF
-<div class="flag flag-claim-ownership action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to claim this' | t}}">{{'Claim ownership'|t}}</a></div>
+<div class="flag flag-claim-ownership action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to claim this' | t}}">{{ 'Claim ownership' | t}}</a></div>
 EOF
           ,
           '#weight' => $build['flag_claim_ownership']['#weight'],
@@ -377,7 +377,7 @@ EOF
       $build['flag_report_abuse'] = [
         '#type' => 'inline_template',
         '#template' => <<<EOF
-<div class="flag flag-report-abuse action-flag"><a class="flag--link disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to report abuse' | t}}">{{'Report abuse'|t}}</a></div>
+<div class="flag flag-report-abuse action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to report abuse' | t}}">{{ 'Report abuse' | t}}</a></div>
 EOF
         ,
         '#weight' => $build['flag_report_abuse']['#weight'],

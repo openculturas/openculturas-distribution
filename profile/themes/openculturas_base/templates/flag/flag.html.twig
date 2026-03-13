@@ -40,7 +40,7 @@
   {% if title or unflag_denied_text %}
   <div class="{{classes|join(' ')}}">
     {% if title %}
-      <a{{ attributes }}>{{ title }}</a>
+      <a{{ attributes.addClass('flag--button') }} title="{{ title }}" role="button">{{ title }}</a>
     {% else %}
       <button disabled="disabled" class="flag--link">{{ unflag_denied_text }}</button>
     {% endif %}
