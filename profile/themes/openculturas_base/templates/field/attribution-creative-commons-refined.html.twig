@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an attribution.
+ *
+ * Available variables:
+ * - source.name: The name of the source.
+ * - source.link: The link to the source.
+ * - author.name: The name of the author.
+ * - author.link: The link to the author.
+ * - license: The associated license.
+ * - license.id: The spdx license short code.
+ * - license.name: The spdx license name.
+ * - license.osiCertified: Is the license OSI certified?
+ * - license.deprecated: Is the license deprecated?
+ * - license.link: The link to the license.
+ *
+ * Related: field/field--media--field-licenses.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  {% if license or source or author %}
+    {% if license %}
+      {% if license.link %}
+        <a class="attribution--license" href="{{ license.link }}">{% if license.name %}{{ license.name }}{% else %}{{ license.link }}{% endif %}</a>
+      {% elseif license.name %}
+        {{ license.name }}
+      {% endif %}
+    {% endif %}
+
+    {% if license and author %}
+      <span class="attribution--separator attribution--dash">—</span>
+    {% endif %}
+
+    {% if author %}
+      {% if author.link %}
+        <a class="attribution--author" href="{{ author.link }}">{% if author.name %}{{ author.name }}{% else %}{{ author.link }}{% endif %}</a>
+      {% elseif author.name %}
+        {{ author.name }}
+      {% endif %}
+    {% endif %}
+
+    {% if author and source %}
+      <span class="attribution--separator attribution--slash">/</span>
+    {% elseif license and source %}
+      <span class="attribution--separator attribution--slash">/</span>
+    {% endif %}
+
+    {% if source %}
+      {% if source.link %}
+        <a class="attribution--source" href="{{ source.link }}">{% if source.name %}{{ source.name }}{% else %}{{ source.link }}{% endif %}</a>
+      {% elseif source.name %}
+        {{ source.name }}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+</div>
