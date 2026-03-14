@@ -330,7 +330,7 @@ function openculturas_custom_entity_view_alter(array &$build, EntityInterface $e
         '#template' => <<<EOF
 <div class="flag flag-bookmark-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
 EOF
-        ,
+          ,
         '#weight' => $build['flag_bookmark_node']['#weight'],
       ];
     }
@@ -341,7 +341,7 @@ EOF
         '#template' => <<<EOF
 <div class="flag flag-bookmark-term action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
 EOF
-        ,
+          ,
         '#weight' => $build['flag_bookmark_term']['#weight'],
       ];
     }
@@ -352,14 +352,15 @@ EOF
         '#template' => <<<EOF
 <div class="flag flag-recommendation-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to recommend'| t}}">{{ 'Recommend' | t}}</a></div>
 EOF
-        ,
+          ,
         '#weight' => $build['flag_recommendation_node']['#weight'],
       ];
     }
 
     assert($entity instanceof NodeInterface || $entity instanceof TermInterface);
-    if (isset($build['flag_claim_ownership']) && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')
-      ->isEmpty()) {
+    if (isset($build['flag_claim_ownership']) &&
+      $entity->hasField('field_allow_claiming') &&
+      !$entity->get('field_allow_claiming')->isEmpty()) {
       $allowed = (bool) $entity->get('field_allow_claiming')->value;
       if ($allowed) {
         $build['flag_claim_ownership'] = [
@@ -367,7 +368,7 @@ EOF
           '#template' => <<<EOF
 <div class="flag flag-claim-ownership action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to claim this' | t}}">{{ 'Claim ownership' | t}}</a></div>
 EOF
-          ,
+            ,
           '#weight' => $build['flag_claim_ownership']['#weight'],
         ];
       }
@@ -379,7 +380,7 @@ EOF
         '#template' => <<<EOF
 <div class="flag flag-report-abuse action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to report abuse' | t}}">{{ 'Report abuse' | t}}</a></div>
 EOF
-        ,
+          ,
         '#weight' => $build['flag_report_abuse']['#weight'],
       ];
     }
