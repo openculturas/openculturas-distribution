@@ -689,7 +689,7 @@ function openculturas_custom_node_presave(NodeInterface $node): void {
     }
 
     // If the field changes, also invalidate the original value.
-    if ($node->original !== NULL && $node->original->hasField($field_name)) {
+    if (property_exists($node, 'original') && $node->original !== NULL && $node->original->hasField($field_name)) {
       $refs = $node->get($field_name)->getValue();
       if (is_array($refs)) {
         foreach ($refs as $ref) {
