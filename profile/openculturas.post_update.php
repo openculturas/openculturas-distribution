@@ -598,7 +598,13 @@ function openculturas_post_update_ckeditor_styles(): string {
 /**
  * Editor UX enhancements, enhance mobile UX.
  */
-function openculturas_post_update_revert_gin_theme_overrides_3(): string {
+function openculturas_post_update_revert_gin_theme_overrides_3(): void {
+}
+
+/**
+ * Formtips position (avoid hidden overflow) and properly indicate disabled form elements.
+ */
+function openculturas_post_update_revert_gin_theme_overrides_4(): string {
   $full_config_names = [
     'asset_injector.css.oc_gin_theme_overrides',
   ];
