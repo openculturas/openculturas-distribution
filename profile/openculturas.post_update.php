@@ -216,7 +216,10 @@ function openculturas_post_update_teaser_unified_teaser_image_big(): string {
 
         $component = $view_display->getComponent('field_mood_image');
 
-        if ($component && isset($component['settings']['view_mode']) && $component['settings']['view_mode'] !== 'teaser_image_big') {
+        if ($component &&
+          isset($component['type'], $component['settings']['view_mode']) &&
+          $component['type'] === 'entity_reference_entity_view' &&
+          $component['settings']['view_mode'] !== 'teaser_image_big') {
           $component['settings']['view_mode'] = 'teaser_image_big';
           $view_display->setComponent('field_mood_image', $component);
           $view_display->save();
@@ -314,8 +317,10 @@ function openculturas_post_update_content_type_page_field_mood_image_view_mode()
   if (!$view_display->isNew()) {
     $component = $view_display->getComponent('field_mood_image');
 
-    if ($component && isset($component['settings']['view_mode'])) {
-      if ($component['settings']['view_mode'] === 'teaser_image_big') {
+    if ($component) {
+      if (isset($component['type'], $component['settings']['view_mode']) &&
+        $component['type'] === 'entity_reference_entity_view' &&
+        $component['settings']['view_mode'] === 'teaser_image_big') {
         $component['settings']['view_mode'] = 'teaser_image';
         $view_display->setComponent('field_mood_image', $component);
         $view_display->save();
@@ -361,8 +366,10 @@ function openculturas_post_update_article_teaser_author_2(): string {
   if (!$view_display->isNew()) {
     $component = $view_display->getComponent('field_author');
 
-    if ($component && isset($component['settings']['view_mode'])) {
-      if ($component['settings']['view_mode'] === 'compact') {
+    if ($component) {
+      if (isset($component['type'], $component['settings']['view_mode']) &&
+        $component['type'] === 'entity_reference_entity_view' &&
+        $component['settings']['view_mode'] === 'compact') {
         $component['settings']['view_mode'] = 'author';
         $component['label'] = 'visually_hidden';
         $view_display->setComponent('field_author', $component);
