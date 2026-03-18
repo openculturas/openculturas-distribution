@@ -6,7 +6,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |-
+code: |
   /*
    * Formtip
    */
@@ -504,6 +504,19 @@ code: |-
 
   .ui-dialog .pager__link:hover {
     color: var(--gin-color-button-text);
+  }
+
+  /* Fix formtips position (avoid hidden overflow */
+
+  .formtips-processed.formtips-show {
+    top: 1rem;
+  }
+
+  /* Properly indicate disabled form elements */
+
+  [readonly] {
+    color: var(--gin-color-disabled);
+    background: var(--gin-color-disabled-bg);
   }
 media: all
 preprocess: false
