@@ -585,14 +585,8 @@ function openculturas_post_update_view_related_article_display_related_article_l
 /**
  * Provide more generally useful CKEditor styles.
  */
-function openculturas_post_update_ckeditor_styles(): string {
-  $full_config_names = [
-    'editor.editor.advanced_html',
-    'filter.format.advanced_html',
-    'editor.editor.full_html',
-    'filter.format.full_html',
-  ];
-  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+function openculturas_post_update_ckeditor_styles(): void {
+
 }
 
 /**
@@ -607,6 +601,19 @@ function openculturas_post_update_revert_gin_theme_overrides_3(): void {
 function openculturas_post_update_revert_gin_theme_overrides_4(): string {
   $full_config_names = [
     'asset_injector.css.oc_gin_theme_overrides',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}
+
+/**
+ * Allows more attributes e.g., id, class in advanced_html, full_html.
+ */
+function openculturas_post_update_ckeditor_attributes(): string {
+  $full_config_names = [
+    'editor.editor.advanced_html',
+    'filter.format.advanced_html',
+    'editor.editor.full_html',
+    'filter.format.full_html',
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
