@@ -1,0 +1,78 @@
+// ---------------------------------------
+// Generic text fields
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.text-formatted,
+blockquote {
+  max-inline-size: 84ch;
+  //margin-inline: auto; // too generic
+}
+
+// ---
+// Media assets placed in Editor
+// physical labels, therefore physical units
+
+.align-left,
+.align-right {
+  float: none;
+  @include breakpoint(xl) {
+    max-inline-size: 50ch; // allow some space for floating text
+  }
+  @include breakpoint(xxl) {
+    max-inline-size: none;
+  }
+}
+
+.align-left {
+  @include breakpoint(xl) {
+    float: left;
+    margin-right: var(--oc-gutter);
+  }
+}
+
+.align-right {
+  @include breakpoint(xl) {
+    float: right;
+    margin-left: var(--oc-gutter);
+  }
+}
+
+.align-left ~ h3 {
+  clear: both;
+}
+
+figure.align-center {
+  inline-size: 100%;
+  text-align: center;
+}
+
+.text-formatted .media {
+  margin-block-end: var(--oc-row-gap);
+}
+
+// Better use of whitespace when available
+// Related: paragraph/paragraph.scss (content element paragraphs)
+// @todo QA when paragraph instances can be placed in layout
+
+@container copy-area (width > 90ch) {
+  .field--name-body {
+    margin-inline-start: calc(2 * var(--oc-grid-step));
+  }
+
+  article.teaser .field--name-body {
+    margin-inline-start: unset;
+  }
+
+  .text-formatted .media {
+    &.align-left {
+      margin-left: calc(-1 * var(--oc-grid-step));
+      margin-block-start: calc(.5 * var(--oc-row-gap));
+    }
+    &.align-right {
+      margin-right: calc(-1 * var(--oc-grid-step));
+      margin-block-start: calc(.5 * var(--oc-row-gap));
+    }
+  }
+}

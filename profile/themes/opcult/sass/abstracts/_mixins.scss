@@ -1,0 +1,131 @@
+// =======================================
+// Mixins = helper functions (SASS only)
+// =======================================
+
+@use "sass:map";
+@use "sass:list";
+//@use "../../sprite/symbol/sprite";
+@use "icons";
+
+
+// ---------------------------------------
+// Mixin: Breakpoints
+// Related: opcult.breakpoints.yml (Drupal breakpoints, keep synchronous)
+// ---
+// @usage
+//   .responsive-container {
+//     @include breakpoint(m) {
+//       max-width: 50%;
+//     }
+//   }
+// ---------------------------------------
+
+$breakpoints: (                // Size at default font size 16px;
+  xs: 'max-width: 29.9999em', // < 480px
+  s: 'min-width: 30em',       // 480px
+  m: 'min-width: 48em',       // 768px
+  l: 'min-width: 70em',       // 1120px
+  xl: 'min-width: 85em',      // 1360px
+  xxl: 'min-width: 120em'     // 1920px = oc-layout-max-width
+);
+
+@mixin breakpoint($name: xs) {
+  // prettier-ignore
+  @media screen and (#{map.get($breakpoints, $name)}) { // stylelint-disable-line media-query-no-invalid
+    @content;
+  }
+}
+
+
+// Mixin: Icon
+// ---
+// Using sprite svg generated with Phosphor Icons (https://phosphoricons.com)
+// Class placeholder sets the url with id in the svg sprite: .icon--$icon-$iconset,
+// e. g.: "@extend .icon--arrow-right-light"
+// (sprite/symbol/_sprite.scss sets according url for custom property '--icon-url')
+// -----
+// @param $icon
+//   Required: The icon name in the phosphor icon library (e. g. "arrow-up" or "barcode").
+// @param $iconset
+//   Optional: phosphor icons issues the icon sets "thin", "light", "regular", "bold", "fill",
+//   and "duotone")
+//   OpenCulturas ships with the icon sets "thin", "light", and "fill".
+//   Defaults to "light".
+// @param $position
+//   Optional: the position of the icon.
+//   The icon is appended as a ::before or ::after element (CSS mask image). Allowed values: "before", "after".
+//   Defaults to "before".
+// -----
+// @usage
+//   .element_with_arrow_up {
+//     @include icon(arrow-up);
+//   }
+// ---
+//   .bookmark--active {
+//     @include icon(bookmark, fill);
+//   }
+// ---
+//   .element_with_arrow_after {
+//     @include icon(arrow-down, light, after);
+//   }
+
+@mixin icon($icon: arrow-right, $iconset: light, $position: before) {
+  // Validate $iconset parameter
+  $valid-iconsets: (light, thin, fill, regular, bold, duotone);
+  @if not list.index($valid-iconsets, $iconset) {
+    @error "Invalid iconset '#{$iconset}'. Valid options are: #{$valid-iconsets}";
+  }
+
+  // Validate position parameter
+  $valid-positions: (before, after);
+  @if not list.index($valid-positions, $position) {
+    @error "Invalid position '#{$position}'. Valid options are: #{$valid-positions}";
+  }
+
+  // Build the sprite id
+  //$sprite-id: '.icon--#{$icon}-#{$iconset}';
+
+  // Render element
+  &::#{$position} {
+    //@extend #{$sprite-id};
+    @extend %icon;
+    @extend %icon-#{$position};
+    --icon-url: url("../sprite/oc-sprite.svg##{$icon}-#{$iconset}");
+  }
+}
+
+// Mixin: Visually-hidden
+// ---
+// Makes text accessible to screen readers only
+// if possible, prefer setting a utility class .visually-hidden because
+// this is the Drupal way (makes troubleshooting easier)
+
+@mixin visually-hidden() {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  block-size: 1px;
+  word-wrap: normal;
+}
+
+// Mixin: Clearfix
+// ---
+// implementation to be used in conjunction with floating elements (un-float following elements)
+// ---
+// @usage
+//   .box {
+//     @include clearfix;
+//     .child {
+//       float:inline-start;
+//     }
+//  }
+
+@mixin clearfix() {
+  &::after {
+    display: table;
+    clear: both;
+    content: "";
+  }
+}

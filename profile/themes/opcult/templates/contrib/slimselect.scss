@@ -1,0 +1,168 @@
+// ---------------------------------------
+// Slim select field formatter
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Slim select default variables
+// - Override variables
+// - Specific SCSS overwrites and styling with classes
+// When using a light or transparent background, keep specific SCSS below -> see comments below
+
+.slimselect {
+
+  // Main theme color for selected values, hover states, and focus indicators BETTER: dark background like var(--oc-contrast-color-1)
+  --ss-primary-color: var(--oc-tag-bg-color);
+
+  // Background color for the main component, dropdown content AND for font color of value -> has to be white/light!
+  --ss-bg-color: var(--oc-input-bg-color); //
+
+  // Default text color for options and main content, NOT color of value
+  --ss-font-color: var(--oc-color-text);
+
+  // Color for placeholder text when no selection is made
+  --ss-font-placeholder-color: var(--oc-input-placeholder-color);
+
+  // Background color for disabled states
+  --ss-disabled-color: var(--oc-text-muted);
+
+  // Border color for the main container and input fields
+  --ss-border-color: var(--oc-input-border-color);
+
+  // Background color for search result highlighting
+  --ss-highlight-color: var(--oc-color-interaction);
+
+  // Color for success states and select-all checkmarks
+  --ss-success-color: var(--oc-color-success);
+
+  // Color for error messages and deselect actions
+  --ss-error-color: var(--oc-color-danger);
+
+  // Color for focus box-shadow effects
+  --ss-focus-color: var(--oc-input-focus-bg-color);
+
+  // Minimum height of the main select container
+  --ss-main-height: 2rem;
+
+  // Maximum height of the dropdown content area
+  --ss-content-height: 18rem;
+
+  // Large spacing value for padding and margins
+  --ss-spacing-l: 0.4em;
+
+  // Medium spacing value for gaps and padding
+  --ss-spacing-m: 0.3em;
+
+  // Small spacing value for tight padding
+  --ss-spacing-s: 0.175em;
+
+  // Duration for all CSS transitions and animations
+  --ss-animation-timing: var(--oc-transition-duration);
+
+  // Border radius for rounded corners throughout the component
+  --ss-border-radius: 4px;
+}
+
+//nest in body so the --oc-details-border-radius works
+body {
+  //nest correctly to override light text color set in --ss-bg-color
+  .ss-main {
+    .ss-values {
+      //set padding and radius
+      --ss-border-radius: 50vi;
+      // use form field defaults
+      padding: var(--oc-form-field-padding);
+      border: var(--oc-input-border);
+      border-color: var(--oc-input-border-color);
+      background: var(--oc-input-bg-color);
+
+      .ss-value {
+        padding: var(--oc-form-field-padding);
+        border: 1px solid var(--oc-input-border-color);
+
+        // When using a dark or colored background for --ss-primary-color get rid of this
+        .ss-value-text,
+        .ss-value-delete svg path {
+          color: var(--oc-color-text);
+          stroke: var(--oc-color-text);
+        }
+        .ss-value-delete {
+            border: none;
+        }
+      }
+    }
+    .ss-disabled {
+      .ss-values .ss-disabled {
+        color: var(--oc-color-text-muted);
+      }
+    }
+    .ss-deselect {
+      @extend %button;
+      align-items: start;
+      margin: 0.2rem;
+      padding: 0.2rem;
+      block-size: 1.75rem;
+      inline-size: 2rem;
+      text-align: center;
+      border-radius: 50%;
+      &:hover {
+        svg path {
+          stroke: var(--oc-color-text-inverted);
+        }
+      }
+      svg {
+        block-size: 16px;
+      }
+    }
+  }
+
+  // When using a dark or colored background for --ss-primary-color get rid of this
+  .ss-content {
+    .ss-list {
+      .ss-option {
+        color: unset;
+        background-color: transparent;
+
+        &:hover, &:focus {
+          background-color: var(--oc-color-interaction);
+          color: var(--oc-color-text-inverted);
+        }
+
+        &:not(.ss-disabled) {
+          &.ss-selected {
+            color: unset;
+            font-weight: var(--oc-font-weight-medium);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Use relative font size
+.ss-main .ss-values .ss-value .ss-value-text {
+  font-size: var(--oc-font-size-s);
+}
+
+.ss-main .ss-values .ss-value .ss-value-delete {
+  transform: scale(1.2);
+}
+
+// List opening toggle
+.ss-main .ss-arrow {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  inline-size: var(--oc-font-size-s);
+  block-size: var(--oc-font-size-s);
+  margin: var(--ss-spacing-l)  var(--ss-spacing-m) auto var(--ss-spacing-m);
+}
+
+// Opened list
+
+.ss-content.ss-open-below {
+  background-color: var(--oc-input-bg-color);
+  box-shadow: var(--oc-box-shadow-down);
+  scrollbar-color: var(--oc-scrollbar-color);
+}

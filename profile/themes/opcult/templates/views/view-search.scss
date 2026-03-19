@@ -1,0 +1,126 @@
+// ---------------------------------------
+// Search results
+// ---
+// Related: block/block--search.scss
+// @todo Check back when introducing container queries
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// Search field
+
+.form--compact form,
+form[role="search"],
+#views-exposed-form-search-search-page,
+#views-exposed-form-search-search-input {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+  align-items: flex-end;
+
+  .form-item,
+  .form-actions {
+    margin: 0;
+    padding: 0;
+  }
+
+  .button,
+  input[type="submit"] {
+    margin: 0;
+  }
+}
+
+.form--compact form {
+  gap: 0 var(--oc-gutter);
+}
+
+#views-exposed-form-search-search-input {
+  background-color: transparent;
+  inline-size: auto;
+  justify-content: center;
+
+  @include breakpoint(m) {
+    flex-flow: row;
+  }
+}
+
+// ---
+// Search field on search page
+
+.block-views-exposed-filter-blocksearch-search-page {
+  padding-inline: 0;
+  margin-block-end: 0; // no gap when facets are rendered
+
+  form {
+    padding-inline: calc(2 * var(--oc-gutter));
+
+    @include breakpoint(m) {
+      padding-inline: var(--oc-grid-step);
+    }
+  }
+
+  .form-item-fulltext input {
+    font-size: 1.5em;
+    font-weight: var(--oc-font-weight-semi-bold);
+    max-inline-size: 100%;
+    inline-size: 100%;
+
+    &::placeholder {
+      font-size: 1rem;
+      font-weight: initial;
+    }
+  }
+}
+
+// ---
+// Search results
+
+.view-search .view-content {
+  @extend %grid;
+  @extend %grid-2;
+  margin-block-start: var(--oc-section-spacing);
+
+  .views-row {
+    grid-column: 1 / -1;
+
+    &:has(.profile-teaser.node--view-mode-teaser) {
+      grid-column: auto / span 1;
+    }
+  }
+
+  .views-row {
+    margin-block-end: var(--oc-row-gap);
+  }
+
+  article {
+    --oc-card-margin-block: 0;
+    --oc-card-margin-inline: 0;
+    --oc-card-padding-block: 0;
+    --oc-card-padding-inline: 0;
+    --oc-card-background: transparent;
+    --oc-card-box-shadow: initial;
+    --oc-card-border: transparent;
+    --oc-card-border-width: inherit;
+    --oc-card-border-radius: 0;
+
+    @include breakpoint(m) {
+      grid-template-columns: 1fr 5fr;
+      gap: .5rem var(--oc-gutter);
+    }
+  }
+
+  .teaser--top.no-image {
+    aspect-ratio: unset;
+  }
+
+  .teaser--footer {
+    justify-content: flex-start;
+  }
+
+  .view-empty {
+    color: var(--oc-color-danger);
+    padding: var(--oc-section-spacing) var(--oc-gutter);
+  }
+}
+

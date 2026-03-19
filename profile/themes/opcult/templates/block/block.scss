@@ -1,0 +1,28 @@
+// ---------------------------------------
+// Generic block
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+h4.block--title {
+  @extend %allcaps;
+  font-size: var(--oc-font-size-default);
+  margin-block: 0;
+}
+
+// ---
+// Block class via layout attribute
+
+h2.block--title.label {
+  @extend %label;
+}
+
+// ---
+// Special blocks
+
+.block-powered-by-openculturas {
+  h2, h4, p, span {
+    display: inline-block;
+    font-size: var(--oc-font-size-s);
+  }
+}

@@ -1,0 +1,343 @@
+// ---------------------------------------
+// Leaflet maps module
+// using OpenStreetMap
+// ---
+// Related:
+// - paragraph--address-data.scss
+// - block--openculturas-map.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Maps-related
+
+.leaflet-container {
+  font-family: var(--oc-font-family-default);
+  font-size: var(--oc-font-size-default);
+  min-block-size: 30rem;
+  max-block-size: 80dvh;
+  isolation: isolate;
+  background: transparent; // fallback for non-loading tiles
+}
+
+// ---
+// Marker icons
+
+// Use same image as mask image
+img.leaflet-marker-icon {
+  filter: var(--oc-marker-colorizer);
+  mask-image: url("../images/map_marker.svg");
+  mask-position-y: -2px;
+}
+
+// ---
+// Marker cluster
+// Reset 3rd-party design
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: transparent;
+
+  div {
+    background-color: unset;
+    color: unset;
+  }
+}
+
+// Marker cluster library sets pixel-sized items inline, therefore we stick to pixels
+// uncommented values: for documentation
+
+.marker-cluster {
+  //  background-clip: padding-box;
+  //  border-radius: 20px;
+
+  div {
+    font: var(--oc-font-size-default) var(--oc-font-family-default);
+  }
+
+  div,
+  span {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    background-color: var(--oc-color-marker-icon);
+    color: var(--oc-color-text-inverted);
+    text-align: center;
+    font-size: var(--oc-font-size-s);
+    line-height: 1;
+  }
+}
+
+// Optional: different sizes
+//.marker-cluster-medium div {
+//  inline-size: 2rem;
+//  block-size: 2rem;
+//  inset-inline: -.25rem;
+//  inset-block: -.25rem;
+//  border: .0625rem solid var(--oc-color-bg-light-opaque);
+//}
+//
+//.marker-cluster-big div {
+//  inline-size: 2.5rem;
+//  block-size: 2.5rem;
+//  inset-inline: -.5rem;
+//  inset-block: -.5rem;
+//  border: .0625rem solid var(--oc-color-bg-light-opaque);
+//}
+
+// ---
+// User location marker (from locate control)
+
+.marker-located {
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+  border-radius: 100%;
+  background: var(--oc-color-info);
+  border: .0625rem solid var(--oc-color-bg-light);
+  outline: .25rem solid var(--oc-color-info);
+}
+
+// ---
+// Leaflet popups
+
+.leaflet-popup-content-wrapper {
+  border-radius: 2px;
+}
+
+.leaflet-popup-content {
+  font-family: var(--oc-font-family-default);
+  font-size: var(--oc-font-size-s);
+  margin: 1rem 3rem 1.125rem 1rem;
+
+  a {
+    @extend %link-default;
+
+    font-weight: var(--oc-font-weight-bold);
+  }
+}
+
+// See base/icons.scss
+.leaflet-container {
+  a.leaflet-popup-close-button {
+    @extend %button;
+    @extend %icon-only;
+    border-color: transparent;
+
+    inset-block-start: 0.5em;
+    inset-inline-end: 0.5em;
+  }
+}
+
+// Dates in popups
+
+.dates-shortlist {
+  margin-block-start: 1em;
+}
+
+.leaflet-popup-content {
+  span[class^="Event"] {
+    padding-inline-end: .5em;
+  }
+
+  time {
+    padding-inline-end: .25em;
+  }
+}
+
+// ---
+// Leaflet controls
+
+.leaflet-container .leaflet-control-container {
+  font-size: var(--oc-font-size-icon);
+  block-size: 100%;
+  position: relative;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  border: var(--oc-divider-dark);
+  border-color: var(--oc-color-interaction);
+  box-shadow: var(--oc-box-shadow-centered);
+}
+
+.leaflet-control-locate,
+.leaflet-control >,
+.leaflet-bar {
+  span[aria-hidden],
+  span.leaflet-control-resetview-icon {
+    display: none;
+  }
+
+  a {
+    background-image: unset;
+    background-color: var(--oc-button-bg-color);
+    color: var(--oc-button-text-color);
+  }
+
+  a::before {
+    transform: none;
+    inline-size: 100%;
+    block-size: 100%;
+    box-sizing: initial;
+    mask-size: 75%;
+    margin: 0;
+  }
+
+  a:focus,
+  a:hover {
+    background-color: var(--oc-button-focus-bg-color);
+    color: var(--oc-button-focus-text-color);
+  }
+}
+
+a.leaflet-control-zoom-in {
+  @include icon(plus);
+}
+
+a.leaflet-control-zoom-out {
+  @include icon(minus);
+}
+
+.leaflet-control-resetview a {
+  @include icon(arrow-clockwise);
+}
+
+.leaflet-control-fullscreen a {
+  @include icon(corners-out);
+}
+
+.leaflet-control-locate a {
+  @include icon(target); // alternative: crosshair
+
+  .leaflet-control-locate-location-arrow {
+    display: none;
+  }
+}
+
+// Geocoder widget
+// geocoder is a button, not a link; we override inherited pixel height here
+.leaflet-control-geocoder {
+  background-color: var(--oc-color-bg-light);
+  height: 34px;
+    //overflow: hidden;
+}
+
+.leaflet-control-geocoder .leaflet-control-geocoder-icon {
+  display: inline-block;
+  border-radius: unset;
+  background-image: unset;
+  background-color: var(--oc-button-bg-color);
+  transform: none;
+  font-size: var(--oc-font-size-icon);
+  color: var(--oc-button-text-color);
+  margin: 0;
+
+  &::before {
+    transform: none;
+    inline-size: 100%;
+    block-size: 100%;
+    box-sizing: initial;
+    mask-size: 75%;
+    margin: 0;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: var(--oc-button-focus-bg-color);
+    color: var(--oc-button-focus-text-color);
+    border-radius: 0;
+  }
+}
+
+.leaflet-control-geocoder-icon {
+  @include icon(magnifying-glass);
+}
+
+// Geocoder search form + results
+
+.leaflet-control-geocoder-form input {
+  font-size: var(--oc-font-size-s);
+  line-height: 1;
+  block-size: 1.75rem;
+  padding: var(--oc-form-field-padding);
+}
+
+.leaflet-control-geocoder-form {
+  position: relative;
+  inset-block-start: -2.125rem;
+}
+
+.leaflet-control-geocoder-alternatives {
+  position: relative;
+  inset-block-start: -2rem;
+  background-color: var(--oc-color-bg-light);
+  margin-block: 0;
+  box-shadow: var(--oc-box-shadow-down);
+}
+
+.content ul.leaflet-control-geocoder-alternatives {
+  margin-block: 0;
+  margin-inline-start: 2.5rem;
+}
+
+// Interactive locate marker (overriding inline styles)
+
+.leaflet-control-locate-location circle {
+  fill: var(--oc-color-marker-icon) !important;
+}
+
+.leaflet-control-geocoder-error {
+  color: var(--oc-color-danger);
+}
+
+.leaflet-control-geocoder-alternatives li {
+  border-block-end: var(--oc-divider-light);
+  color: var(--oc-color-text);
+  font-size: var(--oc-font-size-s);
+  line-height: 1.25;
+  margin-block: 0;
+  padding-block: .25em;
+  padding-inline: 1em;
+}
+
+.leaflet-control-geocoder-alternatives li:hover,
+.leaflet-control-geocoder-selected {
+  background-color: var(--oc-color-interaction);
+  color: var(--oc-color-text-inverted);
+
+  a {
+    color: var(--oc-color-text-inverted);
+  }
+}
+
+.leaflet-control-geocoder-address-context {
+  color: var(--oc-color-text-muted);
+}
+
+// ---
+// OpenStreetMap Attribution
+
+.leaflet-bottom {
+  inset-block-end: 0;
+}
+
+.leaflet-control-attribution {
+  background-color: transparent;
+  font-size: var(--oc-font-size-s);
+
+  a {
+    color: var(--oc-color-link);
+  }
+}
+
+// ---
+// Search radius circle (interactive SVG path)
+
+.leaflet-pane > svg path.leaflet-interactive {
+  stroke: var(--oc-color-info);
+  fill: var(--oc-color-info);
+}

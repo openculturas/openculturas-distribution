@@ -1,0 +1,69 @@
+// ---------------------------------------
+// Buttons and similar elements (tags)
+// ---------------------------------------
+
+@use "../abstracts/buttons" as *;
+
+// ---
+// Button base styles
+// Default buttons (and pseudo-links with button class)
+
+button,
+.button,
+input[type="button"],
+input[type="submit"] {
+  @extend %button;
+
+  .inverted & {
+    border-color: var(--oc-color-text-inverted);
+  }
+}
+
+// Smaller buttons
+.button-small {
+  @extend %button;
+  @extend %button-small;
+}
+
+// Primary buttons
+.form-submit:not([data-drupal-selector="edit-reset"]),
+.button--cta,
+.oc-button--primary {
+  @extend %button-primary;
+}
+
+// Danger/alert buttons (potentially destructive function).
+.button.danger,
+.button--danger,
+a.button.danger,
+.form-submit.danger,
+input[type="submit"].danger,
+button[type="submit"].button--danger {
+  @extend %button-danger;
+}
+
+.view-header .button,
+.button--add {
+  margin-inline-end: 0;
+  margin-block: 1rem;
+  @extend %button-small;
+}
+
+// Icons in buttons
+// see base/_icons-ext.scss
+
+
+// Load more-buttons triangle hint
+// only works when always centered (i.e. not in recommendation view)
+
+//.button[data-drupal-views-infinite-scroll-pager]::before {
+//  content: "";
+//  display: block;
+//  background-color: var(--oc-button-border-color);
+//  inline-size: 1rem;
+//  block-size: .5rem;
+//  position: absolute;
+//  inset-inline-start: calc(50% - .5rem);
+//  inset-block-end: .5rem;
+//  clip-path: polygon(0 0, 50% 100%, 100% 0);
+//}

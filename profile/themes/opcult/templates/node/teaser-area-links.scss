@@ -1,0 +1,84 @@
+// ---------------------------------------
+// Teaser clickable area extension (JS)
+// ---
+// Javascript option to make teaser images/full teaser respond on left mouse clicks
+// see js/opcult.js
+// set class correspondingly ("teaser-fully-linked" or "teaser-image-linked")
+// in templates: universal-teaser.html.twig, teaser-unified.html.twig, node--teaser.html.twig node--teaser-big.html.twig
+// paragraph/teaser-wrapper/teaser.html.twig, and "related-date" views
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// 1. Teaser images linked via JS
+
+.teaser-image-linked {
+  .no-image, // related: opcult.js -> updateCursor
+  .field--name-field-mood-image img {
+    cursor: pointer;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+
+  &:focus-within,
+  &:hover {
+    .field--name-field-mood-image img {
+      transform: scale(1.15);
+      @media (prefers-reduced-motion: reduce) {
+        transform: scale(1);
+      }
+    }
+
+    // @todo Fallback background images are already transformed, find animation solution
+    //.no-image { }
+  }
+
+  .profile--picture {
+    cursor: pointer;
+  }
+}
+
+// Teaser unified image has overlay, handle separately
+
+.teaser-unified.teaser-image-linked {
+  cursor: pointer;
+
+  img {
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+
+  &:focus-within,
+  &:hover {
+    .field--name-field-mood-image img {
+      transform: scale(1.15);
+
+      @media (prefers-reduced-motion: reduce) {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+// ---
+// 2. Fully linked teasers
+
+.teaser-fully-linked {
+  &:focus-within,
+  &:hover {
+    cursor: pointer;
+    //background-color: var(--oc-color-bg-link-translucent);
+  }
+
+  .popover-content {
+    cursor: default;
+  }
+}
+
+.calendar {
+  .teaser-fully-linked {
+    &:focus-within,
+    &:hover {
+
+    }
+  }
+}

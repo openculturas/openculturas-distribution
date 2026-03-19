@@ -1,0 +1,66 @@
+// ---------------------------------------
+// Badges (peer marker)
+// ---
+// Related: node/profile-teaser.scss, icons.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// @todo Use var(--oc-profile-image-size) as reference for positioning (needs thorough QA)
+
+.field--name-field-badges {
+  font-weight: var(--oc-font-weight-bold);
+
+  * {
+    display: inline;
+  }
+}
+
+// ---
+// Icon
+
+.badge--peer {
+  @include icon(seal, fill);
+  color: var(--oc-color-primary);
+}
+
+.profile-teaser {
+  .badge--peer {
+    @extend %icon-only;
+    color: var(--oc-color-primary);
+  }
+}
+
+// Place badge overlapping picture
+// Grid names area set in node/profile-teaser.scss
+
+.profile-teaser {
+  .field--name-field-badges {
+    grid-area: picture;
+    margin: 0;
+    inset-inline-start: 45%;
+
+    .field__item {
+      display: inline-block;
+      overflow: hidden;
+      inline-size: calc(2rem + 2px);
+      block-size: calc(2rem + 2px);
+    }
+  }
+}
+
+// ---
+// Badge in compact teasers
+
+.profile-teaser.view-mode-compact .field--name-field-badges {
+  inset-block-start: -.25%;
+
+  .field__item {
+    padding: 0;
+    inline-size: calc(1.25rem + 2px);
+    block-size: calc(1.25rem + 2px);
+
+    &::before {
+    }
+  }
+}

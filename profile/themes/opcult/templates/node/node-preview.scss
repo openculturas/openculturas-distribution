@@ -1,0 +1,52 @@
+// ---------------------------------------
+// Node edit preview function
+// WIP!
+// @todo Set maximum width for each preview view mode when not in layout (e.g. node preview)
+// (:not selector does not work like intended)
+// ---------------------------------------
+
+// @use "../../sass/abstracts" as *;
+
+:not(.layout) {
+  .teaser,
+  .term-teaser {
+    @include breakpoint(m) {
+      max-inline-size: calc(var(--oc-grid-step) * 6);
+    }
+    @include breakpoint(l) {
+      max-inline-size: calc(var(--oc-grid-step) * 4);
+    }
+    @include breakpoint(xxl) {
+      max-inline-size: calc(var(--oc-grid-step) * 3);
+    }
+  }
+
+  .teaser-big {
+    @include breakpoint(m) {
+      max-inline-size: 100%;
+    }
+    @include breakpoint(xl) {
+      max-inline-size: 100%;
+    }
+  }
+
+  .teaser-unified {
+    @include breakpoint(m) {
+      max-inline-size: calc(var(--oc-grid-step) * 6);
+    }
+  }
+}
+
+// ---
+// Unset certain semantic styles in teasers
+
+.teaser {
+  blockquote {
+    font-weight: var(--oc-font-weight-teaser-subtitle);
+    font-size: var(--oc-font-size-default);
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,100 @@
+// ---------------------------------------
+// OpenCulturas Map module
+// ---
+// Related: contrib/leaflet-maps.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.openculturas-map {
+  &[data-dirty=true] {
+    .openculturas-map--reload {
+      opacity: 1;
+    }
+  }
+}
+
+// ---
+// Reload (results update) button on map
+
+.openculturas-map--reload {
+  @extend %button;
+  @extend %button-primary;
+  @include icon(magnifying-glass);
+  --oc-font-size-icon: var(--oc-font-size-icon-m);
+  opacity: 0;
+  transition: opacity var(--oc-transition-duration) var(--oc-transition-timing-function);
+  translate: 0px -29rem; // relative to map height
+  display: block;
+  place-content: center;
+  position: relative;
+  margin-inline: auto;
+  margin-block: 0 -3em; // neutralize button height below map
+  box-shadow: var(--oc-box-shadow-centered);
+}
+
+// ---
+// Results list (teasers)
+
+.openculturas-map--results-list {
+  @extend %grid-auto;
+}
+
+.openculturas-map--results {
+  .profile--content {
+    padding-inline-end: var(--oc-font-size-icon);
+  }
+}
+
+// space for map-link-wrapper
+.openculturas-map .location,
+.openculturas-map .field--name-field-address-data {
+  padding-inline-end: var(--oc-font-size-icon);
+}
+
+.map-link-wrapper {
+  position: absolute;
+  inset-block-start: var(--oc-card-padding-block);
+  inset-inline-end: calc(.25 * var(--oc-card-padding-inline));
+}
+
+.map-link.button {
+  @extend %button;
+  @extend %icon-button;
+  border-color: transparent;
+}
+
+.openculturas-map--results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.openculturas-map:not([data-dirty=true]) {
+  .openculturas-map--results-counter {
+    // Loading indicator
+    &[aria-busy=true] {
+      @extend %loading-indicator;
+    }
+  }
+}
+
+.openculturas-map--container {
+  min-block-size: 20rem;
+  position: relative;
+  overflow: visible;
+  z-index: +2;
+}
+
+// ---
+// OC adjustments to Leaflet defaults (interaction elements)
+
+.openculturas-map--leaflet {
+  min-block-size: 30rem;
+}
+
+// ---
+// Results filter block, toggleable
+// See: views/views-exposed-forms.scss
+

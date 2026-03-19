@@ -1,0 +1,113 @@
+// ---------------------------------------
+// Teaser wrapper paragraph + included paragraphs
+// ---
+// Related: paragraph.scss (generic classes/behaviours)
+// ---------------------------------------
+
+@use "../../../sass/abstracts" as *;
+
+// ---
+// View mode: slider
+
+.paragraph--view-mode--slider {
+
+}
+
+// ---
+// Intro inline in mode "side by side"
+
+.paragraph--type--teaser-wrapper.paragraph--view-mode--grid {
+  @extend %grid;
+  @extend %grid-4;
+  @extend %grid-headline-inline;
+}
+
+// ---
+// View mode: grid
+// and view mode: default (deviation from teaser-unified default style, see teaser-unified.scss)
+
+.paragraph--type--teaser-wrapper {
+  &.paragraph--view-mode--grid,
+  &.paragraph--view-mode--default {
+    .field--type-entity-reference-revisions > .field__items {
+      @extend %grid;
+      @extend %grid-3;
+    }
+
+    article.teaser {
+      block-size: var(--oc-card-height-equalizer);
+    }
+  }
+}
+
+// ---
+// Grid exceptions for smaller amount of teasers
+
+.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items {
+
+  &:not(:has(> .field__item:nth-child(2))) {
+    @include breakpoint(m) {
+      --oc-grid-item-count: 1;
+    }
+    @include breakpoint(l) {
+      --oc-grid-item-count: 1;
+    }
+    @include breakpoint(xl) {
+      --oc-grid-item-count: 2;
+    }
+    @include breakpoint(xxl) {
+      --oc-grid-item-count: 2;
+    }
+  }
+}
+
+// ---
+// Horizontal teasers based on available space
+// To combine with :nth-child --oc-grid-item-count logic
+// Related: views/views.scss
+
+.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item {
+  container-type: inline-size;
+
+  @container (width > 48rem) {
+    article {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--oc-row-gap) var(--oc-gutter);
+    }
+
+    .teaser--top {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      @extend %image-fill;
+      border-radius: var(--oc-card-border-radius) 0 0 var(--oc-card-border-radius);
+      margin-block: calc(-1 * var(--oc-card-padding-block));
+      margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
+    }
+
+    .teaser--body {
+      grid-column: 2;
+      grid-row: 1;
+      padding-block-start: 0;
+    }
+
+    .teaser--footer {
+      grid-column: 2;
+      grid-row: 2;
+      align-content: end;
+    }
+  }
+}
+
+
+// ---
+// Less padding in side-by-side
+
+.teaser--wrapper.grid-1,
+.teaser--wrapper.side-by-side {
+  .teaser-unified .teaser--body {
+    @include breakpoint(l) {
+      padding-inline: 0;
+    }
+  }
+}

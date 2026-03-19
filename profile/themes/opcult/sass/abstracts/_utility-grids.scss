@@ -1,0 +1,209 @@
+// ---------------------------------------
+// Grid layout logic
+// to be @use-d separately where required
+// ---------------------------------------
+
+@use "mixins" as *;
+
+%grid-auto  {
+  --oc-grid-item-max-width: 30rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min-content, var(--oc-grid-item-max-width)));
+  gap: var(--oc-row-gap) var(--oc-gutter);
+
+  @include breakpoint(xl) {
+    justify-content: space-between;
+  }
+}
+
+%grid {
+  --oc-grid-item-count: 1;
+
+  display: grid;
+  grid-template-columns: repeat(var(--oc-grid-item-count), 1fr);
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+
+// ---
+// Number of grid columns
+// Note: only works in addition to %grid
+// e. g. .field--name-field-foobar-multiple { @extend %grid; @extend %grid-4; }
+
+%grid-2 {
+  @include breakpoint(s) {
+    --oc-grid-item-count: 1;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 2;
+  }
+}
+
+%grid-3 {
+  @include breakpoint(s) {
+    --oc-grid-item-count: 1;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 3;
+  }
+}
+
+%grid-4 {
+  @include breakpoint(s) {
+    --oc-grid-item-count: 1;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 4;
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 4;
+  }
+}
+
+%grid-6 {
+  @include breakpoint(s) {
+    --oc-grid-item-count: 1;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 4;
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 6;
+  }
+}
+
+// Keep aligned with --oc-column-count;
+%grid-layout-grid {
+  --oc-grid-item-count: 12;
+}
+
+// ---
+// Headline inline
+// Note: only works in addition to %grid
+// e. g. .field--name-field-foobar-multiple { @extend %grid; @extend %grid-headline-inline; }
+// Related: _views--intro-inline.scss (generic for .intro-inline .view)
+
+%grid-headline-inline {
+  > .field__label_headline,
+  .view-header,
+  .view-content + .more-link {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin: 0;
+
+    @include breakpoint(xl) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  .view-content + .more-link {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: end;
+    justify-self: end;
+    margin-block-end: var(--oc-card-margin-block);
+
+    @include breakpoint(xl) {
+      grid-row: 2;
+      justify-self: start;
+    }
+  }
+
+  .pager {
+    grid-column: 1;
+    grid-row: 4;
+
+    @include breakpoint(xl) {
+      grid-column: 2/-1;
+      grid-row: 3;
+      align-self: start;
+      justify-self: start;
+      margin-block-start: 0;
+      margin-inline: var(--oc-card-margin-inline);
+    }
+  }
+
+  > .field__items,
+  > .teaser--wrapper,
+  .view-content,
+  .views-infinite-scroll-content-wrapper {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    //grid-template-columns: subgrid; // does not work as expected
+
+    @include breakpoint(xl) {
+      grid-column: 2 / -1;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  // @todo Hot fixes, check where the logical problem lies:
+  > .teaser--wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .views-infinite-scroll-content-wrapper {
+    @include breakpoint(xl) {
+      grid-column: 1 / -1;
+      grid-row: 1 / span 2;
+    }
+  }
+}
+
+// ---
+// Grid exceptions for smaller amount of teasers
+// Extend: .view-content
+// CAUTION: do not combine with intro-inline!
+
+%max-2-horizontal {
+  &:not(:has(.views-row:nth-child(3))) {
+    --oc-grid-item-count: 1;
+    grid-column: 1 / -1;
+  }
+}
+
+%max-1-horizontal {
+  &:not(:has(.views-row:nth-child(2))) {
+    @include breakpoint(m) {
+      --oc-grid-item-count: 1;
+    }
+    @include breakpoint(l) {
+      --oc-grid-item-count: 1;
+    }
+    @include breakpoint(xl) {
+      --oc-grid-item-count: 1;
+      max-inline-size: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
+    }
+  }
+}

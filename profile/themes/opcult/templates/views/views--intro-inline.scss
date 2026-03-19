@@ -1,0 +1,42 @@
+// ---------------------------------------
+// Views with header + more link in grid cell
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.intro-inline {
+  @extend %grid;
+  @extend %grid-4;
+  @extend %grid-headline-inline;
+
+  > .field--type-viewfield,
+  > .field--type-entity-reference-revisions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+
+    @include breakpoint(xl) {
+      grid-column: 2 / -1;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  .view:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view-content:has(.views-infinite-scroll-content-wrapper) {
+    @extend %grid;
+    @extend %grid-3;
+  }
+
+  > h2 {
+    margin-block-start: var(--oc-card-margin-block);
+    padding-block-start: 0;
+    hyphens: manual;
+  }
+
+  .view-header > * {
+    display: inline-block;
+    margin-inline-end: var(--oc-gutter);
+  }
+}
+
+

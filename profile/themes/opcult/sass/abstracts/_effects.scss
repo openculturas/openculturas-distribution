@@ -1,0 +1,80 @@
+// ---------------------------------------
+// Visual effect variables:
+// Box shadows, border radius, dividers, transitions etc.
+// ---
+// Some dimensions are not available on root level, hence: body
+// ---------------------------------------
+
+// Visual effects like shadows, transitions, and borders
+
+%cc-effects {
+  // Box shadows
+  --oc-box-shadow-centered: 0 0 1rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-centered-s: 0 0 .5rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-up: 0 -.25rem .5rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-down: 0 .75rem .5rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-left: -.5rem 0 .5rem 0.125rem var(--oc-shadow-color);
+  --oc-box-shadow-inset: inset 0 -.25rem .25rem -.125rem var(--oc-shadow-color);
+
+  // Border radius variants (button radius see _buttons)
+  --oc-profile-image-size: 6rem;
+  --oc-profile-image-size-s: 2.5rem;
+  --oc-profile-image-border-radius: 50%;
+  --oc-location-image-border-radius: 0;
+  --oc-image-border-radius: 0;
+  --oc-details-border-radius: 0;
+  --oc-border-radius-tiny: .125rem;
+
+  // Dividers and special borders
+  --oc-divider-dark: .125rem solid var(--oc-color-divider-dark); // 2px
+  --oc-divider-light: .0625rem solid var(--oc-color-divider-light); // 1px
+  --oc-outline-active: .125rem solid var(--oc-color-interaction);
+  --oc-outline-active-offset: .25rem;
+
+  // Miscellaneous
+  --oc-scrollbar-color: var(--oc-color-interaction) var(--oc-color-bg-light);
+  --oc-scroll-layer-padding: var(--oc-gutter);
+
+    // Transitions
+  --oc-transition-duration: 0.3s;
+  --oc-transition-timing-function: ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    --oc-transition-duration: 0.01s;
+  }
+}
+
+%backdrop {
+  background: var(--oc-color-backdrop);
+  backdrop-filter: blur(10px); // optionally set to none
+}
+
+// Progress indicator thanks to
+// Vineeth.TR published unter MIT license on https://cssloaders.github.io/
+
+%loading-indicator {
+  isolation: isolate;
+  z-index: +1;
+
+  &::after {
+    content: '';
+    block-size: 0.75rem;
+    inline-size: 0.75rem;
+    margin-inline-start: 0.75rem;
+    border: 2px solid var(--oc-color-info);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

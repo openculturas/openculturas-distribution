@@ -1,0 +1,114 @@
+// ---------------------------------------
+// Date (content type date)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Time display
+// @todo Unless smart_date has a more robust markup solution,
+//  set all date particles (separately) to same font size
+
+// Do not visualize lists in date field
+.content .recurring-output--wrapper,
+.calendar .teaser--date,
+.date {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.date-main {
+  --oc-date-font-size-date: var(--oc-font-size-xl); // var(--oc-font-size-xl)
+  --oc-date-font-size-time: var(--oc-font-size-xl); // later: var(--oc-font-size-m)
+  time,
+  .date-join {
+    font-weight: var(--oc-font-weight-bold);
+    font-size: var(--oc-date-font-size-date);
+  }
+
+  .smart-date--time,
+  .time-join {
+    font-size: var(--oc-date-font-size-date);
+  }
+}
+
+// Only show past instance when no upcoming is present
+.teaser .recurring-output--wrapper:has(.next_instance) .recurring-output--past {
+  display: none;
+}
+
+.recurring-output--past {
+  color: var(--oc-color-text-muted);
+}
+
+// ---
+// Ticket link
+// Related: icons.scss
+
+.field--name-field-ticketing a {
+  @extend %button;
+  //@extend %button-primary; // problematic figure/ground inversion
+}
+
+// ---
+// Visually integrate location teaser in address area
+
+.block-field-blocknodedatefield-location {
+  position: absolute;
+  padding-block-start: calc(2 * var(--oc-row-gap));
+  padding-inline: var(--oc-gutter);
+  z-index: +1;
+  @extend %page-padding-outdent;
+
+  @include breakpoint(s) {
+    margin-inline: 0;
+  }
+
+  @include breakpoint(l) {
+    max-inline-size: calc(3 * var(--oc-grid-step));
+  }
+}
+
+.block-extra-field-blocknodedateextra-field-location-address-data .field--name-field-address {
+  margin-block-start: 6rem;
+}
+
+// ---
+// Just in case: date entity teaser
+
+.teaser .recurring-output--wrapper {
+  font-weight: var(--oc-font-weight-bold);
+  font-size: var(--oc-font-size-m);
+  margin-block-end: .5rem;
+}
+
+.teaser.view-mode-compact .recurring-output--wrapper {
+  font-size: var(--oc-font-size-default);
+  margin-block-end: 0;
+}
+
+// ---
+// Limit event series parent date teaser's width (normally only 1)
+// Related: teasers.scss (article.teaser-big)
+
+.field--name-field-parent-date article.teaser {
+  @include breakpoint(l) {
+    max-inline-size: calc(8 * var(--oc-grid-step) - var(--oc-gutter));
+  }
+}
+
+// ---
+// Further dates available hint in teasers
+
+.further-dates {
+  font-size: var(--oc-font-size-s);
+  font-weight: var(--oc-font-weight-medium);
+  margin-block: .5rem;
+
+  .teaser-unified &,
+  .view-mode-compact & {
+    margin-block: 0;
+  }
+}

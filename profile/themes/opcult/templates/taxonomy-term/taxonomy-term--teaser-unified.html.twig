@@ -1,0 +1,97 @@
+{#
+/**
+ * @file
+ * Theme override to display a taxonomy term.
+ *
+ * Available variables:
+ * - url: URL of the current term.
+ * - name: (optional) Name of the current term.
+ * - content: Items for the content of the term (fields and description).
+ *   Use 'content' to print them all, or print a subset such as
+ *   'content.description'. Use the following code to exclude the
+ *   printing of a given child element:
+ *   @code
+ *   {{ content|without('description') }}
+ *   @endcode
+ * - attributes: HTML attributes for the wrapper.
+ * - page: Flag for the full page state.
+ * - term: The taxonomy term entity, including:
+ *   - id: The ID of the taxonomy term.
+ *   - bundle: Machine name of the current vocabulary.
+ * - view_mode: View mode, e.g. 'full', 'teaser', etc.
+ *
+ * @see template_preprocess_taxonomy_term()
+ */
+#}
+{%
+  set classes = [
+    'taxonomy-term',
+    'vocabulary-' ~ term.bundle|clean_class,
+    not term.isPublished() ? 'term--unpublished entity--unpublished',
+    'term--view-mode-teaser',
+    'clearfix',
+    'teaser-unified',
+    'term-teaser-unified',
+  ]
+%}
+{% set mood_image = content.field_mood_image|render|trim is not empty %}
+{% set body = content.description|render|trim is not empty %}
+{% set wrapper_tag = 'article' %}
+{% set popoverId = 'popover--quick-info-tax'|clean_unique_id %}
+{% set anchorName = '--' ~ popoverId ~ '--anchor' %}
+
+<{{ wrapper_tag }}{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
+    {% if mood_image %}
+      <div class="teaser--top">
+        {{ content.field_mood_image }}
+      </div>
+    {% else %}
+      <div class="teaser--top no-image">
+      </div>
+  {% endif %}
+
+  <div class="teaser--body">
+    {{ title_prefix }}
+      <h3 {{ title_attributes.addClass('teaser--title') }}>
+        <a href="{{ url }}" rel="bookmark">{{ name }}</a>
+      </h3>
+    {{ title_suffix }}
+
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content | without('field_mood_image', 'description')}}
+      <div class="responsive-hide">
+        {{ content.description }}
+      </div>
+    </div>
+  </div>
+
+<div class="teaser--footer">
+  {% if body %}
+    <div class="quick-info quick-info-toggle--wrapper popover-wrapper responsive-reveal">
+      <button id="{{ popoverId }}--trigger" class="quick-info--toggle" popovertarget="{{ popoverId }}">{{ 'Quick info'|t }}</button>
+      <div id="{{ popoverId }}" class="popover-content quick-info--popover-content dialog-wrapper" popover>
+        <div class="dialog-titlebar">
+          <span class="dialog-title">{{ 'Quick info'|t }}</span>
+          <button popovertarget="{{ popoverId }}" popovertargetaction="hide" class="close">{{ 'Close'|t }}</button>
+        </div>
+        <div class="dialog-content">
+          {{ content.description }}
+          <p class="more-link"><a href="{{ url }}">{{ label }}</a></p>
+        </div>
+        <!--suppress CssInvalidFunction -->
+        <style>
+          @supports (anchor-name: {{ anchorName }}) {
+            #{{ popoverId }}--trigger {
+              anchor-name: {{ anchorName }};
+            }
+            #{{ popoverId }} {
+              position-anchor: {{ anchorName }};
+              top: anchor(bottom);
+              right: anchor(right);
+            }
+          }
+        </style>
+      </div>
+    </div>
+  {% endif %}
+</{{ wrapper_tag }}>

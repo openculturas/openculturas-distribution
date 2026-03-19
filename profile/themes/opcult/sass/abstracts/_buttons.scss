@@ -1,0 +1,154 @@
+// ---------------------------------------
+// Buttons and taxonomy term tags:
+// definitions, placeholders
+// ---
+// Please note: button/tag custom properties %placeholders are placed in a selector
+// separately for front-end and ckeditor
+// ---------------------------------------
+
+// Custom properties
+
+%cc-buttons {
+  --oc-button-border-radius: .25rem; // or "50vi"
+  --oc-button-border-width: .125rem; // 2px
+  --oc-button-border-style: solid;
+  --oc-button-padding: var(--oc-button-padding-m);
+  --oc-button-padding-m: 0.5em 2em;
+  --oc-button-padding-s: 0.25em 1em;
+  --oc-button-text-transform: none;
+  --oc-button-letter-spacing: normal;
+  --oc-button-box-shadow: 0; // or "-3px 3px"
+  --oc-tag-border-radius: 50vi;
+  --oc-tag-border-width: 0.0625rem;
+  --oc-tag-border-style: solid;
+  --oc-tag-padding: .25em 2em;
+  --oc-tag-text-transform: none;
+  --oc-tag-letter-spacing: normal;
+  --oc-tag-box-shadow: var(--oc-button-box-shadow);
+}
+
+// Placeholders
+// --
+// @usage
+//   a.button {
+//     @extend %button;
+//   }
+
+// ---
+// Button styles
+
+%button {
+  display: inline-block;
+  margin-block-end: 1em;
+  padding: var(--oc-button-padding);
+  text-decoration: none;
+  word-wrap: normal;
+  hyphens: none;
+  font-family: var(--oc-font-family-default);
+  font-weight: var(--oc-font-weight-bold);
+  color: var(--oc-button-text-color);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-button-border-color);
+  border-radius: var(--oc-button-border-radius);
+  background-color: var(--oc-button-bg-color);
+  font-size: var(--oc-font-size-button-default);
+  text-transform: var(--oc-button-text-transform);
+  letter-spacing: var(--oc-button-letter-spacing);
+  cursor: pointer;
+  box-shadow: var(--oc-button-box-shadow);
+
+  &:not([disabled]):focus-visible,
+  &:not([disabled]):hover {
+    color: var(--oc-button-focus-text-color);
+    background-color: var(--oc-button-focus-bg-color);
+    border-color: var(--oc-button-focus-border-color);
+    border-radius: var(--oc-button-border-radius); // otherwise pseudo button links inherit from link
+  }
+}
+
+%button-primary {
+  color: var(--oc-button-primary-text-color);
+  border-color: var(--oc-button-primary-border-color);
+  background-color: var(--oc-button-primary-bg-color);
+}
+
+// Danger/alert buttons (potentially destructive function).
+%button-danger {
+  color: var(--oc-button-danger-text-color);
+  border-color: var(--oc-button-danger-border-color);
+  background-color: var(--oc-button-danger-bg-color);
+
+  &:focus,
+  &:not([disabled]):hover {
+    color: var(--oc-color-text-inverted);
+    border-color: var(--oc-button-danger-border-color);
+    background-color: var(--oc-button-danger-border-color);
+  }
+}
+
+%button-small {
+  --oc-button-padding: var(--oc-button-padding-s);
+  margin-block-end: 0;
+  font-size: var(--oc-font-size-s);
+  font-weight: var(--oc-font-weight-medium);
+  border-width: .09375rem;
+}
+
+%button-active {
+  color: var(--oc-button-active-text-color);
+  border-color: var(--oc-button-active-border-color);
+  background-color: var(--oc-button-active-bg-color);
+
+  &:focus,
+  &:hover {
+    color: var(--oc-button-focus-text-color);
+    border-color: var(--oc-button-focus-border-color);
+    background-color: var(--oc-button-focus-bg-color);
+  }
+}
+
+// ---
+// Tag styles
+
+%tag {
+  display: inline-block;
+  margin: 0 1em 1em 0;
+  padding: var(--oc-tag-padding);
+  hyphens: auto;
+  text-align: center;
+  background-color: var(--oc-tag-bg-color);
+  border-width: var(--oc-tag-border-width);
+  border-style: var(--oc-tag-border-style);
+  border-color: var(--oc-tag-border-color);
+  border-radius: var(--oc-tag-border-radius);
+  color: var(--oc-tag-text-color);
+  line-height: 1;
+  font-size: var(--oc-font-size-tag-default);
+  text-transform: var(--oc-tag-text-transform);
+  letter-spacing: var(--oc-tag-letter-spacing);
+}
+
+%tag-link {
+  background-color: var(--oc-tag-link-bg-color);
+  border-color: var(--oc-tag-link-border-color);
+  color: var(--oc-tag-link-text-color);
+  text-decoration: none;
+  box-shadow: var(--oc-tag-box-shadow);
+
+  &:focus,
+  &:hover {
+    background-color: var(--oc-tag-link-focus-bg-color);
+    border-color: var(--oc-tag-link-focus-border-color);
+    color: var(--oc-tag-link-focus-text-color);
+    text-decoration: var(--oc-underline);
+    border-radius: var(--oc-tag-border-radius);
+  }
+
+  // caveat: does not work well with active elements that shift focus
+  &:active {
+    background-color: var(--oc-tag-link-active-bg-color);
+    border-color: var(--oc-tag-link-active-border-color);
+    color: var(--oc-tag-link-active-text-color);
+  }
+}

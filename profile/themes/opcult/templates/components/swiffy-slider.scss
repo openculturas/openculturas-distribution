@@ -1,0 +1,215 @@
+// ---------------------------------------
+// Swiffy slider slideshows (gallery, sponsors, teasers)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Inherit OC variables
+
+.swiffy-slider {
+  --swiffy-slider-item-gap: var(--oc-gutter);
+  --swiffy-slider-nav-dark: var(--oc-color-interaction);
+}
+
+.slider-item-reveal {
+  --swiffy-slider-item-reveal: var(--oc-column-width); // optionally set to 0
+}
+
+// Modify config presets via variables
+
+.swiffy-slider {
+  --swiffy-slider-nav-outside-size: 0; // (default: 3.5rem but we position nav buttons absolute)
+  --swiffy-slider-indicator-outside-size: 1.75rem; // (default: 1.5rem)
+}
+
+
+// Do not inherit those generic styles
+.swiffy-slider {
+  button,
+  ul,
+  li {
+    margin: 0;
+  }
+}
+
+.swiffy-slider.slider-indicators-outside {
+  padding-block-end: var(--swiffy-slider-indicator-outside-size); // sw default
+  margin-block-end: var(--swiffy-slider-indicator-outside-size); // amend absolute positioning of buttons
+}
+
+// Container margin + backgrounds
+
+.swiffy-slider {
+  padding-block: var(--oc-row-gap);
+  //background-color: var(--oc-color-bg-hardly-any-contrast); // only set for specific sliders
+}
+
+.sponsors .swiffy-slider {
+  background-color: transparent;
+}
+
+// Adjust vertical alignment
+
+.swiffy-slider li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block-end: var(--oc-row-gap);
+}
+
+.swiffy-slider article.teaser {
+  margin-block: calc(.5 * var(--oc-card-margin-block));
+  margin-inline: calc(.5 * var(--oc-card-margin-inline));
+}
+
+// Default reveal setting
+
+.swiffy-slider li:not(.slide-visible) {
+  opacity: .5;
+}
+
+// Visual styles
+
+.slider-nav-dark .slider-nav,
+.slider-indicators-dark .slider-indicators > button:hover {
+  filter: unset; // no shadow effect
+  -webkit-filter: none;
+  opacity: 1;
+}
+
+button.slider-nav {
+  border: var(--oc-button-border-width) var(--oc-button-border-style) var(--oc-button-border-color);
+
+  &:focus,
+  &:hover {
+    background-color: var(--oc-button-focus-bg-color);
+    border-color: var(--oc-button-focus-border-color);
+
+    &::after {
+      background-color: var(--oc-button-focus-text-color);
+    }
+  }
+}
+
+.slider-nav {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-left-light");
+}
+
+.slider-nav-next {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-right-light");
+}
+
+.slider-nav::after {
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 75%;
+}
+
+.slider-indicators-dark .slider-indicators > * {
+  background-color: var(--oc-button-text-color);
+  filter: invert(0);
+
+  &:focus,
+  &:hover {
+    opacity: 1;
+    background-color: var(--oc-button-text-color); // button focus text color would remain white on white with last click
+  }
+}
+
+.slider-indicators-dark .slider-indicators button.active {
+  cursor: default;
+
+  &:focus,
+  &:hover {
+    border-color: transparent;
+    background-color: var(--oc-button-text-color);
+  }
+}
+
+// Override slider-nav-outside config: Position nav elements below
+
+.swiffy-slider.slider-indicators-outside button.slider-nav {
+  position: relative;
+  display: inline-flex;
+  padding: 0;
+  margin-block: 0;
+  margin-inline: 0 1rem;
+  border-radius: 50%;
+  inset-block-start: calc(0.5 * var(--oc-icon-button-size));
+}
+
+.swiffy-slider.slider-nav-autohide.slider-item-first-visible .slider-nav:not(.slider-nav-next),
+.swiffy-slider.slider-nav-autohide.slider-item-last-visible .slider-nav.slider-nav-next {
+  visibility: initial;
+  opacity: .5;
+}
+
+.slider-nav::before,
+.slider-nav::after {
+  inline-size: var(--oc-icon-button-size);
+  block-size: var(--oc-icon-button-size);
+}
+
+.slider-indicators {
+  inset-block-end: var(--swiffy-slider-indicator-outside-size);
+  margin-inline: 6rem; // make space for buttons
+}
+
+.slider-indicators-outside {
+  margin-block-end: calc(-1 * var(--swiffy-slider-indicator-outside-size)); // amend indicators positioning
+}
+
+// ---
+// Hide buttons when less than max elements
+// Note: media queries according to swiffy breakpoints
+// Note: it is not possible to define a placeholder across media queries
+
+.swiffy-slider {
+  &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(3))) {
+    padding-block-end: 0;
+    .slider-indicators,
+    .slider-nav {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 32rem) {
+  .swiffy-slider {
+    --swiffy-slider-item-count: 1;
+
+    &:not(:has(.slider-container > li:nth-child(2))),
+    &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(2))),
+    &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(3))) {
+      padding-block-end: 0;
+      margin-block-end: 0;
+      .slider-indicators,
+      .slider-nav {
+        display: none;
+      }
+
+      li {
+        padding-block-end: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 32.001rem) {
+  .swiffy-slider:not(:has(.slider-container > li:nth-child(2))),
+  .slider-item-show2:not(:has(.slider-container > li:nth-child(3))),
+  .slider-item-show3:not(:has(.slider-container > li:nth-child(4))),
+  .slider-item-show4:not(:has(.slider-container > li:nth-child(5))) {
+    padding-block-end: 0;
+    margin-block-end: 0;
+    .slider-indicators,
+    .slider-nav {
+      display: none;
+    }
+
+    li {
+      padding-block-end: 0;
+    }
+  }
+}
+

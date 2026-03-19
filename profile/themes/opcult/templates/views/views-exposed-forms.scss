@@ -1,0 +1,250 @@
+// ---------------------------------------
+// Views filters (exposed forms)
+// ---
+// Make sure to use appropriate template
+// (difference between filter above + collapsible filter)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// Form buttons
+// related: base/_icons-ext.scss
+
+.views-exposed-form input[name="reset"] {
+  @extend %button;
+}
+
+.form-actions {
+  button,
+  input[type="submit"] {
+    margin-block-end: 0;
+  }
+}
+
+// ---
+// Views exposed forms, secondary options
+
+.views-exposed-form {
+  summary {
+    align-items: center;
+  }
+
+  .summary {
+    padding: 0;
+  }
+
+  .details-title,
+  details.form-wrapper .details-title {
+    @extend %label;
+    text-align: end;
+    margin: 0;
+    color: var(--oc-color-interaction);
+  }
+}
+
+// @todo Refactoring, see block--openculturas-map.html.twig
+summary span.summary + span.summary {
+  display: none;
+}
+
+details.form-wrapper {
+  margin-inline: 0;
+}
+
+// ---
+// Collapsible filter (based on details markup)
+// Related: block/block--openculturas-map.scss, base/_details.scss
+
+.filter-collapsible {
+  position: absolute;
+  inset-block-start: 0; // "top"
+  inset-inline-end: 0;
+  margin-block: 0.5rem 0;
+  margin-inline: 0;
+  padding: 0;
+  inline-size: 2rem;
+  min-block-size: 3rem;
+  block-size: fit-content;
+  transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  z-index: +3;
+  background: var(--oc-color-bg-form);
+  border: 0 none;
+  box-shadow: var(--oc-box-shadow-left);
+
+  & > summary {
+    @extend %label;
+    color: var(--oc-color-interaction);
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-start;
+    align-items: center;
+    block-size: fit-content;
+    white-space: nowrap;
+    padding-block: 0;
+    padding-inline: 0;
+    margin: 0;
+    //margin-bottom: -3rem; // ...but do not push form too far down
+    text-orientation: sideways;
+    writing-mode: sideways-rl;
+    transform: translateX(-.25rem);
+    @include icon(sliders);
+    --oc-font-size-icon: var(--oc-font-size-icon-m);
+
+    .summary {
+      transform: rotate(90deg);
+      transform-origin: center center;
+      padding: 0;
+      margin: 0;
+    }
+
+    &:focus,
+    &:hover {
+      background: var(--oc-color-interaction);
+      color: var(--oc-color-text-inverted);
+    }
+  }
+
+  .filter-label {
+    display: block;
+  }
+
+  &[open] {
+    inline-size: 20rem;
+    min-inline-size: 20rem;
+    max-inline-size: 90%;
+    padding: 0;
+
+    > summary .summary {
+      transform: rotate(-90deg) translatex(.25em);
+    }
+
+    &:has(.bef--secondary[open]) {
+      inline-size: auto;
+    }
+
+    @include breakpoint(m) {
+      inline-size: 32rem; // German buttons still side by side
+
+      &:has(.bef--secondary[open]) {
+        inline-size: 53rem;
+      }
+    }
+
+    & > summary {
+      block-size: auto;
+      justify-content: flex-end;
+      text-orientation: initial;
+      writing-mode: initial;
+      z-index: +1;
+
+      &::before {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}
+
+// Move map to top of container
+.view:has(.filter-collapsible) .attachment-before {
+  .view {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .view-content {
+    order: -1;
+  }
+}
+
+.openculturas-map--filter-form {
+  position: relative;
+}
+
+.filter-collapsible form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  margin: 0;
+  padding-block-start: 0; // summary already gives visual padding
+  background: transparent; // parent element already has form bg
+}
+
+.filter-collapsible {
+  .bef--secondary {
+    inline-size: 100%;
+  }
+
+  .js-form-item-field-category-target-id,
+  .js-form-item-field-sub-type-target-id,
+  .form-item-organizer,
+  .form-item-location {
+    flex-basis: calc(50% - 0.5rem/2);
+  }
+
+  .form-item {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  .form-item-items-per-page {
+    flex-grow: unset;
+    flex-shrink: unset;
+  }
+
+  select {
+    inline-size: 100%;
+  }
+
+  input[size='30'] {
+    @include breakpoint(l) {
+      max-inline-size: unset;
+    }
+  }
+  .ss-main {
+    inline-size: 100%;
+  }
+
+  div[class*="form-item-date"] {
+    flex-basis: 10rem;
+  }
+}
+
+
+
+
+
+// ---
+// Place secondary filter toggle in line
+
+//.views-exposed-form:has([data-drupal-selector="edit-secondary"]) {
+//  --oc-exposed-filter-width: 20rem;
+//  padding-inline-end: 12rem;
+//}
+//
+//.views-exposed-form:not([data-drupal-selector*="oc-map"]),
+//.views-exposed-form:not(:has(> .filter-collapsible)) {
+//  .bef--secondary {
+//    position: absolute;
+//    inset-block-start: 2.85rem; // @todo Check w/ different variables
+//    inset-inline-end: 0;
+//    border-width: 0 0 .125rem;
+//    margin-block: 0 1rem;
+//    padding-block: 0;
+//    inline-size: auto;
+//
+//    &[open] {
+//      z-index: +1;
+//      inline-size: fit-content;
+//      max-inline-size: var(--oc-exposed-filter-width);
+//      background-color: var(--oc-color-bg-form);
+//      box-shadow: var(--oc-box-shadow-down);
+//    }
+//
+//    .details-wrapper {
+//      padding-block-start: 0;
+//      padding-inline: var(--oc-gutter);
+//    }
+//  }
+//}

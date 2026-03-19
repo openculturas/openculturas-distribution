@@ -1,0 +1,45 @@
+// ---------------------------------------
+// Basic toggle styles
+// Typical toggles are the menu burger button and
+// the icon buttons in the header, opening popovers
+// ---
+// Related: based/popovers.scss (popover anchors)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+header.header {
+  --oc-button-border-color: transparent;
+}
+
+.header__utilities button[class*="trigger"]:not(.focusable) {
+  @extend %icon-button;
+}
+
+// ---
+// Burger button, opens/closes the off-canvas menu
+
+.header__burger {
+  align-self: start;
+  justify-self: end;
+  //min-inline-size: calc(var(--grid-column-width) - var(--grid-gutter);
+}
+
+.header__burger--buttons {
+  @extend %icon-button;
+  --oc-font-size-icon: var(--oc-font-size-icon-l);
+  text-indent: 0;
+  border-radius: 0;
+  @include icon(list);
+
+  &.burger--close {
+    //inherits global close icon
+  }
+
+  &::before,
+  &.burger--close::before {
+    transform: unset;
+    margin-inline: 0;
+  }
+}
+

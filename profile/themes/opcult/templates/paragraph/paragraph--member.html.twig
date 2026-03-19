@@ -1,0 +1,22 @@
+{% extends 'paragraph.html.twig' %}
+
+{% block paragraph %}
+  {% if member_is_published or user_has_edit_access %}
+  <article{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </article>
+  {% else %}
+    <div class="paragraph--type--member">
+      <div class="field profile-teaser view-mode-embedded-teaser node--workflow-pending unpublished-placeholder">
+        <div class="profile--picture placeholder">
+        </div>
+        <div class="profile--content">
+          <h3 class="teaser--title">N. N.</h3>
+          {{ content.field_member_function }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock paragraph %}

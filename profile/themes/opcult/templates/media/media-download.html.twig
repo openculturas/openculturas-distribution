@@ -1,0 +1,20 @@
+<div {{ attributes.addClass('file--download') }}>
+  {% apply spaceless %}
+    <span class="file--link">
+      {{ link }}
+    </span>
+    <span class="meta">
+      (<span class="meta--mime">
+        {{- mimetype -}}
+      </span>,
+      {% if inlanguage %}
+        <span class="meta--lang">
+          {{- inlanguage -}}
+        </span>,
+      {% endif %}
+      <span class="meta--size">
+        {{- filesize -}}
+      </span>)
+    </span>
+  {% endapply %}
+</div>

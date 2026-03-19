@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * (FAQ) mock read-more link in synopsis view mode
+ * Related: ../node/node--synopsis.html.twig
+ *
+ * Variable url is provided via opcult_preprocess_field().
+ */
+#}
+
+{% block field %}
+  {%
+    set classes = [
+    'field--name-' ~ field_name|clean_class,
+    'paragraphs-more-link',
+    'synopsis-more-link'
+  ]
+  %}
+{% if url is not empty %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block items %}
+      {% if items|first %}
+        <a href="{{ url }}">{{ 'Read complete answer'|t }}</a>
+      {% endif %}
+    {% endblock items %}
+  </div>
+{% endif %}
+{% endblock field %}
+

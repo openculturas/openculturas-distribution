@@ -1,0 +1,29 @@
+// ---------------------------------------
+// Custom properties
+// ---
+// Wrap custom properties %placeholders in selectors for front-end
+// ---------------------------------------
+
+@use "../abstracts" as *;
+
+:root {
+  @extend %cc-colors-base;
+  @extend %cc-colors-ext;
+  @extend %cc-typography;
+  @extend %cc-buttons;
+  @extend %cc-icons;
+  @extend %cc-forms;
+  @extend %cc-dialogs;
+}
+
+:root.dark  {
+  @extend %cc-colors-base-dark;
+  @extend %cc-colors-ext-dark;
+}
+
+body {
+  @extend %cc-effects;
+  @extend %cc-layout;
+  @extend %cc-layout-computed;
+  @extend %cc-teasers;
+}

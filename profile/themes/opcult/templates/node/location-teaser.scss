@@ -1,0 +1,23 @@
+// ---------------------------------------
+// Location teasers (several view modes)
+// ---
+// Related: _profile-teaser.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Re-using profile's picture placeholders, therefore we set the icon url manually
+.location-teaser {
+  .profile--picture::before {
+    --icon-url: url("../sprite/oc-sprite.svg#map-pin-light"); // alternative: map-pin-area
+    border-radius: var(--oc-location-image-border-radius);
+  }
+
+  .profile--picture:has(.media) {
+    background-color: transparent;
+
+    &::before {
+      opacity: 0;
+    }
+  }
+}

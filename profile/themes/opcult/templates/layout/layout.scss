@@ -1,0 +1,114 @@
+// ---------------------------------------
+// Basic (generic) page layout
+// ---
+// Related: base/_layout.scss (variables)
+// header.scss, hero-layouts.scss, footer.scss,
+// layout-regions.scss (scroll/overflow)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// Layout basics
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  @media screen and (prefers-reduced-motion: reduce) {
+    & {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+body {
+  background-color: var(--oc-color-neutral-canvas);
+  margin: 0 auto;
+  padding-block-start: var(--oc-page-margin-top);
+  padding-block-end: var(--oc-page-margin-bottom);
+  padding-inline: 0;
+  scrollbar-color: var(--oc-scrollbar-color);
+}
+
+.layout-container,
+footer.oc-base-section {
+  inline-size: var(--oc-page-width);
+  margin: 0 auto;
+}
+
+// ---
+// Preprocess-provided header image duplicated as background
+
+.layout-background {
+  @include breakpoint(m) {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position-x: center;
+    background-position-y: 0;
+    background-size: cover; //alternative: contain;
+    background-blend-mode: multiply;
+    position: fixed;
+    inline-size: 100vw;
+    block-size: 100vh; //alternative: calc(100vw / 2); // aspect ratio of header image style
+
+    &::after {
+      content: '';
+      display: block;
+      inline-size: 100vw;
+      block-size: 100vh; //alternative: calc(100vw / 2);
+      background-color: var(--oc-color-bg-page-layout);
+      backdrop-filter: blur(20px);
+    }
+  }
+}
+
+// ---
+// Now to the page content layout
+
+// Set a minimum height for all system + content pages
+main {
+  min-block-size: 55vh;
+}
+
+// common class for all top-level wrappers
+.oc-base-section {
+  inline-size: var(--oc-page-width);
+  margin: 0 auto;
+  background-color: var(--oc-color-bg-light);
+  padding-inline: var(--oc-page-padding-inline);
+}
+
+.is-empty.section {
+  display: none;
+}
+
+footer.oc-base-section {
+  padding: 0;
+}
+
+.footer--container {
+  padding-inline: var(--oc-page-padding-inline);
+}
+
+// ---
+// Generic elements defining the layout character
+
+h2.block--title,
+.intro-inline:has(h2) {
+  margin-block-start: calc(.5 * var(--oc-section-spacing));
+}
+
+.main__content {
+  padding-block-end: var(--oc-section-spacing);
+}
+
+// ---
+// Flags in layouts
+// See: flag/flag.scss
+

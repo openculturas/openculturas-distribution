@@ -1,0 +1,206 @@
+// ---------------------------------------
+// Flag links/buttons
+// ---
+// Related: _icons-ext.scss, _popovers.scss
+// Inventory:
+//   .flag-bookmark-node,
+//   .flag-bookmark-term,
+//   .flag-recommendation-node,
+//   .flag-report-abuse,
+//   .flag-claim-ownership
+//   + corresponding unflag buttons
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// Icons: see base/_icons-ext.scss
+
+// Generic flag buttons
+
+.flag {
+  position: relative;
+}
+
+a.flag--link,
+.flag--button {
+  @extend %button-small;
+  margin: 1.5rem 1rem 0rem 0; // keep aligned w/ share toggle margin (see block/block--socialmedialinks.scss)
+}
+
+.flag .flag--button.disabled {
+  opacity: .5;
+}
+
+// ---
+// Not-logged-in fallback
+
+a.flag--link {
+  @extend %button;
+  display: inline-block;
+  color: var(--oc-color-interaction);
+}
+
+// ---
+// Flag messages
+
+.js-flag-message {
+  background-color: var(--oc-color-bg-success);
+  border-color: var(--oc-color-success);
+  font-size: var(--oc-font-size-s);
+  display: block;
+  margin: 0;
+  padding: .5rem 1rem;
+  position: absolute;
+  inset-inline-start: 3rem;
+  text-align: end;
+  inset-block-start: -.5rem;
+  white-space: nowrap;
+  z-index: +1;
+}
+
+.js-flag-message {
+  //transform:translateX(calc(-100% - var(--oc-gutter));
+}
+
+.action-flag {
+  // warn user upon removing a bookmark.
+  .js-flag-message {
+    background-color: var(--oc-color-bg-warning);
+    border-color: var(--oc-color-warning);
+  }
+}
+
+// ---
+// Processing indicator
+
+.flag .ajax-spinner {
+  background-color: var(--oc-color-bg-info);
+  color: var(--oc-color-info);
+  position: absolute;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  display: flex;
+  place-content: center;
+  border-radius: var(--oc-button-border-radius);
+  inline-size: 8rem;
+  overflow: visible;
+  transition: opacity 3s linear;
+  font-size: var(--font-size-s);
+
+   &:before {
+    margin-inline-end: .75rem;
+    color: inherit;
+  }
+}
+
+// ---
+// More prominent bookmark icon button
+// (overriding specificity from _icons-ext.scss)
+
+.flag-bookmark-node,
+.flag-bookmark-term,
+.flag-bookmark-node.action-unflag,
+.flag-bookmark-term.action-unflag {
+  .flag--link,
+  .flag--button {
+    @extend %icon-only;
+    @extend %icon-large;
+    margin: 0;
+    border-style: var(--oc-button-border-style);
+    border-width: var(--oc-button-border-width);
+    border-color: var(--oc-button-border-color);
+
+    &:focus,
+    &:hover {
+      @extend %icon-only;
+      @extend %icon-large;
+    }
+  }
+
+  &.action-unflag .flag--button {
+    @extend %button-active;
+  }
+}
+
+// Bookmark flag icon in header intro region (special block)
+
+.region-header-intro {
+  .block-openculturas-custom-bookmark-flag-icon {
+    position: absolute;
+    inset-block-start: auto;
+    inset-inline-start: auto;
+    inset-block-end: -3.5rem;
+    inset-inline-end: 1rem;
+    z-index: +1;
+
+    @include breakpoint(l) {
+      inset-inline-end: 4.25rem;
+      inset-block-end: -4.5rem;
+    }
+  }
+
+  .js-flag-message,
+  .flag .ajax-spinner {
+    transform: translateX(calc(-100% - 2rem));
+  }
+}
+
+// ---
+// Layout builder: interaction elements
+
+.block-layout-builder:has(.flag),
+.flag,
+.block-layout-builder:has(.share-buttons),
+.share-buttons,
+.extra-field-social-media-buttons {
+  position: relative;
+  inline-size: auto;
+  display: inline-block;
+}
+
+// ---
+// Layout builder: bookmark flag (in title section)
+
+.block-layout-builder {
+  &:has(.flag.flag-bookmark-node),
+  &:has(.flag.flag-bookmark-term) {
+    position: absolute;
+    inline-size: auto;
+    inset-block-start: calc(.5 * var(--oc-font-size-xxl)); // relative to h1 size
+    inset-inline-end: .5rem;
+    z-index: +1;
+  }
+}
+
+
+// ---
+// Compact flag styling in bookmarks view
+// see views/views.scss
+
+.bookmarks .flag {
+  .flag--button {
+    &:before {
+    }
+
+    &:focus,
+    &:hover {
+    }
+
+    &:focus::before,
+    &:hover::before {
+
+    }
+  }
+  &.action-unflag {
+    .flag--button {
+      &:focus::before,
+      &:hover::before {
+        background-color: var(--oc-color-bg-danger);
+        border-color: var(--oc-color-danger);
+      }
+    }
+  }
+}

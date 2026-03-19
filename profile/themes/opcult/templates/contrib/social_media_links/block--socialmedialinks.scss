@@ -1,0 +1,45 @@
+// ---------------------------------------
+// Social media links block
+// Used to edit site's social media accounts
+// ---
+// contrib/block--socialmedialinks.*, shariff
+// Related:
+// - field/social-media-links-platforms.scss
+// - base/_icons-ext.scss
+// - base/popovers.scss (popover anchor)
+// ---------------------------------------
+
+@use "../../../sass/abstracts" as *;
+
+.share-toggle--popover-button {
+  @extend %button-small;
+  margin: 1.5rem 1rem 0rem 0; // keep aligned w/ flag button margin (see flag/flag.scss)
+}
+
+.popover-content .shariff-col-3 {
+  display: flex;
+  gap: 1rem;
+  margin-inline: 1rem;
+
+  a {
+    @extend %icon-link;
+    color: var(--oc-color-link);
+    font-size: var(--oc-font-size-icon-m);
+
+    span::before {
+      margin-inline: 0.125em; // does not work with default icon margin
+    }
+  }
+}
+
+// Block in off-canvas menu
+
+.block-social-media-links-block {
+  ul.social-platforms {
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: var(--oc-row-gap) var(--oc-gutter);
+  }
+}

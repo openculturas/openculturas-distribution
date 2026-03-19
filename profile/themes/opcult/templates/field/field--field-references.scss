@@ -1,0 +1,20 @@
+// ---------------------------------------
+// Field references: "Mentioned in this article"
+// ---
+// Related: abstracts/_utility-grids.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Headline in same row (wider breakpoints)
+
+.intro-inline > .field--name-field-references {
+  grid-column: 2 / -1;
+  grid-template-columns: 1fr;
+
+  > .field__items {
+    @extend %grid;
+    @extend %grid-3;
+    //@extend %grid-headline-inline;
+  }
+}

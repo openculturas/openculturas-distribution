@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Theme override for page titles.
+ *
+ * Available variables:
+ * - title_attributes: HTML attributes for the page title element.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * Original template: modules/openculturas_custom/templates/page-title-custom.html.twig
+ * Override to render only allowed html tags in subtitle
+ * @todo Strip <p> from subtitle (but preserve allowed html)
+ */
+#}
+{{ title_prefix }}
+<header>
+{% if title %}
+  {% if profile_image %}
+    <div class="page-title-wrapper custom-page-title--with-image">
+  {% else %}
+    <div class="page-title-wrapper custom-page-title">
+  {% endif %}
+    {{ profile_image }}
+    <div class="headlines-wrapper">
+      {% if sub_type and sub_type.0 %}
+        <div class="sub-type field__label">{{ sub_type.0 }}</div>
+      {% endif %}
+      <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
+      {%~ if subtitle.0|render|striptags|trim is not empty ~%}
+        <h2 class="page-subtitle">{{ subtitle.0|render|check_markup('minimal_html') }}</h2>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+</header>
+{{ title_suffix }}
+

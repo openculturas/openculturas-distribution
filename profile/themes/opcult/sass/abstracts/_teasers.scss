@@ -1,0 +1,79 @@
+// ---------------------------------------
+// Teaser styles
+// Some dimensions are not available on root level, hence: body
+// ---
+// Related: _effects.scss
+// ---------------------------------------
+
+%cc-teasers {
+  // Teaser cards
+  --oc-card-margin-block: calc(.5 * var(--oc-row-gap)); // vertical margin (not to confuse with grid gap)
+  --oc-card-margin-inline: var(--oc-column-padding); // horizontal margin
+  --oc-card-padding-block: 1rem; // vertical padding
+  --oc-card-padding-inline: 2rem; // horizontal padding
+  --oc-card-background: var(--oc-color-bg-light); // or "transparent" or "var(--oc-color-bg-hardly-any-contrast)"
+  --oc-card-box-shadow: var(--oc-box-shadow-centered); // or "0 none"
+  --oc-card-border-default: .125rem solid var(--oc-color-interaction);
+  --oc-card-border: var(--oc-card-border-default); // or "0 none", overridden by oc-card-border-width
+  --oc-card-border-inline: .125rem; // only one value!
+  --oc-card-border-block: .125rem; // only one value!
+  --oc-card-border-width: var(--oc-card-border-block) var(--oc-card-border-inline); // 1 to 4 values, keep in sync with above
+  --oc-card-border-radius: 0; // 2rem
+  --oc-card-height-equalizer: calc(100% - var(--oc-card-padding-block)); // stretch to equal height in views? ("auto" = no)
+
+  // Profile teaser cards
+  --oc-profile-card-margin-block: 0 0;
+  --oc-profile-card-margin-inline: var(--oc-column-padding);
+  --oc-profile-card-padding-block: 1rem;
+  --oc-profile-card-padding-inline: 1rem;
+  --oc-profile-card-background: var(--oc-color-bg-light);
+  --oc-profile-card-box-shadow: 0 none; // or "var(--oc-box-shadow-centered)"
+  --oc-profile-card-border: var(--oc-card-border-default);
+  --oc-profile-card-border-width: 0; // var(--oc-card-border-block) var(--oc-card-border-inline)
+  --oc-profile-card-border-radius: 0; // 1rem
+
+  // Teaser image fallback
+  --oc-image-fallback-color: var(--oc-color-primary);
+  --oc-image-fallback-image: url("../images/teaser-image-fallback.svg");
+  --oc-teaser-bg-scale: 350%;
+  --oc-teaser-bg-pos-x: 30%;
+  --oc-teaser-bg-pos-y: 20%;
+}
+
+// Teaser image fallback placeholders
+
+%teaser-image-fallback {
+  background-color: var(--oc-color-primary-darker);
+  background-image: var(--oc-image-fallback-image);
+  background-repeat: no-repeat;
+  background-size: var(--oc-teaser-bg-scale);
+  background-position: var(--oc-teaser-bg-pos-y) var(--oc-teaser-bg-pos-x);
+  opacity: 1;
+}
+
+%teaser-image-fallback-randomized {
+  &:nth-child(2n+1) .no-image {
+    --oc-teaser-bg-pos-x: 10%;
+    --oc-teaser-bg-scale: 180%;
+  }
+  &:nth-child(4n+1) .no-image {
+    --oc-teaser-bg-pos-x: 20%;
+  }
+  &:nth-child(3n+1) .no-image {
+    --oc-teaser-bg-pos-y: 20%;
+    --oc-teaser-bg-scale: 240%;
+  }
+  &:nth-child(3n+3) .no-image {
+    --oc-teaser-bg-pos-y: 40%;
+  }
+  &:nth-child(4n+4) .no-image {
+    --oc-teaser-bg-scale: 300%;
+  }
+  &:nth-child(5n+4) .no-image {
+    --oc-teaser-bg-scale: 200%;
+    --oc-teaser-bg-pos-y: 90%;
+  }
+  &:nth-child(5n+2) .no-image {
+    --oc-teaser-bg-pos-x: -20%;
+  }
+}

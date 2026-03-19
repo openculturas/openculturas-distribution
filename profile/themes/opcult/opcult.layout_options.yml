@@ -1,0 +1,92 @@
+# This should be in the root directory of your module or theme.
+# The settings here only apply if the layouts are using the
+# \Drupal\layout_options\Plugin\Layout\LayoutOptions layout plugin.
+
+#
+# This section defines the options that are available to configure layouts
+#
+layout_option_definitions:
+  #
+  # This defines an id attribute option using the layout_options_id plugin.
+  #
+  layout_id:
+    title: 'ID'
+    description: 'CSS identifier'
+    attribute: id
+    default: ''
+    plugin: layout_options_id
+    layout: true
+    regions: false
+
+  #
+  # This defines a background color option using classes.
+  # Rendered as a select list by using the layout_options_class_select plugin.
+  #
+  layout_bg_color:
+    title: Background
+    description: 'Optional background color or gradient'
+    attribute: class
+    default: ''
+    plugin: layout_options_class_select
+    multi: false
+    options: {
+      oc-bg--muted: 'Muted background',
+      oc-bg--vivid: 'Vivid background'
+    }
+    layout: true
+    regions: false
+
+  #
+  # This defines a freeform set of space separated classes.
+  # Presents as a text field using layout_options_class_string plugin
+  #
+  layout_custom_classes:
+    title: 'Custom classes'
+    description: 'Any custom classes to use with this layout item.'
+    default: ''
+    plugin: layout_options_class_string
+    layout: true
+    regions: true
+
+#
+# This section of the yaml file defines the "rules" used to determine which options are shown.
+# It can also be used to override the settings defined in the definition area.
+#
+layout_options:
+  global:
+    # Always show the layout_id option.
+    layout_id: { }
+
+    # Always show the background color option.
+    layout_bg_color: { }
+
+    # Always show the custom classes option.
+    layout_custom_classes: { }
+
+      #
+      # This is a layout specific option.
+      # Only applies if the layout id is layout--twocol-section.
+      #
+      #layout--twocol-section:
+      #
+      # Only allow bg color option on main layout area and not in the regions.
+      #
+      #layout_bg_color:
+    #regions: true
+    #layout: true
+
+  #
+  # This is a field specific option set. It only applies to the field_header field.
+  #
+  # NOTE:
+  #
+  # This applies only for layouts managed by the Entity Reference Layout module
+  #
+  field_header:
+    # Disable a global option
+    layout_id:
+      regions: true
+      layout: false
+
+    # Add the custom classes option
+    layout_custom_classes: {}

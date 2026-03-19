@@ -1,0 +1,78 @@
+// ---------------------------------------
+// Basic menu styles
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Gin navigation fix
+
+.toolbar-button {
+  display: flex !important;
+}
+
+.admin-toolbar__expand-button {
+  --oc-button-border-radius: 50%;
+  padding: revert;
+}
+
+// Generic menu links
+
+nav,
+.menu,
+.links {
+  a {
+    @extend %link-menu;
+  }
+}
+
+.menu,
+.links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+
+  li {
+    margin-block: 0;
+  }
+}
+
+.menu {
+  margin-inline-end: var(--oc-gutter);
+}
+
+.menu--header-highlights .menu {
+  flex-flow: row wrap;
+}
+
+ul.menu  ul {
+  margin-inline-start: var(--oc-gutter);
+}
+
+// ---
+// Main menu in header, visible in wider viewports ("highlights")
+
+.header__highlights-menu {
+  display: none;
+  max-inline-size: 100%;
+
+  @include breakpoint(m) {
+    display: block;
+  }
+
+  @include breakpoint(l) {
+    margin-block: 1rem 0;
+  }
+
+  .menu {
+    gap: 1rem 2rem;
+  }
+
+  a {
+    color: var(--oc-color-link);
+    border-bottom-color: var(--oc-color-text);
+    padding-block: .5em;
+  }
+}
+

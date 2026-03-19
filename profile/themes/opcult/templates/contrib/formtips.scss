@@ -1,0 +1,54 @@
+// ---------------------------------------
+// Form tips
+// move default help text in front-end to popover
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.formtip {
+  color: var(--oc-color-text-inverted);
+  border: .125rem solid var(--oc-color-info);
+  background-color: var(--oc-color-info);
+
+  &::before {
+    color: var(--oc-color-text-inverted);
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    border-color: var(--oc-color-info);
+    background-color: var(--oc-color-text-inverted);
+
+    &::before {
+      color: var(--oc-color-info);
+    }
+  }
+}
+
+.formtips-processed {
+  padding: 1.25rem;
+  border-radius: var(--oc-border-radius-tiny);
+
+  &::before {
+    border: 6px solid transparent; // larger invisible touch area
+    border-block-end-color: var(--oc-color-info);
+  }
+
+  a {
+    text-decoration: var(--oc-underline);
+    color: var(--oc-color-text-inverted);
+  }
+}
+
+// overriding formtips css
+
+.formtips-processed ul.tips,
+div.description.formtips-processed,
+.formtips-processed.filter-guidelines,
+.form-item .description.formtips-processed,
+.form-item__description.formtips-processed {
+  background-color: var(--oc-color-info);
+  color: var(--oc-color-text-inverted);
+  border: .125rem solid var(--oc-color-info);
+}

@@ -1,0 +1,233 @@
+// ---------------------------------------
+// Page header region + generic elements in header
+// including sub-regions, branding elements (logo, site-name + slogan)
+// ---
+// Related: navigation/menu.scss, toggles.scss, off-canvas.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.header-wrapper,
+.header__offcanvas-menu--heading {
+  --oc-padding-header-start: .5rem;
+  --oc-padding-header-end: 2rem;
+
+  display: grid;
+  grid-template-areas:
+    "utilities utilities burger"
+    "branding highlights highlights";
+  grid-template-columns: 4fr 5fr 3fr;
+  grid-template-rows: auto;
+  margin-block-start: 0;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  padding-block-end: var(--oc-padding-header-end);
+
+  @include breakpoint(m) {
+    grid-template-areas:
+      "branding utilities burger"
+      "highlights highlights highlights";
+    grid-template-columns: 3fr 7fr 2fr;
+  }
+
+  @include breakpoint(l) {
+    grid-template-areas:
+      "branding utilities burger"
+      "branding highlights .";
+    grid-row-gap: 0;
+  }
+}
+
+.header__offcanvas-menu--heading {
+  grid-template-areas:
+    "branding utilities burger";
+
+  @include breakpoint(m) {
+    grid-template-areas:
+      "branding utilities burger";
+  }
+
+  @include breakpoint(l) {
+    grid-template-areas:
+      "branding utilities burger";
+  }
+}
+
+.header__branding {
+  grid-area: branding;
+  align-self: end;
+
+  @include breakpoint(m) {
+    grid-row: 1;
+  }
+
+  @include breakpoint(l) {
+    //grid-row: 1 / span 2;
+  }
+}
+
+.header__burger {
+  grid-area: burger;
+  position: relative;
+  padding-block-start: var(--oc-padding-header-start);
+}
+
+.header__utilities {
+  grid-area: utilities;
+  justify-self: end;
+  padding-block-start: var(--oc-padding-header-start);
+}
+
+.header__highlights-menu {
+  grid-area: highlights;
+
+  @include breakpoint(m) {
+    margin-block-start: var(--oc-row-gap);
+  }
+}
+
+.region-utilities-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.header__branding {
+  min-inline-size: 8rem;
+  padding-block-start: 1rem;
+  padding-block-end: 0.75rem;
+
+  img, figure, svg {
+    block-size: auto;
+    inline-size: 8rem;
+    max-inline-size: 8rem;
+  }
+
+  @include breakpoint(l) {
+    padding-block-start: 0;
+  }
+}
+
+.site-logo {
+  display: inline-block;
+  outline-offset: .25rem;
+  padding: 0;
+  //margin-block-start: 1rem;
+  border-width: 0;
+
+  &:focus,
+  &:hover {
+    background-color: var(--oc-color-bg-light);
+    // inherits further styling from linked images
+  }
+
+  @include breakpoint(m) {
+    margin-block-start: 1rem;
+  }
+}
+
+// Hide the site name
+
+.site-name {
+  display: none;
+  //display: inline-block;
+  //position: relative;
+  //inset-block-start: .25rem;
+  //inset-inline-start: var(--oc-gutter);
+  //font-size: var(--oc-font-size-xl);
+}
+
+.site-slogan {
+  inset-block-start: 1rem;
+}
+
+// ---
+// Offcanvas menu dialog
+// Burger button: see navigation/header-toggles.scss
+
+.offcanvas_dialog {
+  background: transparent;
+  border: 0 none;
+  padding: 0;
+
+  // backdrop only works with popover attribute in <dialog>, but then takes full viewport width
+  &::backdrop {
+    @extend %backdrop;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .dialog-wrapper {
+    //transition: 1s var(--oc-transition-duration) all var(--oc-transition-timing-function) allow-discrete;
+    //border-radius: 0 0 0 50%;
+    //inline-size: 0;
+    animation-name: fade-in;
+    animation-duration: var(--oc-transition-duration);
+  }
+}
+
+.offcanvas_dialog {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  margin-block: 0;
+  isolation: isolate;
+  z-index: +2;
+  margin: 0 auto;
+
+  .dialog-wrapper {
+    //block-size: auto;
+    inline-size: var(--oc-page-width);
+    margin-inline-start: var(--drupal-displace-offset-left);
+    padding-inline: 0;
+    border-radius: 0;
+    background-color: var(--oc-color-bg-light);
+    box-shadow: var(--oc-box-shadow-down);
+
+    @include breakpoint(m) {
+      padding-inline: var(--oc-page-padding-inline);
+    }
+  }
+}
+
+.header__offcanvas-menu--content {
+  padding: var(--oc-row-gap) var(--oc-gutter) var(--oc-section-spacing);
+}
+
+.region-offcanvas-menu {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  gap: var(--oc-row-gap) 0;
+
+  .block {
+    flex: 1 1 auto;
+    //border-block-end: var(--oc-divider-dark);
+    //
+    //@include breakpoint(s) {
+    //  border-block-end-color: transparent;
+    //}
+  }
+
+  .block:has(.views-exposed-form) {
+    flex: 3 0 auto;
+  }
+
+  .views-exposed-form {
+    padding: 0;
+  }
+
+  form {
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 1rem; // align with menu links
+    background-color: transparent;
+  }
+}

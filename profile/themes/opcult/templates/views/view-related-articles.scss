@@ -1,0 +1,25 @@
+// ---------------------------------------
+// Magazine (articles) views
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Article teaser grid
+
+.magazine {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-3;
+
+    // More compact grid on category pages
+    .vocabulary-category & {
+      @extend %grid-4;
+    }
+  }
+}
+
+// ---
+// Header + more link in grid cell:
+// see views--intro-inline.scss
+

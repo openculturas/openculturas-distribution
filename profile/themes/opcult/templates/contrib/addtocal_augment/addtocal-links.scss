@@ -1,0 +1,24 @@
+// ---------------------------------------
+// Add to calendar (addtocal) function
+// Related: base/popovers.scss (popover anchor)
+// ---------------------------------------
+
+@use "../../../sass/abstracts" as *;
+
+dialog.add-to-calendar {
+  &::backdrop {
+    @extend %backdrop;
+  }
+}
+
+.addtocal-toggle--wrapper {
+  margin-block: 1rem;
+}
+
+.addtocal-toggle--wrapper .addtocal-toggle--trigger {
+  @extend %button-small;
+  @include icon(calendar-check);
+  // Icon-only button: add .button-popover-trigger button class in template, uncomment following lines
+  //@extend %icon-button;
+  //border-color: transparent;
+}

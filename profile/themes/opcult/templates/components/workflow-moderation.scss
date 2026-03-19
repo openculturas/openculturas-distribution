@@ -1,0 +1,243 @@
+// ---------------------------------------
+// Moderation-related: Published status, workflow form + states
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Dedicated layout section
+
+.moderation--section.layout-oc2col-section {
+  margin-block-end: var(--oc-row-gap);
+  gap: 0;
+  flex-flow: column;
+
+  > .section--first,
+  > .section--second {
+    flex: 1 1 auto;
+  }
+
+  .content-moderation-info {
+    .label {
+      white-space: nowrap;
+    }
+  }
+
+  .content-moderation-entity-moderation-form {
+    margin-block-end: 0;
+  }
+
+  form  {
+    margin-block-end: 0;
+  }
+}
+
+.path-node .moderation--section:not(:has(.entity-moderation-form)) {
+  .section--first {
+    inline-size: 0;
+    flex-basis: unset;
+  }
+
+  .section--last {
+    inline-size: 100%
+  }
+}
+
+//.date--moderation.layout-oc2col-section {
+//  > .section--second {
+//    @include breakpoint(m) {
+//      flex-basis: 40%;
+//    }
+//  }
+//}
+
+// ---
+// Unpublished nodes highlighting
+
+.entity--unpublished {
+  background-color: var(--oc-color-bg-warning);
+  outline: .125rem dashed var(--oc-color-danger);
+  outline-offset: .125rem;
+
+  &.view-mode-full {
+    background-color: transparent;
+    outline-offset: .5rem;
+    outline-width: .1875rem;
+  }
+}
+
+.entity--unpublished::before {
+  content: "Unpublished";
+  display: block;
+  position: absolute;
+  z-index: +1;
+  inline-size: auto;
+  text-align: center;
+  font-size: var(--oc-font-size-s);
+  padding: .25em 1em;
+  color: var(--oc-color-danger);
+  background-color: var(--oc-color-bg-danger);
+
+  html[lang="de"] & {
+    content: "Unveröffentlicht";
+  }
+
+  .block-system-main-block > & {
+    display: block;
+    position: relative;
+    font-weight: var(--oc-font-weight-bold);
+    font-size: var(--oc-font-size-m);
+    padding: var(--oc-row-gap) var(--oc-gutter);
+    color: var(--oc-color-danger);
+    background-color: var(--oc-color-bg-danger);
+
+  }
+}
+
+.teaser.entity--unpublished {
+  @include icon(warning,fill,after);
+
+  &::after {
+    --oc-font-size-icon: var(--oc-font-size-icon-l);
+    color: var(--oc-color-warning-dark);
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    z-index: +2;
+  }
+}
+
+// ---
+// Unpublished embedded entities with pending workflow (e.g. members paragraph)
+
+.node--workflow-pending::before {
+  display: block;
+  inline-size: auto;
+  position: absolute;
+  z-index: +1;
+  content: "Review pending";
+  background-color: var(--oc-color-bg-warning);
+  color: var(--oc-color-warning-dark);
+
+  html[lang="de"] & {
+    content: "Freigabe ausstehend";
+  }
+}
+
+.profile-teaser {
+  .entity--unpublished,
+  .node--workflow-pending {
+    &::before {
+      font-size: var(--oc-font-size-xs);
+      padding: 1em 2em;
+    }
+  }
+}
+
+.profile-teaser.view-mode-embedded-teaser {
+  .entity--unpublished,
+  .node--workflow-pending {
+    &::before {
+      position: absolute;
+      z-index: +1;
+      inline-size: 100%;
+      inset-block-start: 1em;
+      opacity: .8;
+    }
+  }
+}
+
+.entity--unpublished.view-mode-compact {
+  margin-block-start: .25em;
+
+  &::before {
+    font-size: var(--font-size-s);
+    position: absolute;
+    inset-block-start: -.25em;
+    inset-inline-end: 0;
+    z-index: +1;
+    padding: 0 .25rem;
+  }
+
+  &::after {
+    inset-inline-start: -.5rem;
+    inset-block-start: -.5rem;
+  }
+}
+
+// ---
+// Workflow moderation form
+
+.content-moderation-entity-moderation-form {
+  margin-block: 0 var(--oc-section-spacing);
+  padding-inline: 2.5rem;
+  padding-block: var(--oc-row-gap);
+  background-color: var(--oc-color-bg-warning);
+}
+
+.entity-moderation-form__item:has(.form-item-current) {
+  font-size: var(--oc-font-size-l);
+}
+
+.entity-moderation-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  background-color: transparent;
+
+  li {
+    margin: 0;
+  }
+
+  .form-item {
+    margin-block: 0;
+    padding-block: 0;
+  }
+
+  .form-item label {
+    @extend %label;
+    padding-inline-start: 0;
+    margin: 0;
+  }
+
+  input,
+  input[type="submit"] {
+    margin: 0;
+  }
+}
+
+// ---
+// OC moderation states block
+
+.block-views-blockoc-er-mod-states-block-states-info {
+  margin-block: 0;
+  padding-block: var(--oc-row-gap);
+  padding-inline: 2.5rem;
+  background: var(--oc-color-bg-info);
+  color: var(--oc-color-info);
+}
+
+.referenced-states-info .description {
+  margin-block-start: 1em;
+}
+
+.block-extra-field-blocknodedatecontent-moderation-control + .block-views-blockoc-er-mod-states-block-states-info {
+  margin-block-start: calc(-1 * var(--oc-section-spacing) + .25rem);
+}
+
+// ---
+// Moderation form + states block
+
+.content-moderation-entity-moderation-form,
+.block-views-blockoc-er-mod-states-block-states-info {
+  @extend %page-padding-outdent;
+
+  @include breakpoint(s) {
+    margin-inline: 0;
+  }
+}
+
+

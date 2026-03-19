@@ -1,0 +1,24 @@
+// ---------------------------------------
+// Generic field referencing profiles
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.field--name-field-people-reference > .field__items {
+  @extend %grid;
+  @extend %grid-6;
+}
+
+.layout-oc2col-section .field--name-field-people-reference > .field__items {
+  @extend %grid-4;
+
+  @include breakpoint(s) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 4;
+  }
+}

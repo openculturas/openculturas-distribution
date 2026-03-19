@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Theme override to display a custom teaser.
+ * Source: modules/custom/openculturas_teaser/templates/teaser.html.twig
+ *
+ * OpenCulturas classes: 'teaser-image-linked' or 'teaser-fully-linked'
+ * See ../js/openculturas-base.js
+ *
+ */
+#}
+{% set popoverId = (attributes.id ? attributes.id ~ '-popover--quick-info-cur') ?: 'popover--quick-info-cur'|clean_unique_id %}
+{% set anchorName = '--' ~ popoverId ~ '--trigger' %}
+{% if description %}
+<!--suppress CssInvalidFunction -->
+<style>
+@supports (anchor-name: {{ anchorName }} ) {
+  #{{ anchorName }} {
+    anchor-name: {{ anchorName }};
+  }
+  #{{ popoverId }} {
+    position-anchor: {{ anchorName }};
+    top: anchor(bottom);
+    right: anchor(right);
+  }
+}
+</style>
+{% endif %}
+<div {{ attributes }}>
+  {% apply spaceless %}
+    <article class="teaser teaser-curated teaser-unified teaser-fully-linked clearfix">
+      {% if media %}
+        <div class="teaser--top">
+          <div class="field--name-field-mood-image">
+            {{- media -}}
+          </div>
+        </div>
+      {% else %}
+        <div class="teaser--top no-image">
+        </div>
+      {% endif %}
+      <div class="teaser--body">
+        {{ title_prefix }}
+        <div class="oc-teaser--title">
+          <h3 class="teaser--title">
+            <a href="{{ url }}" rel="bookmark">
+              {{ title }}
+            </a>
+          </h3>
+        </div>
+        {{ title_suffix }}
+        {% if subtitle %}
+          <div class="oc-teaser--subtitle field--name-field-subtitle">
+            {{- subtitle -}}
+          </div>
+        {% endif %}
+
+        {% if description %}
+          <div class="responsive-hide">
+            {{- description -}}
+          </div>
+
+          <div class="quick-info quick-info-toggle--wrapper popover-wrapper responsive-reveal">
+            <button id="{{ anchorName }}" class="quick-info--toggle" popovertarget="{{ popoverId }}">{{ 'Quick info'|t }}</button>
+            <div id="{{ popoverId }}" class="popover-content quick-info--popover-content dialog-wrapper" popover>
+              <div class="dialog-titlebar">
+                <span class="dialog-title">{{ 'Quick info'|t }}</span>
+                <button popovertarget="{{ popoverId }}" popovertargetaction="hide" class="close">{{ 'Close'|t }}</button>
+              </div>
+              <div class="dialog-content">
+                {{- description -}}
+                <p class="more-link"><a href="{{ url }}">{{ title }}</a></p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </article>
+  {% endapply %}
+</div>
+

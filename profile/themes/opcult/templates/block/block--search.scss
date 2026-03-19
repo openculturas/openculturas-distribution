@@ -1,0 +1,84 @@
+// ---------------------------------------
+// Search toggle + popover
+// Popover anchor: see popovers.scss
+// @todo: rewrite input.form-submit to button
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// @todo does currently not work, see _icons-ext.scss, #1369
+.block-views-exposed-filter-blocksearch-search-page .form-submit,
+.block-views-exposed-filter-blocksearch-search-input .form-submit {
+  @include icon(magnifying-glass);
+}
+
+// unset unintended inheritance from .views-exposed-form
+#block-search-toggle {
+  margin-block: 0;
+  padding-block: 0;
+}
+
+.search-toggle--wrapper {
+  .button-popover-trigger {
+    @include icon(magnifying-glass);
+  }
+}
+
+// Do not delete this, it is needed for the popover to work.
+.search-toggle--popover-content {
+  min-inline-size: 22rem;
+  inline-size: 90%;
+  max-inline-size: 40rem;
+  inset: 0 0;
+  margin: 7.5rem auto auto;
+  padding: .5rem 1rem;
+
+  form {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem 1rem;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 1rem .5rem;
+
+    @include breakpoint(m) {
+      flex-flow: row;
+      justify-content: space-around;
+      align-items: flex-end;
+      margin-inline: 2rem;
+    }
+  }
+
+  .form-text {
+    inline-size: 100%;
+    max-inline-size: unset;
+  }
+
+  .form-item,
+  .form-actions {
+    align-self: unset;
+    justify-self: unset;
+    margin: 0 !important;
+  }
+
+  .form-item {
+    @include breakpoint(m) {
+      flex-basis: calc(100% - 6rem);
+    }
+  }
+
+  .form-actions {
+    display: block !important;
+    align-self: unset;
+
+    @include breakpoint(m) {
+      display: flex !important;
+      flex-basis: 5rem;
+    }
+  }
+
+  &::backdrop {
+    @extend %backdrop;
+  }
+}
+

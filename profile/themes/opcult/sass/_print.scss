@@ -1,0 +1,250 @@
+// ---------------------------------------
+// Print CSS adjustments
+// ---
+// Overrides for printed media / reader mode
+// Some comments are deliberately rendered to support advancing this file
+// ---------------------------------------
+
+@media print {
+  :root {
+    font-size: 11pt
+  }
+
+  body {
+    --oc-page-margin-sides: 0;
+    --oc-page-padding-inline: 0;
+    --oc-section-spacing: 2rem;
+    --gin-toolbar-x-offset: 0;
+    --gin-toolbar-y-offset: 0;
+
+    padding-block-start: 0 !important;
+    color: #000;
+
+    font-size: 11pt;
+  }
+
+  // Make sure that display settings do not confine layout to 1 printable page
+  .layout-container {
+    display: block;
+  }
+
+  .block-system-branding-block * {
+    margin: 0;
+  }
+
+  // Underline all links.
+  a,
+  a:link,
+  a:visited {
+    text-decoration: underline !important;
+    border-color: transparent !important;
+  }
+
+  main {
+    // Add visible URL after links.
+    //a[href]:after {
+    //  content: " (" attr(href) ")" !important;
+    //  color: #444 !important;
+    //  font-size: .825rem;
+    //}
+
+    // Add visible title after abbreviations.
+    //abbr[title]:after {
+    //  content: " (" attr(title) ")";
+    //}
+  }
+
+  /* Turn off any background colors or images. */
+  header,
+  body,
+  #main-content {
+    color: #000;
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+
+  /* Hide sidebars and nav elements. */
+  .skip-link,
+  #toolbar-administration,
+  #block-opcult-cookiesui,
+  .region-utilities-links,
+  .header__burger,
+  .toolbar,
+  .menu,
+  footer.oc-base-section,
+  .interact,
+  .interact-item,
+  .share-buttons,
+  .flag,
+  //iframe,
+  .trigger,
+  //.breadcrumb,
+  .tabs,
+  //.pager,
+  .feed-icons,
+  .view-header .button {
+    display: none;
+    visibility: hidden;
+  }
+
+  /* Page break guidelines */
+  .text-formatted,
+  .block-field-blocknodearticlebody,
+  .field--type-entity-reference,
+  .view  {
+    break-inside: auto;
+  }
+
+  p,
+  figure {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  .site-logo img {
+    margin: 0 0 1rem;
+    padding: 0;
+  }
+
+  h1,
+  .h1 {
+    font-size: 2em;
+  }
+
+  h2,
+  .h2 {
+    font-size: 1.5em;
+  }
+
+  h3,
+  .h3 {
+    font-size: 1.25em;
+  }
+
+  h2,
+  h3,
+  h4 {
+    clear: both;
+  }
+
+  #header-wrapper {
+    padding: 0;
+  }
+
+  #hero-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+
+    .section {
+      flex-basis: 100%;
+    }
+  }
+
+  .page-title-wrapper {
+    align-items: flex-start;
+  }
+
+  .headlines-wrapper {
+    text-align: start;
+  }
+
+  .oc_hero_layout_4 {
+
+    #hero-wrapper {
+      display: grid;
+    }
+
+    .section--title {
+      grid-column: 1 / span 5;
+      grid-row: 1;
+    }
+
+    .section--mood {
+      grid-column: 6 / -1;
+      grid-row: 1 / span 2;
+    }
+
+    .section--essentials {
+      grid-column: 1 / span 5;
+      grid-row: 2;
+    }
+  }
+
+  .attribution-toggle {
+    position: relative;
+    inset: unset;
+
+    button {
+      display: none;
+    }
+  }
+
+  .attribution-toggle--popover-content {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 transparent;
+    padding: 0 1rem;
+    background-color: transparent;
+  }
+
+  .reference--taxonomy_term > a {
+    border: 1px solid #444;
+    margin-block-end: 0;
+  }
+
+  figure img {
+    max-inline-size: 10cm;
+    float: left;
+    margin-inline-end: 2rem;
+    margin-block-end: 1rem;
+  }
+
+  .field--name-field-caption {
+    margin-block-start: .5rem;
+    font-style: italic;
+  }
+
+  .teaser img {
+    inline-size: 100%;
+  }
+
+  .media--type-sponsor img {
+    max-inline-size: 3cm;
+  }
+
+  // Normalize grids to 2-col
+
+  .terms:not(.compact) .view-content,
+  .calendar.view-related-dates-archive .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .calendar.view-related-dates-archive .views-infinite-scroll-content-wrapper,
+  .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view .views-infinite-scroll-content-wrapper,
+  .field--name-field-recommendations > .field__items, .intro-inline .view,
+  .layout-oc2col-section .field--name-field-people-reference > .field__items, .field--name-field-references {
+    --oc-grid-item-count: 2;
+  }
+
+  .teaser-unified {
+    --oc-card-margin-inline: 0;
+    --oc-card-margin-block: 0;
+  }
+
+  .teaser--footer {
+    .profile--picture {
+      display: none;
+    }
+    .field--name-field-author .profile--content {
+      display: inline;
+    }
+  }
+
+  .quick-info {
+    display: none;
+  }
+
+} // end print
+

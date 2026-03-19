@@ -1,0 +1,26 @@
+// =======================================
+// Master OpenCulturas Next CSS file index
+// Compile all styles in opcult.css
+// =======================================
+
+// Abstracts
+@use 'abstracts/index' as abstracts;
+
+// Base styles
+@use 'base/index' as base;
+
+// Template- or component-related SCSS files
+@use "templates";
+
+// Load all possible icons
+//@use "../sprite/symbol/sprite";
+
+// Miscellaneous
+@use "print";
+
+// Dark theme overrides
+@use "sass:meta";
+html.dark {
+  @include meta.load-css("dark-mode");
+}
+

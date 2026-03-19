@@ -1,0 +1,110 @@
+// ---------------------------------------
+// User dashboard including dedicated views
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// Profile finder
+
+// Extend form background
+.view-display-id-block_profile_search {
+  background-color: var(--oc-color-bg-form);
+  padding: var(--oc-row-gap) var(--oc-gutter);
+  margin-block-end: var(--oc-section-spacing);
+
+  form {
+    margin: 0;
+  }
+
+  .views-row:not(:last-child) {
+    border-block-end: var(--oc-divider-light);
+  }
+}
+
+.filter--results .view-mode-compact {
+  padding-block-end: 0;
+}
+
+.filter--results h3 {
+  font-size: var(--oc-font-size-default);
+}
+
+.views-field-field-allow-claiming {
+  font-size: var(--oc-font-size-s);
+  font-weight: var(--oc-font-weight-bold);
+  color: var(--oc-color-success);
+  background-color: var(--oc-color-bg-success);
+  text-align: center;
+
+  @include breakpoint(m) {
+    display: inline-block;
+    position: absolute;
+    inset-block-start: -.5rem;
+    inset-inline-start: calc(1.25 * var(--oc-profile-image-size-s)); // indent because of profile image
+  }
+}
+
+// ---
+// My profiles, Bookmarks: side by side
+
+.field--name-field-my-profiles > .field__items,
+.field--name-field-my-bookmarks-view-ref > .field__items {
+  @extend %grid;
+  @extend %grid-2;
+}
+
+// ---
+// My content (table)
+
+.view .infobox {
+  display: inline-block;
+  margin-inline-start: 1rem;
+  padding-block: 0.5rem;
+  padding-inline: 2rem 1rem;
+  font-size: var(--oc-font-size-s);
+}
+
+.my-content {
+  td p {
+    display: inline;
+  }
+}
+
+// ---
+// My bookmarks
+
+.bookmarks {
+  tr {
+    flex-flow: row;
+    gap: 0 1rem;
+  }
+
+  td {
+    align-self: start;
+    vertical-align: middle;
+    border-color: transparent;
+  }
+
+  td:first-child {
+    inline-size: var(--oc-font-size-icon-xl);
+  }
+
+  .views-field-rendered-entity .teaser {
+    padding-block: 0;
+  }
+
+  .taxonomy-term--tag {
+    margin: .25rem 0;
+  }
+}
+
+// ---
+// Dashboard load more buttons
+
+.view-my-content,
+.bookmarks {
+  .pager:has([data-drupal-views-infinite-scroll-pager]) {
+    text-align: start;
+  }
+}

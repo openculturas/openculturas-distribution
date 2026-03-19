@@ -1,0 +1,60 @@
+// ---------------------------------------
+// Attribution info toggle + popover aka. copyright info
+// ---
+// Related: block--popover.scss, popovers.scss (anchors)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.attribution {
+  font-size: var(--oc-font-size-s);
+}
+
+figcaption .attribution {
+  font-weight: var(--oc-font-weight-normal);
+}
+
+.attribution-toggle {
+  --oc-font-size-icon: var(--oc-font-size-icon-default);
+  position: absolute;
+  inset-block-start: .5rem;
+  inset-inline-start: .5rem;
+}
+
+.attribution-popover-trigger {
+  @extend %icon-button;
+  @include icon(copyright, fill, before);
+  background-color: var(--oc-color-info);
+  color: var(--oc-color-text-inverted);
+  border-width: .25rem;
+  border-color: transparent;
+  background-clip: padding-box;
+
+  //&::before {
+  //  background-color: var(--oc-color-text-inverted);
+  //}
+
+  &:focus,
+  &:hover {
+    &::before {
+      background-color: var(--oc-color-text-inverted);
+    }
+  }
+}
+
+// Do not delete this, it is needed for the popover to work.
+.attribution-toggle--popover-content {
+  background: var(--oc-color-bg-info);
+  color: var(--oc-color-info);
+  padding: var(--oc-row-gap) var(--oc-gutter);
+
+  a {
+    color: currentColor;
+
+    &:focus,
+    &:hover {
+      color: var(--oc-color-link-focus-text);
+    }
+  }
+
+}

@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation display a layout with a variable number of columns
+ * Columns defined in sub-templates (e. g. layout--oc2col-section.html.twig)
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{% block section %}
+  {% set classes = [
+    'layout',
+    'section-wrapper',
+    layout.id|clean_class,
+  ]
+  %}
+  {% if content %}
+    <div{{ attributes.addClass(classes) }}>
+      {% block section_content %}
+      {% endblock %}
+    </div>
+  {% endif %}
+{% endblock %}

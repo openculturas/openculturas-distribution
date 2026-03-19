@@ -1,0 +1,126 @@
+// ---------------------------------------
+// Facets in Blockgroup (2 contrib modules)
+// ---
+// Related: _details.scss, _icons-ext.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.block-block-groupfacets-group {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 0;
+  background-color: var(--oc-color-bg-form);
+
+  @include breakpoint(m) {
+    grid-auto-flow: column;
+    gap: var(--oc-gutter);
+  }
+}
+
+.block-facets {
+  max-inline-size: 30rem;
+}
+
+summary.facet {
+  --oc-font-size-icon: var(--oc-font-size-icon-m);
+  color: var(--oc-color-interaction);
+  font-weight: var(--oc-font-weight-medium);
+  padding: 1em var(--oc-gutter);
+  border: 1px solid transparent;
+
+  &:focus,
+  &:hover {
+    background-color: var(--oc-color-interaction);
+    color: var(--oc-color-text-inverted);
+  }
+
+  &::after {
+    flex-basis: 2em;
+    justify-self: flex-end;
+    transform: rotate(0deg);
+    transform-origin: center center;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+
+  span {
+    flex: 2 2 auto
+  }
+}
+
+[open] summary.facet::after {
+  transform: rotate(-180deg);
+}
+
+.facet-item a {
+  text-decoration: none;
+  color: var(--oc-color-interaction);
+
+  &:focus,
+  &:hover {
+    background-color: var(--oc-color-interaction);
+    color: var(--oc-color-text-inverted);
+  }
+}
+
+.facet-item__count {
+  color: var(--oc-color-text-muted);
+}
+
+.facets-widget-links {
+  ul.js-facets-widget {
+    margin-block: 1em;
+  }
+
+  &[open] summary {
+    border-color: transparent transparent var(--oc-color-interaction);
+
+    &::before {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+// Show more/less
+
+a.facets-soft-limit-link {
+  @extend %button;
+  @extend %button-small;
+  margin-inline-start: 2.5rem; // adjust to list items above
+}
+
+// Active facets indicators
+
+.facets-widget-links:has(.facet-active) summary::before {
+  background-color: var(--oc-color-danger);
+}
+
+
+.facets-reset {
+  font-weight: var(--oc-font-weight-medium);
+
+  &::marker {
+    color: transparent;
+  }
+}
+
+.facet-item:has(.is-active) {
+  &::marker {
+    color: transparent;
+  }
+}
+
+.facet-item .is-active {
+  margin-inline-start: -1.5em;
+  @include icon(x);
+
+  &::before {
+    background-color: var(--oc-color-danger);
+  }
+}
+
+// hide ugly text construction (-), we have replaced this above
+.js-facet-deactivate {
+  display: none;
+}
+

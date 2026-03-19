@@ -1,0 +1,180 @@
+// ---------------------------------------
+// Profile teasers (several view modes)
+// ---
+// Related:
+// - abstracts/_teasers.scss
+// - field/field--badges.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.profile-teaser {
+  display: flex;
+  gap: calc(var(--oc-profile-image-size) * .25);
+
+  .field--name-field-sub-type,
+  .sub-type {
+    margin-block: 0;
+  }
+
+  .profile--content {
+    align-self: center;
+    inline-size: 100%;
+  }
+}
+
+// Grid required by badge field
+// See field/field--badges.scss
+
+.profile-teaser {
+  .profile--top {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "picture";
+    justify-items: center;
+  }
+
+  .profile--picture {
+    grid-area: picture;
+  }
+}
+
+article.profile-teaser {
+  margin-block: var(--oc-profile-card-margin-block);
+  margin-inline: var(--oc-profile-card-margin-inline);
+  padding-block: var(--oc-profile-card-padding-block);
+  padding-inline: var(--oc-profile-card-padding-inline);
+  border: var(--oc-profile-card-border);
+  border-width: var(--oc-profile-card-border-width);
+  border-radius: var(--oc-profile-card-border-radius);
+  background: var(--oc-profile-card-background);
+  box-shadow: var(--oc-profile-card-box-shadow);
+  //block-size: var(--oc-profile-card-height-equalizer);
+  min-block-size: calc(var(--oc-profile-image-size) + calc(2 * var(--oc-profile-card-padding-block)));
+
+  &.teaser-unified {
+    min-block-size: auto;
+  }
+}
+
+// Container initialization see _layout-builder.scss
+
+@container (width < 20rem) {
+  .profile-teaser.node--view-mode-teaser {
+    flex-flow: column;
+    justify-content: center;
+    gap: 0;
+    text-align: center;
+  }
+
+  .profile--content {
+    padding-block: calc(var(--oc-profile-image-size) * .125) 0;
+    align-self: start;
+    inline-size: auto;
+  }
+}
+
+// ---
+// Profile pictures
+
+.media--type-user-profile-picture {
+  display: inline-block;
+  border-radius: var(--oc-profile-image-border-radius);
+  overflow: hidden;
+
+  img {
+    max-inline-size: var(--oc-profile-image-size);
+    aspect-ratio: 1/1;
+  }
+}
+
+.location--profile-picture .media--type-user-profile-picture {
+  border-radius: var(--oc-location-image-border-radius);
+}
+
+// Placeholder behind profile picture
+
+.profile--picture {
+  @include icon(user-circle);  // alternatives: user-circle-dashed, user-focus
+  block-size: var(--oc-profile-image-size);
+  border-radius: var(--oc-profile-image-border-radius);
+  background-color: var(--oc-color-bg-slight-contrast);
+
+  &::before {
+    display: flex;
+    place-items: center;
+    block-size: 100%;
+    inline-size: var(--oc-profile-image-size);
+    mask-size: 75%;
+    transform: none;
+    background-color: var(--oc-color-bg-light);
+    margin-inline: 0;
+  }
+}
+
+.node--type-location .profile--picture {
+  border-radius: var(--oc-location-image-border-radius);
+
+  &::before {
+    --icon-url: url("../sprite/oc-sprite.svg#map-pin-light");
+  }
+}
+
+.profile--picture .field--name-field-portrait {
+  inset-block-start: calc(var(--oc-profile-image-size) * -1);
+}
+
+// invisible placeholder behind images with transparency
+.profile--picture:has(.media) {
+  background-color: transparent;
+
+  &::before {
+    opacity: 0;
+  }
+}
+
+.profile-teaser.view-mode-compact,
+.profile-author {
+  --oc-profile-image-size: var(--oc-profile-image-size-s);
+
+  .profile--content {
+    //align-self: flex-start;
+    align-self: center;
+  }
+
+  .node__content {
+    display: inline-block;
+  }
+
+  .teaser--title {
+    font-size: var(--oc-font-size-default);
+    padding-block: 0;
+  }
+
+  .field--name-field-subtitle {
+    font-size: var(--oc-font-size-s);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// ---
+// Member paragraph (using view mode embedded teaser)
+// adds another field (field_member_function), therefore we stack the teaser
+
+.field--name-field-people-reference {
+  text-align: center;
+}
+
+.view-mode-embedded-teaser.profile-teaser {
+  flex-flow: column;
+  align-items: center;
+  gap: 0;
+}
+
+.field--name-field-member-function {
+  font-weight: var(--oc-font-weight-medium);
+}

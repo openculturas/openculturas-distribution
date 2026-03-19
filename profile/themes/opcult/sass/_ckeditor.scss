@@ -1,0 +1,48 @@
+// =======================================
+// CKEditor 5 WYSIWYG styles
+// Compiled to dedicated CSS file via ckeditor.scss entry points.
+// All styles are scoped to .ck-content to avoid side-effects on back-end theme.
+// ---
+// Related: _ckeditor.scss
+// =======================================
+
+@use "abstracts" as *;
+@use "sass:meta";
+
+// Front-end styles provided in back-end CKEditor WYSIWYG
+// Introduced with CKEditor 5: all styles must be prefixed with .ck-content
+// to avoid side-effects on back-end theme
+
+.ck-content {
+  @extend %cc-typography;
+  @extend %cc-colors-base;
+  @extend %cc-buttons;
+  @extend %cc-forms;
+  @extend %cc-icons;
+  @include meta.load-css("base/html-tags");
+  @include meta.load-css("base/buttons");
+  @include meta.load-css("base/details");
+  @include meta.load-css("base/tables");
+  @include meta.load-css("base/reusables");
+  @include meta.load-css("base/forms");
+  @include meta.load-css("base/icons-base");
+}
+
+html.dark .ck-content {
+  @extend %cc-colors-base-dark;
+  @include meta.load-css("dark-mode");
+}
+
+// Other adjustments
+
+// Replicate body typography
+.ck.ck-content {
+  font-family: var(--oc-font-family-default);
+  line-height: var(--oc-line-height-default);
+  color: var(--oc-color-text);
+}
+
+.ck-content nav li {
+  margin-inline-end: 2rem;
+  list-style: none;
+}

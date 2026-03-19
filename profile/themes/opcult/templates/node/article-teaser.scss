@@ -1,0 +1,28 @@
+// ---------------------------------------
+// Article teasers
+// Overrides of general teaser style for magazine articles
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Teaser footer
+
+.teaser--footer {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+
+  // hide linked names, only show profile pics
+  .field--name-field-author .profile--content {
+    display: none;
+  }
+
+  .field--name-field-author > .field__items {
+    display: flex;
+    //gap: 1rem 2rem; // when names are not hidden
+    gap: 1rem;
+    align-items: center;
+  }
+}

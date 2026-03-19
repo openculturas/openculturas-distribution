@@ -1,0 +1,190 @@
+// ---------------------------------------
+// Typography variables + placeholders:
+// font sizes, weights, variants + spacings
+// ---
+// Related: base/_html-tags.scss
+// ---------------------------------------
+
+// Custom properties
+
+%cc-typography {
+  // Font families
+  --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
+  --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
+
+  // Font sizes
+  --oc-font-size-xxl: 3rem;
+  --oc-font-size-xl: 2rem;
+  --oc-font-size-l: 1.75rem;
+  --oc-font-size-ml: 1.5rem;
+  --oc-font-size-m: 1.25rem;
+  --oc-font-size-default: 1rem;
+  --oc-font-size-s: .875rem;
+  --oc-font-size-xs: .75rem; // Use sparsely for accessibility reasons
+
+  // Icon font sizes
+  // see: icons.scss
+
+  // Button font sizes
+  --oc-font-size-button-default: 1rem;
+  --oc-font-size-button-s: .875rem;
+  --oc-font-size-tag-default: 1rem;
+
+  // Other font sizes
+  --oc-font-size-autocomplete-list: var(--oc-font-size-s);
+
+  // Line heights
+  --oc-line-height-default: 1.5;
+  --oc-line-height-headings: 1.2;
+
+  // Font weights
+  --oc-font-weight-light: 300;
+  --oc-font-weight-normal: 400;
+  --oc-font-weight-medium: 500;
+  --oc-font-weight-semi-bold: 600;
+  --oc-font-weight-bold: 700;
+  --oc-font-weight-extra-bold: 820;
+  --oc-font-weight-black: 900;
+
+  --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
+  --oc-font-weight-label: var(--oc-font-weight-semi-bold);
+
+  // Misc
+  --oc-underline: underline .0625rem solid var(--oc-underline-color);
+}
+
+// Placeholders
+// --
+// @usage
+//   .custom--sub-headline {
+//     @extend %allcaps;
+//   }
+
+%small {
+  font-size: var(--oc-font-size-s);
+}
+
+%allcaps {
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+%label {
+  @extend %allcaps;
+  margin-block: .5em;
+  margin-inline: 0;
+  font-size: var(--oc-font-size-s);
+  font-weight: var(--oc-font-weight-bold);
+  line-height: 1.4;
+}
+
+%h1 {
+  color: var(--oc-color-text-headline);
+  font-family: var(--oc-font-family-head);
+  font-size: var(--oc-font-size-xxl);
+  line-height: var(--oc-line-height-headings);
+  font-weight: var(--oc-font-weight-bold);
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: .25em;
+  padding-inline: 0;
+  hyphens: none;
+}
+
+%h2 {
+  color: var(--oc-color-text-headline);
+  font-family: var(--oc-font-family-head);
+  font-size: var(--oc-font-size-xl);
+  line-height: var(--oc-line-height-headings);
+  font-weight: var(--oc-font-weight-bold);
+  margin-block: .75em .25em;
+  margin-inline: 0;
+  padding-block: .25em;
+  padding-inline: 0;
+  hyphens: auto;
+}
+
+%h3 {
+  color: var(--oc-color-text-headline);
+  font-family: var(--oc-font-family-head);
+  font-size: var(--oc-font-size-ml);
+  line-height: var(--oc-line-height-headings);
+  font-weight: var(--oc-font-weight-bold);
+  margin-block: .75em .25em;
+  margin-inline: 0;
+  padding-block: .25em;
+  padding-inline: 0;
+  hyphens: auto;
+}
+
+%h4 {
+  color: var(--oc-color-text-headline);
+  font-size: var(--oc-font-size-m);
+  font-weight: var(--oc-font-weight-medium);
+  margin-block: .75em .25em;
+  margin-inline: 0;
+  padding-block: .25em;
+  padding-inline: 0;
+}
+
+%h5 {
+  color: var(--oc-color-text);
+  font-size: var(--oc-font-size-default);
+  font-weight: var(--oc-font-weight-semi-bold);
+  margin-block: .5em .25em;
+  margin-inline: 0;
+  padding-block: .25em;
+  padding-inline: 0;
+}
+
+%h6 {
+  font-size: var(--oc-font-size-default);
+  font-weight: var(--oc-font-weight-light);
+  margin-block: .25em .125em;
+  margin-inline: 0;
+  padding-block: .125em;
+  padding-inline: 0;
+}
+
+%link-default {
+  text-decoration: var(--oc-underline);
+  color: var(--oc-color-link);
+
+  &.is-active {
+    //color: unset;
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--oc-color-link-focus-text);
+    background: var(--oc-color-link-focus-bg);
+    text-decoration: none;
+  }
+
+  &:active {
+    outline: var(--oc-outline-active);
+    outline-offset: var(--oc-outline-active-offset);
+  }
+
+  //.text-formatted & {
+    //text-decoration: none;
+    //border-block-end: 1px solid currentColor;
+  //}
+}
+
+%link-menu {
+  display: block;
+  color: var(--oc-color-menu-link);
+  text-decoration: none;
+  font-weight: var(--oc-font-weight-normal);
+  border-style: solid;
+  border-width: 0 0 1px;
+  border-color: var(--oc-color-menu-link-border);
+  padding: .5rem 1rem;
+
+  &:hover,
+  &:focus {
+    background: var(--oc-color-menu-link-focus-bg);
+    color: var(--oc-color-menu-link-focus-text);
+  }
+}

@@ -1,0 +1,192 @@
+// ---------------------------------------
+// Reusable classes
+// Site-wide utility classes
+// ---------------------------------------
+
+@use "../abstracts/mixins" as *;
+@use "../abstracts/typography" as *;
+
+.tiny,
+.small {
+  @extend %small;
+}
+
+.allcaps {
+  @extend %allcaps;
+}
+
+// Adjust menu block titles (if visible)
+
+.block-menu .block--title {
+  padding-inline: 1rem; // same as menu link padding
+}
+
+
+// WYSIWYG utility classes set in CKEditor
+
+// Blockquote styles
+
+.callout {
+  background-color: var(--oc-color-info);
+  color: var(--oc-color-text-inverted);
+  padding: var(--oc-row-gap) var(--oc-gutter);
+  block-size: auto; // "height"
+  display: inline-flex;
+  // uncomment when using before/after icons
+  //gap: var(--oc-gutter);
+}
+
+blockquote.plain {
+  padding-inline: calc(2 * var(--oc-gutter));
+  background-color: transparent;
+  border-width: 0;
+  font-size: var(--oc-font-size-default);
+  font-weight: unset;
+
+  strong {
+    font-weight: var(--oc-font-weight-bold);
+  }
+}
+
+.quotee {
+  font-size: var(--oc-font-size-default);
+  font-weight: var(--oc-font-weight-semi-bold);
+}
+
+.inset {
+  // Related: in views.scss (.view .infobox)
+  margin-block-end: 1.25rem;
+  padding: 0.5rem 1.25rem 1.25rem;
+  color: var(--oc-color-info);
+  background: var(--oc-color-bg-info);
+
+  > h3,
+  h4 {
+    color: var(--oc-color-info);
+  }
+
+  @include breakpoint(m) {
+    float: inline-end;
+    max-inline-size: 16.25rem;
+    //margin: 0 0 1.25rem 1.25rem;
+    margin-inline-start: 1.25rem;
+    margin-block-end: 1.25rem;
+  }
+}
+
+.text-formatted a.cta,
+.ck-content a.cta {
+  display: inline-block;
+  padding: var(--oc-button-padding-s);
+  border: .125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+}
+
+// ---
+// Invert on inverse-contrast backgrounds
+
+.inverted {
+  background: var(--oc-color-bg-dark);
+  color: var(--oc-color-text-inverted);
+
+  a {
+    color: var(--oc-color-link-inverted);
+  }
+}
+
+.text-formatted h2 {
+  margin-block-start: calc(2 * var(--oc-row-gap));
+}
+
+// Prevent contextual links toggle overlapping icon buttons
+.contextual-region:has(.button-popover-trigger, .attribution-toggle, .flag--link) {
+  .contextual {
+    //inset-inline-end: calc(-1 * var(--oc-icon-button-size));
+    inset-block-start: calc(1 * var(--oc-icon-button-size));
+  }
+}
+// Same for details summary toggle
+.visually-hidden.teaser--title + .contextual {
+  inset-block-start: calc(-.25 * var(--oc-icon-button-size));
+}
+
+// ---
+// On-page menu
+// Related: _icons-base.scss
+
+.anchorlinks {
+  display: flex;
+  flex-flow: row wrap;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+  list-style: none;
+
+  a {
+    // padding: 0 1rem;
+    padding-block: 0;
+    padding-inline: 1rem;
+  }
+}
+
+// Quality assurance helper class
+
+.qa--only {
+  background-color: var(--oc-color-bg-danger);
+}
+
+.qa--only::after {
+  position: absolute;
+  inset-block-start: auto; // "top"
+  inset-inline-end: 0; // "right"
+  inset-block-end: 0; // "bottom"
+  inset-inline-start: auto; // "left"
+  display: block;
+  content: "For QA purposes only";
+  color: var(--oc-color-danger);
+  font-size: 0.5rem;
+}
+
+// ---
+// Size-dependent show/hide
+// Related: node/teaser-unified.scss (Overrides)
+
+// Hide only in small viewports/containers
+.responsive-hide {
+  display: none;
+  @container (width > 32rem) {
+    display: block;
+  }
+}
+
+// Reveal only in small viewports/containers
+.responsive-reveal {
+  @container (width > 32rem) {
+    display: none;
+  }
+}
+
+// Layout builder attribute classes
+
+.space-before {
+  margin-block-start: var(--oc-row-gap);
+}
+
+.space-after {
+  margin-block-end: calc(.5 * var(--oc-section-spacing));
+}
+
+// Scroll layers
+
+.legal-terms-scroll {
+  padding-inline-end: var(--oc-scroll-layer-padding);
+  scrollbar-color: var(--oc-scrollbar-color);
+  box-shadow: var(--oc-box-shadow-inset);
+}
+
+// More-links in synopsis
+// Related: templates/field/field--field-content-paragraphs--view-mode-synopsis.html.twig
+// Renders a complimentary conditional "more link" for paragraphs, here we hide the redundant link
+
+.synopsis-more-link:has(a) + .synopsis-more-link:has(a) {
+  display: none;
+}

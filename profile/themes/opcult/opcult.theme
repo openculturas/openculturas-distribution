@@ -1,0 +1,299 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Functions to support theming in the OpenCulturas Base theme.
+ */
+
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
+use Drupal\Core\Render\Markup;
+use Drupal\address\AddressInterface;
+use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
+use Drupal\image\ImageStyleInterface;
+use Drupal\media\MediaInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function opcult_preprocess_html(array &$variables): void {
+  // Set entity type for adding a class to the body.
+  foreach (\Drupal::routeMatch()->getParameters()->all() as $parameter) {
+    if ($parameter instanceof FieldableEntityInterface) {
+      $variables['entity_type_id'] = $parameter->getEntityTypeId();
+      break;
+    }
+  }
+
+  $variables['custom_favicons'] = !theme_get_setting('favicon.use_default');
+  $hero_layout = theme_get_setting('hero_layout');
+  if ($hero_layout) {
+    $variables['attributes']['class'][] = $hero_layout;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ *
+ * Provides header image to serve as layout background.
+ */
+function opcult_preprocess_page(array &$variables): void {
+  $bg_image = theme_get_setting('background_image.mode') ?? 'mood_image';
+  $mood_image_uri = NULL;
+  if ($bg_image === 'mood_image') {
+    // Check if the current page is a node or a taxonomy term page.
+    /** @var \Drupal\node\NodeInterface|null $entity */
+    $entity = \Drupal::routeMatch()->getParameter('node');
+    if (!$entity instanceof NodeInterface) {
+      /** @var \Drupal\taxonomy\TermInterface|null $entity */
+      $entity = \Drupal::routeMatch()->getParameter('taxonomy_term');
+    }
+
+    if ($entity instanceof ContentEntityInterface && $entity->hasField('field_mood_image')) {
+      $mood_image = $entity->get('field_mood_image')->entity;
+    }
+    else {
+      return;
+    }
+
+    // Get the URL of the image style "header_image" and set it as a variable for page.html.twig.
+    if ($mood_image instanceof MediaInterface) {
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+      $field = $mood_image->get('field_media_image');
+      $references = $field->referencedEntities();
+      if ($references === []) {
+        return;
+      }
+
+      /** @var \Drupal\file\FileInterface $file */
+      $file = reset($references);
+      $mood_image_uri = $file->getFileUri();
+    }
+  }
+  elseif ($bg_image === 'global_image') {
+    $mood_image_uri = theme_get_setting('background_image.path');
+  }
+
+  if (is_string($mood_image_uri)) {
+    /** @var \Drupal\image\ImageStyleStorageInterface $imageStorage */
+    $imageStorage = \Drupal::entityTypeManager()->getStorage('image_style');
+    $mood_image_style = $imageStorage->load('header_image');
+    if (!$mood_image_style instanceof ImageStyleInterface) {
+      return;
+    }
+
+    $mood_image_bg = $mood_image_style->buildUrl($mood_image_uri);
+    $variables['mood_image_bg'] = $mood_image_bg;
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function opcult_preprocess_node(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  // Provide classes based on certain fields.
+  if (($variables["view_mode"] === 'full') && $node->hasField('field_layout_switcher') && !$node->get('field_layout_switcher')->isEmpty()) {
+    $variables['attributes']['class'][] = $node->get('field_layout_switcher')->value;
+  }
+
+  if (($variables["view_mode"] === 'full') && $node->hasField('field_event_status') && !$node->get('field_event_status')
+    ->isEmpty()) {
+    $variables['attributes']['class'][] = $node->get('field_event_status')->value;
+  }
+
+  // View mode full is built by Layout builder.
+  if ($variables["view_mode"] !== 'full' && $node->bundle() === 'date' && $node->hasField('field_event_description') && !$node->get('field_event_description')->isEmpty()) {
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $list */
+    $list = $node->get('field_event_description');
+    $events = $list->referencedEntities();
+    if ($events !== []) {
+      $event = reset($events);
+      if ($event instanceof NodeInterface) {
+        $variables['label'] = $event->label();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field.html.twig.
+ */
+function opcult_preprocess_field(array &$variables): void {
+  // Adds a class depending on referenced entity to links of entity_reference fields.
+  if ($variables['field_type'] === 'entity_reference') {
+    foreach ($variables["items"] as $item) {
+      if (isset($item['content']['#options']['entity_type'], $item['content']['#options']['entity'])) {
+        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"]);
+        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"] . '--' . $item["content"]["#options"]["entity"]->bundle());
+      }
+    }
+  }
+
+  if ($variables['field_name'] === 'field_badges') {
+    foreach ($variables['items'] as $delta => $item) {
+      $item['attributes']->addClass('badge--' . $variables['element']['#items']->get($delta)->value);
+    }
+  }
+
+  if (
+    $variables['field_name'] === 'field_content_paragraphs' &&
+    $variables['element']['#view_mode'] === 'synopsis'
+  ) {
+    // We want to provide a url as a fallback in case the body text for smart trim
+    // is too short, but the entity has content in this field.
+    $variables['url'] = NULL;
+    $fieldableEntity = $variables['element']['#object'];
+    if ($fieldableEntity instanceof FieldableEntityInterface && $fieldableEntity->hasLinkTemplate('canonical')) {
+      /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
+      $entityRepository = \Drupal::service('entity.repository');
+      $translatedEntity = $entityRepository->getTranslationFromContext($fieldableEntity);
+      $variables['url'] = $translatedEntity->toUrl()->toString();
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_taxonomy_term_alter().
+ */
+function opcult_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables): void {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['elements']['#taxonomy_term'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  // Add view mode theme suggestions.
+  $suggestions[] = 'taxonomy_term__' . $sanitized_view_mode;
+  $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for paragraph.html.twig.
+ */
+function opcult_preprocess_paragraph(array &$variables): void {
+  $variables['address_links'] = NULL;
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->bundle() === 'address_data' && \Drupal::hasService('openculturas_address_links.address_service')) {
+    $links = [];
+    if ($paragraph->hasField('field_address_location') && !$paragraph->get('field_address_location')->isEmpty()) {
+      /** @var \Drupal\geofield\Plugin\Field\FieldType\GeofieldItem|null $item */
+      $item = $paragraph->get('field_address_location')->first();
+      if ($item instanceof GeofieldItem) {
+        /** @var \Drupal\openculturas_address_links\AddressService $addressService */
+        $addressService = \Drupal::service('openculturas_address_links.address_service');
+        if ($url = $addressService->buildUrlFromGeofield($item, 'directions')) {
+          $links['directions'] = [
+            '#type' => 'link',
+            '#title' => t('Navigation'),
+            '#url' => $url,
+            '#theme_wrappers' => [
+              'container' => [
+                '#attributes' => ['class' => ['address-navigation']],
+              ],
+            ],
+          ];
+        }
+      }
+    }
+
+    if ($paragraph->hasField('field_address') && !$paragraph->get('field_address')->isEmpty()) {
+      $item = $paragraph->get('field_address')->first();
+      if ($item instanceof AddressInterface) {
+        /** @var \Drupal\openculturas_address_links\AddressService $addressService */
+        $addressService = \Drupal::service('openculturas_address_links.address_service');
+        if ($url = $addressService->buildUrlFromAddress($item, 'public_transport')) {
+          $links['public_transport'] = [
+            '#type' => 'link',
+            '#title' => t('Public transport'),
+            '#url' => $url,
+            '#theme_wrappers' => [
+              'container' => [
+                '#attributes' => ['class' => ['public-transport']],
+              ],
+            ],
+          ];
+        }
+      }
+    }
+
+    if ($links !== []) {
+      $variables['address_links'] = $links;
+    }
+  }
+
+  if ($paragraph->bundle() === 'member' && $paragraph->hasField('field_member') && !$paragraph->get('field_member')->isEmpty()) {
+    /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem|null $entityReferenceItem */
+    $entityReferenceItem = $paragraph->get('field_member')->first();
+    if (!$entityReferenceItem instanceof EntityReferenceItem) {
+      return;
+    }
+
+    $variables['member_is_published'] = FALSE;
+    $variables['user_has_edit_access'] = FALSE;
+    /** @var \Drupal\node\NodeInterface|null $node */
+    $node = $entityReferenceItem->entity ?? NULL;
+    if (!$node instanceof NodeInterface) {
+      return;
+    }
+
+    $variables['member_is_published'] = $node->isPublished();
+    $variables['user_has_edit_access'] = $node->access('edit');
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for field.html.twig.
+ *
+ * Adds the view_mode of the field to the twig template suggestions.
+ */
+function opcult_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
+  // Add view_mode of the element (if available) to each field template suggestion.
+  if (!empty($variables['element']['#view_mode'])) {
+    // Enable reference.
+    foreach ($suggestions as &$suggestion) {
+      // Make suggestion array multidimensional.
+      $suggestion = [
+        $suggestion,
+        // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
+        $suggestion . '__' . 'view_mode_' . $variables['element']['#view_mode'],
+      ];
+      // Disable reference.
+      unset($suggestion);
+    }
+
+    // Flatten suggestions array.
+    $suggestions = array_merge(...$suggestions);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'heading.html.twig'.
+ */
+function opcult_preprocess_heading(array &$variables): void {
+  if (!empty($variables['text'])) {
+    $variables['text'] = Markup::create(Xss::filter($variables['text'], ['span', 'abbr', 'em']));
+  }
+}
+
+/**
+ * Implements hook_preprocess_image_widget().
+ */
+function opcult_preprocess_image_widget(array &$variables): void {
+  $data = &$variables['data'];
+
+  // This prevents image widget templates from rendering preview container HTML
+  // to users that do not have permission to access these previews.
+  // @todo revisit in https://drupal.org/node/953034
+  // @todo revisit in https://drupal.org/node/3114318
+  if (isset($data['preview']['#access']) && $data['preview']['#access'] === FALSE) {
+    unset($data['preview']);
+  }
+}

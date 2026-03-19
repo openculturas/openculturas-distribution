@@ -1,0 +1,27 @@
+// =======================================
+// Maintenance page layout
+// =======================================
+
+@use "../../sass/abstracts" as *;
+
+.maintenance-page {
+  --oc-layout-max-width: 40rem;
+
+  @include breakpoint(m) {
+    --oc-page-margin-sides: 4rem;
+  }
+
+  @include breakpoint(l) {
+    --oc-page-margin-sides: 10rem;
+  }
+}
+
+.maintenance-page .layout-background {
+  @extend %teaser-image-fallback;
+  --oc-teaser-bg-scale: 180%;
+  --oc-page-margin-sides: 5rem;
+
+  &::after {
+    display: none;
+  }
+}

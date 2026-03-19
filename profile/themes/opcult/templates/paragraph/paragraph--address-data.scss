@@ -1,0 +1,71 @@
+// ---------------------------------------
+// Address paragraph (including map)
+// ---
+// Related:
+// - layout/layout-regions.scss
+// - contrib/leaflet-maps.scss
+// - base/icons.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.address-container {
+  background-color: var(--oc-color-bg-dark-translucent);
+  grid-column: 1 / -1;
+  @extend %grid;
+  --oc-grid-item-count: 1; // see layout-regions.scss
+  gap: 0 var(--oc-gutter);
+  grid-template-areas:
+    "address"
+    "map"
+    "links";
+
+  &--address {
+    grid-area: address;
+  }
+  &--links {
+    grid-area: links;
+  }
+  &--map {
+    grid-area: map;
+  }
+
+  @include breakpoint(m) {
+    grid-template-columns: 2fr 4fr;
+
+    grid-template-areas:
+      "address map"
+      "links map";
+  }
+}
+
+.address-container {
+  @extend %page-padding-outdent;
+
+  @include breakpoint(s) {
+    margin-inline: 0;
+  }
+}
+
+.address-container--address {
+  padding-block-start: var(--oc-row-gap);
+  padding-inline-start: var(--oc-gutter);
+}
+
+.address-container--links {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+  justify-content: flex-start;
+  align-self: end;
+  padding-block-end: var(--oc-row-gap);
+  padding-inline-start: var(--oc-gutter);
+}
+
+.address-container--map {
+  padding: var(--oc-row-gap) var(--oc-gutter);
+}
+
+
+
+

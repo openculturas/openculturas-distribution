@@ -1,0 +1,69 @@
+// ---------------------------------------
+// Tabs = editor's menu
+// ---
+// Related: base/_icons-ext.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.tabs {
+  display: inline-flex;
+  flex-flow: row wrap;
+  gap: .5rem 1rem;
+  list-style: none;
+  padding-inline: 0;
+  margin-block-end: var(--oc-section-spacing);
+
+  li {
+    margin: .5rem 0;
+  }
+
+  //li.is-active {
+  //  display: none;
+  //}
+
+  a {
+    color: var(--oc-color-interaction);
+    text-decoration: none;
+    padding: .25em 1em;
+    border-block-end: .0625rem solid var(--oc-color-bg-slight-contrast);
+
+    &.is-active {
+      border-block-end: .125rem solid var(--oc-color-interaction);
+    }
+
+    &:focus,
+    &:hover {
+      color: var(--oc-color-link);
+      background-color: transparent;
+      border-block-end: .125rem solid var(--oc-color-interaction);
+    }
+  }
+}
+
+.tabs.secondary {
+  border-width: 0;
+  background-color: transparent;
+  padding-inline: 0;
+
+  a {
+    box-shadow: none;
+    border: 0 solid currentColor;
+    font-weight: var(--oc-font-weight-semi-bold);
+    color: var(--oc-color-link);
+
+    &.current {
+      background: transparent;
+      border-radius: 0;
+      border-width: 0 0 3px;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: var(--oc-color-interaction);
+      color: var(--oc-color-text-inverted);
+    }
+  }
+}
+
+

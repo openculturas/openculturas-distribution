@@ -1,0 +1,47 @@
+// ---------------------------------------
+// Recommendations and Recommended by
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.field--name-field-recommendations {
+  container-type: inline-size;
+
+  > .field__items {
+    @extend %grid;
+    @extend %grid-4;
+  }
+}
+
+.view-my-recommendations,
+.view-recommended-by {
+  container-type: inline-size;
+
+  &:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .views-infinite-scroll-content-wrapper {
+    display: flex;
+    flex-flow: column;
+
+    //@container (width > 32rem) and width ( < 48rem ) {
+    //  display: grid;
+    //  grid-template-columns: 1fr 1fr;
+    //  gap: var(--oc-row-gap) var(--oc-gutter);
+    //}
+  }
+
+  .pager {
+    text-align: start;
+
+    .button {
+      @extend %button-small;
+    }
+  }
+
+  .view-header h3 {
+    @extend %label;
+  }
+}
+
+
+
+

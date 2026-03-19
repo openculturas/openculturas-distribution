@@ -1,0 +1,411 @@
+// ---------------------------------------
+// Hero (image + title block) variants
+// ---
+// Layout selectable via theme settings, see theme-settings.php
+// Please note: grid-column math with var(--oc-column-count) did not work.
+// Changing the layout column number requires manual adjustments here
+// ---
+// @todo: Check breakpoints in all layouts
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Hero area
+
+.wrapper--content-header {
+  background-color: var(--oc-bg-hero-section);
+}
+
+// Hero image
+
+.section--mood {
+  background: var(--oc-bg-hero-image); // can be color or image
+
+  img {
+    max-inline-size: unset;
+    inline-size: 100%;
+  }
+}
+
+// ---
+// Complex grid as all bundles' first layout builder section
+// layout--oc5col-section
+
+.wrapper--content-header,
+.wrapper--content-main {
+  display: grid;
+  grid-template-columns: repeat(var(--oc-column-count), 1fr);
+  grid-gap: var(--oc-row-gap) var(--oc-gutter);
+}
+
+.wrapper--content-main {
+  padding-block-start: var(--oc-section-spacing);
+}
+
+.section--title,
+.section--mood,
+.section--essentials {
+  grid-column: 1 / -1;
+}
+
+// ---
+// Custom layout: unset grid
+.oc_hero_layout_custom {
+  #hero-wrapper,
+  .wrapper--content-main {
+    display: block;
+  }
+}
+
+// ---
+// Sections basics
+
+.section--essentials {
+  margin-block-start: var(--oc-row-gap);
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+  align-content: space-between;
+  justify-content: flex-start;
+
+  > .block {
+    flex: 1 1 auto;
+  }
+
+  .block-layout-builder > .field {
+    margin: 0; // unset default spacing
+  }
+}
+
+.section--title:has(.flag) .page-title-wrapper {
+  padding-inline-end: var(--oc-font-size-icon-xxl);
+}
+
+// ---
+// Layout 1 (OC legacy): title block inset from below in mood image
+// Layout 2 (Image above title block)
+// Layout 3 (Title block above image)
+
+
+.oc_hero_layout_1,
+.oc_hero_layout_2,
+.oc_hero_layout_3 {
+
+  --oc-bg-hero-section: transparent;
+
+  .section--title {
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    @include breakpoint(m) {
+      grid-column: 2 / -2;
+    }
+
+    @include breakpoint(xl) {
+      grid-column: 3 / -3;
+    }
+
+    @include breakpoint(xxl) {
+      grid-column: 4 / -4;
+    }
+
+    > .block-layout-builder {
+      inline-size: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .section--mood {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .section--essentials {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    align-self: self-end;
+  }
+
+  .page-title-wrapper {
+    padding-block: 1rem;
+    padding-inline: var(--oc-gutter);
+  }
+
+  .media--view-mode-profile-image {
+    border: .125rem solid var(--oc-color-bg-light);
+  }
+}
+
+// ---
+// Layout 1
+
+.oc_hero_layout_1 {
+  --oc-title-inset: calc(-1 * var(--oc-profile-image-size));
+
+  .section--mood {
+    @include breakpoint(l) {
+      grid-row: 1;
+    }
+  }
+
+  .section--title {
+    z-index: +1;
+
+    @include breakpoint(l) {
+      grid-row: 1;
+    }
+  }
+
+  .section--essentials {
+    @include breakpoint(l) {
+      grid-row: 2;
+    }
+  }
+
+  // Sticky page title block
+  .wrapper--content-header:has(.block-field-mood-image) {
+    .page-title-wrapper {
+      inset-block-start: var(--oc-title-inset);
+      margin-block-end: var(--oc-title-inset);
+
+      @include breakpoint(l) {
+        background-color: var(--oc-color-bg-light);
+        margin-block-end: 0;
+      }
+    }
+
+    .section--title {
+      @include breakpoint(l) {
+        --oc-title-inset: 0;
+        position: sticky;
+        block-size: 50%; // optimized for 2:1 mood image ratio
+        overflow-y: auto;
+        overflow-x: hidden;
+        inset-block-start: 35dvh;
+        margin-block-end: calc(-2 * var(--oc-row-gap)); // amend whitespace supercalculated by --oc-title-bottom-stop
+      }
+    }
+  }
+}
+
+.oc_hero_layout_1 {
+  .section--title .page-title-wrapper {
+    @include breakpoint(m) {
+      align-items: center;
+    }
+    @include breakpoint(l) {
+      flex-flow: row;
+      align-items: start;
+    }
+  }
+
+  .headlines-wrapper {
+    @include breakpoint(m) {
+      text-align: center;
+    }
+    @include breakpoint(l) {
+      text-align: start;
+    }
+  }
+}
+
+// ---
+// Layout 2 (Title block below image)
+
+.oc_hero_layout_2 {
+  .wrapper--content-header:has(.block-field-mood-image) {
+    .section--title {
+      @include breakpoint(m) {
+        margin-block-start: calc(-1 * var(--oc-section-spacing));
+        z-index: +1;
+        background-color: var(--oc-color-bg-light);
+      }
+    }
+    .page-title-wrapper:has(.media--view-mode-profile-image) {
+      background-color: transparent;
+
+      @include breakpoint(xl) {
+        background-color: var(--oc-color-bg-light);
+      }
+    }
+  }
+
+  .section--title {
+    margin-inline-start: calc(-1 * var(--oc-gutter)); // out-dent default padding to align with grid
+    .block-layout-builder:has(.flag) {
+      inset-block-start: calc(.75 * var(--oc-font-size-xxl));
+      inset-inline-end: 1rem;
+    }
+  }
+
+  .headlines-wrapper {
+    text-align: start;
+  }
+
+
+  .section--essentials {
+    @include breakpoint(m) {
+      grid-column: 2 / -2;
+    }
+
+    @include breakpoint(xl) {
+      grid-column: 3 / -3;
+    }
+
+    @include breakpoint(xxl) {
+      grid-column: 4 / -4;
+    }
+  }
+
+  .date-main,
+  .date-main--status {
+    flex-basis: 100%;
+  }
+}
+
+// ---
+// Layout 3 (Title block above image)
+
+.oc_hero_layout_3 {
+  .section--title {
+    grid-row: 1;
+  }
+
+  .section--mood {
+    grid-row: 2;
+  }
+
+  .section--title {
+    .block-layout-builder:has(.flag) {
+      inset-block-start: calc(.75 * var(--oc-font-size-xxl));
+      inset-inline-end: 1rem;
+    }
+  }
+}
+
+// ---
+// Layout 4 (Title block side by side with image)
+
+.oc_hero_layout_4 {
+  .wrapper--content-header {
+    margin-block-end: 0;
+  }
+
+  .wrapper--content-header:has(.block-field-mood-image) {
+    //--oc-bg-hero-section: color-mix(in oklab, var(--oc-color-primary) 5%, transparent);
+  }
+
+  .page-title-wrapper {
+    background-color: transparent;
+  }
+
+  @include breakpoint(m) {
+    .section--title {
+      grid-column: 1 / span 5;
+      grid-row: 1;
+    }
+
+    .section--mood {
+      grid-column: 6 / -1;
+      grid-row: 1 / span 2;
+    }
+
+    .section--essentials {
+      grid-column: 1 / span 5;
+      grid-row: 2;
+    }
+  }
+
+  .wrapper--content-header:not(:has(.block-field-mood-image)) {
+    .section--title,
+    .section--essentials {
+      grid-column: 1 / -2;
+    }
+  }
+
+  // fit image to available space
+  .section--mood {
+    @extend %image-fill;
+  }
+
+  // optionally use fallback image
+  //.section--mood:not(:has(.media)) {
+  //  @extend %teaser-image-fallback;
+  //}
+
+  .section--title .page-title-wrapper {
+    @include breakpoint(l) {
+      flex-flow: column;
+    }
+
+    @include breakpoint(xxl) {
+      flex-flow: row wrap;
+    }
+  }
+
+  .section--title {
+    .block-layout-builder:has(.flag) {
+      inline-inline-end: 0;
+    }
+  }
+
+  .page-title-wrapper {
+    padding-inline-start: var(--oc-gutter); // set to 0 with transparent --oc-bg-hero-section
+  }
+
+  .section--essentials {
+    padding-inline-start: var(--oc-gutter); // set to 0 with transparent --oc-bg-hero-section
+    display: flex;
+    flex-flow: column;
+    gap: var(--oc-row-gap);
+    align-content: space-between;
+    //justify-content: space-between;
+  }
+
+}
+
+// ---
+// Content + sidebar .wrapper--content-main for all layout variants
+
+.section--content {
+  grid-column: 1 / -1;
+
+  @include breakpoint(m) {
+    grid-column: 1 / -5;
+  }
+
+  //@include breakpoint(l) {
+  //  grid-column: 1 / -4;
+  //}
+}
+
+.section--aside {
+  grid-column: 1 / -1;
+
+  @include breakpoint(m) {
+    grid-column: -4 / -1;
+  }
+
+  //@include breakpoint(l) {
+  //  grid-column: -3 / -1;
+  //}
+}
+
+// related: block/page-title-custom.scss
+.section--title .page-title-wrapper {
+  @include breakpoint(m) {
+    flex-flow: column;
+  }
+  @include breakpoint(xl) {
+    flex-flow: row;
+  }
+}
+
+// ---
+// Interaction section with only buttons in hero
+
+.section--essentials.interact {
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}

@@ -1,0 +1,46 @@
+{%
+  set classes = [
+  'add-to-calendar',
+  'popover-content',
+  'addtocal-toggle--popover-content',
+  'modal',
+  'dialog-wrapper',
+]
+%}
+{% set popoverId = 'popover--addtocal'|clean_unique_id %}
+{% set anchorName = '--' ~ popoverId ~ '--anchor' %}
+{% if icons %}{% set classes = classes|merge(['icons']) %}{% endif %}
+<div class="addtocal-toggle--wrapper popover--wrapper">
+  {% if icons %}{{ attach_library('addtocal_augment/icons') }}
+    <button type="button" id="{{ popoverId }}--trigger" class="addtocal__label addtocal-toggle--trigger" aria-label="{{ label }}" popovertarget="{{ popoverId }}"></button>
+  {% else %}
+    <button type="button" id="{{ popoverId }}--trigger" class="button addtocal-toggle--trigger" popovertarget="{{ popoverId }}">{{ label }}</button>
+  {% endif %}
+
+  <div{{attributes.addClass(classes)}} id="{{ popoverId }}" data-type="add_to_cal_modal" popover>
+    <div class="dialog-titlebar">
+      <span class="dialog-title">{{ 'Add to calendar'|t }}</span>
+      <button popovertarget="{{ popoverId }}" popovertargetaction="hide" class="close">{{ 'Close'|t }}</button>
+    </div>
+    <div class="dialog-content">
+      <ul class="addtocal-links">
+        <li><a href="{{ google }}" target="_blank" class="addtocal__link addtocal__google" aria-label="{{ 'Google calendar opens in new tab'|t }}">Google</a></li>
+        <li><a href="{{ outlook }}" download="event.ics" class="addtocal__link addtocal__outlook" aria-label="{{ 'Outlook ICS download'|t }}">Outlook</a></li>
+        <li><a href="{{ ical }}" download="event.ics" class="addtocal__link addtocal__ical" aria-label="{{ 'Apple ical download'|t }}">iCal</a></li>
+      </ul>
+    </div>
+    <!--suppress CssInvalidFunction -->
+    <style>
+      @supports (anchor-name: {{ anchorName }}) {
+        #{{ popoverId }}--trigger {
+          anchor-name: {{ anchorName }};
+        }
+        #{{ popoverId }} {
+          position-anchor: {{ anchorName }};
+          top: anchor(bottom);
+          left: anchor(left);
+        }
+      }
+    </style>
+  </div>
+</div>

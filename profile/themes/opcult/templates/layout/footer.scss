@@ -1,0 +1,112 @@
+// ---------------------------------------
+// Page footer region + generic elements in footer
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Layout only
+
+footer.footer {
+  position: relative;
+}
+
+.footer--container,
+.below-footer--container {
+  margin: 0 auto;
+  padding: var(--oc-row-gap) 0;
+}
+
+.footer--container {
+  background-color: var(--oc-color-bg-footer);
+  color: var(--oc-color-text-footer);
+  padding-block: var(--oc-row-gap);
+  padding-inline: 0;
+
+  a {
+    color: var(--oc-color-link-footer);
+  }
+}
+
+// Content
+
+.region-footer {
+  display: block;
+  position: relative;
+  z-index: +2;
+
+  @include breakpoint(m) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--oc-row-gap) var(--oc-gutter);
+    justify-content: space-between;
+  }
+
+  > .block {
+    min-inline-size: min-content;
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-block: 0 var(--oc-row-gap);
+    margin-inline: 0;
+
+    > *:first-child {
+      margin-block-start: 0;
+    }
+  }
+
+  .menu--account,
+  .block-social-media-links {
+    flex: 0 1 auto;
+  }
+
+  .menu--footer {
+    flex: 2 1 auto;
+  }
+
+  .block--title {
+    margin-block-end: var(--oc-row-gap);
+  }
+
+  h2,
+  h3 {
+    font-family: var(--oc-font-family-default);
+    font-size: var(--oc-font-size-l);
+  }
+}
+
+// ---
+// Main footer menu
+
+.menu--footer {
+  &:has(li:nth-child(5)) {
+    max-inline-size: 40rem;
+    column-count: 2;
+    column-gap: 0;
+  }
+}
+
+// Below footer menu
+
+.region-below-footer {
+  .views-row {
+    container-type: normal;
+  }
+
+  h2 {
+    @extend %label;
+  }
+}
+
+// Scroll to top link
+// @todo invisible unless .is-scrolling, fixed position
+
+.scroll-to-top {
+  @extend %icon-button;
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline-end: var(--oc-page-margin-sides);
+  border-width: .0625rem;
+
+  &::before {
+    mask-size: 75%;
+  }
+}

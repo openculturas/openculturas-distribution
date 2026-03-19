@@ -1,0 +1,77 @@
+// ---------------------------------------
+// Call to action menu: curated menu for user dashboard
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.menu--call-to-action {
+  --oc-font-size-icon: var(--oc-font-size-icon-xxl);
+  .menu {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--oc-row-gap) 0;
+
+    @include breakpoint(m) {
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: var(--oc-row-gap) var(--oc-gutter);
+    }
+  }
+
+  .menu-item {
+    display: flex;
+    border: 2px solid transparent;
+
+    @include breakpoint(m) {
+      inline-size: calc(50% - var(--oc-gutter) / 2);
+      min-block-size: 8rem;
+    }
+
+    > a {
+      align-items: center;
+      background: linear-gradient(90deg, var(--oc-color-interaction), var(--oc-color-link));
+      border-color: transparent;
+      border-radius: var(--oc-button-border-radius);
+      color: var(--oc-color-text-inverted);
+      //display: flex;
+      padding: var(--oc-row-gap) var(--oc-gutter);
+      block-size: 100%;
+      inline-size: 100%;
+
+      // Icons: see base/_icons-ext.scss
+
+      &:hover,
+      &:focus {
+        background: var(--oc-color-link-focus-bg);
+        color: var(--oc-color-link-focus-text);
+      }
+    }
+  }
+
+  li.menu-item > a::before {
+    transform: unset;
+  }
+}
+
+// Grid layout
+
+.menu--call-to-action {
+  .menu-item a {
+    display: grid;
+    grid-gap: 0 var(--oc-gutter);
+    grid-template-columns: var(--oc-font-size-icon) auto;
+  }
+
+  .menu-link-title {
+    font-size: var(--oc-font-size-m);
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .menu-link-description {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}

@@ -1,0 +1,117 @@
+// ---------------------------------------
+// Paragraphs - generic styling
+// ---
+// Related: layout/layout-regions.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+
+// General spacing for certain types (caveat: do not add text/media paragraphs)
+.paragraph--type--teaser-wrapper,
+.paragraph--type--view {
+  margin-block-end: var(--oc-section-spacing);
+}
+
+// Paragraphs behavior classes
+// See: base/_reusables.scss
+// Note: .style__* will be deprecated in a future release @todo: Deprecation
+
+.style__slight_contrast,
+.style__vivid_contrast {
+  padding: var(--oc-row-gap) var(--oc-gutter);
+}
+
+.style__slight_contrast {
+  background-color: color-mix(in oklab, var(--oc-color-bg-dark) 10%, transparent);
+}
+
+.style__vivid_contrast {
+  background-image: var(--oc-color-gradient-blocks);
+
+  article.teaser {
+    --oc-card-background: var(--oc-color-bg-light-opaque);
+    --oc-card-border-width: 0;
+  }
+}
+
+.paragraph--type--wrapper-section,
+.paragraph--type--teaser-wrapper {
+  &.style__vivid_contrast,
+  &.style__slight_contrast {
+    margin-inline: calc(-1 * var(--oc-page-padding-inline));
+    padding-inline: var(--oc-page-padding-inline);
+  }
+
+  // Paragraph style inside a wrapper
+  .paragraph--teaser {
+    padding-block: calc(.5 * var(--oc-row-gap));
+    padding-inline: calc(.5 * var(--oc-gutter));
+    margin-block: calc(-.5 * var(--oc-row-gap));
+    margin-inline: calc(-.5 * var(--oc-gutter));
+  }
+
+  // ... and inside a slider
+  //.slider-container .paragraph--teaser {
+  //  margin-block: var(--oc-row-gap) calc(-.5 * var(--oc-row-gap));
+  //}
+}
+
+// Better use of whitespace when available
+// related: field/field--text.scss
+
+@container copy-area (width > 90ch) {
+  .field--name-field-content-paragraphs {
+    margin-inline-start: calc(1 * var(--oc-grid-step));
+
+    .paragraph--type--wrapper-section,
+    .paragraph--type--teaser-wrapper,
+    .paragraph--type--gallery {
+      margin-inline-start: calc(-1 * calc(var(--oc-grid-step) + var(--oc-page-padding-inline)));
+      padding-inline: var(--oc-page-padding-inline);
+    }
+
+    .paragraph--type--wrapper-section:not(.paragraph--view-mode--grid),
+    .paragraph--type--teaser-wrapper:not(.paragraph--view-mode--grid) {
+      padding-inline-start: calc(2 * calc(var(--oc-grid-step)) + var(--oc-page-padding-inline));
+    }
+
+    .paragraph--type--gallery {
+      padding-inline-start: var(--oc-page-padding-inline);
+    }
+
+    .field--name-field-body {
+      margin-inline-start: calc(1 * var(--oc-grid-step)); // matches 2 steps for .field--name-body
+    }
+
+    // avoid additions
+    .field--name-field-content-paragraphs,
+    .paragraph--type--wrapper-section .field--name-field-body {
+      margin-inline-start: 0;
+    }
+  }
+}
+
+// ...similar for text-heavy pages, but different query
+
+.layout-text-heavy {
+  @include breakpoint(l) {
+    .field--name-field-content-paragraphs {
+      margin-inline-start: calc(1 * var(--oc-grid-step));
+
+      .field--name-field-body {
+        margin-inline-start: calc(1 * var(--oc-grid-step)); // matches 2 steps for .field--name-body
+      }
+
+      // avoid additions
+      .field--name-field-content-paragraphs,
+      .paragraph--type--wrapper-section .field--name-field-body {
+        margin-inline-start: 0;
+      }
+    }
+    .block-field-blocknodepagebody {
+      margin-inline-start: calc(2 * var(--oc-grid-step));
+    }
+  }
+}
+

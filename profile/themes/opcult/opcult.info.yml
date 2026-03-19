@@ -1,0 +1,38 @@
+name: 'OpenCulturas Next'
+type: theme
+core_version_requirement: ^10.2 || ^11
+description: "OpenCulturas modernized base theme. Are you switching from <em>Openculturas Base</em> theme? Please check the theme settings here!"
+package: OpenCulturas
+version: 2.6.0
+project: openculturas
+'base theme': stable9
+
+ckeditor5-stylesheets:
+  - css/ckeditor.css
+
+libraries:
+  - opcult/global
+
+libraries-override:
+  # Prevent social_media_links from loading fontawesome via CDN. We use local svg sprite anyways.
+  social_media_links/fontawesome.component: false
+  # Removed to set a border in our css.
+  flag/flag.link:
+    css:
+      theme:
+        css/flag-link.css: false
+
+regions:
+  page_top: 'Above everything'
+  branding: 'Branding'
+  utilities_links: 'Utilities'
+  offcanvas_menu: 'Offcanvas menu'
+  highlights_menu: 'Highlights menu'
+  breadcrumbs: Breadcrumbs
+  editorial: 'Editorial tools/info'
+  header_intro: 'Header intro'
+  page_title: 'Page title'
+  content: 'Main content'
+  footer: Footer
+  below_footer: 'Below footer'
+  page_bottom: 'Below everything'

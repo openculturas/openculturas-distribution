@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * (FAQ) view mode synopsis tweak
+ * Related: ../field/field--field-content-paragraphs--view-mode-synopsis.html.twig
+ */
+#}
+
+{% extends "@opcult/node/universal-teaser.html.twig" %}
+
+{% block content_wrapper %}
+
+  {%
+    set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished entity--unpublished',
+    view_mode ? 'view-mode-' ~ view_mode|clean_class,
+    'clearfix',
+    'faq'
+    ]
+  %}
+
+  {% set wrapper_tag = 'div' %}
+  <{{ wrapper_tag }}{{ attributes.addClass(classes)|without('role') }}>
+    {{ title_prefix }}
+    {% if label %}
+      <h3{{ title_attributes.addClass('teaser--title') }}>
+        {{ label }}
+      </h3>
+    {% endif %}
+    {{ title_suffix }}
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content|without('field_content_paragraphs') }}
+    </div>
+  </{{ wrapper_tag }}>
+{% endblock %}

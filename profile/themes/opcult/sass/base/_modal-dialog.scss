@@ -1,0 +1,145 @@
+// ---------------------------------------
+// Modals + dialogs + modal-like popovers
+// Native dialog replaces jquery modals
+// ---
+// Related: abstracts/_modal-dialog.scss
+// @todo Review
+// ---------------------------------------
+
+@use "../abstracts/typography" as *;
+@use "../abstracts/buttons" as *;
+@use "../abstracts/modal-dialog" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/icons" as *;
+
+.ui-dialog:not(.ui-dialog-off-canvas),
+dialog.modal,
+.dialog-wrapper {
+  @extend %dialog-wrapper;
+}
+
+dialog form {
+  padding: var(--oc-row-gap) var(--oc-gutter); // @todo Check
+}
+
+.ui-dialog .ui-dialog-titlebar,
+.dialog-titlebar {
+  @extend %dialog-titlebar;
+
+  button {
+    @extend %icon-button;
+  }
+}
+
+.dialog-content {
+  @extend %dialog-content;
+}
+
+
+// So much for the theory, now to specificity from hell:
+// @todo Backlog: Refactoring once Drupal introduces proper dialog elements
+// @todo Fix button border inheritance
+
+.ui-dialog.ui-widget .ui-dialog-titlebar,
+.ui-dialog .ui-dialog-titlebar {
+  @extend %dialog-titlebar;
+  gap: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  inset-inline-end: 0;
+}
+
+.ui-widget-overlay.ui-front {
+  background: var(--oc-color-backdrop);
+}
+
+.ui-button-icon-only {
+  text-indent: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close,
+.ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close {
+  position: relative;
+  inset: auto;
+  margin: 0;
+  padding: .5rem;
+  transform: unset;
+  transition: unset;
+  border: unset;
+  background: var(--oc-color-text-inverted);
+  color: var(--oc-color-interaction);
+  @include icon(x, light, before);
+  @extend %icon-button;
+
+  .ui-icon-closethick {
+    display: none;
+  }
+
+  span.ui-button-icon-space {
+    display: none;
+  }
+}
+
+.ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+  margin: 0;
+  padding: 0;
+  @extend %label;
+}
+
+.ui-dialog.ui-widget,
+.ui-dialog.ui-widget .ui-dialog-content,
+.ui-dialog .ui-dialog-titlebar .ui-dialog-title,
+.ui-dialog.ui-widget select,
+.ui-dialog.ui-widget input,
+.ui-dialog.ui-widget button{
+  font-family: inherit;
+  font-size: var(--oc-font-size-default);
+}
+
+.ui-dialog.ui-widget:not(.ui-dialog-off-canvas),
+.ui-dialog {
+  @extend %dialog-wrapper;
+}
+
+.ui-dialog.ui-widget:not(.ui-dialog-off-canvas) {
+  padding: 0;
+}
+
+.ui-dialog.ui-widget .ui-widget-content.ui-dialog-content {
+  @extend %dialog-content;
+
+  form {
+    margin-block-end: 0;
+  }
+}
+
+.ui-dialog.ui-widget .ui-widget-content.ui-dialog-buttonpane,
+.ui-dialog.ui-widget .ui-dialog-content .form-actions {
+  padding: 0 var(--oc-gutter);
+  border-width: 0;
+  background-color: transparent;
+  margin: 0;
+
+  button,
+  .button,
+  .ui-button {
+    @extend %button;
+    border-color: var(--oc-button-border-color) !important;
+  }
+
+  .button--primary,
+  #edit-submit.form-submit {
+    @extend %button-primary;
+    border-color: var(--oc-button-primary-border-color);
+  }
+
+  .button--danger {
+    @extend %button-danger;
+  }
+}
+
+.ui-dialog.ui-widget > .ui-dialog-buttonpane .ui-dialog-buttonset {
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+

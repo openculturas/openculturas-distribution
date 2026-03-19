@@ -1,0 +1,23 @@
+// ---------------------------------------
+// Event catalogue (not dates) views
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Event teaser grid
+
+.event-catalogue {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-4;
+
+    .layout-oc2col-section & {
+      @extend %grid-3;
+    }
+  }
+}
+
+// ---
+// Header + more link in grid cell:
+// see views--intro-inline.scss

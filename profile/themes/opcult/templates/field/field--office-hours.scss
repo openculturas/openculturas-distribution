@@ -1,0 +1,51 @@
+// ---------------------------------------
+// Opening hours (based on contrib module office_hours) + seasons
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.office-hours {
+  min-inline-size: 20ch;
+
+  // prepare for absolute positioned thead cell
+  &:has(th.inline) thead,
+  thead tr {
+    block-size: 2.5rem;
+  }
+
+  th.inline {
+    position: absolute;
+    inline-size: 100%;
+  }
+}
+
+.office-hours tbody th {
+  inline-size: 12ch;
+}
+
+.office-hours-status {
+  &.office-hours-status--closed {
+    color: var(--oc-color-danger);
+  }
+
+  &.office-hours-status--open {
+    color: var(--oc-color-success);
+  }
+}
+
+.field--type-office-hours {
+  .field__items {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+  }
+
+  .field__item:has(.office-hours-status) {
+    flex-basis: 100%;
+  }
+
+  .field__item {
+    min-inline-size: calc(50% - 1rem);
+  }
+}

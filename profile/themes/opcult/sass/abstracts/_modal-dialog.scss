@@ -1,0 +1,53 @@
+// ---------------------------------------
+// Modal dialogs
+// ---
+// Related: jquery-ui.dialog.scss
+// ---------------------------------------
+
+%cc-dialogs {
+  --oc-dialog-bg-color: var(--oc-color-bg-light);
+  --oc-dialog-text-color: var(--oc-color-text);
+  --oc-dialog-border: .0625rem solid var(--oc-color-interaction);
+  --oc-dialog-titlebar-bg-color: var(--oc-color-interaction);
+  --oc-dialog-titlebar-text-color: var(--oc-color-text-inverted);
+  --oc-dialog-border-radius: .25rem;
+}
+
+%dialog-wrapper {
+  background-color: var(--oc-dialog-bg-color);
+  color: var(--oc-dialog-text-color);
+  border: var(--oc-dialog-border);
+  border-radius: var(--oc-dialog-border-radius);
+  font-size: var(--oc-font-size-default);
+  font-weight: var(--oc-font-weight-normal);
+  padding-block: 0.5rem;
+  padding-inline: var(--oc-gutter) .5rem;
+  box-shadow: var(--oc-box-shadow-centered);
+
+  &:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar) {
+    padding: 0;
+  }
+}
+
+%dialog-titlebar {
+  display: flex;
+  gap: 0 var(--oc-gutter);
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 0.5rem;
+  padding-inline: var(--oc-gutter) .5rem;
+  color: var(--oc-dialog-titlebar-text-color);
+  background-color: var(--oc-dialog-titlebar-bg-color);
+  border-radius: var(--oc-dialog-border-radius) var(--oc-dialog-border-radius) 0 0;
+}
+
+%dialog-content {
+  padding-block: var(--oc-row-gap);
+  padding-inline: var(--oc-gutter);
+}
+
+%dialog-buttonbar {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}

@@ -1,0 +1,43 @@
+// ---------------------------------------
+// Breadcrumb navigation, aka crumb trail
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.breadcrumbs {
+  padding-block: var(--oc-row-gap);
+  font-size: var(--oc-font-size-s);
+  color: var(--oc-color-text-muted);
+
+  ol {
+    margin: 0;
+    padding-inline: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0;
+    //@include icon(gps);
+  }
+
+  li {
+    //&:after {
+      //content: '//\00A0';
+    //}
+  }
+
+  nav a {
+    padding-inline: .25rem;
+    @extend %link-menu;
+    @include icon(caret-right, light, after);
+
+    &::after {
+      transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+    }
+
+    &:focus::after,
+    &:hover::after {
+      transform: translateY(0.125em) rotate(180deg);
+    }
+  }
+}
+

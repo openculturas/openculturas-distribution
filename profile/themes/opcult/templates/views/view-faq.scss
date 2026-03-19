@@ -1,0 +1,65 @@
+// ---------------------------------------
+// FAQ views
+// ---
+// Related: base/_details.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.faq {
+  .sub-details {
+    //inline-size: calc(100% - calc(2.5 * var(--oc-gutter))); // "width"
+    max-inline-size: max-content;
+    //margin: 0 calc(2 * var(--oc-gutter)) 0 0;
+    margin: 0;
+    border-block-end-width: 0;
+    padding-inline: var(--oc-gutter);
+    border-radius: var(--oc-card-border-radius);
+
+    &[open] {
+      box-shadow: var(--oc-box-shadow-centered);
+      margin-block-end: var(--oc-row-gap);
+    }
+
+    .details-title {
+      @extend %h4;
+      margin-block: 0;
+    }
+
+    summary .summary {
+      @extend .details-title;
+    }
+
+    .details-wrapper {
+      padding-block: var(--oc-row-gap);
+    }
+
+    blockquote {
+      font-size: 1rem;
+      margin-block: 0 2rem;
+    }
+  }
+}
+
+.faq .views-infinite-scroll-content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(var(--oc-grid-item-count), 1fr);
+  gap: var(--oc-row-gap) var(--oc-gutter);
+
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 2;
+
+    .faq-topic:nth-child(2n+1) {
+      border-inline-end: var(--oc-divider-dark);
+    }
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 2;
+  }
+}
+
+@container details-area (width > 100ch) {
+  .view.faq {
+    margin-inline-start: calc(2 * var(--oc-grid-step));
+  }
+}

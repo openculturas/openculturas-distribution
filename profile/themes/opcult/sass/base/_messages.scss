@@ -1,0 +1,105 @@
+// ---------------------------------------
+// Drupal messages (error, warning, success)
+// Related: components/workflow-moderation.scss
+// ---------------------------------------
+
+@use "../abstracts/mixins" as *;
+
+div[data-drupal-messages] {
+  padding-block: var(--oc-row-gap) var(--oc-section-spacing);
+}
+
+.messages {
+  --oc-font-size-icon: var(--oc-font-size-icon-xl);
+}
+
+.messages {
+  display: flex;
+  flex-flow: column;
+  gap: .5rem;
+  align-items: center;
+  background-image: none;
+  box-shadow: var(--oc-box-shadow-centered);
+  position: relative;
+  border-width: .125rem;
+  border-style: solid;
+  color: var(--oc-color-text);
+  padding-block: var(--oc-row-gap);
+  padding-inline: 1rem 2rem;
+  //margin-block-end: var(--oc-section-spacing); // tears blocks w/ background apart
+
+  @include breakpoint(m) {
+    flex-flow: row wrap;
+    align-content: flex-start;
+    padding-inline: var(--oc-gutter) calc(2 * var(--oc-gutter));
+  }
+
+  &:has(ul) {
+    @include breakpoint(m) {
+      align-items: flex-start;
+    }
+  }
+
+  &::before {
+    min-inline-size: var(--oc-font-size-icon);
+    transform: translateY(0);
+  }
+
+  a,
+  a:hover {
+    //color: currentColor; // would need extra hover handling
+    display: inline;
+    font-weight: var(--oc-font-weight-bold);
+    text-decoration: var(--oc-underline);
+  }
+}
+
+// Icons: see base/icons.scss
+
+.messages--error {
+  background-color: var(--oc-color-bg-danger);
+  border-color: var(--oc-color-danger);
+
+  &::before {
+    background-color: var(--oc-color-danger);
+  }
+}
+
+.messages--status {
+  background-color: var(--oc-color-bg-success);
+  border-color: var(--oc-color-success);
+
+  &::before {
+    background-color: var(--oc-color-success);
+  }
+}
+
+.messages--warning,
+.messages--status:has(a[href*="/development/maintenance"]) {
+  background-color: var(--oc-color-bg-warning);
+  border-color: var(--oc-color-warning);
+
+  &::before {
+    background-color: var(--oc-color-warning-dark);
+  }
+}
+
+.messages--info {
+  background-color: var(--oc-color-bg-info);
+  border-color: var(--oc-color-info);
+
+  &::before {
+    background-color: var(--oc-color-info);
+  }
+}
+
+// Infobox
+// OC utility class, used e.g. for permanent help text on user dashboard
+
+.infobox {
+  background: var(--oc-color-bg-info);
+  color: var(--oc-color-info);
+  padding-block: var(--oc-row-gap);
+  padding-inline: calc(1 * var(--oc-gutter) + var(--oc-font-size-icon)) calc(2 * var(--oc-gutter));
+  text-indent: calc(-1.333 * var(--oc-font-size-icon));
+}

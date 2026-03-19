@@ -1,0 +1,74 @@
+// ---------------------------------------
+// Language mode toggle + popover
+// ---
+// Related: templates/menu/menu.scss
+// Popover anchor: see popovers.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.language-toggle--wrapper {
+  .button-popover-trigger {
+    @include icon(translate);
+  }
+}
+
+.block-language .language-toggle--popover-content {
+  // Fix: does not inherit correctly, legacy too specific
+
+  ul.links {
+    flex-flow: column;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+// Selected language indicator
+
+.language-link {
+  @include icon(check);
+
+  &::before {
+    opacity: 0;
+  }
+
+  &.is-active {
+    &::before {
+      opacity: .75;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      color: var(--oc-color-text-muted);
+    }
+  }
+}
+
+// Backlog: Selected language indicator
+.language-toggle--wrapper {
+  display: flex;
+  gap: .25rem;
+}
+
+.language-toggle--wrapper::before {
+  display: inline-block;
+  align-self: center;
+  white-space: nowrap;
+  color: var(--oc-color-text-muted);
+  font-size: var(--oc-font-size-xs);
+}
+
+.language-toggle--wrapper:has(.is-active[hreflang="de"])::before {
+  content: 'DE';
+}
+
+.language-toggle--wrapper:has(.is-active[hreflang="en"])::before {
+  content: 'EN';
+}
+
+.language-toggle--wrapper:has(.is-active[hreflang="fr"])::before {
+  content: 'FR';
+}

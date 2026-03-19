@@ -1,0 +1,39 @@
+// ---------------------------------------
+// Media Download view mode
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.media--view-mode-download {
+  --oc-font-size-icon: var(--oc-font-size-icon-xl);
+
+  .file--download {
+    border: .125rem solid var(--oc-color-link);
+    max-inline-size: fit-content;
+    padding: 0 1rem .75rem;
+    margin-block: var(--oc-row-gap);
+
+    &:has(a:hover, a:focus) {
+      background-color: var(--oc-color-link-focus-bg);
+      color: var(--oc-color-link-focus-text);
+    }
+  }
+
+  a.file {
+    display: inline-block;
+    @include icon(download-simple);
+
+    &::before {
+      position: relative;
+      inset-block-start: .75rem;
+      inset-inline-start: 0;
+    }
+  }
+
+  .meta {
+    display: block;
+    color: currentColor;
+    font-size: var(--oc-font-size-s);
+    text-indent: calc(var(--oc-font-size-icon) * 1.333);
+  }
+}

@@ -1,0 +1,235 @@
+// ---------------------------------------
+// Layout regions
+// Modifies certain named sections
+// ---
+// Related: layouts/*, paragraph/paragraph.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Generic
+
+.section--first {
+  inline-size: 100%;
+}
+
+// ---
+// Layout builder top-level sections
+
+.layout {
+  --oc-bg-section-buffer: 1px calc(.5 * var(--oc-section-spacing)); // for colored sections (we expect h2 with top margin)
+
+  padding-block-end: calc(.5 * var(--oc-section-spacing));
+}
+
+.no-whitespace-below {
+  padding-block-end: 0;
+
+  .wrapper--content-main {
+    margin-block-end: 0;
+  }
+}
+
+// ---
+// Naming sections for container queries
+
+.section--title {
+  container-type: inline-size;
+  container-name: section--title;
+}
+
+.section--mood {
+  container-type: normal;
+  container-name: section--mood;
+}
+
+.section--essentials {
+  container-type: inline-size;
+  container-name: section--essentials;
+}
+
+.section--content {
+  container-type: inline-size;
+  container-name: section--content;
+}
+
+.section--aside {
+  container-type: inline-size;
+  container-name: section--aside;
+}
+
+.copy-area {
+  container-type: inline-size;
+  container-name: copy-area;
+}
+
+.details-area {
+  container-type: inline-size;
+  container-name: details-area;
+}
+
+// ---
+// Sticky sidebar content
+
+body {
+  @include breakpoint(m) {
+    overflow-y: auto;
+    max-block-size: 100dvh;
+
+    .section--aside {
+      position: sticky;
+      inset-block-start: var(--oc-row-gap);
+      overflow-y: auto;
+      overflow-x: hidden;
+      block-size: min-content;
+      padding-block-end: .125rem; // prevent needless scrollbar
+    }
+  }
+}
+
+// ---
+// Manually set class attributes in layout builder
+// Related: templates/paragraph/paragraph.scss
+// Usage: add to "Custom classes" in a layout builder section, always combined: "section-with-background gallery--section"
+
+.section-with-background {
+  background: var(--oc-element-bg);
+  //margin-block: var(--oc-bg-section-buffer);
+  margin-inline: calc(-1 * var(--oc-page-padding-inline));
+  padding-block: var(--oc-bg-section-buffer);
+  padding-inline: var(--oc-page-padding-inline);
+
+  &.no-whitespace-below {
+    margin-block-end: 0;
+    padding-block-end: calc(0.5 * var(--oc-section-spacing)); // restore default (set to 0 by class)
+
+    + .layout {
+      margin-block-start: 0;
+    }
+  }
+}
+
+// @todo Extend principle for block attributes
+//.block-with-background {
+//  background: var(--oc-element-bg);
+//}
+
+.teaser--section {
+  --oc-element-bg: var(--oc-bg-teaser-section);
+}
+
+.comments--section {
+  --oc-element-bg: var(--oc-bg-comments-section);
+}
+
+.magazine--section {
+  --oc-element-bg: var(--oc-bg-magazine-section);
+}
+
+.gallery--section {
+  --oc-element-bg: var(--oc-bg-gallery-section);
+}
+
+.recommendations--section {
+  --oc-element-bg: var(--oc-bg-recommendations-section);
+}
+
+.date--section {
+  --oc-element-bg: var(--oc-bg-date-section);
+}
+
+.archive--section {
+  --oc-element-bg: var(--oc-bg-archive-section);
+  padding-block: 0 .25rem; // section-with-background padding is too much here (collapsed details)
+
+  details {
+    margin-block: 0;
+  }
+}
+
+.bookable--section {
+  --oc-element-bg: var(--oc-bg-bookable-section);
+}
+
+.sub-terms--section {
+  --oc-element-bg: var(--oc-bg-sub-terms-section);
+}
+
+// Overrides possible with background selector in layout builder,
+// these classes must come last:
+
+.oc-bg--vivid {
+  --oc-element-bg: var(--oc-bg-vivid);
+}
+
+.oc-bg--muted {
+  --oc-element-bg: var(--oc-bg-muted);
+}
+
+
+// ---
+// Address section
+// See paragraph--address-data.scss
+
+.layout-oc2col-section.address-region {
+  @include breakpoint(m) {
+    flex-flow: column;
+  }
+
+  @include breakpoint(l) {
+    flex-flow: row nowrap;
+  }
+
+  > .section--first {
+    @include breakpoint(l) {
+      grid-column: 1 / 8;
+      grid-row: 1;
+    }
+  }
+
+  > .section--second {
+    @include breakpoint(l) {
+      grid-column: 8 / -1;
+      grid-row: 1;
+    }
+
+    @include breakpoint(xl) {
+      grid-column: 9 / -1;
+    }
+  }
+}
+
+// ---
+// 2 magazine blocks on profile
+
+#mentions .section {
+  // Hide second headline
+  > .block:nth-child(2) h2 {
+    display: none;
+  }
+}
+
+#mentions {
+  @include breakpoint(xl) {
+    .intro-inline {
+      // Out-dent both view headers
+      .view-header {
+        position: absolute;
+        inset-inline-start: calc(-3 * var(--oc-grid-step));
+        max-inline-size: calc(3 * var(--oc-grid-step));
+      }
+
+      // Stack elements in view header
+      .view-header > h3 {
+        display: block;
+        inline-size: 100%;
+      }
+
+      // Offset view headline (place below block headline)
+      &:first-child .view-header {
+        inset-block-start: var(--oc-font-size-xxl);
+      }
+    }
+  }
+}
+

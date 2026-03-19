@@ -1,0 +1,36 @@
+// ---------------------------------------
+// Layout-related variables + calculations
+// ---
+// "Grid" relates to the layout grid (for use in grid or flex layouts or just as a general visual guide).
+// Some variables are overridden depending on breakpoint: templates/layout/layout.scss (mixin is available there)
+// Some dimensions are not available on root level, hence: body
+// ---
+// Related:
+// - abstracts/_layout.scss (layout custom properties and calculations, including breakpoints)
+// - templates/layout.scss
+// ---------------------------------------
+
+@use "../abstracts";
+
+// ---
+// Debugging helper: grid overlay
+
+.layout-grid-overlay {
+  // we only highlight grid guides in browser inspector
+  visibility: hidden;
+}
+
+.layout-grid-overlay {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  padding-inline: var(--oc-page-padding-inline);
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(var(--oc-column-count), 1fr);
+  grid-gap: var(--oc-gutter);
+  z-index: +1000;
+}
+// end debugging helper

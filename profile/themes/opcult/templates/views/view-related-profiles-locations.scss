@@ -1,0 +1,45 @@
+// ---------------------------------------
+// People views (personal + group profiles)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Profiles
+
+.profiles {
+  .views-row {
+    container-type: inline-size;
+  }
+}
+
+// Profile teaser grid
+
+.profiles,
+.memberships,
+.locations,
+.view-related-location {
+  &:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-3;
+
+    // Grid exceptions when grid in multi-col layout
+
+    .section--aside &,
+    .section--second &,
+    .layout-oc3col-section & {
+      --oc-grid-item-count: 1;
+    }
+  }
+}
+
+// Header + more link in grid cell
+
+// @todo check infi-scroll-views
+//.view-related-event .views-infinite-scroll-content-wrapper,
+//.view-related-event:not(:has(.views-infinite-scroll-content-wrapper)) {
+//  @extend %grid;
+//  @extend %grid-4;
+//  @extend %grid-headline-inline;
+//}
+

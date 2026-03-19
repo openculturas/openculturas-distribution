@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a two-column layout.
+ *
+ * Available variables:
+ * - in_preview: Whether the plugin is being rendered in preview mode.
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% extends '@opcult/layouts/layout--section-base.html.twig' %}
+
+{% block section_content %}
+
+  {% if content.first %}
+    {% set class = 'section section--first' %}
+    <div {{ region_attributes.first.addClass(class) }}>
+      {{ content.first }}
+    </div>
+  {% endif %}
+
+  {% if content.second %}
+    {% set class = 'section section--second section--last' %}
+    <div {{ region_attributes.second.addClass(class) }}>
+      {{ content.second }}
+    </div>
+  {% endif %}
+
+{% endblock %}

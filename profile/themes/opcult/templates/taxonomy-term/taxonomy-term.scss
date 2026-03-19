@@ -1,0 +1,137 @@
+// ---------------------------------------
+// Taxonomy terms + inheriting elements
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.reference--taxonomy_term {
+  display: inline-block;
+}
+
+// ---
+// Taxonomy term tags
+
+.terms--plain .field__item {
+  @extend %tag;
+}
+
+// Taxonomy term linked tags
+
+.taxonomy-term--tag,
+.reference--taxonomy_term > a {
+  @extend %tag;
+  @extend %tag-link;
+}
+
+// ---
+// Term teasers
+
+.term-teaser-unified,
+.term-teaser a {
+  display: grid;
+  grid-template-areas: "teaser";
+  place-content: stretch;
+  inline-size: 100%;
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
+  margin-block: var(--oc-card-margin-block);
+  margin-inline: var(--oc-card-margin-inline);
+  border: var(--oc-card-border);
+  border-width: 0; // var(--oc-card-border-width);
+  border-radius: var(--oc-card-border-radius);
+  box-shadow: var(--oc-card-box-shadow);
+}
+
+.term-teaser-unified,
+.term-teaser {
+  .teaser--top,
+  .teaser--body {
+    grid-area: teaser;
+    place-content: center;
+  }
+
+  .teaser--top,
+  .teaser--top.no-image {
+    border-radius: var(--oc-card-border-radius);
+    block-size: 100%;
+    inline-size: 100%;
+    margin-block: 0;
+    margin-inline: 0;
+    display: grid;
+    place-content: center;
+  }
+
+  .field--name-field-mood-image {
+    overflow: hidden;
+  }
+
+  .teaser--body {
+    padding-block: var(--oc-card-padding-block);
+    padding-inline: var(--oc-card-padding-inline);
+  }
+}
+
+.term-teaser-unified {
+  .teaser--top,
+  .teaser--body {
+    place-content: stretch;
+  }
+}
+
+.term-teaser {
+  .teaser--top::after {
+    background-color: var(--oc-color-bg-dark);
+    content: '';
+    position: absolute;
+    inset: 0 0 0 0;
+    opacity: .4;
+    transition: opacity var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+
+  .taxonomy-term--tagwrapper {
+    margin: auto;
+  }
+
+
+  img {
+    inline-size: 100%;
+    object-fit: cover;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+
+  .taxonomy-term--tag {
+    margin: 0 0 7%; // optical center
+    font-weight: var(--oc-font-weight-bold);
+    text-align: center;
+  }
+
+  a:focus,
+  a:hover {
+    cursor: pointer;
+
+    .teaser--top::after {
+      opacity: 0;
+    }
+
+    // exception: link covers full teaser
+    .taxonomy-term--tag {
+      background-color: var(--oc-tag-link-focus-bg-color);
+      border-color: var(--oc-tag-link-focus-border-color);
+      color: var(--oc-tag-link-focus-text-color);
+      text-decoration: var(--oc-underline);
+    }
+
+    img {
+      transform: scale(1.2);
+      inline-size: 100%;
+      block-size: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      img {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+

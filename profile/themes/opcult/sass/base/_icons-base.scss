@@ -1,0 +1,233 @@
+// ---------------------------------------
+// Icon: Basic
+// Elements that have or are icons - sub set
+// ---
+// Icons required in CKEditor and generally
+// Related:
+// - base/_icons-ext.scss
+// - abstracts/_icons.scss
+// ---------------------------------------
+
+@use "../abstracts/mixins" as *;
+@use "../abstracts/icons" as *;
+
+// ---
+// External links
+
+.text-formatted,
+.teaser--title {
+  a[href^="http"],
+  a.external {
+    @include icon(arrow-up-right, light, after);
+    --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
+    --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
+
+    &::before {
+      content: var(--icon-url-ltr) / "External site";
+      display: inline-block;
+      inline-size: .85em;
+      block-size: .85em;
+      vertical-align: -.125rem;
+      position: absolute;
+      opacity: 0;
+    }
+
+    &[target] {
+      content: var(--icon-url-ltr) / "External site in new window";
+    }
+
+    [dir="rtl"] & {
+      &::before {
+        content: var(--icon-url-rtl) / "External site";
+      }
+
+      --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
+    }
+
+    [dir="rtl"] & {
+      &[target]::before {
+        content: var(--icon-url-rtl) / "External site in new window";
+      }
+    }
+  }
+
+  [lang="de"] {
+    a[href^="http"] {
+      content: var(--icon-url-ltr) / "Externe Seite";
+    }
+
+    &[target] {
+      content: var(--icon-url-ltr) / "Externe Seite in neuem Fenster";
+    }
+  }
+
+  [lang="fr"] {
+    a[href^="http"] {
+      content: var(--icon-url-ltr) / "Site externe";
+    }
+
+    &[target] {
+      content: var(--icon-url-ltr) / "Site externe (nouvelle fenêtre)";
+    }
+  }
+
+  // Visual exception for image links
+  a[href^="http"]:has(img)::after {
+    display: none;
+  }
+}
+
+// ---
+// On-page menu (anchor links)
+// Related: _reusables.scss
+
+.anchorlinks {
+  @include icon(arrow-line-down);
+}
+
+// ---
+// Form input radio + checkbox
+// Related: _forms.scss
+
+input[type="radio"] {
+  @include icon(circle, fill, before);
+  @include icon(circle, light, after);
+
+  &:checked {
+    @include icon(check-circle);
+  }
+}
+
+input[type="checkbox"] {
+  @include icon(square, fill, before);
+  @include icon(square, light, after);
+
+  &:checked {
+    @include icon(check-square);
+  }
+}
+
+// ---
+// Media attribution/copyright notices
+// templates/field/field--media--field-licenses.scss
+
+.attribution-popover-trigger {
+  @include icon(copyright, fill, before);
+}
+
+// ---
+// Table sort indicators
+// base/_tables.scss
+
+.tablesort {
+  display: none;
+}
+
+th a[href*="sort"] {
+  @include icon(arrows-vertical, light, after);
+}
+
+th:has(.tablesort--desc) a[href*="sort"] {
+  @include icon(arrow-down, light, after);
+}
+
+th:has(.tablesort--asc) a[href*="sort"] {
+  @include icon(arrow-up, light, after);
+}
+
+// Edit button in tables
+.button--edit a {
+  display: inline-block;
+  @include icon(pencil-simple);
+  @extend %icon-only;
+  --oc-font-size-icon: var(--oc-font-size-icon-default);
+}
+
+// ---
+// Generic close button (multi-purpose)
+// Related: jquery-ui.dialog.scss
+
+button.close,
+a.button.close,
+a.leaflet-popup-close-button,
+.cookiesjsr-layer--close {
+  @include icon(x);
+}
+
+// ---
+// Editorial: Easier icon link styling
+// (ckeditor sanitizes empty tags, thus using the classic <i> method is tricky)
+// Icons used for calendar variants makeshift tab menu, keeping legacy class names
+
+.icon {
+  &.monitor,
+  &.tv {
+    @include icon(monitor);
+  }
+
+  &.map-pin,
+  &.location-dot {
+    @include icon(map-pin);
+  }
+
+  &.list,
+  &.table-list {
+    @include icon(list);
+  }
+
+  &.squares-four,
+  &.table-cells-large {
+    @include icon(squares-four);
+  }
+
+  &.archive,
+  &.box-archive {
+    @include icon(archive);
+  }
+}
+
+// ---
+// User call-to-action menu items + OC website content
+
+.menu--call-to-action a[data-drupal-link-system-path] {
+  @include icon(plus-circle);
+}
+
+.menu--call-to-action a[href*="node/add/location"],
+.icon .fa-map-location,
+.icon .map-pin-area {
+  @include icon(map-pin-area);
+}
+.menu--call-to-action a[href*="node/add/profile"],
+.icon .fa-person-dots-from-line,
+.icon .user-check {
+  @include icon(user-check);
+}
+.icon .fa-people-line,
+.icon .users-four {
+  //@include icon(users-three);
+  @include icon(users-four);
+}
+.menu--call-to-action a[href*="node/add/date"],
+.icon .fa-calendar-check,
+.icon .calendar-check {
+  @include icon(calendar-check);
+}
+.menu--call-to-action a[href*="node/add/article"],
+.icon .fa-book-open,
+.icon .book-open-text {
+  @include icon(book-open-text);
+}
+.menu--call-to-action a[href*="node/add/event"],
+.icon .fa-masks-theater,
+.icon .mask-happy {
+  //@include icon(microphone-stage);
+  @include icon(mask-happy);
+}
+
+// Toolbar: custom links
+// @todo Check when Navigation module is enabled + links are added
+//.toolbar-button[href$="/admin/structure/taxonomy"] {
+//  @include icon(hash);
+//  --icon: var(--icon-url);
+//}

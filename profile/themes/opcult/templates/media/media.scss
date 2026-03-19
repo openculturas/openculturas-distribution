@@ -1,0 +1,121 @@
+// ---------------------------------------
+// Media assets (images, remote video etc.)
+// ---
+// Related: field/field--media--field-licenses
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.media {
+  img,
+  iframe,
+  video,
+  audio {
+    border-radius: var(--oc-image-border-radius);
+  }
+
+  .field {
+    margin-block: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// Let containers not grow larger than their content
+.field--name-field-media {
+  inline-size: max-content;
+}
+
+// General spacing
+
+.text-formatted .media,
+.paragraph--type--media,
+.paragraph--type--gallery {
+  margin-block: var(--oc-row-gap);
+}
+
+// ---
+// Captions
+
+.media figcaption .field,
+.field--name-field-caption {
+  background-color: var(--oc-color-bg-dark-translucent);
+  padding-block: 1rem;
+  padding-inline: var(--oc-gutter);
+  font-style: italic;
+}
+
+figcaption .field--name-field-caption {
+  padding: 0;
+  background-color: transparent;
+}
+
+
+figcaption:has(.attribution-toggle:only-child) {
+  background: transparent;
+}
+
+.field--name-field-caption {
+  display: inline-block;
+
+  p {
+    margin-block: 0;
+  }
+}
+
+// ---
+// Gallery
+
+.media--view-mode-gallery {
+  .field--name-name {
+    font-weight: var(--oc-font-weight-semi-bold);
+  }
+}
+
+// ---
+// Audio player
+
+.field--name-field-media-audio-file {
+  background-color: var(--oc-color-bg-slight-contrast);
+  display: inline-block;
+  max-inline-size: 42.5rem;
+  padding-block-start: 3rem;
+  @include icon(microphone-stage);
+  color: var(--oc-color-text-muted);
+
+  &::before {
+    display: block;
+    margin: 0;
+    padding-block: 0 2rem;
+    inline-size: 100%;
+    font-size: var(--oc-font-size-icon-xxl);
+    transform: translateX(0) translateY(-40%);
+    -webkit-mask-position-y: 0;
+    mask-position-y: 0;
+    mask-size: contain;
+  }
+}
+
+//audio {
+//}
+
+// ---
+// Profile pictures
+// See: profile_teaser.scss
+
+// ---
+// Logo
+
+.field--name-field-logo {
+  padding-block: 0 1rem;
+  padding-inline: 3rem;
+  text-align: center;
+
+  @include breakpoint(m) {
+    float: inline-end;
+    text-align: start;
+    padding-inline: 3rem 0;
+  }
+}

@@ -1,0 +1,153 @@
+// ---------------------------------------
+// Details (collapsible containers)
+// with accessible headings
+// ---
+// Related: templates/components/details.html.twig
+// ---------------------------------------
+
+@use "../abstracts/mixins" as *;
+@use "../abstracts/typography" as *;
+
+details {
+  inline-size: 100%; // "width"
+  margin-block: calc(.5 * var(--oc-gutter));
+  padding-block: calc(.5 * var(--oc-gutter));
+  padding-inline: 0;
+  border-block-start: 0 none;
+  border-block-end: var(--oc-divider-dark);
+  border-inline: none;
+}
+
+// Summary text wrapper
+.details-title {
+  @extend %h2;
+  display: inline-block;
+  inline-size: 100%;
+  margin: 0;
+  padding-block: 0.5em 0.75em;
+  color: inherit;
+}
+
+summary {
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  gap: 1em;
+  align-items: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+
+  // Disable default marker element on webkit browsers.
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  // Drupal adds span.summary, therefore we add the toggle icon here
+  .summary {
+    @include icon(caret-down);
+    @extend .details-title;
+    flex-basis: 1em;
+    transform: rotate(0deg);
+    transform-origin: center center;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+
+    &::before {
+      margin-inline: 0;
+    //  transform: translateX(0) translateY(0);
+    }
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--oc-color-link);
+  }
+}
+
+details[open] {
+  > summary .summary {
+    transform: rotate(-180deg);
+
+    &::before {
+      //transform: translateX(0) translateY(0);
+    }
+  }
+}
+
+// (Opened) details content wrapper
+.details-wrapper {
+  margin: 0;
+  padding: var(--oc-row-gap) 0 calc(2 * var(--oc-row-gap));
+}
+
+
+// Nested details, e.g. legacy FAQ
+
+details details {
+  inline-size: calc(100% - calc(2.5 * var(--oc-gutter))); // "width"
+  margin: 0 calc(2 * var(--oc-gutter)) 0 0;
+  border-block-end-width: 0;
+
+  &:last-of-type {
+    border-block-end-width: 0;
+  }
+
+  .details-title {
+    @extend %h3;
+    margin-block: 0;
+  }
+
+  .details-wrapper {
+    padding-block-start: 0;
+    padding-block-end: var(--oc-row-gap);
+  }
+}
+
+// Special circumstances + variants
+
+details {
+  .node details {
+    margin-block-end: 0;
+    padding-block-end: 0;
+  }
+}
+
+.legal-login {
+  details .details-wrapper {
+    padding-block-end: 0;
+  }
+}
+
+// Views exposed forms, secondary options details
+// See views/views-exposed-forms.scss
+
+// Facets
+
+.block-facets {
+  vertical-align: text-top;
+  padding: 0;
+}
+
+.block-facets {
+  summary {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  details {
+    inline-size: 100%;
+    border-width: 0;
+    //margin-block: 0;
+    padding-block: 0;
+  }
+  ul {
+    margin-block-start: var(--oc-row-gap);
+  }
+}
+
+// Drupal messages use summary differently
+
+details.error-with-backtrace summary {
+  display: block;
+}

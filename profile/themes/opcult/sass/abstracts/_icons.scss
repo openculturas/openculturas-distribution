@@ -1,0 +1,106 @@
+// ---------------------------------------
+// Icons
+// ---
+// Custom properties + placeholders
+// Using SVG sprite, see: sprite/README.md
+// ---------------------------------------
+
+%cc-icons {
+  --oc-font-size-icon-default: 1rem;
+  --oc-font-size-icon: 1em; // inherits from parent
+  --oc-font-size-icon-m: 1.25rem;
+  --oc-font-size-icon-l: 1.5rem;
+  --oc-font-size-icon-xl: 2rem;
+  --oc-font-size-icon-xxl: 3rem;
+  --oc-icon-button-size: calc(1.5 * var(--oc-font-size-icon)); // inherit + padding
+  --oc-icon-button-radius: 50%;
+  --oc-chevron: url('../images/chevron-down.svg');
+}
+
+// mixin provides mask-image + adds placeholder to ::before or ::after
+%icon {
+  content: "";
+  display: inline-block;
+  inline-size: var(--oc-font-size-icon);
+  block-size: var(--oc-font-size-icon);
+  background-color: currentColor;
+  mask: var(--icon-url) no-repeat center / contain;
+  vertical-align: baseline;
+  transform: translateY(.125em);
+}
+
+%icon-before {
+  &::before {
+    font-size: var(--oc-font-size-icon);
+    margin-inline-end: .333em; // whitespace to text
+    inset-inline-start: -.333em; // adjust button padding (mere decorative icons needs adjustment)
+  }
+}
+
+%icon-after {
+  &::after {
+    font-size: var(--oc-font-size-icon);
+  }
+}
+
+%icon-only {
+  --oc-font-size-icon: var(--oc-font-size-icon-m);
+  --oc-icon-button-size: calc(1.5 * var(--oc-font-size-icon));
+  --oc-button-border-radius: 50%;
+  --oc-button-padding: 0;
+  //size: var(--icon-button-size); // not yet a standard
+  inline-size: var(--oc-icon-button-size);
+  min-inline-size: var(--oc-icon-button-size);
+  block-size: var(--oc-icon-button-size);
+  mask-clip: border-box; // allows enlarged target size via transparent border
+  border: .25rem solid transparent;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: var(--oc-icon-button-radius);
+  line-height: 1;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+  // pure icon buttons/links are expected to use ::before
+  &::before {
+    font-size: var(--oc-font-size-icon-m);
+    transform: translateY(0); // unset adjustment to text
+    margin-inline: 0;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+}
+
+%icon-button {
+  @extend %icon-only;
+
+  &:not([disabled]):focus-visible,
+  &:not([disabled]):hover {
+    color: var(--oc-button-focus-text-color);
+    background-color: var(--oc-button-focus-bg-color);
+    border-color: var(--oc-button-focus-border-color);
+    padding: 0;
+  }
+}
+
+%icon-link {
+  background-color: transparent;
+  @extend %icon-only;
+
+  &:focus-visible,
+  &:hover {
+    color: var(--oc-color-link-focus-text);
+    background-color: var(--oc-color-link-focus-bg);
+    border-color: transparent;
+  }
+}
+
+%icon-large {
+  --oc-font-size-icon: var(--oc-font-size-icon-l);
+  &::before {
+    mask-size: 75%;
+  }
+}
+
+// External link icons see base/_reusables.scss (special treatment with url modifiers)
+

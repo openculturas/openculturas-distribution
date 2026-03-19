@@ -1,0 +1,89 @@
+// ---------------------------------------
+// Page title combo .headlines-wrapper
+// ---
+// Containing page title (h1) + optional: sub_type,  subtitle, profile picture
+// Contained fields defined in theme settings
+// Related: _hero-layouts.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.page-title-wrapper {
+  display: flex;
+  gap: 0 var(--oc-gutter);
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  @include breakpoint(m) {
+    align-items: start;
+    flex-flow: row;
+  }
+
+  > div:has(img) {
+    flex-basis: var(--oc-column-width);
+    padding-block-start: .5rem;
+  }
+}
+
+.headlines-wrapper {
+  text-align: center;
+
+  @include breakpoint(m) {
+    text-align: start;
+  }
+}
+
+.page-title:has(> .page-subtitle) {
+  margin-block-end: 0;
+}
+
+h2.page-subtitle {
+  margin-block-start: 0;
+  font-size: var(--oc-font-size-m);
+}
+
+.sub-type + .page-title {
+  padding-block-start: 0;
+}
+
+.page-title:has(+ h2) {
+  padding-block-end: 0;
+}
+
+// Theme settings: Layout 3 (Title block above image)
+
+
+.oc_hero_layout_3 {
+  .headlines-wrapper {
+    @include breakpoint(s) {
+      text-align: center;
+    }
+  }
+
+  .page-title-wrapper {
+    align-items: center;
+
+    @include breakpoint(m) {
+      flex-flow: column;
+    }
+
+    > div:has(img) {
+      flex-basis: unset;
+      padding-block-start: 0;
+    }
+  }
+}
+
+.oc_hero_layout_2 {
+  &.path-taxonomy {
+    @include breakpoint(m) {
+      .page-title-wrapper,
+      .headlines-wrapper {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  }
+}

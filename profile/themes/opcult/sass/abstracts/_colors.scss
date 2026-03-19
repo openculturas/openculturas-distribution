@@ -1,0 +1,245 @@
+// ---------------------------------------
+// Colors: basics
+// ---
+// Basic colors used in CKEditor, too
+// Please note: color custom properties %placeholders defined in abstracts/_colors.scss are placed in a selector
+// separately for front-end and ckeditor
+// ---------------------------------------
+
+// Base colors
+// used in ckeditor, too
+
+%cc-colors-base {
+  --oc-color-primary: #9D1980;
+  --oc-color-secondary: #4e083c;
+
+  // Text colors
+  --oc-color-text: #1f1f1f;
+  --oc-color-text-muted: #7b7d85;
+  --oc-color-text-inverted: #ffffff;
+  --oc-color-text-headline: currentColor;
+
+  // Link/interaction colors
+  --oc-color-link: #a1167f;
+  --oc-color-interaction: #16635e;
+  --oc-color-link-focus-text: var(--oc-color-text-inverted);
+  --oc-color-link-focus-bg: var(--oc-color-link);
+  --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 20%, var(--oc-color-text-inverted));
+  --oc-underline-color: color-mix(in oklab, currentColor 50%, transparent);
+  --oc-color-menu-link: color-mix(in oklab, var(--oc-color-text) 30%, var(--oc-color-link));
+  --oc-color-menu-link-focus-text: var(--oc-color-text-inverted);
+  --oc-color-menu-link-focus-bg: var(--oc-color-link);
+  --oc-color-menu-link-border: color-mix(in oklab, var(--oc-color-bg-dark) 7%, transparent);
+  --oc-color-link-opaque: color-mix(in oklab, var(--oc-color-link) 64%, transparent); // not yet in use
+  --oc-color-bg-link-translucent: color-mix(in oklab, var(--oc-color-link) 5%, transparent);
+
+  // Functional colors
+  --oc-color-danger: #d41317;
+  --oc-color-info: #1f71b8;
+  --oc-color-success: #008d36;
+  --oc-color-warning: #ffdd00;
+  --oc-color-divider-light: #e8e9eb;
+  --oc-color-divider-dark: #7b7d85;
+
+  // Background colors (basic)
+  --oc-color-bg-light: #ffffff;
+  --oc-color-bg-dark: #303236;
+  --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
+  --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
+  --oc-color-bg-fieldset: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
+  --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 10%, var(--oc-color-bg-light));
+  --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
+  --oc-color-bg-light-translucent: color-mix(in oklab, var(--oc-color-bg-light) 25%, transparent);
+  --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
+  --oc-color-bg-dark-translucent: color-mix(in oklab, var(--oc-color-bg-dark) 7%, transparent);
+  --oc-color-bg-dark-opaque: color-mix(in oklab, var(--oc-color-bg-dark) 75%, transparent);
+
+  // Message colors (system feedback)
+  --oc-color-bg-danger: color-mix(in oklab, var(--oc-color-danger) 15%, var(--oc-color-bg-light));
+  --oc-color-danger-dark: color-mix(in oklab, var(--oc-color-danger) 60%, var(--oc-color-bg-dark));
+  --oc-color-bg-info: color-mix(in oklab, var(--oc-color-info) 10%, var(--oc-color-bg-light));
+  --oc-color-info-dark: color-mix(in oklab, var(--oc-color-info) 60%, var(--oc-color-bg-dark));
+  --oc-color-bg-success: color-mix(in oklab, var(--oc-color-success) 10%, var(--oc-color-bg-light));
+  --oc-color-success-dark: color-mix(in oklab, var(--oc-color-success) 60%, var(--oc-color-bg-dark));
+  --oc-color-bg-warning: color-mix(in oklab, var(--oc-color-warning) 20%, var(--oc-color-bg-light));
+  --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 75%, var(--oc-color-bg-dark));
+
+  // Button colors
+  --oc-button-bg-color: var(--oc-color-bg-light);
+  --oc-button-border-color: var(--oc-color-interaction);
+  --oc-button-text-color: var(--oc-color-interaction);
+  --oc-button-primary-bg-color: var(--oc-color-link);
+  --oc-button-primary-border-color: var(--oc-color-text-inverted);
+  --oc-button-primary-text-color: var(--oc-color-text-inverted);
+  --oc-button-danger-bg-color: var(--oc-color-bg-light);
+  --oc-button-danger-border-color: var(--oc-color-danger);
+  --oc-button-danger-text-color: var(--oc-color-danger-dark);
+  --oc-button-focus-bg-color: var(--oc-color-link);
+  --oc-button-focus-border-color: var(--oc-color-link);
+  --oc-button-focus-text-color: var(--oc-color-text-inverted);
+  --oc-button-active-bg-color: var(--oc-color-interaction);
+  --oc-button-active-border-color: var(--oc-color-interaction);
+  --oc-button-active-text-color: var(--oc-color-text-inverted);
+
+  // Taxonomy term tag colors
+  --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 10%, var(--oc-color-bg-light));
+  --oc-tag-border-color: var(--oc-tag-bg-color);
+  --oc-tag-text-color: var(--oc-color-text);
+  --oc-tag-link-bg-color: var(--oc-tag-bg-color);
+  --oc-tag-link-border-color: var(--oc-tag-bg-color);
+  --oc-tag-link-text-color: var(--oc-color-link);
+  --oc-tag-link-focus-bg-color: var(--oc-color-link);
+  --oc-tag-link-focus-border-color: var(--oc-color-link);
+  --oc-tag-link-focus-text-color: var(--oc-color-text-inverted);
+  --oc-tag-link-active-bg-color: var(--oc-color-bg-light);
+  --oc-tag-link-active-border-color: var(--oc-color-bg-light);
+  --oc-tag-link-active-text-color: var(--oc-color-interaction);
+
+  // Further input elements (text, textarea)
+  // see abstracts/_forms.scss
+}
+
+// ---
+// Extended colors
+// only used in front-end
+
+%cc-colors-ext {
+  // Contrast colors (OpenCulturas brand colors)
+  --oc-color-oc-spectrum-1: #d41317; // OC red
+  --oc-color-oc-spectrum-2: #da5914; // OC orange
+  --oc-color-oc-spectrum-3: #ffdd00; // OC yellow
+  --oc-color-oc-spectrum-4: #008d36; // OC green
+  --oc-color-oc-spectrum-5: #1d70b7; // OC blue
+
+  // Map contrast colors
+  --oc-color-osm-1: #cdebb0;
+  --oc-color-osm-2: #eef0d5;
+  --oc-color-osm-3: #add19e;
+
+
+  // Background colors
+  --oc-color-neutral-canvas: #f6f6f6;
+  --oc-color-bg-page-layout: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
+  --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-dark) 60%, transparent);
+
+  // Optional OC gradients (use in background-image declaration)
+  --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-osm-1), var(--oc-color-osm-2), var(--oc-color-osm-3));
+  --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
+    var(--oc-color-osm-2) 0%,
+    var(--oc-color-osm-2) 5%,
+    var(--oc-color-osm-1) 5%,
+    var(--oc-color-osm-1) 10%
+  );
+
+  // Content section background (color or image) + whitespace
+  --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
+  --oc-section-spacing-sub-terms: var(--oc-bg-section-buffer);
+  --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
+  --oc-section-spacing-teaser: var(--oc-bg-section-buffer);
+  --oc-bg-comments-section: var(--oc-color-bg-slight-contrast);
+  --oc-section-spacing-comments: var(--oc-bg-section-buffer);
+  --oc-bg-magazine-section: transparent;
+  --oc-section-spacing-magazine: 0;
+  --oc-bg-gallery-section: transparent;
+  --oc-section-spacing-gallery: 0;
+  --oc-bg-recommendations-section: transparent;
+  --oc-section-spacing-recommendations: 0;
+  --oc-bg-date-section: transparent;
+  --oc-section-spacing-date: 0;
+  --oc-bg-bookable-section: transparent;
+  --oc-section-spacing-bookable: 0;
+  --oc-bg-archive-section: var(--oc-color-bg-slight-contrast);
+
+  // Content background (color or image)
+  --oc-bg-vivid: var(--oc-color-gradient-blocks);
+  --oc-bg-muted: var(--oc-color-bg-slight-contrast);
+
+  // Shadow colors
+  --oc-shadow-color: color-mix(in oklab, #000000 30%, transparent);
+
+  // Footer
+  --oc-color-bg-footer: var(--oc-color-bg-dark);
+  --oc-color-text-footer: var(--oc-color-text-inverted);
+  --oc-color-link-footer: var(--oc-color-link-inverted);
+
+  // Other
+  // oc-marker-colorizer: Use a tool like posstack.com/css-color-filter-generator/ for your target color _filter_
+  --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
+  --oc-bg-hero-image: transparent;
+  --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
+  --oc-color-marker-icon: var(--oc-color-primary);
+  --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
+  --oc-color-bg-cluster-icon: var(--oc-color-primary);
+}
+
+
+// ---
+// Dark mode base colors
+// used in ckeditor, too
+
+%cc-colors-base-dark {
+  @media screen {
+    // Base colors DM
+    --oc-color-primary: #9D1980;
+    --oc-color-secondary: #4e083c;
+
+    // Text colors DM
+    --oc-color-text: #efefef;
+    --oc-color-text-muted: #9b9d9a;
+    --oc-color-text-inverted: #191919;
+    --oc-color-text-headline: currentColor;
+
+    // Link/interaction colors DM
+    --oc-color-link: #ffdd00; //#e795f0;
+    --oc-color-interaction: #74eaea;
+
+    // Functional colors DM
+    --oc-color-danger: #f38183;
+    --oc-color-info: #8ccaff;
+    --oc-color-success: #008d36;
+    --oc-color-warning: #ffae00;
+    --oc-color-divider-light: #38393b;
+    --oc-color-divider-dark: #8b8d95;
+
+    // Background colors DM
+    --oc-color-neutral-canvas: #303236;
+    --oc-color-bg-light: #16181a;
+    --oc-color-bg-dark: #8b8d95;
+    --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
+    --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
+    --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
+    --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
+
+    // Taxonomy term tag colors DM
+    --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
+
+    // Other DM
+    --oc-chevron: url('../images/chevron-down-inv.svg');
+    --oc-image-background: var(--oc-color-bg-hardly-any-contrast);
+  }
+}
+
+
+%cc-colors-ext-dark {
+  @media screen {
+    // Contrast colors (OpenCulturas brand colors) DM
+    --oc-color-oc-spectrum-1: #d41317;
+    --oc-color-oc-spectrum-2: #da5914;
+    --oc-color-oc-spectrum-3: #ffdd00;
+    --oc-color-oc-spectrum-4: #008d36;
+    --oc-color-oc-spectrum-5: #1d70b7;
+
+    // Map contrast colors DM
+    --oc-color-osm-1: #404b38;
+    --oc-color-osm-2: #60644c;
+    --oc-color-osm-3: #4e5e47;
+
+    // Footer DM
+    --oc-color-bg-footer: #000;
+    --oc-color-text-footer: #efefef;
+    --oc-color-link-footer: #ffdd00;
+
+    // Shadow colors DM
+    --oc-shadow-color: color-mix(in oklab, #000000 60%, transparent);
+  }
+}

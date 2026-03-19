@@ -1,0 +1,22 @@
+// ---------------------------------------
+// Taxonomy terms views
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Term teaser listings grid
+
+.terms:not(.compact) .view-content {
+  @extend %grid;
+  @extend %grid-4;
+
+  @include breakpoint(xs) {
+    --oc-grid-item-count: 2;
+    gap: var(--oc-row-gap) var(--oc-gutter);
+  }
+}
+
+.terms.compact .views-row {
+  display: inline-block;
+  container-type: unset;
+}

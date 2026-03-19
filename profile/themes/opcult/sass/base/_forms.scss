@@ -1,0 +1,639 @@
+// ---------------------------------------
+// Forms + form elements
+// including views exposed filters
+// ---
+// Related: _buttons.scss
+// ---------------------------------------
+
+@use "../abstracts/mixins" as *;
+@use "../abstracts/typography" as *;
+@use "../abstracts/forms" as *;
+@use "../abstracts/buttons" as *;
+
+// Generic form elements
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit;
+}
+
+// Fix: Form first in content: margin tears containers apart
+
+.block-system-main-block:has(> form) {
+  padding-block-start: var(--oc-row-gap);
+
+  > form {
+    margin-block-start: 0;
+  }
+}
+
+// Basic form layout and wrappers
+
+form {
+  margin: var(--oc-row-gap) 0;
+  padding: var(--oc-row-gap) var(--oc-gutter);
+}
+
+form,
+.form-area {
+  background: var(--oc-color-bg-form);
+}
+
+.form-item,
+.form-actions {
+  padding-block: var(--oc-form-item-padding-block);
+
+  .form-item {
+    padding-block: 0; // @todo check - else try .form-item:not(:has(.form-item)
+  }
+}
+
+fieldset,
+fieldset.fieldgroup {
+  padding: var(--oc-row-gap) var(--oc-gutter);
+  margin-block: var(--oc-row-gap);
+  background: var(--oc-color-bg-fieldset);
+  border: .125rem solid transparent;
+
+  &.error {
+    border-color: var(--oc-color-danger);
+    > legend {
+      color: var(--oc-color-danger);
+    }
+  }
+}
+
+fieldset fieldset {
+  padding: 0;
+  border-width: 0;
+  background: transparent;
+}
+
+legend {
+  @extend %allcaps;
+}
+
+.description {
+  @extend %small;
+}
+
+.form-required::after,
+summary.form-required .details-title::after {
+  content: " *";
+  vertical-align: text-top;
+  color: var(--oc-color-danger);
+  background-image: none;
+}
+
+summary.form-required::after {
+  display: none;
+}
+
+.form--inline {
+  .form-item {
+    margin-block-start: 0;
+  }
+}
+
+label {
+  display: block;
+  padding: 0.25rem;
+  font-weight: var(--oc-font-weight-label);
+  &.option {
+    display: inline-block;
+  }
+}
+
+// Basic form fields styling
+
+*[disabled],
+.form-disabled label {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+input,
+select,
+textarea {
+  padding: var(--oc-form-field-padding);
+  border: var(--oc-input-border);
+  border-color: var(--oc-input-border-color);
+  background-color: var(--oc-input-bg-color);
+  color: var(--oc-color-text);
+
+  &.error {
+    background-color: var(--oc-input-error-bg-color); // use brightness similar to default, do not invert!
+    border-style: var(--oc-input-error-border-style);
+    border-color: var(--oc-input-error-border-color);
+  }
+
+  &:focus,
+  &:focus-visible {
+    background-color: var(--oc-input-focus-bg-color);
+    border-style: var(--oc-input-focus-border-style);
+    border-color: var(--oc-input-focus-border-color);
+    //box-shadow: var(--oc-input-focus-box-shadow);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+*::placeholder {
+  text-align: left;
+  color: var(--oc-input-placeholder-color);
+  font-family: var(--oc-font-family-default);
+}
+
+.form-autocomplete {
+  padding-inline-end: 2rem;
+  background-position: right 0.5rem center !important; // source was too specific - @todo check after inline-size fix
+
+  [dir="rtl"] & {
+    background-position: left 0.5rem center !important;
+  }
+}
+
+.ui-autocomplete li.ui-menu-item {
+  background-color: var(--oc-input-bg-color);
+  font-size: var(--oc-font-size-autocomplete-list);
+}
+
+// Responsive form fields
+input[size] {
+  max-inline-size: 100%;
+}
+
+input[size="30"] {
+  @include breakpoint(l) {
+    max-inline-size: 15rem;
+  }
+}
+
+input.bef-datepicker {
+  max-inline-size: 11rem;
+}
+
+.view-search input[size="30"] {
+  @include breakpoint(l) {
+    max-inline-size: 30rem;
+  }
+}
+
+select {
+  position: relative;
+  padding-inline-end: 2em;
+  background-image: var(--oc-chevron);
+  background-position: right 0.5em top 0.5em ;
+  background-repeat: no-repeat;
+  background-size: 1em;
+  appearance: none;
+  &[multiple].slimselect:not([data-once]) {
+    block-size: 2.48rem; // "height"
+    background: var(--oc-input-bg-color);
+    optgroup,
+    option {
+      visibility: hidden;
+    }
+  }
+  // workaround until css level 4 units are supported
+  [dir="rtl"] & {
+    background-position: left 0.5em top 0.5em;
+  }
+}
+
+// ---
+// Radio/checkbox basic
+
+input[type="checkbox"],
+input[type="radio"] {
+  position: relative;
+  inset-block-start: 0.1rem;
+  inline-size: 1em; // "width"
+  block-size: 1em; // "height"
+  margin-inline-end: 0.5rem;
+  vertical-align: baseline;
+}
+
+input[type="radio"] {
+  font-size: 1.25em;
+}
+
+
+// ---
+// Radio/checkbox eye-candy
+// Related: _icons-base.scss
+
+input[type="radio"],
+input[type="checkbox"] {
+  --oc-font-size-icon: var(--oc-font-size-icon-l);
+  appearance: none;
+  background-color: transparent;
+  border-color: transparent;
+  padding: .25rem;
+
+  &:focus,
+  &:hover {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: unset;
+  }
+
+  &::before {
+    background-color: var(--oc-input-bg-color);
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    margin: -0.125em 0 0 !important;
+    inset: 0 !important;
+  }
+}
+
+.form-item:has(input:checked) {
+  > label {
+    text-decoration: var(--oc-underline);
+  }
+}
+
+// ---
+// Autocomplete widget select
+
+.ui-menu .ui-menu-item-wrapper {
+  display: block;
+  color: var(--oc-color-text);
+  border: 0;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    color: var(--oc-color-link-focus-text);
+    background-color: var(--oc-color-link-focus-bg);
+    border: 0;
+  }
+}
+
+// Autocomplete widget select focus
+.ui-autocomplete,
+.ui-dialog .ui-autocomplete {
+  .ui-menu-item-wrapper.ui-state-active {
+    margin: 0;
+    color: var(--oc-color-text-inverted);
+    background-color: var(--oc-color-interaction);
+  }
+}
+
+// ---
+// Distance/radius field
+
+fieldset[data-drupal-selector="edit-radius-wrapper"] {
+  //margin-inline: calc(-1 * var(--oc-gutter));
+  margin-block: 0;
+  border: 1px dotted var(--oc-color-text-muted);
+  background-color: transparent;
+
+  .form-wrapper {
+    margin: 0;
+  }
+
+  .fieldset-wrapper {
+    @container (width > 32rem) {
+      display: flex;
+      flex-flow: row;
+      gap: 0 1rem;
+      align-items: flex-end;
+    }
+  }
+
+  .form-item-radius-value {
+    input {
+      max-inline-size: 7rem;
+    }
+  }
+
+  .form-item-radius-source-configuration-origin-address {
+    input {
+      inline-size: 100%;
+      max-inline-size: 28rem;
+    }
+  }
+}
+
+// ---
+// Drupal filter guidelines
+
+.form-textarea-wrapper,
+.filter-wrapper {
+  background: var(--oc-color-bg-fieldset);
+
+  .cke_top,
+  .cke_contents,
+  .cke_bottom {
+    background: var(--oc-color-bg-fieldset);
+  }
+
+  .filter-guidelines-item {
+    margin: 0;
+  }
+}
+
+.field-suffix .button {
+  margin-block-end: var(--oc-gutter);
+}
+
+
+// ---
+// Password fields
+// See also: contrib/password.scss (show password toggle)
+
+.form-type-password-confirm {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+
+.password-confirm-message {
+  .error {
+    color: var(--oc-color-danger);
+  }
+  .ok {
+    color: var(--oc-color-success);
+  }
+}
+
+// Password indicator
+
+.password-strength__indicator {
+  border: .0625rem solid transparent;
+
+  &.is-weak {
+    border-color: var(--oc-color-danger);
+    background-color: var(--oc-color-danger);
+  }
+  &.is-fair {
+    border-color: var(--oc-color-warning);
+    background-color: var(--oc-color-warning);
+  }
+  &.is-good {
+    border-color: var(--oc-color-info);
+    background-color: var(--oc-color-info);
+  }
+  &.is-strong {
+    border-color: var(--oc-color-success);
+    background-color: var(--oc-color-success);
+  }
+}
+
+.password-suggestions {
+  padding: var(--oc-row-gap) var(--oc-gutter) calc(2 * var(--oc-row-gap));
+  color: var(--oc-color-info);
+  border-color: var(--oc-color-info);
+  background-color: var(--oc-color-bg-info);
+}
+
+.content .password-suggestions ul {
+  margin-block: .5rem 0;
+}
+
+// ---
+// Date picker widget
+// @todo check usage
+
+//.ui-datepicker.ui-widget {
+//  padding: 0.5em 0.5em 0;
+//  border-color: transparent;
+//  box-shadow: var(--oc-box-shadow-centered);
+//  font-family: var(--oc-font-base);
+//}
+//
+//.ui-datepicker {
+//  .ui-datepicker-prev,
+//  .ui-datepicker-next {
+//    display: inline-block;
+//    text-align: center;
+//    border-radius: var(--oc-button-border-radius);
+//
+//
+//    .ui-icon {
+//      background-image: none;
+//    }
+//
+//    &:focus,
+//    &:hover,
+//    .ui-state-hover {
+//      color: var(--oc-color-text-inverted);
+//      border-width: 0;
+//      background-color: var(--oc-color-interaction);
+//    }
+//  }
+//
+//  .ui-datepicker-next {
+//
+//  }
+//
+//  .ui-datepicker-header {
+//    border-width: 0;
+//    background-color: unset;
+//  }
+//
+//  tr {
+//    border: 0 none;
+//  }
+//
+//  .ui-datepicker-calendar {
+//    background-color: var(--oc-color-bg-form);
+//  }
+//
+//  .ui-state-default,
+//  .ui-widget-content .ui-state-default,
+//  .ui-widget-header .ui-state-default,
+//  .ui-button {
+//    color: var(--oc-color-text);
+//    border: var(--oc-divider-dark);
+//    background: var(--oc-color-bg-light);
+//    font-weight: normal;
+//
+//    &:focus,
+//    &:hover {
+//      color: var(--color-text-inverted);
+//      background: var(--color-interaction);
+//    }
+//  }
+//
+//  .ui-state-highlight,
+//  .ui-widget-content .ui-state-highlight,
+//  .ui-widget-header .ui-state-highlight {
+//    color: var(--oc-color-text);
+//    border-color: var(--oc-color-divider-dark);
+//    background-color: var(--oc-color-bg-warning);
+//  }
+//
+//  .ui-state-active,
+//  .ui-widget-content .ui-state-active {
+//    color: var(--oc-color-info);
+//  }
+//
+//  .ui-state-disabled {
+//    color: var(--oc-color-text-muted) !important; // override specificity
+//  }
+//}
+
+// ---
+// Standalone forms + user route forms: narrower
+
+.path-user,
+.contact-form {
+  --oc-narrow-form-size: 30rem;
+  @include breakpoint(m) {
+    --oc-narrow-form-size: 48rem;
+  }
+}
+
+.path-user {
+  &:has(.user-form),
+  &:has(.user-login-form),
+  &:has(.user-pass),
+  &:has(.contact-message-personal-form) {
+    .main__page-title,
+    .main__content {
+      max-inline-size: var(--oc-narrow-form-size);
+      margin-inline: auto;
+    }
+
+    .block-local-tasks-block {
+      text-align: center;
+    }
+  }
+}
+
+.contact-form {
+  .main__page-title {
+    max-inline-size: var(--oc-narrow-form-size);
+    margin-inline: auto;
+
+    .block-local-tasks-block {
+      text-align: center;
+    }
+  }
+
+  form {
+    &.user-form,
+    &.user-login-form,
+    &.user-pass,
+    &.contact-message-personal-form,
+    &.contact-form {
+      border-radius: var(--oc-card-border-radius);
+      margin-inline: auto;
+      max-inline-size: var(--oc-narrow-form-size);
+    }
+  }
+
+
+  // Non-editable form fields lacking markup
+
+  .form-item:has(label):not(:has(input, textarea, select)) {
+    padding-inline: .25rem; // same as label
+
+    label {
+      padding-inline: 0;
+    }
+  }
+}
+
+// ---
+// Views exposed forms
+// Advanced details wrapper: see _details.scss
+
+.views-exposed-form {
+  container-type: inline-size; // fields can detect their parent's inline size
+  inline-size: 100%;
+  padding: 0 var(--oc-gutter) var(--oc-row-gap);
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+  gap: 0 var(--oc-gutter);
+
+  .bef--secondary .details-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0 var(--oc-gutter);
+    align-items: last baseline;
+  }
+
+  // checkbox has no label above
+  .form-type-checkbox {
+    input {
+      //margin-inline-end: 0.125em;
+      //font-size: 1.5em;
+    }
+
+    @include breakpoint(m) {
+      align-self: flex-end;
+      // extra padding aligns nicely with text fields
+      padding-block: calc(var(--oc-form-item-padding-block) + var(--oc-form-field-padding-block));
+    }
+
+    [dir="rtl"] & {
+      input {
+        margin-inline-start: .125em;
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  .form-submit {
+    margin-block-end: 0;
+  }
+
+  // submit button alignment
+  .form--inline .form-actions {
+    display: flex;
+    flex-flow: row wrap;
+    align-self: flex-end;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+
+    button {
+      margin: 0;
+    }
+  }
+}
+
+// Views exposed form in displays with "compact" css class
+
+.block--search,
+.form--compact {
+  .form--inline {
+    .form-type-textfield {
+      flex: 2 2 auto;
+    }
+
+    .form-actions {
+      flex: 1 1 auto;
+    }
+
+    @include breakpoint(m) {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.25rem;
+
+      * {
+        margin: 0;
+      }
+    }
+  }
+
+  .form-text {
+    max-inline-size: 100%;
+  }
+
+  .details-wrapper {
+    padding: 0;
+  }
+}
+

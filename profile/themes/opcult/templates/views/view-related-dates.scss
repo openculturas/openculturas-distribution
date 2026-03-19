@@ -1,0 +1,102 @@
+// ---------------------------------------
+// Calendar (dates) views
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// ---
+// Calendar entry grid
+
+.calendar {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-3;
+  }
+}
+
+.vocabulary-category .calendar,
+.calendar.view-related-dates-archive {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid-4;
+  }
+}
+
+// Text fields in calendar entry
+
+.calendar {
+  h3 {
+    font-size: var(--oc-font-size-m);
+    margin-block: 1rem 0;
+    margin-inline: 0;
+    padding: 0;
+
+    a {
+      text-decoration: none;
+
+      &:focus,
+      &:hover {
+        text-decoration: var(--oc-underline);
+        color: var(--oc-color-interaction);
+        background-color: transparent;
+      }
+    }
+
+    .smart-date--date {
+      margin-inline-end: .25em;
+    }
+
+    .smart-date--time {
+      font-size: var(--oc-font-size-default);
+      font-weight: var(--oc-font-weight-normal);
+    }
+
+    .field--name-field-event-status {
+      font-size: var(--oc-font-size-s);
+      font-weight: var(--oc-font-weight-normal);
+      margin-block-end: .25rem;
+    }
+  }
+
+  // actually a fix for the oc map locations view because it still has a .calendar class
+  .field__label + .teaser--title {
+    margin-block-start: 0;
+  }
+
+  .location {
+    margin-block-start: 1rem;
+  }
+}
+
+// @todo Remove field from rewrite in view display
+.view-display-id-related_date_location .location {
+  display: none;
+}
+
+.calendar .view-empty {
+  @include icon(calendar-slash);
+  display: flex;
+
+  &::before {
+    font-size: var(--oc-font-size-icon-xl);
+  }
+}
+
+// ---
+// Compact date teasers
+.no-teaser-image .teaser--title {
+  margin-block: .5rem;
+}
+
+// ---
+// Header + more link in grid cell:
+// see views--intro-inline.scss
+
+// ---
+// Fix .view-mode-compact inheritance
+// @todo Refactoring: remove class from calendar views (those teasers are not compact)
+
+.calendar article.view-mode-compact {
+  padding-block: var(--oc-card-padding-block);
+}

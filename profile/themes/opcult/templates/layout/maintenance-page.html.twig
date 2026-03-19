@@ -1,0 +1,84 @@
+{#
+/**
+ * @file
+ * Theme override to display a single Drupal page while offline.
+ *
+ * All available variables are mirrored in page.html.twig.
+ * Some may be blank but they are provided for consistency.
+ *
+ * @see template_preprocess_maintenance_page()
+ */
+#}
+
+<div class="layout-background"></div>
+
+<div class="layout-container">
+
+  <header role="banner" class="header oc-base-section">
+    <div id="header-wrapper" class="header-wrapper">
+    <div class="header__branding">
+        <div class="region region-branding">
+          <div class="block block-system block-system-branding-block">
+
+            {% if logo %}
+
+                <img src="{{ logo }}" alt="Logo {{ site_name }}"/>
+
+            {% endif %}
+
+            {% if site_name or site_slogan %}
+              <div class="name-and-slogan">
+                {% if site_name %}
+                 <p class="site-name">
+                   <a id="home-pseudo-link">{{ site_name }}</a>
+                 </p>
+                {% endif %}
+
+                {% if site_slogan %}
+                  <div class="site-slogan">{{ site_slogan }}</div>
+                {% endif %}
+              </div>{# /.name-and-slogan #}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main role="main" class="main content oc-base-section">
+    <a id="main-content" class="visually-hidden"></a>
+
+    <div class="main__page-title">
+      <div class="region region-pagetitle">
+        <div class="block block-openculturas-custom-page-title">
+          <h1 class="page-title">{{ title }}</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="main__content">
+      <div class="region-content">
+        <div class="block">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% if page.footer %}
+    <footer role="contentinfo" class="footer oc-base-section">
+      <div class="footer--container inverted">
+        {{ page.footer }}
+      </div>
+    </footer>
+  {% endif %}
+
+  {% if page.below_footer %}
+    <div class="below-footer--container oc-base-section">
+      {{ page.below_footer }}
+    </div>
+  {% endif %}
+
+
+</div>{# /.layout-container #}

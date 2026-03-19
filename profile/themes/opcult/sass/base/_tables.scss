@@ -1,0 +1,160 @@
+// ---------------------------------------
+// Generic tables + Drupal's utility classes in tables
+// ---------------------------------------
+
+@use "../abstracts/typography" as *;
+@use "../abstracts/buttons" as *;
+
+
+div:has(> table) {
+  overflow-x: auto;
+}
+
+caption {
+  @extend %allcaps;
+  text-align: start;
+}
+
+tr {
+}
+
+td,
+th {
+  padding-block: 0.5em;
+  padding-inline: 1em;
+  vertical-align: top; // physical unit 'top' is still good for table cells
+  border-block-end: var(--oc-divider-light);
+
+  &:first-child {
+    padding-inline-start: 0;
+  }
+
+  &:last-child {
+    padding-inline-end: 0;
+  }
+}
+
+td:last-child,
+th:last-child {
+  padding-inline-end: 0;
+}
+
+th {
+  text-align: start;
+  font-weight: var(--oc-font-weight-semi-bold);
+}
+
+thead th {
+  border-block-end: var(--oc-divider-dark);
+}
+
+tbody th {
+  border-inline-end: var(--oc-divider-dark); // assuming th is in first cell
+}
+
+tfoot td {
+  border-block-start: var(--oc-divider-dark);
+  font-weight: var(--oc-font-weight-medium);
+}
+
+table {
+  display: table;
+  inline-size: 100%; // "width"
+  max-inline-size: 100%;
+  margin: var(--oc-row-gap) auto;
+  border-collapse: collapse;
+
+  p {
+    margin: 0;
+  }
+
+  code,
+  pre {
+    max-inline-size: 40ch;
+  }
+
+  .field-multiple-drag {
+    white-space: nowrap;
+  }
+
+  // Draggable tables (e.g. FAQ admin)
+  .draggable {
+    position: relative;
+    .tabledrag-handle {
+      inset-block-start: calc(50% - 0.55rem); // "top"
+      display: block;
+      inline-size: 2rem;
+      block-size: 2rem;
+      cursor: row-resize;
+      &:active,
+      &:hover {
+        background: transparent;
+      }
+      &:active {
+        outline: 0;
+      }
+
+      // Phosphoricons have no appropriate icons, therefore we borrow from Gin
+      .handle {
+        inline-size: 1rem;
+        block-size: 1rem;
+        margin: .333em 0 0;
+        -webkit-mask-image: url(/profile/themes/opcult/images/gin-sprite.svg#drag-y-view);
+        mask-image: url(/profile/themes/opcult/images/gin-sprite.svg#drag-y-view);
+        background-image: none;
+        background-color: var(--oc-color-text-muted);
+      }
+    }
+
+    &.drag {
+      background-color: var(--oc-color-bg-warning);
+    }
+
+    &:has(.tabledrag-changed) {
+      border-block-end: .125rem solid var(--oc-color-warning);
+    }
+  }
+}
+
+// Sortable table header links
+// Related: icons.scss
+th a[href*="sort"] {
+  text-decoration: none;
+  @extend %tag;
+  @extend %tag-link;
+  margin: 0;
+  color: var(--oc-color-interaction);
+  padding-inline: 1rem .5rem;
+  white-space: nowrap;
+
+  &::after {
+    opacity: .5;
+    transform: translateY(0.125em) rotate(0deg);
+    transform-origin: center center;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+
+  &:focus,
+  &:hover {
+    color: var(--oc-color-link-focus-text);
+    text-decoration: none;
+    &::after {
+      transform: translateY(0.125em) rotate(180deg);
+    }
+  }
+}
+
+th:has(.tablesort--asc) a {
+  &:focus,
+  &:hover {
+    //color: var(--oc-color-link-focus-text);
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+td.is-active {
+  background-color: transparent;
+}
+

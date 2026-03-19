@@ -1,0 +1,582 @@
+// ---------------------------------------
+// Icons: Extended
+// Collected Elements that have or are icons
+// ---
+// Exceptions in templates/
+// - block/block--dark-mode-toggle
+// - navigation/toggles
+// - media/media-download
+// ---------------------------------------
+
+@use "../abstracts/mixins" as *;
+@use "../abstracts/icons" as *;
+
+// ---
+// Search
+// templates/block/block--search.scss
+
+input[id*="edit-submit-search"],
+form[role="search"] input[type="submit"] {
+  @include icon(magnifying-glass);
+}
+
+// ---
+// Flags
+// templates/flag/flag.scss
+
+.flag-bookmark-node,
+.flag-bookmark-term {
+  .flag--link,
+  .flag--button {
+    @include icon(bookmark-simple);
+  }
+  &.action-unflag {
+    .flag--link,
+    .flag--button  {
+      @include icon(bookmark-simple, fill);
+    }
+  }
+}
+
+.flag-recommendation-node {
+  .flag--link,
+  .flag--button  {
+    @include icon(star);
+  }
+  &.action-unflag {
+    .flag--link,
+    .flag--button  {
+      @include icon(star, fill);
+    }
+  }
+}
+
+.flag-report-abuse {
+  .flag--link,
+  .flag--button  {
+    @include icon(hand);
+  }
+  &.action-unflag {
+    .flag--link,
+    .flag--button  {
+      @include icon(hand, fill);
+    }
+  }
+}
+
+.flag-claim-ownership {
+  .flag--link,
+  .flag--button  {
+    @include icon(hand-arrow-down);
+  }
+  &.action-unflag {
+    .flag--link,
+    .flag--button  {
+      @include icon(hand-arrow-down, fill);
+    }
+  }
+}
+
+.action-unflag {
+  .flag--link,
+  .flag--button  {
+    &:focus,
+    &:hover {
+      @include icon(x);
+    }
+  }
+}
+
+.js-flag-message {
+  @include icon(info);
+}
+
+.action-flag {
+  .js-flag-message {
+    @include icon(warning);
+  }
+}
+
+.flag .ajax-spinner {
+  @include icon(info);
+}
+
+// --
+// Social share links toggle
+// templates/contrib/social_media_links
+
+.share-toggle--popover-button {
+  @include icon(share-network);
+}
+
+// ---
+// Tab + menu link icons
+// templates/navigation/*
+
+.tabs,
+.menu {
+  a[data-drupal-link-system-path="user"] {
+    @include icon(user);
+  }
+  a[data-drupal-link-system-path="user/login"] {
+    @include icon(sign-in);
+  }
+  a[data-drupal-link-system-path="user/logout"] {
+    @include icon(sign-out);
+  }
+  a[data-drupal-link-system-path="user/register"] {
+    @include icon(user-plus);
+  }
+  a[data-drupal-link-system-path="user/password"] {
+    @include icon(arrow-arc-left);
+  }
+  a[data-drupal-link-system-path$="/edit"] {
+    @include icon(pencil);
+  }
+  a[data-drupal-link-system-path$="/delete"] {
+    @include icon(trash);
+  }
+  a[data-drupal-link-system-path$="/layout"] {
+    @include icon(squares-four);
+  }
+  a[data-drupal-link-system-path$="/revisions"] {
+    @include icon(cards-three);
+  }
+  a[data-drupal-link-system-path$="/latest"] {
+    @include icon(clock-countdown);
+  }
+  a[data-drupal-link-system-path$="/translations"] {
+    @include icon(translate);
+  }
+  a[data-drupal-link-system-path$="/tfa"] {
+    @include icon(fingerprint-simple);
+  }
+  a[data-drupal-link-system-path$="/shortcuts"] {
+    @include icon(star);
+  }
+  a[data-drupal-link-system-path$="/submissions"] {
+    @include icon(table);
+  }
+  a[data-drupal-link-system-path$="/contact"] {
+    @include icon(envelope-simple);
+  }
+}
+
+.tabs a[aria-current="page"] {
+  @include icon(eye);
+}
+
+.menu a.is-active,
+.menu a[aria-current="page"] {
+  @include icon(check);
+}
+
+// Pager icons
+// templates/navigation/pager.scss
+
+.pager__item--first a {
+  @include icon(caret-line-left);
+}
+
+.pager__item--previous a {
+  @include icon(caret-left);
+}
+
+.pager__item--next a {
+  @include icon(caret-right);
+}
+
+.pager__item--last a {
+  @include icon(caret-line-right);
+}
+
+// ---
+// Popovers (generic toggle fallback)
+
+.button-popover-trigger {
+  @extend %icon-button;
+  @include icon(dots-three-vertical);
+}
+
+
+
+// ---
+// Address links
+
+.address-navigation a,
+a.address-navigation {
+  @include icon(compass);
+}
+
+.public-transport a,
+a.public-transport {
+  @include icon(bus);
+}
+
+// ---
+// Add to calendar links
+// templates/contrib/addtocal_augment/*
+
+.addtocal__google {
+  @include icon(arrow-line-up-right);
+}
+.addtocal__outlook {
+  @include icon(download-simple);
+}
+.addtocal__ical {
+  @include icon(download-simple);
+}
+
+// ---
+// Buttons in views
+
+.pager:has([data-drupal-views-infinite-scroll-pager]) .button {
+  @include icon(caret-double-down);
+}
+
+.view-header .button,
+.button--add {
+  @include icon(plus-circle);
+}
+
+// OC Map filter toggle: see block--openculturas-map.scss
+
+// @todo #1369 ajax event obviously suppresses ::before
+// Caveat: below PoC overrides search form icon
+//.views-exposed-form input[type="submit"] {
+//  @include icon(check);
+//}
+.views-exposed-form input[name="reset"] {
+  @include icon(arrow-counter-clockwise);
+}
+
+// ---
+// Accessibility
+
+.wheelchair,
+.paragraph--type--a11y-wheelchair > .label {
+  @include icon(wheelchair-motion)
+}
+.a11y--wheelchair .field__item {
+  @include icon(buildings);
+}
+.a11y--wheelchair-toilet .field__item {
+  @include icon(toilet);
+}
+
+
+
+// ---
+// Read-more links
+
+.more-link a,
+a.more-link {
+  @include icon(arrow-right, light, after);
+}
+
+// ---
+// External links
+
+// @include icon(arrow-line-up-right);
+
+// ---
+// Ticket links
+
+.field--name-field-ticketing a {
+  @include icon(ticket);
+}
+
+// ---
+// Scroll to top link
+
+.scroll-to-top {
+  @include icon(arrow-line-up);
+}
+
+// ---
+// Filter + facets
+
+.facets-widget-links summary {
+  @include icon(sliders);
+  @include icon(caret-down, light, after);
+}
+
+// ---
+// Non-link icons (helping to spot information
+
+.location {
+  @include icon(map-pin);
+}
+
+.field-email:not(.field-social) {
+  @include icon(envelope-simple);
+}
+
+.field-phone {
+  @include icon(phone);
+}
+
+.field-url {
+  @include icon(planet);
+}
+
+.field-legal-url {
+  @include icon(scales);
+}
+
+// Unset negative default margin used in buttons
+.location,
+.field-email:not(.field-social),
+.field-phone,
+.field-url,
+.field-legal-url {
+  &::before {
+    margin-inline-start: 0;
+  }
+  // Option: less prominent icon contrast
+  //&::before,
+  //&::after {
+    //opacity: .5;
+  //}
+}
+
+// ---
+// System messages
+// base/_messages.scss
+
+.messages--error {
+  @include icon(warning-octagon, light);
+}
+
+.messages--status {
+  @include icon(check-square, light);
+}
+
+.messages--warning,
+.messages--status:has(a[href*="/development/maintenance"]) {
+  @include icon(warning, light);
+}
+
+.messages--info,
+.infobox {
+  @include icon(info, light);
+}
+
+// ---
+// Profile picture fallback (placeholder icons)
+// See: templates/node/_profile-teaser.scss
+
+// ---
+// Function buttons/links
+
+.map-link {
+  @include icon(map-pin-area); // alternative: map-trifold
+}
+
+// ---
+// Show/hide password
+// templates/contrib/password.scss
+
+.eye-open {
+  @include icon(eye);
+}
+
+.eye-close {
+  @include icon(eye-slash);
+}
+
+// ---
+// Social media links
+// templates/contrib/social_media_links/* (block + field)
+// NOTE: some less common ones are prepared below
+
+a.print,
+a.printer,
+.fa-print {
+  @include icon(printer);
+}
+
+a.mail,
+a.email,
+.fa-mail,
+.fa-envelope {
+  @include icon(envelope-simple);
+}
+
+a.mastodon,
+.fa-mastodon {
+  @include icon(mastodon-logo);
+}
+
+a.facebook,
+.fa-facebook,
+.fa-facebook-f,
+.field-facebook a {
+  @include icon(facebook-logo);
+}
+
+a.instagram,
+.fa-instagram,
+.field-instagram a {
+  @include icon(instagram-logo);
+}
+
+a.threads,
+.fa-threads,
+.field-threads a {
+  @include icon(threads-logo);
+}
+
+a.bluesky,
+.fa-bluesky {
+  @include icon(bluesky-logo);
+}
+
+a.youtube,
+.fa-youtube{
+  @include icon(youtube-logo);
+}
+
+a.tiktok,
+.fa-tiktok {
+  @include icon(tiktok-logo);
+}
+
+a.twitch,
+.fa-twitch{
+  @include icon(twitch-logo);
+}
+
+a.linkedin,
+.fa-linkedin {
+  @include icon(linkedin-logo);
+}
+
+a.whatsapp,
+.fa-whatsapp {
+  @include icon(whatsapp-logo);
+}
+
+a.patreon,
+.fa-patreon {
+  @include icon(patreon-logo);
+}
+
+a.twitter,
+a.x,
+.fa-twitter,
+.fa-x-twitter,
+.fa-x {
+  @include icon(x-logo);
+}
+
+a.soundcloud,
+.fa-soundcloud {
+  @include icon(soundcloud-logo);
+}
+
+a.vimeo,
+.fa-vimeo {
+  @include icon(vimeo-logo)
+}
+
+a.snapchat,
+.fa-snapchat {
+  @include icon(snapchat-logo);
+}
+
+a.telegram,
+.fa-telegram {
+  @include icon(telegram-logo);
+}
+
+a.drupal,
+.fa-drupal {
+  @include icon(drupal-logo);
+}
+
+a.github,
+.fa-github {
+  @include icon(github-logo);
+}
+
+a.gitlab,
+.fa-gitlab {
+  @include icon(gitlab-logo-simple);
+}
+
+a.pinterest,
+.fa-pinterest {
+  @include icon(pinterest-logo);
+}
+
+a.tumblr,
+.fa-tumblr {
+  @include icon(tumblr-logo);
+}
+
+a.reddit,
+.fa-reddit {
+  @include icon(reddit-logo)
+}
+
+a.matrix,
+.fa-matrix {
+  @include icon(matrix-logo);
+}
+
+a.spotify,
+.fa-spotify {
+  @include icon(spotify-logo);
+}
+
+//a.paypal,
+//.fa-paypal {
+//  @include icon(paypal-logo);
+//}
+//
+//a.skype,
+//.fa-skype {
+//  @include icon(skype-logo);
+//}
+//
+//a.slack,
+//.fa-slack {
+//  @include icon(slack-logo);
+//}
+//
+//a.diaspora,
+//.fa-diaspora {
+//  @include icon(asterisk-simple);
+//}
+//
+//a.wechat,
+//.fa-wechat {
+//  @include icon(wechat-logo);
+//}
+//
+//a.microsoft-teams,
+//.fa-microsoft-teams {
+//  @include icon(microsoft-teams-logo);
+//}
+//
+//a.apple-podcasts,
+//.fa-apple-podcasts {
+//  @include icon(apple-podcasts-logo);
+//}
+//
+//a.behance,
+//.fa-behance {
+//  @include icon(behance-logo);
+//}
+//
+//a.amazon,
+//.fa-amazon {
+//  @include icon(amazon-logo);
+//}
+//
+//a.medium,
+//.fa-medium {
+//  @include icon(medium-logo);
+//}
+

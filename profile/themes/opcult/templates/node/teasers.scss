@@ -1,0 +1,144 @@
+// ---------------------------------------
+// Generic teaser styles (node + taxonomy term)
+// ---
+// Related: paragraph/teaser-wrapper/* (custom teasers)
+// ---
+// Note: not all teaser view modes are semantic <article>s.
+// Do not change markup (required for accessibility), rather change/add CSS
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.teaser {
+  hyphens: auto;
+}
+
+// ---
+// Variable-based default teaser style (note: not all teasers have article markup)
+
+article.teaser,
+.calendar .universal-teaser {
+  margin-block: var(--oc-card-margin-block);
+  margin-inline: var(--oc-card-margin-inline);
+  padding-block: var(--oc-card-padding-block);
+  padding-inline: var(--oc-card-padding-inline);
+  border: var(--oc-card-border);
+  border-width: var(--oc-card-border-width);
+  border-radius: var(--oc-card-border-radius);
+  background: var(--oc-card-background);
+  box-shadow: var(--oc-card-box-shadow);
+  block-size: var(--oc-card-height-equalizer);
+}
+
+// Overflow image when padding is set
+
+.teaser--top {
+  margin-block: calc(-1 * var(--oc-card-padding-block)) 0;
+  margin-inline: calc(-1 * var(--oc-card-padding-inline));
+  border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
+  overflow: hidden;
+}
+
+// empty image fallback background
+.teaser--top.no-image {
+  inline-size: calc(100% + calc(2 * var(--oc-card-padding-inline)));
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
+  @extend %teaser-image-fallback;
+}
+
+article.teaser .teaser--body {
+  padding-block-start: 1rem;
+
+  > .field__label {
+    margin-block-end: 0;
+  }
+}
+
+.teaser {
+  .field--name-field-subtitle {
+    font-weight: var(--oc-font-weight-teaser-subtitle);
+  }
+}
+
+// ---
+// Generic teaser titles
+
+h3.teaser--title,
+h4.teaser--title {
+  font-family: var(--oc-font-family-default);
+  font-size: var(--oc-font-size-m);
+  margin-block: 0;
+  font-weight: 700;
+
+  a {
+    text-decoration: none;
+
+    &:focus,
+    &:hover {
+      background-color: var(--oc-color-link-focus-bg);
+      color: var(--oc-color-link-focus-text);
+    }
+  }
+}
+
+// ---
+// View mode compact
+
+.view-mode-compact:not(.views-field) {
+  padding-block: 0.5rem;
+  .teaser--title {
+    font-size: var(--oc-font-size-default);
+  }
+
+  &.teaser .field--name-field-subtitle {
+    font-weight: normal;
+  }
+
+  .no-image {
+    display: none;
+  }
+}
+
+// ---
+// View mode teaser_big
+
+article.teaser-big {
+  @include breakpoint(m) {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--oc-row-gap) var(--oc-gutter);
+
+    .teaser--top {
+      border-radius: var(--oc-card-border-radius) 0 0 var(--oc-card-border-radius);
+      margin-block: calc(-1 * var(--oc-card-padding-block));
+      margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
+    }
+  }
+  .teaser--top {
+    @extend %image-fill;
+  }
+}
+
+// Equal height or not - see abstracts/_effects.scss
+// Randomized fallback images - see abstracts/_teasers.scss
+
+.views-row,
+.field__item {
+  @extend %teaser-image-fallback-randomized;
+
+  article.teaser {
+    block-size: var(--oc-card-height-equalizer);
+  }
+
+  article.profile-teaser,
+  article.location-teaser {
+    &:not(.teaser-unified) {
+      //max-inline-size: fit-content; // does not work, try different solution if necessary
+    }
+  }
+}
+
+
+// ---
+// Term teasers
+// see taxonomy-term/taxonomy-term.scss

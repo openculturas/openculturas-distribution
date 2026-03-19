@@ -1,0 +1,167 @@
+// ---------------------------------------
+// Popovers: common styles
+// ---
+// Popovers are opened by header toggles, e. g.
+// Anchors of diverse popovers are collected here
+// ---------------------------------------
+
+// Toggles
+
+.utility-toggle--wrapper {
+  margin-inline-end: 1rem;
+  display: inline-block;
+}
+
+// Popover dimensions + placement (non-modals)
+// -
+//.account-toggle--popover-content,
+//.language-toggle--popover-content,
+//.share-toggle--popover-content,
+//.attribution-toggle--popover-content,
+//.quick-info--popover-content,
+//.addtocal-toggle--popover-content,
+
+.popover-content {
+  inline-size: max-content;
+  max-inline-size: 30rem;
+  inset: unset;
+  transform: translateX(-1rem);
+  background: var(--oc-color-bg-light);
+  box-shadow: var(--oc-box-shadow-down);
+  border: 0;
+  padding: 0 0 .25em;
+
+  ul,
+  ol {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: start;
+  }
+
+  li {
+    padding-block: .25em;
+
+    a {
+      padding-block: .25rem;
+      padding-inline: 1rem 1.5rem; // most links in popover lists have icons
+    }
+  }
+
+  li button {
+    border: 0 none;
+    border-radius: 0;
+    display: block;
+    inline-size: 100%;
+    margin: 0;
+    text-align: left;
+    font-weight: var(--oc-font-weight-normal);
+    text-transform: none;
+    letter-spacing: normal;
+    padding-block: .25rem;
+    padding-inline: 1rem 1.5rem;
+    color: var(--oc-color-menu-link);
+
+    &:focus,
+    &:hover,
+    &:active {
+      background-color: var(--oc-color-menu-link-focus-bg);
+      color: var(--oc-color-menu-link-focus-text);
+      border-radius: 0;
+    }
+  }
+}
+
+// ---
+// Anchors
+
+// Offcanvas menu
+@supports (anchor-name: --offcanvas-menu-trigger) {
+  .offcanvas-menu--trigger {
+    anchor-name: --offcanvas-menu-trigger;
+  }
+
+  .offcanvas-menu--popover-content {
+    top: anchor(top);
+    right: anchor(right);
+    position-anchor: --offcanvas-menu-trigger;
+  }
+}
+
+// User account menu
+@supports (anchor-name: --account-menu-trigger) {
+  .account-toggle--trigger  {
+    anchor-name: --account-menu-trigger;
+  }
+
+  .account-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --account-menu-trigger;
+  }
+}
+
+// Dark mode toggle
+@supports (anchor-name: --dark-mode-toggle-trigger) {
+  .dark-mode-toggle--trigger {
+    anchor-name: --dark-mode-toggle-trigger;
+  }
+
+  .dark-mode-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --dark-mode-toggle-trigger;
+  }
+}
+
+// Language menu
+@supports (anchor-name: --language-toggle-trigger) {
+  .language-toggle--trigger {
+    anchor-name: --language-toggle-trigger;
+  }
+
+  .language-toggle--popover-content {
+    top: anchor(bottom);
+    right: anchor(right);
+    position-anchor: --language-toggle-trigger;
+  }
+}
+
+// Search popover (modal)
+@supports (anchor-name: --search-toggle-trigger) {
+  .search-toggle--trigger {
+    anchor-name: --search-toggle-trigger;
+  }
+
+  .search-toggle--popover-content {
+    top: anchor(top);
+    right: anchor(right);
+    position-anchor: --search-toggle-trigger;
+  }
+}
+
+// Social shares
+@supports (anchor-name: --share-toggle-trigger) {
+  .share-toggle--trigger {
+    anchor-name: --share-toggle-trigger;
+  }
+
+  .share-toggle--popover-content {
+    top: anchor(bottom);
+    left: anchor(left);
+    position-anchor: --share-toggle-trigger;
+  }
+}
+
+// ---
+// Further anchors:
+
+// Attribution (copyright)
+// See templates/field/field--media--field-licenses.html.twig
+
+// Quick info (responsive teaser body)
+// See templates/node/teaser-unified.html.twig
+
+// Addtocalendar (unique on page but would not be when used in teasers)
+// See templates/contrib/addtocal_augment/addtocal-links--modal.html.twig

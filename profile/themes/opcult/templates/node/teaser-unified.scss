@@ -1,0 +1,215 @@
+// ---------------------------------------
+// Unified teasers
+// same layout for all bundles (nodes + taxonomy terms)
+// ---
+// Related: popovers.scss (popover anchor)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.teaser-unified {
+  display: grid;
+  gap: 0;
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
+
+  .teaser--top,
+  .teaser--body,
+  .teaser--footer {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .teaser--top {
+    border-radius: var(--oc-card-border-radius);
+    margin-block-end: calc(-1 * calc(var(--oc-card-padding-block) + var(--oc-card-border-block)));
+    place-self: stretch;
+  }
+
+  .teaser--top img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .no-image {
+    @extend %teaser-image-fallback;
+  }
+
+  .teaser--body {
+    align-self: end;
+    margin-block: var(--oc-row-gap);
+  }
+
+  .teaser--footer {
+    align-self: end;
+    justify-self: end;
+  }
+
+  .teaser--body {
+    margin-block: 0;
+    padding-block-end: .5rem;
+
+    @include breakpoint(xl) {
+      padding-inline: var(--oc-gutter);
+    }
+  }
+
+  .field--name-field-subtitle p {
+    margin: 0;
+  }
+
+  .text-formatted:last-of-type p {
+    margin-block-end: 0;
+  }
+}
+
+article.teaser-unified .teaser--body {
+  padding: 0; // override inheritance from article
+}
+
+// ---
+// Body field (teaser text) moved to "Quick info" popover
+// See popovers.scss
+
+.quick-info--toggle {
+  @extend %icon-only;
+  @include icon(info);
+  position: absolute;
+  inset-inline-end: calc(-.5 * var(--oc-card-padding-inline));
+  inset-block-end: calc(-.5 * var(--oc-card-padding-block));
+}
+
+.quick-info--popover-content {
+  max-inline-size: 20rem;
+}
+
+// ---
+// Text overlaying image: linear gradient background (not changing in dark mode)
+
+.teaser-unified {
+  .teaser--body {
+    color: hsla(255, 0%, 100%);
+  }
+
+  .teaser--top::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 0 0;
+    background-image: linear-gradient(
+        180deg,
+        hsla(0, 0%, 35%, 0) 0%,     // block start: transparent
+        hsla(0, 0%, 34%, 0.03) 40%,
+        hsla(0, 0%, 28%, 0.35) 50%,
+        hsla(0, 0%, 22%, 0.65) 65%,
+        hsla(0, 0%, 18%, 0.75) 80%,
+        hsla(0, 0%, 12%, 0.8) 100%  // maximum dark (not absolute)
+    );
+    //background-image: linear-gradient(
+    //    180deg,
+    //    hsla(0, 0%, 35.29%, 0) 0%,
+    //    hsla(0, 0%, 34.53%, 0.034375) 16.36%,
+    //    hsla(0, 0%, 32.42%, 0.125) 33.34%,
+    //    hsla(0, 0%, 29.18%, 0.253125) 50.1%,
+    //    hsla(0, 0%, 24.96%, 0.4) 65.75%,
+    //    hsla(0, 0%, 19.85%, 0.546875) 79.43%,
+    //    hsla(0, 0%, 13.95%, 0.675) 90.28%,
+    //    hsla(0, 0%, 7.32%, 0.765625) 97.43%,
+    //    hsla(0, 0%, 0%, 0.8) 100%
+    //);
+  }
+
+  h3.teaser--title a {
+    color: hsla(255, 0%, 100%);
+    text-decoration: var(--oc-underline);
+  }
+}
+
+// ---
+// Special case: Teaser unified in teaser section view mode Default
+
+.paragraph--type--teaser-wrapper.paragraph--view-mode--default {
+  .teaser-unified {
+    //display: block;
+    aspect-ratio: unset;
+
+    .teaser--body {
+      padding-block-start: 1rem;
+      color: var(--oc-color-text);
+      grid-row: 2;
+    }
+
+    .teaser--footer {
+      grid-row: 3;
+    }
+
+    h3.teaser--title a {
+      @extend %link-default;
+      text-decoration: none;
+    }
+  }
+
+  .teaser--top {
+    margin-block-end: 0;
+    border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
+
+    &::after {
+      background-image: none;
+      display: none;
+    }
+  }
+}
+
+// ---
+// No height equalizer in slider
+
+.slider-container {
+  article.teaser-unified {
+    block-size: auto;
+  }
+
+  .teaser-unified .teaser--top div {
+    inline-size: auto;
+    block-size: auto;
+  }
+  .teaser-unified .teaser--top img {
+    inline-size: auto;
+    block-size: auto;
+  }
+}
+
+// ---
+// Prevent grid overflow
+
+.field--name-field-references .teaser-unified {
+  max-inline-size: 100%;
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
+}
+
+// --
+// Exceptions for container-query-based quick-info/teaser text toggling
+// Related: base/_reusables (.responsive-hide/reveal)
+
+.paragraph--type--teaser-wrapper.paragraph--view-mode--default {
+  .responsive-hide {
+    display: block;
+  }
+
+  .responsive-reveal {
+    display: none;
+  }
+}
+
+// Slider (single slide)
+
+.paragraph--view-mode--slider {
+  @include breakpoint(m) {
+    .responsive-hide {
+      display: block;
+    }
+
+    .responsive-reveal {
+      display: none;
+    }
+  }
+}
+

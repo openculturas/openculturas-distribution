@@ -1,0 +1,42 @@
+// ---------------------------------------
+// Dark mode toggle + popover
+// Related: block--popover.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Reduce toggle button to icon
+.dark-mode-toggle--popover-button {
+  @extend %icon-button;
+  @include icon(circle-half);
+}
+
+html.dark {
+  .dark-mode-toggle--popover-button {
+  }
+}
+
+// Button icons (toggle button indicates current selection)
+
+.mode-toggle.toggle-system,
+.dark-mode-toggle--popover-button[data-icon="system"]{
+  @include icon(circle-half);
+}
+
+.mode-toggle.toggle-light,
+.dark-mode-toggle--popover-button[data-icon="light"] {
+  @include icon(sun);
+}
+
+.mode-toggle.toggle-dark,
+.dark-mode-toggle--popover-button[data-icon="dark"]{
+  @include icon(moon);
+}
+
+// Currently selected item
+.mode-toggle[data-active="true"] {
+  color: var(--oc-color-text-muted);
+  @include icon(check, light, after);
+  white-space: nowrap;
+  margin-inline-end: -1rem;
+}

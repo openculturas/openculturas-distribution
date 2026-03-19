@@ -1,0 +1,68 @@
+// ---------------------------------------
+// "Pager" = paged views page links
+// ---
+// Related: base/_icons-ext.scss
+// Note: .pager is a wrapper class shared by classic pager + load-more link
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// Classic pager (next/previous/page numbers etc.)
+
+.pager__items,
+.js-pager__items {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+  margin-block: var(--oc-row-gap);
+
+  li {
+    margin-block: 0;
+    place-content: center;
+  }
+}
+
+.js-pager__items {
+  --oc-color-menu-link: var(--oc-color-interaction);
+  --oc-color-menu-link-focus-bg: var(--oc-color-interaction);
+}
+
+// Pager links
+// Icons: see base/icons.scss
+
+.pager__item span[aria-hidden] {
+  display: none;
+}
+
+.pager__item a {
+  display: inline-flex;
+  line-height: 1;
+  place-content: center;
+  padding: .5rem .75rem;
+
+  nav & {
+    border-color: transparent;
+  }
+}
+
+.pager__item.is-active a {
+  font-weight: var(--oc-font-weight-bold);
+}
+
+[class*="pager__item--"] a {
+  font-size: 1.5em;
+  padding-inline: .5rem;
+
+  &::before {
+    transform: none;
+  }
+}
+
+// Load-more pager
+// related: base/_icons-ext.scss
+
+.pager:has([data-drupal-views-infinite-scroll-pager]) {
+  text-align: center;
+  margin-block-start: calc(2 * var(--oc-row-gap));
+}

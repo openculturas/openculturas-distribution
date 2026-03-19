@@ -1,0 +1,51 @@
+// ---------------------------------------
+// View mode legal (profile + location)
+// used for date organizer
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// unset some inherits
+
+.view-mode-legal {
+  .profile-teaser,
+  .profile--address {
+    word-wrap: normal;
+    hyphens: none;
+  }
+}
+
+.view-mode-legal .profile-teaser .profile--top {
+  display: block;
+}
+
+.view-mode-legal .profile-teaser {
+  align-self: start;
+}
+
+// Flexible custom grid
+
+.view-mode-legal {
+  inline-size: 100%;
+  @extend %grid;
+  grid-template-rows: minmax(min-content, auto) auto;
+  grid-template-columns: minmax(20ch, 100%);
+
+  @include breakpoint(m) {
+    grid-template-columns: minmax(min-content, auto) auto;
+  }
+  .profile--address {
+    @include breakpoint(m) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+
+  .profile--contact {
+    @include breakpoint(m) {
+      min-inline-size: 30rem;
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+}

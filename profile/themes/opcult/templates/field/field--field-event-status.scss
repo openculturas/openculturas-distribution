@@ -1,0 +1,67 @@
+// ---------------------------------------
+// Event date status (postponed, canceled etc.)
+// ---
+// Related: node--date, view-related-dates, leaflet (popups)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.field--name-field-event-status {
+  --oc-status-color-bg: transparent;
+  --oc-status-color-text: var(--oc-color-text);
+
+  .field__item {
+    background-color: var(--oc-status-color-bg);
+    color: var(--oc-status-color-text);
+    display: inline-block;
+    padding: .125rem .5rem;
+  }
+}
+
+.EventScheduled  .field--name-field-event-status .field__item {
+  --oc-status-color-bg: transparent;
+  --oc-status-color-text: var(--oc-color-text);
+  padding-inline: 0;
+}
+
+.EventMovedOnline,
+.EventRescheduled {
+  &.views-row .field--name-field-event-status,
+  .date-main--status .field--name-field-event-status {
+    --oc-status-color-bg: var(--oc-color-bg-dark);
+    --oc-status-color-text: var(--oc-color-text-inverted);
+  }
+}
+
+.EventCancelled,
+.EventPostponed {
+  &.views-row .field--name-field-event-status,
+  .date-main--status .field--name-field-event-status {
+    --oc-status-color-bg: var(--oc-color-danger);
+    --oc-status-color-text: var(--oc-color-text-inverted);
+  }
+}
+
+// ---
+// Hide for regular dates, avoid inheritance collaterals
+
+.EventScheduled .date-main--status,
+.EventScheduled.views-row .field--name-field-event-status {
+  display: none;
+}
+
+// ---
+// Status field in map popups
+
+.leaflet-popup {
+  .EventScheduled,
+  .EventRescheduled {
+    display: none;
+  }
+
+  .EventCancelled,
+  .EventPostponed,
+  .EventMovedOnline {
+    color: var(--oc-color-danger);
+  }
+}

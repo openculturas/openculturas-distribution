@@ -1,0 +1,140 @@
+// ---------------------------------------
+// Wrapper section paragraph + included view fields
+// ---
+// Related: paragraph.scss (generic classes/behaviours), views.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+// View mode grid ("side by side" sets header, intro text + more link inline
+
+.paragraph--type--wrapper-section.paragraph--view-mode--grid {
+  margin-block: var(--oc-section-spacing);
+  @extend %grid;
+  @extend %grid-headline-inline;
+  gap: 0 var(--oc-gutter);
+
+  @include breakpoint(s) {
+    --oc-grid-item-count: 1;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 4;
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 4;
+  }
+
+  .field--name-field-content-paragraphs {
+    grid-column: 1 / -1;
+
+    @include breakpoint(l) {
+      grid-column: 2 / -1;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  .intro-inline, // @todo Check usage
+  .intro {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .more-link {
+    grid-column: 1;
+    align-self: end;
+    margin-block-end: var(--oc-card-margin-block);
+
+    @include breakpoint(l) {
+      grid-row: 2;
+    }
+  }
+
+  .paragraph--type--view {
+    margin-block: 0;
+  }
+
+  // Modify standalone grid to fit in
+  .view .views-infinite-scroll-content-wrapper,
+  .view:not(:has(.views-infinite-scroll-content-wrapper)) {
+
+    @include breakpoint(l) {
+      --oc-grid-item-count: 2;
+    }
+
+    @include breakpoint(xl) {
+      --oc-grid-item-count: 3;
+    }
+
+    .view-content {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+// Hide View redundant header/more link
+
+//.paragraph--type--wrapper-section:has(.intro) {
+.paragraph--type--wrapper-section {
+  .view-header,
+  .view .more-link,
+  .block--title {
+    display: none;
+  }
+}
+
+// ---
+// Adjust headline margin
+
+.paragraph--type--wrapper-section.paragraph--view-mode--grid {
+  &:has(.view.locations, .view.profiles) h2 {
+    margin-block-start: 0;
+    padding-block-start: 0;
+  }
+}
+
+// ---
+// OC Map block exceed block height overlays more-link
+// @todo Find out why
+
+.paragraph--type--wrapper-section:has(.block-openculturas-map) .more-link {
+  z-index: +2;
+}
+
+// Used for "text with media"
+
+.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media) {
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+
+    > .intro,
+    > .more-link {
+      padding-inline-end: var(--oc-grid-step);
+    }
+  }
+}
+
+// PoC Reverse every second container
+// @todo Backlog: setting to set explicit wrapper class "reverse"
+
+//.field--name-field-content-paragraphs .field__item:has(.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media)):nth-child(2n) {
+//  @include breakpoint(m) {
+//    .paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media) {
+//      > .intro,
+//      > .more-link {
+//        grid-column: 2;
+//        padding-inline-end: 0;
+//      }
+//
+//      > .field--name-field-content-paragraphs {
+//        grid-column: 1;
+//      }
+//    }
+//  }
+//}
+//

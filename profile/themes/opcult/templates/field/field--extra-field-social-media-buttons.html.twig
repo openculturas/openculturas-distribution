@@ -1,0 +1,26 @@
+{%
+  set classes = [
+  'field',
+  'field--name-' ~ field_name|clean_class,
+  'field--type-' ~ field_type|clean_class,
+  'field--label-' ~ label_display,
+  label_display == 'inline' ? 'clearfix',
+  'content-toggle--wrapper',
+  'social-media-toggle--wrapper',
+]
+%}
+{% set popoverId = 'block-popover-content-share'|clean_unique_id %}
+{% set heading_id = attributes.id ~ '-menu'|clean_id %}
+
+{% for item in items %}
+<div class="share-buttons" data-drupal-selector="share-buttons">
+  <div{{ item.attributes.addClass('field__item').addClass(field_name|clean_class) }}>
+    {% if not label_hidden %}
+      <button popovertarget="{{ popoverId }}" {{ title_attributes.addClass('button button--share share-toggle--trigger share-toggle--popover-button')}} title="{{ label }}">{{ label }}</button>
+    {% endif %}
+    <div id="{{ popoverId }}" class="popover-content share-toggle--popover-content oc--social-share--layer" popover>
+      {{ item.content }}
+    </div>
+  </div>
+</div>
+{% endfor %}

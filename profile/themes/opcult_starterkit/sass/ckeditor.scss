@@ -1,0 +1,16 @@
+// =======================================
+// OpenCulturas Sub: CKEditor 5 styles
+// ---
+// Compiles to css/ckeditor.css
+// Referenced in opcult_starterkit.info.yml under ckeditor5-stylesheets.
+// =======================================
+
+@use "sass:meta";
+
+// Inherit opcult's CKEditor setup (resolved via loadPaths).
+@include meta.load-css("_ckeditor");
+
+// Sub-theme CKEditor customizations.
+.ck-content {
+  @include meta.load-css("_ckeditor-opcult_starterkit");
+}
