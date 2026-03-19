@@ -624,3 +624,32 @@ function openculturas_post_update_ckeditor_attributes(): string {
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Enable field status in the media bundle image.
+ */
+function openculturas_post_update_media_image_status_field(): string {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $form_modes = ['default', 'media_library'];
+  foreach ($form_modes as $form_mode) {
+    $form_display = $entity_display_repository->getFormDisplay('media', 'image', $form_mode);
+
+    if (!$form_display->isNew()) {
+      $options = [
+        'type' => 'boolean_checkbox',
+        'settings' => ['display_label' => TRUE],
+      ];
+      $form_display->setComponent('status', $options);
+      $form_display->save();
+      $logger->info(sprintf('Enabled status field in form mode %s for media bundle image', $form_mode));
+    }
+    else {
+      $logger->notice(sprintf('SKIPPED. Form mode %s does not exist.', $form_mode));
+    }
+  }
+
+  return $logger->output();
+}
