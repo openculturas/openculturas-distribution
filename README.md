@@ -101,7 +101,7 @@ All configurations are managed via [config_devel](https://www.drupal.org/project
 Each configuration is listed in the info file of the profile or submodule.
 So any new configuration needs to be added to the info file.
 
-After that, enable config_devel and run `ddev drush cde openculturas` or `ddev drush cde submodule`.
+After that, enable config_devel and run `ddev drush cde` or `ddev drush cde submodule`.
 
 This command updates all configuration which are listed in the info file and removes the key `_core` and `uuid` except for
 views configuration. The uuid is needed because the uuid is used in other configuration as a default value, without this
