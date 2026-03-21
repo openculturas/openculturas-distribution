@@ -145,6 +145,7 @@ function openculturas_update_10122(): void {
   if (!$config->isNew()) {
     /** @var string $form_ids_raw */
     $form_ids_raw = $config->get('form_ids');
+    $form_ids = [];
     if (is_string($form_ids_raw)) {
       $form_ids = explode(',', $form_ids_raw);
     }
