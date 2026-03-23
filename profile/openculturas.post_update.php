@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\image\ImageEffectInterface;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
@@ -678,6 +679,50 @@ function openculturas_post_update_related_dates_archive_items_per_page(): string
   }
   else {
     $logger->notice('SKIPPED. View or display not found.');
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Increase the width/height of image.style.teaser_big when configured wrong w/h.
+ */
+function openculturas_post_update_image_style_teaser_big_increase_size(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $imageStyleStorage = \Drupal::entityTypeManager()->getStorage('image_style');
+  /** @var \Drupal\image\ImageStyleInterface|null $imageStyle */
+  $imageStyle = $imageStyleStorage->loadOverrideFree('teaser_big');
+  if ($imageStyle) {
+    try {
+      $effect = $imageStyle->getEffect('418ab1de-49cf-4bc4-a560-fe9245ae3070');
+    }
+    catch (\Throwable) {
+      $effect = NULL;
+    }
+
+    if ($effect instanceof ImageEffectInterface) {
+      $configuration = $effect->getConfiguration();
+      $width = (int) ($configuration['data']['width'] ?? 0);
+      $height = (int) ($configuration['data']['height'] ?? 0);
+      if ($width === 680 && $height === 382) {
+        $configuration['data']['width'] = 960;
+        $configuration['data']['height'] = 540;
+        $effect->setConfiguration($configuration);
+        $imageStyle->save();
+        $logger->info('Image style teaser_big updated from 680x382 to 960x540.');
+      }
+      else {
+        $logger->info('SKIPPED. Width and height was customized.');
+      }
+    }
+    else {
+      $logger->notice('SKIPPED. Effect in image style teaser_big not found.');
+    }
+  }
+  else {
+    $logger->notice('SKIPPED. Image style teaser_big not found.');
   }
 
   return $logger->output();
