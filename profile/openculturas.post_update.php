@@ -653,3 +653,32 @@ function openculturas_post_update_media_image_status_field(): string {
 
   return $logger->output();
 }
+
+/**
+ * Increase the item per page (6) for the default display in view related_dates_archive.
+ */
+function openculturas_post_update_related_dates_archive_items_per_page(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $view = Views::getView('related_dates_archive');
+  if ($view) {
+    $display = $view->getDisplay();
+    /** @var \Drupal\views\Plugin\views\ViewsPluginInterface|null $plugin */
+    $plugin = $display->getPlugin('pager');
+    if ($plugin && $plugin->getPluginId() === 'infinite_scroll') {
+      $plugin_options = $display->getOption('pager');
+      $plugin_options['options']['items_per_page'] = 6;
+      $display->setOption('pager', $plugin_options);
+      $view->save();
+    }
+    else {
+      $logger->notice('SKIPPED. Plugin options not found.');
+    }
+  }
+  else {
+    $logger->notice('SKIPPED. View or display not found.');
+  }
+
+  return $logger->output();
+}
