@@ -1826,7 +1826,7 @@ display:
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_class: text-formatted
           element_default_classes: true
           empty: ''
           hide_empty: false
@@ -2141,9 +2141,9 @@ display:
             group_items: {  }
         default_langcode:
           id: default_langcode
-          table: node_field_revision
+          table: node_field_data
           field: default_langcode
-          relationship: none
+          relationship: field_ref_node
           group_type: group
           admin_label: ''
           entity_type: node
@@ -2167,48 +2167,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        langcode:
-          id: langcode
-          table: node_field_data
-          field: langcode
-          relationship: field_ref_node
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: langcode
-          plugin_id: language
-          operator: in
-          value:
-            '***LANGUAGE_language_interface***': '***LANGUAGE_language_interface***'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -2262,12 +2220,13 @@ display:
           empty: false
           content: '<strong>@total</strong> comments'
       display_comment: ''
-      rendering_language: '***LANGUAGE_entity_default***'
+      rendering_language: '***LANGUAGE_entity_translation***'
       display_extenders: {  }
       block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
@@ -3453,7 +3412,7 @@ display:
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_class: text-formatted
           element_default_classes: true
           empty: ''
           hide_empty: false
@@ -3474,7 +3433,6 @@ display:
               class: more-link
               text: More
               aria_label: 'Read more about [node:title]'
-              token_browser: ''
             summary_handler: ignore
             trim_options:
               text: true
