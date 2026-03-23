@@ -63,7 +63,7 @@ Someday when the issue https://www.drupal.org/project/project_composer/issues/32
 * Install OpenCulturas distribution
   * `drush site:install --yes --existing-config`
 
-### ddev
+### DDEV
 
 Cheatsheet:
 
@@ -85,7 +85,7 @@ To update the version, sort list like dependencies in openculturas modules, run:
 * Change content via UI
 * Export content `ddev composer run export-content`
 
-### drush scripts
+### Drush scripts
 
 At the moment l.d.o does not find the labels of field_group. Therefore, we generate the strings.
 
@@ -98,12 +98,12 @@ Download the composer.json from drupal/core-dev and update the adjusted core-dev
 ### Configuration files
 
 All configurations are managed via [config_devel](https://www.drupal.org/project/config_devel).
-Each configuration is listed in the info file of the profile or submodule.
-So any new configuration needs to be added to the info file.
+Each configuration is listed in the info file of the profile or module.
+Therefore, any changes to the configuration must also be made in the info file.
 
-After that, enable config_devel and run `ddev drush cde` or `ddev drush cde submodule`.
+After that, enable config_devel and run `ddev composer run cde` or `ddev drush cde module`.
 
-This command updates all configuration which are listed in the info file and removes the key `_core` and `uuid` except for
+This command updates all configuration listed in the info file and removes the key `_core` and `uuid` except for
 views configuration. The uuid is needed because the uuid is used in other configuration as a default value, without this
 the default value would be not set/broken.
 

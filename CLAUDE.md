@@ -109,7 +109,7 @@ Uses `config_devel` module. Config is declared in module `.info.yml` files and e
 
 ```bash
 ddev drush cde <module>  # Updates the configuration for a specific module via config_devel (Current state in database to module for new installation or post updates)
-ddev drush cde  # Updates the configuration for all modules/theme/profile via config_devel (Current state in database to module for new installation or post updates)
+ddev composer run cde  # Updates the configuration for all modules/theme/profile via config_devel (Current state in database to module for new installation or post updates)
 composer run export-content  # Export default content
 composer run info_file_normalizer  # Sort .info.yml files alphabetically
 ```
