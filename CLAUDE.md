@@ -31,6 +31,9 @@ ddev drush uli
 ddev composer require <package>
 ddev composer update
 
+# (Re-)install the site (clears files dir and runs drush site:install)
+ddev composer run si
+
 # Launch admin pages
 ddev launch /admin
 ```
@@ -88,6 +91,7 @@ ddev drush sql:query "DESCRIBE <table_name>;"
 ### PHP Quality Checks
 ```bash
 composer run php:qa          # Full QA: lint + cs + phpstan + rector
+composer run php:lint        # PHP parallel lint
 composer run php:cs          # PHPCS only
 composer run php:cs-fix      # Auto-fix PHPCS issues
 composer run php:phpstan     # Static analysis (level: max)
@@ -97,9 +101,14 @@ composer run php:rector-fix  # Rector auto-fix
 
 ### JS/CSS Linting
 ```bash
-npm run lint:js              # ESLint
-npm run lint:scss            # stylelint SCSS
+npm run lint:js              # ESLint JavaScript
+npm run lint:yaml            # ESLint YAML
+npm run lint:css             # stylelint CSS (profile/modules)
+npm run lint:css:fix         # Auto-fix CSS
+npm run lint:scss            # stylelint SCSS (openculturas_base theme)
 npm run lint:scss:fix        # Auto-fix SCSS
+npm run prettier             # Format JavaScript
+npm run prettier:css         # Format CSS
 npm run prettier:scss        # Format SCSS
 ```
 
@@ -109,7 +118,7 @@ Uses `config_devel` module. Config is declared in module `.info.yml` files and e
 
 ```bash
 ddev drush cde <module>  # Updates the configuration for a specific module via config_devel (Current state in database to module for new installation or post updates)
-ddev composer run cde  # Updates the configuration for all modules/theme/profile via config_devel (Current state in database to module for new installation or post updates)
+ddev composer run cde  # Updates the configuration for the main profile and selected modules (openculturas_faq, openculturas_discussions, openculturas_map, openculturas_section, openculturas_openstreetmap) via config_devel
 composer run export-content  # Export default content
 composer run info_file_normalizer  # Sort .info.yml files alphabetically
 ```
@@ -118,7 +127,7 @@ composer run info_file_normalizer  # Sort .info.yml files alphabetically
 
 ```
 profile/                      # Main Drupal installation profile
-├── modules/custom/          # 13 custom modules (openculturas_*)
+├── modules/custom/          # 14 custom modules (openculturas_* + dark_mode_toggle)
 ├── themes/                  # openculturas_base, opcult, opcult_starterkit
 └── config/install/          # Default Drupal configuration
 web/                         # Drupal web root (composer scaffold)
@@ -127,7 +136,7 @@ scripts/                     # Utility scripts (info_file_normalizer.php, db_dum
 tests/                       # PHPUnit tests
 ```
 
-Custom modules are prefixed `openculturas_*` and handle: calendar widgets, maps (OpenStreetMap/Leaflet), media, FAQ, discussions, teasers, sections, and address links.
+Most custom modules are prefixed `openculturas_*` and handle: calendar widgets, maps (OpenStreetMap/Leaflet), media, FAQ, discussions, teasers, sections, address links, and slim-select. The `dark_mode_toggle` module is the exception to this naming convention.
 
 ### Patching
 
