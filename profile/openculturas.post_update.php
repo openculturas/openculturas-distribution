@@ -624,3 +624,64 @@ function openculturas_post_update_ckeditor_attributes(): string {
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Add missing default_langcode filters to related views.
+ */
+function openculturas_post_update_views_filter_by_default_language(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $targets = [
+    ['view' => 'related_profile', 'display' => 'related_profile_members', 'relationship' => 'field_people_reference', 'table' => 'paragraphs_item_field_data'],
+    ['view' => 'related_article', 'display' => 'mention_by_article', 'relationship' => 'field_references', 'table' => 'node_field_data'],
+    ['view' => 'related_pages', 'display' => 'mention_by_article', 'relationship' => 'field_references', 'table' => 'node_field_data'],
+  ];
+
+  foreach ($targets as $target) {
+    $view = Views::getView($target['view']);
+    if (!$view || !$view->setDisplay($target['display'])) {
+      $logger->notice(sprintf('SKIPPED. View %s or display %s not found.', $target['view'], $target['display']));
+      continue;
+    }
+
+    $display = $view->getDisplay();
+
+    if (!array_key_exists($target['relationship'], $display->getOption('relationships') ?? [])) {
+      $logger->notice(sprintf('SKIPPED. Relationship %s not found in %s.', $target['relationship'], $target['view']));
+      continue;
+    }
+
+    // If this display inherits filters from the default display, setOption()
+    // would delegate there and corrupt the default display. Override locally
+    // so the new filter is stored only for this display.
+    if ($display->isDefaulted('filters')) {
+      $display->setOverride('filters', FALSE);
+    }
+
+    $exists = (bool) array_filter(
+      $display->getOption('filters') ?? [],
+      static fn(array $filter): bool =>
+        ($filter['field'] ?? '') === 'default_langcode' &&
+        ($filter['relationship'] ?? '') === $target['relationship']
+    );
+
+    if ($exists) {
+      $logger->info(sprintf('SKIPPED. Filter default_langcode for %s already exists in %s.', $target['relationship'], $target['view']));
+      continue;
+    }
+
+    $view->addHandler($target['display'], 'filter', $target['table'], 'default_langcode', [
+      'relationship' => $target['relationship'],
+      'operator' => '=',
+      'value' => '1',
+      'group' => 1,
+      'exposed' => FALSE,
+    ]);
+
+    $view->save();
+    $logger->info(sprintf('Added default_langcode filter for %s to %s.', $target['relationship'], $target['view']));
+  }
+
+  return $logger->output();
+}

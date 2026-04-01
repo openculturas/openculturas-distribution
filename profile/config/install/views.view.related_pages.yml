@@ -451,6 +451,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 6
           total_pages: null
           id: 0
@@ -468,7 +469,6 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-          pagination_heading_level: h4
       arguments:
         field_sub_type_target_id:
           id: field_sub_type_target_id
@@ -687,6 +687,58 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        default_langcode_1:
+          id: default_langcode_1
+          table: node_field_data
+          field: default_langcode
+          relationship: field_references
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
       filter_groups:
         operator: AND
         groups:
@@ -698,8 +750,8 @@ display:
         relationships: false
         fields: false
         arguments: false
-        filters: true
-        filter_groups: true
+        filters: false
+        filter_groups: false
         header: false
       relationships:
         field_references:
@@ -775,6 +827,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 6
           total_pages: null
           id: 0
@@ -792,7 +845,6 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-          pagination_heading_level: h4
       arguments: {  }
       defaults:
         title: false
