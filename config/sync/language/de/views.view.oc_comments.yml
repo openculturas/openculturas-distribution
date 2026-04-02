@@ -5,26 +5,54 @@ display:
     display_title: Standard
     display_options:
       fields:
+        views_bulk_operations_bulk_form:
+          label: Stapelverarbeitung
+          selected_actions:
+            30:
+              preconfiguration:
+                label_override: Löschen
+        nid:
+          separator: ', '
         title:
           label: Titel
+          separator: ', '
         body:
           label: Inhalt
+          separator: ', '
+        field_ref_node:
+          separator: ', '
+        field_comments_mode:
+          separator: ', '
         type_1:
           label: Typ
+          separator: ', '
         moderation_state:
           label: Moderationsstatus
+          separator: ', '
+        revision_log:
+          label: Bearbeitungsnotiz
+          separator: ', '
         type:
           label: Typ
+          separator: ', '
         name:
           label: 'Verfasst von'
+          separator: ', '
         revision_uid:
           label: 'letzte Bearbeitung von'
+          separator: ', '
         changed:
           label: Aktualisiert
+          separator: ', '
         operations:
           label: Aktionen
       pager:
         options:
+          tags:
+            next: 'Nächste ›'
+            previous: '‹ Vorige'
+            first: '« Anfang'
+            last: 'Ende »'
           expose:
             items_per_page_label: Anzahl/Seite
             items_per_page_options_all_label: '- Alle -'
@@ -46,6 +74,10 @@ display:
         body_value:
           expose:
             label: Kommentar
+            placeholder: 'enthält ...'
+        title:
+          expose:
+            placeholder: 'enthält ...'
         moderation_state:
           expose:
             label: Moderationsstatus

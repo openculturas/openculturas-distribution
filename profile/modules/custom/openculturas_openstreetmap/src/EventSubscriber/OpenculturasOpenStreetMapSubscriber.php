@@ -28,6 +28,10 @@ final class OpenculturasOpenStreetMapSubscriber implements EventSubscriberInterf
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
+    if (!interface_exists(FormWizardInterface::class)) {
+      return [];
+    }
+
     return [
       FormWizardInterface::LOAD_VALUES => ['onWizardLoadValues'],
     ];

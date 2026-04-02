@@ -23,10 +23,6 @@ import svgSprite from "gulp-svg-sprite";      // Build svg-sprite to make refere
 
 /**
  * Path to opcult base theme's SASS directory (relative to this gulpfile).
- *
- * Adjust this path relative to your custom theme folder,most likely:
- *   '../../../profiles/contrib/openculturas-distribution/profile/themes/opcult/sass' (if in web/themes/custom/)
- *   '../../../../profile/themes/opcult/sass' (in a development setup for contribution purposes)
  */
 const opcultSassPath = '../opcult/sass';
 

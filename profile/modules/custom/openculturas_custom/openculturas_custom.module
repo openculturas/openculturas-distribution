@@ -9,29 +9,43 @@ declare(strict_types=1);
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultInterface;
+use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\Context\Context;
+use Drupal\Core\Plugin\Context\ContextDefinition;
+use Drupal\Core\Plugin\Context\EntityContext;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
+use Drupal\block\BlockInterface;
 use Drupal\flag\Entity\Flag;
 use Drupal\flag\FlagInterface;
 use Drupal\flag\FlaggingInterface;
 use Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter;
+use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\leaflet_views\Plugin\views\style\LeafletMap;
 use Drupal\media\MediaInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openculturas_custom\CurrentEntityHelper;
 use Drupal\openculturas_custom\GetConfiguredMapMaker;
 use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem;
 use Drupal\taxonomy\TermInterface;
 use Drupal\update_helper_checklist\Entity\Update;
+use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
+use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
@@ -322,6 +336,18 @@ function openculturas_custom_local_tasks_alter(array &$local_tasks): void {
  * Implements hook_entity_view_alter().
  */
 function openculturas_custom_entity_view_alter(array &$build, EntityInterface $entity): void {
+  // When LB is used then somehow name is not set, but used by template_preprocess_taxonomy_term().
+  if ($entity->getEntityTypeId() === 'taxonomy_term' && !isset($build['name'])) {
+    $build['name'] = [
+      '#plain_text' => $entity->label(),
+    ];
+  }
+
+  if (isset($build['_layout_builder'])) {
+    // Do nothing when LB is used.
+    return;
+  }
+
   $isAnonymous = \Drupal::currentUser()->isAnonymous();
   if ($isAnonymous && ($entity->getEntityTypeId() === 'node' || $entity->getEntityTypeId() === 'taxonomy_term')) {
     if (isset($build['flag_bookmark_node'])) {
@@ -388,23 +414,168 @@ EOF
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for block.html.twig.
+ */
+function openculturas_custom_preprocess_block(array &$variables): void {
+  $derivative_plugin_id = $variables['derivative_plugin_id'] ?? NULL;
+  if (!$derivative_plugin_id) {
+    return;
+  }
+
+  $isAnonymous = \Drupal::currentUser()->isAnonymous();
+  $entity = $variables['content'][0]['#object'] ?? NULL;
+  if (!$entity instanceof ContentEntityInterface) {
+    return;
+  }
+
+  if ($isAnonymous) {
+    if (str_ends_with($variables['derivative_plugin_id'], 'flag_bookmark_node')) {
+      $variables['content'] = [];
+      $variables['content']['flag_bookmark_node'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-bookmark-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
+EOF
+          ,
+      ];
+    }
+
+    if (str_ends_with($variables['derivative_plugin_id'], 'flag_bookmark_term')) {
+      $variables['content'] = [];
+      $variables['content']['flag_bookmark_term'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-bookmark-term action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to bookmark' | t}}">{{ 'Log in to bookmark' | t}}</a></div>
+EOF
+          ,
+      ];
+    }
+
+    if (str_ends_with($variables['derivative_plugin_id'], 'flag_recommendation_node')) {
+      $variables['content'] = [];
+      $variables['content']['flag_recommendation_node'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-recommendation-node action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to recommend'| t}}">{{'Recommend'|t}}</a></div>
+EOF
+          ,
+      ];
+    }
+
+    if (($entity instanceof NodeInterface || $entity instanceof TermInterface) && (str_ends_with($variables['derivative_plugin_id'], 'flag_claim_ownership') && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')
+      ->isEmpty())) {
+      $allowed = (bool) $entity->get('field_allow_claiming')->value;
+      if ($allowed) {
+        $variables['content'] = [];
+        $variables['content']['flag_claim_ownership'] = [
+          '#type' => 'inline_template',
+          '#template' => <<<EOF
+<div class="flag flag-claim-ownership action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to claim this' | t}}">{{'Claim ownership'|t}}</a></div>
+EOF
+            ,
+        ];
+      }
+    }
+
+    if (str_ends_with($variables['derivative_plugin_id'], 'flag_report_abuse')) {
+      $variables['content'] = [];
+      $variables['content']['flag_report_abuse'] = [
+        '#type' => 'inline_template',
+        '#template' => <<<EOF
+<div class="flag flag-report-abuse action-flag"><a class="flag--link flag--button disabled" href="{{ path('user.login',{},{'query':{'destination': path('<current>') }}) }}" title="{{ 'Log in to report abuse' | t}}">{{'Report abuse'|t}}</a></div>
+EOF
+          ,
+      ];
+    }
+  }
+
+  if (($derivative_plugin_id === 'node:date:field_date') && isset($variables['content'][0])) {
+    $request = \Drupal::request();
+
+    if ($request->query->has('date_delta') && is_numeric($date_delta = $request->get('date_delta'))) {
+      $delta = (int) $date_delta;
+
+      if ($delta >= 0 && $entity->hasField('field_date') && !$entity->get('field_date')->isEmpty()) {
+        $cloned_entity = clone $entity;
+
+        /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
+        $field = $cloned_entity->get('field_date');
+        $count = $field->count();
+
+        // Hardening: only allow deltas that actually exist (delta 0 is valid).
+        if ($delta < $count) {
+          /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateItem|null $delta_item */
+          $delta_item = $field->get($delta);
+
+          if ($delta_item instanceof SmartDateItem) {
+            // Replace the field values with the selected delta only.
+            $field->setValue([$delta_item->getValue()]);
+
+            // Reuse the formatter/settings from the field block configuration (Layout Builder).
+            $display_settings = $variables['configuration']['formatter'];
+
+            // Build a fresh render array for the restricted field.
+            $variables['content'] = [];
+            $variables['content'][] = $field->view($display_settings);
+
+            // Ensure correct caching per query argument.
+            $cacheMetadata = CacheableMetadata::createFromRenderArray($variables['content'][0]);
+            $cacheMetadata->addCacheContexts(['url.query_args:date_delta']);
+            $cacheMetadata->addCacheableDependency($entity);
+            $cacheMetadata->applyTo($variables['content'][0]);
+          }
+        }
+      }
+    }
+
+    // Hide past date output, when next is displayed.
+    $children = Element::getVisibleChildren($variables['content'][0]);
+    foreach ($children as $index) {
+      if (isset($variables['content'][0][$index]['#past_display'], $variables['content'][0][$index]['#next_display']['#children'])) {
+        $children_next = Element::getVisibleChildren($variables['content'][0][$index]['#next_display']['#children']);
+        if ($children_next) {
+          $variables['content'][0][$index]['#past_display']['#access'] = FALSE;
+        }
+      }
+    }
+  }
+
+  if (str_ends_with($variables['derivative_plugin_id'], 'field_people_reference') && ($entity->hasField('field_reference_title') && !$entity->get('field_reference_title')->isEmpty())) {
+    $variables['label'] = NULL;
+  }
+}
+
+/**
+ * Implements hook_entity_view_display_alter().
+ */
+function openculturas_custom_entity_view_display_alter(EntityViewDisplayInterface $display, array $context): void {
+  if ($context['entity_type'] === 'node' && $context['view_mode'] === 'full') {
+    foreach ($display->getComponents() as $name => $options) {
+      if ($name === 'field_date') {
+        // Force past_display will be hidden by openculturas_custom_node_view_alter()|openculturas_custom_preprocess_block()
+        // when next_display is also shown.
+        $options['settings']['past_display'] = 1;
+        $display->setComponent($name, $options);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
 function openculturas_custom_node_view_alter(array &$build, NodeInterface $entity): void {
-  if ($build['#view_mode'] === 'full' && isset($build['field_forfree'])) {
-    // Not for free then there should be a price and hide this field output.
-    $build['field_forfree']['#access'] = (bool) $entity->get('field_forfree')->value;
+  // Do nothing when LB is used.
+  if (isset($build['_layout_builder'])) {
+    return;
   }
 
   if ($build['#view_mode'] === 'full' && $entity->bundle() === 'date') {
-    $request = \Drupal::request();
     $build['field_location']['#title'] = t("Visit the location's profile");
     $build['field_event_description']['#title'] = t('See all about');
-    if ($entity->hasField('field_date')) {
-      /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
-      $field = $entity->get('field_date');
-      $hasDelta = FALSE;
-      if ($request->query->has('date_delta') && ($delta = $request->get('date_delta'))) {
+    if (isset($build['field_date'])) {
+      $request = \Drupal::request();
+      if ($request->query->has('date_delta') && is_numeric($delta = $request->get('date_delta'))) {
         $cloned_entity = clone $entity;
         /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
         $field = $cloned_entity->get('field_date');
@@ -412,36 +583,31 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
         $delta_item = $field->get($delta);
         if ($delta_item instanceof SmartDateItem) {
           $field->setValue([$delta_item->getValue()]);
-          $hasDelta = TRUE;
-        }
-      }
+          $display_settings = \Drupal::service('entity_display.repository')->getViewDisplay(
+            'node',
+            'date',
+            'full'
+          )->getComponent('field_date');
+          if (is_array($display_settings)) {
+            if (isset($display_settings['settings']['past_display'])) {
+              $display_settings['settings']['past_display'] = 1;
+            }
 
-      $display_settings = \Drupal::service('entity_display.repository')->getViewDisplay(
-        'node',
-        'date',
-        'full'
-      )->getComponent('field_date');
-      if (is_array($display_settings)) {
-        if (isset($display_settings['settings']['past_display'])) {
-          $display_settings['settings']['past_display'] = 1;
-        }
+            $build['field_date'] = $field->view($display_settings);
+          }
 
-        $build['field_date'] = $field->view($display_settings);
-        if ($hasDelta) {
           $cacheMetadata = CacheableMetadata::createFromRenderArray($build['field_date']);
           $cacheMetadata->setCacheContexts(['url.query_args:date_delta']);
           $cacheMetadata->applyTo($build['field_date']);
         }
       }
 
-      if (isset($build['field_date'])) {
-        $children = Element::getVisibleChildren($build['field_date']);
-        foreach ($children as $index) {
-          if (isset($build['field_date'][$index]['#past_display'], $build['field_date'][$index]['#next_display']['#children'])) {
-            $children_next = Element::getVisibleChildren($build['field_date'][$index]['#next_display']['#children']);
-            if ($children_next) {
-              $build['field_date'][$index]['#past_display']['#access'] = FALSE;
-            }
+      $children = Element::getVisibleChildren($build['field_date']);
+      foreach ($children as $index) {
+        if (isset($build['field_date'][$index]['#past_display'], $build['field_date'][$index]['#next_display']['#children'])) {
+          $children_next = Element::getVisibleChildren($build['field_date'][$index]['#next_display']['#children']);
+          if ($children_next) {
+            $build['field_date'][$index]['#past_display']['#access'] = FALSE;
           }
         }
       }
@@ -906,4 +1072,88 @@ function openculturas_custom_leaflet_map_info_alter(array &$map_info): void {
   // A field formatter can override this.
   // See web/modules/contrib/leaflet/src/Plugin/Field/FieldFormatter/LeafletDefaultFormatter.php:363.
   $map_info['OSM Mapnik']['icon']['iconUrl'] = GetConfiguredMapMaker::getPath();
+}
+
+/**
+ * Implements hook_block_access().
+ */
+function openculturas_custom_block_access(BlockInterface $block, string $operation, AccountInterface $account): AccessResultInterface {
+  if ($operation !== 'view' || !$block->getPlugin() instanceof TitleBlockPluginInterface) {
+    return AccessResult::neutral();
+  }
+
+  if (!\Drupal::hasService('plugin.manager.layout_builder.section_storage')) {
+    return AccessResult::neutral();
+  }
+
+  $entity = CurrentEntityHelper::get_current_page_entity();
+  if ($entity instanceof ContentEntityInterface) {
+    $view_mode = 'full';
+    // Make the same as \Drupal\layout_builder\LayoutEntityHelperTrait::getSectionStorageForEntity.
+    // When we use view-mode full as LB view-mode, we can use an anonymous class + trait.
+    $contexts['entity'] = EntityContext::fromEntity($entity);
+    $display = EntityViewDisplay::collectRenderDisplay($entity, $view_mode);
+    if ($display instanceof LayoutEntityDisplayInterface) {
+      $contexts['display'] = EntityContext::fromEntity($display);
+    }
+
+    $contexts['view_mode'] = new Context(new ContextDefinition('string'), $view_mode);
+    /** @var \Drupal\layout_builder\SectionStorage\SectionStorageManagerInterface $sectionStorageManager */
+    $sectionStorageManager = \Drupal::service('plugin.manager.layout_builder.section_storage');
+    if ($sectionStorageManager->findByContext($contexts, new CacheableMetadata())) {
+      return AccessResult::forbidden();
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_entity_field_access().
+ */
+function openculturas_custom_entity_field_access(string $operation, FieldDefinitionInterface $field_definition, AccountInterface $account, ?FieldItemListInterface $items = NULL): AccessResultInterface {
+  $field_name = $field_definition->getName();
+  if ($operation === 'view' && $field_name === 'field_forfree') {
+    $entity = $items?->getEntity();
+    // Not for free then there should be a price and hide this field output.
+    if ($entity instanceof ContentEntityInterface && $entity->hasField('field_forfree')) {
+      $forFree = (bool) $entity->get('field_forfree')->value;
+      return AccessResult::forbiddenIf($forFree === FALSE);
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_themes_installed().
+ */
+function openculturas_custom_themes_installed(array $theme_list): void {
+  $configFactory = \Drupal::configFactory();
+  foreach ($theme_list as $theme) {
+    if ($theme === 'opcult') {
+      $config = $configFactory->getEditable('layout_builder_component_attributes');
+      if (!$config->isNew()) {
+        $config->set('allowed_block_title_attributes.id', FALSE);
+        $config->set('allowed_block_title_attributes.data', FALSE);
+        $config->set('allowed_block_content_attributes.data', FALSE);
+        $config->set('allowed_block_content_attributes.data', FALSE);
+        $config->save();
+      }
+
+      $config = $configFactory->getEditable('formtips.settings');
+      if (!$config->isNew()) {
+        $config->set('formtips_themes.opcult', 'opcult');
+        $config->save();
+      }
+
+      /** @var \Drupal\user\RoleInterface|null $role */
+      $role = Role::load('oc_admin');
+      if ($role instanceof RoleInterface) {
+        $role->grantPermission('administer blockgroups');
+        $role->grantPermission('manage layout builder component attributes');
+        $role->save();
+      }
+    }
+  }
 }

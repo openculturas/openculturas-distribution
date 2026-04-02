@@ -32,497 +32,923 @@ dependencies:
     - field.field.node.profile.field_upcoming_dates_by_profile
     - node.type.profile
   module:
-    - datetime
-    - entity_reference_revisions
-    - field_formatter_class
-    - field_group
-    - options
-    - swiffy_slider
-    - text
+    - layout_builder
+    - openculturas_custom
     - user
-    - viewfield
+  enforced:
+    theme:
+      - opcult
 third_party_settings:
-  field_group:
-    group_focus:
-      children:
-        - field_category
-      label: Focus
-      parent_name: ''
-      region: content
-      weight: 5
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_featuring:
-      children:
-        - field_reference_title
-        - field_people_reference
-      label: Featuring
-      parent_name: ''
-      region: content
-      weight: 7
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_contact:
-      children:
-        - field_contact_data
-        - field_address_data
-      label: Contact
-      parent_name: ''
-      region: content
-      weight: 11
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-    group_performer:
-      children:
-        - field_performer_event_view_ref
-      label: 'Involved in'
-      parent_name: ''
-      region: content
-      weight: 8
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-    group_member_of:
-      children:
-        - field_member_of_view_ref
-      label: 'Member of'
-      parent_name: ''
-      region: content
-      weight: 6
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_further_information:
-      children: {  }
-      label: 'Additional information'
-      parent_name: ''
-      region: content
-      weight: 12
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-    group_magazine:
-      children:
-        - field_my_article_view_ref
-        - field_mention_by_art_view_ref
-      label: Magazine
-      parent_name: ''
-      region: content
-      weight: 16
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: false
-        description: ''
-        required_fields: false
-    group_recommendations:
-      children:
-        - field_recommendations
-      label: Recommendations
-      parent_name: ''
-      region: content
-      weight: 14
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_regular_location:
-      children:
-        - field_performer_at_view_ref
-      label: 'Regular locations'
-      parent_name: ''
-      region: content
-      weight: 10
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-    group_gallery:
-      children:
-        - field_gallery
-      label: Gallery
-      parent_name: ''
-      region: content
-      weight: 17
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_recommended_by:
-      children:
-        - field_recommended_by_view_ref
-      label: 'Recommended by'
-      parent_name: ''
-      region: content
-      weight: 15
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_upcoming_dates:
-      children:
-        - field_upcoming_dates_by_profile
-      label: 'Upcoming dates'
-      parent_name: ''
-      region: content
-      weight: 9
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_interact:
-      children:
-        - flag_recommendation_node
-        - extra_field_social_media_buttons
-        - flag_claim_ownership
-        - flag_report_abuse
-      label: Interact
-      parent_name: ''
-      region: content
-      weight: 4
-      format_type: html_element
-      format_settings:
-        classes: interact
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_press_quotes:
-      children:
-        - field_press_quotes
-      label: 'Press quotes'
-      parent_name: ''
-      region: content
-      weight: 13
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_workflow:
-      children:
-        - content_moderation_control
-      label: Workflow
-      parent_name: ''
-      region: content
-      weight: 0
-      format_type: html_element
-      format_settings:
-        classes: grid-child-fullwidth
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_past_dates:
-      children:
-        - field_past_dates_view_ref
-      label: 'Past dates'
-      parent_name: ''
-      region: hidden
-      weight: 20
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: section-dates-archive
-        label_as_html: false
-        open: false
-        description: ''
-        required_fields: false
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Workflow
+          context_mapping: {  }
+          layout_custom_classes: moderation--section
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: moderation
+        components:
+          a24465d9-e850-4a77-9124-c71c1b16f2d4:
+            uuid: a24465d9-e850-4a77-9124-c71c1b16f2d4
+            region: first
+            configuration:
+              id: 'extra_field_block:node:profile:content_moderation_control'
+              label: 'Moderation control'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: 'Top area'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: content--aside
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          1a3536f8-1e35-4ada-b1f7-46670cbee430:
+            uuid: 1a3536f8-1e35-4ada-b1f7-46670cbee430
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          b2aed5bb-b4e8-4181-ad14-5d45ea73dfa5:
+            uuid: b2aed5bb-b4e8-4181-ad14-5d45ea73dfa5
+            region: third
+            configuration:
+              id: 'field_block:node:profile:field_contact_data'
+              label: Contact
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: visually_hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          981ef741-9a04-4a87-9f52-db398c50384c:
+            uuid: 981ef741-9a04-4a87-9f52-db398c50384c
+            region: third
+            configuration:
+              id: 'field_block:node:profile:field_category'
+              label: Focus
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: hidden
+                settings:
+                  link: true
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional: {  }
+          07473916-7e7b-4cdf-8419-7418443be6ad:
+            uuid: 07473916-7e7b-4cdf-8419-7418443be6ad
+            region: second
+            configuration:
+              id: 'field_block:node:profile:field_mood_image'
+              label: 'Main image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          714ab5b0-4be8-4cbe-a6a1-df8d6f178390:
+            uuid: 714ab5b0-4be8-4cbe-a6a1-df8d6f178390
+            region: fourth
+            configuration:
+              id: 'field_block:node:profile:field_logo'
+              label: Logo
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: logo
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+          78de86f1-2750-4ea0-bac1-7b1201dd84e5:
+            uuid: 78de86f1-2750-4ea0-bac1-7b1201dd84e5
+            region: fourth
+            configuration:
+              id: 'field_block:node:profile:body'
+              label: 'Profile text'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional: {  }
+          2ffb1a87-f765-4f8a-8a73-f01f47e66fba:
+            uuid: 2ffb1a87-f765-4f8a-8a73-f01f47e66fba
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:profile:extra_field_social_media_buttons'
+              label: 'Social media buttons'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          8223e738-c42a-4525-b6bc-d67d7c69331a:
+            uuid: 8223e738-c42a-4525-b6bc-d67d7c69331a
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:profile:flag_recommendation_node'
+              label: 'Flag: <em class="placeholder">Recommendation node</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          5d16363a-f682-4652-b551-2067ec549249:
+            uuid: 5d16363a-f682-4652-b551-2067ec549249
+            region: fifth
+            configuration:
+              id: 'field_block:node:profile:field_started'
+              label: 'Active since'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: datetime_custom
+                label: inline
+                settings:
+                  timezone_override: ''
+                  date_format: 'F Y'
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 3
+            additional: {  }
+          7b407a32-f679-4346-bacd-18047172cdef:
+            uuid: 7b407a32-f679-4346-bacd-18047172cdef
+            region: fifth
+            configuration:
+              id: 'field_block:node:profile:field_badges'
+              label: Badges
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional: {  }
+          d036f23e-3cc6-4ed5-8817-469947719540:
+            uuid: d036f23e-3cc6-4ed5-8817-469947719540
+            region: first
+            configuration:
+              id: 'extra_field_block:node:profile:flag_bookmark_node'
+              label: 'Flag: <em class="placeholder">Bookmark node</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          c06b13bc-b551-4aee-8cda-cc90ca250c16:
+            uuid: c06b13bc-b551-4aee-8cda-cc90ca250c16
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:profile:flag_claim_ownership'
+              label: 'Flag: <em class="placeholder">Claim ownership</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 6
+            additional: {  }
+          b1de8eb5-604c-4170-bd6a-99beed49d504:
+            uuid: b1de8eb5-604c-4170-bd6a-99beed49d504
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:profile:flag_report_abuse'
+              label: 'Flag: <em class="placeholder">Report abuse</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 7
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Impressions
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background gallery--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: gallery
+        components:
+          b452af48-1dc9-46b1-9fcb-254e3a1b3cac:
+            uuid: b452af48-1dc9-46b1-9fcb-254e3a1b3cac
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_gallery'
+              label: Impressions
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: swiffy_slider_entity_reference
+                label: hidden
+                settings:
+                  view_mode: gallery
+                  swiffy_slider_permalink: null
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Located
+          context_mapping: {  }
+          layout_custom_classes: address-region
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: location
+        components:
+          048c959c-da58-432e-8df0-0e9366401fa2:
+            uuid: 048c959c-da58-432e-8df0-0e9366401fa2
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_address_data'
+              label: Located
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Upcoming dates'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background date--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: upcoming-dates
+        components:
+          3cf715f7-dcf6-49ad-872a-1538dfe35a7d:
+            uuid: 3cf715f7-dcf6-49ad-872a-1538dfe35a7d
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_upcoming_dates_by_profile'
+              label: 'Upcoming dates'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: intro-inline
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Past dates'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background date--section archive--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: past-dates
+        components:
+          5aa21ed3-35ec-45f3-a473-32ea5749cbf3:
+            uuid: 5aa21ed3-35ec-45f3-a473-32ea5749cbf3
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_past_dates_view_ref'
+              label: 'Past dates'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: above
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: data-html-tag|details
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Activities
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: section--aside
+          layout_bg_color: ''
+          layout_id: involvements
+        components:
+          abf2a408-dc22-4e61-95d0-b63d038483f7:
+            uuid: abf2a408-dc22-4e61-95d0-b63d038483f7
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_reference_title'
+              label: 'Custom section title'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          83a20702-110d-4141-8e29-2c0afe59a1e6:
+            uuid: 83a20702-110d-4141-8e29-2c0afe59a1e6
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_people_reference'
+              label: Members
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: grid
+            weight: 1
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: members
+                  class: ''
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          de7ccf2c-9284-4c55-a46e-459a9be2b7dd:
+            uuid: de7ccf2c-9284-4c55-a46e-459a9be2b7dd
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_performer_event_view_ref'
+              label: 'Involved in'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: repertoire
+                  class: ''
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          07528465-b05d-4591-ba51-afccf2468b99:
+            uuid: 07528465-b05d-4591-ba51-afccf2468b99
+            region: second
+            configuration:
+              id: 'field_block:node:profile:field_member_of_view_ref'
+              label: 'Member of'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          c511cd07-3465-4cf7-9358-b38207d22281:
+            uuid: c511cd07-3465-4cf7-9358-b38207d22281
+            region: second
+            configuration:
+              id: 'field_block:node:profile:field_performer_at_view_ref'
+              label: 'Performer at'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Acknowledgements
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background comments--section'
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: acknowledgements
+        components:
+          a1d4f59b-2c94-432e-89c9-69bc90cb61af:
+            uuid: a1d4f59b-2c94-432e-89c9-69bc90cb61af
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_comments'
+              label: Comments
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: true
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: comments
+                  class: ''
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          3dbd98a3-b45d-4d01-ba14-d8a671496ddd:
+            uuid: 3dbd98a3-b45d-4d01-ba14-d8a671496ddd
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_press_quotes'
+              label: 'Press quotes'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          90822c18-b5e0-4aae-90bf-7d23c6285a50:
+            uuid: 90822c18-b5e0-4aae-90bf-7d23c6285a50
+            region: second
+            configuration:
+              id: 'field_block:node:profile:field_recommended_by_view_ref'
+              label: 'Recommended by'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Further reading'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background magazine--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: mentions
+        components:
+          ce6303d1-6b4b-47e4-9556-4961279702a0:
+            uuid: ce6303d1-6b4b-47e4-9556-4961279702a0
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_my_article_view_ref'
+              label: Magazine
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: intro-inline
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          4b16e450-8c1d-46cc-9b2a-6ab3b2c5d9c0:
+            uuid: 4b16e450-8c1d-46cc-9b2a-6ab3b2c5d9c0
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_mention_by_art_view_ref'
+              label: Magazine
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: intro-inline
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Recommendations
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background recommendations--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: recommendations
+        components:
+          17219cf6-75ce-4faa-bbcb-91de10f631c6:
+            uuid: 17219cf6-75ce-4faa-bbcb-91de10f631c6
+            region: first
+            configuration:
+              id: 'field_block:node:profile:field_recommendations'
+              label: Recommendations
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+        third_party_settings: {  }
 id: node.profile.full
 targetEntityType: node
 bundle: profile
 mode: full
-content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_social_media_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_address_data:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 18
-    region: content
-  field_badges:
-    type: list_default
-    label: hidden
-    settings: {  }
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 1
-    region: content
-  field_category:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_contact_data:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 16
-    region: content
-  field_gallery:
-    type: swiffy_slider_entity_reference
-    label: hidden
-    settings:
-      view_mode: gallery
-      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-16x9&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation=slider-nav-animation&slider-nav-animation-style=slider-nav-animation-fadein&preview-style=preview-images'
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 13
-    region: content
-  field_logo:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: logo
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: align-center
-    weight: 1
-    region: content
-  field_member_of_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 19
-    region: content
-  field_mention_by_art_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 2
-    region: content
-  field_my_article_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_people_reference:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings:
-      field_formatter_class:
-        class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l '
-    weight: 11
-    region: content
-  field_performer_at_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_performer_event_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 7
-    region: content
-  field_press_quotes:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_recommendations:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  field_recommended_by_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  field_reference_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  field_started:
-    type: datetime_custom
-    label: above
-    settings:
-      timezone_override: ''
-      date_format: 'F Y'
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 3
-    region: content
-  field_upcoming_dates_by_profile:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  flag_claim_ownership:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  flag_recommendation_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  flag_report_abuse:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
+content: {  }
 hidden:
+  body: true
   co_authors: true
+  content_moderation_control: true
+  extra_field_social_media_buttons: true
+  field_address_data: true
   field_allow_claiming: true
   field_alternative_title: true
+  field_badges: true
+  field_category: true
+  field_contact_data: true
+  field_gallery: true
+  field_logo: true
+  field_member_of_view_ref: true
+  field_mention_by_art_view_ref: true
   field_mood_image: true
+  field_my_article_view_ref: true
   field_past_dates_view_ref: true
+  field_people_reference: true
+  field_performer_at_view_ref: true
+  field_performer_event_view_ref: true
   field_portrait: true
+  field_press_quotes: true
   field_profile_role: true
   field_profile_type: true
+  field_recommendations: true
+  field_recommended_by_view_ref: true
+  field_reference_title: true
+  field_started: true
   field_subtitle: true
+  field_upcoming_dates_by_profile: true
   flag_bookmark_node: true
+  flag_claim_ownership: true
+  flag_recommendation_node: true
+  flag_report_abuse: true
   langcode: true
   links: true
   search_api_excerpt: true

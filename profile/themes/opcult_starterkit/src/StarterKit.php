@@ -24,6 +24,37 @@ final class StarterKit implements StarterKitInterface {
       $new_filename = str_replace($hyphenated_old, $hyphenated_new, $file->getFilename());
       $fs->rename($file->getRealPath(), $file->getPath() . '/' . $new_filename);
     }
+
+    $opcult_sass_path = '../opcult/sass';
+    $candidates = [
+      '/profiles/contrib/openculturas-profile/themes/opcult/sass' => '../../../profiles/contrib/openculturas-profile/themes/opcult/sass',
+      '/profiles/contrib/openculturas-distribution/profile/themes/opcult/sass' => '../../../profiles/contrib/openculturas-distribution/profile/themes/opcult/sass',
+    ];
+    foreach ($candidates as $candidate => $relative_path) {
+      if (is_dir(DRUPAL_ROOT . '/' . $candidate)) {
+        $opcult_sass_path = $relative_path;
+        break;
+      }
+    }
+
+    $gulpfile = $working_dir . '/gulpfile.mjs';
+    if (file_exists($gulpfile)) {
+      $content = file_get_contents($gulpfile);
+      if ($content === FALSE) {
+        return;
+      }
+
+      $content = preg_replace(
+        "/const opcultSassPath = '[^']*';/",
+        "const opcultSassPath = '" . $opcult_sass_path . "';",
+        $content
+      );
+      if ($content === NULL) {
+        return;
+      }
+
+      $fs->dumpFile($gulpfile, $content);
+    }
   }
 
 }

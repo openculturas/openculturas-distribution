@@ -7,19 +7,34 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 
 /**
- * Implements hook_ENTITY_TYPE_view_alter().
+ * Implements hook_entity_field_access().
  */
-function openculturas_discussions_node_view_alter(array &$build, NodeInterface $node): void {
-  if ($build['#view_mode'] === 'full' && isset($build['field_comments'])) {
-    $mode = $node->get('field_comments_mode')->value ?? NULL;
-    $build['field_comments']['#access'] = in_array($mode, ['active', 'freeze'], TRUE);
+function openculturas_discussions_entity_field_access(string $operation, FieldDefinitionInterface $field_definition, AccountInterface $account, ?FieldItemListInterface $items = NULL): AccessResultInterface {
+  $field_name = $field_definition->getName();
+  if ($field_name !== 'field_comments') {
+    return AccessResult::neutral();
   }
+
+  if ($operation === 'view' && $field_definition->getName() === 'field_comments') {
+    $entity = $items?->getEntity();
+    if ($entity instanceof NodeInterface) {
+      $mode = $entity->get('field_comments_mode')->value ?? NULL;
+      return AccessResult::forbiddenIf(!in_array($mode, ['active', 'freeze'], TRUE));
+    }
+  }
+
+  return AccessResult::neutral();
 }
 
 /**

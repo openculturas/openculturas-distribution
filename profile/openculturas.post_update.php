@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update and uninstall module functions.
+ * Post update functions.
  */
 
 declare(strict_types=1);
@@ -10,6 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\image\ImageEffectInterface;
+use Drupal\openculturas_discussions\InstallerHelper;
 use Drupal\update_helper\ConfigName;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
@@ -787,4 +788,52 @@ function openculturas_post_update_views_filter_by_default_language(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Bunch of new/updated configs.
+ */
+function openculturas_post_update_3_0(): string {
+  $full_config_names = [
+    'language.content_settings.paragraph.a11y_wheelchair',
+    // Does only look good in Opcult.
+    'core.entity_view_display.paragraph.gallery.grid',
+    'core.entity_view_display.paragraph.accessibility.grid',
+  ];
+
+  $output = _openculturas_post_update_import_or_revert_config($full_config_names);
+
+  $full_config_names = [
+    // New display er_teaser_node and remove date from type filter in er_node_references.
+    'views.view.entity_reference_node',
+    // Set some CSS classes.
+    'views.view.oc_frontpage',
+    // New option layout-text-heavy.
+    'field.storage.node.field_layout_switcher',
+    // Change the description for layout-text-heavy.
+    'field.field.node.page.field_layout_switcher',
+    // Change the used display to er_teaser_node. Which comes via views.view.entity_reference_node revert.
+    'field.field.paragraph.teaser_node.field_article',
+    // New display term_children_compact used only at the moment by the new LB full view mode.
+    'views.view.vocabulary',
+    // New displays block_locations_by_term and attachment_map_by_term.
+    'views.view.locations',
+
+    // Was not really used. But with the new theme opcult.
+    'core.entity_view_display.node.date.teaser',
+    'core.entity_view_display.node.date.compact',
+    'core.entity_view_display.node.date.teaser_big',
+    'core.entity_view_display.node.date.teaser_unified',
+  ];
+
+  _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+  // We revert the entity_reference_node view here, so we need to make the
+  // necessary adjustments for openculturas_discussions again
+  // in the same update hook.
+  $openculturas_discussions_installed = \Drupal::moduleHandler()->moduleExists('openculturas_discussions');
+  if ($openculturas_discussions_installed) {
+    InstallerHelper::setCommentFilter();
+  }
+
+  return $output;
 }

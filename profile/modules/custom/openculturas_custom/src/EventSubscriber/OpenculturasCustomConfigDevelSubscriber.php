@@ -80,6 +80,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     if ($extension === 'openculturas-profile' && (
       $config_name === 'field.field.paragraph.view.field_view' ||
       $config_name === 'views.view.moderated_content' ||
+      $config_name === 'views.view.entity_reference_node' ||
       str_starts_with($config_name, 'core.entity_form_display.node') ||
       str_starts_with($config_name, 'core.entity_view_display.node') ||
       str_starts_with($config_name, 'user.role.')
@@ -87,6 +88,10 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $this->excludeOpenCulturasDiscussions($event);
       $this->excludeOpenCulturasSection($event);
       $this->excludeOpenCulturasOpenStreetmapModule($event);
+    }
+
+    if ($entity_type_id === 'entity_view_display') {
+      $this->enforceOpcultTheme($event);
     }
 
     // // @phpstan-ignore-next-line
@@ -102,6 +107,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       return;
     }
 
+    $data = $event->getData();
     $data['dependencies']['enforced']['module'][] = $extension;
     $data['dependencies']['enforced']['module'] = array_unique($data['dependencies']['enforced']['module']);
 
@@ -265,6 +271,10 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['display']['default']['display_options']['filters']['type']['value'] = [];
     }
 
+    if ($data['id'] === 'entity_reference_node') {
+      unset($data['display']['er_node_references']['display_options']['filters']['type']);
+    }
+
     if (isset($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
         if (str_ends_with($permission, 'comment content') ||
@@ -333,6 +343,30 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     );
 
     $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * Always set the theme as a dependency or the config will not be imported.
+   */
+  private function enforceOpcultTheme(ConfigDevelSaveEvent $event): void {
+    $data = $event->getData();
+    if (isset($data['third_party_settings']['layout_builder']) && (bool) $data['third_party_settings']['layout_builder']['enabled']) {
+      $data['dependencies']['enforced']['theme'][] = 'opcult';
+    }
+    else {
+      unset($data['third_party_settings']['layout_builder']);
+      if (isset($data['dependencies']['module'])) {
+        foreach ($data['dependencies']['module'] as $index => $dependency) {
+          if ($dependency === 'layout_builder') {
+            unset($data['dependencies']['module'][$index]);
+          }
+        }
+
+        $data['dependencies']['module'] = array_values($data['dependencies']['module']);
+      }
+    }
+
+    $event->setData($data);
   }
 
 }

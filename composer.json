@@ -34,7 +34,9 @@
         "drupal/attribution": "^1.0.15",
         "drupal/auto_entitylabel": "^3.4.0",
         "drupal/better_exposed_filters": "^7.1.1",
+        "drupal/block_content_template": "^1.7",
         "drupal/block_field": "^1.0.0-rc5@RC",
+        "drupal/blockgroup": "^2.0",
         "drupal/checklistapi": "^2.1.7",
         "drupal/choices": "^2.2.0",
         "drupal/classy": "^2.0",
@@ -73,6 +75,9 @@
         "drupal/json_ld_schema": "^2.0",
         "drupal/key": "^1.22.0",
         "drupal/languagefield": "^1.14.0",
+        "drupal/layout_builder_component_attributes": "^2.2",
+        "drupal/layout_builder_restrictions": "^3.0",
+        "drupal/layout_options": "^1.7",
         "drupal/leaflet": "^10.4.4",
         "drupal/legal": "^3.0.3",
         "drupal/licenses": "^2.0.5",
@@ -416,7 +421,9 @@
                 "Issue #3466040: Dialog button/inputs not visible when open details element": "https://www.drupal.org/files/issues/2024-08-05/drupal-core-3466040-10.3.x.patch",
                 "Issue #1707926: Allow to add spacing to prefix and suffix on numeric fields": "https://www.drupal.org/files/issues/2022-08-18/1707926-spacing-field-prefixes-30.patch",
                 "Issue #3415178: [10.2 regression] CKEditor 5 prevents Styles from adding span as allowed HTML": "https://www.drupal.org/files/issues/2026-03-03/drupal-core-3415178-mr-14363.diff",
-                "Issue #3410100: [10.2 regression] CKEditor 5 breaks when \"Source\"/Source editing button is added and \"Manually editable HTML tags\" are specified": "https://www.drupal.org/files/issues/2026-03-03/drupal-core-3410100-mr-7887.diff"
+                "Issue #3410100: [10.2 regression] CKEditor 5 breaks when \"Source\"/Source editing button is added and \"Manually editable HTML tags\" are specified": "https://www.drupal.org/files/issues/2026-03-03/drupal-core-3410100-mr-7887.diff",
+                "https://www.drupal.org/project/openculturas/issues/3393511: Automatically clear out the content key in view display when enabling Layout builder": "https://www.drupal.org/files/issues/2026-02-11/drupal-core-3349181.patch",
+                "https://www.drupal.org/project/openculturas/issues/3393511: Layout Builder entity view display buildMultiple() function always calls parent's one": "https://www.drupal.org/files/issues/2026-02-11/drupal-core-3167458.patch"
             },
             "drupal/core_needs_rebuild": {
                 "Issue #2818017: A number of Views combined fields filter operators are currently pointless to an end user": "https://www.drupal.org/files/issues/2023-02-07/2818017-30.patch"
@@ -474,12 +481,26 @@
     "scripts": {
         "cde": [
             "drush pm:install config_devel --yes",
+            "rm -rf profile/config",
             "drush cde openculturas",
+            "rm -rf profile/config/custom/modules/openculturas_faq/config/install",
+            "rm -rf profile/config/custom/modules/openculturas_faq/config/optional",
             "drush cde openculturas_faq",
+            "rm -rf profile/config/custom/modules/openculturas_discussions/config/install",
+            "rm -rf profile/config/custom/modules/openculturas_discussions/config/optional",
             "drush cde openculturas_discussions",
+            "rm -rf profile/config/custom/modules/openculturas_map/config/install",
+            "rm -rf profile/config/custom/modules/openculturas_map/config/optional",
             "drush cde openculturas_map",
+            "rm -rf profile/config/custom/modules/openculturas_section/config/install",
+            "rm -rf profile/config/custom/modules/openculturas_section/config/optional",
             "drush cde openculturas_section",
-            "drush cde openculturas_openstreetmap"
+            "rm -rf profile/config/custom/modules/openculturas_openstreetmap/config/install",
+            "rm -rf profile/config/custom/modules/openculturas_openstreetmap/config/optional",
+            "drush cde openculturas_openstreetmap",
+            "rm -rf profile/config/custom/themes/opcult/config/install",
+            "rm -rf profile/config/custom/themes/opcult/config/optional",
+            "drush cde opcult"
         ],
         "export-content": [
             "drush pm:install default_content --yes",
@@ -508,6 +529,7 @@
         "si": [
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush site:install --yes"
-        ]
+        ],
+        "test-starterkit": "bash tests/scripts/starterkit-generation.sh"
     }
 }

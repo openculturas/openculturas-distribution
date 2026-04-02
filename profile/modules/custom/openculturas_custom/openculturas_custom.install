@@ -7,9 +7,28 @@
 
 declare(strict_types=1);
 
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\FieldStorageConfigInterface;
+
 /**
  * Implements hook_update_last_removed().
  */
 function openculturas_custom_update_last_removed(): int {
   return 9301;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openculturas_custom_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  /** @var \Drupal\field\FieldStorageConfigInterface|null $field */
+  $field = FieldStorageConfig::loadByName('node', 'field_event_status');
+  if ($field instanceof FieldStorageConfigInterface && $field->getSetting('allowed_values_function') === 'openculturas_custom_event_status_allowed_values_function') {
+    $field->setSetting('allowed_values_function', '');
+    $field->save();
+  }
 }

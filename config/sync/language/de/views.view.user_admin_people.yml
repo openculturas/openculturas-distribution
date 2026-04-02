@@ -7,8 +7,17 @@ display:
       title: Benutzer
       fields:
         user_bulk_form:
-          label: Massenaktualisierung
+          label: Stapelverarbeitung
+        name:
+          label: Name
+          separator: ', '
+        name_1:
+          label: Username
+          separator: ', '
+        realname:
+          label: Anzeigename
         status:
+          label: Status
           settings:
             format_custom_false: Gesperrt
             format_custom_true: Aktiv
@@ -16,6 +25,9 @@ display:
           label: Rollen
         created:
           label: 'Mitglied seit'
+          settings:
+            future_format: '@interval'
+            past_format: '@interval'
         access:
           label: 'Letzter Zugriff'
           settings:
@@ -23,8 +35,8 @@ display:
             past_format: 'Vor @interval'
         operations:
           label: Aktionen
-        name_1:
-          label: Username
+        mail:
+          separator: ', '
       pager:
         options:
           tags:
@@ -52,6 +64,7 @@ display:
             label: 'Name oder E-Mail-Adresse enthält'
         status:
           group_info:
+            label: Status
             group_items:
               1:
                 title: Aktiv
@@ -69,7 +82,7 @@ display:
     display_options:
       menu:
         title: Liste
-        description: 'Menschen finden und verwalten, die mit Ihrer Website interagieren.'
+        description: 'Menschen finden und verwalten, die mit eurer Website interagieren.'
       tab_options:
         title: Benutzer
         description: 'Verwalten von Benutzerkonten, Rollen und Zugriffsrechten.'

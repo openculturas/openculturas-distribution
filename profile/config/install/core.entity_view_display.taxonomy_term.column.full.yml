@@ -2,95 +2,212 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.base_field_override.taxonomy_term.column.description
     - core.entity_view_mode.taxonomy_term.full
     - field.field.taxonomy_term.column.field_mood_image
     - field.field.taxonomy_term.column.field_related_article_view_ref
     - field.field.taxonomy_term.column.field_term_children_view_ref
     - taxonomy.vocabulary.column
+    - views.view.vocabulary
   module:
-    - field_formatter_class
-    - field_group
-    - text
-    - viewfield
+    - layout_builder
+    - openculturas_custom
+    - views
+  enforced:
+    theme:
+      - opcult
 third_party_settings:
-  field_group:
-    group_sub_categories:
-      children:
-        - field_term_children_view_ref
-      label: Sub-categories
-      parent_name: ''
-      region: content
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_interact:
-      children:
-        - extra_field_social_media_buttons
-      label: Interact
-      parent_name: ''
-      region: content
-      weight: 3
-      format_type: html_element
-      format_settings:
-        classes: interact
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: 'Top area'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          3847b916-5de9-41a8-b0f0-54a4eea1381e:
+            uuid: 3847b916-5de9-41a8-b0f0-54a4eea1381e
+            region: second
+            configuration:
+              id: 'field_block:taxonomy_term:column:field_mood_image'
+              label: 'Mood image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          be666c90-87f9-4b2e-9d44-a087b9a244d0:
+            uuid: be666c90-87f9-4b2e-9d44-a087b9a244d0
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          5cf1d445-45fd-417f-8391-d9462790cfc4:
+            uuid: 5cf1d445-45fd-417f-8391-d9462790cfc4
+            region: third
+            configuration:
+              id: 'extra_field_block:taxonomy_term:column:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional: {  }
+          4bd621dd-bead-4d3a-9e02-7ee5d48dcaa9:
+            uuid: 4bd621dd-bead-4d3a-9e02-7ee5d48dcaa9
+            region: third
+            configuration:
+              id: 'field_block:taxonomy_term:column:description'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          9acf1177-d3cd-4fc8-87d7-b8cfe5994566:
+            uuid: 9acf1177-d3cd-4fc8-87d7-b8cfe5994566
+            region: first
+            configuration:
+              id: 'extra_field_block:taxonomy_term:column:flag_bookmark_term'
+              label: 'Flag: <em class="placeholder">Bookmark term</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Term children'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background sub-terms--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          5aebbce2-451a-41c2-bb68-b31a7e62d301:
+            uuid: 5aebbce2-451a-41c2-bb68-b31a7e62d301
+            region: first
+            configuration:
+              id: 'views_block:vocabulary-block_term_grid'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Articles
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          cc886958-6c79-4a89-9714-2782d6de66d4:
+            uuid: cc886958-6c79-4a89-9714-2782d6de66d4
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:column:field_related_article_view_ref'
+              label: Articles
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
 id: taxonomy_term.column.full
 targetEntityType: taxonomy_term
 bundle: column
 mode: full
-content:
-  description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  extra_field_social_media_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_related_article_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 2
-    region: content
-  field_term_children_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 5
-    region: content
+content: {  }
 hidden:
+  description: true
+  extra_field_social_media_buttons: true
   field_mood_image: true
+  field_related_article_view_ref: true
+  field_term_children_view_ref: true
   flag_bookmark_term: true
   langcode: true
   search_api_excerpt: true

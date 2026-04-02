@@ -14,6 +14,7 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function array_key_exists;
 use function reset;
 
 abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements ContainerFactoryPluginInterface, InheritFieldInterface {
@@ -93,11 +94,36 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
       }
 
       $this->eventEntity = $this->entityRepository->getTranslationFromContext($this->eventEntity);
-      $this->referenceViewFormatterSettings = $this->entityDisplayRepository->getViewDisplay(
+      $eventViewDisplay = $this->entityDisplayRepository->getViewDisplay(
         $this->eventEntity->getEntityTypeId(),
         $this->eventEntity->bundle(),
         $this->viewMode
-      )->getComponent($fieldname_in_reference);
+      );
+      if ($eventViewDisplay->getThirdPartySetting('layout_builder', 'enabled')) {
+        $bundle = $this->eventEntity->bundle();
+        $entityType = $this->eventEntity->getEntityTypeId();
+        /** @var array $sections */
+        $sections = $eventViewDisplay->getThirdPartySetting('layout_builder', 'sections', []);
+        /** @var \Drupal\layout_builder\Section $section */
+        foreach ($sections as $section) {
+          foreach ($section->getComponents() as $component) {
+            $configuration = (array) $component->get('configuration');
+            if (!array_key_exists('id', $configuration)) {
+              continue;
+            }
+
+            if ($configuration['id'] === sprintf('field_block:%s:%s:%s', $entityType, $bundle, $fieldname_in_reference) && array_key_exists('formatter', $configuration)) {
+              $this->referenceViewFormatterSettings = $configuration['formatter'];
+              // Found the component. Stop here.
+              break 2;
+            }
+          }
+        }
+      }
+      else {
+        $this->referenceViewFormatterSettings = $eventViewDisplay->getComponent($fieldname_in_reference);
+      }
+
       $this->renderer->addCacheableDependency($build, $this->eventEntity);
     }
 

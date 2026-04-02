@@ -14,220 +14,362 @@ dependencies:
     - field.field.taxonomy_term.oc_section.field_upcoming_dates_view_ref
     - taxonomy.vocabulary.oc_section
   module:
-    - field_group
-    - text
-    - viewfield
+    - layout_builder
+    - openculturas_custom
 third_party_settings:
-  field_group:
-    group_upcoming_events:
-      children:
-        - field_related_event_view_ref
-      label: 'Event catalogue'
-      parent_name: ''
-      region: content
-      weight: 3
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-    group_locations:
-      children:
-        - field_related_location_view_ref
-      label: Locations
-      parent_name: ''
-      region: content
-      weight: 4
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-    group_artists:
-      children:
-        - field_related_artist_view_ref
-      label: Artists
-      parent_name: ''
-      region: content
-      weight: 5
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-    group_magazine:
-      children:
-        - field_related_article_view_ref
-      label: Magazine
-      parent_name: ''
-      region: content
-      weight: 7
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-    group_organizer:
-      children:
-        - field_related_organizer_view_ref
-      label: Organizers
-      parent_name: ''
-      region: content
-      weight: 6
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-    group_interact:
-      children:
-        - extra_field_social_media_buttons
-      label: Interact
-      parent_name: ''
-      region: content
-      weight: 8
-      format_type: html_element
-      format_settings:
-        classes: interact
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_upcoming_dates:
-      children:
-        - field_upcoming_dates_view_ref
-      label: 'Upcoming dates'
-      parent_name: ''
-      region: content
-      weight: 2
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          0954aaab-0dc9-42f5-8e10-a7bb61ee05ab:
+            uuid: 0954aaab-0dc9-42f5-8e10-a7bb61ee05ab
+            region: second
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_mood_image'
+              label: 'Mood image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          67ffe74f-1548-4374-9934-235bc1232b0c:
+            uuid: 67ffe74f-1548-4374-9934-235bc1232b0c
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          9265ea2a-c9af-4401-a6f1-b7b1a8d36b95:
+            uuid: 9265ea2a-c9af-4401-a6f1-b7b1a8d36b95
+            region: third
+            configuration:
+              id: 'extra_field_block:taxonomy_term:oc_section:extra_field_social_media_buttons'
+              label: 'Social media buttons'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          c18e9b27-135f-4cb0-a75a-5ae2ccba40b8:
+            uuid: c18e9b27-135f-4cb0-a75a-5ae2ccba40b8
+            region: third
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:description'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          b2411e92-aa5a-4d8a-9aff-6cc2a9e5df1d:
+            uuid: b2411e92-aa5a-4d8a-9aff-6cc2a9e5df1d
+            region: first
+            configuration:
+              id: 'extra_field_block:taxonomy_term:oc_section:flag_bookmark_term'
+              label: 'Flag: <em class="placeholder">Bookmark term</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Upcoming dates'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background date--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: upcoming-dates
+        components:
+          0aa9b48d-d542-44dd-b0ab-46b560deae98:
+            uuid: 0aa9b48d-d542-44dd-b0ab-46b560deae98
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_upcoming_dates_view_ref'
+              label: 'Upcoming dates'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Event catalogue'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: events
+        components:
+          e7cf7f6f-629a-478a-a30b-793f3bb44d9b:
+            uuid: e7cf7f6f-629a-478a-a30b-793f3bb44d9b
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_related_event_view_ref'
+              label: 'Related events'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Locations
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: locations
+        components:
+          0f32af1b-8e77-4ff7-a6e8-e8e4239aadb3:
+            uuid: 0f32af1b-8e77-4ff7-a6e8-e8e4239aadb3
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_related_location_view_ref'
+              label: Locations
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Artists
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: community
+        components:
+          27a2d8c3-3c9d-4d06-8124-1c2843dff2f6:
+            uuid: 27a2d8c3-3c9d-4d06-8124-1c2843dff2f6
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_related_artist_view_ref'
+              label: Artists
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Organizers
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: organizers
+        components:
+          34bdadaa-f9ff-4d28-b9ef-68d829795ea8:
+            uuid: 34bdadaa-f9ff-4d28-b9ef-68d829795ea8
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_related_organizer_view_ref'
+              label: Organizers
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Magazine
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background magazine--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: articles
+        components:
+          a5974fe2-b2d0-40ae-a4e5-48cd6243195a:
+            uuid: a5974fe2-b2d0-40ae-a4e5-48cd6243195a
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:oc_section:field_related_article_view_ref'
+              label: Magazine
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
 _core:
-  default_config_hash: 56qIPJaF2TJ3FnZjE6eJW301uwVXriTUCD_Y0sUqPic
+  default_config_hash: xQ-Fmo7GQH5pJgxorubW4yhl36384BY8h4ISIDzfUkA
 id: taxonomy_term.oc_section.full
 targetEntityType: taxonomy_term
 bundle: oc_section
 mode: full
-content:
-  description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_social_media_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_related_article_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 8
-    region: content
-  field_related_artist_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 1
-    region: content
-  field_related_event_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_related_location_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 0
-    region: content
-  field_related_organizer_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 0
-    region: content
-  field_term_children_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_upcoming_dates_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
+  description: true
+  extra_field_social_media_buttons: true
   field_colorcode: true
   field_mood_image: true
+  field_related_article_view_ref: true
+  field_related_artist_view_ref: true
+  field_related_event_view_ref: true
+  field_related_location_view_ref: true
+  field_related_organizer_view_ref: true
+  field_upcoming_dates_view_ref: true
   flag_bookmark_term: true
   langcode: true
   search_api_excerpt: true

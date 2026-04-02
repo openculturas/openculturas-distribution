@@ -1,0 +1,620 @@
+uuid: 70e9aadd-5b0b-4749-ba93-aa094248fd8c
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full_display
+    - field.field.node.location.body
+    - field.field.node.location.field_accessibility
+    - field.field.node.location.field_additional_information
+    - field.field.node.location.field_address_data
+    - field.field.node.location.field_allow_claiming
+    - field.field.node.location.field_alternative_title
+    - field.field.node.location.field_category
+    - field.field.node.location.field_comments
+    - field.field.node.location.field_comments_mode
+    - field.field.node.location.field_contact_data
+    - field.field.node.location.field_gallery
+    - field.field.node.location.field_logo
+    - field.field.node.location.field_mention_by_art_view_ref
+    - field.field.node.location.field_mood_image
+    - field.field.node.location.field_office_hours
+    - field.field.node.location.field_opening_hours
+    - field.field.node.location.field_osm_id
+    - field.field.node.location.field_past_dates_view_ref
+    - field.field.node.location.field_people_reference
+    - field.field.node.location.field_portrait
+    - field.field.node.location.field_press_quotes
+    - field.field.node.location.field_recommendations
+    - field.field.node.location.field_recommended_by_view_ref
+    - field.field.node.location.field_reference_title
+    - field.field.node.location.field_related_date_view_ref
+    - field.field.node.location.field_safety_info
+    - field.field.node.location.field_section
+    - field.field.node.location.field_started
+    - field.field.node.location.field_sub_type
+    - field.field.node.location.field_subtitle
+    - field.field.node.location.field_supporters
+    - node.type.location
+  module:
+    - datetime
+    - entity_reference_revisions
+    - field_formatter_class
+    - field_group
+    - office_hours
+    - swiffy_slider
+    - text
+    - user
+    - viewfield
+third_party_settings:
+  field_group:
+    group_focus:
+      children:
+        - field_category
+      label: Focus
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_address_contact_info:
+      children:
+        - field_contact_data
+        - field_address_data
+        - group_opening_hours
+        - field_safety_info
+      label: 'Address and contact'
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+    group_accessibility:
+      children:
+        - field_accessibility
+      label: Accessibility
+      parent_name: ''
+      region: content
+      weight: 8
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: false
+    group_additional_information:
+      children:
+        - field_additional_information
+      label: 'Additional information'
+      parent_name: ''
+      region: content
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_upcoming_events:
+      children:
+        - field_related_date_view_ref
+      label: 'Upcoming dates'
+      parent_name: ''
+      region: content
+      weight: 9
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: upcoming-dates
+        open: true
+        description: ''
+    group_magazine:
+      children:
+        - field_mention_by_art_view_ref
+      label: Magazine
+      parent_name: ''
+      region: content
+      weight: 16
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+    group_featuring:
+      children:
+        - field_reference_title
+        - field_people_reference
+      label: Featuring
+      parent_name: ''
+      region: content
+      weight: 12
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_gallery:
+      children:
+        - field_gallery
+      label: Gallery
+      parent_name: ''
+      region: content
+      weight: 10
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_recommendations:
+      children:
+        - field_recommendations
+      label: Recommendations
+      parent_name: ''
+      region: content
+      weight: 14
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_recommended_by:
+      children:
+        - field_recommended_by_view_ref
+      label: 'Recommended by'
+      parent_name: ''
+      region: content
+      weight: 15
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_interact:
+      children:
+        - flag_recommendation_node
+        - extra_field_social_media_buttons
+        - flag_claim_ownership
+        - flag_report_abuse
+      label: Interact
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: html_element
+      format_settings:
+        classes: interact
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        description: ''
+        open: 0
+    group_press_quotes:
+      children:
+        - field_press_quotes
+      label: 'Press quotes'
+      parent_name: ''
+      region: content
+      weight: 13
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_sponsors:
+      children:
+        - field_supporters
+      label: Sponsors
+      parent_name: ''
+      region: content
+      weight: 17
+      format_type: html_element
+      format_settings:
+        classes: sponsors
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_workflow:
+      children:
+        - content_moderation_control
+      label: Workflow
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: html_element
+      format_settings:
+        classes: grid-child-fullwidth
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_comments:
+      children:
+        - field_comments
+      label: Comments
+      parent_name: ''
+      region: content
+      weight: 26
+      format_type: details
+      format_settings:
+        classes: comments
+        show_empty_fields: false
+        id: comments
+        open: true
+        description: ''
+        required_fields: false
+    group_past_dates:
+      children:
+        - field_past_dates_view_ref
+      label: 'Past dates'
+      parent_name: ''
+      region: hidden
+      weight: 26
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: section-dates-archive
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: false
+    group_opening_hours:
+      children:
+        - field_opening_hours
+        - field_office_hours
+      label: 'Opening hours'
+      parent_name: group_address_contact_info
+      region: content
+      weight: 24
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: true
+        label_element: div
+        label_element_classes: field__label
+        attributes: ''
+        effect: none
+        speed: fast
+id: node.location.full_display
+targetEntityType: node
+bundle: location
+mode: full_display
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_social_media_buttons:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_accessibility:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_additional_information:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_address_data:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_comments:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: true
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+  field_contact_data:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_gallery:
+    type: swiffy_slider_entity_reference
+    label: hidden
+    settings:
+      view_mode: gallery
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-16x9&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation=slider-nav-animation&slider-nav-animation-style=slider-nav-animation-fadein&preview-style=preview-images'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 10
+    region: content
+  field_logo:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: logo
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: align-center
+    weight: 2
+    region: content
+  field_mention_by_art_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 12
+    region: content
+  field_office_hours:
+    type: office_hours_table
+    label: hidden
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_empty: false
+      show_closed: all
+      closed_format: Closed
+      all_day_format: 'Open all day'
+      separator:
+        days: '<br>'
+        grouped_days: '&nbsp;–&nbsp;'
+        day_hours: ': '
+        hours_hours: '&nbsp;–&nbsp;'
+        more_hours: ', '
+      current_status:
+        position: before
+        open_text: 'Currently open'
+        closed_text: 'Currently closed'
+      exceptions:
+        title: Exceptions
+        replace_exceptions: false
+        restrict_exceptions_to_num_days: 365
+        restrict_seasons_to_num_days: 366
+        date_format: site_default_date
+        all_day_format: 'Open all day'
+      timezone_field: ''
+      office_hours_first_day: ''
+      schema:
+        enabled: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 24
+    region: content
+  field_opening_hours:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  field_people_reference:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
+    weight: 17
+    region: content
+  field_portrait:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: profile_image
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_press_quotes:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_recommendations:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_recommended_by_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_reference_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_related_date_view_ref:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: hidden
+      always_build_output: false
+      empty_view_title: hidden
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 13
+    region: content
+  field_safety_info:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_started:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'F Y'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 4
+    region: content
+  field_supporters:
+    type: swiffy_slider_entity_reference
+    label: above
+    settings:
+      view_mode: logo
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 17
+    region: content
+  flag_claim_ownership:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  flag_recommendation_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  flag_report_abuse:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+hidden:
+  field_allow_claiming: true
+  field_alternative_title: true
+  field_comments_mode: true
+  field_mood_image: true
+  field_osm_id: true
+  field_past_dates_view_ref: true
+  field_section: true
+  field_sub_type: true
+  field_subtitle: true
+  flag_bookmark_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

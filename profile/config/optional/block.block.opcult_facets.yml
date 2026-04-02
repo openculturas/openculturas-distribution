@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - blockgroup.block_group_content.facets_group
+  module:
+    - blockgroup
+    - system
+  theme:
+    - opcult
+id: opcult_facets
+theme: opcult
+region: content
+weight: -17
+provider: null
+plugin: 'block_group:facets_group'
+settings:
+  id: 'block_group:facets_group'
+  label: 'Refine your search'
+  label_display: '0'
+  provider: blockgroup
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search

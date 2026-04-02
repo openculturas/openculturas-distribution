@@ -1,0 +1,285 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full_lb
+    - field.field.taxonomy_term.event_type.field_mood_image
+    - field.field.taxonomy_term.event_type.field_related_event_view_ref
+    - field.field.taxonomy_term.event_type.field_term_children_view_ref
+    - taxonomy.vocabulary.event_type
+    - views.view.vocabulary
+  module:
+    - layout_builder
+    - openculturas_custom
+    - views
+  enforced:
+    theme:
+      - opcult
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          f2651a22-00a2-4144-b9ab-e6f9579c760e:
+            uuid: f2651a22-00a2-4144-b9ab-e6f9579c760e
+            region: second
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:field_mood_image'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                  link: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          a82700e6-00f7-4549-91ef-03c6f7ee0737:
+            uuid: a82700e6-00f7-4549-91ef-03c6f7ee0737
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          3de11ba3-8caa-400b-9c7e-088279168da8:
+            uuid: 3de11ba3-8caa-400b-9c7e-088279168da8
+            region: third
+            configuration:
+              id: 'extra_field_block:taxonomy_term:event_type:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional: {  }
+          483d35dc-6478-4355-b5b0-42c02ff89662:
+            uuid: 483d35dc-6478-4355-b5b0-42c02ff89662
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:field_mood_image'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                  link: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          137be63f-6299-4016-82c0-5c5a26185f56:
+            uuid: 137be63f-6299-4016-82c0-5c5a26185f56
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          a741074a-6c29-4c43-8d7c-bf31ca407dba:
+            uuid: a741074a-6c29-4c43-8d7c-bf31ca407dba
+            region: content
+            configuration:
+              id: 'extra_field_block:taxonomy_term:event_type:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 2
+            additional: {  }
+          43794831-7096-43e5-bdc6-adeec0eba029:
+            uuid: 43794831-7096-43e5-bdc6-adeec0eba029
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:field_term_children_view_ref'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          fb14614b-7f1b-435e-9147-475d8d03d692:
+            uuid: fb14614b-7f1b-435e-9147-475d8d03d692
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:field_related_event_view_ref'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          447707c9-c283-4e02-88f5-cc9f5ef5d301:
+            uuid: 447707c9-c283-4e02-88f5-cc9f5ef5d301
+            region: third
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          ad812c09-230b-49a4-bf24-3510a3ad369e:
+            uuid: ad812c09-230b-49a4-bf24-3510a3ad369e
+            region: first
+            configuration:
+              id: 'extra_field_block:taxonomy_term:event_type:flag_bookmark_term'
+              label: 'Flag: <em class="placeholder">Bookmark term</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Sub types'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background sub-terms--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          71235124-4335-42de-9f3e-516b2380f1ca:
+            uuid: 71235124-4335-42de-9f3e-516b2380f1ca
+            region: first
+            configuration:
+              id: 'views_block:vocabulary-block_term_grid'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Events
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          39f2faed-2611-4d29-a6d5-d75bbcbfb5d3:
+            uuid: 39f2faed-2611-4d29-a6d5-d75bbcbfb5d3
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:event_type:field_related_event_view_ref'
+              label: 'Related events'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: taxonomy_term.event_type.full_lb
+targetEntityType: taxonomy_term
+bundle: event_type
+mode: full_lb
+content: {  }
+hidden:
+  description: true
+  extra_field_social_media_buttons: true
+  field_mood_image: true
+  field_related_event_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

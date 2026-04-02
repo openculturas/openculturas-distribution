@@ -1,0 +1,41 @@
+uuid: b0caf8a5-2ca8-4102-9221-d2ddfad11806
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.call-to-action
+  module:
+    - openculturas_custom
+    - system
+    - user
+  theme:
+    - opcult
+id: opcult_call_to_action
+theme: opcult
+region: content
+weight: -10
+provider: null
+plugin: 'system_menu_block:call-to-action'
+settings:
+  id: 'system_menu_block:call-to-action'
+  label: 'Call to action'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
+  user_page:
+    id: user_page
+    negate: false
+    context_mapping:
+      current_user: '@user.current_user_context:current_user'
+    enabled: true
+    only_for_owner: true

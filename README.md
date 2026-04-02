@@ -95,6 +95,11 @@ Download the composer.json from drupal/core-dev and update the adjusted core-dev
 
 `drush scr scripts/update_drupal_core_dev.php`
 
+Sync display settings from 'full' to 'full_lb' view mode.
+
+`drush scr scripts/sync_full_to_full_lb.php`
+
+
 ### Configuration files
 
 All configurations are managed via [config_devel](https://www.drupal.org/project/config_devel).

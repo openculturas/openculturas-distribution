@@ -1,0 +1,148 @@
+uuid: 1a97bdff-7943-4117-8003-748d0551d4e9
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full_display
+    - field.field.node.page.body
+    - field.field.node.page.field_content_paragraphs
+    - field.field.node.page.field_layout_switcher
+    - field.field.node.page.field_meta_tags
+    - field.field.node.page.field_mood_image
+    - field.field.node.page.field_search_api_exclude
+    - field.field.node.page.field_sub_type
+    - field.field.node.page.field_subtitle
+    - field.field.node.page.field_supporters
+    - node.type.page
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+    - field_group
+    - swiffy_slider
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_interact:
+      children:
+        - flag_recommendation_node
+        - extra_field_social_media_buttons
+      label: Interact
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: html_element
+      format_settings:
+        classes: interact
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_sponsors:
+      children:
+        - field_supporters
+      label: Sponsors
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: html_element
+      format_settings:
+        classes: sponsors
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+_core:
+  default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
+id: node.page.full_display
+targetEntityType: node
+bundle: page
+mode: full_display
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  co_authors:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_social_media_buttons:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_content_paragraphs:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_mood_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: header_image
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 1
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_supporters:
+    type: swiffy_slider_entity_reference
+    label: above
+    settings:
+      view_mode: default
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-nav-animation-style=slider-nav-animation-scale'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 6
+    region: content
+  flag_recommendation_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_layout_switcher: true
+  field_meta_tags: true
+  field_search_api_exclude: true
+  field_sub_type: true
+  flag_bookmark_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

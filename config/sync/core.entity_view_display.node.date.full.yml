@@ -26,528 +26,954 @@ dependencies:
     - field.field.node.date.field_sub_dates_view_ref
     - field.field.node.date.field_ticketing
     - node.type.date
+    - views.view.oc_er_mod_states
   module:
-    - date_augmenter
-    - entity_reference_revisions
-    - field_formatter_class
-    - field_group
-    - link
-    - options
-    - smart_date_recur
-    - text
+    - layout_builder
+    - openculturas_custom
     - user
-    - viewfield
+    - views
 third_party_settings:
-  field_group:
-    group_part_of_event_series:
-      children:
-        - group_part_of_event_series_info
-        - group_dates_in_this_series_info
-      label: 'Event series'
-      parent_name: ''
-      region: content
-      weight: 11
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: series
-        open: true
-        description: ''
-    group_cast:
-      children:
-        - field_people_reference
-      label: Featuring
-      parent_name: ''
-      region: content
-      weight: 12
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: featuring
-        open: true
-        description: ''
-    group_tickets:
-      children:
-        - field_forfree
-        - field_pricing
-        - field_pricing_info
-        - field_ticketing
-        - field_door_time_relative
-      label: 'Tickets and pricing'
-      parent_name: ''
-      region: content
-      weight: 9
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: pricing
-        open: true
-        description: ''
-    group_accessibility_information:
-      children:
-        - field_accessibility
-      label: Accessibility
-      parent_name: ''
-      region: content
-      weight: 13
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: a11y
-        open: false
-        description: ''
-    group_organizer:
-      children:
-        - field_organizer
-      label: Organizer
-      parent_name: ''
-      region: content
-      weight: 14
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: organizer
-        open: false
-        description: ''
-    group_tagging:
-      children:
-        - extra_field_event_category
-      label: Focus
-      parent_name: ''
-      region: content
-      weight: 8
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: focus
-        open: true
-        description: ''
-    group_alternative_dates:
-      children:
-        - field_related_date_view_ref
-      label: 'Alternative dates'
-      parent_name: ''
-      region: content
-      weight: 15
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: alternative-dates
-        open: true
-        description: ''
-    group_gallery:
-      children:
-        - extra_field_event_gallery
-      label: Gallery
-      parent_name: ''
-      region: content
-      weight: 16
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: gallery
-        open: true
-        description: ''
-    group_interact:
-      children:
-        - flag_recommendation_node
-        - extra_field_social_media_buttons
-      label: Interact
-      parent_name: ''
-      region: content
-      weight: 7
-      format_type: html_element
-      format_settings:
-        classes: interact
-        show_empty_fields: false
-        id: interact
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_workflow:
-      children:
-        - content_moderation_control
-      label: Workflow
-      parent_name: ''
-      region: content
-      weight: 0
-      format_type: html_element
-      format_settings:
-        classes: grid-child-fullwidth
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_part_of_event_series_info:
-      children:
-        - field_parent_date
-      label: 'Part of event series'
-      parent_name: group_part_of_event_series
-      region: content
-      weight: 17
-      format_type: html_element
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_dates_in_this_series_info:
-      children:
-        - field_sub_dates_view_ref
-      label: 'Dates in this series'
-      parent_name: group_part_of_event_series
-      region: content
-      weight: 19
-      format_type: html_element
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: true
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_location:
-      children:
-        - field_attendance_mode
-        - field_location_virtual
-        - field_location
-        - extra_field_location_address_data
-        - field_safety_info
-      label: 'Event location'
-      parent_name: ''
-      region: content
-      weight: 10
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: location
-        open: true
-        description: ''
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Workflow
+          context_mapping: {  }
+          layout_custom_classes: 'moderation--section date--moderation'
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: moderation
+        components:
+          5f0f24d2-3e3c-4d16-8d89-bd4ae1e2270e:
+            uuid: 5f0f24d2-3e3c-4d16-8d89-bd4ae1e2270e
+            region: first
+            configuration:
+              id: 'extra_field_block:node:date:content_moderation_control'
+              label: 'Moderation control'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          0a93a74e-5828-4cdf-b4ff-e19f1886242c:
+            uuid: 0a93a74e-5828-4cdf-b4ff-e19f1886242c
+            region: second
+            configuration:
+              id: 'views_block:oc_er_mod_states-block_states_info'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: 'Top area'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: content--aside
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          13b13b84-5883-4ce2-8191-4bcca395002d:
+            uuid: 13b13b84-5883-4ce2-8191-4bcca395002d
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          9487e148-347d-4f85-88e8-15bfa5e4f204:
+            uuid: 9487e148-347d-4f85-88e8-15bfa5e4f204
+            region: third
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_category'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 3
+            additional: {  }
+          148c7c9e-b0a8-4689-b02f-742bf8370967:
+            uuid: 148c7c9e-b0a8-4689-b02f-742bf8370967
+            region: fifth
+            configuration:
+              id: 'field_block:node:date:field_forfree'
+              label: 'Free entry'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: boolean
+                label: inline
+                settings:
+                  format: default
+                  format_custom_false: ''
+                  format_custom_true: ''
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          029004b8-8733-4fdc-a84e-ef6a5f7e310e:
+            uuid: 029004b8-8733-4fdc-a84e-ef6a5f7e310e
+            region: fifth
+            configuration:
+              id: 'field_block:node:date:field_pricing'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          3f5f1704-4102-475a-a63f-63a17943e6a0:
+            uuid: 3f5f1704-4102-475a-a63f-63a17943e6a0
+            region: fifth
+            configuration:
+              id: 'field_block:node:date:field_pricing_info'
+              label: 'Pricing details'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: visually_hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional: {  }
+          54d192e1-0f1d-4831-83ea-06935854cd7f:
+            uuid: 54d192e1-0f1d-4831-83ea-06935854cd7f
+            region: fifth
+            configuration:
+              id: 'field_block:node:date:field_ticketing'
+              label: 'Ticket /reservation'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 3
+            additional: {  }
+          82098fc5-6d5a-482d-9b9d-16fd32bfc6f6:
+            uuid: 82098fc5-6d5a-482d-9b9d-16fd32bfc6f6
+            region: third
+            configuration:
+              id: 'field_block:node:date:field_date'
+              label: Date
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: smartdate_recurring
+                label: hidden
+                settings:
+                  timezone_override: ''
+                  format: site_default_date_and_time
+                  force_chronological: true
+                  add_classes: true
+                  time_wrapper: true
+                  localize: false
+                  parts:
+                    start: start
+                    end: end
+                    duration: '0'
+                  duration:
+                    separator: ' | '
+                    unit: ''
+                    decimals: 2
+                    suffix: h
+                  past_display: 1
+                  upcoming_display: 1
+                  show_next: true
+                  current_upcoming: true
+                third_party_settings:
+                  date_augmenter:
+                    instances:
+                      status:
+                        addtocal: true
+                      weights:
+                        order:
+                          addtocal:
+                            weight: 0
+                      settings:
+                        addtocal:
+                          label: 'Add to calendar'
+                          event_title: '[node:field_premiere] [node:field_event_description:entity:title]'
+                          location: '[node:field_location:entity:field_address_data]'
+                          description: "[node:field_event_description:entity:field_subtitle]\r\n[node:field_body_addon]\r\n[node:field_event_description:entity:body]\r\n\r\n[current-page:url]?date_delta=[current-page:query:date_delta]"
+                          retain_spacing: true
+                          icons: false
+                          max_desc: 60
+                          ellipsis: false
+                          past_events: false
+                          target: modal
+                          ignore_timezone_if_UTC: true
+                      augmenter_settings:
+                        settings__formatter__third_party_settings__date_augmenter__instances__augmenter_settings__active_tab: ''
+                    rule:
+                      status:
+                        addtocal: false
+                      weights:
+                        order:
+                          addtocal:
+                            weight: 0
+                      settings:
+                        addtocal:
+                          label: 'Add to calendar'
+                          event_title: ''
+                          location: ''
+                          description: ''
+                          retain_spacing: false
+                          icons: false
+                          max_desc: 60
+                          ellipsis: false
+                          past_events: false
+                          target: ''
+                          ignore_timezone_if_UTC: false
+                      augmenter_settings:
+                        settings__formatter__third_party_settings__date_augmenter__rule__augmenter_settings__active_tab: ''
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: date-main
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          1385414d-66a4-4e19-b727-fe726b98afe6:
+            uuid: 1385414d-66a4-4e19-b727-fe726b98afe6
+            region: third
+            configuration:
+              id: 'field_block:node:date:field_event_status'
+              label: Status
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: date-main--status
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          8549c484-0d9f-4208-ba7e-6596a246c143:
+            uuid: 8549c484-0d9f-4208-ba7e-6596a246c143
+            region: third
+            configuration:
+              id: 'field_block:node:date:field_premiere'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: list_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          af478916-6dd9-4b92-b67c-56545809c70d:
+            uuid: af478916-6dd9-4b92-b67c-56545809c70d
+            region: fifth
+            configuration:
+              id: 'field_block:node:date:field_door_time_relative'
+              label: 'Door time'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: inline
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 4
+            additional: {  }
+          1fe01105-d79b-4639-9d00-309790148019:
+            uuid: 1fe01105-d79b-4639-9d00-309790148019
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_inlanguage'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 5
+            additional: {  }
+          6b1131a3-11ec-4621-9e02-351f521320d1:
+            uuid: 6b1131a3-11ec-4621-9e02-351f521320d1
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_min_age'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 6
+            additional: {  }
+          a420aa90-e203-46b1-982f-d24b0b90ef26:
+            uuid: a420aa90-e203-46b1-982f-d24b0b90ef26
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_url'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 7
+            additional: {  }
+          7123b03b-6c05-4903-88ac-dbb220ef4c82:
+            uuid: 7123b03b-6c05-4903-88ac-dbb220ef4c82
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 8
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: space-before
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          b36aeac4-f25e-46c5-9f6d-ba871f60e9c9:
+            uuid: b36aeac4-f25e-46c5-9f6d-ba871f60e9c9
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:date:flag_recommendation_node'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 9
+            additional: {  }
+          1f77ade1-3bfa-4885-a677-0884246a5aaa:
+            uuid: 1f77ade1-3bfa-4885-a677-0884246a5aaa
+            region: fourth
+            configuration:
+              id: 'field_block:node:date:field_body_addon'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          0fdc6033-1564-416f-a214-9b0730f8a094:
+            uuid: 0fdc6033-1564-416f-a214-9b0730f8a094
+            region: fourth
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_body'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 4
+            additional: {  }
+          7b92f7d8-2145-4888-b93d-9d8686e54a1c:
+            uuid: 7b92f7d8-2145-4888-b93d-9d8686e54a1c
+            region: second
+            configuration:
+              id: openculturas_custom_hero_image
+              label: 'Hero image from current entity (from field_mood_image)'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          84ea5a71-4a14-477d-96f1-e865d79161f1:
+            uuid: 84ea5a71-4a14-477d-96f1-e865d79161f1
+            region: first
+            configuration:
+              id: 'extra_field_block:node:date:flag_bookmark_node'
+              label: 'Flag: <em class="placeholder">Bookmark node</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Location
+          context_mapping: {  }
+          layout_custom_classes: address-region
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: location
+        components:
+          057b4c95-30da-47af-96e9-bc70a19b6f07:
+            uuid: 057b4c95-30da-47af-96e9-bc70a19b6f07
+            region: first
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_location_address_data'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 4
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: space-before
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          e0b3754c-4277-42a0-8384-c8f7aa196660:
+            uuid: e0b3754c-4277-42a0-8384-c8f7aa196660
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_attendance_mode'
+              label: Location
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: inline
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          8df582f6-9c9c-4e06-ab52-ff2be4890521:
+            uuid: 8df582f6-9c9c-4e06-ab52-ff2be4890521
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_location_virtual'
+              label: 'Virtual location URL'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: inline
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+          7f45a7ca-cecd-48e2-9865-fe5342d27fcc:
+            uuid: 7f45a7ca-cecd-48e2-9865-fe5342d27fcc
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_location'
+              label: Location
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: compact
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional: {  }
+          759ad047-159f-44f9-8046-7ed52900097b:
+            uuid: 759ad047-159f-44f9-8046-7ed52900097b
+            region: second
+            configuration:
+              id: 'field_block:node:date:field_accessibility'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: above
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          84bfd724-0f21-4e2a-b2f0-730579e96d79:
+            uuid: 84bfd724-0f21-4e2a-b2f0-730579e96d79
+            region: second
+            configuration:
+              id: 'field_block:node:date:field_safety_info'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Event series'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: series
+        components:
+          a9fc5fd3-825b-4a4e-a9c3-77d1bae11453:
+            uuid: a9fc5fd3-825b-4a4e-a9c3-77d1bae11453
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_sub_dates_view_ref'
+              label: 'Dates in this series'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 2
+            additional: {  }
+          4ea87666-645c-4874-9891-0cfce829a475:
+            uuid: 4ea87666-645c-4874-9891-0cfce829a475
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_parent_date'
+              label: 'Part of event series'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: teaser_big
+                third_party_settings:
+                  field_formatter_class:
+                    class: calendar
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Impressions
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background gallery--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: gallery
+        components:
+          4c32c287-46e2-4f43-9d69-1cc1e4dd9391:
+            uuid: 4c32c287-46e2-4f43-9d69-1cc1e4dd9391
+            region: first
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_gallery'
+              label: Gallery
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Involvements
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: involvements
+        components:
+          e537f8b0-5562-48d4-bd2a-5fb21e81722a:
+            uuid: e537f8b0-5562-48d4-bd2a-5fb21e81722a
+            region: second
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_press_quotes'
+              label: 'Press quotes'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          d1299d8f-f69d-4584-8945-2cffcfb73fb4:
+            uuid: d1299d8f-f69d-4584-8945-2cffcfb73fb4
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_people_reference'
+              label: Performer/Artist
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          ea84916e-f4a6-4b7e-be7a-aef012a8eade:
+            uuid: ea84916e-f4a6-4b7e-be7a-aef012a8eade
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_organizer'
+              label: Organizer
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: legal
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+          d394d309-2f3f-4fb8-91e2-209b1e0f27c6:
+            uuid: d394d309-2f3f-4fb8-91e2-209b1e0f27c6
+            region: second
+            configuration:
+              id: 'field_block:node:date:field_event_description'
+              label: 'General event details'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: teaser_unified
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Alternative dates'
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background date--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: alternative-date
+        components:
+          14fe199e-5aa6-4b1c-be5f-3dcb3b3ccd2a:
+            uuid: 14fe199e-5aa6-4b1c-be5f-3dcb3b3ccd2a
+            region: first
+            configuration:
+              id: 'field_block:node:date:field_related_date_view_ref'
+              label: 'Alternative dates'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Supported by'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: supporters
+        components:
+          b27b69a7-96c2-4399-9ed9-c84e6ef51b2c:
+            uuid: b27b69a7-96c2-4399-9ed9-c84e6ef51b2c
+            region: first
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_supporters'
+              label: 'Supported by'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Comments
+          context_mapping: {  }
+          layout_custom_classes: 'section-with-background comments--section'
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: comments
+        components:
+          ccefc57c-27d6-461f-a3a6-cd2567dd1bf2:
+            uuid: ccefc57c-27d6-461f-a3a6-cd2567dd1bf2
+            region: first
+            configuration:
+              id: 'extra_field_block:node:date:extra_field_event_comments'
+              label: Comments
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: intro-inline
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+        third_party_settings: {  }
 id: node.date.full
 targetEntityType: node
 bundle: date
 mode: full
-content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: -20
-    region: content
-  extra_field_event_body:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  extra_field_event_category:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 21
-    region: content
-  extra_field_event_gallery:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 24
-    region: content
-  extra_field_location_address_data:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 13
-    region: content
-  extra_field_social_media_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  extra_field_subtitle:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_accessibility:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 24
-    region: content
-  field_attendance_mode:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_body_addon:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_date:
-    type: smartdate_recurring
-    label: hidden
-    settings:
-      timezone_override: ''
-      format_type: medium
-      format: site_default_date_and_time
-      force_chronological: true
-      add_classes: true
-      time_wrapper: true
-      localize: false
-      parts:
-        start: start
-        end: end
-        duration: '0'
-      duration:
-        separator: ' | '
-        unit: ''
-        decimals: 2
-        suffix: h
-      past_display: 0
-      upcoming_display: 1
-      show_next: true
-      current_upcoming: true
-    third_party_settings:
-      date_augmenter:
-        instances:
-          status:
-            addtocal: true
-          weights:
-            order:
-              addtocal:
-                weight: 0
-          settings:
-            addtocal:
-              label: 'Add to calendar'
-              event_title: '[node:field_premiere] [node:field_event_description:entity:title]'
-              location: '[node:field_location:entity:field_address_data]'
-              description: "[node:field_event_description:entity:field_subtitle]\r\n[node:field_body_addon]\r\n[node:field_event_description:entity:body]\r\n\r\n[current-page:url]?date_delta=[current-page:query:date_delta]"
-              retain_spacing: false
-              icons: false
-              max_desc: 0
-              ellipsis: false
-              past_events: false
-              target: modal
-              ignore_timezone_if_UTC: true
-          augmenter_settings:
-            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__instances__augmenter_settings__active_tab: ''
-        rule:
-          status:
-            addtocal: false
-          weights:
-            order:
-              addtocal:
-                weight: 0
-          settings:
-            addtocal:
-              label: 'Add to calendar'
-              event_title: ''
-              location: ''
-              description: ''
-              retain_spacing: false
-              icons: false
-              max_desc: 60
-              ellipsis: false
-              past_events: false
-              target: ''
-              ignore_timezone_if_UTC: true
-          augmenter_settings:
-            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__rule__augmenter_settings__active_tab: ''
-      field_formatter_class:
-        class: ''
-    weight: 3
-    region: content
-  field_door_time_relative:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  field_event_description:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  field_event_status:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_forfree:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_location:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: compact
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 12
-    region: content
-  field_location_virtual:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  field_organizer:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: legal
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 21
-    region: content
-  field_parent_date:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: teaser
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 18
-    region: content
-  field_people_reference:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings:
-      field_formatter_class:
-        class: 'grid-1 grid-2-m grid-3-l grid-row-gap-2 grid-row-gap-2-m grid-row-gap-2-l'
-    weight: 12
-    region: content
-  field_premiere:
-    type: list_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_pricing:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 8
-    region: content
-  field_pricing_info:
-    type: text_default
-    label: visually_hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_related_date_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 21
-    region: content
-  field_safety_info:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_sub_dates_view_ref:
-    type: viewfield_default
-    label: visually_hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  field_ticketing:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_recommendation_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
+content: {  }
 hidden:
   co_authors: true
+  content_moderation_control: true
+  extra_field_event_body: true
+  extra_field_event_category: true
+  extra_field_event_comments: true
+  extra_field_event_gallery: true
+  extra_field_event_inlanguage: true
+  extra_field_event_min_age: true
   extra_field_event_mood_image: true
+  extra_field_event_press_quotes: true
   extra_field_event_subtitle: true
+  extra_field_event_supporters: true
+  extra_field_event_url: true
+  extra_field_location_address_data: true
+  extra_field_social_media_buttons: true
+  extra_field_subtitle: true
+  field_accessibility: true
+  field_attendance_mode: true
+  field_body_addon: true
+  field_date: true
+  field_door_time_relative: true
+  field_event_description: true
   field_event_series: true
+  field_event_status: true
+  field_forfree: true
+  field_location: true
+  field_location_virtual: true
+  field_organizer: true
+  field_parent_date: true
+  field_people_reference: true
+  field_premiere: true
+  field_pricing: true
+  field_pricing_info: true
+  field_related_date_view_ref: true
+  field_safety_info: true
+  field_sub_dates_view_ref: true
+  field_ticketing: true
   flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
   links: true
   search_api_excerpt: true

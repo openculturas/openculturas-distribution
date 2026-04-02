@@ -1,9 +1,9 @@
 name: 'OpenCulturas Next'
 type: theme
-core_version_requirement: ^10.2 || ^11
+core_version_requirement: ^10
 description: "OpenCulturas modernized base theme. Are you switching from <em>Openculturas Base</em> theme? Please check the theme settings here!"
 package: OpenCulturas
-version: 2.6.0
+version: 2.6.x-dev
 project: openculturas
 'base theme': stable9
 
@@ -14,9 +14,9 @@ libraries:
   - opcult/global
 
 libraries-override:
-  # Prevent social_media_links from loading fontawesome via CDN. We use local svg sprite anyways.
+  # Prevent social_media_links from loading fontawesome via CDN. We use local svg sprite anyway.
   social_media_links/fontawesome.component: false
-  # Removed to set a border in our css.
+  # Removed to set a border in our CSS.
   flag/flag.link:
     css:
       theme:
@@ -36,3 +36,18 @@ regions:
   footer: Footer
   below_footer: 'Below footer'
   page_bottom: 'Below everything'
+
+dependencies:
+  - core:stable9
+  - layout_builder_component_attributes:layout_builder_component_attributes
+  - layout_options:layout_options
+  - blockgroup:blockgroup
+
+config_devel:
+  install:
+    - opcult.settings
+  optional:
+    - core.entity_view_mode.node.full_lb
+    - core.entity_view_mode.taxonomy_term.full_lb
+    - asset_injector.css.opcult_overrides
+    - blockgroup.block_group_content.facets_group

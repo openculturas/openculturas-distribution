@@ -10,81 +10,256 @@ dependencies:
     - field.field.node.faq.field_mood_image
     - node.type.faq
   module:
-    - entity_reference_revisions
-    - field_group
-    - text
+    - layout_builder
+    - openculturas_custom
     - user
+  enforced:
+    theme:
+      - opcult
 third_party_settings:
-  field_group:
-    group_interact:
-      children:
-        - flag_recommendation_node
-        - extra_field_social_media_buttons
-      label: Interact
-      parent_name: ''
-      region: content
-      weight: 4
-      format_type: html_element
-      format_settings:
-        classes: interact
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: 'Top area'
+          context_mapping: {  }
+          layout_custom_classes: no-whitespace-below
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: content--aside
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          8184031d-ab1d-409e-bb67-e64f2cae32f8:
+            uuid: 8184031d-ab1d-409e-bb67-e64f2cae32f8
+            region: second
+            configuration:
+              id: 'field_block:node:faq:field_mood_image'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                  link: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          5cab8ac9-1519-46af-9c3d-bb62917a73ce:
+            uuid: 5cab8ac9-1519-46af-9c3d-bb62917a73ce
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          db96280f-d09b-4451-b000-a052aac6a87e:
+            uuid: db96280f-d09b-4451-b000-a052aac6a87e
+            region: third
+            configuration:
+              id: 'field_block:node:faq:field_faq_category'
+              label: 'FAQ Category'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: hidden
+                settings:
+                  link: true
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+          81bc165b-a5dc-49e3-8fe3-946311382305:
+            uuid: 81bc165b-a5dc-49e3-8fe3-946311382305
+            region: fourth
+            configuration:
+              id: 'field_block:node:faq:body'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: copy-area
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          3b15c336-3370-42de-bd70-d1a4c79450f2:
+            uuid: 3b15c336-3370-42de-bd70-d1a4c79450f2
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:faq:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 0
+            additional: {  }
+          414dc342-7554-4bce-9b0a-9b61ef0c373b:
+            uuid: 414dc342-7554-4bce-9b0a-9b61ef0c373b
+            region: fifth
+            configuration:
+              id: 'extra_field_block:node:faq:flag_recommendation_node'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional: {  }
+          ab4ca58a-9ace-4bc3-bd3d-c9e4686e84fa:
+            uuid: ab4ca58a-9ace-4bc3-bd3d-c9e4686e84fa
+            region: third
+            configuration:
+              id: 'field_block:node:faq:field_detailed_question'
+              label: 'Detailed Question'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: visually_hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          9f9f2a87-ea86-4ead-b9be-ce49bedfe784:
+            uuid: 9f9f2a87-ea86-4ead-b9be-ce49bedfe784
+            region: first
+            configuration:
+              id: 'extra_field_block:node:faq:flag_bookmark_node'
+              label: 'Flag: <em class="placeholder">Bookmark node</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Content elements'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          b9f851b3-a053-4b90-be10-d34e0696a67b:
+            uuid: b9f851b3-a053-4b90-be10-d34e0696a67b
+            region: first
+            configuration:
+              id: 'field_block:node:faq:field_content_paragraphs'
+              label: 'Content elements'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: copy-area
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+        third_party_settings: {  }
 id: node.faq.full
 targetEntityType: node
 bundle: faq
 mode: full
-content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_social_media_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_content_paragraphs:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_detailed_question:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_faq_category:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  flag_recommendation_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
+content: {  }
 hidden:
+  body: true
+  extra_field_social_media_buttons: true
+  field_content_paragraphs: true
+  field_detailed_question: true
+  field_faq_category: true
   field_mood_image: true
   flag_bookmark_node: true
+  flag_recommendation_node: true
   langcode: true
   links: true
   search_api_excerpt: true

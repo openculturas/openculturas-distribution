@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.date.field_ticketing
     - node.type.date
   module:
+    - date_augmenter
     - field_formatter_class
     - smart_date_recur
     - user
@@ -41,46 +42,93 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  extra_field_event_subtitle:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_date:
     type: smartdate_recurring
     label: hidden
     settings:
       timezone_override: ''
       format_type: medium
-      format: site_default_date_and_time
+      format: site_default_date
       force_chronological: true
       add_classes: true
       time_wrapper: true
-      past_display: 0
+      localize: false
+      parts:
+        start: start
+        end: end
+        duration: '0'
+      duration:
+        separator: ' | '
+        unit: ''
+        decimals: 2
+        suffix: h
+      past_display: 1
       upcoming_display: 1
-      show_next: false
+      show_next: true
       current_upcoming: true
     third_party_settings:
+      date_augmenter:
+        instances:
+          status:
+            addtocal: false
+          weights:
+            order:
+              addtocal:
+                weight: 0
+          settings:
+            addtocal:
+              label: 'Add to calendar'
+              event_title: ''
+              location: ''
+              description: ''
+              retain_spacing: false
+              icons: true
+              max_desc: 60
+              ellipsis: true
+              past_events: false
+              target: ''
+              ignore_timezone_if_UTC: true
+          augmenter_settings:
+            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__instances__augmenter_settings__active_tab: ''
+        rule:
+          status:
+            addtocal: false
+          weights:
+            order:
+              addtocal:
+                weight: 0
+          settings:
+            addtocal:
+              label: 'Add to calendar'
+              event_title: ''
+              location: ''
+              description: ''
+              retain_spacing: false
+              icons: true
+              max_desc: 60
+              ellipsis: true
+              past_events: false
+              target: ''
+              ignore_timezone_if_UTC: true
+          augmenter_settings:
+            fields__field_date__settings_edit_form__third_party_settings__date_augmenter__rule__augmenter_settings__active_tab: ''
       field_formatter_class:
         class: 'date date--compact'
-    weight: 1
-    region: content
-  field_event_description:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 2
+    weight: 0
     region: content
 hidden:
   content_moderation_control: true
   extra_field_event_body: true
   extra_field_event_category: true
+  extra_field_event_comments: true
   extra_field_event_gallery: true
+  extra_field_event_inlanguage: true
+  extra_field_event_min_age: true
   extra_field_event_mood_image: true
+  extra_field_event_press_quotes: true
+  extra_field_event_subtitle: true
+  extra_field_event_supporters: true
+  extra_field_event_url: true
   extra_field_location_address_data: true
   extra_field_social_media_buttons: true
   extra_field_subtitle: true
@@ -88,6 +136,7 @@ hidden:
   field_attendance_mode: true
   field_body_addon: true
   field_door_time_relative: true
+  field_event_description: true
   field_event_series: true
   field_event_status: true
   field_forfree: true

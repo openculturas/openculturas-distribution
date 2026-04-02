@@ -1,0 +1,206 @@
+uuid: ef5fcd9b-c2a4-49d1-a69d-cf2665fe063d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full_lb
+    - field.field.taxonomy_term.location_type.field_mood_image
+    - field.field.taxonomy_term.location_type.field_related_location_view_ref
+    - field.field.taxonomy_term.location_type.field_term_children_view_ref
+    - taxonomy.vocabulary.location_type
+    - views.view.locations
+    - views.view.vocabulary
+  module:
+    - layout_builder
+    - openculturas_custom
+    - views
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          a1673f76-566d-4231-9d6f-e0ef3cc73fa3:
+            uuid: a1673f76-566d-4231-9d6f-e0ef3cc73fa3
+            region: second
+            configuration:
+              id: 'field_block:taxonomy_term:location_type:field_mood_image'
+              label: 'Mood image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          fe46380f-9237-4d21-aa50-eb4ce9a84d5f:
+            uuid: fe46380f-9237-4d21-aa50-eb4ce9a84d5f
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          3a5d2d66-f379-48f0-b966-d0fd8c5f60a0:
+            uuid: 3a5d2d66-f379-48f0-b966-d0fd8c5f60a0
+            region: third
+            configuration:
+              id: 'field_block:taxonomy_term:location_type:description'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          19af5397-bafe-4cec-8057-2f399b4071a3:
+            uuid: 19af5397-bafe-4cec-8057-2f399b4071a3
+            region: first
+            configuration:
+              id: 'extra_field_block:taxonomy_term:location_type:flag_bookmark_term'
+              label: 'Flag: <em class="placeholder">Bookmark term</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          31d380c4-d709-4e0f-b8b3-ddc9513d87ce:
+            uuid: 31d380c4-d709-4e0f-b8b3-ddc9513d87ce
+            region: fourth
+            configuration:
+              id: 'views_block:vocabulary-term_children_compact'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+          102d4118-d353-4c9a-95d3-146b3398ff6c:
+            uuid: 102d4118-d353-4c9a-95d3-146b3398ff6c
+            region: fifth
+            configuration:
+              id: 'extra_field_block:taxonomy_term:location_type:extra_field_social_media_buttons'
+              label: 'Social media buttons'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Sub terms'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Locations
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          8329af19-f26f-45c1-94eb-cf01e0f82005:
+            uuid: 8329af19-f26f-45c1-94eb-cf01e0f82005
+            region: first
+            configuration:
+              id: 'views_block:locations-block_locations_by_term'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+id: taxonomy_term.location_type.full_lb
+targetEntityType: taxonomy_term
+bundle: location_type
+mode: full_lb
+content: {  }
+hidden:
+  description: true
+  extra_field_social_media_buttons: true
+  field_mood_image: true
+  field_related_location_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

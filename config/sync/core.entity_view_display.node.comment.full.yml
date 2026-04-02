@@ -10,64 +10,143 @@ dependencies:
     - field.field.node.comment.field_ref_node
     - node.type.comment
   module:
-    - datetime
-    - field_formatter_class
-    - text
+    - layout_builder
+    - openculturas_custom
     - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Workflow
+          context_mapping: {  }
+          layout_custom_classes: moderation--section
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: moderation
+        components:
+          7b3f50de-c7d4-4e9c-94b8-cc7a83bd205c:
+            uuid: 7b3f50de-c7d4-4e9c-94b8-cc7a83bd205c
+            region: first
+            configuration:
+              id: 'extra_field_block:node:comment:content_moderation_control'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: 'Comment info'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          b89697a4-3827-409c-bc95-2812dc54ac1d:
+            uuid: b89697a4-3827-409c-bc95-2812dc54ac1d
+            region: first
+            configuration:
+              id: 'field_block:node:comment:field_behalf'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: compact
+                  link: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 3
+            additional: {  }
+          8f951320-1c46-45ba-9405-f52217368a82:
+            uuid: 8f951320-1c46-45ba-9405-f52217368a82
+            region: first
+            configuration:
+              id: 'field_block:node:comment:field_date_published'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: datetime_default
+                label: hidden
+                settings:
+                  timezone_override: ''
+                  format_type: site_default_date_time
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 4
+            additional: {  }
+          e000ee51-3402-4199-a870-c46a7abeff1b:
+            uuid: e000ee51-3402-4199-a870-c46a7abeff1b
+            region: second
+            configuration:
+              id: 'field_block:node:comment:field_ref_node'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: above
+                settings:
+                  view_mode: teaser
+                  link: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+          c925026b-5313-4106-9a6b-a22af1742dda:
+            uuid: c925026b-5313-4106-9a6b-a22af1742dda
+            region: first
+            configuration:
+              id: 'field_block:node:comment:body'
+              label: Comment
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 5
+            additional: {  }
+        third_party_settings: {  }
 _core:
-  default_config_hash: El6lTfWlAE6Lo2Qx1BuYVZxfTpLrvHQ_col1LwNQlLE
+  default_config_hash: tidHV4qhjdVWs0Z2HfH94crK2vSUs_hNIPzcPQkmYlc
 id: node.comment.full
 targetEntityType: node
 bundle: comment
 mode: full
-content:
-  body:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_behalf:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: compact
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 3
-    region: content
-  field_date_published:
-    type: datetime_default
-    label: hidden
-    settings:
-      timezone_override: ''
-      format_type: site_default_date_time
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 4
-    region: content
-  field_ref_node:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: teaser_big
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 1
-    region: content
+content: {  }
 hidden:
+  body: true
+  content_moderation_control: true
   extra_field_social_media_buttons: true
+  field_behalf: true
+  field_date_published: true
+  field_ref_node: true
   flag_bookmark_node: true
   flag_recommendation_node: true
   langcode: true

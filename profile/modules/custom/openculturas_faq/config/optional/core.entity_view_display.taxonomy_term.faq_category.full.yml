@@ -8,110 +8,167 @@ dependencies:
     - field.field.taxonomy_term.faq_category.field_term_children_view_ref
     - taxonomy.vocabulary.faq_category
   module:
-    - field_group
-    - text
-    - viewfield
+    - layout_builder
+    - openculturas_custom
+  enforced:
+    theme:
+      - opcult
 third_party_settings:
-  field_group:
-    group_interact:
-      children:
-        - extra_field_social_media_buttons
-      label: Interact
-      parent_name: ''
-      region: content
-      weight: 3
-      format_type: html_element
-      format_settings:
-        classes: interact
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_sub_categories:
-      children:
-        - field_term_children_view_ref
-      label: Sub-categories
-      parent_name: ''
-      region: content
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
-    group_related_questions:
-      children:
-        - field_related_faq_view_ref
-      label: 'Questions in this category'
-      parent_name: ''
-      region: content
-      weight: 2
-      format_type: html_element
-      format_settings:
-        classes: related_content
-        show_empty_fields: true
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: ''
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          3464b152-482d-4afb-ae22-a16b48de128c:
+            uuid: 3464b152-482d-4afb-ae22-a16b48de128c
+            region: second
+            configuration:
+              id: 'field_block:taxonomy_term:faq_category:field_mood_image'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                  link: false
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          b8f10a7a-2b35-4d7b-b8d9-4a1de93aa7ed:
+            uuid: b8f10a7a-2b35-4d7b-b8d9-4a1de93aa7ed
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          25e5a738-5ff4-46ff-b494-2ee5be4e69e6:
+            uuid: 25e5a738-5ff4-46ff-b494-2ee5be4e69e6
+            region: third
+            configuration:
+              id: 'extra_field_block:taxonomy_term:faq_category:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional: {  }
+          2e428326-a4ff-46fc-a98a-2c5ed0e4c432:
+            uuid: 2e428326-a4ff-46fc-a98a-2c5ed0e4c432
+            region: third
+            configuration:
+              id: 'field_block:taxonomy_term:faq_category:description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          253452e2-e605-4e80-b6f4-8ac76adc8842:
+            uuid: 253452e2-e605-4e80-b6f4-8ac76adc8842
+            region: first
+            configuration:
+              id: 'extra_field_block:taxonomy_term:faq_category:flag_bookmark_term'
+              label: 'Flag: <em class="placeholder">Bookmark term</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          layout_custom_classes: details-area
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          93ffef84-d4bb-4d4b-a5e3-ac4ce8de49aa:
+            uuid: 93ffef84-d4bb-4d4b-a5e3-ac4ce8de49aa
+            region: first
+            configuration:
+              id: 'field_block:taxonomy_term:faq_category:field_related_faq_view_ref'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: viewfield_default
+                label: hidden
+                settings:
+                  view_title: hidden
+                  always_build_output: false
+                  empty_view_title: hidden
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
 id: taxonomy_term.faq_category.full
 targetEntityType: taxonomy_term
 bundle: faq_category
 mode: full
-content:
-  description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  extra_field_faq_list:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_social_media_buttons:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_related_faq_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: true
-      empty_view_title: hidden
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 2
-    region: content
-  field_term_children_view_ref:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: hidden
-      always_build_output: false
-      empty_view_title: hidden
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
+  description: true
+  extra_field_faq_list: true
+  extra_field_social_media_buttons: true
   field_mood_image: true
+  field_related_faq_view_ref: true
+  field_term_children_view_ref: true
   flag_bookmark_term: true
   langcode: true
   search_api_excerpt: true

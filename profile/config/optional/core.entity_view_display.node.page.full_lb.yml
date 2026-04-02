@@ -1,0 +1,300 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full_lb
+    - field.field.node.page.body
+    - field.field.node.page.field_content_paragraphs
+    - field.field.node.page.field_layout_switcher
+    - field.field.node.page.field_meta_tags
+    - field.field.node.page.field_mood_image
+    - field.field.node.page.field_search_api_exclude
+    - field.field.node.page.field_sub_type
+    - field.field.node.page.field_subtitle
+    - field.field.node.page.field_supporters
+    - node.type.page
+  module:
+    - layout_builder
+    - openculturas_custom
+    - user
+  enforced:
+    theme:
+      - opcult
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_oc2col_section
+        layout_settings:
+          label: Workflow
+          context_mapping: {  }
+          layout_custom_classes: moderation--section
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: moderation
+        components:
+          88db69d2-b594-499d-8ae7-de967158c3a1:
+            uuid: 88db69d2-b594-499d-8ae7-de967158c3a1
+            region: first
+            configuration:
+              id: 'extra_field_block:node:page:content_moderation_control'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc5col_section
+        layout_settings:
+          label: 'Top area'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          second:
+            layout_custom_classes: ''
+          third:
+            layout_custom_classes: interact
+          fourth:
+            layout_custom_classes: ''
+          fifth:
+            layout_custom_classes: content--aside
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          b46a198a-8899-4643-a484-57d922b8fb71:
+            uuid: b46a198a-8899-4643-a484-57d922b8fb71
+            region: second
+            configuration:
+              id: 'field_block:node:page:field_mood_image'
+              label: 'Main image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: header_image
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-field-mood-image
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          70454d34-e32b-46dd-bde0-f37a530f44b4:
+            uuid: 70454d34-e32b-46dd-bde0-f37a530f44b4
+            region: first
+            configuration:
+              id: openculturas_custom_page_title
+              label: 'Page title with subtitle'
+              label_display: '0'
+              provider: openculturas_custom
+              context_mapping: {  }
+              subheadline_display: true
+              subtype_display: true
+              profilepicture_display: true
+            weight: 0
+            additional: {  }
+          9943adca-aaf8-4cff-aeac-c9ef3f2a6764:
+            uuid: 9943adca-aaf8-4cff-aeac-c9ef3f2a6764
+            region: third
+            configuration:
+              id: 'extra_field_block:node:page:extra_field_social_media_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: interact-item
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          135bcf3e-cfdf-41f4-803d-13f810c03350:
+            uuid: 135bcf3e-cfdf-41f4-803d-13f810c03350
+            region: third
+            configuration:
+              id: 'extra_field_block:node:page:flag_recommendation_node'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 2
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: interact-item
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+          df4e452a-e132-4071-9702-8d2eacd017df:
+            uuid: df4e452a-e132-4071-9702-8d2eacd017df
+            region: fourth
+            configuration:
+              id: 'field_block:node:page:body'
+              label: Body
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional: {  }
+          d481c814-2256-4a07-b9fc-9c10d3c33b6b:
+            uuid: d481c814-2256-4a07-b9fc-9c10d3c33b6b
+            region: first
+            configuration:
+              id: 'extra_field_block:node:page:flag_bookmark_node'
+              label: 'Flag: <em class="placeholder">Bookmark node</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: 'Content elements'
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: ''
+        components:
+          67fe2037-7ac3-4eaa-a364-47c8381d7b77:
+            uuid: 67fe2037-7ac3-4eaa-a364-47c8381d7b77
+            region: first
+            configuration:
+              id: 'field_block:node:page:field_content_paragraphs'
+              label: 'Content elements'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_oc1col_section
+        layout_settings:
+          label: Supporters
+          context_mapping: {  }
+          layout_custom_classes: ''
+          first:
+            layout_custom_classes: ''
+          layout_bg_color: ''
+          layout_id: supporters
+        components:
+          37377b53-74c3-4a0c-8cce-f4f63d08cfa1:
+            uuid: 37377b53-74c3-4a0c-8cce-f4f63d08cfa1
+            region: first
+            configuration:
+              id: 'field_block:node:page:field_supporters'
+              label: 'Supported by'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: swiffy_slider_entity_reference
+                label: above
+                settings:
+                  view_mode: logo
+                  swiffy_slider_permalink: null
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: node.page.full_lb
+targetEntityType: node
+bundle: page
+mode: full_lb
+content: {  }
+hidden:
+  body: true
+  co_authors: true
+  content_moderation_control: true
+  extra_field_social_media_buttons: true
+  field_content_paragraphs: true
+  field_layout_switcher: true
+  field_meta_tags: true
+  field_mood_image: true
+  field_search_api_exclude: true
+  field_sub_type: true
+  field_subtitle: true
+  field_supporters: true
+  flag_bookmark_node: true
+  flag_recommendation_node: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  shariff_field: true

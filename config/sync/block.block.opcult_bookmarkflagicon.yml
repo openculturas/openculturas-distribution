@@ -1,0 +1,41 @@
+uuid: 338564b1-b438-4b4f-a699-1945026e6798
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - openculturas_custom
+    - system
+    - taxonomy
+  theme:
+    - opcult
+id: opcult_bookmarkflagicon
+theme: opcult
+region: header_intro
+weight: -12
+provider: null
+plugin: openculturas_custom_bookmark_flag_icon
+settings:
+  id: openculturas_custom_bookmark_flag_icon
+  label: 'Bookmark flag icon'
+  label_display: '0'
+  provider: openculturas_custom
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      date: date
+      event: event
+  'entity_bundle:taxonomy_term':
+    id: 'entity_bundle:taxonomy_term'
+    negate: true
+    context_mapping:
+      taxonomy_term: '@taxonomy_term.taxonomy_term_route_context:taxonomy_term'
+    bundles: {  }
+  request_path:
+    id: request_path
+    negate: true
+    pages: ''

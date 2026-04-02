@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\EntityViewModeInterface;
 use Drupal\node\NodeInterface;
 use Drupal\user\RoleInterface;
 
@@ -25,6 +26,10 @@ function openculturas_install_tasks(): array {
     ],
     'openculturas_install_content' => [
       'display_name' => t('Install default content'),
+      'type' => 'normal',
+    ],
+    'openculturas_install_remove_full_lb' => [
+      'display_name' => t('Remove full_lb view mode'),
       'type' => 'normal',
     ],
   ];
@@ -121,6 +126,19 @@ function openculturas_install_openculturas_modules(): void {
 }
 
 /**
+ * Callback function to remove full_lb view mode.
+ */
+function openculturas_install_remove_full_lb(): void {
+  $entityViewModeStorage = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
+  $entity_view_mode_ids = ['node.full_lb', 'taxonomy_term.full_lb'];
+  foreach ($entityViewModeStorage->loadMultipleOverrideFree($entity_view_mode_ids) as $entity_view_mode) {
+    if ($entity_view_mode instanceof EntityViewModeInterface) {
+      $entity_view_mode->delete();
+    }
+  }
+}
+
+/**
  * Implements hook_update_last_removed().
  */
 function openculturas_update_last_removed(): int {
@@ -166,6 +184,18 @@ function openculturas_update_10123(): void {
   $config = $configFactory->getEditable('swiffy_slider.settings');
   if (!$config->isNew()) {
     $config->set('configuration_url', 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale');
+    $config->save();
+  }
+}
+
+/**
+ * Change the label of the paragraph slider view mode.
+ */
+function openculturas_update_10124(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('core.entity_view_mode.paragraph.slider');
+  if (!$config->isNew()) {
+    $config->set('label', 'Slider single');
     $config->save();
   }
 }

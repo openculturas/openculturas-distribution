@@ -112,6 +112,13 @@ npm run prettier:css         # Format CSS
 npm run prettier:scss        # Format SCSS
 ```
 
+### Theme Development
+
+```bash
+# Generate a new sub-theme from opcult_starterkit, build it, and verify SASS compiles
+ddev composer run test-starterkit
+```
+
 ### Configuration & Content Export
 
 Uses `config_devel` module. Config is declared in module `.info.yml` files and exported with `ddev drush cde <module>`.

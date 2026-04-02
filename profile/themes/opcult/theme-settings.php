@@ -99,7 +99,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
     '#title' => t('Layout builder'),
     '#tree' => TRUE,
   ];
-
+  $added_view_modes_migration = FALSE;
   foreach ($allViewModes as $entityTypeId => $viewModes) {
     if (!isset($viewModes['full_lb'])) {
       continue;
@@ -133,7 +133,12 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
         '#default_value' => 'none',
         '#title' => $bundleInfo['label'],
       ];
+      $added_view_modes_migration = TRUE;
     }
+  }
+
+  if (!$added_view_modes_migration) {
+    unset($form['layout_builder']);
   }
 
   $form['#validate'][] = 'opcult_form_system_theme_settings_validate';

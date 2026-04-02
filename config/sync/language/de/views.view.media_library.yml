@@ -1,38 +1,9 @@
+label: Medienbibliothek
+description: 'Medien finden und verwalten.'
 display:
   default:
+    display_title: Standard
     display_options:
-      filters:
-        status:
-          expose:
-            label: Veröffentlichungsstatus
-          group_info:
-            label: Veröffentlicht
-            group_items:
-              1:
-                title: Veröffentlicht
-              2:
-                title: 'Nicht veröffentlicht'
-        bundle:
-          group_info:
-            label: Medientyp
-          expose:
-            label: Medientyp
-        field_licenses_license:
-          group_info:
-            label: Lizenz
-            group_items:
-              1:
-                title: 'Alle Rechte vorbehalten'
-              2:
-                title: 'Lizenzfreie Medien'
-              3:
-                title: 'Ohne Lizenzinformation'
-        name:
-          expose:
-            label: Name
-        langcode:
-          expose:
-            label: Übersetzungssprache
       title: Medien
       fields:
         media_bulk_form:
@@ -42,6 +13,8 @@ display:
           tags:
             next: ››
             previous: ‹‹
+            first: '« Anfang'
+            last: 'Ende »'
           expose:
             items_per_page_label: Anzahl/Seite
             items_per_page_options_all_label: '- Alle -'
@@ -66,10 +39,28 @@ display:
         name_1:
           expose:
             label: 'Name (Z-A)'
-    display_title: Standard
-  widget:
-    display_options:
       filters:
+        name:
+          expose:
+            label: Name
+        status:
+          expose:
+            label: Veröffentlichungsstatus
+          group_info:
+            label: Veröffentlicht
+            group_items:
+              1:
+                title: Veröffentlicht
+              2:
+                title: 'Nicht veröffentlicht'
+        bundle:
+          expose:
+            label: Medientyp
+          group_info:
+            label: Medientyp
+        langcode:
+          expose:
+            label: Übersetzungssprache
         field_licenses_license:
           group_info:
             label: Lizenz
@@ -80,54 +71,6 @@ display:
                 title: 'Lizenzfreie Medien'
               3:
                 title: 'Ohne Lizenzinformation'
-        name:
-          expose:
-            label: Name
-      arguments:
-        bundle:
-          exception:
-            title: Alle
-      header:
-        display_link_grid:
-          label: Raster
-        display_link_table:
-          label: Tabelle
-    display_title: Steuerelement
-  widget_table:
-    display_options:
-      filters:
-        field_licenses_license:
-          group_info:
-            label: Lizenz
-            group_items:
-              1:
-                title: 'Alle Rechte vorbehalten'
-              2:
-                title: 'Lizenzfreie Medien'
-              3:
-                title: 'Ohne Lizenzinformation'
-        name:
-          expose:
-            label: Name
-      fields:
-        thumbnail__target_id:
-          label: Miniaturbild
-        name:
-          label: Name
-        uid:
-          label: Autor
-        changed:
-          label: Aktualisiert
-      arguments:
-        bundle:
-          exception:
-            title: Alle
-      header:
-        display_link_grid:
-          label: Raster
-        display_link_table:
-          label: Tabelle
-    display_title: 'Steuerelement (Tabelle)'
   page:
     display_title: Seite
     display_options:
@@ -146,5 +89,64 @@ display:
             text: '{{ name }} löschen'
             alt: '{{ name }} löschen'
           text: Löschen
-label: Medienbibliothek
-description: 'Medien finden und verwalten.'
+  widget:
+    display_title: Steuerelement
+    display_options:
+      arguments:
+        bundle:
+          exception:
+            title: All
+      filters:
+        name:
+          expose:
+            label: Name
+        field_licenses_license:
+          group_info:
+            label: Lizenz
+            group_items:
+              1:
+                title: 'Alle Rechte vorbehalten'
+              2:
+                title: 'Lizenzfreie Medien'
+              3:
+                title: 'Ohne Lizenzinformation'
+      header:
+        display_link_grid:
+          label: Raster
+        display_link_table:
+          label: Tabelle
+  widget_table:
+    display_title: 'Steuerelement (Tabelle)'
+    display_options:
+      fields:
+        thumbnail__target_id:
+          label: Miniaturbild
+        name:
+          label: Name
+        uid:
+          label: 'Verfasst von'
+        changed:
+          label: Aktualisiert
+      arguments:
+        bundle:
+          exception:
+            title: All
+      filters:
+        name:
+          expose:
+            label: Name
+        field_licenses_license:
+          group_info:
+            label: Lizenz
+            group_items:
+              1:
+                title: 'Alle Rechte vorbehalten'
+              2:
+                title: 'Lizenzfreie Medien'
+              3:
+                title: 'Ohne Lizenzinformation'
+      header:
+        display_link_grid:
+          label: Raster
+        display_link_table:
+          label: Tabelle

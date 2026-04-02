@@ -2,43 +2,55 @@ display:
   default:
     display_title: Standard
     display_options:
+      fields:
+        field_faq_category:
+          separator: ', '
       pager:
         options:
+          tags:
+            next: ››
+            previous: ‹‹
           expose:
             items_per_page_label: Anzahl/Seite
             items_per_page_options_all_label: '- Alle -'
             offset_label: Versatz
       exposed_form:
         options:
-          submit_button: Anwenden
+          submit_button: Filtern
           reset_button_label: Zurücksetzen
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-      arguments:
-        field_faq_category_target_id:
-          exception:
-            title: Alle
   page_faq_overview:
     display_options:
+      title: 'FAQ - Alle Kategorien'
       fields:
         node_bulk_form:
-          label: ''
           action_title: Aktion
         field_faq_category:
           label: Kategorie
+          separator: ', '
+        title:
+          separator: ', '
         langcode:
           label: Sprache
+          separator: ', '
         status:
+          label: Status
           settings:
+            format_custom_false: 'Nicht veröffentlicht'
             format_custom_true: Veröffentlicht
+          separator: ', '
         sticky:
           label: 'am Anfang von Listen'
+          separator: ', '
         operations:
           label: Aktionen
       pager:
         options:
           tags:
+            next: ››
+            previous: ‹‹
             first: '« Anfang'
             last: 'Ende »'
           expose:
@@ -47,15 +59,15 @@ display:
             offset_label: Versatz
       exposed_form:
         options:
-          submit_button: Anwenden
+          submit_button: Filtern
           reset_button_label: Zurücksetzen
           exposed_sorts_label: 'Sortieren nach'
           sort_asc_label: Aufsteigend
           sort_desc_label: Absteigend
-          text_input_required: 'Wählen Sie einen beliebigen Filter und klicken Sie auf Anwenden, um Ergebnisse zu sehen'
+          text_input_required: 'Filter wählen'
           bef:
             general:
-              secondary_label: 'Erweiterte Optionen'
+              secondary_label: Erweitert
       filters:
         field_faq_category_target_id:
           expose:
@@ -63,13 +75,8 @@ display:
         langcode:
           expose:
             label: Übersetzungssprache
-      title: 'FAQ - Alle Kategorien'
   related_faq_term:
     display_options:
-      arguments:
-        field_faq_category_target_id:
-          exception:
-            title: Alle
       header:
         views_add_button:
           button_text: 'FAQ hinzufügen'

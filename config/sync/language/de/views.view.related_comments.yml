@@ -1,37 +1,168 @@
-label: 'Zugehörige Kommentare'
-description: 'OpenCulturas: Stellt Kommentare zum aktuellen Inhalt zusammen und bietet Aktionen an.'
 display:
   default:
     display_options:
-      title: 'Zugehörige Kommentare'
       header:
         views_add_button:
-          button_text: 'Neuer Kommentar'
           button_access_denied:
-            value: '<p><a href="/user/login">Einloggen zum Kommentieren</a></p>'
             format: advanced_html
-      empty:
-        area_text_custom:
-          content: 'Schreibe den ersten Kommentar.'
+            value: '<p><a href="/user/login">Einloggen zum Kommentieren</a></p>'
+          button_text: 'Neuer Kommentar'
+      title: 'Zugehörige Kommentare'
+      fields:
+        moderation_state:
+          separator: ', '
+        nid:
+          separator: ', '
+        field_date_published:
+          separator: ', '
+        field_behalf:
+          separator: ', '
+        uid:
+          separator: ', '
+        body:
+          settings:
+            trim_suffix: ...
+            more:
+              text: More
+              aria_label: 'Read more about [node:title]'
+          separator: ', '
+        edit_node:
+          text: 'Edit comment'
+        edit_user:
+          text: 'Edit user'
+      pager:
+        options:
+          tags:
+            next: 'Nächste ›'
+            previous: '‹ Vorige'
+          expose:
+            items_per_page_label: Anzahl/Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+          views_infinite_scroll:
+            button_text: 'Mehr anzeigen'
       exposed_form:
         options:
           submit_button: Filtern
           reset_button_label: Zurücksetzen
-          exposed_sorts_label: Sortierung
-          sort_asc_label: aufsteigend
-          sort_desc_label: absteigend
+          exposed_sorts_label: 'Sortieren nach'
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area_text_custom:
+          content: 'Schreibe den ersten Kommentar.'
+      arguments:
+        nid:
+          exception:
+            title: All
+    display_title: Standard
+  block_recent_comments:
+    display_options:
+      empty:
+        area:
+          content:
+            format: minimal_html
+            value: 'Es haben noch keine Diskussionen begonnen. Schaut später noch einmal rein.'
+      title: 'Aktuellster Kommentar'
       fields:
-        edit_node:
-          text: 'Kommentar bearbeiten'
-        edit_user:
-          text: 'User bearbeiten'
+        nid:
+          separator: ', '
+        field_date_published:
+          separator: ', '
+        field_behalf:
+          separator: ', '
+        uid:
+          separator: ', '
+        field_ref_node:
+          alter:
+            text: '<span class="post-reference">betr. {{ field_ref_node }}</span>'
+          separator: ', '
+        body:
+          settings:
+            more:
+              text: More
+              aria_label: 'Read more about [node:title]'
+          separator: ', '
+        view_node:
+          text: view
+        nothing_1:
+          alter:
+            text: '<a href="{{ view_node }}#comments">Zum Kommentarbereich</a>'
+    display_title: Aktuellster
+  comments_overview_table:
+    display_options:
+      display_comment: 'Note: inline css in view header for easier followup when re-arranging columns'
+      empty:
+        area:
+          content:
+            format: minimal_html
+            value: 'Es haben noch keine Diskussionen begonnen. Schaut später noch einmal rein.'
+      title: Diskussionen
+      fields:
+        moderation_state:
+          separator: ', '
+        nid:
+          separator: ', '
+        field_date_published:
+          label: am
+          separator: ', '
+        field_behalf:
+          separator: ', '
+        uid:
+          separator: ', '
+        views_conditional_field_2:
+          label: von
+        views_conditional_field:
+          label: kommentiert
+        field_ref_node:
+          label: betr.
+          separator: ', '
+        body:
+          label: Body
+          settings:
+            trim_suffix: ...
+          separator: ', '
+        title:
+          separator: ', '
+        title_1:
+          separator: ', '
       pager:
         options:
-          views_infinite_scroll:
-            button_text: 'Mehr anzeigen'
+          tags:
+            next: 'Nächste ›'
+            previous: '‹ Vorige'
+            first: '« Anfang'
+            last: 'Ende »'
+          expose:
+            items_per_page_label: Anzahl/Seite
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      filters:
+        combine:
+          expose:
+            label: Finden
+            placeholder: 'enthält Stichwort ...'
+    display_title: Tabelle
   block_comments:
     display_title: 'Kommentare zum aktuellen Inhalt'
     display_options:
+      fields:
+        moderation_state:
+          separator: ', '
+        nid:
+          separator: ', '
+        field_date_published:
+          separator: ', '
+        field_behalf:
+          separator: ', '
+        uid:
+          separator: ', '
+        body:
+          separator: ', '
+        edit_node:
+          text: 'Edit comment'
+        edit_user:
+          text: 'Edit user'
       header:
         result:
           content: '<strong>@total</strong> Kommentare'
@@ -40,48 +171,17 @@ display:
     display_options:
       title: 'Aktivste Dikussionen'
       fields:
+        view_node:
+          text: view
+        title:
+          separator: ', '
+        type:
+          separator: ', '
+        nid:
+          separator: ', '
         field_ref_node:
           alter:
             text: '<strong>{{ field_ref_node }}</strong> Kommentare'
-        view_node:
-          text: Ansehen
-  block_recent_comments:
-    display_title: Aktuellster
-    display_options:
-      title: 'Aktuellster Kommentar'
-      fields:
-        nothing_1:
-          alter:
-            text: '<a href="{{ view_node }}#comments">Zum Kommentarbereich</a>'
-        field_ref_node:
-          alter:
-            text: '<span class="post-reference">betr. {{ field_ref_node }}</span>'
-      empty:
-        area:
-          content:
-            value: 'Es wurden noch keine Diskussionen begonnen. Bitte schau später noch einmal vorbei.'
-            format: minimal_html
-  comments_overview_table:
-    display_options:
-      display_comment: 'Note: inline css in view header for easier followup when re-arranging columns'
-      fields:
-        field_date_published:
-          label: am
-        views_conditional_field_2:
-          label: von
-        views_conditional_field:
-          label: kommentiert
-        field_ref_node:
-          label: betr.
-      filters:
-        combine:
-          expose:
-            label: Finden
-            placeholder: 'enthält Stichwort ...'
-      empty:
-        area:
-          content:
-            value: 'Es haben noch keine Diskussionen begonnen. Schaut später noch einmal rein.'
-            format: minimal_html
-      title: Diskussionen
-    display_title: Tabelle
+          separator: ', '
+label: 'Zugehörige Kommentare'
+description: 'OpenCulturas: Stellt Kommentare zum aktuellen Inhalt zusammen und bietet Aktionen an.'

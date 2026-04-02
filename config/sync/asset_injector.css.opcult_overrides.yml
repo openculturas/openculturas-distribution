@@ -1,0 +1,407 @@
+uuid: 4bc63253-1a98-45e3-8e3e-5f590a80cbbe
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+id: opcult_overrides
+label: 'OpCulturas Next CSS overrides'
+code: |-
+  /*
+   * CSS overrides (enable this CSS injector after editing)
+   * All default values are repeated here for orientation. 
+   * For better performance, remove lines that shall remain unchanged
+   * Dark mode options are included below
+   */
+
+  /*
+   * Layout dimensions
+   */
+   
+   body {
+    --oc-page-margin-top: 0;
+    --oc-page-margin-bottom: 1rem;
+    --oc-page-margin-sides: 1.25rem;
+    --oc-page-padding-inline: 2rem;
+    --oc-column-count: 12; /* Amount of columns in the layout grid. */
+    --oc-column-padding: 0; /* Horizontal padding inside a column. */
+    --oc-gutter: 1.25rem; /* Gap (horizontal) between layout columns. */
+    --oc-row-gap: 1.25rem; /* Gap (vertical) between rows. */
+    --oc-layout-max-width: 120rem; /* Prevent layout becoming too wide on large screens. */
+    
+    --oc-section-spacing: 5rem; /* Vertically structuring spacing. */
+  }
+
+  /* 
+   * Color-related variables
+   */
+
+  :root {
+    /* Base colors */
+    --oc-color-primary: #9D1980;
+    --oc-color-secondary: #4e083c;
+
+    /* Text colors */
+    --oc-color-text: #1f1f1f;
+    --oc-color-text-muted: #7b7d85;
+    --oc-color-text-inverted: #ffffff;
+    --oc-color-headline: currentColor;
+
+    /* Link/interaction colors */
+    --oc-color-link: #a1167f;
+    --oc-color-interaction: #16635e;
+    --oc-color-link-focus-text: var(--oc-color-text-inverted);
+    --oc-color-link-focus-bg: var(--oc-color-link);
+    --oc-color-link-opaque: color-mix(in oklab, var(--oc-color-link) 64%, transparent); 
+    --oc-color-bg-link-translucent: color-mix(in oklab, var(--oc-color-link) 7%, transparent); 
+    --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 20%, var(--oc-color-text-inverted));
+    --oc-underline-color: color-mix(in oklab, currentColor 50%, transparent);
+    --oc-color-menu-link: color-mix(in oklab, var(--oc-color-text) 30%, var(--oc-color-link));
+    --oc-color-menu-link-focus-text: var(--oc-color-text-inverted);
+    --oc-color-menu-link-focus-bg: var(--oc-color-link);
+
+    /* Functional colors */
+    --oc-color-danger: #d41317;
+    --oc-color-info: #1f71b8;
+    --oc-color-success: #008d36;
+    --oc-color-warning: #ffdd00;
+    --oc-color-divider-light: #e8e9eb;
+    --oc-color-divider-dark: #7b7d85;
+
+    /* Background colors */
+    --oc-color-neutral-canvas: #f6f6f6;
+    --oc-color-bg-light: #ffffff;
+    --oc-color-bg-dark: #303236;
+    --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
+    --oc-color-bg-page-layout: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
+    --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
+    --oc-color-bg-fieldset: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
+    --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 10%, transparent);
+    --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
+    --oc-color-bg-light-translucent: color-mix(in oklab, var(--oc-color-bg-light) 25%, transparent);
+    --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
+    --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-dark) 60%, transparent);
+
+    /* Optional OC gradients (use in background-image declaration) */
+    --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-osm-1), var(--oc-color-osm-2), var(--oc-color-osm-3));
+    --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
+      var(--oc-color-osm-2) 0%,
+      var(--oc-color-osm-2) 5%,
+      var(--oc-color-osm-1) 5%,
+      var(--oc-color-osm-1) 10%
+    );
+
+    /* Content section background colors */
+    --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
+    --oc-bg-comments-section: var(--oc-color-bg-slight-contrast);
+    --oc-bg-magazine-section: transparent;
+    --oc-bg-gallery-section: transparent;
+    --oc-bg-recommendations-section: transparent;
+    --oc-bg-date-section: transparent;
+    --oc-bg-archive-section: var(--oc-color-bg-slight-contrast);
+    --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
+    
+    /* Message colors (system feedback) */
+    --oc-color-bg-danger: color-mix(in oklab, var(--oc-color-danger) 15%, var(--oc-color-bg-light));
+    --oc-color-danger-dark: color-mix(in oklab, var(--oc-color-danger) 60%, var(--oc-color-bg-dark));
+    --oc-color-bg-info: color-mix(in oklab, var(--oc-color-info) 10%, var(--oc-color-bg-light));
+    --oc-color-info-dark: color-mix(in oklab, var(--oc-color-info) 60%, var(--oc-color-bg-dark));
+    --oc-color-bg-success: color-mix(in oklab, var(--oc-color-success) 10%, var(--oc-color-bg-light));
+    --oc-color-success-dark: color-mix(in oklab, var(--oc-color-success) 60%, var(--oc-color-bg-dark));
+    --oc-color-bg-warning: color-mix(in oklab, var(--oc-color-warning) 20%, var(--oc-color-bg-light));
+    --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 75%, var(--oc-color-bg-dark));
+
+    /* Button colors */
+    --oc-button-bg-color: var(--oc-color-bg-light);
+    --oc-button-border-color: var(--oc-color-interaction);
+    --oc-button-text-color: var(--oc-color-interaction);
+    --oc-button-primary-bg-color: var(--oc-color-link);
+    --oc-button-primary-border-color: var(--oc-color-text-inverted);
+    --oc-button-primary-text-color: var(--oc-color-text-inverted);
+    --oc-button-danger-bg-color: var(--oc-color-bg-light);
+    --oc-button-danger-border-color: var(--oc-color-danger);
+    --oc-button-danger-text-color: var(--oc-color-danger-dark);
+    --oc-button-focus-bg-color: var(--oc-color-link);
+    --oc-button-focus-border-color: var(--oc-color-link);
+    --oc-button-focus-text-color: var(--oc-color-text-inverted);
+    --oc-button-active-bg-color: var(--oc-color-interaction);
+    --oc-button-active-border-color: var(--oc-color-interaction);
+    --oc-button-active-text-color: var(--oc-color-text-inverted);
+
+    /* Taxonomy term tag colors */
+    --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 10%, var(--oc-color-bg-light));
+    --oc-tag-border-color: var(--oc-tag-bg-color);
+    --oc-tag-text-color: var(--oc-color-text);
+    --oc-tag-link-bg-color: var(--oc-tag-bg-color);
+    --oc-tag-link-border-color: var(--oc-tag-bg-color);
+    --oc-tag-link-text-color: var(--oc-color-link);
+    --oc-tag-link-focus-bg-color: var(--oc-color-link);
+    --oc-tag-link-focus-border-color: var(--oc-color-link);
+    --oc-tag-link-focus-text-color: var(--oc-color-text-inverted);
+    --oc-tag-link-active-bg-color: var(--oc-color-bg-light);
+    --oc-tag-link-active-border-color: var(--oc-color-bg-light);
+    --oc-tag-link-active-text-color: var(--oc-color-interaction);
+
+    /* Shadow colors */
+    --oc-shadow-color: color-mix(in oklab, #000000 30%, transparent);
+
+    /* Footer colors */
+    --oc-color-bg-footer: var(--oc-color-bg-dark);
+    --oc-color-text-footer: var(--oc-color-text-inverted);
+    --oc-color-link-footer: var(--oc-color-link-inverted);
+
+    /* Other colors */
+    --oc-bg-hero-section: none;
+    --oc-bg-hero-image: transparent;
+    --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
+    --oc-color-marker-icon: var(--oc-color-primary);
+    --oc-color-bg-cluster-icon: var(--oc-color-primary);
+  }
+
+  /* 
+   * Dark mode colors + logo workaround
+   */
+   
+   @media screen {
+
+  	:root.dark {
+  	  /* Base colors */
+  	  --oc-color-primary: #9D1980;
+  	  --oc-color-secondary: #4e083c;
+  	
+  	  /* Text colors DM */
+  	  --oc-color-text: #efefef;
+  	  --oc-color-text-muted: #9b9d9a;
+  	  --oc-color-text-inverted: #191919;
+  	  --oc-color-headline: currentColor;
+  	
+  	  /* Link/interaction colors DM */
+  	  --oc-color-link: #ffdd00; /*#e795f0;
+  	  --oc-color-interaction: #33bcb2;
+  	
+  	  /* Functional colors DM */
+  	  --oc-color-danger: #d41317;
+  	  --oc-color-info: #8ccaff;
+  	  --oc-color-success: #008d36;
+  	  --oc-color-warning: #ffae00;
+  	  --oc-color-divider-light: #38393b;
+  	  --oc-color-divider-dark: #8b8d95;
+  	
+  	  /* Contrast colors (OpenCulturas brand colors) DM */
+  	  --oc-color-oc-spectrum-1: #d41317; 
+  	  --oc-color-oc-spectrum-2: #da5914;
+  	  --oc-color-oc-spectrum-3: #ffdd00;
+  	  --oc-color-oc-spectrum-4: #008d36;
+  	  --oc-color-oc-spectrum-5: #1d70b7;
+  	
+  	  /* Map contrast colors DM */
+  	  --oc-color-osm-1: #404b38;
+  	  --oc-color-osm-2: #60644c;
+  	  --oc-color-ocs-3: #4e5e47;
+  	
+  	
+  	  /* Background colors DM */
+  	  --oc-color-neutral-canvas: #303236;
+  	  --oc-color-bg-light: #16181a;
+  	  --oc-color-bg-dark: #8b8d95;
+  	  --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
+  	  --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
+  	
+  	  /* Footer DM */
+  	  --oc-color-bg-footer: #000;
+  	  --oc-color-text-footer: #efefef;
+  	  --oc-color-link-footer: #ffdd00;
+  	
+  	  /* Shadow colors DM */
+  	  --oc-shadow-color: color-mix(in oklab, #000000 60%, transparent);
+  	  
+  	  /* DARK MODE LOGO */
+
+    	/* 1. If your logo is suitable for dark backgrounds OR when overriding with a custom logo */
+  	  /*
+  	  #home-link a {
+  	    background-color: transparent;
+  	    padding: 0;
+  	  }
+  	  */
+  	
+  	  /* 2. To use your uploaded custom logo version for dark backgrounds, adjust the following path + file name */
+  	  /* 
+  	  #home-link a {
+  	    background: url('/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/logo_negative.svg') no-repeat;
+  	    top: unset;
+  	    left: unset;
+  	  }
+  	  */
+  	
+  	  /* 3. Set opacity to 0 to use your custom version */
+  	  /*
+  	  #home-link a img {
+  	    opacity: 0;
+  	  }
+  	  */
+
+  	}
+  }
+
+  /*
+   * Typography
+   */
+
+  :root {
+    /* Font sizes */
+    --oc-font-size-xxl: 3rem;
+    --oc-font-size-xl: 2rem;
+    --oc-font-size-l: 1.75rem;
+    --oc-font-size-ml: 1.5rem;
+    --oc-font-size-m: 1.25rem;
+    --oc-font-size-default: 1rem;
+    --oc-font-size-s: .875rem;
+    --oc-font-size-xs: .75rem; /* Use sparsely for accessibility reasons. */
+
+    /* Button font sizes */
+    --oc-font-size-button-default: 1rem;
+    --oc-font-size-button-s: .875rem;
+    --oc-font-size-tag-default: 1rem;
+
+    /* Line heights */
+    --oc-line-height-default: 1.4;
+    --oc-line-height-headings: 1.2;
+
+    /* Weights */
+    --oc-font-weight-teaser-subtitle: 600;
+  }
+
+  /*
+   * Shadows and borders
+   */
+   
+  body {
+    /* Box shadows */
+    --oc-box-shadow-centered: 0 0 1rem -0.25rem var(--oc-shadow-color);
+    --oc-box-shadow-centered-s: 0 0 .5rem -0.25rem var(--oc-shadow-color);
+    --oc-box-shadow-up: 0 -.25rem .5rem -0.25rem var(--oc-shadow-color);
+    --oc-box-shadow-down: 0 .75rem .5rem -0.25rem var(--oc-shadow-color);
+    --oc-box-shadow-left: -.5rem 0 .5rem 0.125rem var(--oc-shadow-color);
+
+    /* Border radius variants */
+    --oc-profile-image-size: 6rem;
+    --oc-profile-image-size-s: 2.5rem;
+    --oc-profile-image-border-radius: 50%;
+    --oc-location-image-border-radius: 0;
+    --oc-image-border-radius: 0;
+    --oc-details-border-radius: 0;
+    --oc-border-radius-tiny: .125rem;
+
+    /* Dividers and special borders */
+    --oc-divider-dark: .125rem solid var(--oc-color-divider-dark); /* 2px
+    --oc-divider-light: .0625rem solid var(--oc-color-divider-light); /* 1px */
+    --oc-card-border-default: .125rem solid var(--oc-color-primary);
+    --oc-underline: var(--oc-underline-color) underline solid 1px;
+    --oc-outline-active: .0625rem dotted var(--oc-color-interaction);
+    --oc-outline-active-offset: .125rem;
+   }
+   
+  /*
+   * Teaser styles
+   */
+   
+  body {
+    /* Teaser cards */
+    --oc-card-margin-block: var(--oc-row-gap); /* vertical margin (not to confuse with grid gap) */
+    --oc-card-margin-inline: var(--oc-column-padding); /* horizontal margin */
+    --oc-card-padding-block: 1rem; /* vertical padding */
+    --oc-card-padding-inline: 2rem; /* horizontal padding */
+    --oc-card-background: var(--oc-color-bg-light);
+    --oc-card-box-shadow: var(--oc-box-shadow-centered); /* or "0 none" */
+    --oc-card-border: var(--oc-card-border-default); /* or "0 none" */
+    --oc-card-border-width: 1px 1px; /* 1 to 4 values; */
+    --oc-card-border-radius: 2rem;
+    --oc-card-height-equalizer: calc(100% - var(--oc-card-padding-block)); /* stretch to equal height in views? ("auto" = no) */
+
+    /* Profile teaser cards */
+    --oc-profile-card-margin-block: 0;
+    --oc-profile-card-margin-inline: var(--oc-column-padding);
+    --oc-profile-card-padding-block: 1rem;
+    --oc-profile-card-padding-inline: 1rem;
+    --oc-profile-card-background: var(--oc-color-bg-light);
+    --oc-profile-card-box-shadow: var(--oc-box-shadow-centered);
+    --oc-profile-card-border: var(--oc-card-border-default);
+    --oc-profile-card-border-width: 1px 1px;
+    --oc-profile-card-border-radius: 1rem;
+
+    /* Teaser image fallback */
+    --oc-image-fallback-color: var(--oc-color-primary);
+    --oc-image-fallback-image: url("../images/teaser-image-fallback.svg");
+    --oc-teaser-bg-scale: 350%;
+    --oc-teaser-bg-pos-x: 30%;
+    --oc-teaser-bg-pos-y: 20%;
+  }
+
+
+  /*
+   * Buttons, taxonomy term tags, form elements
+   */
+   
+  :root {
+    /* buttons */
+    --oc-button-border-radius: .25rem;
+    --oc-button-border-width: .125rem; /* 2px */
+    --oc-button-border-style: solid;
+    --oc-button-padding: var(--oc-button-padding-m);
+    --oc-button-padding-m: 0.5em 2em;
+    --oc-button-padding-s: 0.25em 1em;
+    --oc-button-text-transform: none;
+    --oc-button-letter-spacing: normal;
+    /* tags */
+    --oc-tag-border-radius: 50vi;
+    --oc-tag-border-width: 0.0625rem;
+    --oc-tag-border-style: solid;
+    --oc-tag-padding: .25em 2em;
+    --oc-tag-text-transform: none;
+    --oc-tag-letter-spacing: normal;
+    
+    /* forms */
+    --oc-form-field-padding-block: .5rem;
+    --oc-form-field-padding-inline: 1rem;
+    --oc-form-field-padding: var(--oc-form-field-padding-block) var(--oc-form-field-padding-inline);
+
+    /* form fields */
+    --oc-input-placeholder-color: var(--oc-color-text-muted);
+    --oc-input-bg-color: var(--oc-color-bg-light);
+    --oc-input-border-width: .0625rem; /* 1px */
+    --oc-input-border-style: solid;
+    --oc-input-border-color: var(--oc-color-divider-light) var(--oc-color-divider-light) var(--oc-color-divider-dark); /* only possible separately */
+    --oc-input-border: var(--oc-input-border-width) var(--oc-input-border-style) var(--oc-color-divider-dark);
+  }
+   
+  /*
+   * Icon sizes
+   */
+   
+   :root {
+    --oc-font-size-icon-default: 1rem;
+    --oc-font-size-icon: 1em;
+    --oc-font-size-icon-m: 1.25rem;
+    --oc-font-size-icon-l: 1.5rem;
+    --oc-font-size-icon-xl: 2rem;
+    --oc-font-size-icon-xxl: 3rem;
+    --oc-icon-button-radius: 50%;
+  }
+
+  /*
+   * Your custom map marker icon:
+   * Override with the path + file name of your custom image to avoid colorizer bleed
+  */
+  img.leaflet-marker-icon {
+  	mask-image: url("../images/map_marker.svg");
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    negate: false
+    theme: opcult
+contexts: {  }
+conditions_require_all: true

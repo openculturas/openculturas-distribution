@@ -1,0 +1,26 @@
+uuid: 46831bdc-a786-4928-b673-e1c12ec26621
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+    - user
+  theme:
+    - opcult
+id: opcult_userlogin
+theme: opcult
+region: content
+weight: -13
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: '0'
+  provider: user
+visibility:
+  response_status:
+    id: response_status
+    negate: false
+    status_codes:
+      - 403

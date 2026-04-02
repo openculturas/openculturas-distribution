@@ -1,0 +1,35 @@
+uuid: e1480b97-2ce0-4c70-9379-432f06ef866e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.grid
+    - field.field.paragraph.gallery.field_gallery
+    - field.field.paragraph.gallery.paragraph_view_mode
+    - paragraphs.paragraphs_type.gallery
+  module:
+    - field_formatter_class
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.gallery.grid
+targetEntityType: paragraph
+bundle: gallery
+mode: grid
+content:
+  field_gallery:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: gallery
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true
