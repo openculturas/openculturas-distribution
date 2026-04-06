@@ -13,6 +13,45 @@
     "composer-packages/**"
   ],
   "baseBranchPatterns": ["3.0.x", "2.6.x", "2.5.x"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update version field for GitHub archive libraries in composer.json repositories",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/",
+        "\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"extra\":\\s*\\{[^}]+\\},\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/"
+      ],
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "description": "Update URL version for GitHub archive libraries in composer.json repositories",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/(?:refs/tags/)?(?<currentValue>[^\"]+)\\.zip\""
+      ],
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "description": "Update version field for GitHub releases libraries in composer.json repositories",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/releases/download/"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "customType": "regex",
+      "description": "Update URL version for GitHub releases libraries in composer.json repositories",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)/[^\"]+"
+      ],
+      "datasourceTemplate": "github-releases"
+    }
+  ],
   "packageRules": [
     {
       "description": "Do not try to update php, node",
@@ -20,18 +59,24 @@
       "enabled": false
     },
     {
+      "description": "Suppress Packagist lookups for GitHub-only libraries defined as inline package repositories",
+      "matchManagers": ["composer"],
       "matchPackageNames": [
         "ajaxorg/ace-builds",
         "choices-js/choices.js",
-        "dynamicweb/swiffy-slider",
         "elmarquis/leaflet.gesture-handling",
-        "heiseonline/shariff",
-        "leaflet/leaflet.fullscreen",
-        "leaflet/leaflet.markercluster",
         "fengyuanchen/cropperjs",
         "fengyuanchen/jquery-cropper",
-        "openculturas/openculturas-profile",
-        "fortawesome/font-awesome"
+        "fortawesome/font-awesome",
+        "heiseonline/shariff",
+        "leaflet/leaflet.fullscreen",
+        "leaflet/leaflet.markercluster"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "openculturas/openculturas-profile"
       ],
       "enabled": false
     },
