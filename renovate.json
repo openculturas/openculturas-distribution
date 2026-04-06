@@ -19,8 +19,8 @@
       "description": "Update version field for GitHub archive libraries in composer.json repositories",
       "managerFilePatterns": ["/(^|/)composer\\.json$/"],
       "matchStrings": [
-        "\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/",
-        "\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"extra\":\\s*\\{[^}]+\\},\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/"
+        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/",
+        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"extra\":\\s*\\{[^}]+\\},\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/"
       ],
       "datasourceTemplate": "github-tags"
     },
@@ -38,7 +38,7 @@
       "description": "Update version field for GitHub releases libraries in composer.json repositories",
       "managerFilePatterns": ["/(^|/)composer\\.json$/"],
       "matchStrings": [
-        "\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/releases/download/"
+        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/releases/download/"
       ],
       "datasourceTemplate": "github-releases"
     },
@@ -57,6 +57,14 @@
       "description": "Do not try to update php, node",
       "matchDepNames": ["php", "node", "openculturas/drupal-core-dev"],
       "enabled": false
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "postUpgradeTasks": {
+        "commands": ["composer update {{{depName}}}"],
+        "fileFilters": ["composer.lock"],
+        "executionMode": "branch"
+      }
     },
     {
       "description": "Suppress Packagist lookups for GitHub-only libraries defined as inline package repositories",
