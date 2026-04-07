@@ -26,6 +26,28 @@
     },
     {
       "customType": "regex",
+      "description": "Update URL version for fortawesome/font-awesome (Composer package name differs from GitHub org/repo)",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"url\":\\s*\"https://github\\.com/FortAwesome/Font-Awesome/archive/(?:refs/tags/)?(?<currentValue>[^\"]+)\\.zip\""
+      ],
+      "depNameTemplate": "fortawesome/font-awesome",
+      "packageNameTemplate": "FortAwesome/Font-Awesome",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "description": "Update URL version for choices-js/choices.js (Composer package name differs from GitHub org/repo)",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"url\":\\s*\"https://github\\.com/Choices-js/Choices/archive/(?:refs/tags/)?(?<currentValue>[^\"]+)\\.zip\""
+      ],
+      "depNameTemplate": "choices-js/choices.js",
+      "packageNameTemplate": "Choices-js/Choices",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
       "description": "Update URL version for GitHub archive libraries in composer.json repositories",
       "managerFilePatterns": ["/(^|/)composer\\.json$/"],
       "matchStrings": [
@@ -67,6 +89,12 @@
           "composer": {}
         }
       }
+    },
+    {
+      "description": "Suppress generic URL manager for packages where Composer name differs from GitHub org/repo; handled by dedicated managers with correct depName",
+      "matchManagers": ["custom.regex"],
+      "matchDepNames": ["Choices-js/Choices", "FortAwesome/Font-Awesome"],
+      "enabled": false
     },
     {
       "description": "Suppress Packagist lookups for GitHub-only libraries defined as inline package repositories",
