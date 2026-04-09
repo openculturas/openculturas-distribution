@@ -9,8 +9,7 @@
     "profile/themes/openculturas_base/starterkits/**",
     ".ddev/docker-compose.phpmyadmin_norouter.yaml",
     ".ddev/docker-compose.phpmyadmin.yaml",
-    ".ddev/docker-compose.selenium-chrome.yaml",
-    "composer-packages/**"
+    ".ddev/docker-compose.selenium-chrome.yaml"
   ],
   "baseBranchPatterns": ["3.0.x", "2.6.x", "2.5.x"],
   "customManagers": [
@@ -77,8 +76,19 @@
   "packageRules": [
     {
       "description": "Do not try to update php, node",
-      "matchDepNames": ["php", "node", "openculturas/drupal-core-dev"],
+      "matchDepNames": ["php", "node"],
       "enabled": false
+    },
+    {
+      "description": "Run composer update for openculturas/drupal-core-dev when its source composer.json is updated",
+      "matchFileNames": ["composer-packages/core-dev/composer.json"],
+      "postUpgradeTasks": {
+        "commands": ["composer update openculturas/drupal-core-dev --with-dependencies --ignore-platform-req='ext-*' --ignore-platform-req='lib-*' --no-ansi --no-interaction --no-scripts --no-autoloader --no-plugins --minimal-changes"],
+        "installTools": {
+          "php": {},
+          "composer": {}
+        }
+      }
     },
     {
       "matchManagers": ["custom.regex"],
