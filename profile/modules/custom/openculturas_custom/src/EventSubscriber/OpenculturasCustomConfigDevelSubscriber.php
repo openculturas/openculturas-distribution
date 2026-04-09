@@ -78,9 +78,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     }
 
     if ($extension === 'openculturas-profile' && (
-      $config_name === 'field.field.paragraph.view.field_view' ||
-      $config_name === 'views.view.moderated_content' ||
-      $config_name === 'views.view.entity_reference_node' ||
+      in_array($config_name, ['field.field.paragraph.view.field_view', 'views.view.moderated_content', 'views.view.entity_reference_node'], TRUE) ||
       str_starts_with($config_name, 'core.entity_form_display.node') ||
       str_starts_with($config_name, 'core.entity_view_display.node') ||
       str_starts_with($config_name, 'user.role.')
@@ -243,9 +241,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     if (isset($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $config_name) {
         if (
-          $config_name === 'filter.format.comment_html' ||
-          $config_name === 'node.type.comment' ||
-          $config_name === 'workflows.workflow.comment' ||
+          in_array($config_name, ['filter.format.comment_html', 'node.type.comment', 'workflows.workflow.comment'], TRUE) ||
           str_ends_with($config_name, 'field_comments') || str_ends_with($config_name, 'field_comments_mode')
         ) {
           unset($data['dependencies']['config'][$index]);
@@ -326,9 +322,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     if (isset($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
-        if ($permission === 'access openstreetmap push operation' ||
-          $permission === 'administer openculturas_openstreetmap configuration' ||
-          $permission === 'administer oauth2 clients') {
+        if (in_array($permission, ['access openstreetmap push operation', 'administer openculturas_openstreetmap configuration', 'administer oauth2 clients'], TRUE)) {
           unset($data['permissions'][$index]);
         }
       }

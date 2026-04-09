@@ -195,7 +195,7 @@ final class OSMFormWizard extends FormWizardBase {
           foreach (array_keys($existing_tags) as $osm_tag) {
             if (strpos($osm_tag, ':')) {
               $group = explode(':', $osm_tag)[0];
-              if (in_array($group, $groups_to_strip)) {
+              if (in_array($group, $groups_to_strip, TRUE)) {
                 $osm_tag_without_group = explode(':', $osm_tag)[1];
                 if (isset($new_tags[$osm_tag_without_group])) {
                   $new_tags[$osm_tag] = $new_tags[$osm_tag_without_group];

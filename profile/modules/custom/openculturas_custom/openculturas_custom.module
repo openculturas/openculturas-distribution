@@ -47,6 +47,7 @@ use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
+use Drupal\views\Plugin\views\ViewsHandlerInterface;
 use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
 
@@ -175,7 +176,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
   $filters = $view_style->displayHandler->getHandlers('filter');
 
   /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
-  $proximityFilters = array_filter($filters, static fn($filter): bool => $filter instanceof GeofieldProximityFilter);
+  $proximityFilters = array_filter($filters, static fn(ViewsHandlerInterface $filter): bool => $filter instanceof GeofieldProximityFilter);
   if (is_countable($proximityFilters) && $proximityFilters !== []) {
     $proximityFilter = reset($proximityFilters);
     try {

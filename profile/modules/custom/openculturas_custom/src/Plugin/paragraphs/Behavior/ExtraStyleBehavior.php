@@ -36,6 +36,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->allowedClasses = [self::NONE => t('None')];
+
     $configuredAllowedClasses = $container->get('config.factory')
       ->get('openculturas_custom.settings')
       ->get('allowed_classes');

@@ -52,7 +52,7 @@ class Normalizer implements ContentEntityNormalizerInterface {
    * @return mixed
    *   The return value of method call.
    */
-  public function __call($method, mixed $args) {
+  public function __call(string $method, mixed $args) {
     if (is_callable([$this->inner, $method])) {
       return ($this->inner->{$method})(...$args);
     }

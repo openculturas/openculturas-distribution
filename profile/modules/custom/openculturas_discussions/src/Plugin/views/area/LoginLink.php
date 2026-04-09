@@ -51,7 +51,7 @@ final class LoginLink extends AreaPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function render($empty = FALSE) {
+  public function render($empty = FALSE): array {
     /** @var \Drupal\node\NodeInterface|null $node */
     $node = $this->routeMatch->getParameter('node');
     if ($node instanceof NodeInterface
