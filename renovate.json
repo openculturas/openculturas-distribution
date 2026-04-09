@@ -129,12 +129,6 @@
       "enabled": false
     },
     {
-      "matchPackageNames": [
-        "openculturas/openculturas-profile"
-      ],
-      "enabled": false
-    },
-    {
       "matchPackageNames": ["seleniarm/standalone-chromium", "docker"],
       "pinDigests": false
     },
@@ -151,15 +145,16 @@
       "dependencyDashboardApproval": true
     },
     {
-      "matchPackageNames": [
-        "registry.cowain.dev/lvsn/openculturas-distribution"
-      ],
-      "description": "Do not pin own base image",
-      "pinDigests": false
-    },
-    {
       "matchPackageNames": ["drupal/office_hours"],
       "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Disable renovate for this deps",
+      "matchPackageNames": [
+        "openculturas/openculturas-profile",
+        "registry.cowain.dev/lvsn/openculturas-distribution"
+      ],
+      "enabled": false
     }
   ]
 }
