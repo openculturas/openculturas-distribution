@@ -1,6 +1,6 @@
 name: OpenCulturas
 type: profile
-core_version_requirement: ^10
+core_version_requirement: '^10 || ^11'
 description: 'The OpenCulturas distribution profile.'
 package: OpenCulturas
 version: 3.0.x-dev
@@ -23,6 +23,7 @@ install:
   - 'auto_entitylabel:auto_entitylabel'
   - 'better_exposed_filters:better_exposed_filters'
   - 'block_field:block_field'
+  - 'blockgroup:blockgroup'
   - 'checklistapi:checklistapi'
   - 'choices:choices'
   - 'coffee:coffee'
@@ -31,6 +32,7 @@ install:
   - 'config_update:config_update'
   - 'cookies:cookies'
   - 'cookies:cookies_video'
+  - 'core:layout_builder'
   - 'crop:crop'
   - 'csv_serialization:csv_serialization'
   - 'date_augmenter:date_augmenter'
@@ -117,6 +119,8 @@ install:
   - 'jquery_ui_accordion:jquery_ui_accordion'
   - 'json_ld_schema:json_ld_schema'
   - 'languagefield:languagefield'
+  - 'layout_builder_component_attributes:layout_builder_component_attributes'
+  - 'layout_options:layout_options'
   - 'leaflet:leaflet'
   - 'leaflet:leaflet_markercluster'
   - 'leaflet:leaflet_views'
@@ -173,10 +177,6 @@ install:
   - 'views_bulk_operations:views_bulk_operations'
   - 'views_data_export:views_data_export'
   - 'views_infinite_scroll:views_infinite_scroll'
-  - 'blockgroup:blockgroup'
-  - 'core:layout_builder'
-  - 'layout_builder_component_attributes:layout_builder_component_attributes'
-  - 'layout_options:layout_options'
 
 themes:
   - opcult
@@ -330,6 +330,9 @@ config_devel:
     - core.base_field_override.node.profile.sticky
     - core.base_field_override.node.profile.title
     - core.base_field_override.node.profile.uid
+    - core.base_field_override.paragraph.a11y_wheelchair.behavior_settings
+    - core.base_field_override.paragraph.a11y_wheelchair.created
+    - core.base_field_override.paragraph.a11y_wheelchair.status
     - core.base_field_override.paragraph.accessibility.created
     - core.base_field_override.paragraph.accessibility.status
     - core.base_field_override.paragraph.address_data.created
@@ -574,6 +577,7 @@ config_devel:
     - core.entity_view_display.node.profile.teaser_unified
     - core.entity_view_display.paragraph.a11y_wheelchair.default
     - core.entity_view_display.paragraph.accessibility.default
+    - core.entity_view_display.paragraph.accessibility.grid
     - core.entity_view_display.paragraph.address_data.address_block
     - core.entity_view_display.paragraph.address_data.address_line
     - core.entity_view_display.paragraph.address_data.address_line_complete
@@ -587,6 +591,7 @@ config_devel:
     - core.entity_view_display.paragraph.contact_data.embedded_legal
     - core.entity_view_display.paragraph.download.default
     - core.entity_view_display.paragraph.gallery.default
+    - core.entity_view_display.paragraph.gallery.grid
     - core.entity_view_display.paragraph.gallery.slider
     - core.entity_view_display.paragraph.gallery.slider_duo
     - core.entity_view_display.paragraph.gallery.slider_multiple
@@ -1114,6 +1119,7 @@ config_devel:
     - language.content_settings.node.location
     - language.content_settings.node.page
     - language.content_settings.node.profile
+    - language.content_settings.paragraph.a11y_wheelchair
     - language.content_settings.paragraph.accessibility
     - language.content_settings.paragraph.address_data
     - language.content_settings.paragraph.block
@@ -1404,12 +1410,6 @@ config_devel:
     - workflows.workflow.draften
     - workflows.workflow.draften_member
     - workflows.workflow.magazine_article
-    - core.base_field_override.paragraph.a11y_wheelchair.behavior_settings
-    - core.base_field_override.paragraph.a11y_wheelchair.created
-    - core.base_field_override.paragraph.a11y_wheelchair.status
-    - core.entity_view_display.paragraph.gallery.grid
-    - language.content_settings.paragraph.a11y_wheelchair
-    - core.entity_view_display.paragraph.accessibility.grid
   optional:
     - block.block.opcult_a11y_features
     - block.block.opcult_bookmarkflagicon

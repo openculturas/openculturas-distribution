@@ -1,6 +1,6 @@
 name: 'OpenCulturas - Discussions'
 type: module
-core_version_requirement: ^10
+core_version_requirement: '^10 || ^11'
 description: 'Manages configurations content type comment.'
 package: OpenCulturas
 version: 3.0.x-dev
@@ -42,11 +42,21 @@ config_devel:
     - views.view.oc_discussions_entity_reference_node
     - workflows.workflow.comment
   optional:
+    - core.base_field_override.node.comment.changed
+    - core.base_field_override.node.comment.created
+    - core.base_field_override.node.comment.menu_link
+    - core.base_field_override.node.comment.metatag
+    - core.base_field_override.node.comment.moderation_state
+    - core.base_field_override.node.comment.path
     - core.base_field_override.node.comment.promote
     - core.base_field_override.node.comment.status
+    - core.base_field_override.node.comment.sticky
+    - core.base_field_override.node.comment.title
+    - core.base_field_override.node.comment.uid
     - core.entity_form_display.node.comment.default
     - core.entity_view_display.node.comment.default
     - core.entity_view_display.node.comment.full
+    - core.entity_view_display.node.comment.full_lb
     - core.entity_view_display.node.comment.teaser
     - editor.editor.comment_html
     - field.field.node.article.field_comments
@@ -63,13 +73,3 @@ config_devel:
     - field.field.node.profile.field_comments_mode
     - views.view.oc_comments
     - views.view.related_comments
-    - core.base_field_override.node.comment.changed
-    - core.base_field_override.node.comment.created
-    - core.base_field_override.node.comment.menu_link
-    - core.base_field_override.node.comment.metatag
-    - core.base_field_override.node.comment.moderation_state
-    - core.base_field_override.node.comment.path
-    - core.base_field_override.node.comment.sticky
-    - core.base_field_override.node.comment.title
-    - core.base_field_override.node.comment.uid
-    - core.entity_view_display.node.comment.full_lb

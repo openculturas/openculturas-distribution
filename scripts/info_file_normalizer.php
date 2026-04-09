@@ -262,7 +262,7 @@ foreach ($finder->getIterator() as $file) {
   $new_info = [
     'name' => $info['name'],
     'type' => $info['type'],
-    'core_version_requirement' => '^10',
+    'core_version_requirement' => '^10 || ^11',
     'description' => $info['description'],
     'package' => 'OpenCulturas',
     'version' => VERSION,
