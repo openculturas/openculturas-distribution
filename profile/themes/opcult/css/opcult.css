@@ -3980,8 +3980,9 @@ footer.footer {
 }
 
 .section--essentials.interact {
-  flex-flow: row wrap;
+  flex-flow: row;
   justify-content: flex-start;
+  inline-size: min-content;
 }
 
 *,
@@ -5406,6 +5407,13 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
   scrollbar-color: var(--oc-scrollbar-color);
 }
 
+.popover-content.share-toggle--popover-content {
+  padding: 0.25rem 0;
+}
+.popover-content.share-toggle--popover-content li {
+  margin: 0;
+}
+
 .share-toggle--popover-button {
   margin: 1.5rem 1rem 0rem 0;
 }
@@ -6211,8 +6219,9 @@ a.flag--link {
 .share-buttons,
 .extra-field-social-media-buttons {
   position: relative;
-  inline-size: auto;
   display: inline-block;
+  inline-size: max-content;
+  flex-basis: max-content;
 }
 
 .block-layout-builder:has(.flag.flag-bookmark-node), .block-layout-builder:has(.flag.flag-bookmark-term) {
