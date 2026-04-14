@@ -1,5 +1,5 @@
 {
-    "_hash": "4bba11b9c8cef64a205cddd19ed588af9ddac97dd119be9a8e819366a321cb81",
+    "_hash": "a97d5e0b3985481b4e4721e3007bb9f3acbd39e6e07b212cc6463ca16080ad48",
     "patches": {
         "drupal/address_display": [
             {
@@ -25,6 +25,18 @@
                 }
             }
         ],
+        "drupal/attribution": [
+            {
+                "package": "drupal/attribution",
+                "description": "https://www.drupal.org/project/attribution/issues/3446531: Use string context for author label",
+                "url": "https://www.drupal.org/files/issues/2026-03-31/attribution-3446531.patch",
+                "sha256": "5b6ed0fc46c2a78dc759623ad059b39540a99ce03195c056f1ef027bfaddaa13",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ],
         "drupal/block_field": [
             {
                 "package": "drupal/block_field",
@@ -40,9 +52,9 @@
         "drupal/core": [
             {
                 "package": "drupal/core",
-                "description": "Issue #3221375: Wrong language field labels after drupal_rebuild()",
-                "url": "https://www.drupal.org/files/issues/2021-12-01/3221375-27-workaround.patch",
-                "sha256": "7a9f0c0dd8f93f3781e4371669475e4b2bb930da27357098115c5940d61f7648",
+                "description": "https://www.drupal.org/project/openculturas/issues/3393511: Wrong language field labels after drupal_rebuild()",
+                "url": "https://www.drupal.org/files/issues/2026-04-13/drupal-core-3221375-11.x.diff",
+                "sha256": "f79fd85c8d418f0cccbfbadae8f116ff1b129871a5d8d73d8b714dafa517b9bf",
                 "depth": 2,
                 "extra": {
                     "provenance": "root"
@@ -51,18 +63,8 @@
             {
                 "package": "drupal/core",
                 "description": "Issue #2845144: User can't reference unpublished content even when they have access to it",
-                "url": "https://www.drupal.org/files/issues/2024-02-13/2845144-87.patch",
-                "sha256": "d8bd7dac8ae020a8f86986e4e0b31fd8ee08c19661e014307edb05989f9117c3",
-                "depth": 2,
-                "extra": {
-                    "provenance": "root"
-                }
-            },
-            {
-                "package": "drupal/core",
-                "description": "Issue #2321071: BaseFieldOverride fails to take into account ContentEntityInterface::bundleFieldDefinitions() when invoking onFieldDefinitionUpdate()",
-                "url": "https://www.drupal.org/files/issues/2023-11-02/2321071-71.patch",
-                "sha256": "0ca745b73977676099875cd4caf9cbac5db53cc534266f758a17eec70db750b4",
+                "url": "https://www.drupal.org/files/issues/2025-06-24/2845144-109.patch",
+                "sha256": "f842579ab2c5553f4e2e5ce33b32082b4f68d2a6ea38ebefac03942551e740c2",
                 "depth": 2,
                 "extra": {
                     "provenance": "root"
@@ -81,8 +83,8 @@
             {
                 "package": "drupal/core",
                 "description": "Issue #2546212: Entity view/form mode formatter/widget settings have no translation",
-                "url": "https://www.drupal.org/files/issues/2024-04-08/drupal-core-2546212-10.3.x.patch",
-                "sha256": "91e35b8de92a421e602d99347860715372d69424db202177878a03fe782c7e5c",
+                "url": "https://www.drupal.org/files/issues/2026-04-13/drupal-core-2546212-11.x.diff",
+                "sha256": "e38151e9169daba8939a8cc2c2712079e85eb7f6a5b15f687c06db0ed6169c9c",
                 "depth": 2,
                 "extra": {
                     "provenance": "root"
@@ -130,32 +132,10 @@
             },
             {
                 "package": "drupal/core",
-                "description": "https://www.drupal.org/project/openculturas/issues/3393511: Automatically clear out the content key in view display when enabling Layout builder",
-                "url": "https://www.drupal.org/files/issues/2026-02-11/drupal-core-3349181.patch",
-                "sha256": "4fbfb991eea99016a9f5522d4c2dbfd1d8f254c24df2a2b70849e5daa64d0330",
+                "description": "https://www.drupal.org/project/openculturas/issues/3393511: BaseFieldOverride fails to take into account ContentEntityInterface::bundleFieldDefinitions() when invoking onFieldDefinitionUpdate()",
+                "url": "https://www.drupal.org/files/issues/2026-04-13/drupal-core-2321071-11.x.diff",
+                "sha256": "a47fea02de934305d069645311688866bfddc600fe94ee1ad143363870735441",
                 "depth": 2,
-                "extra": {
-                    "provenance": "root"
-                }
-            },
-            {
-                "package": "drupal/core",
-                "description": "https://www.drupal.org/project/openculturas/issues/3393511: Layout Builder entity view display buildMultiple() function always calls parent's one",
-                "url": "https://www.drupal.org/files/issues/2026-02-11/drupal-core-3167458.patch",
-                "sha256": "4ec9ff94a8a18aa15b28e46da62a6c58aa52edde4dc6a626862d7b40f5c7a43b",
-                "depth": 2,
-                "extra": {
-                    "provenance": "root"
-                }
-            }
-        ],
-        "drupal/core_needs_rebuild": [
-            {
-                "package": "drupal/core_needs_rebuild",
-                "description": "Issue #2818017: A number of Views combined fields filter operators are currently pointless to an end user",
-                "url": "https://www.drupal.org/files/issues/2023-02-07/2818017-30.patch",
-                "sha256": "9c051eacf4560fb95675db7db605a088e4215834f353e83c6980b5aa4b88e645",
-                "depth": 1,
                 "extra": {
                     "provenance": "root"
                 }
@@ -305,24 +285,24 @@
                 }
             }
         ],
-        "drupal/smart_date": [
+        "drupal/rabit_hole": [
             {
-                "package": "drupal/smart_date",
-                "description": "Issue #3446002: Restore origin starts/ends filter",
-                "url": "https://www.drupal.org/files/issues/2024-06-18/smart_date-3446002.patch",
-                "sha256": "99abbc05dc812119284991460f25422b9fbcb969df3efa0813081dc0b61daecf",
+                "package": "drupal/rabit_hole",
+                "description": "https://www.drupal.org/project/rabbit_hole/issues/3516167: Fix Multiple Implicit Nullable Parameters for PHP 8.4 Compatibility",
+                "url": "https://www.drupal.org/files/issues/2026-03-20/3516167-8-x-1.x-52.patch",
+                "sha256": "f886ca76de0d2a8d9307cb523f56fa54dfc1282b1d9086c415713dded5d9c057",
                 "depth": 1,
                 "extra": {
                     "provenance": "root"
                 }
             }
         ],
-        "drupal/views_infinite_scroll": [
+        "drupal/smart_date": [
             {
-                "package": "drupal/views_infinite_scroll",
-                "description": "Issue #3267139: Make Load more markup more accessible",
-                "url": "https://www.drupal.org/files/issues/2022-07-18/views_infinite_scroll-3267139-missing-pager-headline-10.patch",
-                "sha256": "bd5a9caebed64002ae56add2bbb246a91d9ee5d1656341b63bfd9def2cd720f6",
+                "package": "drupal/smart_date",
+                "description": "Issue #3446002: Restore origin starts/ends filter",
+                "url": "https://www.drupal.org/files/issues/2024-06-18/smart_date-3446002.patch",
+                "sha256": "99abbc05dc812119284991460f25422b9fbcb969df3efa0813081dc0b61daecf",
                 "depth": 1,
                 "extra": {
                     "provenance": "root"
@@ -341,24 +321,12 @@
                 }
             }
         ],
-        "drupal/attribution": [
+        "drupal/views_infinite_scroll": [
             {
-                "package": "drupal/attribution",
-                "description": "https://www.drupal.org/project/attribution/issues/3446531: Use string context for author label",
-                "url": "https://www.drupal.org/files/issues/2026-03-31/attribution-3446531.patch",
-                "sha256": "5b6ed0fc46c2a78dc759623ad059b39540a99ce03195c056f1ef027bfaddaa13",
-                "depth": 1,
-                "extra": {
-                    "provenance": "root"
-                }
-            }
-        ],
-        "drupal/rabit_hole": [
-            {
-                "package": "drupal/rabit_hole",
-                "description": "https://www.drupal.org/project/rabbit_hole/issues/3516167: Fix Multiple Implicit Nullable Parameters for PHP 8.4 Compatibility",
-                "url": "https://www.drupal.org/files/issues/2026-03-20/3516167-8-x-1.x-52.patch",
-                "sha256": "f886ca76de0d2a8d9307cb523f56fa54dfc1282b1d9086c415713dded5d9c057",
+                "package": "drupal/views_infinite_scroll",
+                "description": "Issue #3267139: Make Load more markup more accessible",
+                "url": "https://www.drupal.org/files/issues/2022-07-18/views_infinite_scroll-3267139-missing-pager-headline-10.patch",
+                "sha256": "bd5a9caebed64002ae56add2bbb246a91d9ee5d1656341b63bfd9def2cd720f6",
                 "depth": 1,
                 "extra": {
                     "provenance": "root"

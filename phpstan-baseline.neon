@@ -55,6 +55,21 @@ parameters:
 			path: profile/modules/custom/openculturas_calendar_widget/openculturas_calendar_widget.module
 
 		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
+				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
+
+		-
+			message: '#^Call to method getCurrentRequest\(\) on an unknown class Drupal\\Core\\Http\\RequestStack\.$#'
+			identifier: class.notFound
+			count: 1
+			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
+
+		-
 			message: '#^Cannot access an offset on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
@@ -87,6 +102,18 @@ parameters:
 		-
 			message: '#^Cannot access offset ''wildcard'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$request_stack contains unknown class Drupal\\Core\\Http\\RequestStack\.$#'
+			identifier: class.notFound
+			count: 1
+			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
+
+		-
+			message: '#^Property Drupal\\openculturas_calendar_widget\\Controller\\OpenculturasCalendarWidgetController\:\:\$request \(Symfony\\Component\\HttpFoundation\\Request\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
 
@@ -243,6 +270,21 @@ parameters:
 		-
 			message: '#^Binary operation "\." between ''node\:'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
+			count: 2
+			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
+				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
+			'''
+			identifier: method.deprecated
+			count: 5
+			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
+
+		-
+			message: '#^Call to method getEntity\(\) on an unknown class Drupal\\node\\NodeForm\.$#'
+			identifier: class.notFound
 			count: 2
 			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
 
@@ -640,6 +682,12 @@ parameters:
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
 			count: 1
+			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
+
+		-
+			message: '#^PHPDoc tag @var for variable \$node_form contains unknown class Drupal\\node\\NodeForm\.$#'
+			identifier: class.notFound
+			count: 2
 			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
 
 		-
@@ -1075,26 +1123,20 @@ parameters:
 			path: profile/modules/custom/openculturas_custom/src/Plugin/Action/GetPreferredLangcodeForNotificationRecipient.php
 
 		-
+			message: '#^Parameter \#1 \$id of method Drupal\\Core\\Entity\\EntityStorageInterface\:\:load\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: profile/modules/custom/openculturas_custom/src/Plugin/Action/LoadNotificationRecipients.php
+
+		-
 			message: '#^Parameter \#1 \$string of function trim expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
 			path: profile/modules/custom/openculturas_custom/src/Plugin/Action/LoadNotificationRecipients.php
 
 		-
-			message: '#^Method Drupal\\openculturas_custom\\Plugin\\Block\\HeroImageBlock\:\:getCacheContexts\(\) should return list\<string\> but returns array\<string\>\.$#'
-			identifier: return.type
-			count: 1
-			path: profile/modules/custom/openculturas_custom/src/Plugin/Block/HeroImageBlock.php
-
-		-
 			message: '#^Instanceof between Drupal\\Core\\Entity\\ContentEntityInterface and Drupal\\Core\\Entity\\ContentEntityInterface will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
-			count: 1
-			path: profile/modules/custom/openculturas_custom/src/Plugin/Block/PageTitleBlock.php
-
-		-
-			message: '#^Method Drupal\\openculturas_custom\\Plugin\\Block\\PageTitleBlock\:\:getCacheContexts\(\) should return list\<string\> but returns array\<string\>\.$#'
-			identifier: return.type
 			count: 1
 			path: profile/modules/custom/openculturas_custom/src/Plugin/Block/PageTitleBlock.php
 
@@ -1207,6 +1249,15 @@ parameters:
 			path: profile/modules/custom/openculturas_discussions/openculturas_discussions.install
 
 		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
+				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: profile/modules/custom/openculturas_discussions/openculturas_discussions.module
+
+		-
 			message: '#^Cannot access offset ''group'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -1271,6 +1322,15 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: profile/modules/custom/openculturas_faq/openculturas_faq.install
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
+				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: profile/modules/custom/openculturas_faq/openculturas_faq.module
 
 		-
 			message: '#^Cannot access offset ''OpenCulturas \- Map'' on mixed\.$#'
@@ -1527,6 +1587,12 @@ parameters:
 		-
 			message: '#^Cannot access offset mixed on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: profile/modules/custom/openculturas_media/src/Plugin/Field/FieldFormatter/DownloadUrlFormatter.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Drupal\\Core\\Entity\\EntityStorageInterface\:\:load\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: profile/modules/custom/openculturas_media/src/Plugin/Field/FieldFormatter/DownloadUrlFormatter.php
 
@@ -1817,6 +1883,15 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: profile/modules/custom/openculturas_openstreetmap/src/AddressLookup.php
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
+				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: profile/modules/custom/openculturas_openstreetmap/src/EventSubscriber/OpenculturasOpenStreetMapSubscriber.php
 
 		-
 			message: '#^Cannot access offset ''location_name'' on mixed\.$#'
@@ -2298,6 +2373,12 @@ parameters:
 			path: profile/modules/custom/openculturas_openstreetmap/src/Plugin/Field/FieldWidget/OSMIDDefaultWidget.php
 
 		-
+			message: '#^Call to method getEntity\(\) on an unknown class Drupal\\node\\NodeForm\.$#'
+			identifier: class.notFound
+			count: 1
+			path: profile/modules/custom/openculturas_openstreetmap/src/Plugin/Field/FieldWidget/OSMIDDefaultWidget.php
+
+		-
 			message: '#^Cannot access an offset on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -2442,6 +2523,12 @@ parameters:
 			path: profile/modules/custom/openculturas_openstreetmap/src/Plugin/Field/FieldWidget/OSMIDDefaultWidget.php
 
 		-
+			message: '#^PHPDoc tag @var for variable \$form_object contains unknown class Drupal\\node\\NodeForm\.$#'
+			identifier: class.notFound
+			count: 1
+			path: profile/modules/custom/openculturas_openstreetmap/src/Plugin/Field/FieldWidget/OSMIDDefaultWidget.php
+
+		-
 			message: '#^Parameter \#1 \$array of function array_slice expects array, mixed given\.$#'
 			identifier: argument.type
 			count: 4
@@ -2534,6 +2621,15 @@ parameters:
 		-
 			message: '#^Binary operation "\.\=" between mixed and non\-falsy\-string results in an error\.$#'
 			identifier: assignOp.invalid
+			count: 1
+			path: profile/modules/custom/openculturas_openstreetmap/src/Wizard/OSMFormWizard.php
+
+		-
+			message: '''
+				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
+				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
+			'''
+			identifier: method.deprecated
 			count: 1
 			path: profile/modules/custom/openculturas_openstreetmap/src/Wizard/OSMFormWizard.php
 
@@ -2886,6 +2982,12 @@ parameters:
 			path: profile/modules/custom/openculturas_teaser/src/Plugin/paragraphs/Behavior/LinkTeaserBehavior.php
 
 		-
+			message: '#^Parameter \#1 \$id of method Drupal\\Core\\Entity\\EntityStorageBase\:\:load\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: profile/modules/custom/openculturas_teaser/src/Plugin/paragraphs/Behavior/LinkTeaserBehavior.php
+
+		-
 			message: '#^Cannot access an offset on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -2973,6 +3075,12 @@ parameters:
 			message: '#^Parameter \#1 \$display_options of method Drupal\\Core\\Field\\FieldItemListInterface\<Drupal\\Core\\Field\\FieldItemInterface\>\:\:view\(\) expects array\|string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
+			path: profile/modules/custom/openculturas_teaser/src/Plugin/paragraphs/Behavior/TeaserBehaviorBase.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Drupal\\Core\\Entity\\EntityStorageBase\:\:load\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
 			path: profile/modules/custom/openculturas_teaser/src/Plugin/paragraphs/Behavior/TeaserBehaviorBase.php
 
 		-
@@ -3092,7 +3200,7 @@ parameters:
 		-
 			message: '#^Cannot access offset ''width'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
+			count: 1
 			path: profile/openculturas.post_update.php
 
 		-
@@ -3195,6 +3303,17 @@ parameters:
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
+			path: profile/themes/opcult/opcult.theme
+
+		-
+			message: '''
+				#^Call to deprecated function theme_get_setting\(\)\:
+				in drupal\:11\.3\.0 and is removed from drupal\:13\.0\.0\. Use
+				  \\Drupal\:\:service\('Drupal\\Core\\Extension\\ThemeSettingsProvider'\)\-\>getSetting\(\)
+				  instead\.$#
+			'''
+			identifier: function.deprecated
+			count: 4
 			path: profile/themes/opcult/opcult.theme
 
 		-
@@ -3324,6 +3443,17 @@ parameters:
 			path: profile/themes/opcult/theme-settings.php
 
 		-
+			message: '''
+				#^Call to deprecated function theme_get_setting\(\)\:
+				in drupal\:11\.3\.0 and is removed from drupal\:13\.0\.0\. Use
+				  \\Drupal\:\:service\('Drupal\\Core\\Extension\\ThemeSettingsProvider'\)\-\>getSetting\(\)
+				  instead\.$#
+			'''
+			identifier: function.deprecated
+			count: 3
+			path: profile/themes/opcult/theme-settings.php
+
+		-
 			message: '#^Cannot access an offset on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 3
@@ -3410,6 +3540,17 @@ parameters:
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
+			count: 2
+			path: profile/themes/openculturas_base/openculturas_base.theme
+
+		-
+			message: '''
+				#^Call to deprecated function theme_get_setting\(\)\:
+				in drupal\:11\.3\.0 and is removed from drupal\:13\.0\.0\. Use
+				  \\Drupal\:\:service\('Drupal\\Core\\Extension\\ThemeSettingsProvider'\)\-\>getSetting\(\)
+				  instead\.$#
+			'''
+			identifier: function.deprecated
 			count: 2
 			path: profile/themes/openculturas_base/openculturas_base.theme
 
@@ -3567,6 +3708,17 @@ parameters:
 			message: '#^Binary operation "\." between mixed and ''\://'' results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
+			path: profile/themes/openculturas_base/theme-settings.php
+
+		-
+			message: '''
+				#^Call to deprecated function theme_get_setting\(\)\:
+				in drupal\:11\.3\.0 and is removed from drupal\:13\.0\.0\. Use
+				  \\Drupal\:\:service\('Drupal\\Core\\Extension\\ThemeSettingsProvider'\)\-\>getSetting\(\)
+				  instead\.$#
+			'''
+			identifier: function.deprecated
+			count: 2
 			path: profile/themes/openculturas_base/theme-settings.php
 
 		-
