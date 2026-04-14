@@ -10,7 +10,7 @@
   .file--download {
     border: .125rem solid var(--oc-color-link);
     max-inline-size: fit-content;
-    padding: 0 1rem .75rem;
+    padding: .75rem 1rem .75rem;
     margin-block: var(--oc-row-gap);
 
     &:has(a:hover, a:focus) {
@@ -20,13 +20,13 @@
   }
 
   a.file {
-    display: inline-block;
+    display: inline-flex;
     @include icon(download-simple);
 
     &::before {
       position: relative;
-      inset-block-start: .75rem;
       inset-inline-start: 0;
+      inset-block-start: calc(-.125 * var(--oc-font-size-icon));
     }
   }
 
