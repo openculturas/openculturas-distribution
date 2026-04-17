@@ -1,7 +1,7 @@
 /* global L */
 ((Drupal) => {
   /**
-   * @type {Drupal~behavior}
+   * @type {Drupal.behavior}
    */
   Drupal.behaviors.OpenCulturasOSMIDFinder = {
     attach: (context, settings) => {

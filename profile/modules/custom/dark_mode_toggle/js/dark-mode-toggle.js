@@ -7,9 +7,9 @@
   /**
    * Attaches behavior to toggle a class based on the selected dark mode.
    *
-   * @type {Drupal~behavior}
+   * @type {Drupal.behavior}
    *
-   * @prop {Drupal~behaviorAttach} attach
+   * @prop {Drupal.behaviorAttach} attach
    *   Toggles the 'dark' class on the HTML element based on the selected dark
    *   mode and updates the 'data-dark-mode-source' attribute accordingly.
    */

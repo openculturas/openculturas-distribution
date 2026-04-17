@@ -1,8 +1,8 @@
 (($, Drupal, once) => {
   /**
-   * @type {Drupal~behavior}
+   * @type {Drupal.behavior}
    *
-   * @prop {Drupal~behaviorAttach} attach
+   * @prop {Drupal.behaviorAttach} attach
    *   Attaches the behavior for the block filtering.
    */
   Drupal.behaviors.leaflet_extra = {

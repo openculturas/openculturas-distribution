@@ -100,6 +100,23 @@ Sync display settings from 'full' to 'full_lb' view mode.
 `drush scr scripts/sync_full_to_full_lb.php`
 
 
+### JS/CSS Linting
+
+All linting commands run inside the DDEV container:
+
+```bash
+ddev exec npm run lint:js       # ESLint (entire project)
+ddev exec npm run lint:css      # stylelint CSS
+ddev exec npm run lint:scss     # stylelint SCSS
+ddev exec npm run prettier      # Prettier (JavaScript)
+```
+
+To lint specific JS files:
+
+```bash
+ddev exec npx eslint --ext .js --no-ignore path/to/file.js
+```
+
 ### Configuration files
 
 All configurations are managed via [config_devel](https://www.drupal.org/project/config_devel).

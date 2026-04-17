@@ -1,6 +1,6 @@
 ((Drupal, once) => {
   /**
-   * @type {Drupal~behavior}
+   * @type {Drupal.behavior}
    */
   Drupal.behaviors.openculturas_calendar_widget = {
     attach: (context) => {

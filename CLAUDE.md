@@ -100,16 +100,22 @@ composer run php:rector-fix  # Rector auto-fix
 ```
 
 ### JS/CSS Linting
+
+These commands run inside the DDEV container (`ddev exec`). The `lint:js` script hardcodes `.` as target — to lint specific files use `npx eslint` directly.
+
 ```bash
-npm run lint:js              # ESLint JavaScript
-npm run lint:yaml            # ESLint YAML
-npm run lint:css             # stylelint CSS (profile/modules)
-npm run lint:css:fix         # Auto-fix CSS
-npm run lint:scss            # stylelint SCSS (openculturas_base theme)
-npm run lint:scss:fix        # Auto-fix SCSS
-npm run prettier             # Format JavaScript
-npm run prettier:css         # Format CSS
-npm run prettier:scss        # Format SCSS
+ddev exec npm run lint:js              # ESLint JavaScript (entire project)
+ddev exec npm run lint:yaml            # ESLint YAML
+ddev exec npm run lint:css             # stylelint CSS (profile/modules)
+ddev exec npm run lint:css:fix         # Auto-fix CSS
+ddev exec npm run lint:scss            # stylelint SCSS (openculturas_base theme)
+ddev exec npm run lint:scss:fix        # Auto-fix SCSS
+ddev exec npm run prettier             # Format JavaScript
+ddev exec npm run prettier:css         # Format CSS
+ddev exec npm run prettier:scss        # Format SCSS
+
+# Lint specific JS files
+ddev exec npx eslint --ext .js --no-ignore path/to/file.js
 ```
 
 ### Theme Development
