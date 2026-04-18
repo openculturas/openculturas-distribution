@@ -80,6 +80,17 @@
       "enabled": false
     },
     {
+      "description": "No major updates for composer-packages/core-dev dependencies",
+      "matchFileNames": ["composer-packages/core-dev/composer.json"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Weekly schedule for composer-packages/core-dev dependency updates",
+      "matchFileNames": ["composer-packages/core-dev/composer.json"],
+      "schedule": ["once a week"]
+    },
+    {
       "description": "Run composer update for openculturas/drupal-core-dev when its source composer.json is updated",
       "matchFileNames": ["composer-packages/core-dev/composer.json"],
       "postUpgradeTasks": {
