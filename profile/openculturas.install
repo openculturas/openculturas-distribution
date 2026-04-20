@@ -199,3 +199,15 @@ function openculturas_update_10124(): void {
     $config->save();
   }
 }
+
+/**
+ * Remove the 'settings.jquery_library_url' key from image_widget_crop.settings.
+ */
+function openculturas_update_10125(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('image_widget_crop.settings');
+  if (!$config->isNew()) {
+    $config->clear('settings.jquery_library_url');
+    $config->save();
+  }
+}
