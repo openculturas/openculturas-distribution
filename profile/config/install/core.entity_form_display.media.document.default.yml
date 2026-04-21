@@ -15,9 +15,15 @@ targetEntityType: media
 bundle: document
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_inlanguage:
     type: languagefield_select
-    weight: 3
+    weight: 2
     region: content
     settings:
       format:
@@ -32,7 +38,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 26
+    weight: 3
     region: content
     settings:
       include_locked: true
@@ -45,6 +51,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 4
@@ -56,9 +69,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  created: true
   field_filesize: true
   field_mimetype: true
   path: true
-  status: true
   translation: true

@@ -13,6 +13,12 @@ targetEntityType: media
 bundle: audio
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_licenses:
     type: attribution_source_author_license
     weight: 2
@@ -28,7 +34,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 26
+    weight: 3
     region: content
     settings:
       include_locked: true
@@ -41,9 +47,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -52,7 +65,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  created: true
   path: true
-  status: true
   translation: true

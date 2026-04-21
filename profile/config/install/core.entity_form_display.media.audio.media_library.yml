@@ -6,14 +6,30 @@ dependencies:
     - field.field.media.audio.field_licenses
     - field.field.media.audio.field_media_audio_file
     - media.type.audio
+  module:
+    - attribution
+    - file
 id: media.audio.media_library
 targetEntityType: media
 bundle: audio
 mode: media_library
 content:
+  field_licenses:
+    type: attribution_source_author_license
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_media_audio_file:
+    type: file_generic
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 1
+    weight: 3
     region: content
     settings:
       include_locked: true
@@ -28,8 +44,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_licenses: true
-  field_media_audio_file: true
   path: true
   status: true
   translation: true

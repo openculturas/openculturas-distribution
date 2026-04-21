@@ -6,12 +6,19 @@ dependencies:
     - image.style.media_library
     - media.type.user_profile_picture
   module:
+    - field_formatter_class
     - image_widget_crop
 id: media.user_profile_picture.default
 targetEntityType: media
 bundle: user_profile_picture
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_media_image:
     type: image_widget_crop
     weight: 1
@@ -26,10 +33,12 @@ content:
       warn_multiple_usages: false
       show_crop_area: true
       show_default_crop: true
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
   langcode:
     type: language_select
-    weight: 26
+    weight: 2
     region: content
     settings:
       include_locked: true
@@ -42,9 +51,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -53,7 +69,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  created: true
   path: true
-  status: true
   translation: true
