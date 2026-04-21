@@ -818,6 +818,8 @@ function openculturas_post_update_3_0(): string {
     'views.view.vocabulary',
     // New displays block_locations_by_term and attachment_map_by_term.
     'views.view.locations',
+    // Enable translation.
+    'field.field.media.document.field_inlanguage',
 
     // Was not really used. But with the new theme opcult.
     'core.entity_view_display.node.date.teaser',
