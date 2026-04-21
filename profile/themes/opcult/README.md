@@ -129,7 +129,7 @@ We might introduce a mixin in a future iteration, for the time being the followi
 - 20rem (profile teasers in "sidebar")
 - 32rem (forms; teasers in profile/location views)
 - 48rem
-- 100ch (copy text)
+- 80ch (copy text)
 
 ## Folder structure
 

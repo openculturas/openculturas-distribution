@@ -38,9 +38,12 @@
     // Transitions
   --oc-transition-duration: 0.3s;
   --oc-transition-timing-function: ease;
+  --oc-animation-timing-function: cubic-bezier(.13,.48,.83,.55);
+  --oc-animation-repeat: infinite;
 
   @media (prefers-reduced-motion: reduce) {
     --oc-transition-duration: 0.01s;
+    --oc-animation-repeat: 2;
   }
 }
 
@@ -49,7 +52,7 @@
   backdrop-filter: blur(10px); // optionally set to none
 }
 
-// Progress indicator thanks to
+// Loading indicator thanks to
 // Vineeth.TR published unter MIT license on https://cssloaders.github.io/
 
 %loading-indicator {
@@ -62,11 +65,11 @@
     inline-size: 0.75rem;
     margin-inline-start: 0.75rem;
     border: 2px solid var(--oc-color-info);
-    border-bottom-color: transparent;
+    border-color: var(--oc-color-info) var(--oc-color-info) transparent var(--oc-color-bg-info);
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+    animation: rotation 1s var(--oc-animation-timing-function) var(--oc-animation-repeat);
   }
 
   @keyframes rotation {
