@@ -142,50 +142,7 @@ function openculturas_install_remove_full_lb(): void {
  * Implements hook_update_last_removed().
  */
 function openculturas_update_last_removed(): int {
-  return 10120;
-}
-
-/**
- * Install heading module.
- */
-function openculturas_update_10121(): void {
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
-  $module_installer = \Drupal::service('module_installer');
-  $module_installer->install(['heading']);
-}
-
-/**
- * Add more forms to view_password.settings.
- */
-function openculturas_update_10122(): void {
-  $configFactory = \Drupal::configFactory();
-  $config = $configFactory->getEditable('view_password.settings');
-  if (!$config->isNew()) {
-    /** @var string $form_ids_raw */
-    $form_ids_raw = $config->get('form_ids');
-    $form_ids = [];
-    if (is_string($form_ids_raw)) {
-      $form_ids = explode(',', $form_ids_raw);
-    }
-
-    $form_ids[] = 'user_register_form';
-    $form_ids[] = 'user_form';
-    $config->set('form_ids', implode(',', array_unique($form_ids)));
-    $config->save();
-  }
-
-}
-
-/**
- * Enable the option "Visible on small devices" for indicators (.slider-indicators-sm)
- */
-function openculturas_update_10123(): void {
-  $configFactory = \Drupal::configFactory();
-  $config = $configFactory->getEditable('swiffy_slider.settings');
-  if (!$config->isNew()) {
-    $config->set('configuration_url', 'https://swiffyslider.com/configuration/?slider-item-show=slider-item-show3&slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale');
-    $config->save();
-  }
+  return 10123;
 }
 
 /**
