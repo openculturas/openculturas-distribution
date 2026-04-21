@@ -60,7 +60,7 @@ a.flag--link {
 }
 
 .js-flag-message {
-  //transform:translateX(calc(-100% - var(--oc-gutter));
+  transform: translateX(calc(-50% - var(--oc-gutter)));
 }
 
 .action-flag {
@@ -75,25 +75,7 @@ a.flag--link {
 // Processing indicator
 
 .flag .ajax-spinner {
-  background-color: var(--oc-color-bg-info);
-  color: var(--oc-color-info);
-  position: absolute;
-  inset-inline-start: 0;
-  inset-inline-end: 0;
-  inset-block-start: 0;
-  inset-block-end: 0;
-  display: flex;
-  place-content: center;
-  border-radius: var(--oc-button-border-radius);
-  inline-size: 8rem;
-  overflow: visible;
-  transition: opacity 3s linear;
-  font-size: var(--font-size-s);
-
-   &:before {
-    margin-inline-end: .75rem;
-    color: inherit;
-  }
+  @extend %loading-indicator;
 }
 
 // ---
@@ -122,29 +104,6 @@ a.flag--link {
 
   &.action-unflag .flag--button {
     @extend %button-active;
-  }
-}
-
-// Bookmark flag icon in header intro region (special block)
-
-.region-header-intro {
-  .block-openculturas-custom-bookmark-flag-icon {
-    position: absolute;
-    inset-block-start: auto;
-    inset-inline-start: auto;
-    inset-block-end: -3.5rem;
-    inset-inline-end: 1rem;
-    z-index: +1;
-
-    @include breakpoint(l) {
-      inset-inline-end: 4.25rem;
-      inset-block-end: -4.5rem;
-    }
-  }
-
-  .js-flag-message,
-  .flag .ajax-spinner {
-    transform: translateX(calc(-100% - 2rem));
   }
 }
 

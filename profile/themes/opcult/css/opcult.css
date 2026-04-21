@@ -1056,11 +1056,11 @@ dialog.add-to-calendar::backdrop, .search-toggle--popover-content::backdrop, .of
   backdrop-filter: blur(10px);
 }
 
-.openculturas-map:not([data-dirty=true]) .openculturas-map--results-counter[aria-busy=true] {
+.flag .ajax-spinner, .openculturas-map:not([data-dirty=true]) .openculturas-map--results-counter[aria-busy=true] {
   isolation: isolate;
   z-index: 1;
 }
-.openculturas-map:not([data-dirty=true]) .openculturas-map--results-counter[aria-busy=true]::after {
+.flag .ajax-spinner::after, .openculturas-map:not([data-dirty=true]) .openculturas-map--results-counter[aria-busy=true]::after {
   content: "";
   block-size: 0.75rem;
   inline-size: 0.75rem;
@@ -6062,7 +6062,7 @@ figcaption .attribution {
 
 .text-formatted,
 blockquote {
-  max-inline-size: 84ch;
+  max-inline-size: 80ch;
 }
 
 .align-left,
@@ -6158,30 +6158,13 @@ a.flag--link {
   z-index: 1;
 }
 
+.js-flag-message {
+  transform: translateX(calc(-50% - var(--oc-gutter)));
+}
+
 .action-flag .js-flag-message {
   background-color: var(--oc-color-bg-warning);
   border-color: var(--oc-color-warning);
-}
-
-.flag .ajax-spinner {
-  background-color: var(--oc-color-bg-info);
-  color: var(--oc-color-info);
-  position: absolute;
-  inset-inline-start: 0;
-  inset-inline-end: 0;
-  inset-block-start: 0;
-  inset-block-end: 0;
-  display: flex;
-  place-content: center;
-  border-radius: var(--oc-button-border-radius);
-  inline-size: 8rem;
-  overflow: visible;
-  transition: opacity 3s linear;
-  font-size: var(--font-size-s);
-}
-.flag .ajax-spinner:before {
-  margin-inline-end: 0.75rem;
-  color: inherit;
 }
 
 .flag-bookmark-node .flag--link,
@@ -6197,25 +6180,6 @@ a.flag--link {
   border-width: var(--oc-button-border-width);
   border-color: var(--oc-button-border-color);
 }
-.region-header-intro .block-openculturas-custom-bookmark-flag-icon {
-  position: absolute;
-  inset-block-start: auto;
-  inset-inline-start: auto;
-  inset-block-end: -3.5rem;
-  inset-inline-end: 1rem;
-  z-index: 1;
-}
-@media screen and (min-width: 70em) {
-  .region-header-intro .block-openculturas-custom-bookmark-flag-icon {
-    inset-inline-end: 4.25rem;
-    inset-block-end: -4.5rem;
-  }
-}
-.region-header-intro .js-flag-message,
-.region-header-intro .flag .ajax-spinner {
-  transform: translateX(calc(-100% - 2rem));
-}
-
 .block-layout-builder:has(.flag),
 .flag,
 .block-layout-builder:has(.share-buttons),
