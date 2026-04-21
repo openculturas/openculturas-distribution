@@ -297,3 +297,14 @@ function opcult_preprocess_image_widget(array &$variables): void {
     unset($data['preview']);
   }
 }
+
+/**
+ * Implements hook_preprocess_entity_moderation_form().
+ *
+ * Set custom moderation button text.
+ */
+function opcult_preprocess_entity_moderation_form(array &$variables): void {
+  if (is_array($variables['form']) && is_array($variables['form']['submit']) && isset($variables['form']['submit']['#value'])) {
+    $variables['form']['submit']['#value'] = t('Set status');
+  }
+}
