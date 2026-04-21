@@ -128,35 +128,6 @@ function openculturas_removed_post_updates(): array {
 }
 
 /**
- * Enable field status in the media bundle image.
- */
-function openculturas_post_update_media_image_status_field(): string {
-  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
-  $entity_display_repository = \Drupal::service('entity_display.repository');
-  /** @var \Drupal\update_helper\UpdateLogger $logger */
-  $logger = \Drupal::service('update_helper.logger');
-  $form_modes = ['default', 'media_library'];
-  foreach ($form_modes as $form_mode) {
-    $form_display = $entity_display_repository->getFormDisplay('media', 'image', $form_mode);
-
-    if (!$form_display->isNew()) {
-      $options = [
-        'type' => 'boolean_checkbox',
-        'settings' => ['display_label' => TRUE],
-      ];
-      $form_display->setComponent('status', $options);
-      $form_display->save();
-      $logger->info(sprintf('Enabled status field in form mode %s for media bundle image', $form_mode));
-    }
-    else {
-      $logger->notice(sprintf('SKIPPED. Form mode %s does not exist.', $form_mode));
-    }
-  }
-
-  return $logger->output();
-}
-
-/**
  * Increase the item per page (6) for the default display in view related_dates_archive.
  */
 function openculturas_post_update_related_dates_archive_items_per_page(): string {
@@ -265,6 +236,22 @@ function openculturas_post_update_3_0(): string {
     'core.entity_view_display.node.date.compact',
     'core.entity_view_display.node.date.teaser_big',
     'core.entity_view_display.node.date.teaser_unified',
+
+    // Streamline all media form modes, show all context relevant fields.
+    'core.entity_form_display.media.audio.default',
+    'core.entity_form_display.media.audio.media_library',
+    'core.entity_form_display.media.document.default',
+    'core.entity_form_display.media.document.media_library',
+    'core.entity_form_display.media.image.default',
+    'core.entity_form_display.media.image.media_library',
+    'core.entity_form_display.media.logo_image.default',
+    'core.entity_form_display.media.logo_image.media_library',
+    'core.entity_form_display.media.remote_video.default',
+    'core.entity_form_display.media.remote_video.media_library',
+    'core.entity_form_display.media.sponsor.default',
+    'core.entity_form_display.media.sponsor.media_library',
+    'core.entity_form_display.media.user_profile_picture.default',
+    'core.entity_form_display.media.user_profile_picture.media_library',
   ];
 
   _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
