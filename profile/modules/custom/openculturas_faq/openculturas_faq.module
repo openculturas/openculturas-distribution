@@ -22,7 +22,7 @@ function openculturas_faq_node_prepare_form(NodeInterface $node): void {
 
   $request = \Drupal::request();
   if ($request->query->has('field_faq_category')) {
-    $faq_category_id = $request->get('field_faq_category');
+    $faq_category_id = $request->query->get('field_faq_category');
     if (empty($faq_category_id)) {
       return;
     }

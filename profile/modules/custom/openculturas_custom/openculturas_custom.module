@@ -247,7 +247,7 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
   $is_date_entity = $node->bundle() === 'date' && $node->isNew();
   $request = \Drupal::request();
   if ($is_date_entity && $request->query->has('event_id')) {
-    $event_id = $request->get('event_id');
+    $event_id = $request->query->get('event_id');
     if (empty($event_id)) {
       return;
     }
@@ -279,7 +279,7 @@ function openculturas_custom_node_prepare_form(NodeInterface $node): void {
 
   $is_event_entity = $node->bundle() === 'event' && $node->isNew();
   if ($is_event_entity && $request->query->has('member_id')) {
-    $member_id = $request->get('member_id');
+    $member_id = $request->query->get('member_id');
     if (empty($member_id)) {
       return;
     }
@@ -493,7 +493,7 @@ EOF
   if (($derivative_plugin_id === 'node:date:field_date') && isset($variables['content'][0])) {
     $request = \Drupal::request();
 
-    if ($request->query->has('date_delta') && is_numeric($date_delta = $request->get('date_delta'))) {
+    if ($request->query->has('date_delta') && is_numeric($date_delta = $request->query->get('date_delta'))) {
       $delta = (int) $date_delta;
 
       if ($delta >= 0 && $entity->hasField('field_date') && !$entity->get('field_date')->isEmpty()) {
@@ -576,7 +576,7 @@ function openculturas_custom_node_view_alter(array &$build, NodeInterface $entit
     $build['field_event_description']['#title'] = t('See all about');
     if (isset($build['field_date'])) {
       $request = \Drupal::request();
-      if ($request->query->has('date_delta') && is_numeric($delta = $request->get('date_delta'))) {
+      if ($request->query->has('date_delta') && is_numeric($delta = $request->query->get('date_delta'))) {
         $cloned_entity = clone $entity;
         /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
         $field = $cloned_entity->get('field_date');
@@ -763,7 +763,7 @@ function openculturas_custom_views_post_execute(ViewExecutable $view): void {
       /** @var \Drupal\node\NodeInterface $node */
       $node = $row->_entity;
       if ($node->id() === $displayedNode->id()) {
-        $date_delta = $view->getRequest()->get('date_delta');
+        $date_delta = $view->getRequest()->query->get('date_delta');
         if (is_scalar($date_delta) && property_exists($row, 'node__field_date_delta') && (int) $row->node__field_date_delta === (int) $date_delta) {
           unset($view->result[$row->index]);
           --$view->total_rows;

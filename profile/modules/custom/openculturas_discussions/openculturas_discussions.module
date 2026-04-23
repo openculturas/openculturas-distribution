@@ -44,7 +44,7 @@ function openculturas_discussions_node_prepare_form(NodeInterface $node): void {
   $is_comment_entity = $node->bundle() === 'comment' && $node->isNew();
   $request = \Drupal::request();
   if ($is_comment_entity && $request->query->has('content_id')) {
-    $content_id = $request->get('content_id');
+    $content_id = $request->query->get('content_id');
     if (empty($content_id)) {
       return;
     }

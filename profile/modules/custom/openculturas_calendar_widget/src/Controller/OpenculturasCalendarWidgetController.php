@@ -45,10 +45,10 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): OpenculturasCalendarWidgetController {
+  public static function create(ContainerInterface $container): self {
     $instance = parent::create($container);
     $instance->bareHtmlPageRenderer = $container->get('bare_html_page_renderer');
-    /** @var \Drupal\Core\Http\RequestStack $request_stack */
+    /** @var \Symfony\Component\HttpFoundation\RequestStack $request_stack */
     $request_stack = $container->get('request_stack');
     $instance->request = $request_stack->getCurrentRequest();
     $instance->renderer = $container->get('renderer');
@@ -111,10 +111,10 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     $build['#attached']['html_head'][] = [$head, 'oc_iframe_base'];
     $hostname = NULL;
     $wildcard = NULL;
-    if ($limit_access && $this->request instanceof Request) {
-      $token = $this->request->get('access_token');
+    if ($limit_access && $this->request instanceof Request && $this->request->query->has('access_token')) {
+      $token = (string) $this->request->query->get('access_token');
       $host_list = $config->get('host_list');
-      if (is_string($token) && is_array($host_list) && array_key_exists($token, $host_list)) {
+      if (is_array($host_list) && array_key_exists($token, $host_list)) {
         $hostname = $host_list[$token]['hostname'] ?? NULL;
         $wildcard = $host_list[$token]['wildcard'] ?? NULL;
         $css = $host_list[$token]['css'] ?? NULL;

@@ -55,21 +55,6 @@ parameters:
 			path: profile/modules/custom/openculturas_calendar_widget/openculturas_calendar_widget.module
 
 		-
-			message: '''
-				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
-				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
-
-		-
-			message: '#^Call to method getCurrentRequest\(\) on an unknown class Drupal\\Core\\Http\\RequestStack\.$#'
-			identifier: class.notFound
-			count: 1
-			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
-
-		-
 			message: '#^Cannot access an offset on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
@@ -102,18 +87,6 @@ parameters:
 		-
 			message: '#^Cannot access offset ''wildcard'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
-
-		-
-			message: '#^PHPDoc tag @var for variable \$request_stack contains unknown class Drupal\\Core\\Http\\RequestStack\.$#'
-			identifier: class.notFound
-			count: 1
-			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
-
-		-
-			message: '#^Property Drupal\\openculturas_calendar_widget\\Controller\\OpenculturasCalendarWidgetController\:\:\$request \(Symfony\\Component\\HttpFoundation\\Request\|null\) does not accept mixed\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: profile/modules/custom/openculturas_calendar_widget/src/Controller/OpenculturasCalendarWidgetController.php
 
@@ -271,15 +244,6 @@ parameters:
 			message: '#^Binary operation "\." between ''node\:'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
-
-		-
-			message: '''
-				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
-				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
-			'''
-			identifier: method.deprecated
-			count: 5
 			path: profile/modules/custom/openculturas_custom/openculturas_custom.module
 
 		-
@@ -1249,15 +1213,6 @@ parameters:
 			path: profile/modules/custom/openculturas_discussions/openculturas_discussions.install
 
 		-
-			message: '''
-				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
-				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: profile/modules/custom/openculturas_discussions/openculturas_discussions.module
-
-		-
 			message: '#^Cannot access offset ''group'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -1304,15 +1259,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: profile/modules/custom/openculturas_faq/openculturas_faq.install
-
-		-
-			message: '''
-				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
-				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: profile/modules/custom/openculturas_faq/openculturas_faq.module
 
 		-
 			message: '#^Cannot access offset ''OpenCulturas \- Map'' on mixed\.$#'
@@ -1853,15 +1799,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: profile/modules/custom/openculturas_openstreetmap/src/AddressLookup.php
-
-		-
-			message: '''
-				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
-				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: profile/modules/custom/openculturas_openstreetmap/src/EventSubscriber/OpenculturasOpenStreetMapSubscriber.php
 
 		-
 			message: '#^Cannot access offset ''location_name'' on mixed\.$#'
@@ -2583,23 +2520,8 @@ parameters:
 			path: profile/modules/custom/openculturas_openstreetmap/src/Wizard/OSMFormWizard.php
 
 		-
-			message: '#^Binary operation "\." between string\|null and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: profile/modules/custom/openculturas_openstreetmap/src/Wizard/OSMFormWizard.php
-
-		-
 			message: '#^Binary operation "\.\=" between mixed and non\-falsy\-string results in an error\.$#'
 			identifier: assignOp.invalid
-			count: 1
-			path: profile/modules/custom/openculturas_openstreetmap/src/Wizard/OSMFormWizard.php
-
-		-
-			message: '''
-				#^Call to deprecated method get\(\) of class Symfony\\Component\\HttpFoundation\\Request\:
-				since Symfony 7\.4, use properties `\-\>attributes`, `query` or `request` directly instead$#
-			'''
-			identifier: method.deprecated
 			count: 1
 			path: profile/modules/custom/openculturas_openstreetmap/src/Wizard/OSMFormWizard.php
 

@@ -41,7 +41,7 @@ final class OpenculturasOpenStreetMapSubscriber implements EventSubscriberInterf
    * Prepares the wizard with values when the user open it the first time.
    */
   public function onWizardLoadValues(WizardEvent $wizardEvent): void {
-    $node_id = $this->request_stack->getMainRequest()?->get('node_id');
+    $node_id = $this->request_stack->getMainRequest()?->query->get('node_id');
     if (is_numeric($node_id)) {
       $node = NULL;
       /** @var \Drupal\node\NodeInterface|null $node */

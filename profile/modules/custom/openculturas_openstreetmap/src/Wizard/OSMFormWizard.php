@@ -42,7 +42,7 @@ final class OSMFormWizard extends FormWizardBase {
    * {@inheritdoc}
    */
   public function getMachineName(): string {
-    return $this->machine_name . $this->getRequest()->get('node_id');
+    return $this->machine_name . $this->getRequest()->query->get('node_id');
   }
 
   protected function customizeForm(array $form, FormStateInterface $form_state): array {
