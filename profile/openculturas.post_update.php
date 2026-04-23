@@ -252,6 +252,10 @@ function openculturas_post_update_3_0(): string {
     'core.entity_form_display.media.sponsor.media_library',
     'core.entity_form_display.media.user_profile_picture.default',
     'core.entity_form_display.media.user_profile_picture.media_library',
+
+    // Limit a11y paragraph field instances.
+    'field.field.node.date.field_accessibility',
+    'field.field.node.event.field_accessibility',
   ];
 
   _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
