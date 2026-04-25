@@ -56,6 +56,24 @@
     },
     {
       "customType": "regex",
+      "description": "Update version field for npm registry libraries in composer.json repositories",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"tar\",\\s*\"url\":\\s*\"https://registry\\.npmjs\\.org/(?<packageName>[^/]+)/-/"
+      ],
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "description": "Update URL version for npm registry libraries in composer.json repositories",
+      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
+      "matchStrings": [
+        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"[^\"]+\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"tar\",\\s*\"url\":\\s*\"https://registry\\.npmjs\\.org/(?<packageName>[^/]+)/-/[^/]+-(?<currentValue>\\d[^\"]+)\\.tgz\""
+      ],
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
       "description": "Update version field for GitHub releases libraries in composer.json repositories",
       "managerFilePatterns": ["/(^|/)composer\\.json$/"],
       "matchStrings": [
@@ -127,7 +145,8 @@
         "fortawesome/font-awesome",
         "heiseonline/shariff",
         "leaflet/leaflet.fullscreen",
-        "leaflet/leaflet.markercluster"
+        "leaflet/leaflet.markercluster",
+        "perliedman/leaflet-control-geocoder"
       ],
       "matchUpdateTypes": ["major"],
       "enabled": false
@@ -143,7 +162,8 @@
         "fortawesome/font-awesome",
         "heiseonline/shariff",
         "leaflet/leaflet.fullscreen",
-        "leaflet/leaflet.markercluster"
+        "leaflet/leaflet.markercluster",
+        "perliedman/leaflet-control-geocoder"
       ],
       "enabled": false
     },
