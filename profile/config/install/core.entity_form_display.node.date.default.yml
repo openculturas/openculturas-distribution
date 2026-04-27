@@ -340,6 +340,7 @@ content:
       collapsed: false
       revision: false
       removed_reference: keep
+      bundle: ''
     third_party_settings:
       conditional_fields:
         6c52f6b1-20cf-44fc-9122-4fa67d18ad8e:
@@ -357,6 +358,24 @@ content:
             value_form:
               -
                 value: OnlineEventAttendanceMode
+            effect: show
+            effect_options: {  }
+            selector: ''
+        e496761e-2b04-40d2-9dad-e392c395f365:
+          entity_type: node
+          bundle: date
+          dependee: field_attendance_mode
+          settings:
+            state: required
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: OfflineEventAttendanceMode
             effect: show
             effect_options: {  }
             selector: ''

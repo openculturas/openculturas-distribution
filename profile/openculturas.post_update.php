@@ -269,3 +269,57 @@ function openculturas_post_update_3_0(): string {
 
   return $output;
 }
+
+/**
+ * Make field_location required when attendance mode is OfflineEventAttendanceMode.
+ */
+function openculturas_post_update_location_required_for_offline_event(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'date');
+
+  $component = $formDisplay->getComponent('field_location');
+  if ($component === NULL) {
+    $logger->warning('SKIPPED. Component field_location not found on node.date.default form display.');
+    return $logger->output();
+  }
+
+  if ($formDisplay->getComponent('field_attendance_mode') === NULL) {
+    $logger->warning('SKIPPED. Component field_attendance_mode not found on node.date.default form display.');
+    return $logger->output();
+  }
+
+  $conditionalFieldUuid = 'e496761e-2b04-40d2-9dad-e392c395f365';
+  // @phpstan-ignore offsetAccess.nonOffsetAccessible
+  $component['settings']['bundle'] = '';
+  // @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible
+  $component['third_party_settings']['conditional_fields'][$conditionalFieldUuid] = [
+    'entity_type' => 'node',
+    'bundle' => 'date',
+    'dependee' => 'field_attendance_mode',
+    'settings' => [
+      'state' => 'required',
+      'reset' => FALSE,
+      'condition' => 'value',
+      'grouping' => 'AND',
+      'values_set' => 1,
+      'value' => '',
+      'values' => [],
+      'value_form' => [
+        ['value' => 'OfflineEventAttendanceMode'],
+      ],
+      'effect' => 'show',
+      'effect_options' => [],
+      'selector' => '',
+    ],
+  ];
+  $formDisplay->setComponent('field_location', $component);
+
+  $formDisplay->save();
+
+  $logger->info('Added required conditional field rule for field_location on node.date.default.');
+  return $logger->output();
+}
