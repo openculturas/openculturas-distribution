@@ -1072,7 +1072,14 @@ function openculturas_custom_mail_alter(array &$message): void {
 function openculturas_custom_leaflet_map_info_alter(array &$map_info): void {
   // A field formatter can override this.
   // See web/modules/contrib/leaflet/src/Plugin/Field/FieldFormatter/LeafletDefaultFormatter.php:363.
-  $map_info['OSM Mapnik']['icon']['iconUrl'] = GetConfiguredMapMaker::getPath();
+  $map_ids = ['openstreetmap', 'OSM Mapnik'];
+  // OSM Mapnik was switch to openstreetmap in release 10.4.6.
+  // In case this will be reverted in the future, we just check both.
+  foreach ($map_ids as $map_id) {
+    if (isset($map_info[$map_id])) {
+      $map_info[$map_id]['icon']['iconUrl'] = GetConfiguredMapMaker::getPath();
+    }
+  }
 }
 
 /**
