@@ -523,6 +523,23 @@ code: |
   .ui-dialog .ui-widget-content.ui-dialog-content {
     padding-block-start: var(--gin-spacing-xl);
   }
+
+  /* User-friendly complex tables */
+
+  .views-table tbody td {
+    vertical-align: top;
+  }
+
+  .views-table tbody td p { 
+    margin-block-start: 0;
+  }
+
+  .view-related-dates-export tbody td:has(p) {
+    white-space: nowrap;
+    max-width: 14rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 media: all
 preprocess: false
 conditions:
