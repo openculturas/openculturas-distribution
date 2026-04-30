@@ -207,12 +207,6 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
     }
   }
 
-  .leaflet-control-geocoder-icon {
-    &:focus {
-      background-color: var(--color-bg-light);
-    }
-  }
-
   .leaflet-control-geocoder-expanded {
     border: 1px solid var(--color-divider-dark);
     background: var(--color-bg-light);
@@ -427,4 +421,13 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   time {
     padding-right: .25em
   }
+}
+
+// Fix leaflet geocoder button (formerly: link)
+
+.leaflet-touch .leaflet-control-geocoder-icon {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
 }

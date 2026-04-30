@@ -1329,14 +1329,18 @@
     }
 
     _renderPagedResults(collection = null, clearResults = false) {
-      if(collection === null) {
-        collection = this.pager.collection;
-      } else {
-        this.pager.collection = collection;
-        this.pager.page = 1;
+      if (this.pager) {
+        if(collection === null) {
+          collection = this.pager.collection;
+        } else {
+          this.pager.collection = collection;
+          this.pager.page = 1;
+        }
+      } else if (collection === null) {
+        return;
       }
 
-      if(this.settings.get('pager.expose')) {
+      if(this.settings.get('pager.expose') && this.pager) {
         this.pager.pages = Math.ceil(collection.size / this.pager.perPage);
         this.pager.plugin = this.settings.get('pagerPluginId');
         this.limit = (this.pager && this.pager.pages > 1) ? this.pager.perPage : 0;
@@ -1410,12 +1414,15 @@
     }
 
     setResultCounterBusy(bool = true) {
-      this.counterElement.setAttribute('aria-busy', `${bool}`);
+      this.counterElement?.setAttribute('aria-busy', `${bool}`);
     }
 
     _renderResultCounter(start, end, size) {
       const resultsCount = this._entryCollection?.size ?? 0;
       const counterElement = document.querySelector('.openculturas-map--results-counter');
+      if (!counterElement) {
+        return;
+      }
       if(size < 1) {
         counterElement.innerText = Drupal.t("Searching...");
       } else {
@@ -1544,7 +1551,7 @@
       if(this.reloadInteraction === false) {
         render = true;
       } else {
-        if(this._entryCollection.size > 0 && this._renderedEntryCollection.hash !== this._entryCollection.hash && this.resultsElement.children.length > 0) {
+        if(this._entryCollection.size > 0 && this._renderedEntryCollection.hash !== this._entryCollection.hash && this.resultsElement?.children.length > 0) {
           this.wrapperElement.dataset.dirty = "true";
         } else {
           this.wrapperElement.dataset.dirty = "";
@@ -1553,7 +1560,7 @@
 
       this._renderMarker();
 
-      if(!render && this.resultsElement.children.length > 0) {
+      if(!render && this.resultsElement?.children.length > 0) {
         console.debug("skipping render of results");
         //this._renderPagedResults(this._renderedEntryCollection);
         return;
@@ -1618,8 +1625,8 @@
       if(this.settings.get('control_locate')) {
         L.control.locate({
           position: "topleft",
-          title: Drupal.t("Locate me"),
-          zoom: this.zoom.map,
+          strings: { title: Drupal.t("Locate me") },
+          keepCurrentZoomLevel: true,
         }).addTo(this.mapInstance);
       }
 
