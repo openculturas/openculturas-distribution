@@ -211,6 +211,7 @@ function openculturas_post_update_3_0(): string {
     'core.entity_view_mode.paragraph.trigger_warnings',
     'core.entity_view_display.paragraph.gallery.grid',
     'core.entity_view_display.paragraph.a11y_wheelchair.a11y',
+    'core.entity_view_display.paragraph.accessibility.a11y',
   ];
 
   $output = _openculturas_post_update_import_or_revert_config($full_config_names);
