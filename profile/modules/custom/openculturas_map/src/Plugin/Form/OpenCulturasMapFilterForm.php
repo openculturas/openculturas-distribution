@@ -114,9 +114,7 @@ class OpenCulturasMapFilterForm extends FormBase {
       $form['#delta_limit'] = $this->viewExecutable->field['field_date_1']->options['delta_limit'];
     }
 
-    if ($this->viewExecutable->pager !== NULL) {
-      $form['#pager'] = $this->viewExecutable->pager;
-    }
+    $form['#pager'] = $this->viewExecutable->getPager();
 
     $skipKeys = ["items_per_page", "offset"];
     foreach ($form as $key => $value) {
