@@ -1,0 +1,56 @@
+// ---------------------------------------
+// Accessibility
+// ---
+// Related: paragraph/paragraph--accessibility.scss
+// ---
+// Nested structure:
+// - field--name-field-accessibility
+//   * field__item > paragraph--type--accessibility (flat structure via template overrides)
+//     - field--name-field-trigger-warnings (> unlimited terms)
+//     - field--name-field-a11y-features (> unlimited terms)
+//     - field--name-field-a11y-info (> long text)
+//   * field_item > paragraph--type--a11y-wheelchair (> max. 2 fields)
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.block--a11y {
+  @extend %grid;
+  @extend %grid-3;
+
+  > h2 {
+    order: 1;
+    grid-column: 1 / -1;
+  }
+
+  .field--name-field-a11y-features {
+    order: 3;
+  }
+
+  .field--name-field-trigger-warnings {
+    order: 4;
+  }
+
+  .field--name-field-a11y-info {
+    order: 5;
+    grid-column: 1 / -1;
+  }
+
+  .paragraph--type--a11y-wheelchair {
+    order: 2;
+  }
+}
+
+.section--aside {
+  .block--a11y {
+    @include breakpoint(s) {
+      --oc-grid-item-count: 2;
+    }
+    @include breakpoint(m) {
+      --oc-grid-item-count: 1;
+      padding-block-start: calc(1.825 * var(--oc-font-size-xxl)); // adjust to headline in section--first
+    }
+  }
+}
+
+

@@ -35,23 +35,21 @@
  *
  * @see template_preprocess_paragraph()
  *
+ * No wrapper markup, we use the fields in a flat structure in field--node--field-accessibility.html.twig
+ *
  * @ingroup themeable
  */
 #}
 {%
   set classes = [
-    'paragraph',
-    'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished entity--unpublished'
-  ]
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'field--label-above',
+  not paragraph.isPublished() ? 'paragraph--unpublished entity--unpublished'
+]
 %}
-{% block paragraph %}
-  {% if content|render|trim is not empty %}
-  <div{{ attributes.addClass(classes) }}>
-    {% block content %}
-      {{ content }}
-    {% endblock %}
-  </div>
-  {% endif %}
-{% endblock paragraph %}
+
+{% if content|render|trim is not empty %}
+  {{ content }}
+{% endif %}

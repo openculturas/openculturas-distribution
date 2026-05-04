@@ -2,15 +2,7 @@
 // Accessibility (+ triggers paragraph
 // ---
 // Including corresponding field styles
-// Related: base/_icons-ext.scss
-// ---
-// Nested structure:
-// - field--name-field-accessibility
-//   * field__item > paragraph--type--accessibility
-//     - field--name-field-trigger-warnings (> unlimited terms)
-//     - field--name-field-a11y-features (> unlimited terms)
-//     - field--name-field-a11y-info (> long text)
-//   * field_item > paragraph--type--a11y-wheelchair (> max. 2 fields)
+// Related: field/field--accessibility.scss, base/_icons-ext.scss
 // ---------------------------------------
 
 @use "../../sass/abstracts" as *;
@@ -18,53 +10,17 @@
 .field--name-field-accessibility {
   h3 {
     @extend %label;
+    padding-block: 0;
   }
 }
 
-
-.section--first .field--name-field-accessibility {
-  > .field__items {
-    @extend %grid;
-    @extend %grid-3;
-  }
-
-  .field__item:first-child {
-    grid-column: 1 / -2;
-  }
-}
-
-.section--first .paragraph--type--accessibility.paragraph--view-mode--grid {
-  .field__label {
-    //margin-block-end: var(--oc-row-gap);
-  }
-
-  @extend %grid;
-  @extend %grid-2;
-  grid-row-gap: 0;
-
-  @include breakpoint(m) {
-    --oc-grid-item-count: 1;
-  }
-
-  @include breakpoint(xl) {
-    --oc-grid-item-count: 2;
-  }
-
-  @include breakpoint(xl) {
-    &:has(.field:nth-child(3)) .field:nth-child(2) {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-    }
-  }
-}
-
-.paragraph.paragraph--type--a11y-wheelchair.paragraph--view-mode--grid {
+.paragraph--type--a11y-wheelchair {
   // Headline
   .label {
     --oc-font-size-icon: var(--oc-font-size-icon-l);
-    margin-block: -.333rem;
-    text-indent: calc(-1.5 * var(--oc-font-size-icon-l));
-    margin-inline-start: calc(1.25 * var(--oc-font-size-icon-l));
+    margin-block: calc(-.25 * var(--oc-font-size-icon)) 0;
+    //text-indent: calc(-1.5 * var(--oc-font-size-icon-l));
+    //margin-inline-start: calc(1.25 * var(--oc-font-size-icon-l));
 
     &::before {
       transform: translateY(.5rem);
@@ -72,7 +28,7 @@
   }
 
   // Field labels
-  .field__label {
+  .field .field__label {
     letter-spacing: unset;
     text-transform: unset;
     font-weight: normal;
@@ -83,22 +39,23 @@
   }
 }
 
-.section--first .paragraph.paragraph--type--a11y-wheelchair.paragraph--view-mode--grid {
-  margin-block-start: var(--oc-row-gap);
+.terms--plain .field__label {
+  margin-block-end: .75em;
+}
 
+.paragraph.paragraph--type--a11y-wheelchair {
   > .field__items > .field__item {
     font-weight: var(--oc-font-weight-medium);
   }
 }
 
-// @todo Add field keys as CSS classes for fields in paragraph--type--a11y-wheelchair
-.a11y-yes {
+.a11y-yes .field__item {
   color: var(--oc-color-success);
 }
-.a11y-limited {
+.a11y-limited .field__item {
   color: var(--oc-color-danger-dark);
 }
-.a11y-no {
+.a11y-no .field__item {
   color: var(--oc-color-danger);
 }
 
@@ -110,3 +67,63 @@
     margin-block-start: calc(3.75 * var(--oc-font-size-xl));
   }
 }
+
+// ---
+// Flexible columns because a11y information can differ a lot
+// @todo Review (may be obsolete)
+
+.field--name-field-accessibility:has(.paragraph--type--accessibility.paragraph--view-mode--default) {
+  container: a11y / inline-size;
+}
+
+.paragraph--type--accessibility.paragraph--view-mode--default {
+  > .field {
+    margin-block-end: var(--oc-row-gap);
+    float: inline-start;
+
+    @container a11y (width > 48rem) {
+      max-width: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
+    }
+
+    @container a11y (width > 90ch) {
+      max-width: calc(3 * var(--oc-grid-step) - var(--oc-gutter));
+    }
+  }
+
+  .field--name-field-a11y-info {
+    @container a11y (width > 90ch) {
+      max-width: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
+      //float: inline-start;
+      margin-inline-end: var(--oc-gutter);
+    }
+  }
+}
+
+.a11y--wheelchair.field {
+  margin-block-end: var(--oc-row-gap);
+}
+
+.paragraph--type--accessibility {
+  margin-block-end: var(--oc-row-gap);
+}
+
+.field--name-field-accessibility {
+  //margin-block-start: var(--oc-section-spacing);
+
+  > .field__items > .field__items {
+    margin-block-end: var(--oc-row-gap);
+  }
+
+  //&:has(h2:first-child) {
+  //  margin-block: 0;
+  //}
+
+  > h2 {
+    column-span: all;
+    margin-block: 0 var(--oc-row-gap);
+  }
+}
+
+// ---
+// All a11y/warnings field in a flat structure (view mode default)
+// see field--accessibility.scss

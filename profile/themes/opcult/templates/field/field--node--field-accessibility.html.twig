@@ -53,23 +53,9 @@
 ]
 %}
 
-{% block field %}
-  <div{{ attributes.addClass(classes) }}>
-    {% block label %}
-      {% if not label_hidden %}
-        {% block label_visible %}
-          <h2{{ title_attributes.addClass(title_classes) }}>{{ label }}</h2>
-        {% endblock label_visible %}
-      {% endif %}
-    {% endblock label %}
-    {% block items %}
-      <div class="field__items">
-        {% for item in items %}
-          {% block item %}
-            <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
-          {% endblock item %}
-        {% endfor %}
-      </div>
-    {% endblock items %}
-  </div>
-{% endblock field %}
+{% if not label_hidden %}
+  <h2{{ title_attributes.addClass(title_classes) }}>{{ label }}</h2>
+{% endif %}
+{% for item in items %}
+  {{ item.content }}
+{% endfor %}

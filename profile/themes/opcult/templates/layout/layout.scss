@@ -104,6 +104,11 @@ h2.block--title,
   margin-block-start: calc(.5 * var(--oc-section-spacing));
 }
 
+.section--last h2.block--title {
+  margin-block-start: 0;
+  padding-block-start: 0;
+}
+
 .main__content {
   padding-block-end: var(--oc-section-spacing);
 }
@@ -112,3 +117,68 @@ h2.block--title,
 // Flags in layouts
 // See: flag/flag.scss
 
+// ---
+// Layout block utility classes
+
+.block-compact {
+  --oc-block-size: 100%;
+  max-inline-size: var(--oc-block-size);
+  flex-basis: var(--oc-block-size);
+
+  @include breakpoint(m) {
+    --oc-block-size: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
+  }
+  @include breakpoint(xl) {
+    --oc-block-size: calc(3 * var(--oc-grid-step) - var(--oc-gutter));
+  }
+}
+
+.block-compact.multi-value:has(> .field > .field__items > .field__item:nth-child(2)) {
+  display: flex;
+  flex-flow: column;
+
+  @include breakpoint(m) {
+    max-inline-size: var(--oc-block-size);
+    flex-basis: var(--oc-block-size);
+  }
+
+  @include breakpoint(xl) {
+    --oc-block-size: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
+  }
+
+  > .field {
+    inline-size: 100%;
+
+    > .field__items {
+      inline-size: 100%;
+      display: flex;
+      flex-flow: column;
+
+      @include breakpoint(m) {
+        flex-flow: row;
+        gap: var(--oc-row-gap) var(--oc-gutter);
+
+        > .field__item {
+        flex-basis: calc(50% - calc(.5 * var(--oc-gutter)));
+        }
+      }
+    }
+  }
+}
+
+.block-full-width {
+  inline-size: 100%;
+  flex-basis: 100%;
+  grid-column: 1 / -1;
+}
+
+// ---
+// Node location: address/map and accessibility blocks share a region; we let some blocks float
+
+.address-region .section--first {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+
+// @todo: float "full-width" block:has(.paragraph--view-mode--text-only) containing only few text

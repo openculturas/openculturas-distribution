@@ -35,6 +35,8 @@
  *
  * @see template_preprocess_paragraph()
  *
+ * We only want to render this paragraph (as one of 2 possible field items) in a hand-picked view mode.
+ *
  * @ingroup themeable
  */
 #}
@@ -43,14 +45,14 @@
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'field--label-above',
   not paragraph.isPublished() ? 'paragraph--unpublished entity--unpublished'
 ]
 %}
-{% block paragraph %}
+
+{% if content|render|trim is not empty %}
   <div{{ attributes.addClass(classes) }}>
-    <h3 class="label">{{ 'Wheelchair Accessibility'|t }}</h3>
-    {% block content %}
+    <h3 class="label field__label">{{ 'Wheelchair accessibility'|t }}</h3>
       {{ content }}
-    {% endblock %}
   </div>
-{% endblock paragraph %}
+{% endif %}

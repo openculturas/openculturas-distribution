@@ -31,11 +31,12 @@
   }
 
   @include breakpoint(m) {
-    grid-template-columns: 2fr 4fr;
-
+    grid-template-columns: calc(3 * var(--oc-grid-step) - var(--oc-gutter)) auto;
+    gap: 0;
     grid-template-areas:
       "address map"
       "links map";
+    //margin-block-end: var(--oc-row-gap);
   }
 }
 

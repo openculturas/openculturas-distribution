@@ -103,14 +103,20 @@ is rendered.
 <dl>
   <dt><code>address-region</code></dt>
   <dd>Layout section class for 2 column sections to modify breakpoint-related wrapping of the "sidebar"</dd>
-  <dt><code>no-whitespace-below</code></dt>
-  <dd>Layout class attribute for top (5 column) area to avoid whitespace between body + content elements fields</dd>
+  <dt><code>block-compact</code></dt>
+  <dd>Layout block class attribute, limits maximum width</dd>
+  <dt><code>block-full-width</code></dt>
+  <dd>Layout block class attribute for full-width blocks</dd>
   <dt><code>block-field-mood-image</code></dt>
   <dd>Attribute attached to the media asset in the hero layout grid.</dd>
   <dt><code>copy-area</code></dt>
   <dd>Because lines of text are limited to a readable length, you can use this class to indent copy text in wider viewports.</dd>
   <dt><code>details</code></dt>
   <dd>Similar to <code>copy-area</code>, dedicated to lists in details components (e.g. on FAQ category pages)</dd>
+  <dt><code>no-whitespace-below</code></dt>
+  <dd>Layout class attribute for top (5 column) area to avoid whitespace between body + content elements fields</dd>
+  <dt><code>space-before</code></dt>
+  <dd>Layout block class to add space above</dd>
   <dt><code>teaser-section</code></dt>
   <dd>Layout section class for a dedicated background. Used e.g. for magazine article "mentions".</dd>
   <dd>Block class attribute for the "Main image" field block. Required to properly handle the mood image's

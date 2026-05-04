@@ -1,9 +1,9 @@
-uuid: 76d4433b-db3d-4f4f-8415-7c7f6ca3b794
+uuid: e77f026f-a3b3-4977-b852-b0b739ead150
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.paragraph.grid
+    - core.entity_view_mode.paragraph.a11y
     - field.field.paragraph.accessibility.field_a11y_features
     - field.field.paragraph.accessibility.field_a11y_info
     - field.field.paragraph.accessibility.field_trigger_warnings
@@ -16,10 +16,10 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: paragraph.accessibility.grid
+id: paragraph.accessibility.a11y
 targetEntityType: paragraph
 bundle: accessibility
-mode: grid
+mode: a11y
 content:
   field_a11y_features:
     type: entity_reference_label
@@ -29,24 +29,15 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    weight: 1
+    weight: 0
     region: content
   field_a11y_info:
     type: text_default
-    label: above
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
-    region: content
-  field_trigger_warnings:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: false
-    third_party_settings:
-      field_formatter_class:
-        class: ''
-    weight: 0
+    weight: 1
     region: content
 hidden:
+  field_trigger_warnings: true
   search_api_excerpt: true

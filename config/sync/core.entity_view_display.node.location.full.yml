@@ -374,7 +374,7 @@ third_party_settings:
           first:
             layout_custom_classes: ''
           second:
-            layout_custom_classes: ''
+            layout_custom_classes: section--opening-hours
           layout_bg_color: ''
           layout_id: location
         components:
@@ -398,7 +398,23 @@ third_party_settings:
                   field_formatter_class:
                     class: ''
             weight: 1
-            additional: {  }
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: block-full-width
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
           41955deb-53cc-4262-8af6-f6eeaa06fac6:
             uuid: 41955deb-53cc-4262-8af6-f6eeaa06fac6
             region: second
@@ -445,26 +461,6 @@ third_party_settings:
                 third_party_settings:
                   field_formatter_class:
                     class: ''
-            weight: 1
-            additional: {  }
-          e5afef07-4d64-45e2-b994-2e66487b4e6c:
-            uuid: e5afef07-4d64-45e2-b994-2e66487b4e6c
-            region: second
-            configuration:
-              id: 'field_block:node:location:field_opening_hours'
-              label: 'Opening hours info'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: text_default
-                label: visually_hidden
-                settings: {  }
-                third_party_settings:
-                  field_formatter_class:
-                    class: ''
             weight: 2
             additional: {  }
           790e31c5-b705-41a0-9591-b8dd3092e399:
@@ -472,7 +468,7 @@ third_party_settings:
             region: first
             configuration:
               id: 'field_block:node:location:field_accessibility'
-              label: Accessibility/warnings
+              label: Accessibility
               label_display: visible
               provider: layout_builder
               context_mapping:
@@ -482,21 +478,21 @@ third_party_settings:
                 type: entity_reference_revisions_entity_view
                 label: hidden
                 settings:
-                  view_mode: grid
+                  view_mode: default
                 third_party_settings:
                   field_formatter_class:
                     class: ''
-            weight: 2
+            weight: 3
             additional:
               component_attributes:
                 block_attributes:
                   id: ''
-                  class: ''
+                  class: 'block-full-width block--a11y'
                   style: ''
                   data: ''
                 block_title_attributes:
                   id: ''
-                  class: visually-hidden
+                  class: h3
                   style: ''
                   data: ''
                 block_content_attributes:
@@ -522,8 +518,44 @@ third_party_settings:
                 third_party_settings:
                   field_formatter_class:
                     class: ''
-            weight: 3
+            weight: 6
             additional: {  }
+          e5afef07-4d64-45e2-b994-2e66487b4e6c:
+            uuid: e5afef07-4d64-45e2-b994-2e66487b4e6c
+            region: second
+            configuration:
+              id: 'field_block:node:location:field_opening_hours'
+              label: 'Opening hours'
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: visually_hidden
+                settings: {  }
+                third_party_settings:
+                  field_formatter_class:
+                    class: ''
+            weight: 1
+            additional:
+              component_attributes:
+                block_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
+                block_title_attributes:
+                  id: ''
+                  class: h3
+                  style: ''
+                  data: ''
+                block_content_attributes:
+                  id: ''
+                  class: ''
+                  style: ''
+                  data: ''
         third_party_settings: {  }
       -
         layout_id: layout_oc1col_section

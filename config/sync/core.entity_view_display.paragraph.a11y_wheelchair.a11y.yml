@@ -1,0 +1,42 @@
+uuid: ba4f359c-5b70-41ee-9346-82d0bc02176a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.a11y
+    - field.field.paragraph.a11y_wheelchair.field_a11y_toilets_wheelchair
+    - field.field.paragraph.a11y_wheelchair.field_a11y_wheelchair
+    - paragraphs.paragraphs_type.a11y_wheelchair
+  module:
+    - field_formatter_class
+    - layout_builder
+    - options
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.a11y_wheelchair.a11y
+targetEntityType: paragraph
+bundle: a11y_wheelchair
+mode: a11y
+content:
+  field_a11y_toilets_wheelchair:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: a11y--wheelchair-toilet
+    weight: 2
+    region: content
+  field_a11y_wheelchair:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: a11y--wheelchair
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -207,8 +207,10 @@ function openculturas_post_update_3_0(): string {
   $full_config_names = [
     'language.content_settings.paragraph.a11y_wheelchair',
     // Does only look good in Opcult.
+    'core.entity_view_mode.paragraph.a11y',
+    'core.entity_view_mode.paragraph.trigger_warnings',
     'core.entity_view_display.paragraph.gallery.grid',
-    'core.entity_view_display.paragraph.accessibility.grid',
+    'core.entity_view_display.paragraph.a11y_wheelchair.a11y',
   ];
 
   $output = _openculturas_post_update_import_or_revert_config($full_config_names);
@@ -256,6 +258,15 @@ function openculturas_post_update_3_0(): string {
     // Limit a11y paragraph field instances.
     'field.field.node.date.field_accessibility',
     'field.field.node.event.field_accessibility',
+
+    // Fix Drupal modal content padding, User-friendly complex tables.
+    'asset_injector.css.oc_gin_theme_overrides',
+
+    // Hide labels.
+    'core.entity_view_display.paragraph.accessibility.default',
+    'core.entity_view_display.paragraph.contact_data.default',
+    // Changed swiffy_slider_permalink.
+    'core.entity_view_display.paragraph.text_slider.slider_multiple',
   ];
 
   _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
