@@ -580,3 +580,43 @@ a.spotify,
 //  @include icon(medium-logo);
 //}
 
+// ---
+// Feed icons
+
+.feed-icon,
+.views-data-export-feed .feed-icon {
+  @extend %icon-link;
+  --oc-font-size-icon: var(--oc-font-size-icon-l);
+
+  &::before {
+  }
+}
+
+.feed-icon {
+  background-image: none;
+  display: inline-block;
+}
+
+.csv-feed,
+.json-feed,
+.xml-feed {
+  .feed-icon {
+    background-image: none;
+  }
+}
+
+.feed-icon {
+  @include icon(rss);
+}
+
+.csv-feed .feed-icon {
+  @include icon(file-csv);
+}
+
+.json-feed .feed-icon {
+  @include icon(file-json);
+}
+
+.xml-feed .feed-icon {
+  @include icon(file-xml);
+}

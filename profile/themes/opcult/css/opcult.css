@@ -85,7 +85,7 @@ a.x::before,
 .fa-tumblr::before, a.reddit::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
-.fa-spotify::before, .text-formatted a[href^=http]::after,
+.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .text-formatted a[href^=http]::after,
 .text-formatted a.external::after,
 .teaser--title a[href^=http]::after,
 .teaser--title a.external::after, .anchorlinks::before, input[type=radio]::before, input[type=radio]::after, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]::after, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .button--edit a::before, button.close::before,
@@ -191,7 +191,7 @@ a.x::before,
 .fa-tumblr::before, a.reddit::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
-.fa-spotify::before, .anchorlinks::before, input[type=radio]::before, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, .button--edit a::before, button.close::before,
+.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .anchorlinks::before, input[type=radio]::before, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, .button--edit a::before, button.close::before,
 a.button.close::before,
 a.leaflet-popup-close-button::before,
 .cookiesjsr-layer--close::before, .icon.monitor::before, .icon.tv::before, .icon.map-pin::before, .icon.location-dot::before, .icon.list::before, .icon.table-list::before, .icon.squares-four::before, .icon.table-cells-large::before, .icon.archive::before, .icon.box-archive::before, .menu--call-to-action a[data-drupal-link-system-path]::before, .menu--call-to-action a[href*="node/add/location"]::before,
@@ -237,7 +237,8 @@ a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^
 .flag-bookmark-term .flag--link:focus,
 .flag-bookmark-term .flag--link:hover,
 .flag-bookmark-term .flag--button:focus,
-.flag-bookmark-term .flag--button:hover, .profile-teaser .badge--peer, .leaflet-container a.leaflet-popup-close-button, .cookiesjsr-layer .cookiesjsr-layer--close, .field-social a, .popover-content .shariff-col-3 a, .button-popover-trigger, .ui-dialog .ui-dialog-titlebar button,
+.flag-bookmark-term .flag--button:hover, .profile-teaser .badge--peer, .leaflet-container a.leaflet-popup-close-button, .cookiesjsr-layer .cookiesjsr-layer--close, .feed-icon,
+.views-data-export-feed .feed-icon, .field-social a, .popover-content .shariff-col-3 a, .button-popover-trigger, .ui-dialog .ui-dialog-titlebar button,
 .dialog-titlebar button, .ui-dialog .ui-dialog-titlebar-close,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close, .header__utilities button[class*=trigger]:not(.focusable), .header__burger--buttons, .attribution-popover-trigger, button:not([disabled]).shwpd, .map-link.button, .dark-mode-toggle--popover-button, .scroll-to-top {
   --oc-font-size-icon: var(--oc-font-size-icon-m);
@@ -270,7 +271,8 @@ a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^
 .flag-bookmark-term .flag--link:focus::before,
 .flag-bookmark-term .flag--link:hover::before,
 .flag-bookmark-term .flag--button:focus::before,
-.flag-bookmark-term .flag--button:hover::before, .profile-teaser .badge--peer::before, .leaflet-container a.leaflet-popup-close-button::before, .cookiesjsr-layer .cookiesjsr-layer--close::before, .field-social a::before, .popover-content .shariff-col-3 a::before, .button-popover-trigger::before, .ui-dialog .ui-dialog-titlebar button::before,
+.flag-bookmark-term .flag--button:hover::before, .profile-teaser .badge--peer::before, .leaflet-container a.leaflet-popup-close-button::before, .cookiesjsr-layer .cookiesjsr-layer--close::before, .feed-icon::before,
+.views-data-export-feed .feed-icon::before, .field-social a::before, .popover-content .shariff-col-3 a::before, .button-popover-trigger::before, .ui-dialog .ui-dialog-titlebar button::before,
 .dialog-titlebar button::before, .ui-dialog .ui-dialog-titlebar-close::before,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close::before, .header__utilities button[class*=trigger]:not(.focusable)::before, .header__burger--buttons::before, .attribution-popover-trigger::before, button.shwpd:not([disabled])::before, .map-link.button::before, .dark-mode-toggle--popover-button::before, .scroll-to-top::before {
   font-size: var(--oc-font-size-icon-m);
@@ -291,10 +293,11 @@ a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^
   padding: 0;
 }
 
-.field-social a, .popover-content .shariff-col-3 a {
+.feed-icon,
+.views-data-export-feed .feed-icon, .field-social a, .popover-content .shariff-col-3 a {
   background-color: transparent;
 }
-.field-social a:focus-visible, .popover-content .shariff-col-3 a:focus-visible, .field-social a:hover, .popover-content .shariff-col-3 a:hover {
+.feed-icon:focus-visible, .field-social a:focus-visible, .popover-content .shariff-col-3 a:focus-visible, .feed-icon:hover, .field-social a:hover, .popover-content .shariff-col-3 a:hover {
   color: var(--oc-color-link-focus-text);
   background-color: var(--oc-color-link-focus-bg);
   border-color: transparent;
@@ -3411,6 +3414,37 @@ a.spotify::before,
   --icon-url: url("../sprite/oc-sprite.svg#spotify-logo-light");
 }
 
+.feed-icon,
+.views-data-export-feed .feed-icon {
+  --oc-font-size-icon: var(--oc-font-size-icon-l);
+}
+.feed-icon {
+  background-image: none;
+  display: inline-block;
+}
+
+.csv-feed .feed-icon,
+.json-feed .feed-icon,
+.xml-feed .feed-icon {
+  background-image: none;
+}
+
+.feed-icon::before {
+  --icon-url: url("../sprite/oc-sprite.svg#rss-light");
+}
+
+.csv-feed .feed-icon::before {
+  --icon-url: url("../sprite/oc-sprite.svg#file-csv-light");
+}
+
+.json-feed .feed-icon::before {
+  --icon-url: url("../sprite/oc-sprite.svg#file-json-light");
+}
+
+.xml-feed .feed-icon::before {
+  --icon-url: url("../sprite/oc-sprite.svg#file-xml-light");
+}
+
 footer.footer {
   position: relative;
 }
@@ -6382,6 +6416,7 @@ figcaption:has(.attribution-toggle:only-child) {
   inline-size: 100%;
   font-size: var(--oc-font-size-icon-xxl);
   transform: translateX(0) translateY(-40%);
+  -webkit-mask-position-y: 0;
   mask-position-y: 0;
   mask-size: contain;
 }
@@ -7905,6 +7940,11 @@ article.teaser-unified .teaser--body {
 .views-table .taxonomy-term--tag {
   white-space: pre;
   margin-block-end: 0;
+}
+
+.feed-icons {
+  display: flex;
+  gap: var(--oc-gutter);
 }
 
 .intro-inline > .field--type-viewfield,
