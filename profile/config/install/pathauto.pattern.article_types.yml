@@ -1,17 +1,18 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.article_type
   module:
     - taxonomy
 id: article_types
 label: 'Article type (all languages)'
 type: 'canonical_entities:taxonomy_term'
-pattern: '[term:parents:join-path]/[term:name]'
+pattern: '/[term:parents:join-path]/[term:name]'
 selection_criteria:
   8e1b8e54-8330-4a88-aaf2-d26bbeefd1e8:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 8e1b8e54-8330-4a88-aaf2-d26bbeefd1e8
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
