@@ -1,6 +1,8 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.location_type
   module:
     - language
     - taxonomy
@@ -12,7 +14,6 @@ selection_criteria:
   08599665-df85-4fc3-b2ea-ea0ba84bff78:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 08599665-df85-4fc3-b2ea-ea0ba84bff78
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
@@ -20,7 +21,6 @@ selection_criteria:
   88deba94-dd45-4443-80a1-870078592285:
     id: language
     negate: false
-    uuid: 88deba94-dd45-4443-80a1-870078592285
     context_mapping:
       language: 'taxonomy_term:langcode:language'
     langcodes:

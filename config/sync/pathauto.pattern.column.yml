@@ -2,18 +2,19 @@ uuid: 41009d99-09a2-4f2a-baab-7556540fbdd8
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.column
   module:
     - language
     - taxonomy
 id: column
 label: 'Column (EN)'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'magazine/columns/[term:parents:join-path]/[term:name]'
+pattern: '/magazine/columns/[term:parents:join-path]/[term:name]'
 selection_criteria:
   786ceca6-d4ce-4c0d-a315-79f3bd42fbc0:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 786ceca6-d4ce-4c0d-a315-79f3bd42fbc0
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
@@ -21,7 +22,6 @@ selection_criteria:
   bff1d042-da49-46f0-a536-11ce2a9bcb4f:
     id: language
     negate: false
-    uuid: bff1d042-da49-46f0-a536-11ce2a9bcb4f
     context_mapping:
       language: 'taxonomy_term:langcode:language'
     langcodes:

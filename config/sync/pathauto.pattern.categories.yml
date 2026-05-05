@@ -2,18 +2,19 @@ uuid: 66350c5d-7ca5-444e-8bba-b2188388c68c
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.category
   module:
     - language
     - taxonomy
 id: categories
 label: 'Category (EN)'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'categories/[term:parents:join-path]/[term:name]'
+pattern: '/categories/[term:parents:join-path]/[term:name]'
 selection_criteria:
   95898230-b3f3-4a9b-b927-3e9d18345d50:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 95898230-b3f3-4a9b-b927-3e9d18345d50
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
@@ -21,7 +22,6 @@ selection_criteria:
   2b5a8242-f0a4-42ed-9ad0-4ea04ceebbfa:
     id: language
     negate: false
-    uuid: 2b5a8242-f0a4-42ed-9ad0-4ea04ceebbfa
     context_mapping:
       language: 'taxonomy_term:langcode:language'
     langcodes:

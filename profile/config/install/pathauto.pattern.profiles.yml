@@ -1,17 +1,18 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.profile
   module:
     - node
 id: profiles
 label: 'Profile (all languages)'
 type: 'canonical_entities:node'
-pattern: 'community/[node:title]'
+pattern: '/community/[node:title]'
 selection_criteria:
   91634a81-eb43-475f-8813-29979a347e20:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 91634a81-eb43-475f-8813-29979a347e20
     context_mapping:
       node: node
     bundles:

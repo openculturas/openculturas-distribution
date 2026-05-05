@@ -2,6 +2,8 @@ uuid: 4a047084-4882-48d4-9769-e354f660cd19
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.faq
   module:
     - node
   enforced:
@@ -12,12 +14,11 @@ _core:
 id: faq_all_languages
 label: 'FAQ (all languages)'
 type: 'canonical_entities:node'
-pattern: 'faq/[node:field_faq_category:entity:name]/[node:title]'
+pattern: '/faq/[node:field_faq_category:entity:name]/[node:title]'
 selection_criteria:
   64f7a3a7-4d35-4ac5-b7cb-18d7bbadf232:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 64f7a3a7-4d35-4ac5-b7cb-18d7bbadf232
     context_mapping:
       node: node
     bundles:

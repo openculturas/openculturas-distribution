@@ -2,6 +2,8 @@ uuid: ec924b02-c058-4669-84f4-65246102a68d
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.comment
   module:
     - language
     - node
@@ -13,12 +15,11 @@ _core:
 id: comment
 label: 'Comment (EN)'
 type: 'canonical_entities:node'
-pattern: 'discussion/[node:field_ref_node:target_id]/comment/[node:nid]'
+pattern: '/discussion/[node:field_ref_node:target_id]/comment/[node:nid]'
 selection_criteria:
   a2734a18-a8e4-484a-8148-0c0afabf0364:
     id: 'entity_bundle:node'
     negate: false
-    uuid: a2734a18-a8e4-484a-8148-0c0afabf0364
     context_mapping:
       node: node
     bundles:
@@ -26,7 +27,6 @@ selection_criteria:
   d7cd8dbb-694e-4a7c-ad93-06c869eac660:
     id: language
     negate: false
-    uuid: d7cd8dbb-694e-4a7c-ad93-06c869eac660
     context_mapping:
       language: 'node:langcode:language'
     langcodes:
