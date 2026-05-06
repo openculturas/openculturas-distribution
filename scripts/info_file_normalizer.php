@@ -238,7 +238,7 @@ $comments = new class
 
 $finder = (new Finder())->files()->in('profile/')->exclude('config/')->name('*.info.yml');
 
-const VERSION = '3.0.x-dev';
+const VERSION = '3.0.0-beta1';
 foreach ($finder->getIterator() as $file) {
   $yamlContent = $file->getContents();
   $comments->collect(explode("\n", $yamlContent));
@@ -262,7 +262,7 @@ foreach ($finder->getIterator() as $file) {
   $new_info = [
     'name' => $info['name'],
     'type' => $info['type'],
-    'core_version_requirement' => '^10 || ^11',
+    'core_version_requirement' => '^11',
     'description' => $info['description'],
     'package' => 'OpenCulturas',
     'version' => VERSION,
