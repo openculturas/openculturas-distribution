@@ -71,6 +71,11 @@ function openculturas_install_content(): void {
   // We only want to import the content,
   // then we do not need the module anymore.
   $module_installer->install(['openculturas_content']);
+  // Reload the service, or we get the error:
+  // In ContainerBuilder.php line 1104:
+  // You have requested a synthetic service ("kernel"). The DIC does not know how to construct this service.
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = \Drupal::service('module_installer');
   $module_installer->uninstall(['default_content', 'openculturas_content']);
 
   $config = $configFactory->getEditable('system.site');
