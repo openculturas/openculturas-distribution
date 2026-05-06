@@ -1253,6 +1253,7 @@
       this.settings = new Drupal.OpenCulturasMapSettings(this.wrapperElement.dataset.identifier ?? null);
       this.minZoom = Math.min(this.settings.get('start_zoom_position') ?? 1, 1);
       this.maxZoom = 19;
+      this.showOnMapZoom = parseInt(this.settings.get('show_on_map_zoom')) || this.maxZoom;
 
       this.radiusBase = parseFloat(this.settings.get('radius_base')) ?? 0.0430;
       this.radius = [
@@ -1791,7 +1792,7 @@
 
       const marker = entry.marker.toLMarker();
       this.mapInstance.closePopup();
-      this.mapInstance.setView(marker._latlng, this.maxZoom);
+      this.mapInstance.setView(marker._latlng, this.showOnMapZoom);
       this.mapElement.scrollIntoView();
 
       setTimeout(() => {

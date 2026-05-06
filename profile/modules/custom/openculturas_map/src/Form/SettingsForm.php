@@ -105,6 +105,17 @@ final class SettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
+    $form['start_position']['show_on_map_zoom'] = [
+      '#group' => 'location',
+      '#type' => 'number',
+      '#min' => 1,
+      '#max' => 19,
+      '#title' => $this->t('"Show on map" zoom level (1 - 19)'),
+      '#description' => $this->t('The zoom level used when clicking "Show on map" to focus a location marker. For orientation: 15 shows a neighbourhood, 19 zooms to maximum detail.'),
+      '#default_value' => $config->get('show_on_map_zoom'),
+      '#required' => TRUE,
+    ];
+
     $form['marker_icon'] = [
       '#type' => 'details',
       '#open' => TRUE,
@@ -354,6 +365,7 @@ final class SettingsForm extends ConfigFormBase {
     $config->set('start_lat_position', $form_state->getValue('start_lat_position'));
     $config->set('start_lng_position', $form_state->getValue('start_lng_position'));
     $config->set('start_zoom_position', $form_state->getValue('start_zoom_position'));
+    $config->set('show_on_map_zoom', $form_state->getValue('show_on_map_zoom'));
     $config->set('marker_anchor_popup_width', $form_state->getValue('marker_anchor_popup_width'));
     $config->set('marker_anchor_popup_height', $form_state->getValue('marker_anchor_popup_height'));
     $config->set('marker_cluster_anchor_popup_width', $form_state->getValue('marker_cluster_anchor_popup_width'));

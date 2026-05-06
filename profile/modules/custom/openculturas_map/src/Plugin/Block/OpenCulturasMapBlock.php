@@ -200,6 +200,15 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       '#default_value' => $this->configuration['start_zoom_position'],
     ];
 
+    $form['overrides']['show_on_map_zoom'] = [
+      '#title' => $this->t('"Show on map" zoom level'),
+      '#description' => $this->t('The zoom level used when clicking "Show on map" to focus a location marker. Overrides the global setting. Leave 0 to use the global setting.'),
+      '#type' => 'number',
+      '#min' => 0,
+      '#max' => 19,
+      '#default_value' => $this->configuration['show_on_map_zoom'] ?? 0,
+    ];
+
     return $form;
   }
 
@@ -224,7 +233,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       }
     }
 
-    $overrideSettings = ['start_lat_position', 'start_lng_position', 'start_zoom_position'];
+    $overrideSettings = ['start_lat_position', 'start_lng_position', 'start_zoom_position', 'show_on_map_zoom'];
     $overridden_values = $form_state->getValue('overrides');
     if (is_array($overridden_values)) {
       foreach ($overrideSettings as $overrideSetting) {
