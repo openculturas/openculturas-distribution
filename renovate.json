@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>devops/renovate-config", ":semanticCommitTypeAll(chore)"],
+  "extends": [
+    "local>devops/renovate-config",
+    "local>devops/renovate-config:composer-inline-repositories",
+    "local>devops/renovate-config:openculturas",
+    ":semanticCommitTypeAll(chore)"
+  ],
   "rangeStrategy": "bump",
   "ignorePaths": [
     "**/node_modules/**",
@@ -12,85 +17,6 @@
     ".ddev/docker-compose.selenium-chrome.yaml"
   ],
   "baseBranchPatterns": ["3.0.x", "2.6.x"],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "description": "Update version field for GitHub archive libraries in composer.json repositories",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/",
-        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"extra\":\\s*\\{[^}]+\\},\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/"
-      ],
-      "datasourceTemplate": "github-tags"
-    },
-    {
-      "customType": "regex",
-      "description": "Update URL version for elmarquis/leaflet.gesture-handling (Composer package name differs from GitHub org/repo)",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"url\":\\s*\"https://github\\.com/elmarquis/leaflet\\.gestureHandling/archive/(?:refs/tags/)?(?<currentValue>[^\"]+)\\.zip\""
-      ],
-      "depNameTemplate": "elmarquis/leaflet.gesture-handling",
-      "packageNameTemplate": "elmarquis/leaflet.gestureHandling",
-      "datasourceTemplate": "github-tags"
-    },
-    {
-      "customType": "regex",
-      "description": "Update URL version for choices-js/choices.js (Composer package name differs from GitHub org/repo)",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"url\":\\s*\"https://github\\.com/Choices-js/Choices/archive/(?:refs/tags/)?(?<currentValue>[^\"]+)\\.zip\""
-      ],
-      "depNameTemplate": "choices-js/choices.js",
-      "packageNameTemplate": "Choices-js/Choices",
-      "datasourceTemplate": "github-tags"
-    },
-    {
-      "customType": "regex",
-      "description": "Update URL version for GitHub archive libraries in composer.json repositories",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/archive/(?:refs/tags/)?(?<currentValue>[^\"]+)\\.zip\""
-      ],
-      "datasourceTemplate": "github-tags"
-    },
-    {
-      "customType": "regex",
-      "description": "Update version field for npm registry libraries in composer.json repositories",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"tar\",\\s*\"url\":\\s*\"https://registry\\.npmjs\\.org/(?<packageName>[^/]+)/-/"
-      ],
-      "datasourceTemplate": "npm"
-    },
-    {
-      "customType": "regex",
-      "description": "Update URL version for npm registry libraries in composer.json repositories",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"[^\"]+\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"tar\",\\s*\"url\":\\s*\"https://registry\\.npmjs\\.org/(?<packageName>[^/]+)/-/[^/]+-(?<currentValue>\\d[^\"]+)\\.tgz\""
-      ],
-      "datasourceTemplate": "npm"
-    },
-    {
-      "customType": "regex",
-      "description": "Update version field for GitHub releases libraries in composer.json repositories",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"name\":\\s*\"(?<depName>[^\"]+)\",\\s*\"type\":\\s*\"drupal-library\",\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\",\\s*\"dist\":\\s*\\{\\s*\"type\":\\s*\"zip\",\\s*\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/releases/download/"
-      ],
-      "datasourceTemplate": "github-releases"
-    },
-    {
-      "customType": "regex",
-      "description": "Update URL version for GitHub releases libraries in composer.json repositories",
-      "managerFilePatterns": ["/(^|/)composer\\.json$/"],
-      "matchStrings": [
-        "\"url\":\\s*\"https://github\\.com/(?<packageName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)/[^\"]+"
-      ],
-      "datasourceTemplate": "github-releases"
-    }
-  ],
   "packageRules": [
     {
       "description": "Do not try to update php, node",
@@ -118,56 +44,6 @@
           "composer": {}
         }
       }
-    },
-    {
-      "matchManagers": ["custom.regex"],
-      "postUpgradeTasks": {
-        "commands": ["composer update {{{depName}}}:{{{newVersion}}} --with-dependencies --ignore-platform-req='ext-*' --ignore-platform-req='lib-*' --no-ansi --no-interaction --no-scripts --no-autoloader --no-plugins --minimal-changes --bump-after-update"],
-        "installTools": {
-          "php": {},
-          "composer": {}
-        }
-      }
-    },
-    {
-      "description": "Suppress generic URL manager for packages where Composer name differs from GitHub org/repo; handled by dedicated managers with correct depName",
-      "matchManagers": ["custom.regex"],
-      "matchDepNames": ["Choices-js/Choices", "elmarquis/leaflet.gestureHandling"],
-      "enabled": false
-    },
-    {
-      "description": "Skip major versions of libraries defined as inline package repositories",
-      "matchDepNames": [
-        "ajaxorg/ace-builds",
-        "choices-js/choices.js",
-        "elmarquis/leaflet.gesture-handling",
-        "fengyuanchen/cropperjs",
-        "fortawesome/font-awesome",
-        "heiseonline/shariff",
-        "leaflet/leaflet.fullscreen",
-        "leaflet/leaflet.markercluster",
-        "perliedman/leaflet-control-geocoder",
-        "brianvoe/slim-select"
-      ],
-      "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
-      "description": "Suppress Packagist lookups for GitHub-only libraries defined as inline package repositories",
-      "matchManagers": ["composer"],
-      "matchPackageNames": [
-        "ajaxorg/ace-builds",
-        "choices-js/choices.js",
-        "elmarquis/leaflet.gesture-handling",
-        "fengyuanchen/cropperjs",
-        "fortawesome/font-awesome",
-        "heiseonline/shariff",
-        "leaflet/leaflet.fullscreen",
-        "leaflet/leaflet.markercluster",
-        "perliedman/leaflet-control-geocoder",
-        "brianvoe/slim-select"
-      ],
-      "enabled": false
     },
     {
       "matchPackageNames": ["seleniarm/standalone-chromium", "docker"],
