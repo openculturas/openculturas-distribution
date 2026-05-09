@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1@sha256:2780b5c3bab67f1f76c781860de469442999ed1a0d7992a5efdf2cffc0e3d769
 # check=error=true
 
-FROM registry.cowain.dev/lvsn/openculturas-distribution:base
+ARG BASE_IMAGE_TAG=base
+FROM registry.cowain.dev/lvsn/openculturas-distribution:${BASE_IMAGE_TAG}
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV:-UNKNOWN}
 
