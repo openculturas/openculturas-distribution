@@ -113,6 +113,8 @@ is rendered.
   <dd>Because lines of text are limited to a readable length, you can use this class to indent copy text in wider viewports.</dd>
   <dt><code>details</code></dt>
   <dd>Similar to <code>copy-area</code>, dedicated to lists in details components (e.g. on FAQ category pages)</dd>
+  <dt><code>no-whitespace-above</code></dt>
+  <dd>Layout block class to harmonize sidebar headline next to block with copy text</dd>
   <dt><code>no-whitespace-below</code></dt>
   <dd>Layout class attribute for top (5 column) area to avoid whitespace between body + content elements fields</dd>
   <dt><code>space-before</code></dt>

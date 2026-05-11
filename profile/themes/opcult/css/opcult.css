@@ -963,7 +963,7 @@ body {
   --oc-teaser-bg-pos-y: 20%;
 }
 
-.teaser-unified .no-image, .teaser--top.no-image, .maintenance-page .layout-background {
+.calendar .field--name-field-mood-image:not(:has(img)), .teaser-unified .no-image, .teaser--top.no-image, .maintenance-page .layout-background {
   background-color: var(--oc-color-primary-darker);
   background-image: var(--oc-image-fallback-image);
   background-repeat: no-repeat;
@@ -1499,21 +1499,21 @@ ol {
   margin-block: 0;
 }
 
-.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain) {
+.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) {
   margin-block: var(--oc-row-gap);
   list-style: "— ";
 }
-.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain) ul {
+.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) ul {
   margin-block-end: 1em;
   list-style-type: square;
 }
-.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain) ul ul {
+.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) ul ul {
   list-style-type: circle;
 }
-.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain).inline {
+.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs).inline {
   margin-block-start: 0;
 }
-.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain).inline li {
+.content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs).inline li {
   display: inline-block;
 }
 
@@ -4109,11 +4109,6 @@ h2.block--title,
   margin-block-start: calc(0.5 * var(--oc-section-spacing));
 }
 
-.section-wrapper:not(.section-with-background) .section--last h2.block--title {
-  margin-block-start: 0;
-  padding-block-start: 0;
-}
-
 .main__content {
   padding-block-end: var(--oc-section-spacing);
 }
@@ -4186,6 +4181,14 @@ h2.block--title,
 .layout {
   --oc-bg-section-buffer: 1px calc(.5 * var(--oc-section-spacing));
   padding-block-end: calc(0.5 * var(--oc-section-spacing));
+}
+
+.no-whitespace-above {
+  padding-block-start: 0;
+}
+.no-whitespace-above h2.block--title {
+  margin-block-start: 0;
+  padding-block-start: 0;
 }
 
 .no-whitespace-below {
@@ -5171,6 +5174,13 @@ img.leaflet-marker-icon {
   background: var(--oc-color-info);
   border: 0.0625rem solid var(--oc-color-bg-light);
   outline: 0.25rem solid var(--oc-color-info);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--oc-color-bg-light);
+  color: var(--oc-color-text);
+  box-shadow: var(--oc-box-shadow-centered);
 }
 
 .leaflet-popup-content-wrapper {
@@ -8131,6 +8141,21 @@ details.form-wrapper {
   flex-basis: 10rem;
 }
 
+.view:not(:has(.leaflet-container)) .filter-collapsible {
+  inline-size: fit-content;
+  min-block-size: unset;
+  margin-block: 0;
+}
+.view:not(:has(.leaflet-container)) .filter-collapsible > summary {
+  text-orientation: unset;
+  writing-mode: unset;
+  padding-inline-start: 1rem;
+  margin: 0;
+}
+.view:not(:has(.leaflet-container)) .filter-collapsible > summary .summary {
+  transform: rotate(0deg) translateY(-0.25rem);
+}
+
 .view-display-id-block_profile_search {
   background-color: var(--oc-color-bg-form);
   padding: var(--oc-row-gap) var(--oc-gutter);
@@ -8395,6 +8420,10 @@ details.form-wrapper {
 
 .calendar article.view-mode-compact {
   padding-block: var(--oc-card-padding-block);
+}
+
+.calendar .field--name-field-mood-image:not(:has(img)) {
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
 }
 
 .profiles .views-row {

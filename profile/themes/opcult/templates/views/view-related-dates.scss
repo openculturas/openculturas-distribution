@@ -100,3 +100,11 @@
 .calendar article.view-mode-compact {
   padding-block: var(--oc-card-padding-block);
 }
+
+// ---
+// Include no-image fallback
+
+.calendar .field--name-field-mood-image:not(:has(img)) {
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
+  @extend %teaser-image-fallback;
+}

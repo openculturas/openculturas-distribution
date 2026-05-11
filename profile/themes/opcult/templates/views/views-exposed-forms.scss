@@ -248,3 +248,24 @@ details.form-wrapper {
 //    }
 //  }
 //}
+
+// Views collapsible filter w/o map: no rotation
+
+.view:not(:has(.leaflet-container)) {
+  .filter-collapsible {
+    inline-size: fit-content;
+    min-block-size: unset;
+    margin-block: 0;
+
+    > summary {
+      text-orientation: unset;
+      writing-mode: unset;
+      padding-inline-start: 1rem;
+      margin: 0;
+
+      .summary {
+        transform: rotate(0deg) translateY(-.25rem);
+      }
+    }
+  }
+}
