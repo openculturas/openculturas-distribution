@@ -37,21 +37,6 @@ use Drupal\views\Render\ViewsRenderPipelineMarkup;
 use Drupal\views\ViewExecutable;
 
 /**
- * Implements hook_editor_js_settings_alter().
- *
- * Adds a .content class to the CKEditor body so CSS from frontend will work.
- */
-function openculturas_custom_editor_js_settings_alter(array &$settings): void {
-  if (!empty($settings['editor']['formats'])) {
-    foreach ($settings['editor']['formats'] as &$config) {
-      if ($config['editor'] === 'ckeditor') {
-        $config['editorSettings']['bodyClass'] = 'content';
-      }
-    }
-  }
-}
-
-/**
  * Implements hook_theme().
  */
 function openculturas_custom_theme(): array {
