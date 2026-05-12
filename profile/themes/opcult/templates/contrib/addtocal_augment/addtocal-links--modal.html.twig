@@ -14,7 +14,7 @@
   {% if icons %}{{ attach_library('addtocal_augment/icons') }}
     <button type="button" id="{{ popoverId }}--trigger" class="addtocal__label addtocal-toggle--trigger" aria-label="{{ label }}" popovertarget="{{ popoverId }}"></button>
   {% else %}
-    <button type="button" id="{{ popoverId }}--trigger" class="button addtocal-toggle--trigger" popovertarget="{{ popoverId }}">{{ label }}</button>
+    <button type="button" id="{{ popoverId }}--trigger" class="button addtocal-toggle--trigger" popovertarget="{{ popoverId }}">{{ label|t }}</button>
   {% endif %}
 
   <div{{attributes.addClass(classes)}} id="{{ popoverId }}" data-type="add_to_cal_modal" popover>
