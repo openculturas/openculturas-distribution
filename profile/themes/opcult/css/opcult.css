@@ -959,7 +959,7 @@ body {
   --oc-image-fallback-color: var(--oc-color-primary);
   --oc-image-fallback-image: url("../images/teaser-image-fallback.svg");
   --oc-teaser-bg-scale: 350%;
-  --oc-teaser-bg-pos-x: 30%;
+  --oc-teaser-bg-pos-x: 35%;
   --oc-teaser-bg-pos-y: 20%;
 }
 
@@ -972,35 +972,35 @@ body {
   opacity: 1;
 }
 
-.views-row:nth-child(2n+1) .no-image,
-.field__item:nth-child(2n+1) .no-image {
-  --oc-teaser-bg-pos-x: 10%;
+.views-row:nth-child(2n+1),
+.field__item:nth-child(2n+1) {
+  --oc-teaser-bg-pos-x: 50%;
   --oc-teaser-bg-scale: 180%;
 }
-.views-row:nth-child(4n+1) .no-image,
-.field__item:nth-child(4n+1) .no-image {
-  --oc-teaser-bg-pos-x: 20%;
+.views-row:nth-child(4n+1),
+.field__item:nth-child(4n+1) {
+  --oc-teaser-bg-pos-x: 10%;
 }
-.views-row:nth-child(3n+1) .no-image,
-.field__item:nth-child(3n+1) .no-image {
+.views-row:nth-child(3n+1),
+.field__item:nth-child(3n+1) {
   --oc-teaser-bg-pos-y: 20%;
   --oc-teaser-bg-scale: 240%;
 }
-.views-row:nth-child(3n+3) .no-image,
-.field__item:nth-child(3n+3) .no-image {
+.views-row:nth-child(3n+3),
+.field__item:nth-child(3n+3) {
   --oc-teaser-bg-pos-y: 40%;
 }
-.views-row:nth-child(4n+4) .no-image,
-.field__item:nth-child(4n+4) .no-image {
+.views-row:nth-child(4n+4),
+.field__item:nth-child(4n+4) {
   --oc-teaser-bg-scale: 300%;
 }
-.views-row:nth-child(5n+4) .no-image,
-.field__item:nth-child(5n+4) .no-image {
+.views-row:nth-child(5n+4),
+.field__item:nth-child(5n+4) {
   --oc-teaser-bg-scale: 200%;
   --oc-teaser-bg-pos-y: 90%;
 }
-.views-row:nth-child(5n+2) .no-image,
-.field__item:nth-child(5n+2) .no-image {
+.views-row:nth-child(5n+2),
+.field__item:nth-child(5n+2) {
   --oc-teaser-bg-pos-x: -20%;
 }
 
@@ -4642,9 +4642,14 @@ h4.block--title {
   inset-block-start: var(--oc-card-padding-block);
   inset-inline-end: calc(0.25 * var(--oc-card-padding-inline));
 }
+.node--type-event .map-link-wrapper {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
 
 .map-link.button {
   border-color: transparent;
+  margin-block-end: 0;
 }
 
 .openculturas-map--results-header {
