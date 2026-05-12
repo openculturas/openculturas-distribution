@@ -5627,10 +5627,6 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
   margin-inline: calc(0.5 * var(--oc-card-margin-inline));
 }
 
-.swiffy-slider li:not(.slide-visible) {
-  opacity: 0.5;
-}
-
 .slider-nav-dark .slider-nav,
 .slider-indicators-dark .slider-indicators > button:hover {
   filter: unset;
@@ -6766,7 +6762,7 @@ article.teaser,
 .teaser--top {
   margin-block: calc(-1 * var(--oc-card-padding-block)) 0;
   margin-inline: calc(-1 * var(--oc-card-padding-inline));
-  border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
+  border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) 0 0;
   overflow: hidden;
 }
 
@@ -7016,8 +7012,8 @@ article.profile-teaser.teaser-unified {
   grid-row: 1;
 }
 .teaser-unified .teaser--top {
-  border-radius: var(--oc-card-border-radius);
-  margin-block-end: calc(-1 * (var(--oc-card-padding-block) + var(--oc-card-border-block)));
+  border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
+  margin-block-end: calc(-1 * var(--oc-card-padding-block));
   place-self: stretch;
 }
 .teaser-unified .teaser--top img {
@@ -7097,7 +7093,7 @@ article.teaser-unified .teaser--body {
 }
 .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser--top {
   margin-block-end: 0;
-  border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
+  border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) 0 0;
 }
 .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser--top::after {
   background-image: none;
@@ -7706,7 +7702,7 @@ article.teaser-unified .teaser--body {
   .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top {
     grid-column: 1;
     grid-row: 1/3;
-    border-radius: var(--oc-card-border-radius) 0 0 var(--oc-card-border-radius);
+    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-inline)) 0 0 calc(var(--oc-card-border-radius) - var(--oc-card-border-inline));
     margin-block: calc(-1 * var(--oc-card-padding-block));
     margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
   }
@@ -7719,6 +7715,21 @@ article.teaser-unified .teaser--body {
     grid-column: 2;
     grid-row: 2;
     align-content: end;
+  }
+  .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item article.teaser-unified {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 0;
+  }
+  .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item article.teaser-unified > div {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+  }
+  .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item article.teaser-unified .teaser--top {
+    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
+    aspect-ratio: unset;
+    inline-size: calc(100% + 2 * var(--oc-card-padding-inline));
+    margin-block-end: calc(-1 * var(--oc-card-padding-block));
   }
 }
 
@@ -7768,7 +7779,7 @@ article.teaser-unified .teaser--body {
 .term-teaser-unified .teaser--top.no-image,
 .term-teaser .teaser--top,
 .term-teaser .teaser--top.no-image {
-  border-radius: var(--oc-card-border-radius);
+  border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
   block-size: 100%;
   inline-size: 100%;
   margin-block: 0;
@@ -7894,7 +7905,7 @@ article.teaser-unified .teaser--body {
   .views-row article:not(.term-teaser) .teaser--top {
     grid-column: 1;
     grid-row: 1/3;
-    border-radius: var(--oc-card-border-radius) 0 0 var(--oc-card-border-radius);
+    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-inline)) 0 0 calc(var(--oc-card-border-radius) - var(--oc-card-border-inline));
     margin-block: calc(-1 * var(--oc-card-padding-block));
     margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
   }

@@ -20,8 +20,8 @@
   }
 
   .teaser--top {
-    border-radius: var(--oc-card-border-radius);
-    margin-block-end: calc(-1 * calc(var(--oc-card-padding-block) + var(--oc-card-border-block)));
+    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
+    margin-block-end: calc(-1 * var(--oc-card-padding-block));
     place-self: stretch;
   }
 
@@ -150,7 +150,7 @@ article.teaser-unified .teaser--body {
 
   .teaser--top {
     margin-block-end: 0;
-    border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
+    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) 0 0;
 
     &::after {
       background-image: none;
