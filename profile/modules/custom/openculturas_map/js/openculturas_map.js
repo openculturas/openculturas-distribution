@@ -1552,7 +1552,7 @@
       if(this.reloadInteraction === false) {
         render = true;
       } else {
-        if(this._entryCollection.size > 0 && this._renderedEntryCollection.hash !== this._entryCollection.hash && this.resultsElement?.children.length > 0) {
+        if(this._entryCollection.size > 0 && this._renderedEntryCollection?.hash !== this._entryCollection.hash && this.resultsElement?.children.length > 0) {
           this.wrapperElement.dataset.dirty = "true";
         } else {
           this.wrapperElement.dataset.dirty = "";
