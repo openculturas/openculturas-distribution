@@ -57,12 +57,18 @@
   position: absolute;
   inset-block-start: var(--oc-card-padding-block);
   inset-inline-end: calc(.25 * var(--oc-card-padding-inline));
+
+  .node--type-event & {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+  }
 }
 
 .map-link.button {
   @extend %button;
   @extend %icon-button;
   border-color: transparent;
+  margin-block-end: 0;
 }
 
 .openculturas-map--results-header {
