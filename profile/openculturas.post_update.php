@@ -227,8 +227,6 @@ function openculturas_post_update_3_0(): string {
     'field.field.node.page.field_layout_switcher',
     // Change the used display to er_teaser_node. Which comes via views.view.entity_reference_node revert.
     'field.field.paragraph.teaser_node.field_article',
-    // New display term_children_compact used only at the moment by the new LB full view mode.
-    'views.view.vocabulary',
     // New displays block_locations_by_term and attachment_map_by_term.
     'views.view.locations',
     // Enable translation.
