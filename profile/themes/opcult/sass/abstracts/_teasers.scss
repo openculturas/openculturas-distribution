@@ -3,6 +3,7 @@
 // Some dimensions are not available on root level, hence: body
 // ---
 // Related: _effects.scss
+// @todo: teaser card border calculations with card-border-inline/block 0 width don't work!
 // ---------------------------------------
 
 %cc-teasers {
@@ -13,12 +14,12 @@
   --oc-card-padding-inline: 2rem; // horizontal padding
   --oc-card-background: var(--oc-color-bg-light); // or "transparent" or "var(--oc-color-bg-hardly-any-contrast)"
   --oc-card-box-shadow: var(--oc-box-shadow-centered); // or "0 none"
-  --oc-card-border-default: .125rem solid var(--oc-color-interaction);
+  --oc-card-border-default: .125rem solid transparent;
   --oc-card-border: var(--oc-card-border-default); // or "0 none", overridden by oc-card-border-width
   --oc-card-border-inline: .125rem; // only one value!
   --oc-card-border-block: .125rem; // only one value!
   --oc-card-border-width: var(--oc-card-border-block) var(--oc-card-border-inline); // 1 to 4 values, keep in sync with above
-  --oc-card-border-radius: 0; // 2rem
+  --oc-card-border-radius: 1.5rem; // 2rem
   --oc-card-height-equalizer: calc(100% - var(--oc-card-padding-block)); // stretch to equal height in views? ("auto" = no)
 
   // Profile teaser cards
