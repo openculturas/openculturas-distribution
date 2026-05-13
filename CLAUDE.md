@@ -90,13 +90,12 @@ ddev drush sql:query "DESCRIBE <table_name>;"
 
 ### PHP Quality Checks
 ```bash
-composer run php:qa          # Full QA: lint + cs + phpstan + rector
-composer run php:lint        # PHP parallel lint
-composer run php:cs          # PHPCS only
-composer run php:cs-fix      # Auto-fix PHPCS issues
-composer run php:phpstan     # Static analysis (level: max)
-composer run php:rector      # Rector dry-run
-composer run php:rector-fix  # Rector auto-fix
+ddev composer run php:lint        # PHP parallel lint
+ddev composer run php:cs          # PHPCS only
+ddev composer run php:cs-fix      # Auto-fix PHPCS issues
+ddev composer run php:phpstan     # Static analysis (level: max)
+ddev composer run php:rector      # Rector dry-run
+ddev composer run php:rector-fix  # Rector auto-fix
 ```
 
 ### JS/CSS Linting
