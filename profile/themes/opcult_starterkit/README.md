@@ -149,6 +149,8 @@ For grid utilities:
 }
 ```
 
+See <a href="#how-to">How-to</a> section below with more examples.
+
 ### Using a custom font
 
 See [`fonts/README.md`](fonts/README.md) for detailed instructions on adding
@@ -220,3 +222,95 @@ for the icon mixin and opcult/base/_icons.scss for the given mixin usage.
 ├── package.json                             # Node.js dependencies
 └── README.md                                # This file
 ```
+
+<a id="how-to"></a>
+## How-to
+
+### Add an icon
+
+```
+button.rss {
+  @include icon(rss);
+}
+```
+
+```
+a.child-care-link {
+  @include icon(baby-carriage);
+}
+```
+
+Default parameters: iconset "light", position "before". Parameter order:
+icon, iconset, position. You can change the defaults as follows:
+
+```
+.bookmark--active {
+  @include icon(bookmark, fill);
+}
+
+.element_with_arrow_after {
+  @include icon(arrow-down, light, after);
+}
+```
+
+### Visually replace a link or button with an icon
+
+The given labels are preserved for screen readers, the replacement is merely visual.
+For custom elements, make sure to provide a text alternative and provide translations
+in a multi-language setup.
+
+```
+.button--edit a {
+  display: inline-block;
+  @include icon(pencil-simple);
+  @extend %icon-only;
+}
+```
+
+Please note that %icon-only increases the font size (--oc-font-size-icon) for
+standards conform touch screen usability. Only reduce that size when it's really required
+- like this:
+
+```
+table .button--edit a {
+  display: inline-block;
+  @include icon(pencil-simple);
+  @extend %icon-only;
+  --oc-font-size-icon: var(--oc-font-size-icon-default);
+}
+```
+
+### Control the number of grid columns
+
+For a custom view, simply use the prepared grid placeholders:
+
+```
+.my-custom-view .view-content {
+  @extend %grid;
+  @extend %grid-3;
+}
+```
+
+Please note that the load more-pager adds an extra div inside `.view-content`,
+in this case you'd use the dedicated class:
+
+```
+.my-custom-view .views-infinite-scroll-content-wrapper {
+  @extend %grid;
+  @extend %grid-3;
+}
+```
+
+The grid placeholders (e.g. `%grid-4`) already contain breakpoints (which is basically all they do).
+If you want to change the number of grid columns in a certain view for a certain breakpoint
+simply change the custom property per breakpoint:
+
+```
+.terms .view-content {
+  @include opcult.breakpoint(xxl) {
+    --oc-grid-item-count: 6;
+  }
+}
+```
+
+
