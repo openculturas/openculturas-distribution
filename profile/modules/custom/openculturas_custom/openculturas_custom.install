@@ -32,3 +32,37 @@ function openculturas_custom_uninstall(bool $is_syncing): void {
     $field->save();
   }
 }
+
+/**
+ * Fix truncated paragraph style labels.
+ */
+function openculturas_custom_update_10001(): void {
+  $configuration = \Drupal::configFactory()->getEditable('openculturas_custom.settings');
+  /** @var array<string,string> $allowed_classes */
+  $allowed_classes = $configuration->get('allowed_classes') ?? [];
+
+  foreach ($allowed_classes as $class => $label) {
+    if ($label === 'Slight') {
+      $allowed_classes[$class] = 'Slight contrast';
+    }
+    elseif ($label === 'Vivid') {
+      $allowed_classes[$class] = 'Vivid contrast';
+    }
+  }
+
+  $configuration->set('allowed_classes', $allowed_classes)->save();
+}
+
+/**
+ * Add Inverted paragraph style.
+ */
+function openculturas_custom_update_10002(): void {
+  $configuration = \Drupal::configFactory()->getEditable('openculturas_custom.settings');
+  /** @var array<string,string> $allowed_classes */
+  $allowed_classes = $configuration->get('allowed_classes') ?? [];
+
+  if (!isset($allowed_classes['inverted'])) {
+    $allowed_classes['inverted'] = 'Inverted';
+    $configuration->set('allowed_classes', $allowed_classes)->save();
+  }
+}

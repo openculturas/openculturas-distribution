@@ -119,12 +119,12 @@ class SettingsForm extends ConfigFormBase {
       $class = trim($class);
       // Ignore empty lines.
       if ($class !== '') {
-        $matched = preg_match("/(\w+)\s*\|\s*(\w+)/", $class, $matches);
+        $matched = preg_match("/(\w+)\s*\|\s*(.+)/", $class, $matches);
         if (!$matched) {
           throw new InvalidFormatException(sprintf('The entered line "%s" has a invalid format', $class));
         }
 
-        $classMap[$matches[1]] = $matches[2];
+        $classMap[$matches[1]] = trim($matches[2]);
       }
     }
 
