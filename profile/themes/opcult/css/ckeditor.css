@@ -122,6 +122,7 @@
     --oc-color-text-muted: #9b9d9a;
     --oc-color-text-inverted: #191919;
     --oc-color-text-headline: currentColor;
+    --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 50%, var(--oc-color-text-inverted));
     --oc-color-link: #ffdd00;
     --oc-color-interaction: #74eaea;
     --oc-color-danger: #f38183;
@@ -132,7 +133,7 @@
     --oc-color-divider-dark: #8b8d95;
     --oc-color-neutral-canvas: #303236;
     --oc-color-bg-light: #16181a;
-    --oc-color-bg-dark: #8b8d95;
+    --oc-color-bg-dark: #e6e6e6;
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
     --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
     --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
@@ -1243,12 +1244,14 @@
 }
 
 .ck-content .inverted {
+  padding: var(--oc-row-gap) var(--oc-gutter);
   background: var(--oc-color-bg-dark);
   color: var(--oc-color-text-inverted);
 }
 
 .ck-content .inverted a {
   color: var(--oc-color-link-inverted);
+  font-weight: var(--oc-font-weight-semi-bold);
 }
 
 .ck-content .text-formatted h2 {
@@ -2202,8 +2205,10 @@
 
 @media screen {
   html.dark .ck-content .inverted {
-    --oc-color-text-inverted: var(--oc-color-text);
+    --oc-color-text: var(--oc-color-text-inverted);
+    --oc-color-link: var(--oc-color-link-inverted);
     --oc-color-divider-light: var(--oc-color-divider-dark);
+    --oc-color-bg-light: var(--oc-color-bg-dark);
   }
   html.dark .ck-content .site-logo {
     background-image: url(../logo_negative.svg);

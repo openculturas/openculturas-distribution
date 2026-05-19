@@ -6,7 +6,6 @@
 
 @use "../../sass/abstracts" as *;
 
-
 // General spacing for certain types (caveat: do not add text/media paragraphs)
 .paragraph--type--teaser-wrapper,
 .paragraph--type--view {
@@ -80,13 +79,15 @@
       padding-inline-start: var(--oc-page-padding-inline);
     }
 
-    .field--name-field-body {
+    .field--name-field-body,
+    .paragraph--type--download {
       margin-inline-start: calc(1 * var(--oc-grid-step)); // matches 2 steps for .field--name-body
     }
 
     // avoid additions
     .field--name-field-content-paragraphs,
-    .paragraph--type--wrapper-section .field--name-field-body {
+    .paragraph--type--wrapper-section .field--name-field-body,
+    .paragraph--type--wrapper-section .paragraph--type--download {
       margin-inline-start: 0;
     }
   }
@@ -99,13 +100,15 @@
     .field--name-field-content-paragraphs {
       margin-inline-start: calc(1 * var(--oc-grid-step));
 
-      .field--name-field-body {
+      .field--name-field-body,
+      .paragraph--type--download {
         margin-inline-start: calc(1 * var(--oc-grid-step)); // matches 2 steps for .field--name-body
       }
 
       // avoid additions
       .field--name-field-content-paragraphs,
-      .paragraph--type--wrapper-section .field--name-field-body {
+      .field--name-field-content-paragraphs .field--name-field-body,
+      .paragraph--type--wrapper-section .paragraph--type--download {
         margin-inline-start: 0;
       }
     }

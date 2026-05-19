@@ -56,6 +56,21 @@ h3 .field--name-field-sub-type {
   }
 }
 
+// Exceptions: Label above, items inline
+
+.field--name-field-inlanguage {
+  .field__items,
+  li.field__item,
+  p {
+    display: inline;
+    margin: 0;
+  }
+  .field__item:not(:last-child)::after {
+    content: "//";
+    display: inline;
+  }
+}
+
 // Workaround for non-templated formatted text fields (minimal_html for a11y)
 h2 p {
   margin: 0;
@@ -103,3 +118,9 @@ h2 p {
   }
 }
 
+// ---
+// Less whitespace for virtual location url
+
+.field--name-field-location-virtual.field--label-inline {
+  margin-block-start: 0;
+}
