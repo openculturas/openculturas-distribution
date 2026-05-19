@@ -6130,37 +6130,46 @@ h2 p {
   inline-size: calc(1.25rem + 2px);
   block-size: calc(1.25rem + 2px);
 }
-.field--name-field-event-status {
-  --oc-status-color-bg: transparent;
-  --oc-status-color-text: var(--oc-color-text);
-}
 .field--name-field-event-status .field__item {
-  background-color: var(--oc-status-color-bg);
-  color: var(--oc-status-color-text);
   display: inline-block;
-  padding: 0.125rem 0.5rem;
 }
 
-.EventScheduled .field--name-field-event-status .field__item {
+.EventScheduled {
   --oc-status-color-bg: transparent;
   --oc-status-color-text: var(--oc-color-text);
+}
+.EventScheduled .field--name-field-event-status .field__item {
+  background-color: var(--oc-status-color-bg);
+  color: var(--oc-status-color-text);
   padding-inline: 0;
 }
 
-.EventMovedOnline.views-row .field--name-field-event-status,
-.EventMovedOnline .date-main--status .field--name-field-event-status,
-.EventRescheduled.views-row .field--name-field-event-status,
-.EventRescheduled .date-main--status .field--name-field-event-status {
+.EventMovedOnline,
+.EventRescheduled {
   --oc-status-color-bg: var(--oc-color-bg-dark);
   --oc-status-color-text: var(--oc-color-text-inverted);
 }
+.EventMovedOnline.views-row .field--name-field-event-status .field__item,
+.EventMovedOnline .date-main--status .field--name-field-event-status .field__item,
+.EventRescheduled.views-row .field--name-field-event-status .field__item,
+.EventRescheduled .date-main--status .field--name-field-event-status .field__item {
+  background-color: var(--oc-status-color-bg);
+  color: var(--oc-status-color-text);
+  padding: 0.125rem 0.5rem;
+}
 
-.EventCancelled.views-row .field--name-field-event-status,
-.EventCancelled .date-main--status .field--name-field-event-status,
-.EventPostponed.views-row .field--name-field-event-status,
-.EventPostponed .date-main--status .field--name-field-event-status {
+.EventCancelled,
+.EventPostponed {
   --oc-status-color-bg: var(--oc-color-danger);
   --oc-status-color-text: var(--oc-color-text-inverted);
+}
+.EventCancelled.views-row .field--name-field-event-status .field__item,
+.EventCancelled .date-main--status .field--name-field-event-status .field__item,
+.EventPostponed.views-row .field--name-field-event-status .field__item,
+.EventPostponed .date-main--status .field--name-field-event-status .field__item {
+  background-color: var(--oc-status-color-bg);
+  color: var(--oc-status-color-text);
+  padding: 0.125rem 0.5rem;
 }
 
 .EventScheduled .date-main--status,

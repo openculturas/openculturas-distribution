@@ -7,38 +7,50 @@
 @use "../../sass/abstracts" as *;
 
 .field--name-field-event-status {
-  --oc-status-color-bg: transparent;
-  --oc-status-color-text: var(--oc-color-text);
-
   .field__item {
-    background-color: var(--oc-status-color-bg);
-    color: var(--oc-status-color-text);
     display: inline-block;
-    padding: .125rem .5rem;
   }
 }
 
-.EventScheduled  .field--name-field-event-status .field__item {
+.EventScheduled {
   --oc-status-color-bg: transparent;
   --oc-status-color-text: var(--oc-color-text);
-  padding-inline: 0;
+
+  .field--name-field-event-status .field__item {
+    background-color: var(--oc-status-color-bg);
+    color: var(--oc-status-color-text);
+    padding-inline: 0;
+  }
 }
 
 .EventMovedOnline,
 .EventRescheduled {
+  --oc-status-color-bg: var(--oc-color-bg-dark);
+  --oc-status-color-text: var(--oc-color-text-inverted);
+  
   &.views-row .field--name-field-event-status,
   .date-main--status .field--name-field-event-status {
-    --oc-status-color-bg: var(--oc-color-bg-dark);
-    --oc-status-color-text: var(--oc-color-text-inverted);
+
+    .field__item {
+      background-color: var(--oc-status-color-bg);
+      color: var(--oc-status-color-text);
+      padding: .125rem .5rem;
+    }
   }
 }
 
 .EventCancelled,
 .EventPostponed {
+  --oc-status-color-bg: var(--oc-color-danger);
+  --oc-status-color-text: var(--oc-color-text-inverted);
+
   &.views-row .field--name-field-event-status,
   .date-main--status .field--name-field-event-status {
-    --oc-status-color-bg: var(--oc-color-danger);
-    --oc-status-color-text: var(--oc-color-text-inverted);
+    .field__item {
+      background-color: var(--oc-status-color-bg);
+      color: var(--oc-status-color-text);
+      padding: .125rem .5rem;
+    }
   }
 }
 
