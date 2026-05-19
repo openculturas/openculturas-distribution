@@ -266,6 +266,10 @@ function openculturas_post_update_3_0(): string {
     'core.entity_view_display.paragraph.contact_data.default',
     // Changed swiffy_slider_permalink.
     'core.entity_view_display.paragraph.text_slider.slider_multiple',
+
+    // group_editorial field group closed by default.
+    'core.entity_form_display.paragraph.wrapper_section.default',
+    'core.entity_form_display.paragraph.teaser_wrapper.default',
   ];
 
   _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
