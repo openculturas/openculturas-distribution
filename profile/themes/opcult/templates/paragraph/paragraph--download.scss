@@ -1,14 +1,13 @@
 // ---------------------------------------
-// Gallery paragraph
-// ---
-// Related: components/swiffy-slider.scss
+// Download paragraph
 // ---------------------------------------
 
 @use "../../sass/abstracts" as *;
 
-.paragraph--type--gallery.paragraph--view-mode--grid {
-  > .field > .field__items {
-    @extend %grid;
-    @extend %grid-3;
+.paragraph--view-mode--grid .paragraph--type--download .field__items {
+  @extend %grid-auto;
+
+  @include breakpoint(xl) {
+    justify-content: start;
   }
 }

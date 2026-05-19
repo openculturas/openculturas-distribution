@@ -615,6 +615,7 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
   --oc-color-bg-dark: #303236;
   --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
   --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
+  --oc-color-bg-exposed-form: var(--oc-color-bg-form);
   --oc-color-bg-fieldset: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
   --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 10%, var(--oc-color-bg-light));
   --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
@@ -972,35 +973,49 @@ body {
   opacity: 1;
 }
 
-.views-row:nth-child(2n+1),
-.field__item:nth-child(2n+1) {
+.views-row:nth-child(2n+1) .no-image,
+.field__item:nth-child(2n+1) .no-image,
+.views-row:nth-child(2n+1) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(2n+1) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-pos-x: 50%;
   --oc-teaser-bg-scale: 180%;
 }
-.views-row:nth-child(4n+1),
-.field__item:nth-child(4n+1) {
+.views-row:nth-child(4n+1) .no-image,
+.field__item:nth-child(4n+1) .no-image,
+.views-row:nth-child(4n+1) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(4n+1) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-pos-x: 10%;
 }
-.views-row:nth-child(3n+1),
-.field__item:nth-child(3n+1) {
+.views-row:nth-child(3n+1) .no-image,
+.field__item:nth-child(3n+1) .no-image,
+.views-row:nth-child(3n+1) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(3n+1) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-pos-y: 20%;
   --oc-teaser-bg-scale: 240%;
 }
-.views-row:nth-child(3n+3),
-.field__item:nth-child(3n+3) {
+.views-row:nth-child(3n+3) .no-image,
+.field__item:nth-child(3n+3) .no-image,
+.views-row:nth-child(3n+3) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(3n+3) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-pos-y: 40%;
 }
-.views-row:nth-child(4n+4),
-.field__item:nth-child(4n+4) {
+.views-row:nth-child(4n+4) .no-image,
+.field__item:nth-child(4n+4) .no-image,
+.views-row:nth-child(4n+4) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(4n+4) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-scale: 300%;
 }
-.views-row:nth-child(5n+4),
-.field__item:nth-child(5n+4) {
+.views-row:nth-child(5n+4) .no-image,
+.field__item:nth-child(5n+4) .no-image,
+.views-row:nth-child(5n+4) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(5n+4) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-scale: 200%;
   --oc-teaser-bg-pos-y: 90%;
 }
-.views-row:nth-child(5n+2),
-.field__item:nth-child(5n+2) {
+.views-row:nth-child(5n+2) .no-image,
+.field__item:nth-child(5n+2) .no-image,
+.views-row:nth-child(5n+2) .field--name-field-mood-image:not(:has(img)),
+.field__item:nth-child(5n+2) .field--name-field-mood-image:not(:has(img)) {
   --oc-teaser-bg-pos-x: -20%;
 }
 
@@ -1015,6 +1030,7 @@ body {
   --oc-input-border-style: solid;
   --oc-input-border-color: var(--oc-color-divider-light) var(--oc-color-divider-light) var(--oc-color-divider-dark);
   --oc-input-border: var(--oc-input-border-width) var(--oc-input-border-style) var(--oc-color-divider-dark);
+  --oc-input-border-radius: 0;
   --oc-input-focus-border-style: solid;
   --oc-input-focus-bg-color: var(--oc-color-bg-light);
   --oc-input-focus-border-color: var(--oc-color-info);
@@ -1133,7 +1149,7 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
 }
 
 .profiles .view-content,
-.view-locations .view-content {
+.view-locations .view-content, .paragraph--view-mode--grid .paragraph--type--download .field__items {
   --oc-grid-item-max-width: 30rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min-content, var(--oc-grid-item-max-width)));
@@ -1141,7 +1157,7 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
 }
 @media screen and (min-width: 85em) {
   .profiles .view-content,
-  .view-locations .view-content {
+  .view-locations .view-content, .paragraph--view-mode--grid .paragraph--type--download .field__items {
     justify-content: space-between;
   }
 }
@@ -1928,7 +1944,7 @@ table .draggable .tabledrag-handle .handle {
   inline-size: 1rem;
   block-size: 1rem;
   margin: 0.333em 0 0;
-  mask-image: url(/profile/themes/opcult/images/gin-sprite.svg#drag-y-view);
+  mask-image: url(../images/gin-sprite.svg#drag-y-view);
   background-image: none;
   background-color: var(--oc-color-text-muted);
 }
@@ -2274,6 +2290,7 @@ textarea {
   padding: var(--oc-form-field-padding);
   border: var(--oc-input-border);
   border-color: var(--oc-input-border-color);
+  border-radius: var(--oc-input-border-radius);
   background-color: var(--oc-input-bg-color);
   color: var(--oc-color-text);
 }
@@ -4624,12 +4641,17 @@ h4.block--title {
   place-content: center;
   position: relative;
   margin-inline: auto;
-  margin-block: 0 -3em;
+  margin-block: 0;
   box-shadow: var(--oc-box-shadow-centered);
 }
 
 .openculturas-map--results .profile--content {
   padding-inline-end: var(--oc-font-size-icon);
+}
+.openculturas-map--results .view-header {
+  position: relative;
+  top: calc(-1 * (var(--oc-font-size-button-default) + 2 * var(--oc-button-padding)));
+  z-index: 1;
 }
 
 .openculturas-map .location,
@@ -4667,6 +4689,10 @@ h4.block--title {
 
 .openculturas-map--leaflet {
   min-block-size: 30rem;
+}
+
+.openculturas-map--results-picker > * {
+  display: inline-block;
 }
 
 .block-views-exposed-filter-blocksearch-search-page .form-submit::before,
@@ -4825,7 +4851,7 @@ h2.page-subtitle {
   display: grid;
   grid-auto-flow: row;
   gap: 0;
-  background-color: var(--oc-color-bg-form);
+  background-color: var(--oc-color-bg-exposed-form);
 }
 @media screen and (min-width: 48em) {
   .block-block-groupfacets-group {
@@ -5402,6 +5428,15 @@ a.leaflet-control-zoom-out::before {
   fill: var(--oc-color-info);
 }
 
+.leaflet-container::after {
+  font-family: var(--oc-font-family);
+  font-size: var(--oc-font-size-m);
+  font-weight: var(--oc-font-weight-semi-bold);
+  background: var(--oc-color-bg-dark-opaque);
+  color: var(--oc-color-text-inverted);
+  padding: 1rem;
+}
+
 button:not([disabled]).shwpd {
   background-image: unset;
   background-position: unset;
@@ -5456,11 +5491,11 @@ button:not([disabled]).shwpd::before {
   --ss-focus-color: var(--oc-input-focus-bg-color);
   --ss-main-height: 2rem;
   --ss-content-height: 18rem;
-  --ss-spacing-l: 0.4em;
+  --ss-spacing-l: 0.5em;
   --ss-spacing-m: 0.3em;
   --ss-spacing-s: 0.175em;
   --ss-animation-timing: var(--oc-transition-duration);
-  --ss-border-radius: 4px;
+  --ss-border-radius: var(--oc-input-border-radius);
 }
 
 body .ss-main .ss-values {
@@ -5472,7 +5507,7 @@ body .ss-main .ss-values {
 }
 body .ss-main .ss-values .ss-value {
   padding: var(--oc-form-field-padding);
-  border: 1px solid var(--oc-input-border-color);
+  border: var(--oc-input-border-width) var(--oc-input-border-style) var(--oc-input-border-color);
 }
 body .ss-main .ss-values .ss-value .ss-value-text,
 body .ss-main .ss-values .ss-value .ss-value-delete svg path {
@@ -7544,6 +7579,12 @@ article.teaser-unified .teaser--body {
   min-inline-size: 20ch;
 }
 
+@media screen and (min-width: 85em) {
+  .paragraph--view-mode--grid .paragraph--type--download .field__items {
+    justify-content: start;
+  }
+}
+
 .paragraph--type--media-mention {
   margin-block: var(--oc-row-gap);
 }
@@ -8034,7 +8075,7 @@ details.form-wrapper {
   block-size: fit-content;
   transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
   z-index: 3;
-  background: var(--oc-color-bg-form);
+  background: var(--oc-color-bg-exposed-form);
   border: 0 none;
   box-shadow: var(--oc-box-shadow-left);
 }
@@ -8173,7 +8214,7 @@ details.form-wrapper {
 }
 
 .view-display-id-block_profile_search {
-  background-color: var(--oc-color-bg-form);
+  background-color: var(--oc-color-bg-exposed-form);
   padding: var(--oc-row-gap) var(--oc-gutter);
   margin-block-end: var(--oc-section-spacing);
 }

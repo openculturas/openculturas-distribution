@@ -29,7 +29,7 @@
   place-content: center;
   position: relative;
   margin-inline: auto;
-  margin-block: 0 -3em; // neutralize button height below map
+  margin-block: 0;
   box-shadow: var(--oc-box-shadow-centered);
 }
 
@@ -44,6 +44,13 @@
 .openculturas-map--results {
   .profile--content {
     padding-inline-end: var(--oc-font-size-icon);
+  }
+
+  // Amend reload button's virtual height here
+  .view-header {
+    position: relative;
+    top: calc(-1 * (var(--oc-font-size-button-default) + 2 * var(--oc-button-padding)));
+    z-index: +1;
   }
 }
 
@@ -105,3 +112,7 @@
 // Results filter block, toggleable
 // See: views/views-exposed-forms.scss
 
+// Results per page picker
+.openculturas-map--results-picker > * {
+  display: inline-block;
+}

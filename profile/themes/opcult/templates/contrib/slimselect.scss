@@ -48,7 +48,7 @@
   --ss-content-height: 18rem;
 
   // Large spacing value for padding and margins
-  --ss-spacing-l: 0.4em;
+  --ss-spacing-l: 0.5em;
 
   // Medium spacing value for gaps and padding
   --ss-spacing-m: 0.3em;
@@ -60,7 +60,7 @@
   --ss-animation-timing: var(--oc-transition-duration);
 
   // Border radius for rounded corners throughout the component
-  --ss-border-radius: 4px;
+  --ss-border-radius: var(--oc-input-border-radius);
 }
 
 //nest in body so the --oc-details-border-radius works
@@ -78,7 +78,7 @@ body {
 
       .ss-value {
         padding: var(--oc-form-field-padding);
-        border: 1px solid var(--oc-input-border-color);
+        border: var(--oc-input-border-width) var(--oc-input-border-style) var(--oc-input-border-color);
 
         // When using a dark or colored background for --ss-primary-color get rid of this
         .ss-value-text,
