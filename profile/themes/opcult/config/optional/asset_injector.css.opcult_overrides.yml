@@ -14,7 +14,7 @@ code: |-
    */
 
   /*
-   * Layout dimensions
+   * Layout dimensions (make sure your adjustments work in all breakpoints)
    */
    
    body {
@@ -26,9 +26,9 @@ code: |-
     --oc-column-padding: 0; /* Horizontal padding inside a column. */
     --oc-gutter: 1.25rem; /* Gap (horizontal) between layout columns. */
     --oc-row-gap: 1.25rem; /* Gap (vertical) between rows. */
-    --oc-layout-max-width: 120rem; /* Prevent layout becoming too wide on large screens. */
+    --oc-layout-max-width: 100rem; /* Prevent layout becoming too wide on large screens. */
     
-    --oc-section-spacing: 5rem; /* Vertically structuring spacing. */
+    --oc-section-spacing: 3rem; /* Vertically structuring spacing. */
   }
 
   /* 
@@ -74,14 +74,16 @@ code: |-
     --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
     --oc-color-bg-page-layout: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
+    --oc-color-bg-exposed-form: var(--oc-color-bg-form);
     --oc-color-bg-fieldset: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
-    --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 10%, transparent);
-    --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
+    --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 10%, var(--oc-color-bg-light));
+    --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
     --oc-color-bg-light-translucent: color-mix(in oklab, var(--oc-color-bg-light) 25%, transparent);
     --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
     --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-dark) 60%, transparent);
 
     /* Optional OC gradients (use in background-image declaration) */
+    /* "OSM" colors correspond with OpenStreetMap colors, feel free to define + use your own color variables */
     --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-osm-1), var(--oc-color-osm-2), var(--oc-color-osm-3));
     --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
       var(--oc-color-osm-2) 0%,
@@ -89,6 +91,11 @@ code: |-
       var(--oc-color-osm-1) 5%,
       var(--oc-color-osm-1) 10%
     );
+    
+    /* Optional paragraph style backgrounds */
+    --oc-bg-vivid: var(--oc-color-gradient-blocks);
+    --oc-bg-muted: var(--oc-color-bg-slight-contrast);
+
 
     /* Content section background colors */
     --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
@@ -154,6 +161,8 @@ code: |-
     --oc-bg-hero-image: transparent;
     --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
     --oc-color-marker-icon: var(--oc-color-primary);
+    /* Use a tool like posstack.com/css-color-filter-generator/ for your target color _filter_ */
+    --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
     --oc-color-bg-cluster-icon: var(--oc-color-primary);
   }
 
@@ -175,7 +184,7 @@ code: |-
   	  --oc-color-headline: currentColor;
   	
   	  /* Link/interaction colors DM */
-  	  --oc-color-link: #ffdd00; /*#e795f0;
+  	  --oc-color-link: #ffdd00;
   	  --oc-color-interaction: #33bcb2;
   	
   	  /* Functional colors DM */
@@ -264,11 +273,20 @@ code: |-
     --oc-font-size-tag-default: 1rem;
 
     /* Line heights */
-    --oc-line-height-default: 1.4;
+    --oc-line-height-default: 1.5;
     --oc-line-height-headings: 1.2;
 
     /* Weights */
-    --oc-font-weight-teaser-subtitle: 600;
+    --oc-font-weight-light: 300;
+    --oc-font-weight-normal: 400;
+    --oc-font-weight-medium: 500;
+    --oc-font-weight-semi-bold: 600;
+    --oc-font-weight-bold: 700;
+    --oc-font-weight-extra-bold: 820;
+    --oc-font-weight-black: 900;
+
+    --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
+    --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   }
 
   /*
@@ -293,12 +311,10 @@ code: |-
     --oc-border-radius-tiny: .125rem;
 
     /* Dividers and special borders */
-    --oc-divider-dark: .125rem solid var(--oc-color-divider-dark); /* 2px
+    --oc-divider-dark: .125rem solid var(--oc-color-divider-dark); /* 2px */
     --oc-divider-light: .0625rem solid var(--oc-color-divider-light); /* 1px */
     --oc-card-border-default: .125rem solid var(--oc-color-primary);
     --oc-underline: var(--oc-underline-color) underline solid 1px;
-    --oc-outline-active: .0625rem dotted var(--oc-color-interaction);
-    --oc-outline-active-offset: .125rem;
    }
    
   /*
@@ -307,33 +323,33 @@ code: |-
    
   body {
     /* Teaser cards */
-    --oc-card-margin-block: var(--oc-row-gap); /* vertical margin (not to confuse with grid gap) */
+    --oc-card-margin-block: calc(.5 * var(--oc-row-gap)); /* vertical margin (not to confuse with grid gap) */
     --oc-card-margin-inline: var(--oc-column-padding); /* horizontal margin */
     --oc-card-padding-block: 1rem; /* vertical padding */
     --oc-card-padding-inline: 2rem; /* horizontal padding */
     --oc-card-background: var(--oc-color-bg-light);
     --oc-card-box-shadow: var(--oc-box-shadow-centered); /* or "0 none" */
-    --oc-card-border: var(--oc-card-border-default); /* or "0 none" */
-    --oc-card-border-width: 1px 1px; /* 1 to 4 values; */
+    --oc-card-border-default: .125rem solid transparent;
+    --oc-card-border-inline: .125rem; /* only one value! keep in sync with card-border-default */
+    --oc-card-border-block: .125rem; /* only one value! keep in sync with card-border-default */
     --oc-card-border-radius: 2rem;
-    --oc-card-height-equalizer: calc(100% - var(--oc-card-padding-block)); /* stretch to equal height in views? ("auto" = no) */
 
     /* Profile teaser cards */
-    --oc-profile-card-margin-block: 0;
+    --oc-profile-card-margin-block: 0 0;
     --oc-profile-card-margin-inline: var(--oc-column-padding);
     --oc-profile-card-padding-block: 1rem;
     --oc-profile-card-padding-inline: 1rem;
     --oc-profile-card-background: var(--oc-color-bg-light);
-    --oc-profile-card-box-shadow: var(--oc-box-shadow-centered);
+    --oc-profile-card-box-shadow: 0 none; /* or "var(--oc-box-shadow-centered)" */
     --oc-profile-card-border: var(--oc-card-border-default);
-    --oc-profile-card-border-width: 1px 1px;
-    --oc-profile-card-border-radius: 1rem;
+    --oc-profile-card-border-width: 0; /* or "var(--oc-card-border-block) var(--oc-card-border-inline)"" */
+    --oc-profile-card-border-radius: 0;
 
     /* Teaser image fallback */
     --oc-image-fallback-color: var(--oc-color-primary);
-    --oc-image-fallback-image: url("../images/teaser-image-fallback.svg");
+    /* --oc-image-fallback-image: url("path/to/custom.svg"); */
     --oc-teaser-bg-scale: 350%;
-    --oc-teaser-bg-pos-x: 30%;
+    --oc-teaser-bg-pos-x: 35%;
     --oc-teaser-bg-pos-y: 20%;
   }
 
@@ -352,6 +368,7 @@ code: |-
     --oc-button-padding-s: 0.25em 1em;
     --oc-button-text-transform: none;
     --oc-button-letter-spacing: normal;
+    --oc-button-box-shadow: 0;
     /* tags */
     --oc-tag-border-radius: 50vi;
     --oc-tag-border-width: 0.0625rem;
@@ -359,11 +376,13 @@ code: |-
     --oc-tag-padding: .25em 2em;
     --oc-tag-text-transform: none;
     --oc-tag-letter-spacing: normal;
+    --oc-tag-box-shadow: 0;
     
     /* forms */
     --oc-form-field-padding-block: .5rem;
     --oc-form-field-padding-inline: 1rem;
     --oc-form-field-padding: var(--oc-form-field-padding-block) var(--oc-form-field-padding-inline);
+    --oc-form-item-padding-block: 1rem;
 
     /* form fields */
     --oc-input-placeholder-color: var(--oc-color-text-muted);
@@ -372,6 +391,13 @@ code: |-
     --oc-input-border-style: solid;
     --oc-input-border-color: var(--oc-color-divider-light) var(--oc-color-divider-light) var(--oc-color-divider-dark); /* only possible separately */
     --oc-input-border: var(--oc-input-border-width) var(--oc-input-border-style) var(--oc-color-divider-dark);
+    --oc-input-border-radius: 0;
+    --oc-input-focus-border-style: solid;
+    --oc-input-focus-bg-color: var(--oc-color-bg-light);
+    --oc-input-focus-border-color: var(--oc-color-info);
+    --oc-input-error-bg-color: var(--oc-color-bg-light);
+    --oc-input-error-border-color: var(--oc-color-danger);
+    --oc-input-error-border-style: var(--oc-input-border-style);
   }
    
   /*
