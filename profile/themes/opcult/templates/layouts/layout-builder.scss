@@ -41,12 +41,20 @@
 }
 
 .layout-oc2col-section {
-  > .section--first {
+  > .section--first:has(div) {
     flex: 1 1 calc(var(--oc-grid-step) * calc(var(--oc-column-count) - 3) - var(--oc-gutter));
   }
 
   > .section--second:has(div) {
     flex: 1 1 calc(calc(var(--oc-grid-step) * 3) - var(--oc-gutter));
+  }
+
+  .section--first:not(:has(div)) {
+    flex: 0 0 0%;
+  }
+
+  > .section--first:not(:has(div)) + .section--second:has(div) {
+    flex: 1 2 100%;
   }
 }
 
@@ -186,3 +194,4 @@ section[class*="style__"] {
   flex-basis: 100%;
   z-index: +1;
 }
+

@@ -22,11 +22,16 @@
     display: flex;
     flex-flow: column;
 
-    //@container (width > 32rem) and width ( < 48rem ) {
-    //  display: grid;
-    //  grid-template-columns: 1fr 1fr;
-    //  gap: var(--oc-row-gap) var(--oc-gutter);
-    //}
+    @container (width > 32rem) {
+      flex-flow: row wrap;
+      gap: var(--oc-row-gap) var(--oc-gutter);
+    }
+  }
+
+  .views-row {
+    container-type: unset;
+    min-width: min-content;
+    max-width: max-content;
   }
 
   .pager {
@@ -41,7 +46,6 @@
     @extend %label;
   }
 }
-
 
 
 
