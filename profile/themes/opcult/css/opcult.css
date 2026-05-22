@@ -353,6 +353,8 @@ body {
   --oc-section-spacing: 3rem;
   --oc-aspect-ratio-landscape: 16/9;
   --oc-aspect-ratio-portrait: 9/16;
+  --oc-logo-min-width: 8rem;
+  --oc-logo-max-width: 10rem;
 }
 @media screen and (min-width: 48em) {
   body {
@@ -747,6 +749,7 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
 
 @media screen {
   :root.dark {
+    --oc-logo-negative: url(../logo_negative.svg);
     --oc-color-oc-spectrum-1: #d41317;
     --oc-color-oc-spectrum-2: #da5914;
     --oc-color-oc-spectrum-3: #ffdd00;
@@ -3636,8 +3639,9 @@ footer.footer {
 }
 .header__branding img, .header__branding figure, .header__branding svg {
   block-size: auto;
-  inline-size: 8rem;
-  max-inline-size: 8rem;
+  min-inline-size: var(--oc-logo-min-width);
+  inline-size: 100%;
+  max-inline-size: var(--oc-logo-max-width);
 }
 @media screen and (min-width: 70em) {
   .header__branding {
@@ -8966,9 +8970,10 @@ form[role=search] input[type=submit],
     --oc-color-bg-light: var(--oc-color-bg-dark);
   }
   html.dark .site-logo {
-    background-image: url(../logo_negative.svg);
+    display: inline-block;
+    background-image: var(--oc-logo-negative);
     background-repeat: no-repeat;
-    background-size: 8rem auto;
+    background-size: contain;
   }
   html.dark .site-logo img {
     opacity: 0;
