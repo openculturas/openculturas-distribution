@@ -166,24 +166,48 @@
   // Sticky page title block
   .wrapper--content-header:has(.block-field-mood-image) {
     .page-title-wrapper {
+      background-color: var(--oc-color-bg-light);
       inset-block-start: var(--oc-title-inset);
       margin-block-end: var(--oc-title-inset);
 
       @include breakpoint(l) {
-        background-color: var(--oc-color-bg-light);
         margin-block-end: 0;
       }
     }
 
     .section--title {
+      .block-layout-builder:has(.flag) {
+        position: absolute;
+        inset-inline-end: 0;
+        inset-block-start: auto;
+        inset-block-end: calc(calc(-1 * var(--oc-title-bottom-stop) + calc(2 * var(--oc-row-gap))));
+        justify-content: end;
+        align-items: end;
+        padding-inline-end: calc(.5 * var(--oc-gutter));
+        block-size: 100%;
+        inline-size: auto;
+
+        @include breakpoint(m) {
+          inset-inline-end: calc(-1 * var(--oc-grid-step));
+        }
+        @include breakpoint(xl) {
+          inset-inline-end: calc(-2 * var(--oc-grid-step));
+        }
+        @include breakpoint(xxl) {
+          inset-inline-end: calc(-3 * var(--oc-grid-step));
+        }
+      }
+
       @include breakpoint(l) {
         --oc-title-inset: 0;
-        position: sticky;
-        block-size: 50%; // optimized for 2:1 mood image ratio
-        overflow-y: auto;
-        overflow-x: hidden;
-        inset-block-start: 35dvh;
-        margin-block-end: calc(-2 * var(--oc-row-gap)); // amend whitespace supercalculated by --oc-title-bottom-stop
+        block-size: 100%;
+
+        .block-openculturas-custom-page-title {
+          position: sticky;
+          overflow-y: auto;
+          overflow-x: hidden;
+          inset-block-start: 5dvh;
+        }
       }
     }
   }

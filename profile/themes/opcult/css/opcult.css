@@ -36,7 +36,9 @@ form[role=search] input[type=submit]::before, .flag-bookmark-node .flag--link::b
 .menu a[data-drupal-link-system-path$="/delete"]::before, .tabs a[data-drupal-link-system-path$="/layout"]::before,
 .menu a[data-drupal-link-system-path$="/layout"]::before, .tabs a[data-drupal-link-system-path$="/revisions"]::before,
 .menu a[data-drupal-link-system-path$="/revisions"]::before, .tabs a[data-drupal-link-system-path$="/latest"]::before,
-.menu a[data-drupal-link-system-path$="/latest"]::before, .tabs a[data-drupal-link-system-path$="/translations"]::before,
+.tabs a[data-drupal-link-system-path$="/latest"][aria-current=page]::before,
+.menu a[data-drupal-link-system-path$="/latest"]::before,
+.menu a[data-drupal-link-system-path$="/latest"][aria-current=page]::before, .tabs a[data-drupal-link-system-path$="/translations"]::before,
 .menu a[data-drupal-link-system-path$="/translations"]::before, .tabs a[data-drupal-link-system-path$="/tfa"]::before,
 .menu a[data-drupal-link-system-path$="/tfa"]::before, .tabs a[data-drupal-link-system-path$="/shortcuts"]::before,
 .menu a[data-drupal-link-system-path$="/shortcuts"]::before, .tabs a[data-drupal-link-system-path$="/submissions"]::before,
@@ -143,7 +145,9 @@ form[role=search] input[type=submit]::before, .flag-bookmark-node .flag--link::b
 .menu a[data-drupal-link-system-path$="/delete"]::before, .tabs a[data-drupal-link-system-path$="/layout"]::before,
 .menu a[data-drupal-link-system-path$="/layout"]::before, .tabs a[data-drupal-link-system-path$="/revisions"]::before,
 .menu a[data-drupal-link-system-path$="/revisions"]::before, .tabs a[data-drupal-link-system-path$="/latest"]::before,
-.menu a[data-drupal-link-system-path$="/latest"]::before, .tabs a[data-drupal-link-system-path$="/translations"]::before,
+.tabs a[data-drupal-link-system-path$="/latest"][aria-current=page]::before,
+.menu a[data-drupal-link-system-path$="/latest"]::before,
+.menu a[data-drupal-link-system-path$="/latest"][aria-current=page]::before, .tabs a[data-drupal-link-system-path$="/translations"]::before,
 .menu a[data-drupal-link-system-path$="/translations"]::before, .tabs a[data-drupal-link-system-path$="/tfa"]::before,
 .menu a[data-drupal-link-system-path$="/tfa"]::before, .tabs a[data-drupal-link-system-path$="/shortcuts"]::before,
 .menu a[data-drupal-link-system-path$="/shortcuts"]::before, .tabs a[data-drupal-link-system-path$="/submissions"]::before,
@@ -635,7 +639,7 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
   --oc-button-border-color: var(--oc-color-interaction);
   --oc-button-text-color: var(--oc-color-interaction);
   --oc-button-primary-bg-color: var(--oc-color-link);
-  --oc-button-primary-border-color: var(--oc-color-text-inverted);
+  --oc-button-primary-border-color: var(--oc-color-link);
   --oc-button-primary-text-color: var(--oc-color-text-inverted);
   --oc-button-danger-bg-color: var(--oc-color-bg-light);
   --oc-button-danger-border-color: var(--oc-color-danger);
@@ -734,6 +738,7 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
     --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
     --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
     --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
+    --oc-button-primary-border-color: var(--oc-color-text);
     --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
     --oc-chevron: url('../images/chevron-down-inv.svg');
     --oc-image-background: var(--oc-color-bg-hardly-any-contrast);
@@ -785,7 +790,7 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
 .ui-dialog.ui-widget .ui-dialog-content .form-actions .ui-button, button,
 .button,
 input[type=button],
-input[type=submit], .button-small, .views-exposed-form input[name=reset], .field--name-field-ticketing a, a.flag--link, body .ss-main .ss-deselect, button:not([disabled]).shwpd, .leaflet-container a.leaflet-popup-close-button, .cookiesjsr-layer .cookiesjsr-btn, .cookies-fallback .cookies-fallback--btn, .cookies-fallback .cookies-fallback--link, a.facets-soft-limit-link, .openculturas-map--reload, .map-link.button {
+input[type=submit], .button-small, .views-exposed-form input[name=reset], .field--name-field-ticketing a, a.flag--link, body .ss-main .ss-deselect, button:not([disabled]).shwpd, .leaflet-container a.leaflet-popup-close-button, .cookiesjsr-layer .cookiesjsr-btn, .cookies-fallback .cookies-fallback--btn, .cookies-fallback .cookies-fallback--link, a.facets-soft-limit-link, .openculturas-map--reload, .map-link.button, .layout-builder-form .form-actions .button {
   display: inline-block;
   margin-block-end: 1em;
   padding: var(--oc-button-padding);
@@ -834,7 +839,7 @@ input[type=submit]:not([disabled]):hover, .button-small:not([disabled]):hover, .
 .ui-dialog.ui-widget .ui-dialog-content .form-actions .button--primary,
 .ui-dialog.ui-widget .ui-dialog-content .form-actions #edit-submit.form-submit, .form-submit:not([data-drupal-selector=edit-reset]),
 .button--cta,
-.oc-button--primary, .openculturas-map--reload {
+.oc-button--primary, .openculturas-map--reload, .layout-builder-form .form-actions .button.button--primary {
   color: var(--oc-button-primary-text-color);
   border-color: var(--oc-button-primary-border-color);
   background-color: var(--oc-button-primary-bg-color);
@@ -3115,7 +3120,9 @@ form[role=search] input[type=submit]::before {
   --icon-url: url("../sprite/oc-sprite.svg#cards-three-light");
 }
 .tabs a[data-drupal-link-system-path$="/latest"]::before,
-.menu a[data-drupal-link-system-path$="/latest"]::before {
+.tabs a[data-drupal-link-system-path$="/latest"][aria-current=page]::before,
+.menu a[data-drupal-link-system-path$="/latest"]::before,
+.menu a[data-drupal-link-system-path$="/latest"][aria-current=page]::before {
   --icon-url: url("../sprite/oc-sprite.svg#clock-countdown-light");
 }
 .tabs a[data-drupal-link-system-path$="/translations"]::before,
@@ -3862,24 +3869,51 @@ footer.footer {
   }
 }
 .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .page-title-wrapper {
+  background-color: var(--oc-color-bg-light);
   inset-block-start: var(--oc-title-inset);
   margin-block-end: var(--oc-title-inset);
 }
 @media screen and (min-width: 70em) {
   .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .page-title-wrapper {
-    background-color: var(--oc-color-bg-light);
     margin-block-end: 0;
+  }
+}
+.oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .section--title .block-layout-builder:has(.flag) {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: auto;
+  inset-block-end: calc(-1 * var(--oc-title-bottom-stop) + 2 * var(--oc-row-gap));
+  justify-content: end;
+  align-items: end;
+  padding-inline-end: calc(0.5 * var(--oc-gutter));
+  block-size: 100%;
+  inline-size: auto;
+}
+@media screen and (min-width: 48em) {
+  .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .section--title .block-layout-builder:has(.flag) {
+    inset-inline-end: calc(-1 * var(--oc-grid-step));
+  }
+}
+@media screen and (min-width: 85em) {
+  .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .section--title .block-layout-builder:has(.flag) {
+    inset-inline-end: calc(-2 * var(--oc-grid-step));
+  }
+}
+@media screen and (min-width: 120em) {
+  .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .section--title .block-layout-builder:has(.flag) {
+    inset-inline-end: calc(-3 * var(--oc-grid-step));
   }
 }
 @media screen and (min-width: 70em) {
   .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .section--title {
     --oc-title-inset: 0;
+    block-size: 100%;
+  }
+  .oc_hero_layout_1 .wrapper--content-header:has(.block-field-mood-image) .section--title .block-openculturas-custom-page-title {
     position: sticky;
-    block-size: 50%;
     overflow-y: auto;
     overflow-x: hidden;
-    inset-block-start: 35dvh;
-    margin-block-end: calc(-2 * var(--oc-row-gap));
+    inset-block-start: 5dvh;
   }
 }
 
@@ -4399,6 +4433,23 @@ h2.block--title,
   display: none;
 }
 
+.layout-builder-form .form-actions {
+  display: flex;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+.layout-builder-form .form-actions .button {
+  margin-block-end: 0;
+}
+#layout-builder .layout-builder-block {
+  inset: unset;
+  inset-block-start: unset;
+  position: relative;
+  overflow: unset;
+  display: block;
+  inline-size: auto;
+  block-size: unset;
+}
+
 #layout-builder.layout-builder--content-preview-disabled #hero-region .section {
   display: block !important;
 }
@@ -4530,6 +4581,12 @@ h2.block--title,
   color: var(--oc-color-link-focus-text);
 }
 
+.layout-builder__add-block {
+  flex-basis: 100%;
+  z-index: 1;
+  align-self: end;
+}
+
 section[class*=style__] {
   margin-inline: calc(-1 * var(--oc-page-padding-inline));
 }
@@ -4540,11 +4597,11 @@ section[class*=style__] {
 
 @media screen and (min-width: 70em) {
   .oc_hero_layout_1 .layout-builder .section--mood {
-    grid-row: 1/span 2;
-    grid-column: 5/-1;
+    grid-row: 1;
+    grid-column: 7/-1;
   }
   .oc_hero_layout_1 .layout-builder .section--title {
-    grid-row: 2/span 1;
+    grid-row: 1;
     grid-column: 1/-7;
   }
 }
@@ -4553,9 +4610,18 @@ section[class*=style__] {
   inline-size: 100%;
 }
 
-.layout-builder__add-block {
-  flex-basis: 100%;
-  z-index: 1;
+#layout-builder .block-openculturas-custom-page-title {
+  padding-block: 2.5rem;
+  background-color: var(--oc-color-bg-info);
+  font-size: var(--gin-font-size-xl);
+  font-weight: bold;
+}
+#layout-builder .block-openculturas-custom-page-title .contextual {
+  font-weight: initial;
+}
+
+#layout-builder:not(.layout-builder--content-preview-disabled) .block-openculturas-custom-page-title::before {
+  content: "(Page title with subtitle)";
 }
 
 h4.block--title {
@@ -6707,6 +6773,7 @@ nav .pager__item a {
   gap: 0.5rem 1rem;
   list-style: none;
   padding-inline: 0;
+  margin-block-end: var(--oc-row-gap);
 }
 .tabs li {
   margin: 0.5rem 0;

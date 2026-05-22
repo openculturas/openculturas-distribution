@@ -5,6 +5,32 @@
 
 @use "../../sass/abstracts" as *;
 
+// Amend default operations area
+.layout-builder-form .form-actions {
+  display: flex;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+
+  .button {
+    @extend %button;
+    margin-block-end: 0;
+  }
+
+  .button.button--primary {
+    @extend %button-primary;
+  }
+}
+
+// Unset front-end special block placement
+#layout-builder .layout-builder-block {
+  inset: unset;
+  inset-block-start: unset;
+  position: relative;
+  overflow: unset;
+  display: block;
+  inline-size: auto;
+  block-size: unset;
+}
+
 #layout-builder {
   // _hero-layouts.scss
   &.layout-builder--content-preview-disabled #hero-region .section {
@@ -100,6 +126,7 @@
     background-color: var(--oc-color-bg-warning);
   }
 }
+
 .layout-builder__region {
   outline-color: var(--oc-color-interaction);
 }
@@ -156,6 +183,12 @@
   }
 }
 
+.layout-builder__add-block {
+  flex-basis: 100%;
+  z-index: +1;
+  align-self: end;
+}
+
 // When background color is applied
 
 section[class*="style__"] {
@@ -174,24 +207,37 @@ section[class*="style__"] {
 .oc_hero_layout_1 .layout-builder {
   @include breakpoint(l) {
     .section--mood {
-      grid-row: 1 / span 2;
-      grid-column: 5 / -1;
+      grid-row: 1;
+      grid-column: 7 / -1;
     }
     .section--title {
-      grid-row: 2 / span 1;
+      grid-row: 1;
       grid-column: 1 / -7;
     }
   }
 }
 
 // ---
-
+// Essentials contains floated blocks
 .layout-builder .section--essentials.interact {
   inline-size: 100%;
 }
 
-.layout-builder__add-block {
-  flex-basis: 100%;
-  z-index: +1;
+
+// ---
+// Title block highlighting
+
+#layout-builder .block-openculturas-custom-page-title {
+  padding-block: 2.5rem;
+  background-color: var(--oc-color-bg-info);
+  font-size: var(--gin-font-size-xl);
+  font-weight: bold;
+
+  .contextual {
+    font-weight: initial;
+  }
 }
 
+#layout-builder:not(.layout-builder--content-preview-disabled) .block-openculturas-custom-page-title::before {
+  content: '(Page title with subtitle)';
+}
