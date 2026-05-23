@@ -20,8 +20,7 @@ article.teaser,
 .calendar .universal-teaser {
   margin-block: var(--oc-card-margin-block);
   margin-inline: var(--oc-card-margin-inline);
-  padding-block: var(--oc-card-padding-block);
-  padding-inline: var(--oc-card-padding-inline);
+  padding: 0;
   border: var(--oc-card-border);
   border-width: var(--oc-card-border-width);
   border-radius: var(--oc-card-border-radius);
@@ -30,24 +29,26 @@ article.teaser,
   block-size: var(--oc-card-height-equalizer);
 }
 
-// Overflow image when padding is set
-
+// Image padding (yes, using margin)
 .teaser--top {
-  margin-block: calc(-1 * var(--oc-card-padding-block)) 0;
-  margin-inline: calc(-1 * var(--oc-card-padding-inline));
-  border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) 0 0;
+  margin-block: var(--oc-card-image-padding-block) 0;
+  margin-inline: var(--oc-card-image-padding-inline);
+  border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
   overflow: hidden;
 }
 
 // empty image fallback background
 .teaser--top.no-image {
-  inline-size: calc(100% + calc(2 * var(--oc-card-padding-inline)));
+  inline-size: 100%;
   aspect-ratio: var(--oc-aspect-ratio-landscape);
   @extend %teaser-image-fallback;
 }
 
-article.teaser .teaser--body {
-  padding-block-start: 1rem;
+// Body padding
+.teaser--body {
+  padding-block-start: var(--oc-card-padding-block);
+  padding-block-end: var(--oc-card-padding-block);
+  padding-inline: var(--oc-card-padding-inline);
 
   > .field__label {
     margin-block-end: 0;
@@ -100,7 +101,7 @@ h4.teaser--title {
 }
 
 // ---
-// View mode teaser_big
+// View mode teaser_big (horizontal layout)
 
 article.teaser-big {
   @include breakpoint(m) {
@@ -109,11 +110,17 @@ article.teaser-big {
     gap: var(--oc-row-gap) var(--oc-gutter);
 
     .teaser--top {
-      border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-inline)) 0 0 calc(var(--oc-card-border-radius) - var(--oc-card-border-inline));
-      margin-block: calc(-1 * var(--oc-card-padding-block));
-      margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
+      border-radius: var(--oc-card-radius-calculated) 0 0 var(--oc-card-radius-calculated);
+      margin-block: var(--oc-card-image-padding-block);
+      margin-inline: var(--oc-card-image-padding-inline) 0;
+    }
+
+    .teaser--body {
+      padding-inline-start: 0;
+      align-self: center;
     }
   }
+
   .teaser--top {
     @extend %image-fill;
   }
@@ -137,7 +144,6 @@ article.teaser-big {
     }
   }
 }
-
 
 // ---
 // Term teasers

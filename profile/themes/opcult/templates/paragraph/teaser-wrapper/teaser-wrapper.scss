@@ -1,7 +1,7 @@
 // ---------------------------------------
 // Teaser wrapper paragraph + included paragraphs
 // ---
-// Related: paragraph.scss (generic classes/behaviours)
+// Related: paragraph/paragraph.scss (generic classes/behaviours), node/teasers.scss
 // ---------------------------------------
 
 @use "../../../sass/abstracts" as *;
@@ -9,9 +9,8 @@
 // ---
 // View mode: slider
 
-.paragraph--view-mode--slider {
-
-}
+//.paragraph--view-mode--slider {
+//}
 
 // ---
 // Intro inline in mode "side by side"
@@ -34,7 +33,8 @@
       @extend %grid-3;
     }
 
-    article.teaser {
+    article.teaser-curated {
+      background: var(--oc-card-background);
       block-size: var(--oc-card-height-equalizer);
     }
   }
@@ -80,15 +80,15 @@
       grid-column: 1;
       grid-row: 1 / 3;
       @extend %image-fill;
-      border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-inline)) 0 0 calc(var(--oc-card-border-radius) - var(--oc-card-border-inline));
-      margin-block: calc(-1 * var(--oc-card-padding-block));
-      margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
+      border-radius: var(--oc-card-radius-calculated) 0 0 var(--oc-card-radius-calculated);
+      //margin-block: calc(-1 * var(--oc-card-padding-block));
+      //margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
     }
 
     .teaser--body {
       grid-column: 2;
       grid-row: 1;
-      padding-block-start: 0;
+      //padding-block-start: 0;
     }
 
     .teaser--footer {
@@ -108,10 +108,10 @@
       }
 
       .teaser--top {
-        border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
+        border-radius: var(--oc-card-radius-calculated);
         aspect-ratio: unset;
         inline-size: calc(100% + 2 * var(--oc-card-padding-inline));
-        margin-block-end: calc(-1 * var(--oc-card-padding-block));
+        //margin-block-end: calc(-1 * var(--oc-card-padding-block));
       }
     }
   }
@@ -125,7 +125,7 @@
 .teaser--wrapper.side-by-side {
   .teaser-unified .teaser--body {
     @include breakpoint(l) {
-      padding-inline: 0;
+      //padding-inline: 0;
     }
   }
 }

@@ -10,16 +10,19 @@
   // Teaser cards
   --oc-card-margin-block: calc(.5 * var(--oc-row-gap)); // vertical margin (not to confuse with grid gap)
   --oc-card-margin-inline: var(--oc-column-padding); // horizontal margin
-  --oc-card-padding-block: 1rem; // vertical padding
-  --oc-card-padding-inline: 2rem; // horizontal padding
+  --oc-card-padding-block: 1rem; // vertical content padding
+  --oc-card-padding-inline: 2rem; // horizontal content padding
+  --oc-card-image-padding-block: 0; // independent teaser image vertical padding
+  --oc-card-image-padding-inline: 0; // independent teaser image horizontal padding
   --oc-card-background: var(--oc-color-bg-light); // or "transparent" or "var(--oc-color-bg-hardly-any-contrast)"
   --oc-card-box-shadow: var(--oc-box-shadow-centered); // or "0 none"
-  --oc-card-border-default: .125rem solid transparent;
+  --oc-card-border-default: 1pxrem solid transparent;
   --oc-card-border: var(--oc-card-border-default); // or "0 none", overridden by oc-card-border-width
-  --oc-card-border-inline: .125rem; // only one value!
-  --oc-card-border-block: .125rem; // only one value!
+  --oc-card-border-inline: 1px; // only one value!
+  --oc-card-border-block: 1px; // only one value!
   --oc-card-border-width: var(--oc-card-border-block) var(--oc-card-border-inline); // 1 to 4 values, keep in sync with above
   --oc-card-border-radius: 1.5rem; // 2rem
+  --oc-card-radius-calculated: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
   --oc-card-height-equalizer: calc(100% - var(--oc-card-padding-block)); // stretch to equal height in views? ("auto" = no)
 
   // Profile teaser cards

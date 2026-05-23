@@ -8,9 +8,10 @@
 @use "../../sass/abstracts" as *;
 
 .teaser-unified {
+  background: transparent;
   display: grid;
   gap: 0;
-  aspect-ratio: var(--oc-aspect-ratio-landscape);
+  aspect-ratio: var(--oc-aspect-ratio-landscape-deriv);
 
   .teaser--top,
   .teaser--body,
@@ -20,8 +21,7 @@
   }
 
   .teaser--top {
-    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
-    margin-block-end: calc(-1 * var(--oc-card-padding-block));
+    border-radius: var(--oc-card-radius-calculated);
     place-self: stretch;
   }
 
@@ -37,21 +37,11 @@
 
   .teaser--body {
     align-self: end;
-    margin-block: var(--oc-row-gap);
   }
 
   .teaser--footer {
     align-self: end;
     justify-self: end;
-  }
-
-  .teaser--body {
-    margin-block: 0;
-    padding-block-end: .5rem;
-
-    @include breakpoint(xl) {
-      padding-inline: var(--oc-gutter);
-    }
   }
 
   .field--name-field-subtitle p {
@@ -63,8 +53,11 @@
   }
 }
 
-article.teaser-unified .teaser--body {
-  padding: 0; // override inheritance from article
+// ---
+// Custom overridable teasers
+
+.teaser-curated.teaser-unified {
+  background: transparent;
 }
 
 // ---
@@ -75,8 +68,8 @@ article.teaser-unified .teaser--body {
   @extend %icon-only;
   @include icon(info);
   position: absolute;
-  inset-inline-end: calc(-.5 * var(--oc-card-padding-inline));
-  inset-block-end: calc(-.5 * var(--oc-card-padding-block));
+  inset-inline-end: .25rem;
+  inset-block-end: .25rem;
 }
 
 .quick-info--popover-content {
@@ -87,6 +80,8 @@ article.teaser-unified .teaser--body {
 // Text overlaying image: linear gradient background (not changing in dark mode)
 
 .teaser-unified {
+  --teaser-overlay-color: var(--oc-color-teaser-overlay);
+
   .teaser--body {
     color: hsla(255, 0%, 100%);
   }
@@ -97,14 +92,22 @@ article.teaser-unified .teaser--body {
     inset: 0 0 0 0;
     background-image: linear-gradient(
         180deg,
-        hsla(0, 0%, 35%, 0) 0%,     // block start: transparent
-        hsla(0, 0%, 34%, 0.03) 40%,
-        hsla(0, 0%, 28%, 0.35) 50%,
-        hsla(0, 0%, 22%, 0.65) 65%,
-        hsla(0, 0%, 18%, 0.75) 80%,
-        hsla(0, 0%, 12%, 0.8) 100%  // maximum dark (not absolute)
+        color-mix(in srgb, var(--teaser-overlay-color)  0%, transparent)  0%,
+        color-mix(in srgb, var(--teaser-overlay-color)  2%, transparent) 10%,
+        color-mix(in srgb, var(--teaser-overlay-color)  8%, transparent) 20%,
+        color-mix(in srgb, var(--teaser-overlay-color) 18%, transparent) 30%,
+        color-mix(in srgb, var(--teaser-overlay-color) 32%, transparent) 40%,
+        color-mix(in srgb, var(--teaser-overlay-color) 50%, transparent) 50%,
+        color-mix(in srgb, var(--teaser-overlay-color) 65%, transparent) 60%,
+        color-mix(in srgb, var(--teaser-overlay-color) 76%, transparent) 70%,
+        color-mix(in srgb, var(--teaser-overlay-color) 84%, transparent) 80%,
+        color-mix(in srgb, var(--teaser-overlay-color) 90%, transparent) 90%,
+        color-mix(in srgb, var(--teaser-overlay-color) 93%, transparent) 100%
     );
-    //background-image: linear-gradient(
+
+    // ---
+    // Variations
+
     //    180deg,
     //    hsla(0, 0%, 35.29%, 0) 0%,
     //    hsla(0, 0%, 34.53%, 0.034375) 16.36%,
@@ -115,7 +118,14 @@ article.teaser-unified .teaser--body {
     //    hsla(0, 0%, 13.95%, 0.675) 90.28%,
     //    hsla(0, 0%, 7.32%, 0.765625) 97.43%,
     //    hsla(0, 0%, 0%, 0.8) 100%
-    //);
+
+    //    180deg,
+    //    hsla(0, 0%, 35%, 0) 0%,     // block start: transparent
+    //    hsla(0, 0%, 34%, 0.03) 40%,
+    //    hsla(0, 0%, 28%, 0.35) 50%,
+    //    hsla(0, 0%, 22%, 0.65) 65%,
+    //    hsla(0, 0%, 18%, 0.75) 80%,
+    //    hsla(0, 0%, 12%, 0.8) 100%  // maximum dark (not absolute)
   }
 
   h3.teaser--title a {
@@ -129,11 +139,9 @@ article.teaser-unified .teaser--body {
 
 .paragraph--type--teaser-wrapper.paragraph--view-mode--default {
   .teaser-unified {
-    //display: block;
     aspect-ratio: unset;
 
     .teaser--body {
-      padding-block-start: 1rem;
       color: var(--oc-color-text);
       grid-row: 2;
     }
@@ -149,8 +157,7 @@ article.teaser-unified .teaser--body {
   }
 
   .teaser--top {
-    margin-block-end: 0;
-    border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) calc(var(--oc-card-border-radius) - var(--oc-card-border-block)) 0 0;
+    border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
 
     &::after {
       background-image: none;
@@ -182,7 +189,7 @@ article.teaser-unified .teaser--body {
 
 .field--name-field-references .teaser-unified {
   max-inline-size: 100%;
-  aspect-ratio: var(--oc-aspect-ratio-landscape);
+  aspect-ratio: var(--oc-aspect-ratio-landscape-deriv);
 }
 
 // --
