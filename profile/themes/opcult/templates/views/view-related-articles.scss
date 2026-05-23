@@ -7,16 +7,16 @@
 // Article teaser grid
 
 .magazine {
-  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .views-infinite-scroll-content-wrapper {
-    @extend %grid;
-    @extend %grid-3;
+  @extend %view-grid-3;
 
-    // More compact grid on category pages
-    .vocabulary-category & {
-      @extend %grid-4;
-    }
+  // More compact grid on category pages
+  .vocabulary-category & {
+    @extend %view-grid-4;
   }
+}
+
+.vocabulary-category .intro-inline .magazine {
+  @extend %view-grid-3;
 }
 
 // ---

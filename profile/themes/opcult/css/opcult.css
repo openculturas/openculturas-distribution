@@ -743,6 +743,8 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
     --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
     --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
     --oc-color-neutral-canvas: #303236;
+    --oc-color-bg-page: color-mix(in oklab, var(--oc-color-bg-light) 93%, var(--oc-color-bg-dark));
+    --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 85%, transparent);
     --oc-button-primary-border-color: var(--oc-color-text);
     --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
     --oc-image-background: var(--oc-color-bg-hardly-any-contrast);
@@ -1172,19 +1174,19 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
   }
 }
 
-.terms:not(.compact) .view-content, .view-search .view-content, .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+.terms:not(.compact) .view-content, .view-search .view-content, .field--name-field-recommendations > .field__items, .field--name-field-my-profiles > .field__items,
+.field--name-field-my-bookmarks-view-ref > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--wrapper-section.paragraph--view-mode--grid, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .address-container, .view-mode-legal, .field--name-field-people-reference > .field__items, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list, .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .intro-inline .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
 .profiles .views-infinite-scroll-content-wrapper,
-.memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
 .memberships .views-infinite-scroll-content-wrapper,
-.locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
 .locations .views-infinite-scroll-content-wrapper,
-.view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.view-related-location .views-infinite-scroll-content-wrapper, .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-.event-catalogue .views-infinite-scroll-content-wrapper, .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-.calendar .views-infinite-scroll-content-wrapper, .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-.magazine .views-infinite-scroll-content-wrapper, .field--name-field-recommendations > .field__items, .field--name-field-my-profiles > .field__items,
-.field--name-field-my-bookmarks-view-ref > .field__items, .intro-inline, .intro-inline .view:not(:has(.views-infinite-scroll-content-wrapper)),
-.intro-inline .view-content:has(.views-infinite-scroll-content-wrapper), .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--wrapper-section.paragraph--view-mode--grid, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .address-container, .view-mode-legal, .field--name-field-people-reference > .field__items, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list {
+.view-related-location .views-infinite-scroll-content-wrapper,
+.event-catalogue .views-infinite-scroll-content-wrapper,
+.calendar .views-infinite-scroll-content-wrapper,
+.magazine .views-infinite-scroll-content-wrapper,
+.intro-inline .view .views-infinite-scroll-content-wrapper {
   --oc-grid-item-count: 1;
   display: grid;
   grid-template-columns: repeat(var(--oc-grid-item-count), 1fr);
@@ -1223,133 +1225,128 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
 }
 
 @media screen and (min-width: 30em) {
-  .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .layout-oc2col-section .event-catalogue, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list, .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .intro-inline .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .profiles .views-infinite-scroll-content-wrapper,
-  .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .memberships .views-infinite-scroll-content-wrapper,
-  .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .locations .views-infinite-scroll-content-wrapper,
-  .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-  .view-related-location .views-infinite-scroll-content-wrapper, .layout-oc2col-section .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .layout-oc2col-section .event-catalogue .views-infinite-scroll-content-wrapper, .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar .views-infinite-scroll-content-wrapper, .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .magazine .views-infinite-scroll-content-wrapper, .intro-inline .view:not(:has(.views-infinite-scroll-content-wrapper)),
-  .intro-inline .view-content:has(.views-infinite-scroll-content-wrapper), .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list {
+  .view-related-location .views-infinite-scroll-content-wrapper,
+  .event-catalogue .views-infinite-scroll-content-wrapper,
+  .calendar .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .calendar .views-infinite-scroll-content-wrapper,
+  .magazine .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .magazine .views-infinite-scroll-content-wrapper,
+  .intro-inline .view .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 1;
   }
 }
 @media screen and (min-width: 48em) {
-  .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .layout-oc2col-section .event-catalogue, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list, .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .intro-inline .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .profiles .views-infinite-scroll-content-wrapper,
-  .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .memberships .views-infinite-scroll-content-wrapper,
-  .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .locations .views-infinite-scroll-content-wrapper,
-  .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-  .view-related-location .views-infinite-scroll-content-wrapper, .layout-oc2col-section .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .layout-oc2col-section .event-catalogue .views-infinite-scroll-content-wrapper, .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar .views-infinite-scroll-content-wrapper, .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .magazine .views-infinite-scroll-content-wrapper, .intro-inline .view:not(:has(.views-infinite-scroll-content-wrapper)),
-  .intro-inline .view-content:has(.views-infinite-scroll-content-wrapper), .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list {
+  .view-related-location .views-infinite-scroll-content-wrapper,
+  .event-catalogue .views-infinite-scroll-content-wrapper,
+  .calendar .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .calendar .views-infinite-scroll-content-wrapper,
+  .magazine .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .magazine .views-infinite-scroll-content-wrapper,
+  .intro-inline .view .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 2;
   }
 }
 @media screen and (min-width: 70em) {
-  .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .layout-oc2col-section .event-catalogue, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list, .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .intro-inline .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .profiles .views-infinite-scroll-content-wrapper,
-  .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .memberships .views-infinite-scroll-content-wrapper,
-  .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .locations .views-infinite-scroll-content-wrapper,
-  .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-  .view-related-location .views-infinite-scroll-content-wrapper, .layout-oc2col-section .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .layout-oc2col-section .event-catalogue .views-infinite-scroll-content-wrapper, .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar .views-infinite-scroll-content-wrapper, .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .magazine .views-infinite-scroll-content-wrapper, .intro-inline .view:not(:has(.views-infinite-scroll-content-wrapper)),
-  .intro-inline .view-content:has(.views-infinite-scroll-content-wrapper), .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list {
+  .view-related-location .views-infinite-scroll-content-wrapper,
+  .event-catalogue .views-infinite-scroll-content-wrapper,
+  .calendar .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .calendar .views-infinite-scroll-content-wrapper,
+  .magazine .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .magazine .views-infinite-scroll-content-wrapper,
+  .intro-inline .view .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 2;
   }
 }
 @media screen and (min-width: 85em) {
-  .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .layout-oc2col-section .event-catalogue, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list, .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .intro-inline .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .profiles .views-infinite-scroll-content-wrapper,
-  .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .memberships .views-infinite-scroll-content-wrapper,
-  .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .locations .views-infinite-scroll-content-wrapper,
-  .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-  .view-related-location .views-infinite-scroll-content-wrapper, .layout-oc2col-section .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .layout-oc2col-section .event-catalogue .views-infinite-scroll-content-wrapper, .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar .views-infinite-scroll-content-wrapper, .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .magazine .views-infinite-scroll-content-wrapper, .intro-inline .view:not(:has(.views-infinite-scroll-content-wrapper)),
-  .intro-inline .view-content:has(.views-infinite-scroll-content-wrapper), .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list {
+  .view-related-location .views-infinite-scroll-content-wrapper,
+  .event-catalogue .views-infinite-scroll-content-wrapper,
+  .calendar .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .calendar .views-infinite-scroll-content-wrapper,
+  .magazine .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .magazine .views-infinite-scroll-content-wrapper,
+  .intro-inline .view .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 3;
   }
 }
 @media screen and (min-width: 120em) {
-  .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
+  .layout-oc2col-section .event-catalogue, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list, .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .intro-inline .view .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .profiles .views-infinite-scroll-content-wrapper,
-  .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .memberships .views-infinite-scroll-content-wrapper,
-  .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
   .locations .views-infinite-scroll-content-wrapper,
-  .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-  .view-related-location .views-infinite-scroll-content-wrapper, .layout-oc2col-section .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .layout-oc2col-section .event-catalogue .views-infinite-scroll-content-wrapper, .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar .views-infinite-scroll-content-wrapper, .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .magazine .views-infinite-scroll-content-wrapper, .intro-inline .view:not(:has(.views-infinite-scroll-content-wrapper)),
-  .intro-inline .view-content:has(.views-infinite-scroll-content-wrapper), .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .field--type-entity-reference-revisions > .field__items, .paragraph--type--gallery.paragraph--view-mode--grid > .field > .field__items, .paragraph--type--bookable-event, .intro-inline > .field--name-field-references > .field__items, .block--a11y, .openculturas-map--results-list {
+  .view-related-location .views-infinite-scroll-content-wrapper,
+  .event-catalogue .views-infinite-scroll-content-wrapper,
+  .calendar .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .calendar .views-infinite-scroll-content-wrapper,
+  .magazine .views-infinite-scroll-content-wrapper,
+  .vocabulary-category .intro-inline .magazine .views-infinite-scroll-content-wrapper,
+  .intro-inline .view .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 3;
   }
 }
 
 @media screen and (min-width: 30em) {
-  .terms:not(.compact) .view-content, .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .event-catalogue .views-infinite-scroll-content-wrapper, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .terms:not(.compact) .view-content, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .vocabulary-category .calendar .views-infinite-scroll-content-wrapper,
-  .calendar.view-related-dates-archive .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar.view-related-dates-archive .views-infinite-scroll-content-wrapper, .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items {
+  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 1;
   }
 }
 @media screen and (min-width: 48em) {
-  .terms:not(.compact) .view-content, .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .event-catalogue .views-infinite-scroll-content-wrapper, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .terms:not(.compact) .view-content, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .vocabulary-category .calendar .views-infinite-scroll-content-wrapper,
-  .calendar.view-related-dates-archive .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar.view-related-dates-archive .views-infinite-scroll-content-wrapper, .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items {
+  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 2;
   }
 }
 @media screen and (min-width: 70em) {
-  .terms:not(.compact) .view-content, .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .event-catalogue .views-infinite-scroll-content-wrapper, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .terms:not(.compact) .view-content, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .vocabulary-category .calendar .views-infinite-scroll-content-wrapper,
-  .calendar.view-related-dates-archive .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar.view-related-dates-archive .views-infinite-scroll-content-wrapper, .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items {
+  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 3;
   }
 }
 @media screen and (min-width: 85em) {
-  .terms:not(.compact) .view-content, .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .event-catalogue .views-infinite-scroll-content-wrapper, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .terms:not(.compact) .view-content, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .vocabulary-category .calendar .views-infinite-scroll-content-wrapper,
-  .calendar.view-related-dates-archive .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar.view-related-dates-archive .views-infinite-scroll-content-wrapper, .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items {
+  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 4;
   }
 }
 @media screen and (min-width: 120em) {
-  .terms:not(.compact) .view-content, .event-catalogue .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .event-catalogue .views-infinite-scroll-content-wrapper, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .terms:not(.compact) .view-content, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items, .vocabulary-category .calendar .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
   .vocabulary-category .calendar .views-infinite-scroll-content-wrapper,
-  .calendar.view-related-dates-archive .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .calendar.view-related-dates-archive .views-infinite-scroll-content-wrapper, .vocabulary-category .magazine .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper, .field--name-field-recommendations > .field__items, .intro-inline, .paragraph--type--teaser-wrapper.paragraph--view-mode--grid, .layout-oc2col-section .field--name-field-people-reference > .field__items {
+  .vocabulary-category .magazine .views-infinite-scroll-content-wrapper {
     --oc-grid-item-count: 4;
   }
 }
@@ -1467,6 +1464,31 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
     grid-column: 1/-1;
     grid-row: 1/span 2;
   }
+}
+
+.section--aside .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .section--second .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)), .layout-oc3col-section .profiles .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--aside .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--second .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.layout-oc3col-section .memberships .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--aside .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--second .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.layout-oc3col-section .locations .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--aside .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--second .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.layout-oc3col-section .view-related-location .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+.section--aside .profiles .views-infinite-scroll-content-wrapper,
+.section--second .profiles .views-infinite-scroll-content-wrapper,
+.layout-oc3col-section .profiles .views-infinite-scroll-content-wrapper,
+.section--aside .memberships .views-infinite-scroll-content-wrapper,
+.section--second .memberships .views-infinite-scroll-content-wrapper,
+.layout-oc3col-section .memberships .views-infinite-scroll-content-wrapper,
+.section--aside .locations .views-infinite-scroll-content-wrapper,
+.section--second .locations .views-infinite-scroll-content-wrapper,
+.layout-oc3col-section .locations .views-infinite-scroll-content-wrapper,
+.section--aside .view-related-location .views-infinite-scroll-content-wrapper,
+.section--second .view-related-location .views-infinite-scroll-content-wrapper,
+.layout-oc3col-section .view-related-location .views-infinite-scroll-content-wrapper {
+  --oc-grid-item-count: 1;
 }
 
 .layout-grid-overlay {
@@ -3805,6 +3827,14 @@ footer.footer {
 .oc_hero_layout_3 {
   --oc-bg-hero-section: transparent;
   --oc-color-hero-text: currentColor;
+}
+.oc_hero_layout_1 .wrapper--content-header,
+.oc_hero_layout_1 .wrapper--content-main,
+.oc_hero_layout_2 .wrapper--content-header,
+.oc_hero_layout_2 .wrapper--content-main,
+.oc_hero_layout_3 .wrapper--content-header,
+.oc_hero_layout_3 .wrapper--content-main {
+  grid-gap: 0 var(--oc-gutter);
 }
 .oc_hero_layout_1 .section--title,
 .oc_hero_layout_2 .section--title,
@@ -8647,31 +8677,6 @@ details.form-wrapper {
 
 .profiles .views-row {
   container-type: inline-size;
-}
-
-.section--aside .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content, .section--second .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content, .layout-oc3col-section .profiles:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--aside .profiles .views-infinite-scroll-content-wrapper,
-.section--second .profiles .views-infinite-scroll-content-wrapper,
-.layout-oc3col-section .profiles .views-infinite-scroll-content-wrapper,
-.section--aside .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--second .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.layout-oc3col-section .memberships:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--aside .memberships .views-infinite-scroll-content-wrapper,
-.section--second .memberships .views-infinite-scroll-content-wrapper,
-.layout-oc3col-section .memberships .views-infinite-scroll-content-wrapper,
-.section--aside .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--second .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.layout-oc3col-section .locations:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--aside .locations .views-infinite-scroll-content-wrapper,
-.section--second .locations .views-infinite-scroll-content-wrapper,
-.layout-oc3col-section .locations .views-infinite-scroll-content-wrapper,
-.section--aside .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--second .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.layout-oc3col-section .view-related-location:not(:has(.views-infinite-scroll-content-wrapper)) .view-content,
-.section--aside .view-related-location .views-infinite-scroll-content-wrapper,
-.section--second .view-related-location .views-infinite-scroll-content-wrapper,
-.layout-oc3col-section .view-related-location .views-infinite-scroll-content-wrapper {
-  --oc-grid-item-count: 1;
 }
 
 .form--compact form,

@@ -8,19 +8,16 @@
 // Calendar entry grid
 
 .calendar {
-  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .views-infinite-scroll-content-wrapper {
-    @extend %grid;
-    @extend %grid-3;
+  @extend %view-grid-3;
+
+  // More compact grid on category pages
+  .vocabulary-category & {
+    @extend %view-grid-4;
   }
 }
 
-.vocabulary-category .calendar,
-.calendar.view-related-dates-archive {
-  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
-  .views-infinite-scroll-content-wrapper {
-    @extend %grid-4;
-  }
+.vocabulary-category .intro-inline .calendar {
+  @extend %view-grid-3;
 }
 
 // Text fields in calendar entry

@@ -207,3 +207,47 @@
     }
   }
 }
+
+// ---
+// Placeholder for both view-content with and without infinite scroll wrapper
+// Extend: .view (e.g. ".calendar")
+
+%view-grid-2 {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-2;
+  }
+}
+
+%view-grid-3 {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-3;
+  }
+}
+
+%view-grid-4 {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-4;
+  }
+}
+
+%view-grid-6 {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    @extend %grid;
+    @extend %grid-6;
+  }
+}
+
+// For unsetting
+%view-grid-1 {
+  .view-content:not(:has(.views-infinite-scroll-content-wrapper)),
+  .views-infinite-scroll-content-wrapper {
+    --oc-grid-item-count: 1;
+  }
+}
