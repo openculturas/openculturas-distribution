@@ -664,6 +664,7 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
   --oc-tag-link-active-bg-color: var(--oc-color-bg-light);
   --oc-tag-link-active-border-color: var(--oc-color-bg-light);
   --oc-tag-link-active-text-color: var(--oc-color-interaction);
+  --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
 }
 
 :root {
@@ -672,23 +673,24 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
   --oc-color-oc-spectrum-3: #ffdd00;
   --oc-color-oc-spectrum-4: #008d36;
   --oc-color-oc-spectrum-5: #1d70b7;
-  --oc-color-osm-1: #cdebb0;
-  --oc-color-osm-2: #eef0d5;
-  --oc-color-osm-3: #add19e;
+  --oc-color-accent-1: #cdebb0;
+  --oc-color-accent-2: #eef0d5;
+  --oc-color-accent-3: #add19e;
   --oc-color-neutral-canvas: #f6f6f6;
-  --oc-color-bg-page-layout: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
+  --oc-color-bg-page: var(--oc-color-bg-light);
+  --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
   --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-dark) 60%, transparent);
-  --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-osm-1), var(--oc-color-osm-2), var(--oc-color-osm-3));
+  --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-accent-1), var(--oc-color-accent-2), var(--oc-color-accent-3));
   --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
-    var(--oc-color-osm-2) 0%,
-    var(--oc-color-osm-2) 5%,
-    var(--oc-color-osm-1) 5%,
-    var(--oc-color-osm-1) 10%
+    var(--oc-color-accent-2) 0%,
+    var(--oc-color-accent-2) 5%,
+    var(--oc-color-accent-1) 5%,
+    var(--oc-color-accent-1) 10%
   );
-  --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
-  --oc-section-spacing-sub-terms: var(--oc-bg-section-buffer);
   --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
   --oc-section-spacing-teaser: var(--oc-bg-section-buffer);
+  --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
+  --oc-section-spacing-sub-terms: var(--oc-bg-section-buffer);
   --oc-bg-comments-section: var(--oc-color-bg-slight-contrast);
   --oc-section-spacing-comments: var(--oc-bg-section-buffer);
   --oc-bg-magazine-section: transparent;
@@ -709,8 +711,8 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
   --oc-color-text-footer: var(--oc-color-text-inverted);
   --oc-color-link-footer: var(--oc-color-link-inverted);
   --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
+  --oc-color-hero-text: currentColor;
   --oc-bg-hero-image: transparent;
-  --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
   --oc-color-marker-icon: var(--oc-color-primary);
   --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
   --oc-color-bg-cluster-icon: var(--oc-color-primary);
@@ -733,36 +735,35 @@ button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--defau
     --oc-color-warning: #ffae00;
     --oc-color-divider-light: #38393b;
     --oc-color-divider-dark: #8b8d95;
-    --oc-color-neutral-canvas: #303236;
     --oc-color-bg-light: #16181a;
     --oc-color-bg-dark: #e6e6e6;
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
     --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
     --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
     --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
+    --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
+    --oc-color-neutral-canvas: #303236;
     --oc-button-primary-border-color: var(--oc-color-text);
     --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
-    --oc-chevron: url('../images/chevron-down-inv.svg');
     --oc-image-background: var(--oc-color-bg-hardly-any-contrast);
+    --oc-chevron: url('../images/chevron-down-inv.svg');
   }
 }
 
 @media screen {
   :root.dark {
     --oc-logo-negative: url(../logo_negative.svg);
-    --oc-color-oc-spectrum-1: #d41317;
-    --oc-color-oc-spectrum-2: #da5914;
-    --oc-color-oc-spectrum-3: #ffdd00;
-    --oc-color-oc-spectrum-4: #008d36;
-    --oc-color-oc-spectrum-5: #1d70b7;
-    --oc-color-osm-1: #404b38;
-    --oc-color-osm-2: #60644c;
-    --oc-color-osm-3: #4e5e47;
+    --oc-color-accent-1: #404b38;
+    --oc-color-accent-2: #60644c;
+    --oc-color-accent-3: #4e5e47;
     --oc-color-bg-footer: #000;
     --oc-color-text-footer: #efefef;
     --oc-color-link-footer: #ffdd00;
     --oc-shadow-color: color-mix(in oklab, #000000 60%, transparent);
   }
+}
+:root.dark {
+  --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
 }
 
 :root {
@@ -978,7 +979,7 @@ body {
   background-image: var(--oc-image-fallback-image);
   background-repeat: no-repeat;
   background-size: var(--oc-teaser-bg-scale);
-  background-position: var(--oc-teaser-bg-pos-y) var(--oc-teaser-bg-pos-x);
+  background-position: var(--oc-teaser-bg-pos-x) var(--oc-teaser-bg-pos-y);
   opacity: 1;
 }
 
@@ -3747,6 +3748,7 @@ footer.footer {
 
 .wrapper--content-header {
   background-color: var(--oc-bg-hero-section);
+  color: var(--oc-color-hero-text);
 }
 
 .section--mood {
@@ -3802,6 +3804,7 @@ footer.footer {
 .oc_hero_layout_2,
 .oc_hero_layout_3 {
   --oc-bg-hero-section: transparent;
+  --oc-color-hero-text: currentColor;
 }
 .oc_hero_layout_1 .section--title,
 .oc_hero_layout_2 .section--title,
@@ -4008,6 +4011,15 @@ footer.footer {
 .oc_hero_layout_4 .wrapper--content-header {
   margin-block-end: 0;
 }
+.oc_hero_layout_4 .wrapper--content-header a {
+  color: var(--oc-color-hero-text);
+}
+.oc_hero_layout_4 .wrapper--content-header .reference--taxonomy_term a {
+  color: var(--oc-tag-link-text-color);
+}
+.oc_hero_layout_4 .wrapper--content-header .reference--taxonomy_term a:focus, .oc_hero_layout_4 .wrapper--content-header .reference--taxonomy_term a:hover {
+  color: var(--oc-tag-link-focus-text-color);
+}
 .oc_hero_layout_4 .page-title-wrapper {
   background-color: transparent;
 }
@@ -4040,7 +4052,7 @@ footer.footer {
   }
 }
 .oc_hero_layout_4 .section--title .block-layout-builder:has(.flag) {
-  inline-inline-end: 0;
+  inset-inline-end: 0;
 }
 .oc_hero_layout_4 .page-title-wrapper {
   padding-inline-start: var(--oc-gutter);
@@ -4136,7 +4148,7 @@ footer.oc-base-section {
     display: block;
     inline-size: 100vw;
     block-size: 100vh;
-    background-color: var(--oc-color-bg-page-layout);
+    background-color: var(--oc-color-bg-page-backdrop);
     backdrop-filter: blur(20px);
   }
 }
@@ -4148,7 +4160,7 @@ main {
 .oc-base-section {
   inline-size: var(--oc-page-width);
   margin: 0 auto;
-  background-color: var(--oc-color-bg-light);
+  background-color: var(--oc-color-bg-page);
   padding-inline: var(--oc-page-padding-inline);
 }
 
@@ -4905,7 +4917,7 @@ h4.block--title {
 }
 
 h2.page-subtitle {
-  margin-block-start: 0;
+  margin-block-start: 0.5em;
   font-size: var(--oc-font-size-m);
 }
 

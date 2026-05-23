@@ -96,6 +96,9 @@
   --oc-tag-link-active-border-color: var(--oc-color-bg-light);
   --oc-tag-link-active-text-color: var(--oc-color-interaction);
 
+  // Other
+  --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
+
   // Further input elements (text, textarea)
   // see abstracts/_forms.scss
 }
@@ -113,31 +116,32 @@
   --oc-color-oc-spectrum-5: #1d70b7; // OC blue
 
   // Map contrast colors
-  --oc-color-osm-1: #cdebb0;
-  --oc-color-osm-2: #eef0d5;
-  --oc-color-osm-3: #add19e;
+  --oc-color-accent-1: #cdebb0;
+  --oc-color-accent-2: #eef0d5;
+  --oc-color-accent-3: #add19e;
 
 
   // Background colors
   --oc-color-neutral-canvas: #f6f6f6;
-  --oc-color-bg-page-layout: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
+  --oc-color-bg-page: var(--oc-color-bg-light);
+  --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
   --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-dark) 60%, transparent);
 
   // Optional OC gradients (use in background-image declaration)
-  --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-osm-1), var(--oc-color-osm-2), var(--oc-color-osm-3));
+  --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-accent-1), var(--oc-color-accent-2), var(--oc-color-accent-3));
   --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
-    var(--oc-color-osm-2) 0%,
-    var(--oc-color-osm-2) 5%,
-    var(--oc-color-osm-1) 5%,
-    var(--oc-color-osm-1) 10%
+    var(--oc-color-accent-2) 0%,
+    var(--oc-color-accent-2) 5%,
+    var(--oc-color-accent-1) 5%,
+    var(--oc-color-accent-1) 10%
   );
 
   // Content section background (color or image) + whitespace
   //--oc-bg-section-buffer: see templates/layout-regions.scss
-  --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
-  --oc-section-spacing-sub-terms: var(--oc-bg-section-buffer);
   --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
   --oc-section-spacing-teaser: var(--oc-bg-section-buffer);
+  --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
+  --oc-section-spacing-sub-terms: var(--oc-bg-section-buffer);
   --oc-bg-comments-section: var(--oc-color-bg-slight-contrast);
   --oc-section-spacing-comments: var(--oc-bg-section-buffer);
   --oc-bg-magazine-section: transparent;
@@ -167,8 +171,8 @@
   // Other
   // oc-marker-colorizer: Use a tool like posstack.com/css-color-filter-generator/ for your target color _filter_
   --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
+  --oc-color-hero-text: currentColor;
   --oc-bg-hero-image: transparent;
-  --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
   --oc-color-marker-icon: var(--oc-color-primary);
   --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
   --oc-color-bg-cluster-icon: var(--oc-color-primary);
@@ -205,13 +209,15 @@
     --oc-color-divider-dark: #8b8d95;
 
     // Background colors DM
-    --oc-color-neutral-canvas: #303236;
     --oc-color-bg-light: #16181a;
     --oc-color-bg-dark: #e6e6e6;
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
     --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
     --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
     --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 7%, var(--oc-color-bg-light));
+    --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
+    --oc-color-neutral-canvas: #303236;
+    //--oc-color-bg-page: var(--oc-color-bg-light);
 
     // Button colors
     --oc-button-primary-border-color: var(--oc-color-text);
@@ -220,8 +226,8 @@
     --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
 
     // Other DM
-    --oc-chevron: url('../images/chevron-down-inv.svg');
     --oc-image-background: var(--oc-color-bg-hardly-any-contrast);
+    --oc-chevron: url('../images/chevron-down-inv.svg');
   }
 }
 
@@ -231,24 +237,33 @@
     // Dark logo
     --oc-logo-negative: url(../logo_negative.svg);
 
-    // Contrast colors (OpenCulturas brand colors) DM
-    --oc-color-oc-spectrum-1: #d41317;
-    --oc-color-oc-spectrum-2: #da5914;
-    --oc-color-oc-spectrum-3: #ffdd00;
-    --oc-color-oc-spectrum-4: #008d36;
-    --oc-color-oc-spectrum-5: #1d70b7;
+    // Contrast colors (OpenCulturas brand colors) DM ext
+    //--oc-color-oc-spectrum-1: #d41317;
+    //--oc-color-oc-spectrum-2: #da5914;
+    //--oc-color-oc-spectrum-3: #ffdd00;
+    //--oc-color-oc-spectrum-4: #008d36;
+    //--oc-color-oc-spectrum-5: #1d70b7;
 
-    // Map contrast colors DM
-    --oc-color-osm-1: #404b38;
-    --oc-color-osm-2: #60644c;
-    --oc-color-osm-3: #4e5e47;
+    // Map contrast colors DM ext
+    --oc-color-accent-1: #404b38;
+    --oc-color-accent-2: #60644c;
+    --oc-color-accent-3: #4e5e47;
 
-    // Footer DM
+    // Footer DM ext
     --oc-color-bg-footer: #000;
     --oc-color-text-footer: #efefef;
     --oc-color-link-footer: #ffdd00;
 
-    // Shadow colors DM
+    // Shadow colors DM ext
     --oc-shadow-color: color-mix(in oklab, #000000 60%, transparent);
   }
+
+  // Other DM ext
+  --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
+  //--oc-color-hero-text: currentColor;
+  //--oc-bg-hero-image: transparent;
+  //--oc-color-marker-icon: var(--oc-color-primary);
+  //--oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
+  //--oc-color-bg-cluster-icon: var(--oc-color-primary);
+
 }

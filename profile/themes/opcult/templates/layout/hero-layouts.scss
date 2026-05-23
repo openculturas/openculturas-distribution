@@ -14,6 +14,7 @@
 
 .wrapper--content-header {
   background-color: var(--oc-bg-hero-section);
+  color: var(--oc-color-hero-text);
 }
 
 // Hero image
@@ -92,6 +93,7 @@
 .oc_hero_layout_3 {
 
   --oc-bg-hero-section: transparent;
+  --oc-color-hero-text: currentColor;
 
   .section--title {
     grid-column: 1 / -1;
@@ -314,6 +316,19 @@
 .oc_hero_layout_4 {
   .wrapper--content-header {
     margin-block-end: 0;
+
+    // to be safe on dark backgrounds: link color same as headlines color
+    a {
+      color: var(--oc-color-hero-text);
+    }
+    .reference--taxonomy_term a {
+      color: var(--oc-tag-link-text-color);
+
+      &:focus,
+      &:hover {
+        color: var(--oc-tag-link-focus-text-color);
+      }
+    }
   }
 
   .wrapper--content-header:has(.block-field-mood-image) {
@@ -370,7 +385,7 @@
 
   .section--title {
     .block-layout-builder:has(.flag) {
-      inline-inline-end: 0;
+      inset-inline-end: 0;
     }
   }
 
