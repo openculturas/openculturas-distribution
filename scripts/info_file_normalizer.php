@@ -238,7 +238,7 @@ $comments = new class
 
 $finder = (new Finder())->files()->in('profile/')->exclude('config/')->name('*.info.yml');
 
-const VERSION = '3.0.x-dev';
+const VERSION = '3.0.0-rc1';
 foreach ($finder->getIterator() as $file) {
   $yamlContent = $file->getContents();
   $comments->collect(explode("\n", $yamlContent));
