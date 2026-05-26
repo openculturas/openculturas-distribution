@@ -1,7 +1,10 @@
 // ---------------------------------------
 // Wrapper section paragraph + included view fields
 // ---
-// Related: paragraph.scss (generic classes/behaviours), views.scss
+// Related:
+// paragraph/teaser-wrapper/teaser-wrapper.scss
+// paragraph/paragraph.scss (generic classes/behaviours)
+// views/views.scss
 // ---------------------------------------
 
 @use "../../sass/abstracts" as *;
@@ -43,6 +46,16 @@
   .intro {
     grid-column: 1;
     grid-row: 1;
+  }
+
+  .field--name-field-heading {
+    h2,
+    h3,
+    h4 {
+      margin-block-start: var(--oc-card-margin-block);
+      padding-block-start: 0;
+      hyphens: manual;
+    }
   }
 
   .more-link {

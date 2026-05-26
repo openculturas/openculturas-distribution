@@ -1,7 +1,10 @@
 // ---------------------------------------
 // Teaser wrapper paragraph + included paragraphs
 // ---
-// Related: paragraph/paragraph.scss (generic classes/behaviours), node/teasers.scss
+// Related:
+// - paragraph/paragraph.scss (generic classes/behaviours)
+// - paragraph/paragraph--wrapper-section.scss
+// - node/teasers.scss
 // ---------------------------------------
 
 @use "../../../sass/abstracts" as *;
@@ -19,6 +22,16 @@
   @extend %grid;
   @extend %grid-4;
   @extend %grid-headline-inline;
+
+  .field--name-field-heading {
+    h2,
+    h3,
+    h4 {
+      margin-block-start: var(--oc-card-margin-block);
+      padding-block-start: 0;
+      hyphens: manual;
+    }
+  }
 }
 
 // ---
@@ -110,8 +123,6 @@
       .teaser--top {
         border-radius: var(--oc-card-radius-calculated);
         aspect-ratio: unset;
-        inline-size: calc(100% + 2 * var(--oc-card-padding-inline));
-        //margin-block-end: calc(-1 * var(--oc-card-padding-block));
       }
     }
   }

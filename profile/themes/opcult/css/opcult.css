@@ -69,7 +69,8 @@ a.email::before,
 .fa-youtube::before, a.tiktok::before,
 .fa-tiktok::before, a.twitch::before,
 .fa-twitch::before, a.linkedin::before,
-.fa-linkedin::before, a.whatsapp::before,
+.fa-linkedin::before,
+.fa-linkedin-in::before, a.whatsapp::before,
 .fa-whatsapp::before, a.patreon::before,
 .fa-patreon::before, a.twitter::before,
 a.x::before,
@@ -177,7 +178,8 @@ a.email::before,
 .fa-youtube::before, a.tiktok::before,
 .fa-tiktok::before, a.twitch::before,
 .fa-twitch::before, a.linkedin::before,
-.fa-linkedin::before, a.whatsapp::before,
+.fa-linkedin::before,
+.fa-linkedin-in::before, a.whatsapp::before,
 .fa-whatsapp::before, a.patreon::before,
 .fa-patreon::before, a.twitter::before,
 a.x::before,
@@ -242,7 +244,7 @@ a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^
 .flag-bookmark-term .flag--link:hover,
 .flag-bookmark-term .flag--button:focus,
 .flag-bookmark-term .flag--button:hover, .profile-teaser .badge--peer, .leaflet-container a.leaflet-popup-close-button, .cookiesjsr-layer .cookiesjsr-layer--close, .feed-icon,
-.views-data-export-feed .feed-icon, .field-social a, .popover-content .shariff-col-3 a, .button-popover-trigger, .ui-dialog .ui-dialog-titlebar button,
+.views-data-export-feed .feed-icon, .field-social a, .popover-content .orientation-horizontal a, .button-popover-trigger, .ui-dialog .ui-dialog-titlebar button,
 .dialog-titlebar button, .ui-dialog .ui-dialog-titlebar-close,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close, .header__utilities button[class*=trigger]:not(.focusable), .header__burger--buttons, .attribution-popover-trigger, button:not([disabled]).shwpd, .map-link.button, .dark-mode-toggle--popover-button, .scroll-to-top {
   --oc-font-size-icon: var(--oc-font-size-icon-m);
@@ -276,7 +278,7 @@ a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^
 .flag-bookmark-term .flag--link:hover::before,
 .flag-bookmark-term .flag--button:focus::before,
 .flag-bookmark-term .flag--button:hover::before, .profile-teaser .badge--peer::before, .leaflet-container a.leaflet-popup-close-button::before, .cookiesjsr-layer .cookiesjsr-layer--close::before, .feed-icon::before,
-.views-data-export-feed .feed-icon::before, .field-social a::before, .popover-content .shariff-col-3 a::before, .button-popover-trigger::before, .ui-dialog .ui-dialog-titlebar button::before,
+.views-data-export-feed .feed-icon::before, .field-social a::before, .popover-content .orientation-horizontal a::before, .button-popover-trigger::before, .ui-dialog .ui-dialog-titlebar button::before,
 .dialog-titlebar button::before, .ui-dialog .ui-dialog-titlebar-close::before,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close::before, .header__utilities button[class*=trigger]:not(.focusable)::before, .header__burger--buttons::before, .attribution-popover-trigger::before, button.shwpd:not([disabled])::before, .map-link.button::before, .dark-mode-toggle--popover-button::before, .scroll-to-top::before {
   font-size: var(--oc-font-size-icon-m);
@@ -298,10 +300,10 @@ a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^
 }
 
 .feed-icon,
-.views-data-export-feed .feed-icon, .field-social a, .popover-content .shariff-col-3 a {
+.views-data-export-feed .feed-icon, .field-social a, .popover-content .orientation-horizontal a {
   background-color: transparent;
 }
-.feed-icon:focus-visible, .field-social a:focus-visible, .popover-content .shariff-col-3 a:focus-visible, .feed-icon:hover, .field-social a:hover, .popover-content .shariff-col-3 a:hover {
+.feed-icon:focus-visible, .field-social a:focus-visible, .popover-content .orientation-horizontal a:focus-visible, .feed-icon:hover, .field-social a:hover, .popover-content .orientation-horizontal a:hover {
   color: var(--oc-color-link-focus-text);
   background-color: var(--oc-color-link-focus-bg);
   border-color: transparent;
@@ -3397,7 +3399,8 @@ a.twitch::before,
 }
 
 a.linkedin::before,
-.fa-linkedin::before {
+.fa-linkedin::before,
+.fa-linkedin-in::before {
   --icon-url: url("../sprite/oc-sprite.svg#linkedin-logo-light");
 }
 
@@ -4800,7 +4803,7 @@ h4.block--title {
 }
 
 .openculturas-map--results .profile--content {
-  padding-inline-end: var(--oc-font-size-icon);
+  padding-inline-end: calc(2 * var(--oc-font-size-icon));
 }
 .openculturas-map--results .view-header {
   position: relative;
@@ -4819,8 +4822,8 @@ h4.block--title {
   inset-inline-end: calc(0.25 * var(--oc-card-padding-inline));
 }
 .node--type-event .map-link-wrapper {
-  inset-block-start: 0;
-  inset-inline-end: 0;
+  inset-block-start: calc(var(--oc-card-padding-block) + 0.75rem);
+  inset-inline-end: calc(0.5 * var(--oc-card-padding-inline));
 }
 
 .map-link.button {
@@ -4832,6 +4835,13 @@ h4.block--title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.openculturas-map--results:has(.location-teaser) .map-link-wrapper {
+  display: inline-flex;
+  align-items: center;
+  block-size: 100%;
+  inset-block: 0 0;
 }
 
 .openculturas-map--container {
@@ -5737,16 +5747,16 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
   margin: 1.5rem 1rem 0rem 0;
 }
 
-.popover-content .shariff-col-3 {
+.popover-content .orientation-horizontal {
   display: flex;
   gap: 1rem;
   margin-inline: 1rem;
 }
-.popover-content .shariff-col-3 a {
+.popover-content .orientation-horizontal a {
   color: var(--oc-color-link);
   font-size: var(--oc-font-size-icon-m);
 }
-.popover-content .shariff-col-3 a span::before {
+.popover-content .orientation-horizontal a span::before {
   margin-inline: 0.125em;
 }
 
@@ -5796,6 +5806,15 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
   margin: 0;
 }
 
+.swiffy-slider .slider-container {
+  --oc-shadow-space-block: 1rem;
+  --oc-shadow-space-inline: 1rem;
+  padding-block: var(--oc-shadow-space-block);
+  margin-block: calc(-1 * var(--oc-shadow-space-block));
+  padding-inline: var(--oc-shadow-space-inline);
+  margin-inline: calc(-1 * var(--oc-shadow-space-inline));
+}
+
 @media screen and (max-width: 29.9999em) {
   .swiffy-slider li {
     max-inline-size: var(--oc-layout-width);
@@ -5804,15 +5823,7 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
 
 .swiffy-slider.slider-indicators-outside {
   padding-block-end: var(--swiffy-slider-indicator-outside-size);
-  margin-block-end: var(--swiffy-slider-indicator-outside-size);
-}
-
-.swiffy-slider {
-  padding-block: var(--oc-row-gap);
-}
-
-.sponsors .swiffy-slider {
-  background-color: transparent;
+  margin-block-end: calc(-0.5 * var(--swiffy-slider-indicator-outside-size));
 }
 
 .swiffy-slider li {
@@ -7842,6 +7853,13 @@ article.profile-teaser.teaser-unified {
   grid-column: 1;
   grid-row: 1;
 }
+.paragraph--type--wrapper-section.paragraph--view-mode--grid .field--name-field-heading h2,
+.paragraph--type--wrapper-section.paragraph--view-mode--grid .field--name-field-heading h3,
+.paragraph--type--wrapper-section.paragraph--view-mode--grid .field--name-field-heading h4 {
+  margin-block-start: var(--oc-card-margin-block);
+  padding-block-start: 0;
+  hyphens: manual;
+}
 .paragraph--type--wrapper-section.paragraph--view-mode--grid .more-link {
   grid-column: 1;
   align-self: end;
@@ -7895,6 +7913,14 @@ article.profile-teaser.teaser-unified {
   .paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media) > .more-link {
     padding-inline-end: var(--oc-grid-step);
   }
+}
+
+.paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--name-field-heading h2,
+.paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--name-field-heading h3,
+.paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--name-field-heading h4 {
+  margin-block-start: var(--oc-card-margin-block);
+  padding-block-start: 0;
+  hyphens: manual;
 }
 
 .paragraph--type--teaser-wrapper.paragraph--view-mode--grid article.teaser-curated, .paragraph--type--teaser-wrapper.paragraph--view-mode--default article.teaser-curated {
@@ -7958,7 +7984,6 @@ article.profile-teaser.teaser-unified {
   .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item article.teaser-unified .teaser--top {
     border-radius: var(--oc-card-radius-calculated);
     aspect-ratio: unset;
-    inline-size: calc(100% + 2 * var(--oc-card-padding-inline));
   }
 }
 
@@ -8131,9 +8156,6 @@ article.profile-teaser.teaser-unified {
     margin-block: calc(-1 * var(--oc-card-padding-block));
     margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
   }
-  .views-row article:not(.term-teaser) .teaser--top.no-image {
-    inline-size: calc(100% + var(--oc-card-padding-inline));
-  }
   .views-row article:not(.term-teaser) .teaser--body {
     grid-column: 2;
     grid-row: 1;
@@ -8203,7 +8225,9 @@ article.profile-teaser.teaser-unified {
     grid-row: 1/span 2;
   }
 }
-.intro-inline > h2 {
+.intro-inline .field--name-field-heading h2,
+.intro-inline .field--name-field-heading h3,
+.intro-inline .field--name-field-heading h4 {
   margin-block-start: var(--oc-card-margin-block);
   padding-block-start: 0;
   hyphens: manual;
@@ -8667,7 +8691,7 @@ details.form-wrapper {
 }
 
 .calendar article.view-mode-compact {
-  padding-block: var(--oc-card-padding-block);
+  padding-block: 0;
 }
 
 .calendar .field--name-field-mood-image:not(:has(img)) {
