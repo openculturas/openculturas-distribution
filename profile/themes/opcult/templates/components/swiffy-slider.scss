@@ -32,6 +32,17 @@
   }
 }
 
+// Space for teaser shadows
+
+.swiffy-slider .slider-container {
+  --oc-shadow-space-block: 1rem;
+  --oc-shadow-space-inline: 1rem;
+  padding-block: var(--oc-shadow-space-block);
+  margin-block: calc(-1 * var(--oc-shadow-space-block));
+  padding-inline: var(--oc-shadow-space-inline);
+  margin-inline: calc(-1 * var(--oc-shadow-space-inline));
+}
+
 .swiffy-slider li {
   @include breakpoint(xs) {
     max-inline-size: var(--oc-layout-width);
@@ -40,18 +51,7 @@
 
 .swiffy-slider.slider-indicators-outside {
   padding-block-end: var(--swiffy-slider-indicator-outside-size); // sw default
-  margin-block-end: var(--swiffy-slider-indicator-outside-size); // amend absolute positioning of buttons
-}
-
-// Container margin + backgrounds
-
-.swiffy-slider {
-  padding-block: var(--oc-row-gap);
-  //background-color: var(--oc-color-bg-hardly-any-contrast); // only set for specific sliders
-}
-
-.sponsors .swiffy-slider {
-  background-color: transparent;
+  margin-block-end: calc(-.5 * var(--swiffy-slider-indicator-outside-size)); // amend absolute positioning of buttons
 }
 
 // Adjust vertical alignment
