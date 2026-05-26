@@ -43,7 +43,7 @@
 
 .openculturas-map--results {
   .profile--content {
-    padding-inline-end: var(--oc-font-size-icon);
+    padding-inline-end: calc(2 * var(--oc-font-size-icon));
   }
 
   // Amend reload button's virtual height here
@@ -66,9 +66,8 @@
   inset-inline-end: calc(.25 * var(--oc-card-padding-inline));
 
   .node--type-event & {
-    inset-block-start: 0;
-    inset-inline-end: 0;
-  }
+    inset-block-start: calc(var(--oc-card-padding-block)  + .75rem); // adjust to headline margin
+    inset-inline-end: calc(.5 * var(--oc-card-padding-inline));  }
 }
 
 .map-link.button {
@@ -84,6 +83,12 @@
   align-items: center;
 }
 
+.openculturas-map--results:has(.location-teaser) .map-link-wrapper {
+  display: inline-flex;
+  align-items: center;
+  block-size: 100%;
+  inset-block: 0 0;
+}
 
 .openculturas-map:not([data-dirty=true]) {
   .openculturas-map--results-counter {
