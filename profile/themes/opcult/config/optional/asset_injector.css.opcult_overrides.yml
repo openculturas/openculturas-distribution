@@ -66,9 +66,16 @@ code: |-
     --oc-color-warning: #ffdd00;
     --oc-color-divider-light: #e8e9eb;
     --oc-color-divider-dark: #7b7d85;
+    
+    /* Accent colors (used in gradients) */
+    --oc-color-accent-1: #cdebb0;
+    --oc-color-accent-2: #eef0d5;
+    --oc-color-accent-3: #add19e;
+
 
     /* Background colors */
     --oc-color-neutral-canvas: #f6f6f6;
+    --oc-color-bg-page: var(--oc-color-bg-light);
     --oc-color-bg-light: #ffffff;
     --oc-color-bg-dark: #303236;
     --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
@@ -80,22 +87,21 @@ code: |-
     --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
     --oc-color-bg-light-translucent: color-mix(in oklab, var(--oc-color-bg-light) 25%, transparent);
     --oc-color-bg-light-opaque: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
+    --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
     --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-dark) 60%, transparent);
 
-    /* Optional OC gradients (use in background-image declaration) */
-    /* "OSM" colors correspond with OpenStreetMap colors, feel free to define + use your own color variables */
-    --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-osm-1), var(--oc-color-osm-2), var(--oc-color-osm-3));
+    /* OC gradients (use in background-image declaration) */
+    --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-accent-1), var(--oc-color-accent-2), var(--oc-color-accent-3));
     --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
-      var(--oc-color-osm-2) 0%,
-      var(--oc-color-osm-2) 5%,
-      var(--oc-color-osm-1) 5%,
-      var(--oc-color-osm-1) 10%
+      var(--oc-color-accent-2) 0%,
+      var(--oc-color-accent-2) 5%,
+      var(--oc-color-accent-1) 5%,
+      var(--oc-color-accent-1) 10%
     );
     
-    /* Optional paragraph style backgrounds */
+    /* Paragraph style backgrounds */
     --oc-bg-vivid: var(--oc-color-gradient-blocks);
-    --oc-bg-muted: var(--oc-color-bg-slight-contrast);
-
+    --oc-bg-slight: var(--oc-color-bg-slight-contrast);
 
     /* Content section background colors */
     --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
@@ -150,6 +156,7 @@ code: |-
 
     /* Shadow colors */
     --oc-shadow-color: color-mix(in oklab, #000000 30%, transparent);
+    --oc-color-teaser-overlay: #26031f; /* teaser unified overlay gradient; do NOT use color-mix here */
 
     /* Footer colors */
     --oc-color-bg-footer: var(--oc-color-bg-dark);
@@ -195,25 +202,19 @@ code: |-
   	  --oc-color-divider-light: #38393b;
   	  --oc-color-divider-dark: #8b8d95;
   	
-  	  /* Contrast colors (OpenCulturas brand colors) DM */
-  	  --oc-color-oc-spectrum-1: #d41317; 
-  	  --oc-color-oc-spectrum-2: #da5914;
-  	  --oc-color-oc-spectrum-3: #ffdd00;
-  	  --oc-color-oc-spectrum-4: #008d36;
-  	  --oc-color-oc-spectrum-5: #1d70b7;
-  	
-  	  /* Map contrast colors DM */
-  	  --oc-color-osm-1: #404b38;
-  	  --oc-color-osm-2: #60644c;
-  	  --oc-color-ocs-3: #4e5e47;
-  	
-  	
+  	  /* Accent colors DM */
+      --oc-color-accent-1: #404b38;
+      --oc-color-accent-2: #60644c;
+      --oc-color-accent-3: #4e5e47;
+
   	  /* Background colors DM */
   	  --oc-color-neutral-canvas: #303236;
   	  --oc-color-bg-light: #16181a;
   	  --oc-color-bg-dark: #8b8d95;
   	  --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
-  	  --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
+      --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
+   	  --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
+      --oc-color-bg-page: color-mix(in oklab, var(--oc-color-bg-light) 93%, var(--oc-color-bg-dark));
   	
   	  /* Footer DM */
   	  --oc-color-bg-footer: #000;
