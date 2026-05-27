@@ -14,10 +14,15 @@
 .leaflet-container {
   font-family: var(--oc-font-family-default);
   font-size: var(--oc-font-size-default);
-  min-block-size: 30rem;
-  max-block-size: 80dvh;
   isolation: isolate;
   background: transparent; // fallback for non-loading tiles
+}
+
+.leaflet-container,
+.leaflet-control-container {
+  min-block-size: 30rem;
+  max-block-size: 80dvh;
+  block-size: 100%;
 }
 
 // ---
