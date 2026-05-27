@@ -7000,6 +7000,7 @@ article.teaser,
   background: var(--oc-card-background);
   box-shadow: var(--oc-card-box-shadow);
   block-size: var(--oc-card-height-equalizer);
+  max-inline-size: 100%;
 }
 
 .teaser--top {
@@ -7254,6 +7255,9 @@ article.profile-teaser.teaser-unified {
   display: grid;
   gap: 0;
   aspect-ratio: var(--oc-aspect-ratio-landscape-deriv);
+}
+.teaser-unified:not(.teaser-curated) {
+  --oc-card-height-equalizer: auto;
 }
 .teaser-unified .teaser--top,
 .teaser-unified .teaser--body,
