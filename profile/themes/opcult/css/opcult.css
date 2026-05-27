@@ -1823,14 +1823,16 @@ blockquote.plain strong {
   inset-block-start: calc(-0.25 * var(--oc-icon-button-size));
 }
 
-.anchorlinks {
+.anchorlinks,
+.content ul.anchorlinks {
   display: flex;
   flex-flow: row wrap;
   margin-inline-start: 0;
   padding-inline-start: 0;
   list-style: none;
 }
-.anchorlinks a {
+.anchorlinks a,
+.content ul.anchorlinks a {
   padding-block: 0;
   padding-inline: 1rem;
 }
@@ -3573,7 +3575,7 @@ footer.footer {
   font-size: var(--oc-font-size-l);
 }
 
-.menu--footer:has(li:nth-child(5)) {
+.region-footer .menu--footer:has(li:nth-child(5)) {
   max-inline-size: 40rem;
   column-count: 2;
   column-gap: 0;
@@ -5320,10 +5322,15 @@ div.description.formtips-processed,
 .leaflet-container {
   font-family: var(--oc-font-family-default);
   font-size: var(--oc-font-size-default);
-  min-block-size: 30rem;
-  max-block-size: 80dvh;
   isolation: isolate;
   background: transparent;
+}
+
+.leaflet-container,
+.leaflet-control-container {
+  min-block-size: 30rem;
+  max-block-size: 80dvh;
+  block-size: 100%;
 }
 
 img.leaflet-marker-icon {
@@ -7913,6 +7920,10 @@ article.profile-teaser.teaser-unified {
   .paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media) > .more-link {
     padding-inline-end: var(--oc-grid-step);
   }
+}
+
+.paragraph--type--teaser-wrapper {
+  margin-block: var(--oc-section-spacing);
 }
 
 .paragraph--type--teaser-wrapper.paragraph--view-mode--grid .field--name-field-heading h2,
