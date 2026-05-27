@@ -559,20 +559,20 @@ h6,
 }
 
 a,
-button.link, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified h3.teaser--title a, .leaflet-popup-content a {
+button.link, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated h3.teaser--title a, .leaflet-popup-content a, .wrapper--content-header .dialog-wrapper a {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
   color: var(--oc-color-link);
 }
 a:hover,
-button.link:hover, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified h3.teaser--title a:hover, a:focus,
-button.link:focus, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified h3.teaser--title a:focus {
+button.link:hover, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated h3.teaser--title a:hover, .wrapper--content-header .dialog-wrapper a:hover, a:focus,
+button.link:focus, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated h3.teaser--title a:focus, .wrapper--content-header .dialog-wrapper a:focus {
   color: var(--oc-color-link-focus-text);
   background: var(--oc-color-link-focus-bg);
   text-decoration: none;
 }
 a:active,
-button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified h3.teaser--title a:active {
+button.link:active, .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated h3.teaser--title a:active, .wrapper--content-header .dialog-wrapper a:active {
   outline: var(--oc-outline-active);
   outline-offset: var(--oc-outline-active-offset);
 }
@@ -927,7 +927,7 @@ th a[href*=sort], .terms--plain .field__item, .taxonomy-term--tag,
 }
 
 th a[href*=sort], .taxonomy-term--tag,
-.reference--taxonomy_term > a {
+.reference--taxonomy_term > a, .wrapper--content-header .reference--taxonomy_term a {
   background-color: var(--oc-tag-link-bg-color);
   border-color: var(--oc-tag-link-border-color);
   color: var(--oc-tag-link-text-color);
@@ -935,8 +935,8 @@ th a[href*=sort], .taxonomy-term--tag,
   box-shadow: var(--oc-tag-box-shadow);
 }
 th a[href*=sort]:focus, .taxonomy-term--tag:focus,
-.reference--taxonomy_term > a:focus, th a[href*=sort]:hover, .taxonomy-term--tag:hover,
-.reference--taxonomy_term > a:hover {
+.reference--taxonomy_term > a:focus, .wrapper--content-header .reference--taxonomy_term a:focus, th a[href*=sort]:hover, .taxonomy-term--tag:hover,
+.reference--taxonomy_term > a:hover, .wrapper--content-header .reference--taxonomy_term a:hover {
   background-color: var(--oc-tag-link-focus-bg-color);
   border-color: var(--oc-tag-link-focus-border-color);
   color: var(--oc-tag-link-focus-text-color);
@@ -945,7 +945,7 @@ th a[href*=sort]:focus, .taxonomy-term--tag:focus,
   border-radius: var(--oc-tag-border-radius);
 }
 th a[href*=sort]:active, .taxonomy-term--tag:active,
-.reference--taxonomy_term > a:active {
+.reference--taxonomy_term > a:active, .wrapper--content-header .reference--taxonomy_term a:active {
   background-color: var(--oc-tag-link-active-bg-color);
   border-color: var(--oc-tag-link-active-border-color);
   color: var(--oc-tag-link-active-text-color);
@@ -3783,7 +3783,16 @@ footer.footer {
   background-color: var(--oc-bg-hero-section);
   color: var(--oc-color-hero-text);
 }
-
+.wrapper--content-header .sub-type a,
+.wrapper--content-header p a {
+  color: var(--oc-color-hero-text);
+}
+.wrapper--content-header .sub-type a:hover, .wrapper--content-header .sub-type a:focus,
+.wrapper--content-header p a:hover,
+.wrapper--content-header p a:focus {
+  color: var(--oc-color-link-focus-text);
+  background: var(--oc-color-link-focus-bg);
+}
 .section--mood {
   background: var(--oc-bg-hero-image);
 }
@@ -4051,15 +4060,6 @@ footer.footer {
 
 .oc_hero_layout_4 .wrapper--content-header {
   margin-block-end: 0;
-}
-.oc_hero_layout_4 .wrapper--content-header a {
-  color: var(--oc-color-hero-text);
-}
-.oc_hero_layout_4 .wrapper--content-header .reference--taxonomy_term a {
-  color: var(--oc-tag-link-text-color);
-}
-.oc_hero_layout_4 .wrapper--content-header .reference--taxonomy_term a:focus, .oc_hero_layout_4 .wrapper--content-header .reference--taxonomy_term a:hover {
-  color: var(--oc-tag-link-focus-text-color);
 }
 .oc_hero_layout_4 .page-title-wrapper {
   background-color: transparent;
@@ -7323,17 +7323,17 @@ article.profile-teaser.teaser-unified {
           text-decoration: var(--oc-underline);
 }
 
-.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified {
+.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated {
   aspect-ratio: unset;
 }
-.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified .teaser--body {
+.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated .teaser--body {
   color: var(--oc-color-text);
   grid-row: 2;
 }
-.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified .teaser--footer {
+.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated .teaser--footer {
   grid-row: 3;
 }
-.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-unified h3.teaser--title a {
+.paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser-curated h3.teaser--title a {
   text-decoration: none;
 }
 .paragraph--type--teaser-wrapper.paragraph--view-mode--default .teaser--top {
@@ -7617,6 +7617,18 @@ article.profile-teaser.teaser-unified {
   .layout-text-heavy .block-field-blocknodepagebody {
     margin-inline-start: calc(2 * var(--oc-grid-step));
   }
+}
+
+.inverted {
+  --oc-card-background: color-mix(in oklab, var(--oc-color-bg-dark) 93%, var(--oc-color-bg-light));
+  --oc-color-link: var(--oc-color-link-inverted);
+}
+.inverted h2,
+.inverted h3,
+.inverted h4,
+.inverted p,
+.inverted li {
+  color: var(--oc-color-text-inverted);
 }
 
 .field--name-field-accessibility h3 {
