@@ -104,17 +104,23 @@
 // ---
 // Adjust headline margin
 
-.paragraph--type--wrapper-section.paragraph--view-mode--grid {
-  //&:has(.view.locations, .view.profiles) h2,
+.paragraph--type--wrapper-section.paragraph--view-mode--grid,
+.intro-inline {
   h2 {
     margin-block-start: 0;
     padding-block-start: 0;
   }
 }
 
+.intro-inline :has(article.teaser) h2.block--title {
+  margin-block-start: var(--oc-card-margin-block);
+}
+
+
+
 // ---
 // OC Map block exceed block height overlays more-link
-// @todo Find out why
+// (@todo Check theory: virtual margin of repositioned button)
 
 .paragraph--type--wrapper-section:has(.block-openculturas-map) .more-link {
   z-index: +2;

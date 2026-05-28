@@ -3784,10 +3784,13 @@ footer.footer {
   color: var(--oc-color-hero-text);
 }
 .wrapper--content-header .sub-type a,
+.wrapper--content-header .paragraph--type--contact-data a,
 .wrapper--content-header p a {
   color: var(--oc-color-hero-text);
 }
 .wrapper--content-header .sub-type a:hover, .wrapper--content-header .sub-type a:focus,
+.wrapper--content-header .paragraph--type--contact-data a:hover,
+.wrapper--content-header .paragraph--type--contact-data a:focus,
 .wrapper--content-header p a:hover,
 .wrapper--content-header p a:focus {
   color: var(--oc-color-link-focus-text);
@@ -7919,9 +7922,14 @@ article.profile-teaser.teaser-unified {
   display: none;
 }
 
-.paragraph--type--wrapper-section.paragraph--view-mode--grid h2 {
+.paragraph--type--wrapper-section.paragraph--view-mode--grid h2,
+.intro-inline h2 {
   margin-block-start: 0;
   padding-block-start: 0;
+}
+
+.intro-inline :has(article.teaser) h2.block--title {
+  margin-block-start: var(--oc-card-margin-block);
 }
 
 .paragraph--type--wrapper-section:has(.block-openculturas-map) .more-link {
