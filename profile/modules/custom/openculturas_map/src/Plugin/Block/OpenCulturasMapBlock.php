@@ -175,6 +175,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
     $form['overrides'] = [
       '#type' => 'details',
       '#title' => $this->t('Override global settings'),
+      '#description' => $this->t('Values entered here override global OpenCulturas Map settings for this block only. Leave a field empty to use its global setting.'),
     ];
 
     $form['overrides']['start_lat_position'] = [
@@ -182,6 +183,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       '#type' => 'number',
       '#step' => 0.01,
       '#title' => $this->t('Latitude coordinate (initial)'),
+      '#description' => $this->t('Positive = northern hemisphere, negative = southern hemisphere. For orientation: Berlin 52.52 / New York 40.71 / São Paulo -23.55 / Nairobi -1.29 / Tokyo 35.69 / Sydney -33.87 / Mid-Atlantic Ridge 16.50'),
       '#default_value' => $this->configuration['start_lat_position'],
     ];
 
@@ -190,6 +192,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
       '#type' => 'number',
       '#step' => 0.01,
       '#title' => $this->t('Longitude coordinate (initial)'),
+      '#description' => $this->t('Positive = eastern hemisphere, negative = western hemisphere. For orientation: Berlin 13.40 / New York -74.01 / São Paulo -46.63 / Nairobi 36.82 / Tokyo 139.69 / Sydney 151.21 / Mid-Atlantic Ridge -25.00'),
       '#default_value' => $this->configuration['start_lng_position'],
     ];
 
@@ -228,7 +231,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
     $overridden_values = $form_state->getValue('overrides');
     if (is_array($overridden_values)) {
       foreach ($overrideSettings as $overrideSetting) {
-        if ($overridden_values[$overrideSetting] > 0) {
+        if (is_numeric($overridden_values[$overrideSetting])) {
           $this->configuration[$overrideSetting] = $overridden_values[$overrideSetting];
         }
       }

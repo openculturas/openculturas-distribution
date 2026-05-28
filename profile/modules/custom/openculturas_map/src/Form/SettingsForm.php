@@ -81,6 +81,7 @@ final class SettingsForm extends ConfigFormBase {
       '#type' => 'number',
       '#step' => 0.01,
       '#title' => $this->t('Starting latitude coordinate of map'),
+      '#description' => $this->t('Positive = northern hemisphere, negative = southern hemisphere. For orientation: Berlin 52.52 / New York 40.71 / São Paulo -23.55 / Nairobi -1.29 / Tokyo 35.69 / Sydney -33.87 / Mid-Atlantic Ridge 16.50'),
       '#default_value' => $config->get('start_lat_position'),
       '#required' => TRUE,
     ];
@@ -90,6 +91,7 @@ final class SettingsForm extends ConfigFormBase {
       '#type' => 'number',
       '#step' => 0.01,
       '#title' => $this->t('Starting longitude coordinate of map'),
+      '#description' => $this->t('Positive = eastern hemisphere, negative = western hemisphere. For orientation: Berlin 13.40 / New York -74.01 / São Paulo -46.63 / Nairobi 36.82 / Tokyo 139.69 / Sydney 151.21 / Mid-Atlantic Ridge -25.00'),
       '#default_value' => $config->get('start_lng_position'),
       '#required' => TRUE,
     ];
@@ -234,6 +236,7 @@ final class SettingsForm extends ConfigFormBase {
       '#type' => 'number',
       '#step' => 0.00001,
       '#title' => $this->t('Base for radius calculation (higher number = bigger radius)'),
+      '#description' => $this->t('The search radius in km equals the base value multiplied by a zoom factor. For orientation: 0.043 (default) ≈ 2,800 km at zoom 3 or ≈ 700 km at zoom 5. For global coverage at zoom 3, use ~0.25 (≈ 16,000 km).'),
       '#default_value' => $config->get('radius_base'),
       '#required' => TRUE,
     ];
