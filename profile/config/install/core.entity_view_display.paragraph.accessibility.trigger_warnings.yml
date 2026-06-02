@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.trigger_warnings
+    - field.field.paragraph.accessibility.field_a11y_features
+    - field.field.paragraph.accessibility.field_a11y_info
+    - field.field.paragraph.accessibility.field_trigger_warnings
+    - paragraphs.paragraphs_type.accessibility
+  module:
+    - field_formatter_class
+third_party_settings: {  }
+id: paragraph.accessibility.trigger_warnings
+targetEntityType: paragraph
+bundle: accessibility
+mode: trigger_warnings
+content:
+  field_trigger_warnings:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  field_a11y_features: true
+  field_a11y_info: true
+  search_api_excerpt: true

@@ -337,3 +337,13 @@ function openculturas_post_update_location_required_for_offline_event(): string 
   $logger->info('Added required conditional field rule for field_location on node.date.default.');
   return $logger->output();
 }
+
+/**
+ * Updates entity view display configurations for accessibility trigger warnings.
+ */
+function openculturas_post_update_entity_view_display_paragraph_accessibility_trigger_warnings(): string {
+  $full_config_names = [
+    'core.entity_view_display.paragraph.accessibility.trigger_warnings',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
