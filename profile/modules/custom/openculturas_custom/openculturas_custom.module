@@ -1071,6 +1071,9 @@ function openculturas_custom_leaflet_map_info_alter(array &$map_info): void {
  * Implements hook_block_access().
  */
 function openculturas_custom_block_access(BlockInterface $block, string $operation, AccountInterface $account): AccessResultInterface {
+  // Note: $operation is 'view' during block rendering on ALL pages, including
+  // node edit and delete forms. It does NOT indicate we are on a canonical
+  // view route. The route check below is required for that distinction.
   if ($operation !== 'view' || !$block->getPlugin() instanceof TitleBlockPluginInterface) {
     return AccessResult::neutral();
   }
@@ -1081,6 +1084,15 @@ function openculturas_custom_block_access(BlockInterface $block, string $operati
 
   $entity = CurrentEntityHelper::get_current_page_entity();
   if ($entity instanceof ContentEntityInterface) {
+    // Only suppress the title block on canonical entity routes. On edit/delete
+    // forms the entity appears in route params too, but Layout Builder does not
+    // render there, so the title block must remain visible.
+    $route_name = \Drupal::routeMatch()->getRouteName() ?? '';
+    $entity_type_id = $entity->getEntityTypeId();
+    if ($route_name !== sprintf('entity.%s.canonical', $entity_type_id)) {
+      return AccessResult::neutral();
+    }
+
     $view_mode = 'full';
     // Make the same as \Drupal\layout_builder\LayoutEntityHelperTrait::getSectionStorageForEntity.
     // When we use view-mode full as LB view-mode, we can use an anonymous class + trait.
