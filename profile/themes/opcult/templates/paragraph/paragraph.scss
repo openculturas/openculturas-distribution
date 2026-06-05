@@ -132,3 +132,15 @@
     color: var(--oc-color-text-inverted);
   }
 }
+
+// Whitespace at the end of default-styled paragraphs when followed by one with a background
+
+.field--name-field-content-paragraphs {
+  .field__item:has(+ .field__item > .style__slight_contrast),
+  .field__item:has(+ .field__item > .style__vivid_contrast),
+  .field__item:has(+ .field__item > .inverted) {
+    > .paragraph {
+      padding-block-end: var(--oc-row-gap);
+    }
+  }
+}
