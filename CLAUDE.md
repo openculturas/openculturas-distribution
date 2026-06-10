@@ -216,9 +216,3 @@ ddev xdebug off
 - **Main branch for PRs:** `3.0.x`
 - **Current development:** `3.0.x`
 
-## Drupal Best Practices
-
-@.agents/skills/drupal-configuration/SKILL.md
-@.agents/skills/drupal-render-pipeline/SKILL.md
-@.agents/skills/drupal-accessibility/SKILL.md
-@.agents/skills/drupal-automated-testing/SKILL.md
