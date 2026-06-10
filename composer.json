@@ -143,6 +143,7 @@
         "composer/installers": "^2.3.0",
         "cweagans/composer-patches": "^2.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.2.1",
+        "drupal/ai_best_practices": "@dev",
         "drupal/bpmn_io": "^2.0.11",
         "drupal/coder": "^9.0",
         "drupal/config_devel": "^1.11.0",
@@ -335,6 +336,7 @@
             "composer/installers": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/ai_best_practices": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-vendor-hardening": true,
             "ergebnis/composer-normalize": true,
@@ -549,6 +551,7 @@
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush site:install --yes"
         ],
-        "test-starterkit": "bash tests/scripts/starterkit-generation.sh"
+        "test-starterkit": "bash tests/scripts/starterkit-generation.sh",
+        "drupal-ai": "Drupal\\AiBestPractices\\Console\\AiBestPracticesApplication::runFromComposer"
     }
 }

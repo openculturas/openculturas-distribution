@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19588a2bc981379375b6adcd99ef170b",
+    "content-hash": "665ab08acc5169d07c4bad4cfc9af317",
     "packages": [
         {
             "name": "ajaxorg/ace-builds",
@@ -15440,6 +15440,55 @@
             "time": "2026-04-26T12:12:52+00:00"
         },
         {
+            "name": "drupal/ai_best_practices",
+            "version": "1.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ai_best_practices.git",
+                "reference": "f9db8e7e4fa40349d7c35cf3de334bb45e451eed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://git.drupalcode.org/api/v4/projects/project%2Fai_best_practices/repository/archive.zip?sha=f9db8e7e4fa40349d7c35cf3de334bb45e451eed",
+                "reference": "f9db8e7e4fa40349d7c35cf3de334bb45e451eed",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": "^8.1",
+                "symfony/console": "^6.0 || ^7.0",
+                "symfony/filesystem": "^6.0 || ^7.0",
+                "symfony/yaml": "^6.0 || ^7.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.2",
+                "friendsofphp/php-cs-fixer": "^3.59",
+                "phpunit/phpunit": "^10.0",
+                "ronaldtebrake/agent-skills-validator": "^1.0"
+            },
+            "default-branch": true,
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Drupal\\AiBestPractices\\Composer\\AiBestPracticesPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\AiBestPractices\\": "src/AiBestPractices/",
+                    "Drupal\\AiBestPractices\\Agents\\": "src/Agents/",
+                    "Drupal\\AiBestPractices\\Skills\\": "src/Skills/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "A canonical place to put opinionated Drupal best practice guidance for AI agents",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ai_best_practices/-/tree/1.0.x"
+            },
+            "time": "2026-06-10T06:17:44+00:00"
+        },
+        {
             "name": "drupal/bpmn_io",
             "version": "2.0.11",
             "source": {
@@ -21932,6 +21981,7 @@
     "aliases": [],
     "minimum-stability": "alpha",
     "stability-flags": {
+        "drupal/ai_best_practices": 20,
         "drupal/block_field": 5,
         "drupal/conditional_fields": 15,
         "drupal/config_update": 15,
