@@ -28,7 +28,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 OpenCulturas is a Drupal 10 installation profile (distribution) for arts and culture portals. It's a pre-configured platform with custom modules, themes, and extensive configuration.
 
-- **Stack:** PHP 8.3+, Drupal 10, Node 22+
+- **Stack:** PHP 8.4+, Drupal 11, Node 22+
 - **Package Managers:** Composer (PHP), npm (JS/CSS tooling)
 - **Local Development:** DDEV
 - DDEV project name: openculturas → site at https://openculturas.ddev.site
@@ -161,7 +161,7 @@ composer run info_file_normalizer  # Sort .info.yml files alphabetically
 
 ```
 profile/                      # Main Drupal installation profile
-├── modules/custom/          # 14 custom modules (openculturas_* + dark_mode_toggle)
+├── modules/custom/          # 13 custom modules (openculturas_* + dark_mode_toggle)
 ├── themes/                  # openculturas_base, opcult, opcult_starterkit
 └── config/install/          # Default Drupal configuration
 web/                         # Drupal web root (composer scaffold)
