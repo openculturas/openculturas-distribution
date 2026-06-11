@@ -16,6 +16,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -37,6 +38,7 @@ use Drupal\media\MediaInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\CurrentEntityHelper;
+use Drupal\openculturas_custom\Entity\ExtendedParagraph;
 use Drupal\openculturas_custom\GetConfiguredMapMaker;
 use Drupal\openculturas_custom\Plugin\DateAugmenter\AddToCal;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -315,6 +317,15 @@ function openculturas_custom_local_tasks_alter(array &$local_tasks): void {
   if (isset($local_tasks['entity.user.edit_form'])) {
     $local_tasks['entity.user.edit_form']['title'] = t('Account settings');
     $local_tasks['entity.user.edit_form']['weight'] = -2;
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function openculturas_custom_entity_type_alter(array &$entity_types): void {
+  if (isset($entity_types['paragraph']) && $entity_types['paragraph'] instanceof EntityTypeInterface) {
+    $entity_types['paragraph']->setClass(ExtendedParagraph::class);
   }
 }
 
