@@ -157,7 +157,6 @@
         "ergebnis/composer-normalize": "^2.52.0",
         "mglaman/phpstan-drupal": "^2.0.15",
         "micheh/phpcs-gitlab": "^2.1",
-        "oomphinc/composer-installers-extender": "^2.0.1",
         "openculturas/drupal-core-dev": "@dev",
         "openculturas/openculturas-profile": "@dev",
         "palantirnet/drupal-rector": "^0.21.2",
@@ -339,7 +338,6 @@
             "drupal/core-composer-scaffold": true,
             "drupal/core-vendor-hardening": true,
             "ergebnis/composer-normalize": true,
-            "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
             "tbachert/spi": true
@@ -528,6 +526,7 @@
             "rm -rf profile/config/custom/themes/opcult/config/optional",
             "drush cde opcult"
         ],
+        "drupal-ai": "Drupal\\AiBestPractices\\Console\\AiBestPracticesApplication::runFromComposer",
         "export-content": [
             "drush pm:install default_content --yes",
             "rm -rf web/profiles/contrib/openculturas-profile/modules/custom/openculturas_content/content",
@@ -550,7 +549,6 @@
             "rm -rf web/sites/default/files && mkdir -p web/sites/default/files/translations",
             "drush site:install --yes"
         ],
-        "test-starterkit": "bash tests/scripts/starterkit-generation.sh",
-        "drupal-ai": "Drupal\\AiBestPractices\\Console\\AiBestPracticesApplication::runFromComposer"
+        "test-starterkit": "bash tests/scripts/starterkit-generation.sh"
     }
 }
