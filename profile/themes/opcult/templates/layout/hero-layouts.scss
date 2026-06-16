@@ -83,12 +83,15 @@
 // Sections basics
 
 .section--essentials {
-  margin-block-start: var(--oc-row-gap);
   display: flex;
   flex-flow: row wrap;
   gap: var(--oc-row-gap) var(--oc-gutter);
   align-content: space-between;
   justify-content: flex-start;
+
+  &:has(.block) {
+    margin-block-start: var(--oc-row-gap);
+  }
 
   > .block {
     flex: 1 1 auto;
@@ -284,10 +287,16 @@
   }
 
   .section--title {
-    margin-inline-start: calc(-1 * var(--oc-gutter)); // out-dent default padding to align with grid
+    margin-inline: calc(-1 * var(--oc-gutter)); // out-dent default padding to align with grid
+    inline-size: calc(100% + 2 * var(--oc-gutter));
+
     .block-layout-builder:has(.flag) {
       inset-block-start: calc(.75 * var(--oc-font-size-xxl));
       inset-inline-end: 1rem;
+
+      @include breakpoint(m) {
+        inset-inline-end: .25rem;
+      }
     }
   }
 
@@ -350,6 +359,7 @@
 
   .page-title-wrapper {
     background-color: transparent;
+    padding-block-start: var(--oc-bg-hero-padding-block);
   }
 
   @include breakpoint(m) {
@@ -403,16 +413,20 @@
   }
 
   .page-title-wrapper {
-    padding-inline-start: var(--oc-gutter); // set to 0 with transparent --oc-bg-hero-section
+    padding-inline-start: var(--oc-bg-hero-padding-inline);
   }
 
   .section--essentials {
-    padding-inline-start: var(--oc-gutter); // set to 0 with transparent --oc-bg-hero-section
     display: flex;
     flex-flow: column;
     gap: var(--oc-row-gap);
     align-content: space-between;
     //justify-content: space-between;
+
+    &:has(.block) {
+      padding-inline-start: var(--oc-bg-hero-padding-inline);
+      padding-block-end: var(--oc-bg-hero-padding-block);
+    }
   }
 
 }

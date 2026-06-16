@@ -153,3 +153,17 @@
     color: var(--oc-tag-link-active-text-color);
   }
 }
+
+// Links that should rather look like a button
+// Note: For accessibility reasons, differentiate between button and button link
+%button-link {
+  padding: var(--oc-button-padding-s);
+  border: .125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: var(--oc-underline);
+  }
+}

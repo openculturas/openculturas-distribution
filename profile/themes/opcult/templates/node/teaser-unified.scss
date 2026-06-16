@@ -68,12 +68,15 @@
 // Body field (teaser text) moved to "Quick info" popover
 // See popovers.scss
 
+.quick-info-toggle--wrapper {
+  position: absolute;
+  inset-inline-end: calc(.25 * var(--oc-card-padding-inline));
+  inset-block-end: calc(.25 * var(--oc-card-padding-block));
+}
+
 .quick-info--toggle {
   @extend %icon-only;
   @include icon(info);
-  position: absolute;
-  inset-inline-end: .25rem;
-  inset-block-end: .25rem;
 }
 
 .quick-info--popover-content {
@@ -183,7 +186,7 @@
     block-size: auto;
   }
   .teaser-unified .teaser--top img {
-    inline-size: auto;
+    inline-size: 100%;
     block-size: auto;
   }
 }

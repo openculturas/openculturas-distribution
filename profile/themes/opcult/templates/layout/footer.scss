@@ -78,14 +78,23 @@ footer.footer {
 // ---
 // Main footer menu
 
-.region-footer .menu--footer {
-  &:has(li:nth-child(5)) {
-    max-inline-size: 40rem;
-    column-count: 2;
-    column-gap: 0;
+.region-footer {
+  .menu {
+    margin-inline-end: 0;
+
+    @include breakpoint(s) {
+      margin-inline-end: var(--oc-gutter);
+    }
+  }
+
+  .menu--footer:has(li:nth-child(5)) {
+    @include breakpoint(s) {
+      max-inline-size: 40rem;
+      column-count: 2;
+      column-gap: 0;
+    }
   }
 }
-
 // Below footer menu
 
 .region-below-footer {

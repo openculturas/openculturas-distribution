@@ -6,10 +6,28 @@
 
 @use "../../sass/abstracts" as *;
 
-.paragraph--type--text-slider .swiffy-slider li {
-  align-items: start;
+.paragraph--type--text-slider {
+  .slider-container {
+    align-items: start;
+  }
+
+  .slider-container > li {
+    justify-content: start;
+    align-items: start;
+    flex-flow: column;
+  }
+
+  blockquote {
+    margin-block: 0;
+    margin-inline: 0;
+  }
+
+  .slider-container {
+    --swiffy-slider-item-gap: calc(2 * var(--oc-gutter));
+  }
+
+  .swiffy-slider li {
+    align-items: start;
+  }
 }
 
-.paragraph--type--text-slider blockquote {
-  margin-block: 0;
-}

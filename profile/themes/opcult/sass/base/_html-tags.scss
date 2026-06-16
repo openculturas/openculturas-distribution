@@ -163,14 +163,14 @@ hr {
 
 sub {
   position: relative;
-  inset-block-end: -0.25em; // "bottom"
-  font-size: 0.75em; // deliberately not using a custom property
+  // inset-block-end: -0.25em; // "bottom"
+  font-size: 0.666em; // deliberately not using a custom property
 }
 
 sup {
   position: relative;
-  inset-block-start: -0.5em; // "top"
-  font-size: 0.75em; // deliberately not using a custom property
+  // inset-block-start: -0.5em; // "top"
+  font-size: 0.666em; // deliberately not using a custom property
 }
 
 .tiny,
@@ -228,6 +228,15 @@ kbd {
 mark,
 .mark {
   background-color: var(--oc-color-warning);
+}
+
+del,
+s.del {
+  @extend %deletion;
+}
+
+ins {
+  @extend %insertion;
 }
 
 // media

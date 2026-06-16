@@ -27,7 +27,6 @@ code: |-
     --oc-gutter: 1.25rem; /* Gap (horizontal) between layout columns. */
     --oc-row-gap: 1.25rem; /* Gap (vertical) between rows. */
     --oc-layout-max-width: 100rem; /* Prevent layout becoming too wide on large screens. */
-    
     --oc-section-spacing: 3rem; /* Vertically structuring spacing. */
   }
 
@@ -164,7 +163,7 @@ code: |-
     --oc-color-link-footer: var(--oc-color-link-inverted);
 
     /* Other colors */
-    --oc-bg-hero-section: none;
+    --oc-bg-hero-section: inherit; /* see also: --oc-bg-hero-padding-* */
     --oc-bg-hero-image: transparent;
     --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
     --oc-color-marker-icon: var(--oc-color-primary);
@@ -416,12 +415,27 @@ code: |-
   }
 
   /*
-   * Your custom map marker icon:
+   * Hero layout 4:
+   * set values to 0 when --oc-bg-hero-section is transparent
+  */
+
+  /*
+  body {
+    --oc-bg-hero-padding-inline: var(--oc-gutter);
+    --oc-bg-hero-padding-block: .5rem;
+  }
+  */
+
+  /*
+   * Your custom map marker icon (only in case it has a background):
    * Override with the path + file name of your custom image to avoid colorizer bleed
   */
+
+  /*
   img.leaflet-marker-icon {
-  	mask-image: url("../images/map_marker.svg");
+  	mask-image: url("/path/to/custom_marker.svg");
   }
+  */
 media: all
 preprocess: true
 conditions:

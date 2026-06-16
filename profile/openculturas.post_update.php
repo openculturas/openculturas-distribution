@@ -347,3 +347,13 @@ function openculturas_post_update_entity_view_display_paragraph_accessibility_tr
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names);
 }
+
+/**
+ * Revert asset_injector.css.oc_gin_theme_overrides.
+ */
+function openculturas_post_update_revert_gin_theme_overrides_5(): string {
+  $full_config_names = [
+    'asset_injector.css.oc_gin_theme_overrides',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+}

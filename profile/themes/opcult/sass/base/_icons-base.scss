@@ -12,10 +12,19 @@
 @use "../abstracts/icons" as *;
 
 // ---
+// Read-more links
+
+.more-link a,
+a.more-link {
+  @include icon(arrow-right, light, after);
+}
+
+// ---
 // External links
 
 .text-formatted,
-.teaser--title {
+.teaser--title,
+.more-link {
   a[href^="http"],
   a.external {
     @include icon(arrow-up-right, light, after);

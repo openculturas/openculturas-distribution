@@ -39,30 +39,26 @@
 // ---
 // Captions
 
-.media figcaption .field,
-.field--name-field-caption {
-  background-color: var(--oc-color-bg-dark-translucent);
-  padding-block: 1rem;
-  padding-inline: var(--oc-gutter);
-  font-style: italic;
-}
-
-figcaption .field--name-field-caption {
-  padding: 0;
-  background-color: transparent;
-}
-
-
-figcaption:has(.attribution-toggle:only-child) {
-  background: transparent;
-}
-
-.field--name-field-caption {
+.media figcaption:has(.field),
+.paragraph--type--media .field--name-field-caption {
   display: inline-block;
+  border-color: var(--oc-caption-border-color);
+  border-style: var(--oc-caption-border-style);
+  border-width: var(--oc-caption-border-width);
+  border-radius: var(--oc-caption-border-radius);
+  background: var(--oc-bg-caption);
+  padding-block: var(--oc-row-gap);
+  padding-inline: var(--oc-gutter);
+}
 
-  p {
-    margin-block: 0;
-  }
+.media figcaption .field {
+  padding: 0;
+  font-style: italic;
+  color: var(--oc-color-text-caption);
+}
+
+.field--name-field-caption p {
+  margin-block: 0;
 }
 
 // ---

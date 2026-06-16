@@ -6,7 +6,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |
+code: |+
   /*
    * Formtip
    */
@@ -455,6 +455,25 @@ code: |
       --space-xl: 1.5rem;
   	}
   	
+  	:where(*) .button, 
+  	:where(*) .button:not(:focus), 
+  	:where(*) .form-actions .button, 
+  	:where(*) .project__action_button, 
+  	:where(*) .action-link--icon-trash.action-link, 
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .button, 
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .button:not(:focus), 
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .form-actions .button, 
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .project__action_button,
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .action-link--icon-trash.action-link {
+  	  --gin-spacing-s: .5rem;
+  	  --gin-spacing-m: 1rem;
+  	}
+  	
+  	#gin-sticky-edit-submit {
+  	  --gin-spacing-s: .75rem;
+  	  --gin-spacing-m: 1.25rem;
+  	}
+  	
   	.claro-details__summary::before {
     --space-m: 1rem;
   }
@@ -541,8 +560,97 @@ code: |
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
+  /* Dark mode popover adds extra padding */
+  .dark-mode-toggle--selector {
+    padding: 0;
+  }
+
+  /* Gin date/time widgets more compact */
+  /* field_started */
+
+  .field--widget-datetime-datelist-no-time .fieldset__wrapper {
+    margin: 0;
+  }
+
+  .field--widget-datetime-datelist-no-time fieldset {
+    padding: 0;
+    border: 0 none;
+  }
+
+  .field--widget-datetime-datelist-no-time .form-datetime-wrapper,
+  .field--widget-duration-widget .form-type--number {
+    margin: 0;
+  }
+
+  .field--widget-datetime-datelist-no-time .form-datetime-wrapper label,
+  .field--widget-duration-widget .form-type--number label {
+    font-weight: normal;
+  }
+
+  .field--widget-datetime-datelist-no-time .form-items-inline,
+  .field--widget-datetime-datelist-no-time .form-items-inline .form-item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0 .5rem;
+  }
+
+  .field--widget-datetime-datelist-no-time .fieldset__label { 
+    padding-inline-start: 0;
+    padding-block-end: 0;
+  }
+
+  .field--widget-datetime-datelist-no-time select {
+    margin-block-end: .5rem
+  }
+
+
+  /* In case of secondary filters in back-end */
+
+  .view-filters .bef--secondary {
+    align-self: end;
+    margin-inline: 0 var(--space-xs);
+  }
+
+  .views-exposed-form details.form-item {
+    align-self: end;
+  }
+
+  .bef--secondary .claro-details__summary {
+    align-self: start;
+  }
+
+  /* Generic del/ins suitable for dark mode */
+
+  ins,
+  [data-drupal-selector="review-data"] ins {
+    text-decoration: underline;
+    background-color: var(--gin-status-success-bg);
+  }
+
+  del,
+  [data-drupal-selector="review-data"] del {
+    text-decoration: line-through;
+    background-color: var(--gin-color-danger-lightest);
+  }
+
+  /* Paragraphs mode modal */
+
+  /* Button aligned with wrapper name text */
+  .paragraphs-add-suffix {
+    align-self: center;
+  }
+
+  /* first button is auto-focused, do not visually invert */
+  .paragraphs-add-dialog-list .button:focus:not(:hover) {
+    background-color: initial;
+    color: var(--gin-color-primary);
+  }
+
+
 media: all
-preprocess: false
+preprocess: true
 conditions:
   current_theme:
     id: current_theme

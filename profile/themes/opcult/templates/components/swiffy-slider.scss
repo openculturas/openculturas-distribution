@@ -9,6 +9,7 @@
 .swiffy-slider {
   --swiffy-slider-item-gap: var(--oc-gutter);
   --swiffy-slider-nav-dark: var(--oc-color-interaction);
+  container-type: inline-size;
 }
 
 .slider-item-reveal {
@@ -60,7 +61,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-block-end: var(--oc-row-gap);
 }
 
 .swiffy-slider article.teaser {
@@ -74,7 +74,7 @@
 //  opacity: .5;
 //}
 
-// Visual styles
+// Slider navigation + indicators
 
 .slider-nav-dark .slider-nav,
 .slider-indicators-dark .slider-indicators > button:hover {
@@ -158,7 +158,12 @@ button.slider-nav {
 
 .slider-indicators {
   inset-block-end: var(--swiffy-slider-indicator-outside-size);
-  margin-inline: 6rem; // make space for buttons
+  margin-inline: 4rem 0; // make space for buttons
+}
+@container (width > 48rem) {
+  .slider-indicators {
+    margin-inline: 6rem;
+  }
 }
 
 .slider-indicators-outside {
@@ -166,13 +171,70 @@ button.slider-nav {
 }
 
 // ---
+// Modify default slider items per breakpoint
+// Note: .slider-item-show6 is handled by swiffy slider default
+
+.swiffy-slider {
+  @include breakpoint(s) {
+    &.slider-item-show2-sm .slider-container,
+    &.slider-item-show3 .slider-container,
+    &.slider-item-show4 .slider-container,
+    &.slider-item-show5 .slider-container {
+      --swiffy-slider-item-count: 2;
+    }
+
+    // override default (otherwise hidden below 62rem width)
+    &.slider-indicators-outside .slider-indicators {
+      display: flex;
+    }
+  }
+
+  @include breakpoint(m) {
+    &.slider-item-show2 .slider-container,
+    &.slider-item-show3 .slider-container {
+      --swiffy-slider-item-count: 2;
+    }
+
+    &.slider-item-show4 .slider-container,
+    &.slider-item-show5 .slider-container {
+      --swiffy-slider-item-count: 3;
+    }
+  }
+
+  @include breakpoint(l) {
+    &.slider-item-show3 .slider-container {
+      --swiffy-slider-item-count: 3;
+    }
+
+    &.slider-item-show4 .slider-container,
+    &.slider-item-show5 .slider-container {
+      --swiffy-slider-item-count: 4;
+    }
+  }
+
+  @include breakpoint(xl) {
+    &.slider-item-show5 .slider-container {
+      --swiffy-slider-item-count: 5;
+    }
+  }
+}
+
+// Supporters field contains logos - use default count
+#supporters .swiffy-slider.slider-item-show3 .slider-container {
+  @include breakpoint(s) {
+    --swiffy-slider-item-count: 3;
+  }
+}
+
+// ---
 // Hide buttons when less than max elements
 // Note: media queries according to swiffy breakpoints
-// Note: it is not possible to define a placeholder across media queries
+// Note: it is not possible to define a %placeholder across media queries
 
 .swiffy-slider {
   &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(3))) {
-    padding-block-end: 0;
+    --swiffy-slider-indicator-outside-size: 0;
+    --swiffy-slider-item-count: 2;
     .slider-indicators,
     .slider-nav {
       display: none;
@@ -180,42 +242,70 @@ button.slider-nav {
   }
 }
 
-@media (max-width: 32rem) {
-  .swiffy-slider {
+.swiffy-slider {
+  @include breakpoint(xs) {
     --swiffy-slider-item-count: 1;
+  }
 
+  @include breakpoint(s) {
     &:not(:has(.slider-container > li:nth-child(2))),
-    &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(2))),
-    &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(3))) {
-      padding-block-end: 0;
-      margin-block-end: 0;
+    &.slider-item-show2-sm:not(:has(.slider-container > li:nth-child(2))) {
+      --swiffy-slider-indicator-outside-size: 0;
+
       .slider-indicators,
       .slider-nav {
         display: none;
       }
+    }
+  }
 
-      li {
-        padding-block-end: 0;
+   @include breakpoint(m) {
+     &.slider-item-show2:not(:has(.slider-container > li:nth-child(3))),
+     &.slider-item-show3:not(:has(.slider-container > li:nth-child(3))),
+     &.slider-item-show4:not(:has(.slider-container > li:nth-child(4))),
+     &.slider-item-show5:not(:has(.slider-container > li:nth-child(4))),
+     &.slider-item-show6:not(:has(.slider-container > li:nth-child(4))) {
+       --swiffy-slider-indicator-outside-size: 0;
+
+       .slider-indicators,
+       .slider-nav {
+         display: none;
+       }
+     }
+   }
+
+  @include breakpoint(l) {
+    &.slider-item-show3:not(:has(.slider-container > li:nth-child(4))),
+    &.slider-item-show4:not(:has(.slider-container > li:nth-child(5))),
+    &.slider-item-show5:not(:has(.slider-container > li:nth-child(4))),
+    &.slider-item-show6:not(:has(.slider-container > li:nth-child(4))) {
+      --swiffy-slider-indicator-outside-size: 0;
+
+      .slider-indicators,
+      .slider-nav {
+        display: none;
+      }
+    }
+  }
+
+  @include breakpoint(xl) {
+    &.slider-item-show5:not(:has(.slider-container > li:nth-child(6))),
+    &.slider-item-show6:not(:has(.slider-container > li:nth-child(7))) {
+      --swiffy-slider-indicator-outside-size: 0;
+
+      .slider-indicators,
+      .slider-nav {
+        display: none;
       }
     }
   }
 }
 
-@media (min-width: 32.001rem) {
-  .swiffy-slider:not(:has(.slider-container > li:nth-child(2))),
-  .slider-item-show2:not(:has(.slider-container > li:nth-child(3))),
-  .slider-item-show3:not(:has(.slider-container > li:nth-child(4))),
-  .slider-item-show4:not(:has(.slider-container > li:nth-child(5))) {
-    padding-block-end: 0;
-    margin-block-end: 0;
-    .slider-indicators,
-    .slider-nav {
-      display: none;
-    }
 
-    li {
-      padding-block-end: 0;
-    }
-  }
+
+// Prevent teasers w/o image + little text from shrinking
+.slide-visible .paragraph--teaser,
+.swiffy-slider article.teaser {
+  inline-size: 100%;
 }
 

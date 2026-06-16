@@ -5,13 +5,12 @@
 // - paragraph/paragraph.scss (generic classes/behaviours)
 // - paragraph/paragraph--wrapper-section.scss
 // - node/teasers.scss
+// @todo: merge pararallel stylings (wrapper-section)
 // ---------------------------------------
 
 @use "../../../sass/abstracts" as *;
 
-.paragraph--type--teaser-wrapper {
-  margin-block: var(--oc-section-spacing);
-}
+// General styles teaser_wrapper has in common with wrapper_section: see paragraphs.scss
 
 // ---
 // View mode: slider
@@ -53,6 +52,16 @@
     article.teaser-curated {
       background: var(--oc-card-background);
       block-size: var(--oc-card-height-equalizer);
+    }
+
+    .intro {
+      grid-column: 1 / -1;
+      grid-row: 1;
+
+      @include breakpoint(l) {
+        grid-column: 1;
+        grid-row: 1 / -1;
+      }
     }
   }
 }
@@ -98,14 +107,11 @@
       grid-row: 1 / 3;
       @extend %image-fill;
       border-radius: var(--oc-card-radius-calculated) 0 0 var(--oc-card-radius-calculated);
-      //margin-block: calc(-1 * var(--oc-card-padding-block));
-      //margin-inline: calc(-1 * var(--oc-card-padding-inline)) 0;
     }
 
     .teaser--body {
       grid-column: 2;
       grid-row: 1;
-      //padding-block-start: 0;
     }
 
     .teaser--footer {
@@ -136,11 +142,11 @@
 // ---
 // Less padding in side-by-side
 
-.teaser--wrapper.grid-1,
-.teaser--wrapper.side-by-side {
-  .teaser-unified .teaser--body {
-    @include breakpoint(l) {
-      //padding-inline: 0;
-    }
-  }
-}
+//.teaser--wrapper.grid-1,
+//.teaser--wrapper.side-by-side {
+//  .teaser-unified .teaser--body {
+//    @include breakpoint(l) {
+//      padding-inline: 0;
+//    }
+//  }
+//}

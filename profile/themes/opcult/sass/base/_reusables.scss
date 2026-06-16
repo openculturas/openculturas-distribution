@@ -5,6 +5,7 @@
 
 @use "../abstracts/mixins" as *;
 @use "../abstracts/typography" as *;
+@use "../abstracts/buttons" as *;
 
 .tiny,
 .small {
@@ -26,13 +27,19 @@
 
 // Blockquote styles
 
+// the quoted person
+.quotee {
+  font-size: var(--oc-font-size-default);
+  font-weight: var(--oc-font-weight-normal);
+}
+
 .callout {
   background-color: var(--oc-color-info);
   color: var(--oc-color-text-inverted);
   padding: var(--oc-row-gap) var(--oc-gutter);
-  block-size: auto; // "height"
-  display: inline-flex;
-  // uncomment when using before/after icons
+  block-size: auto;
+  // uncomment when using before/after icons (note: does not work well with add'l .quotee)
+  //display: inline-flex;
   //gap: var(--oc-gutter);
 }
 
@@ -46,11 +53,11 @@ blockquote.plain {
   strong {
     font-weight: var(--oc-font-weight-bold);
   }
-}
 
-.quotee {
-  font-size: var(--oc-font-size-default);
-  font-weight: var(--oc-font-weight-semi-bold);
+  .quotee,
+  & + .quotee {
+    font-weight: var(--oc-font-weight-semi-bold);
+  }
 }
 
 .inset {
@@ -74,12 +81,12 @@ blockquote.plain {
   }
 }
 
-.text-formatted a.cta,
-.ck-content a.cta {
+.view > .more-link a,
+.more-link.field a,
+a.more-link,
+.text-formatted a.cta {
   display: inline-block;
-  padding: var(--oc-button-padding-s);
-  border: .125rem solid var(--oc-color-link);
-  border-radius: 50vi;
+  @extend %button-link;
 }
 
 // ---

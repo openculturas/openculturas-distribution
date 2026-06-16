@@ -6,6 +6,11 @@
 
 .maintenance-page {
   --oc-layout-max-width: 40rem;
+  --oc-page-margin-sides: 1rem;
+
+  @include breakpoint(s) {
+    --oc-page-margin-sides: 2rem;
+  }
 
   @include breakpoint(m) {
     --oc-page-margin-sides: 4rem;
@@ -14,14 +19,64 @@
   @include breakpoint(l) {
     --oc-page-margin-sides: 10rem;
   }
+
+  background-color: var(--oc-color-primary-darker);
 }
 
+// visually center vertically
+.maintenance-page .dialog-off-canvas-main-canvas {
+  block-size: 100dvh;
+  display: grid;
+  align-content: center;
+  padding-bottom: 20dvh;
+}
+
+// smaller headline because it's likely the only one
+.maintenance-page h1 {
+  font-size: var(--oc-font-size-xl);
+}
+
+// cf. %teaser-image-fallback
 .maintenance-page .layout-background {
-  @extend %teaser-image-fallback;
-  --oc-teaser-bg-scale: 180%;
-  --oc-page-margin-sides: 5rem;
+  opacity: 1;
+  background-image: var(--oc-image-fallback-image);
+  background-color: var(--oc-color-primary-darker);
+  background-repeat: no-repeat;
+  background-size: 200%;
+  background-position-x: 35%;
+  background-position-y: bottom -4rem;
+  background-attachment: fixed;
+  background-blend-mode: multiply;
+  position: fixed;
+  inline-size: 100vw;
+  block-size: 100vh;
 
   &::after {
     display: none;
   }
 }
+
+// Decent basic look
+.maintenance-page {
+  .layout-container {
+    padding-block-start: 1rem;
+    text-align: center;
+  }
+
+  .header {
+    border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
+    padding-block-start: 1rem;
+  }
+
+  main {
+    border-radius: 0 0 var(--oc-card-border-radius) var(--oc-card-border-radius);
+    min-block-size: unset;
+  }
+
+  .main__content {
+    max-inline-size: 60ch;
+    margin-inline: auto;
+    padding-block: 2rem 6rem;
+  }
+}
+

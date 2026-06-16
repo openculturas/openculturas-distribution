@@ -52,6 +52,7 @@
   --oc-color-link-focus-text: var(--oc-color-text-inverted);
   --oc-color-link-focus-bg: var(--oc-color-link);
   --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 20%, var(--oc-color-text-inverted));
+  --oc-color-interaction-inverted: color-mix(in oklab, var(--oc-color-interaction) 50%, var(--oc-color-text-inverted));
   --oc-underline-color: color-mix(in oklab, currentColor 50%, transparent);
   --oc-color-menu-link: color-mix(in oklab, var(--oc-color-text) 30%, var(--oc-color-link));
   --oc-color-menu-link-focus-text: var(--oc-color-text-inverted);
@@ -113,6 +114,8 @@
   --oc-tag-link-active-border-color: var(--oc-color-bg-light);
   --oc-tag-link-active-text-color: var(--oc-color-interaction);
   --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
+  --oc-bg-caption: transparent;
+  --oc-caption-border-color: var(--oc-color-divider-light);
 }
 
 @media screen {
@@ -124,6 +127,7 @@
     --oc-color-text-inverted: #191919;
     --oc-color-text-headline: currentColor;
     --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 50%, var(--oc-color-text-inverted));
+    --oc-color-interaction-inverted: color-mix(in oklab, var(--oc-color-interaction) 50%, var(--oc-color-text-inverted));
     --oc-color-link: #ffdd00;
     --oc-color-interaction: #74eaea;
     --oc-color-danger: #f38183;
@@ -167,6 +171,18 @@
   --oc-tag-text-transform: none;
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
+}
+
+a.cta {
+  padding: var(--oc-button-padding-s);
+  border: 0.125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+  text-decoration: none;
+}
+
+a.cta:focus, a.cta:hover {
+  -webkit-text-decoration: var(--oc-underline);
+          text-decoration: var(--oc-underline);
 }
 
 .ck-content {
@@ -355,6 +371,19 @@
   color: var(--oc-color-menu-link-focus-text);
 }
 
+.ck-content del,
+.ck-content s.del {
+  -webkit-text-decoration: currentColor line-through solid 0.0625em;
+          text-decoration: currentColor line-through solid 0.0625em;
+  background-color: var(--oc-color-bg-danger);
+}
+
+.ck-content ins {
+  -webkit-text-decoration: currentColor underline solid 0.0625em;
+          text-decoration: currentColor underline solid 0.0625em;
+  background-color: var(--oc-color-bg-success);
+}
+
 .ck-content body {
   font-family: var(--oc-font-family-default);
   line-height: var(--oc-line-height-default);
@@ -460,14 +489,12 @@
 
 .ck-content sub {
   position: relative;
-  inset-block-end: -0.25em;
-  font-size: 0.75em;
+  font-size: 0.666em;
 }
 
 .ck-content sup {
   position: relative;
-  inset-block-start: -0.5em;
-  font-size: 0.75em;
+  font-size: 0.666em;
 }
 
 .ck-content abbr {
@@ -694,6 +721,18 @@
   font-size: var(--oc-font-size-s);
   font-weight: var(--oc-font-weight-medium);
   border-width: 0.09375rem;
+}
+
+.ck-content a.cta {
+  padding: var(--oc-button-padding-s);
+  border: 0.125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+  text-decoration: none;
+}
+
+.ck-content a.cta:focus, .ck-content a.cta:hover {
+  -webkit-text-decoration: var(--oc-underline);
+          text-decoration: var(--oc-underline);
 }
 
 .ck-content .inverted button,
@@ -1035,6 +1074,18 @@
   color: var(--oc-tag-link-active-text-color);
 }
 
+.ck-content a.cta {
+  padding: var(--oc-button-padding-s);
+  border: 0.125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+  text-decoration: none;
+}
+
+.ck-content a.cta:focus, .ck-content a.cta:hover {
+  -webkit-text-decoration: var(--oc-underline);
+          text-decoration: var(--oc-underline);
+}
+
 .ck-content div:has(> table) {
   overflow-x: auto;
 }
@@ -1225,8 +1276,54 @@
   text-transform: uppercase;
 }
 
+.ck-content .ck-content {
+  --oc-button-border-radius: .25rem;
+  --oc-button-border-width: .125rem;
+  --oc-button-border-style: solid;
+  --oc-button-padding: var(--oc-button-padding-m);
+  --oc-button-padding-m: 0.5em 2em;
+  --oc-button-padding-s: 0.25em 1em;
+  --oc-button-text-transform: none;
+  --oc-button-letter-spacing: normal;
+  --oc-button-box-shadow: 0;
+  --oc-tag-border-radius: 50vi;
+  --oc-tag-border-width: 0.0625rem;
+  --oc-tag-border-style: solid;
+  --oc-tag-padding: .25em 2em;
+  --oc-tag-padding-s: .25em 1em;
+  --oc-tag-text-transform: none;
+  --oc-tag-letter-spacing: normal;
+  --oc-tag-box-shadow: var(--oc-button-box-shadow);
+}
+
+.ck-content a.cta, .ck-content .view > .more-link a,
+.ck-content .more-link.field a,
+.ck-content a.more-link,
+.ck-content .text-formatted a.cta {
+  padding: var(--oc-button-padding-s);
+  border: 0.125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+  text-decoration: none;
+}
+
+.ck-content a.cta:focus, .ck-content .view > .more-link a:focus,
+.ck-content .more-link.field a:focus,
+.ck-content a.more-link:focus,
+.ck-content .text-formatted a.cta:focus, .ck-content a.cta:hover, .ck-content .view > .more-link a:hover,
+.ck-content .more-link.field a:hover,
+.ck-content a.more-link:hover,
+.ck-content .text-formatted a.cta:hover {
+  -webkit-text-decoration: var(--oc-underline);
+          text-decoration: var(--oc-underline);
+}
+
 .ck-content .block-menu .block--title {
   padding-inline: 1rem;
+}
+
+.ck-content .quotee {
+  font-size: var(--oc-font-size-default);
+  font-weight: var(--oc-font-weight-normal);
 }
 
 .ck-content .callout {
@@ -1234,7 +1331,6 @@
   color: var(--oc-color-text-inverted);
   padding: var(--oc-row-gap) var(--oc-gutter);
   block-size: auto;
-  display: inline-flex;
 }
 
 .ck-content blockquote.plain {
@@ -1249,8 +1345,7 @@
   font-weight: var(--oc-font-weight-bold);
 }
 
-.ck-content .quotee {
-  font-size: var(--oc-font-size-default);
+.ck-content blockquote.plain .quotee, .ck-content blockquote.plain + .quotee {
   font-weight: var(--oc-font-weight-semi-bold);
 }
 
@@ -1274,12 +1369,11 @@
     margin-block-end: 1.25rem;
   }
 }
-.ck-content .text-formatted a.cta,
-.ck-content .ck-content a.cta {
+.ck-content .view > .more-link a,
+.ck-content .more-link.field a,
+.ck-content a.more-link,
+.ck-content .text-formatted a.cta {
   display: inline-block;
-  padding: var(--oc-button-padding-s);
-  border: 0.125rem solid var(--oc-color-link);
-  border-radius: 50vi;
 }
 
 .ck-content .inverted {
@@ -1461,6 +1555,18 @@
   --oc-tag-text-transform: none;
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
+}
+
+.ck-content a.cta {
+  padding: var(--oc-button-padding-s);
+  border: 0.125rem solid var(--oc-color-link);
+  border-radius: 50vi;
+  text-decoration: none;
+}
+
+.ck-content a.cta:focus, .ck-content a.cta:hover {
+  -webkit-text-decoration: var(--oc-underline);
+          text-decoration: var(--oc-underline);
 }
 
 .ck-content button,
@@ -1961,10 +2067,13 @@
   --oc-chevron: url('../images/chevron-down.svg');
 }
 
-.ck-content .text-formatted a[href^=http]::after,
+.ck-content .more-link a::after,
+.ck-content a.more-link::after, .ck-content .text-formatted a[href^=http]::after,
 .ck-content .text-formatted a.external::after,
 .ck-content .teaser--title a[href^=http]::after,
-.ck-content .teaser--title a.external::after, .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]::after, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]::after, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after, .ck-content .button--edit a::before, .ck-content button.close::before,
+.ck-content .teaser--title a.external::after,
+.ck-content .more-link a[href^=http]::after,
+.ck-content .more-link a.external::after, .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]::after, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]::after, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after, .ck-content .button--edit a::before, .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
 .ck-content .cookiesjsr-layer--close::before, .ck-content .icon.monitor::before, .ck-content .icon.tv::before, .ck-content .icon.map-pin::before, .ck-content .icon.location-dot::before, .ck-content .icon.list::before, .ck-content .icon.table-list::before, .ck-content .icon.squares-four::before, .ck-content .icon.table-cells-large::before, .ck-content .icon.archive::before, .ck-content .icon.box-archive::before, .ck-content .menu--call-to-action a[data-drupal-link-system-path]::before, .ck-content .menu--call-to-action a[href*="node/add/location"]::before,
@@ -2013,10 +2122,13 @@
   inset-inline-start: -0.333em;
 }
 
-.ck-content .text-formatted a[href^=http]::after,
+.ck-content .more-link a::after,
+.ck-content a.more-link::after, .ck-content .text-formatted a[href^=http]::after,
 .ck-content .text-formatted a.external::after,
 .ck-content .teaser--title a[href^=http]::after,
-.ck-content .teaser--title a.external::after, .ck-content input[type=radio]::after, .ck-content input[type=checkbox]::after, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after {
+.ck-content .teaser--title a.external::after,
+.ck-content .more-link a[href^=http]::after,
+.ck-content .more-link a.external::after, .ck-content input[type=radio]::after, .ck-content input[type=checkbox]::after, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after {
   font-size: var(--oc-font-size-icon);
 }
 
@@ -2047,17 +2159,26 @@
   block-size: 100%;
 }
 
+.ck-content .more-link a::after,
+.ck-content a.more-link::after {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-right-light");
+}
+
 .ck-content .text-formatted a[href^=http]::after,
 .ck-content .text-formatted a.external::after,
 .ck-content .teaser--title a[href^=http]::after,
-.ck-content .teaser--title a.external::after {
+.ck-content .teaser--title a.external::after,
+.ck-content .more-link a[href^=http]::after,
+.ck-content .more-link a.external::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-right-light");
 }
 
 .ck-content .text-formatted a[href^=http],
 .ck-content .text-formatted a.external,
 .ck-content .teaser--title a[href^=http],
-.ck-content .teaser--title a.external {
+.ck-content .teaser--title a.external,
+.ck-content .more-link a[href^=http],
+.ck-content .more-link a.external {
   --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
   --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
 }
@@ -2065,7 +2186,9 @@
 .ck-content .text-formatted a[href^=http]::before,
 .ck-content .text-formatted a.external::before,
 .ck-content .teaser--title a[href^=http]::before,
-.ck-content .teaser--title a.external::before {
+.ck-content .teaser--title a.external::before,
+.ck-content .more-link a[href^=http]::before,
+.ck-content .more-link a.external::before {
   content: var(--icon-url-ltr)/"External site";
   display: inline-block;
   inline-size: 0.85em;
@@ -2078,53 +2201,66 @@
 .ck-content .text-formatted a[href^=http][target],
 .ck-content .text-formatted a.external[target],
 .ck-content .teaser--title a[href^=http][target],
-.ck-content .teaser--title a.external[target] {
+.ck-content .teaser--title a.external[target],
+.ck-content .more-link a[href^=http][target],
+.ck-content .more-link a.external[target] {
   content: var(--icon-url-ltr)/"External site in new window";
 }
 
 .ck-content [dir=rtl] .text-formatted a[href^=http]::before,
 .ck-content [dir=rtl] .text-formatted a.external::before,
 .ck-content [dir=rtl] .teaser--title a[href^=http]::before,
-.ck-content [dir=rtl] .teaser--title a.external::before {
+.ck-content [dir=rtl] .teaser--title a.external::before,
+.ck-content [dir=rtl] .more-link a[href^=http]::before,
+.ck-content [dir=rtl] .more-link a.external::before {
   content: var(--icon-url-rtl)/"External site";
 }
 
 .ck-content [dir=rtl] .text-formatted a[href^=http],
 .ck-content [dir=rtl] .text-formatted a.external,
 .ck-content [dir=rtl] .teaser--title a[href^=http],
-.ck-content [dir=rtl] .teaser--title a.external {
+.ck-content [dir=rtl] .teaser--title a.external,
+.ck-content [dir=rtl] .more-link a[href^=http],
+.ck-content [dir=rtl] .more-link a.external {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
 }
 
 .ck-content [dir=rtl] .text-formatted a[href^=http][target]::before,
 .ck-content [dir=rtl] .text-formatted a.external[target]::before,
 .ck-content [dir=rtl] .teaser--title a[href^=http][target]::before,
-.ck-content [dir=rtl] .teaser--title a.external[target]::before {
+.ck-content [dir=rtl] .teaser--title a.external[target]::before,
+.ck-content [dir=rtl] .more-link a[href^=http][target]::before,
+.ck-content [dir=rtl] .more-link a.external[target]::before {
   content: var(--icon-url-rtl)/"External site in new window";
 }
 
 .ck-content .text-formatted [lang=de] a[href^=http],
-.ck-content .teaser--title [lang=de] a[href^=http] {
+.ck-content .teaser--title [lang=de] a[href^=http],
+.ck-content .more-link [lang=de] a[href^=http] {
   content: var(--icon-url-ltr)/"Externe Seite";
 }
 
 .ck-content .text-formatted [lang=de][target],
-.ck-content .teaser--title [lang=de][target] {
+.ck-content .teaser--title [lang=de][target],
+.ck-content .more-link [lang=de][target] {
   content: var(--icon-url-ltr)/"Externe Seite in neuem Fenster";
 }
 
 .ck-content .text-formatted [lang=fr] a[href^=http],
-.ck-content .teaser--title [lang=fr] a[href^=http] {
+.ck-content .teaser--title [lang=fr] a[href^=http],
+.ck-content .more-link [lang=fr] a[href^=http] {
   content: var(--icon-url-ltr)/"Site externe";
 }
 
 .ck-content .text-formatted [lang=fr][target],
-.ck-content .teaser--title [lang=fr][target] {
+.ck-content .teaser--title [lang=fr][target],
+.ck-content .more-link [lang=fr][target] {
   content: var(--icon-url-ltr)/"Site externe (nouvelle fenêtre)";
 }
 
 .ck-content .text-formatted a[href^=http]:has(img)::after,
-.ck-content .teaser--title a[href^=http]:has(img)::after {
+.ck-content .teaser--title a[href^=http]:has(img)::after,
+.ck-content .more-link a[href^=http]:has(img)::after {
   display: none;
 }
 
@@ -2275,6 +2411,10 @@
   }
   html.dark .ck-content .site-logo img {
     opacity: 0;
+  }
+  html.dark .ck-content #home-link a:focus,
+  html.dark .ck-content #home-link a:hover {
+    outline: 0.125rem solid var(--oc-color-link);
   }
   html.dark .ck-content .term-teaser .teaser--top::after {
     background-color: var(--oc-color-bg-light);

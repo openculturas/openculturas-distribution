@@ -7,18 +7,37 @@
 @use "../../sass/abstracts" as *;
 
 // General spacing for certain types (caveat: do not add text/media paragraphs)
-.paragraph--type--teaser-wrapper,
 .paragraph--type--view {
   margin-block-end: var(--oc-section-spacing);
 }
 
+.paragraph--type--wrapper-section,
+.paragraph--type--teaser-wrapper {
+  padding-block: var(--oc-row-gap);
+}
+
+.paragraph--type--wrapper-section {
+  .field__item:last-child > .paragraph--type--view {
+    margin-block-end: 0;
+  }
+}
+
 // Paragraphs behavior classes
 // See: base/_reusables.scss
-// Note: .style__* will be deprecated in a future release @todo: Deprecation
 
-.style__slight_contrast,
-.style__vivid_contrast {
-  padding: var(--oc-row-gap) var(--oc-gutter);
+.paragraph.inverted,
+.paragraph:is([class*="style__"]) {
+  padding-block-end: calc(1 * var(--oc-section-spacing));
+  padding-inline: var(--oc-gutter);
+}
+
+.paragraph.inverted.paragraph--view-mode--grid,
+.paragraph.paragraph--view-mode--grid:is([class*="style__"]) {
+  padding-block-start: calc(.75 * var(--oc-section-spacing));
+}
+
+.field--name-field-content-paragraphs > .field__items > .field__item:has(.paragraph:is([class*="style__"])) + .field__item > .paragraph:not(:is([class*="style__"])) {
+  margin-block-start: calc(.75 * var(--oc-section-spacing));
 }
 
 .style__slight_contrast {
@@ -34,12 +53,15 @@
   }
 }
 
+// Whitespoce for given and further custom classes (starting with "style__")
+
 .paragraph--type--wrapper-section,
 .paragraph--type--teaser-wrapper {
-  &.style__vivid_contrast,
-  &.style__slight_contrast {
+  &.inverted,
+  &:is([class*="style__"]) {
     margin-inline: calc(-1 * var(--oc-page-padding-inline));
     padding-inline: var(--oc-page-padding-inline);
+    margin-block-end: 0;
   }
 
   // Paragraph style inside a wrapper
@@ -55,6 +77,7 @@
   //  margin-block: var(--oc-row-gap) calc(-.5 * var(--oc-row-gap));
   //}
 }
+
 
 // Better use of whitespace when available
 // related: field/field--text.scss
@@ -123,6 +146,7 @@
 .inverted {
   --oc-card-background: color-mix(in oklab, var(--oc-color-bg-dark) 93%, var(--oc-color-bg-light));
   --oc-color-link: var(--oc-color-link-inverted);
+  --oc-color-interaction: var(--oc-color-interaction-inverted);
 
   h2,
   h3,
@@ -131,16 +155,20 @@
   li {
     color: var(--oc-color-text-inverted);
   }
+
+  .swiffy-slider button {
+    border-color: var(--oc-color-bg-dark)
+  }
 }
 
 // Whitespace at the end of default-styled paragraphs when followed by one with a background
-
-.field--name-field-content-paragraphs {
-  .field__item:has(+ .field__item > .style__slight_contrast),
-  .field__item:has(+ .field__item > .style__vivid_contrast),
-  .field__item:has(+ .field__item > .inverted) {
-    > .paragraph {
-      padding-block-end: var(--oc-row-gap);
-    }
-  }
-}
+//
+//.field--name-field-content-paragraphs {
+//  .field__item:has(+ .field__item > .style__slight_contrast),
+//  .field__item:has(+ .field__item > .style__vivid_contrast),
+//  .field__item:has(+ .field__item > .inverted) {
+//    > .paragraph {
+//      padding-block-end: var(--oc-row-gap);
+//    }
+//  }
+//}
