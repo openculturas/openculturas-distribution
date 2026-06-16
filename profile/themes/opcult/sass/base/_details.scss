@@ -74,6 +74,42 @@ details[open] {
   }
 }
 
+// Details w/o span.summary
+
+summary:not(:has(span.summary)) {
+  @include icon(caret-down, light, after);
+
+  &::after {
+    margin-block-start: .333em;
+    flex-basis: 1em;
+    transform: rotate(0deg);
+    transform-origin: center center;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  }
+}
+
+summary:not(:has(span.summary)):has(.details-title)::after {
+  @extend %h2;
+  margin: 0;
+  padding-block: 1.5em 0.75em;
+}
+
+details[open] {
+  > summary::after {
+    transform: rotate(-180deg);
+  }
+}
+
+// Details in text body
+
+.text-formatted details {
+  border-block-end: var(--oc-divider-light);
+
+  summary {
+    font-weight: var(--oc-font-weight-semi-bold);
+  }
+}
+
 // (Opened) details content wrapper
 .details-wrapper {
   margin: 0;

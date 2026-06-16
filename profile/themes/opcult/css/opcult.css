@@ -105,12 +105,14 @@ a.leaflet-popup-close-button::before,
 .icon .fa-book-open::before,
 .icon .book-open-text::before, .menu--call-to-action a[href*="node/add/event"]::before,
 .icon .fa-masks-theater::before,
-.icon .mask-happy::before, .ui-dialog .ui-dialog-titlebar-close::before,
+.icon .mask-happy::before, .copy::before,
+.clipboard::before,
+*[class*=copy-button]::before, .ui-dialog .ui-dialog-titlebar-close::before,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close::before, .calendar .view-empty::before, .filter-collapsible > summary::before, .views-element-container header .button[href*="add/"]::before, .quick-info--toggle::before, .profile--picture::before, .header__burger--buttons::before, .breadcrumbs nav a::after, .media--view-mode-download a.file::before, .field--name-field-media-audio-file::before, .badge--peer::before, .teaser.entity--unpublished::after, a.leaflet-control-zoom-in::before, a.leaflet-control-zoom-out::before, .leaflet-control-resetview a::before, .leaflet-control-fullscreen a::before, .leaflet-control-locate a::before, .leaflet-control-geocoder-icon::before, .cookiesjsr-layer .cookiesjsr-service-group--tab::before, .facet-item .is-active::before, .addtocal-toggle--wrapper .addtocal-toggle--trigger::before, .account-toggle--wrapper .button-popover-trigger::before, .block-views-exposed-filter-blocksearch-search-page .form-submit::before,
 .block-views-exposed-filter-blocksearch-search-input .form-submit::before, .search-toggle--wrapper .button-popover-trigger::before, .openculturas-map--reload::before, .language-toggle--wrapper .button-popover-trigger::before, .language-link::before, .dark-mode-toggle--popover-button::before, .mode-toggle.toggle-system::before,
 .dark-mode-toggle--popover-button[data-icon=system]::before, .mode-toggle.toggle-light::before,
 .dark-mode-toggle--popover-button[data-icon=light]::before, .mode-toggle.toggle-dark::before,
-.dark-mode-toggle--popover-button[data-icon=dark]::before, .mode-toggle[data-active=true]::after, summary .summary::before {
+.dark-mode-toggle--popover-button[data-icon=dark]::before, .mode-toggle[data-active=true]::after, summary .summary::before, summary:not(:has(span.summary))::after {
   content: "";
   display: inline-block;
   inline-size: var(--oc-font-size-icon);
@@ -211,7 +213,9 @@ a.leaflet-popup-close-button::before,
 .icon .fa-book-open::before,
 .icon .book-open-text::before, .menu--call-to-action a[href*="node/add/event"]::before,
 .icon .fa-masks-theater::before,
-.icon .mask-happy::before, .ui-dialog .ui-dialog-titlebar-close::before,
+.icon .mask-happy::before, .copy::before,
+.clipboard::before,
+[class*=copy-button]::before, .ui-dialog .ui-dialog-titlebar-close::before,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close::before, .calendar .view-empty::before, .filter-collapsible > summary::before, .views-element-container header .button[href*="add/"]::before, .quick-info--toggle::before, .profile--picture::before, .header__burger--buttons::before, .media--view-mode-download a.file::before, .field--name-field-media-audio-file::before, .badge--peer::before, a.leaflet-control-zoom-in::before, a.leaflet-control-zoom-out::before, .leaflet-control-resetview a::before, .leaflet-control-fullscreen a::before, .leaflet-control-locate a::before, .leaflet-control-geocoder-icon::before, .cookiesjsr-layer .cookiesjsr-service-group--tab::before, .facet-item .is-active::before, .addtocal-toggle--wrapper .addtocal-toggle--trigger::before, .account-toggle--wrapper .button-popover-trigger::before, .block-views-exposed-filter-blocksearch-search-page .form-submit::before,
 .block-views-exposed-filter-blocksearch-search-input .form-submit::before, .search-toggle--wrapper .button-popover-trigger::before, .openculturas-map--reload::before, .language-toggle--wrapper .button-popover-trigger::before, .language-link::before, .dark-mode-toggle--popover-button::before, .mode-toggle.toggle-system::before,
 .dark-mode-toggle--popover-button[data-icon=system]::before, .mode-toggle.toggle-light::before,
@@ -226,7 +230,7 @@ a.leaflet-popup-close-button::before,
 a.more-link::after, .facets-widget-links summary::after, .text-formatted a[href^=http]::after,
 .text-formatted a.external::after,
 .teaser--title a[href^=http]::after,
-.teaser--title a.external::after, input[type=radio]::after, input[type=checkbox]::after, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .breadcrumbs nav a::after, .teaser.entity--unpublished::after, .mode-toggle[data-active=true]::after {
+.teaser--title a.external::after, input[type=radio]::after, input[type=checkbox]::after, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .breadcrumbs nav a::after, .teaser.entity--unpublished::after, .mode-toggle[data-active=true]::after, summary:not(:has(span.summary))::after {
   font-size: var(--oc-font-size-icon);
 }
 
@@ -498,7 +502,7 @@ h1,
   hyphens: none;
 }
 
-.details-title, summary .summary, h2,
+.details-title, summary .summary, summary:not(:has(span.summary)):has(.details-title, summary .summary)::after, h2,
 .h2 {
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
@@ -2188,6 +2192,33 @@ summary:hover, summary:focus-visible {
 details[open] > summary .summary {
   transform: rotate(-180deg);
 }
+summary:not(:has(span.summary))::after {
+  --icon-url: url("../sprite/oc-sprite.svg#caret-down-light");
+}
+summary:not(:has(span.summary))::after {
+  margin-block-start: 0.333em;
+  flex-basis: 1em;
+  transform: rotate(0deg);
+  transform-origin: center center;
+  transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+}
+
+summary:not(:has(span.summary)):has(.details-title, summary .summary)::after {
+  margin: 0;
+  padding-block: 1.5em 0.75em;
+}
+
+details[open] > summary::after {
+  transform: rotate(-180deg);
+}
+
+.text-formatted details {
+  border-block-end: var(--oc-divider-light);
+}
+.text-formatted details summary {
+  font-weight: var(--oc-font-weight-semi-bold);
+}
+
 .details-wrapper {
   margin: 0;
   padding: var(--oc-row-gap) 0 calc(2 * var(--oc-row-gap));
@@ -3056,6 +3087,12 @@ a.leaflet-popup-close-button::before,
 .icon .fa-masks-theater::before,
 .icon .mask-happy::before {
   --icon-url: url("../sprite/oc-sprite.svg#mask-happy-light");
+}
+
+.copy::before,
+.clipboard::before,
+*[class*=copy-button]::before {
+  --icon-url: url("../sprite/oc-sprite.svg#clipboard-light");
 }
 
 input[id*=edit-submit-search]::before,

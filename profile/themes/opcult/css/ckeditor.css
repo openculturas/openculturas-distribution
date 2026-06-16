@@ -721,7 +721,7 @@
   --oc-chevron: url('../images/chevron-down.svg');
 }
 
-.ck-content summary .summary::before {
+.ck-content summary .summary::before, .ck-content summary:not(:has(span.summary))::after {
   content: "";
   display: inline-block;
   inline-size: var(--oc-font-size-icon);
@@ -736,6 +736,10 @@
   font-size: var(--oc-font-size-icon);
   margin-inline-end: 0.333em;
   inset-inline-start: -0.333em;
+}
+
+.ck-content summary:not(:has(span.summary))::after {
+  font-size: var(--oc-font-size-icon);
 }
 
 .ck-content .ck-content {
@@ -767,7 +771,7 @@
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
 }
 
-.ck-content .details-title, .ck-content summary .summary {
+.ck-content .details-title, .ck-content summary .summary, .ck-content summary:not(:has(span.summary)):has(.details-title, summary .summary)::after {
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
   font-size: var(--oc-font-size-xl);
@@ -847,6 +851,35 @@
 
 .ck-content details[open] > summary .summary {
   transform: rotate(-180deg);
+}
+
+.ck-content summary:not(:has(span.summary))::after {
+  --icon-url: url("../sprite/oc-sprite.svg#caret-down-light");
+}
+
+.ck-content summary:not(:has(span.summary))::after {
+  margin-block-start: 0.333em;
+  flex-basis: 1em;
+  transform: rotate(0deg);
+  transform-origin: center center;
+  transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+}
+
+.ck-content summary:not(:has(span.summary)):has(.details-title, summary .summary)::after {
+  margin: 0;
+  padding-block: 1.5em 0.75em;
+}
+
+.ck-content details[open] > summary::after {
+  transform: rotate(-180deg);
+}
+
+.ck-content .text-formatted details {
+  border-block-end: var(--oc-divider-light);
+}
+
+.ck-content .text-formatted details summary {
+  font-weight: var(--oc-font-weight-semi-bold);
 }
 
 .ck-content .details-wrapper {
@@ -1945,7 +1978,9 @@
 .ck-content .icon .fa-book-open::before,
 .ck-content .icon .book-open-text::before, .ck-content .menu--call-to-action a[href*="node/add/event"]::before,
 .ck-content .icon .fa-masks-theater::before,
-.ck-content .icon .mask-happy::before {
+.ck-content .icon .mask-happy::before, .ck-content .copy::before,
+.ck-content .clipboard::before,
+.ck-content *[class*=copy-button]::before {
   content: "";
   display: inline-block;
   inline-size: var(--oc-font-size-icon);
@@ -1970,7 +2005,9 @@
 .ck-content .icon .fa-book-open::before,
 .ck-content .icon .book-open-text::before, .ck-content .menu--call-to-action a[href*="node/add/event"]::before,
 .ck-content .icon .fa-masks-theater::before,
-.ck-content .icon .mask-happy::before {
+.ck-content .icon .mask-happy::before, .ck-content .copy::before,
+.ck-content .clipboard::before,
+.ck-content [class*=copy-button]::before {
   font-size: var(--oc-font-size-icon);
   margin-inline-end: 0.333em;
   inset-inline-start: -0.333em;
@@ -2215,6 +2252,12 @@
 .ck-content .icon .fa-masks-theater::before,
 .ck-content .icon .mask-happy::before {
   --icon-url: url("../sprite/oc-sprite.svg#mask-happy-light");
+}
+
+.ck-content .copy::before,
+.ck-content .clipboard::before,
+.ck-content *[class*=copy-button]::before {
+  --icon-url: url("../sprite/oc-sprite.svg#clipboard-light");
 }
 
 @media screen {
