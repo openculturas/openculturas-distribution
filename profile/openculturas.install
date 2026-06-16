@@ -173,3 +173,19 @@ function openculturas_update_10125(): void {
     $config->save();
   }
 }
+
+/**
+ * Grant missing content moderation transition permissions to oc_admin role.
+ */
+function openculturas_update_10126(): void {
+  /** @var \Drupal\user\RoleStorageInterface $roleStorage */
+  $roleStorage = \Drupal::entityTypeManager()->getStorage('user_role');
+  /** @var \Drupal\user\RoleInterface|null $role */
+  $role = $roleStorage->load('oc_admin');
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('use draften transition create_new_draft');
+    $role->grantPermission('use draften transition to_review');
+    $role->grantPermission('use draften_member transition create_new_draft');
+    $role->save();
+  }
+}
