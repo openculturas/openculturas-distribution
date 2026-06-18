@@ -50,13 +50,6 @@ class OpenCulturasMapFilterForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): self {
-    return new self($container);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getFormId(): string {
     return 'openculturas_map_filter';
   }
