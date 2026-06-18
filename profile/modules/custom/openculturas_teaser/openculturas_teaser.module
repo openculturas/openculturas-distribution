@@ -35,8 +35,14 @@ function openculturas_teaser_field_widget_single_element_form_alter(array &$elem
       case 'teaser_node':
       case 'teaser_term':
       case 'teaser_external':
-        $element['subform']['#weight'] = 1;
-        $element['behavior_plugins']['#weight'] = 2;
+        if (isset($element['subform']) && is_array($element['subform'])) {
+          $element['subform']['#weight'] = 1;
+        }
+
+        if (isset($element['behavior_plugins']) && is_array($element['behavior_plugins'])) {
+          $element['behavior_plugins']['#weight'] = 2;
+        }
+
         break;
     }
   }

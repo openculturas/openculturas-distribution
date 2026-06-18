@@ -28,6 +28,10 @@ final class ReviewData extends WizardFormTableBase {
     $form = parent::buildForm($form, $form_state);
     $form['data']['#empty'] = $this->t('No data will be changed');
     $cached_data = $cached_values['data'] ?? [];
+    if (!is_array($cached_data)) {
+      return $form;
+    }
+
     foreach ($cached_data as $key => $data_value) {
       if ($data_value['operation'] === SyncOperation::Pull->value) {
         $rendered = $this->renderer->renderRoot($form['data'][$key]['local']);

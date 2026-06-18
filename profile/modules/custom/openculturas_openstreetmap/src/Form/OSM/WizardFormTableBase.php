@@ -46,6 +46,7 @@ abstract class WizardFormTableBase extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): static {
+    /** @var static $instance */
     $instance = parent::create($container);
     $instance->addressLookup = $container->get('openculturas_openstreetmap.addressLookup');
     $instance->entityTypeManager = $container->get('entity_type.manager');

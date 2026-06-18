@@ -42,7 +42,8 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): SettingsForm {
+  public static function create(ContainerInterface $container): static {
+    /** @var static $instance */
     $instance = parent::create($container);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->state = $container->get('state');

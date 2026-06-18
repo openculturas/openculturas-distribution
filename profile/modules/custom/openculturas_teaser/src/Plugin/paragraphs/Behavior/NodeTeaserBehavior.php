@@ -25,10 +25,15 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
+    $settings = (array) ($paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? []);
+    if (empty($build['field_article'])) {
+      return;
+    }
+
+    /** @var array{field_article: array<0,array>} $build */
     $buildNode = &$build['field_article'][0];
     /** @var \Drupal\node\NodeInterface|null $node */
-    $node = &$buildNode['#node'];
+    $node = $buildNode['#node'];
     if ($node instanceof NodeInterface) {
       $id = sprintf('%s-%s-%s', $paragraph->bundle(), $paragraph->id(), $node->id());
       $buildNode = $this->getBaseBuildArray($buildNode, $settings, '#node');
@@ -45,7 +50,7 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
     $cacheableMetadata->addCacheableDependency($paragraph);
     $cacheableMetadata->applyTo($buildNode);
     // We need an additional cache key, or the field renders all references
-    // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE).
+    // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE:LANGCODE).
     $buildNode['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
   }
 

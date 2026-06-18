@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\file\FileInterface;
 
 /**
  * Implements hook_form_system_theme_settings_alter().
@@ -15,13 +17,16 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
     return;
   }
 
+  /** @var \Drupal\Core\Extension\ThemeSettingsProvider $themeSettingsProvider */
+  $themeSettingsProvider = \Drupal::service(ThemeSettingsProvider::class);
+
   $form['background_image'] = [
     '#type' => 'details',
     '#title' => t('Background image'),
   ];
   $form['background_image']['background_image_mode'] = [
     '#type'          => 'radios',
-    '#default_value' => theme_get_setting('background_image.mode') ?? 'mood_image',
+    '#default_value' => $themeSettingsProvider->getSetting('background_image.mode') ?? 'mood_image',
     '#description' => t('An image can be appended behind the content to cover the viewport background.'),
     '#options' => [
       'no_image' => t('None'),
@@ -32,7 +37,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
   $form['background_image']['background_image_path'] = [
     '#type' => 'textfield',
     '#title' => t('Path to custom background image'),
-    '#default_value' => theme_get_setting('background_image.path'),
+    '#default_value' => $themeSettingsProvider->getSetting('background_image.path'),
     '#states' => [
       'visible' => [
         ':input[name="background_image_mode"]' => ['value' => 'global_image'],
@@ -74,7 +79,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
   ];
   $form['hero_layout']['hero_layout'] = [
     '#type'          => 'radios',
-    '#default_value' => theme_get_setting('hero_layout') ?? 'oc_hero_layout_1',
+    '#default_value' => $themeSettingsProvider->getSetting('hero_layout') ?? 'oc_hero_layout_1',
     '#description' => t('Basic layout of main image and title block.'),
     '#options' => [
       'oc_hero_layout_1' => t('Image with title block inset'),
@@ -109,6 +114,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
       '#type' => 'details',
       '#title' => $entityTypeId,
     ];
+    /** @var array<string, array{label: string}> $bundles */
     $bundles = $bundleInfoService->getBundleInfo($entityTypeId);
     foreach ($bundles as $bundle => $bundleInfo) {
       $view_display = $entityDisplayRepository->getViewDisplay($entityTypeId, $bundle, 'full_lb');
@@ -177,15 +183,18 @@ function opcult_form_system_theme_settings_validate(array &$form, FormStateInter
 function opcult_form_system_theme_settings_form_submit(array &$form, FormStateInterface $form_state): void {
   // If the user uploaded a new logo or favicon, save it to a permanent location
   // and use it in place of the default theme-provided file.
-  $default_scheme = \Drupal::config('system.file')->get('default_scheme');
+  $defaultScheme = \Drupal::config('system.file')->get('default_scheme');
+  assert(is_string($defaultScheme));
   /** @var \Drupal\Core\File\FileSystemInterface $fileSystem */
   $fileSystem = \Drupal::service('file_system');
   $values = $form_state->getValues();
   $config = \Drupal::configFactory()->getEditable($values['config_key']);
   $config->set('background_image.mode', $values['background_image_mode']);
   try {
-    if (!empty($values['background_image_upload'])) {
-      $filename = $fileSystem->copy($values['background_image_upload']->getFileUri(), $default_scheme . '://');
+    $uploadedFile = $values['background_image_upload'];
+    $fileUri = $uploadedFile instanceof FileInterface ? $uploadedFile->getFileUri() : NULL;
+    if ($fileUri !== NULL) {
+      $filename = $fileSystem->copy($fileUri, $defaultScheme . '://');
       $config->set('background_image.path', $filename);
       $values['background_image_path'] = $filename;
     }
@@ -210,7 +219,9 @@ function opcult_form_system_theme_settings_form_submit(array &$form, FormStateIn
   if (isset($values['layout_builder']) && is_array($values['layout_builder'])) {
     $entityViewModeStorage = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
     $entityViewDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
-    foreach ($values['layout_builder'] as $entityTypeId => $bundles) {
+    /** @var array<string, array<string, string>> $layoutBuilderValues */
+    $layoutBuilderValues = $values['layout_builder'];
+    foreach ($layoutBuilderValues as $entityTypeId => $bundles) {
       $bundles_with_full_lb = array_filter($bundles, static function (string $option): bool {
         return $option === 'full_lb';
       });

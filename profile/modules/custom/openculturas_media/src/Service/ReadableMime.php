@@ -55,7 +55,7 @@ final class ReadableMime {
   }
 
   /**
-   * @return array
+   * @return array<string, string>
    *   List of all available mime names.
    */
   private function mapNiceFileMime(): array {
@@ -64,8 +64,19 @@ final class ReadableMime {
     // @todo Find a nicer way to str_replace all keys containing _@_ to .
     // See https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Config%21ConfigBase.php/function/ConfigBase%3A%3AvalidateKeys/8.2.x
     $niceFileMimesReplaced = str_replace('_@_', '.', Yaml::dump($niceFileMimesTemp));
-    $mimeTypes = Yaml::parse($niceFileMimesReplaced);
-    return is_array($mimeTypes) ? $mimeTypes : [];
+    $parsed = Yaml::parse($niceFileMimesReplaced);
+    if (!is_array($parsed)) {
+      return [];
+    }
+
+    $result = [];
+    foreach ($parsed as $key => $value) {
+      if (is_string($key) && is_string($value)) {
+        $result[$key] = $value;
+      }
+    }
+
+    return $result;
   }
 
 }

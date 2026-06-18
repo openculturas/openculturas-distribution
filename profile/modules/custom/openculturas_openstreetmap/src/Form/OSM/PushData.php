@@ -31,7 +31,8 @@ final class PushData extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): PushData {
+  public static function create(ContainerInterface $container): static {
+    /** @var static $instance */
     $instance = parent::create($container);
     $instance->state = $container->get('state');
     $instance->logger = $container->get('logger.channel.openculturas_openstreetmap');

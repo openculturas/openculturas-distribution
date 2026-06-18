@@ -115,9 +115,11 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       $token = (string) $this->request->query->get('access_token');
       $host_list = $config->get('host_list');
       if (is_array($host_list) && array_key_exists($token, $host_list)) {
-        $hostname = $host_list[$token]['hostname'] ?? NULL;
-        $wildcard = $host_list[$token]['wildcard'] ?? NULL;
-        $css = $host_list[$token]['css'] ?? NULL;
+        /** @var array{hostname?: string, wildcard?: bool, css?: string} $hostEntry */
+        $hostEntry = $host_list[$token];
+        $hostname = $hostEntry['hostname'] ?? NULL;
+        $wildcard = $hostEntry['wildcard'] ?? NULL;
+        $css = $hostEntry['css'] ?? NULL;
         if (is_string($css) && $css !== '') {
           $build['container']['css'] = [
             '#type' => 'html_tag',
@@ -159,7 +161,6 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
   }
 
   public static function preRenderViewElement(array $element): array {
-    /** @var \Drupal\views\ViewExecutable|mixed|null $view */
     $view = &$element['view_build']['#view'];
     if ($view instanceof ViewExecutable) {
       $view->exposed_widgets = [];

@@ -132,7 +132,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
 
     if ($current_entity instanceof ContentEntityInterface) {
       $title_markup = [];
-      if ($page_entity instanceof ContentEntityInterface && $page_entity->hasField('field_premiere')
+      if ($page_entity->hasField('field_premiere')
         && !$page_entity->get('field_premiere')->isEmpty()) {
         $field_premiere_render_array = $page_entity->get('field_premiere')->view(['label' => 'hidden']);
         $title_markup[] = ['#plain_text' => rtrim(strip_tags((string) $this->renderer->renderInIsolation($field_premiere_render_array))) . ': '];

@@ -132,7 +132,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     $data = $configDevelSaveEvent->getData();
 
     unset($data['content']['field_section'], $data['hidden']['field_section'], $data['settings']['handler_settings']['target_bundles']['oc_section']);
-    if (isset($data['dependencies']['config'])) {
+    if (isset($data['dependencies']['config']) && is_array($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $config_name) {
         if (str_ends_with($config_name, 'field_section') || str_ends_with($config_name, 'oc_section')) {
           unset($data['dependencies']['config'][$index]);
@@ -142,7 +142,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['dependencies']['config'] = array_values($data['dependencies']['config']);
     }
 
-    if (isset($data['third_party_settings']['field_group'])) {
+    if (isset($data['third_party_settings']['field_group']) && is_array($data['third_party_settings']['field_group'])) {
       foreach ($data['third_party_settings']['field_group'] as $field_id => $field_group_data) {
         if (isset($field_group_data['children'])) {
           $index = array_search('field_section', $field_group_data['children'], TRUE);
@@ -177,7 +177,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     $data['dependencies']['config'] = array_values($data['dependencies']['config']);
 
-    if ($current_config_name === 'user.role.oc_admin') {
+    if ($current_config_name === 'user.role.oc_admin' && is_array($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
         if (str_contains($permission, 'faq')) {
           unset($data['permissions'][$index]);
@@ -195,21 +195,26 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
    */
   private function excludeOpenCulturasMap(ConfigDevelSaveEvent $configDevelSaveEvent): void {
     $data = $configDevelSaveEvent->getData();
-    foreach ($data['dependencies']['module'] as $index => $dependency) {
-      if ($dependency === 'openculturas_map') {
-        unset($data['dependencies']['module'][$index]);
+    if (is_array($data['dependencies']['module'])) {
+      foreach ($data['dependencies']['module'] as $index => $dependency) {
+        if ($dependency === 'openculturas_map') {
+          unset($data['dependencies']['module'][$index]);
+        }
       }
+
+      $data['dependencies']['module'] = array_values($data['dependencies']['module']);
     }
 
-    $data['dependencies']['module'] = array_values($data['dependencies']['module']);
-
-    foreach ($data['permissions'] as $index => $permission) {
-      if ($permission === 'administer openculturas_map configuration') {
-        unset($data['permissions'][$index]);
+    if (is_array($data['permissions'])) {
+      foreach ($data['permissions'] as $index => $permission) {
+        if ($permission === 'administer openculturas_map configuration') {
+          unset($data['permissions'][$index]);
+        }
       }
+
+      $data['permissions'] = array_values($data['permissions']);
     }
 
-    $data['permissions'] = array_values($data['permissions']);
     $configDevelSaveEvent->setData($data);
   }
 
@@ -223,13 +228,16 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
    */
   private function excludeRoleDelegation(ConfigDevelSaveEvent $configDevelSaveEvent): void {
     $data = $configDevelSaveEvent->getData();
-    foreach ($data['permissions'] as $index => $permission) {
-      if (preg_match('/assign \w+ role/', $permission)) {
-        unset($data['permissions'][$index]);
+    if (is_array($data['permissions'])) {
+      foreach ($data['permissions'] as $index => $permission) {
+        if (preg_match('/assign \w+ role/', $permission)) {
+          unset($data['permissions'][$index]);
+        }
       }
+
+      $data['permissions'] = array_values($data['permissions']);
     }
 
-    $data['permissions'] = array_values($data['permissions']);
     $configDevelSaveEvent->setData($data);
   }
 
@@ -238,7 +246,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
    */
   private function excludeOpenCulturasDiscussions(ConfigDevelSaveEvent $configDevelSaveEvent): void {
     $data = $configDevelSaveEvent->getData();
-    if (isset($data['dependencies']['config'])) {
+    if (isset($data['dependencies']['config']) && is_array($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $config_name) {
         if (
           in_array($config_name, ['filter.format.comment_html', 'node.type.comment', 'workflows.workflow.comment'], TRUE) ||
@@ -251,7 +259,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['dependencies']['config'] = array_values($data['dependencies']['config']);
     }
 
-    if (isset($data['third_party_settings']['field_group']['group_administrative']['children'])) {
+    if (isset($data['third_party_settings']['field_group']['group_administrative']['children']) && is_array($data['third_party_settings']['field_group']['group_administrative']['children'])) {
       foreach ($data['third_party_settings']['field_group']['group_administrative']['children'] as $index => $config_name) {
         if ($config_name === 'field_comments_mode') {
           unset($data['third_party_settings']['field_group']['group_administrative']['children'][$index]);
@@ -271,7 +279,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       unset($data['display']['er_node_references']['display_options']['filters']['type']);
     }
 
-    if (isset($data['permissions'])) {
+    if (isset($data['permissions']) && is_array($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
         if (str_ends_with($permission, 'comment content') ||
           str_starts_with($permission, 'use comment transition') ||
@@ -300,7 +308,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
    */
   private function excludeOpenCulturasOpenStreetmapModule(ConfigDevelSaveEvent $configDevelSaveEvent): void {
     $data = $configDevelSaveEvent->getData();
-    if (isset($data['dependencies']['module'])) {
+    if (isset($data['dependencies']['module']) && is_array($data['dependencies']['module'])) {
       foreach ($data['dependencies']['module'] as $index => $dependency) {
         if ($dependency === 'oauth2_client' || $dependency === 'openculturas_openstreetmap') {
           unset($data['dependencies']['module'][$index]);
@@ -310,7 +318,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['dependencies']['module'] = array_values($data['dependencies']['module']);
     }
 
-    if (isset($data['dependencies']['config'])) {
+    if (isset($data['dependencies']['config']) && is_array($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $dependency) {
         if ($dependency === 'field.field.node.location.field_osm_id') {
           unset($data['dependencies']['config'][$index]);
@@ -320,7 +328,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['dependencies']['config'] = array_values($data['dependencies']['config']);
     }
 
-    if (isset($data['permissions'])) {
+    if (isset($data['permissions']) && is_array($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
         if (in_array($permission, ['access openstreetmap push operation', 'administer openculturas_openstreetmap configuration', 'administer oauth2 clients'], TRUE)) {
           unset($data['permissions'][$index]);
@@ -349,7 +357,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     }
     else {
       unset($data['third_party_settings']['layout_builder']);
-      if (isset($data['dependencies']['module'])) {
+      if (isset($data['dependencies']['module']) && is_array($data['dependencies']['module'])) {
         foreach ($data['dependencies']['module'] as $index => $dependency) {
           if ($dependency === 'layout_builder') {
             unset($data['dependencies']['module'][$index]);

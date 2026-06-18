@@ -25,6 +25,10 @@ class OfficeHoursToOsmFormatter {
     })) >= 7;
     foreach ($raw_values as $value) {
       /** @var array{day:int, all_day:boolean, starthours:int, endhours:int} $value */
+      if ($value['day'] < 0) {
+        continue;
+      }
+
       if ($value['day'] > 6) {
         continue;
       }

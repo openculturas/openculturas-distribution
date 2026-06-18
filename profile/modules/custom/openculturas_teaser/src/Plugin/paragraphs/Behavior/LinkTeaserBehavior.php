@@ -9,6 +9,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
 use Drupal\media\MediaInterface;
 use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
@@ -26,14 +27,20 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
-    $originalField = $build['field_url_single_value'][0];
-    $cacheableMetadata = CacheableMetadata::createFromRenderArray($build['field_url_single_value'][0]);
-    $url = $originalField['#url'];
+    $settings = (array) ($paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? []);
+    if (empty($build['field_url_single_value'])) {
+      return;
+    }
+
+    /** @var array{field_url_single_value: array<0,array>} $build */
+    $buildURL = &$build['field_url_single_value'][0];
+    $cacheableMetadata = CacheableMetadata::createFromRenderArray($buildURL);
+    $url = $buildURL['#url'];
+    assert($url instanceof Url);
     $teaser = [
       '#theme' => 'teaser',
     ];
-    $teaser['#title'] = $originalField['#title'];
+    $teaser['#title'] = $buildURL['#title'];
     if (!empty($settings['subtitle'])) {
       $teaser['#subtitle'] = $settings['subtitle'];
     }
@@ -43,6 +50,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
     }
 
     if (!empty($settings['media'])) {
+      /** @var int $mid */
       $mid = $settings['media'];
       $media = $this->entityTypeManager->getStorage('media')->load($mid);
       if ($media instanceof MediaInterface) {
@@ -54,9 +62,9 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
 
     $teaser['#url'] = $url->toString();
     $teaser['#attributes'] = new Attribute(['class' => ['teaser-external']]);
-    $build['field_url_single_value'][0] = $teaser;
+    $buildURL = $teaser;
     $cacheableMetadata->addCacheableDependency($paragraph);
-    $cacheableMetadata->applyTo($build['field_url_single_value'][0]);
+    $cacheableMetadata->applyTo($buildURL);
   }
 
   /**
@@ -77,11 +85,11 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $fieldManager */
     $fieldManager = \Drupal::service('entity_field.manager');
-    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
-    $ef = $fieldManager->getBaseFieldDefinitions('paragraph');
-    $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
+    $fieldDefinitions = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
+    $baseFieldDefinitions = $fieldManager->getBaseFieldDefinitions('paragraph');
+    $fieldKeys = array_diff(array_keys($fieldDefinitions), array_keys($baseFieldDefinitions));
     foreach ($fieldKeys as $item) {
-      $fieldDefinition = $fd[$item];
+      $fieldDefinition = $fieldDefinitions[$item];
       if ($fieldDefinition->getType() === 'link') {
         return TRUE;
       }

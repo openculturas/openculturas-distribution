@@ -65,7 +65,8 @@ final class FindLocation extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): FindLocation {
+  public static function create(ContainerInterface $container): static {
+    /** @var static $instance */
     $instance = parent::create($container);
     $instance->httpClient = $container->get('http_client');
     $instance->cache = $container->get('cache.default');

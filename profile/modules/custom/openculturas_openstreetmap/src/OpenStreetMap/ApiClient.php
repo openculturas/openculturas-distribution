@@ -8,8 +8,9 @@ use Drupal\Core\DependencyInjection\AutowireTrait;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Utility\Error;
+use Drupal\oauth2_client\Plugin\Oauth2Client\Oauth2ClientPluginInterface;
 use Drupal\oauth2_client\Service\Oauth2ClientServiceInterface;
-use Psr\Http\Client\ClientInterface;
+use GuzzleHttp\ClientInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use function assert;
@@ -21,8 +22,6 @@ use function str_replace;
 use function substr;
 
 /**
- * @property ClientInterface&\GuzzleHttp\ClientTrait $httpClient
- *
  * @link https://wiki.openstreetmap.org/wiki/API_v0.6
  */
 final class ApiClient {
@@ -49,19 +48,19 @@ final class ApiClient {
    */
   protected ?string $osmId = NULL;
 
-  public const DEV_ENDPOINT = 'https://master.apis.dev.openstreetmap.org';
+  public const string DEV_ENDPOINT = 'https://master.apis.dev.openstreetmap.org';
 
   /**
    * Not really needed, but to keep sync with prod.
    */
-  public const DEV_API_ENDPOINT = 'https://master.apis.dev.openstreetmap.org';
+  public const string DEV_API_ENDPOINT = 'https://master.apis.dev.openstreetmap.org';
 
-  public const ENDPOINT = 'https://www.openstreetmap.org';
+  public const string ENDPOINT = 'https://www.openstreetmap.org';
 
   /**
    * The production use another domain for the api.
    */
-  public const API_ENDPOINT = 'https://api.openstreetmap.org';
+  public const string API_ENDPOINT = 'https://api.openstreetmap.org';
 
   public function __construct(
     #[Autowire(service: 'oauth2_client.service')]
@@ -85,14 +84,13 @@ final class ApiClient {
     if ($development_mode) {
       $pluginId = 'openstreetmap_dev';
       try {
-        /** @var \Drupal\oauth2_client\Entity\Oauth2ClientInterface $client */
         $client = $this->oauth2Client->getClient($pluginId);
       }
-      catch (\Exception) {
+      catch (\Throwable) {
       }
 
       // Plugin is valid and client enabled.
-      if ($client) {
+      if ($client instanceof Oauth2ClientPluginInterface) {
         $this->token = $this->oauth2Client->retrieveAccessToken($pluginId)?->getToken();
         $this->baseUri = self::DEV_API_ENDPOINT . '/api/0.6';
         /** @var string $value */
@@ -103,14 +101,13 @@ final class ApiClient {
     else {
       $pluginId = 'openstreetmap';
       try {
-        /** @var \Drupal\oauth2_client\Entity\Oauth2ClientInterface $client */
         $client = $this->oauth2Client->getClient($pluginId);
       }
-      catch (\Exception) {
+      catch (\Throwable) {
       }
 
       // Plugin is valid and client enabled.
-      if ($client) {
+      if ($client instanceof Oauth2ClientPluginInterface) {
         $this->token = $this->oauth2Client->retrieveAccessToken($pluginId)?->getToken();
         $this->baseUri = self::API_ENDPOINT . '/api/0.6';
       }
@@ -156,8 +153,7 @@ final class ApiClient {
     assert(is_string($this->baseUri));
     $url = $this->baseUri . '/changeset/create';
     try {
-      /** @var \Psr\Http\Message\ResponseInterface $response */
-      $response = $this->httpClient->put($url, ['headers' => $this->headers(), 'body' => $doc]);
+      $response = $this->httpClient->request('PUT', $url, ['headers' => $this->headers(), 'body' => $doc]);
     }
     catch (\Exception $exception) {
       Error::logException($this->logger, $exception);
@@ -180,11 +176,10 @@ final class ApiClient {
     assert(is_string($this->baseUri));
     $url = $this->baseUri . '/changeset/#id/close';
     try {
-      /** @var \Psr\Http\Message\ResponseInterface $response */
-      $response = $this->httpClient->put(str_replace('#id', $changeSetId, $url), ['headers' => $this->headers()]);
+      $response = $this->httpClient->request('PUT', str_replace('#id', $changeSetId, $url), ['headers' => $this->headers()]);
     }
-    catch (\Exception $exception) {
-      Error::logException($this->logger, $exception);
+    catch (\Throwable $throwable) {
+      Error::logException($this->logger, $throwable);
       return FALSE;
     }
 
@@ -197,10 +192,8 @@ final class ApiClient {
   }
 
   /**
-   * @return \stdClass{type: string, id: int, lat: float, lon: float,
-   *   timestamp: string, version: int, changeset: int, user: string, uid: int,
-   *   tags: \stdClass}
-   *   | null
+   * @return \stdClass|null
+   *   The element data, or NULL if unavailable.
    *
    * @link https://wiki.openstreetmap.org/wiki/API_v0.6#Read:_GET_/api/0.6/[node|way|relation]/#id
    *   ApiDoc Read Element
@@ -214,11 +207,10 @@ final class ApiClient {
     assert(is_string($this->baseUri));
     $url = sprintf($this->baseUri . '/%s/%s.json', $elementType, $id);
     try {
-      /** @var \Psr\Http\Message\ResponseInterface $response */
-      $response = $this->httpClient->get($url, ['headers' => $this->headers()]);
+      $response = $this->httpClient->request('GET', $url, ['headers' => $this->headers()]);
     }
-    catch (\Exception $exception) {
-      Error::logException($this->logger, $exception);
+    catch (\Throwable $throwable) {
+      Error::logException($this->logger, $throwable);
       return NULL;
     }
 
@@ -291,8 +283,7 @@ final class ApiClient {
     assert(is_string($this->baseUri));
     $url = sprintf($this->baseUri . '/%s/%s', $elementType, $id);
     try {
-      /** @var \Psr\Http\Message\ResponseInterface $response */
-      $response = $this->httpClient->put($url, ['headers' => $this->headers(), 'body' => $doc]);
+      $response = $this->httpClient->request('PUT', $url, ['headers' => $this->headers(), 'body' => $doc]);
     }
     catch (\Exception $exception) {
       Error::logException($this->logger, $exception);

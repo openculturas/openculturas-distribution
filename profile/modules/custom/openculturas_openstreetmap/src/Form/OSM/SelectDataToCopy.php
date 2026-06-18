@@ -26,6 +26,10 @@ final class SelectDataToCopy extends WizardFormTableBase {
       return $form;
     }
 
+    if (!is_array($form['data'])) {
+      return $form;
+    }
+
     foreach ($form['data'] as $field_name => &$table_row) {
       if (isset($cached_values['data'][$field_name]['operation'])) {
         $table_row['operation']['#default_value'] = $cached_values['data'][$field_name]['operation'];

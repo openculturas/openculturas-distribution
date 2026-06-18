@@ -7,7 +7,6 @@ namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
@@ -16,6 +15,7 @@ use Drupal\media\MediaInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsBehaviorBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use function is_numeric;
 
 abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
 
@@ -44,7 +44,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
+    $settings = (array) ($paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? []);
 
     $form['#type'] = 'details';
     $form += [
@@ -98,6 +98,8 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
     $display = $viewModeStorage->load(sprintf('%s.%s.%s', $entityType, $bundle, $viewMode));
     if ($display instanceof EntityViewDisplayInterface) {
       foreach ($display->getComponents() as $key => $item) {
+        /** @var array $item */
+        /** @var string $key */
         if (($item['type'] ?? '') === 'entity_reference_entity_view') {
           /** @var \Drupal\Core\Field\FieldConfigInterface|null $fieldConfig */
           $fieldConfig = $entity->getFieldDefinition($key);
@@ -149,15 +151,14 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
     $originalEntity = $build[$entityKey];
     $build['#theme'] = 'teaser';
     $entity = clone $originalEntity;
+    /** @var string $viewMode */
     $viewMode = $build['#view_mode'];
     $cacheableMetadata = CacheableMetadata::createFromRenderArray($build);
     if (!empty($settings['title'])) {
       $def = $this->entityTypeManager->getDefinition($entity->getEntityTypeId());
-      if ($def instanceof EntityTypeInterface) {
-        $labelField = $def->getKey('label');
-        if (is_string($labelField)) {
-          $entity->set($labelField, $settings['title']);
-        }
+      $labelField = $def->getKey('label');
+      if (is_string($labelField)) {
+        $entity->set($labelField, $settings['title']);
       }
     }
 
@@ -188,8 +189,8 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
 
     $mid = empty($settings['media']) ? $this->getTeaserMediaId($entity, $viewMode) : $settings['media'];
 
-    if ($mid) {
-      $media = $this->entityTypeManager->getStorage('media')->load($mid);
+    if (is_numeric($mid)) {
+      $media = $this->entityTypeManager->getStorage('media')->load((int) $mid);
       if ($media instanceof MediaInterface) {
         $cacheableMetadata->addCacheableDependency($media);
         $build['#media'] = $this->entityTypeManager->getViewBuilder('media')

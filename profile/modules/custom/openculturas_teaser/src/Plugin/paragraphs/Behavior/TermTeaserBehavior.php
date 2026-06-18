@@ -13,6 +13,7 @@ use Drupal\paragraphs\Attribute\ParagraphsBehavior;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\paragraphs\ParagraphsTypeInterface;
 use Drupal\taxonomy\TermInterface;
+use function reset;
 use function sprintf;
 
 #[ParagraphsBehavior(
@@ -33,10 +34,17 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
    */
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
     parent::buildBehaviorForm($paragraph, $form, $form_state);
-    $referenceItems = $paragraph->get('field_term')->referencedEntities();
-    $entity = reset($referenceItems);
-    if ($entity instanceof TermInterface && !$entity->hasField('field_subtitle')) {
-      unset($form['subtitle']);
+    $hasFieldTerm = $paragraph->hasField('field_term');
+    if ($hasFieldTerm) {
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+      $field = $paragraph->get('field_term');
+      if (!$field->isEmpty()) {
+        $entities = $field->referencedEntities();
+        $entity = reset($entities);
+        if ($entity instanceof TermInterface && !$entity->hasField('field_subtitle')) {
+          unset($form['subtitle']);
+        }
+      }
     }
 
     // Hint: Do not return the form, or we get the ugly paragraphs-behavior tabs, which we do not want. See internal issue 863.
@@ -47,10 +55,15 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
-    $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
+    $settings = (array) ($paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? []);
+    if (empty($build['field_term'])) {
+      return;
+    }
+
+    /** @var array{field_term: array<0,array>} $build */
     $buildTerm = &$build['field_term'][0];
-    /** @var \Drupal\taxonomy\Entity\Term|NULL $term */
-    $term = &$buildTerm['#taxonomy_term'];
+    /** @var \Drupal\taxonomy\TermInterface|null $term */
+    $term = $buildTerm['#taxonomy_term'] ?? NULL;
     if ($term instanceof TermInterface) {
       $id = sprintf('%s-%s-%s', $paragraph->bundle(), $paragraph->id(), $term->id());
       $buildTerm = $this->getBaseBuildArray($buildTerm, $settings, '#taxonomy_term');
@@ -65,7 +78,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
       $cacheableMetadata->addCacheableDependency($paragraph);
       $cacheableMetadata->applyTo($buildTerm);
       // We need an additional cache key, or the field renders all references
-      // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE).
+      // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE:LANGCODE).
       $buildTerm['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
     }
   }
@@ -75,11 +88,11 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
    */
   public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
     $fieldManager = \Drupal::service('entity_field.manager');
-    $fd = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
-    $ef = $fieldManager->getBaseFieldDefinitions('paragraph');
-    $fieldKeys = array_diff(array_keys($fd), array_keys($ef));
+    $fieldDefinitions = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());
+    $baseFieldDefinitions = $fieldManager->getBaseFieldDefinitions('paragraph');
+    $fieldKeys = array_diff(array_keys($fieldDefinitions), array_keys($baseFieldDefinitions));
     foreach ($fieldKeys as $item) {
-      $fieldDefinition = $fd[$item];
+      $fieldDefinition = $fieldDefinitions[$item];
       if ($fieldDefinition->getType() === 'entity_reference') {
         $handler = $fieldDefinition->getSetting('handler');
         if ($handler === 'default:taxonomy_term') {

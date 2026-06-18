@@ -24,7 +24,7 @@ enum SyncOperation: string {
   public static function canPush(): bool {
     static $can_push;
     if (isset($can_push)) {
-      return $can_push;
+      return (bool) $can_push;
     }
 
     $state = \Drupal::state();

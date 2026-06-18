@@ -18,6 +18,10 @@ final class DrupalToOpenStreetMapTransformer {
     return self::transformMultiple($node, [$osm_tag])[$osm_tag] ?? '';
   }
 
+  /**
+   * @return array<string, string>
+   *   Transformed OSM tag values keyed by tag name.
+   */
   public static function transformMultiple(NodeInterface $node, array $osm_tags): array {
     /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $field */
     $field = $node->get('field_contact_data');

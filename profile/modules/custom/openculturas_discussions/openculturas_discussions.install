@@ -308,7 +308,7 @@ function openculturas_discussions_uninstall(bool $is_syncing): void {
     if (!$display->isNew()) {
       $display->removeComponent('field_comments_mode');
       $group_administrative = $display->getThirdPartySetting('field_group', 'group_administrative');
-      if (is_array($group_administrative)) {
+      if (is_array($group_administrative) && is_array($group_administrative['children'])) {
         foreach ($group_administrative['children'] as $key => $child) {
           if ($child === 'field_comments_mode') {
             unset($group_administrative['children'][$key]);

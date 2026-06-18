@@ -162,14 +162,14 @@ function openculturas_custom_library_info_alter(array &$libraries, string $exten
 function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, LeafletMap $view_style): void {
   $filters = $view_style->displayHandler->getHandlers('filter');
 
-  /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[]|null $proximityFilters */
+  /** @var \Drupal\geofield\Plugin\views\filter\GeofieldProximityFilter[] $proximityFilters */
   $proximityFilters = array_filter($filters, static fn(ViewsHandlerInterface $filter): bool => $filter instanceof GeofieldProximityFilter);
-  if (is_countable($proximityFilters) && $proximityFilters !== []) {
+  if ($proximityFilters !== []) {
     $proximityFilter = reset($proximityFilters);
     try {
       $property = new ReflectionProperty($proximityFilter, 'sourcePlugin');
     }
-    catch (\Exception) {
+    catch (\Throwable) {
       return;
     }
 
@@ -188,7 +188,7 @@ function openculturas_custom_leaflet_map_view_style_alter(array &$map_settings, 
         'options' => '{"radius":9,"color":"#fff","fillColor":"#2A93EE","fillOpacity":1,"opacity":1}',
       ];
       $map_settings['features'][] = $origin_marker;
-      $map_settings['map']['settings']['center'] = array_merge($map_settings['map']['settings']['center'], $origin);
+      $map_settings['map']['settings']['center'] = array_merge((array) ($map_settings['map']['settings']['center'] ?? []), $origin);
       $map_settings['map']['settings']['radius'] = $value['value'] ?? NULL;
       $map_settings['map']['settings']['map_position_force'] = TRUE;
     }
@@ -657,7 +657,7 @@ function openculturas_custom_user_view_alter(array &$build, UserInterface $user)
  * Implements hook_form_FORM_ID_alter().
  */
 function openculturas_custom_form_node_form_alter(array &$form, FormStateInterface $form_state): void {
-  /** @var \Drupal\node\NodeForm $node_form */
+  /** @var \Drupal\node\Form\NodeForm $node_form */
   $node_form = $form_state->getFormObject();
   /** @var \Drupal\node\NodeInterface $node */
   $node = $node_form->getEntity();
@@ -681,7 +681,7 @@ function openculturas_custom_form_node_form_alter(array &$form, FormStateInterfa
  * @see openculturas_custom_node_prepare_form()
  */
 function openculturas_custom_event_submit_handler(array &$form, FormStateInterface $form_state): void {
-  /** @var \Drupal\node\NodeForm $node_form */
+  /** @var \Drupal\node\Form\NodeForm $node_form */
   $node_form = $form_state->getFormObject();
   /** @var \Drupal\node\NodeInterface $node */
   $node = $node_form->getEntity();
@@ -1002,7 +1002,12 @@ function openculturas_custom_locale_translation_projects_alter(array &$projects)
     $projects['openculturas']['info']['name'] = 'OpenCulturas';
     /** @var \Drupal\Core\Extension\ExtensionList $extension_list_module */
     $extension_list_module = \Drupal::service('extension.list.module');
-    foreach ($projects['openculturas']['includes'] as $project => $project_name) {
+    $includes = $projects['openculturas']['includes'] ?? [];
+    if (!is_array($includes)) {
+      return;
+    }
+
+    foreach (array_keys($includes) as $project) {
       if ($project === 'openculturas') {
         continue;
       }

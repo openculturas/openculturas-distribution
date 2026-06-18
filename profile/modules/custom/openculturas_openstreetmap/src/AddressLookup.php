@@ -14,7 +14,7 @@ use Drupal\geocoder\GeocoderThrottleInterface;
 use Geocoder\Location;
 use Geocoder\Model\AddressBuilder;
 use Geocoder\Provider\Nominatim\Model\NominatimAddress;
-use Psr\Http\Client\ClientInterface;
+use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use function array_diff_key;
 use function array_flip;
@@ -29,9 +29,6 @@ use function json_decode;
 use function reset;
 use function strtoupper;
 
-/**
- * @property ClientInterface&\GuzzleHttp\ClientTrait $httpClient
- */
 final class AddressLookup implements ContainerInjectionInterface {
   use AutowireTrait;
 
@@ -72,8 +69,7 @@ final class AddressLookup implements ContainerInjectionInterface {
     $place = NULL;
     if (!$cache) {
       $this->geocoderThrottle->waitForAvailability('Nominatim', ['limit' => 1, 'period' => 2]);
-      /** @var \Psr\Http\Message\ResponseInterface $response */
-      $response = $this->httpClient->get($url);
+      $response = $this->httpClient->request('GET', $url);
 
       if ($response->getStatusCode() === 200 && $response->getBody()->isReadable()) {
         $json = (string) $response->getBody();

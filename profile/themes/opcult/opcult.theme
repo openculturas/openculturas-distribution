@@ -10,9 +10,13 @@ declare(strict_types=1);
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Extension\ThemeSettingsProvider;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Template\Attribute;
 use Drupal\address\AddressInterface;
+use Drupal\file\FileInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 use Drupal\image\ImageStyleInterface;
 use Drupal\media\MediaInterface;
@@ -30,10 +34,16 @@ function opcult_preprocess_html(array &$variables): void {
     }
   }
 
-  $variables['custom_favicons'] = !theme_get_setting('favicon.use_default');
-  $hero_layout = theme_get_setting('hero_layout');
-  if ($hero_layout) {
-    $variables['attributes']['class'][] = $hero_layout;
+  /** @var \Drupal\Core\Extension\ThemeSettingsProvider $themeSettingsProvider */
+  $themeSettingsProvider = \Drupal::service(ThemeSettingsProvider::class);
+  $variables['custom_favicons'] = !$themeSettingsProvider->getSetting('favicon.use_default');
+  $hero_layout = $themeSettingsProvider->getSetting('hero_layout');
+  if (is_string($hero_layout) && $hero_layout !== '') {
+    /** @var array<string, mixed> $attributes */
+    $attributes = &$variables['attributes'];
+    /** @var list<string> $classes */
+    $classes = &$attributes['class'];
+    $classes[] = $hero_layout;
   }
 }
 
@@ -43,7 +53,9 @@ function opcult_preprocess_html(array &$variables): void {
  * Provides header image to serve as layout background.
  */
 function opcult_preprocess_page(array &$variables): void {
-  $bg_image = theme_get_setting('background_image.mode') ?? 'mood_image';
+  /** @var \Drupal\Core\Extension\ThemeSettingsProvider $themeSettingsProvider */
+  $themeSettingsProvider = \Drupal::service(ThemeSettingsProvider::class);
+  $bg_image = $themeSettingsProvider->getSetting('background_image.mode') ?? 'mood_image';
   $mood_image_uri = NULL;
   if ($bg_image === 'mood_image') {
     // Check if the current page is a node or a taxonomy term page.
@@ -70,13 +82,17 @@ function opcult_preprocess_page(array &$variables): void {
         return;
       }
 
-      /** @var \Drupal\file\FileInterface $file */
+      /** @var \Drupal\file\FileInterface|false $file */
       $file = reset($references);
-      $mood_image_uri = $file->getFileUri();
+      if ($file instanceof FileInterface) {
+        $mood_image_uri = $file->getFileUri();
+      }
     }
   }
   elseif ($bg_image === 'global_image') {
-    $mood_image_uri = theme_get_setting('background_image.path');
+    /** @var \Drupal\Core\Extension\ThemeSettingsProvider $themeSettingsProvider */
+    $themeSettingsProvider = \Drupal::service(ThemeSettingsProvider::class);
+    $mood_image_uri = $themeSettingsProvider->getSetting('background_image.path');
   }
 
   if (is_string($mood_image_uri)) {
@@ -101,13 +117,21 @@ function opcult_preprocess_node(array &$variables): void {
   $node = $variables['node'];
 
   // Provide classes based on certain fields.
+  /** @var array<string, mixed> $attributes */
+  $attributes = &$variables['attributes'];
+  /** @var list<string> $classes */
+  $classes = &$attributes['class'];
   if (($variables["view_mode"] === 'full') && $node->hasField('field_layout_switcher') && !$node->get('field_layout_switcher')->isEmpty()) {
-    $variables['attributes']['class'][] = $node->get('field_layout_switcher')->value;
+    /** @var string $layout_switcher_value */
+    $layout_switcher_value = $node->get('field_layout_switcher')->value;
+    $classes[] = $layout_switcher_value;
   }
 
   if (($variables["view_mode"] === 'full') && $node->hasField('field_event_status') && !$node->get('field_event_status')
     ->isEmpty()) {
-    $variables['attributes']['class'][] = $node->get('field_event_status')->value;
+    /** @var string $event_status_value */
+    $event_status_value = $node->get('field_event_status')->value;
+    $classes[] = $event_status_value;
   }
 
   // View mode full is built by Layout builder.
@@ -128,30 +152,53 @@ function opcult_preprocess_node(array &$variables): void {
  * Implements hook_preprocess_HOOK() for field.html.twig.
  */
 function opcult_preprocess_field(array &$variables): void {
+  /** @var array $element */
+  $element = $variables['element'];
+
   // Adds a class depending on referenced entity to links of entity_reference fields.
-  if ($variables['field_type'] === 'entity_reference') {
+  if ($variables['field_type'] === 'entity_reference' && is_array($variables['items'])) {
     foreach ($variables["items"] as $item) {
-      if (isset($item['content']['#options']['entity_type'], $item['content']['#options']['entity'])) {
-        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"]);
-        $item['attributes']->addClass('reference--' . $item["content"]["#options"]["entity_type"] . '--' . $item["content"]["#options"]["entity"]->bundle());
+      /** @var array $item */
+      $content = $item['content'] ?? NULL;
+      $options = is_array($content) ? ($content['#options'] ?? NULL) : NULL;
+      if ($item['attributes'] instanceof Attribute && is_array($options) && isset($options['entity_type'], $options['entity'])) {
+        $entityType = $options['entity_type'];
+        if (is_string($entityType)) {
+          $item['attributes']->addClass('reference--' . $entityType);
+          $entity = $options['entity'];
+          if ($entity instanceof ContentEntityInterface) {
+            $item['attributes']->addClass('reference--' . $entityType . '--' . $entity->bundle());
+          }
+        }
       }
     }
   }
 
   if ($variables['field_name'] === 'field_badges') {
-    foreach ($variables['items'] as $delta => $item) {
-      $item['attributes']->addClass('badge--' . $variables['element']['#items']->get($delta)->value);
+    $fieldItems = $element['#items'];
+    if ($fieldItems instanceof FieldItemListInterface && is_array($variables['items'])) {
+      foreach ($variables['items'] as $delta => $item) {
+        /** @var array $item */
+        if (!$item['attributes'] instanceof Attribute) {
+          continue;
+        }
+
+        $fieldItem = $fieldItems->get($delta);
+        if ($fieldItem !== NULL) {
+          $item['attributes']->addClass('badge--' . $fieldItem->getString());
+        }
+      }
     }
   }
 
   if (
     $variables['field_name'] === 'field_content_paragraphs' &&
-    $variables['element']['#view_mode'] === 'synopsis'
+    ($element['#view_mode'] ?? NULL) === 'synopsis'
   ) {
     // We want to provide a url as a fallback in case the body text for smart trim
     // is too short, but the entity has content in this field.
     $variables['url'] = NULL;
-    $fieldableEntity = $variables['element']['#object'];
+    $fieldableEntity = $element['#object'];
     if ($fieldableEntity instanceof FieldableEntityInterface && $fieldableEntity->hasLinkTemplate('canonical')) {
       /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
       $entityRepository = \Drupal::service('entity.repository');
@@ -165,9 +212,13 @@ function opcult_preprocess_field(array &$variables): void {
  * Implements hook_theme_suggestions_taxonomy_term_alter().
  */
 function opcult_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables): void {
+  /** @var array $elements */
+  $elements = $variables['elements'];
   /** @var \Drupal\taxonomy\TermInterface $term */
-  $term = $variables['elements']['#taxonomy_term'];
-  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  $term = $elements['#taxonomy_term'];
+  /** @var string $view_mode */
+  $view_mode = $elements['#view_mode'];
+  $sanitized_view_mode = strtr($view_mode, '.', '_');
   // Add view mode theme suggestions.
   $suggestions[] = 'taxonomy_term__' . $sanitized_view_mode;
   $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode;
@@ -256,30 +307,33 @@ function opcult_preprocess_paragraph(array &$variables): void {
  */
 function opcult_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
   // Add view_mode of the element (if available) to each field template suggestion.
-  if (!empty($variables['element']['#view_mode'])) {
-    // Enable reference.
-    foreach ($suggestions as &$suggestion) {
-      // Make suggestion array multidimensional.
-      $suggestion = [
-        $suggestion,
-        // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
-        $suggestion . '__' . 'view_mode_' . $variables['element']['#view_mode'],
-      ];
-      // Disable reference.
-      unset($suggestion);
+  /** @var array $element */
+  $element = $variables['element'];
+  $viewMode = $element['#view_mode'] ?? NULL;
+  if (!is_string($viewMode) || $viewMode === '') {
+    return;
+  }
+
+  $result = [];
+  foreach ($suggestions as $suggestion) {
+    if (!is_string($suggestion)) {
+      continue;
     }
 
-    // Flatten suggestions array.
-    $suggestions = array_merge(...$suggestions);
+    $result[] = $suggestion;
+    $result[] = $suggestion . '__view_mode_' . $viewMode;
   }
+
+  $suggestions = $result;
 }
 
 /**
  * Implements hook_preprocess_HOOK() for 'heading.html.twig'.
  */
 function opcult_preprocess_heading(array &$variables): void {
-  if (!empty($variables['text'])) {
-    $variables['text'] = Markup::create(Xss::filter($variables['text'], ['span', 'abbr', 'em']));
+  $text = $variables['text'];
+  if (is_string($text) && $text !== '') {
+    $variables['text'] = Markup::create(Xss::filter($text, ['span', 'abbr', 'em']));
   }
 }
 
@@ -287,13 +341,15 @@ function opcult_preprocess_heading(array &$variables): void {
  * Implements hook_preprocess_image_widget().
  */
 function opcult_preprocess_image_widget(array &$variables): void {
+  /** @var array $data */
   $data = &$variables['data'];
 
   // This prevents image widget templates from rendering preview container HTML
   // to users that do not have permission to access these previews.
   // @todo revisit in https://drupal.org/node/953034
   // @todo revisit in https://drupal.org/node/3114318
-  if (isset($data['preview']['#access']) && $data['preview']['#access'] === FALSE) {
+  $preview = $data['preview'] ?? NULL;
+  if (is_array($preview) && ($preview['#access'] ?? TRUE) === FALSE) {
     unset($data['preview']);
   }
 }

@@ -42,7 +42,8 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): self {
+  public static function create(ContainerInterface $container): static {
+    /** @var static $instance */
     $instance = parent::create($container);
     $instance->fileSystem = $container->get('file_system');
     $instance->imageFactory = $container->get('image.factory');

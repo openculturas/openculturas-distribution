@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use function count;
 use function in_array;
 use function is_array;
-use function is_countable;
 use function is_string;
 use function trim;
 
@@ -24,7 +23,8 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): SettingsForm {
+  public static function create(ContainerInterface $container): static {
+    /** @var static $instance */
     $instance = parent::create($container);
     $instance->setMessenger($container->get('messenger'));
     return $instance;
@@ -63,7 +63,7 @@ final class SettingsForm extends ConfigFormBase {
       $items = $this->config('openculturas_calendar_widget.settings')->get('host_list') ?? [];
     }
 
-    if ((is_countable($items) ? count($items) : 0) === 0 || !is_array($items)) {
+    if (!is_array($items) || $items === []) {
       $items = is_array($items) ? $items : [];
       $items[Crypt::randomBytesBase64()] = ['hostname' => '', 'iframe_src' => NULL];
     }
@@ -95,6 +95,7 @@ final class SettingsForm extends ConfigFormBase {
       '#prefix' => '<div id="host_list">',
       '#suffix' => '</div>',
     ];
+    /** @var array<string, array{hostname?: string, iframe_src?: string|null, wildcard?: bool, css?: string}> $items */
     foreach ($items as $token => $values) {
       $form['host_list']['items'][$token] = [];
       $form['host_list']['items'][$token]['hostname'] = [
@@ -209,6 +210,7 @@ final class SettingsForm extends ConfigFormBase {
    * Ajax callback reloading the items table.
    */
   public static function ajaxRefreshCallback(array $form): array {
+    /** @var array{'host_list': array{'items': array}} $form */
     return $form['host_list']['items'];
   }
 
@@ -229,17 +231,20 @@ final class SettingsForm extends ConfigFormBase {
    * Removes an item from the table.
    */
   public function removeRowSubmit(array &$form, FormStateInterface $form_state): void {
-    if (!is_array($form_state->getTriggeringElement())) {
+    /** @var array<string,array>|null $triggeringElement */
+    $triggeringElement = $form_state->getTriggeringElement();
+    if (!is_array($triggeringElement)) {
       parent::validateForm($form, $form_state);
       return;
     }
 
-    if (!isset($form_state->getTriggeringElement()['#ajax']['id'])) {
+    if (!isset($triggeringElement['#ajax']['id'])) {
       parent::validateForm($form, $form_state);
       return;
     }
 
-    $id = $form_state->getTriggeringElement()['#ajax']['id'];
+    /** @var string $id */
+    $id = $triggeringElement['#ajax']['id'];
     if ($form_state->hasTemporaryValue('host_list')) {
       $items = $form_state->getTemporaryValue('host_list');
       if (is_array($items)) {
@@ -256,12 +261,14 @@ final class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void {
-    if (!is_array($form_state->getTriggeringElement())) {
+    /** @var array<string,mixed>|null $triggeringElement */
+    $triggeringElement = $form_state->getTriggeringElement();
+    if (!is_array($triggeringElement)) {
       parent::validateForm($form, $form_state);
       return;
     }
 
-    if (!isset($form_state->getTriggeringElement()['#name'])) {
+    if (!isset($triggeringElement['#name'])) {
       parent::validateForm($form, $form_state);
       return;
     }
@@ -273,13 +280,14 @@ final class SettingsForm extends ConfigFormBase {
         return;
       }
 
+      /** @var array<string, array{hostname: string}> $host_list */
       foreach ($host_list as $token => $values) {
         $hostname = trim((string) $values['hostname']);
         if ($hostname === '' && isset($form['host_list']['items'][$token]['hostname'])) {
           unset($host_list[$token]);
         }
 
-        if ($hostname !== '' && in_array($hostname, $hostnames, TRUE) && $form_state->getTriggeringElement()['#name'] === 'add_host') {
+        if ($triggeringElement['#name'] === 'add_host' && $hostname !== '' && in_array($hostname, $hostnames, TRUE)) {
           $form_state->setError($form['host_list']['items'][$token]['hostname'], (string) $this->t('Duplicate hostname'));
           return;
         }
@@ -298,7 +306,9 @@ final class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('openculturas_calendar_widget.settings');
-    if (is_array($form_state->getTriggeringElement()) && $form_state->getTriggeringElement()['#name'] !== 'op') {
+    /** @var array|null $triggeringElement */
+    $triggeringElement = $form_state->getTriggeringElement();
+    if (is_array($triggeringElement) && ($triggeringElement['#name'] ?? NULL) !== 'op') {
       return;
     }
 
@@ -307,16 +317,17 @@ final class SettingsForm extends ConfigFormBase {
       $host_list = is_array($host_list) ? $host_list : [];
       $host_list_new = [];
 
+      /** @var array<string, array{hostname?: string, iframe_src?: string, wildcard?: bool, css?: string}> $host_list */
       foreach ($host_list as $token => $input_values) {
         if (empty($input_values)) {
           continue;
         }
 
         $values = [];
-        $values['hostname'] = trim((string) $input_values['hostname']);
-        $values['wildcard'] = $input_values['wildcard'];
-        $values['iframe_src'] = trim((string) $input_values['iframe_src']);
-        $values['css'] = trim((string) $input_values['css']);
+        $values['hostname'] = trim((string) ($input_values['hostname'] ?? ''));
+        $values['wildcard'] = $input_values['wildcard'] ?? FALSE;
+        $values['iframe_src'] = trim((string) ($input_values['iframe_src'] ?? ''));
+        $values['css'] = trim((string) ($input_values['css'] ?? ''));
         if (empty($values['hostname'])) {
           continue;
         }

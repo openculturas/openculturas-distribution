@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Drupal\openculturas_map\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\Attribute\FieldFormatter;
-use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceEntityFormatter;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\image\ImageStyleInterface;
 use Drupal\media\Entity\Media;
+use Drupal\media\MediaInterface;
 
 /**
  * Plugin implementation of the 'image_thumbnail_url_formatter' formatter.
@@ -30,10 +29,13 @@ class ImageThumbnailUrlFormatter extends EntityReferenceEntityFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
-    assert($items instanceof EntityReferenceFieldItemListInterface);
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
-      /** @var \Drupal\media\MediaInterface $media */
+      /** @var \Drupal\media\MediaInterface|null $media */
       $media = Media::load($entity->id());
+      if (!$media instanceof MediaInterface) {
+        continue;
+      }
+
       if (!$media->hasField('field_media_image')) {
         continue;
       }
@@ -48,16 +50,18 @@ class ImageThumbnailUrlFormatter extends EntityReferenceEntityFormatter {
         continue;
       }
 
-      /** @var \Drupal\image\ImageStyleInterface $style */
       $style = ImageStyle::load('thumbnail');
-      if (!$style instanceof ImageStyleInterface) {
+      if ($style === NULL) {
         throw new \UnexpectedValueException("Invalid Image Style!");
       }
 
       $uri = $file->getFileUri();
-      $uri = is_string($uri) ? $style->buildUrl($uri) : NULL;
-      $elements[$delta] = [
-        '#markup' => $uri,
+      if (!is_string($uri)) {
+        continue;
+      }
+
+      $elements[(int) $delta] = [
+        '#markup' => $style->buildUrl($uri),
       ];
     }
 

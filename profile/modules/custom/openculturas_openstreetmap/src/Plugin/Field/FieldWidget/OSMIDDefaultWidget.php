@@ -61,6 +61,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    /** @var static $instance */
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->state = $container->get('state');
     $instance->apiClient = $container->get('openculturas_openstreetmap.api_client');
@@ -122,7 +123,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
       ],
     ];
     $open_button_name = $field_name . '-open-button' . $id_suffix;
-    /** @var \Drupal\node\NodeForm $form_object */
+    /** @var \Drupal\node\Form\NodeForm $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\node\NodeInterface $node */
     $node = $form_object->getEntity();
@@ -305,7 +306,9 @@ final class OSMIDDefaultWidget extends WidgetBase {
         $field_value = [];
         try {
           $hours = OsmStringToOpeningHoursConverter::openingHoursFromOsmString($extra_tags->opening_hours);
-          foreach ($hours->forWeek() as $day => $openingHoursForDay) {
+          /** @var array<string, \Spatie\OpeningHours\OpeningHoursForDay> $opening_hours_for_week */
+          $opening_hours_for_week = $hours->forWeek();
+          foreach ($opening_hours_for_week as $day => $openingHoursForDay) {
             // Will return 0 for Sunday through to 6 for Saturday.
             $value = ['day' => date('w', (int) strtotime((string) $day))];
             /** @var \Spatie\OpeningHours\TimeRange $current */
@@ -324,7 +327,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
           $field_user_input['office_hours'][0]['value'] = $field_value;
           NestedArray::setValue($user_input, $field_parents, $field_user_input);
         }
-        catch (\Exception $exception) {
+        catch (\Throwable) {
         }
       }
 
@@ -339,11 +342,11 @@ final class OSMIDDefaultWidget extends WidgetBase {
         $values['field_a11y_toilets_wheelchair'] = $extra_tags->{'toilets:wheelchair'};
       }
 
+      /** @var array $widget_state */
       $widget_state = self::getWidgetState($form['#parents'], 'field_accessibility', $form_state);
       if ($values !== []) {
-        /** @var array|null $widget_paragraphs */
         $widget_paragraphs = $widget_state['paragraphs'] ?? NULL;
-        if (!$widget_paragraphs) {
+        if (!is_array($widget_paragraphs) || $widget_paragraphs === []) {
           $entityTypeManager = \Drupal::entityTypeManager();
           $paragraph_module_display = $entityTypeManager->getStorage('entity_form_display')
             ->load('paragraph.a11y_wheelchair.default');

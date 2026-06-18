@@ -14,7 +14,6 @@ use Drupal\address\AddressInterface;
 use Drupal\openculturas_address_links\AddressService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function is_array;
-use function is_string;
 
 /**
  * Abstract parent class for all address link formatters.
@@ -107,10 +106,6 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    if (!is_string(static::$purpose)) {
-      return FALSE;
-    }
-
     /** @var \Drupal\openculturas_address_links\AddressService $addressService */
     $addressService = \Drupal::service('openculturas_address_links.address_service');
 

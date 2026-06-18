@@ -23,7 +23,7 @@ class Normalizer implements ContentEntityNormalizerInterface {
   public function normalize(ContentEntityInterface $entity) {
     $data = $this->inner->normalize($entity);
     $path = $entity->path ?? NULL;
-    if (!$entity->isNew() && $path) {
+    if (!$entity->isNew() && is_iterable($path)) {
       foreach ($path as $item) {
         if (!$item->pathauto && $item->pid) {
           $value = $item->getValue();

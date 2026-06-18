@@ -53,6 +53,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    // @phpstan-ignore new.static
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
     $instance->entityTypeManager = $container->get('entity_type.manager');

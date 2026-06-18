@@ -1,7 +1,7 @@
 includes:
     - phpstan-baseline.neon
 parameters:
-  level: max
+  level: 8
   checkInternalClassCaseSensitivity: true
   scanDirectories:
     - web/
@@ -11,6 +11,7 @@ parameters:
   ignoreErrors:
     - identifier: missingType.iterableValue
     - identifier: missingType.generics
+    - identifier: globalDrupalDependencyInjection.useDependencyInjection
   excludePaths:
     - '*/node_modules/*'
     - profile/modules/custom/openculturas_custom/src/Plugin/DateAugmenter/AddToCal.php

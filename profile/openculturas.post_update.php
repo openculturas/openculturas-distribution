@@ -12,6 +12,17 @@ use Drupal\openculturas_discussions\InstallerHelper;
 use Drupal\update_helper\ConfigName;
 use Drupal\views\Views;
 
+/**
+ * Import or revert config.
+ *
+ * @param list<string> $full_config_names
+ *   Names of the config to import or revert.
+ * @param bool $revert
+ *   When TRUE, revert the config.
+ *
+ * @return string
+ *   Logger output.
+ */
 function _openculturas_post_update_import_or_revert_config(array $full_config_names, bool $revert = FALSE): string {
   /** @var \Drupal\config_update\ConfigReverter $configUpdater */
   $configUpdater = \Drupal::service('config_update.config_update');
@@ -140,6 +151,7 @@ function openculturas_post_update_related_dates_archive_items_per_page(): string
     /** @var \Drupal\views\Plugin\views\ViewsPluginInterface|null $plugin */
     $plugin = $display->getPlugin('pager');
     if ($plugin && $plugin->getPluginId() === 'infinite_scroll') {
+      /** @var array{options:array{items_per_page: int}} $plugin_options */
       $plugin_options = $display->getOption('pager');
       $plugin_options['options']['items_per_page'] = 6;
       $display->setOption('pager', $plugin_options);
@@ -175,6 +187,7 @@ function openculturas_post_update_image_style_teaser_big_increase_size(): string
     }
 
     if ($effect instanceof ImageEffectInterface) {
+      /** @var array{data:array<?string,string|int>}  $configuration */
       $configuration = $effect->getConfiguration();
       $width = (int) ($configuration['data']['width'] ?? 0);
       $height = (int) ($configuration['data']['height'] ?? 0);
@@ -307,9 +320,7 @@ function openculturas_post_update_location_required_for_offline_event(): string 
   }
 
   $conditionalFieldUuid = 'e496761e-2b04-40d2-9dad-e392c395f365';
-  // @phpstan-ignore offsetAccess.nonOffsetAccessible
   $component['settings']['bundle'] = '';
-  // @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible
   $component['third_party_settings']['conditional_fields'][$conditionalFieldUuid] = [
     'entity_type' => 'node',
     'bundle' => 'date',

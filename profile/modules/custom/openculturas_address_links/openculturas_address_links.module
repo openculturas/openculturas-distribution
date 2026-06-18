@@ -49,26 +49,31 @@ function openculturas_address_links_tokens(string $type, array $tokens, array $d
   $replacements = [];
   /** @var \Drupal\openculturas_address_links\AddressService $addressService */
   $addressService = \Drupal::service('openculturas_address_links.address_service');
+  /** @var array<string, string> $tokens */
   if ($type === 'address') {
+    /** @var \Drupal\address\AddressInterface $address */
+    $address = $data['address'];
     foreach ($tokens as $name => $original) {
       if ($name === 'address') {
-        $replacements[$original] = $addressService->getPlainAddress($data['address']);
+        $replacements[$original] = $addressService->getPlainAddress($address);
       }
     }
   }
   elseif ($type === 'geofield') {
+    /** @var object{lat: mixed, lon: mixed, latlon: mixed} $geofield */
+    $geofield = $data['geofield'];
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'lat':
-          $replacements[$original] = $data['geofield']->lat;
+          $replacements[$original] = $geofield->lat;
           break;
 
         case 'lon':
-          $replacements[$original] = $data['geofield']->lon;
+          $replacements[$original] = $geofield->lon;
           break;
 
         case 'latlon':
-          $replacements[$original] = $data['geofield']->latlon;
+          $replacements[$original] = $geofield->latlon;
           break;
       }
     }
