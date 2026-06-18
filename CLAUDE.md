@@ -213,6 +213,6 @@ ddev xdebug off
 
 ## Git Workflow
 
-- **Main branch for PRs:** `3.0.x`
-- **Current development:** `3.0.x`
+- **Main branch for PRs:** `3.1.x`
+- **Current development:** `3.1.x`
 

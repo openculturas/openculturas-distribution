@@ -173,13 +173,13 @@ To update the version and sort dependencies in all module/theme info files, run:
 
 #### Creating a release
 
-1. Set the version in `scripts/info_file_normalizer.php` (the `VERSION` constant) to the release version, e.g. `3.0.0-beta3`
+1. Set the version in `scripts/info_file_normalizer.php` (the `VERSION` constant) to the release version, e.g. `3.1.0-beta3`
 2. Run `ddev composer run info_file_normalizer`
-3. Commit: `chore(release): Prepare 3.0.0-beta3`
-4. Tag the commit: `git tag --annotate 3.0.0-beta3 --message="3.0.0-beta3"` (annotated tag required — a plain `git tag` will fail)
-5. Set `VERSION` back to `3.0.x-dev`
+3. Commit: `chore(release): Prepare 3.1.0-beta3`
+4. Tag the commit: `git tag --annotate 3.1.0-beta3 --message="3.1.0-beta3"` (annotated tag required — a plain `git tag` will fail)
+5. Set `VERSION` back to `3.1.x-dev`
 6. Run `ddev composer run info_file_normalizer`
-7. Commit: `chore: Back to 3.0.x-dev`
+7. Commit: `chore: Back to 3.1.x-dev`
 8. `git push`
 9. `git push --tags`
 
