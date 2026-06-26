@@ -17,7 +17,34 @@ use function substr;
 use function trim;
 
 /**
- * Overrides the AddToCal DateAugmenter plugin with enhanced field parsing.
+ * Overrides the upstream AddToCal DateAugmenter plugin.
+ *
+ * Registered via openculturas_custom_date_augmenter_plugin_info_alter()
+ * instead of a plugin attribute, so no #[DateAugmenter] declaration is needed.
+ *
+ * Deviations from the upstream class:
+ *
+ * buildLinks():
+ * - Google Calendar description is built with a separate parseField() call
+ *   that preserves basic HTML tags (<br>, <p>, etc.), because Google Calendar
+ *   renders HTML in event descriptions. The iCal description strips all markup.
+ * - RFC 5545 section 3.1 line folding (max 70 chars per content line) is
+ *   applied to the iCal output; the upstream does not implement this.
+ * - All-day events offset DTEND by +1 day, as iCalendar treats DTEND as
+ *   exclusive for DATE values (RFC 5545 section 3.6.1).
+ * - Description line breaks are always preserved ($keep_line_breaks = TRUE);
+ *   the upstream makes this configurable via retain_spacing.
+ * - SUMMARY, DESCRIPTION, and LOCATION are written as raw iCal content-line
+ *   values without rawurlencode(); the upstream URL-encodes them.
+ * - Ellipsis on truncated descriptions is always appended; the upstream makes
+ *   this configurable.
+ *
+ * parseField():
+ * - Adds $allowed_tags (position 5) to allow selective HTML tag stripping,
+ *   used for the Google description. This shifts the upstream's $addslashes
+ *   parameter to position 6 in this override.
+ * - When $keep_line_breaks is TRUE, CRLF pairs are normalised to LF before
+ *   further processing; the upstream leaves whitespace untouched in that case.
  */
 class AddToCal extends AddToCalOrigin {
 
