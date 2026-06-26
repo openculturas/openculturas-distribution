@@ -16,6 +16,9 @@ use function str_replace;
 use function substr;
 use function trim;
 
+/**
+ * Overrides the AddToCal DateAugmenter plugin with enhanced field parsing.
+ */
 class AddToCal extends AddToCalOrigin {
 
   /**
@@ -93,7 +96,7 @@ class AddToCal extends AddToCalOrigin {
     }
     $location = NULL;
     if (!empty($config['location'])) {
-      $location = $this->parseField($config['location'], $entity, TRUE);
+      $location = $this->parseField($config['location'], $entity, TRUE, FALSE, NULL, TRUE);
     }
     $uuid = $entity->uuid() ?? Html::getUniqueId($label);
 
@@ -184,11 +187,13 @@ class AddToCal extends AddToCalOrigin {
    *   Whether or not to keep line breaks. e. g. for descriptions.
    * @param string $allowed_tags
    *   Allowed tags. e. g. google description.
+   * @param bool $addslashes
+   *   Whether to escape commas per iCal RFC 5545.
    *
    * @return string
    *   The manipulated value, prepared for use in a link href.
    */
-  public function parseField($field_value, $entity, $strip_markup = FALSE, $keep_line_breaks = FALSE, $allowed_tags = NULL): string {
+  public function parseField($field_value, $entity, $strip_markup = FALSE, $keep_line_breaks = FALSE, $allowed_tags = NULL, $addslashes = FALSE): string {
     if (\Drupal::hasService('token') && $entity) {
       $token_service = \Drupal::service('token');
       $token_data = [
@@ -208,6 +213,9 @@ class AddToCal extends AddToCalOrigin {
 
       // Strip out extra spaces.
       $field_value = $keep_line_breaks ? $field_value : trim(preg_replace('/\s\s+/', ' ', $field_value));
+    }
+    if ($addslashes) {
+      $field_value = str_replace(',', '\\,', $field_value);
     }
     return trim($field_value);
   }
