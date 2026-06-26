@@ -58,10 +58,10 @@ class AddToCal extends AddToCalOrigin {
       $timezone = $tz['default'];
     }
     if (isset($options['allday']) && $options['allday']) {
-      $start_formatted = $start->format("Ymd", $timezone);
+      $start_formatted = $start->format("Ymd", ['timezone' => $timezone]);
       // Offset the end by one day for calendar ingestion.
       $end->add(new \DateInterval('P1D'));
-      $end_formatted = $end->format("Ymd", $timezone);
+      $end_formatted = $end->format("Ymd", ['timezone' => $timezone]);
       $prefix = ':';
     }
     else {
@@ -73,8 +73,8 @@ class AddToCal extends AddToCalOrigin {
         $date_format = $def_format_z;
         $prefix = ':';
       }
-      $start_formatted = $start->format($date_format, $timezone);
-      $end_formatted = $end->format($date_format, $timezone);
+      $start_formatted = $start->format($date_format, ['timezone' => $timezone]);
+      $end_formatted = $end->format($date_format, ['timezone' => $timezone]);
     }
     if (!empty($config['event_title'])) {
       $label = $this->parseField($config['event_title'], $entity);
@@ -104,8 +104,8 @@ class AddToCal extends AddToCalOrigin {
     $ical_link = ['data:text/calendar;charset=utf8,BEGIN:VCALENDAR'];
     $ical_link[] = 'PRODID:' . $this->configFactory->get('system.site')->get('name');
     if ($timezone !== '' && $timezone !== '0') {
-      $offset_from = $start->format('O', $timezone);
-      $offset_to = $end->format('O', $timezone);
+      $offset_from = $start->format('O', ['timezone' => $timezone]);
+      $offset_to = $end->format('O', ['timezone' => $timezone]);
 
       // Timezone must precede VEVENT in iCal format
       // per icalendar.org/iCalendar-RFC-5545/3-6-5-time-zone-component.html .
