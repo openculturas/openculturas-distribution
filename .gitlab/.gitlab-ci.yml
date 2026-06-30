@@ -21,7 +21,7 @@ variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.237079@sha256:ef66fb7b6b1fd8064c584fc45126e3fdf56496b369a6c015a6ee7b2207eb19ca
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.237636@sha256:946704f49e1a741704ecac844abac33fb1f6386a35bbc8f489c8b5427ea6ff22
   stage: validate
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
@@ -154,7 +154,7 @@ rector dry-run:
           - "**/*.{scss,css,js}"
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.237079@sha256:ef66fb7b6b1fd8064c584fc45126e3fdf56496b369a6c015a6ee7b2207eb19ca
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.237636@sha256:946704f49e1a741704ecac844abac33fb1f6386a35bbc8f489c8b5427ea6ff22
   stage: validate
   extends: .validate_rules_npm
   needs:
@@ -227,7 +227,7 @@ rector dry-run:
 
 build:artifacts:
   extends: .build:artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.237079@sha256:ef66fb7b6b1fd8064c584fc45126e3fdf56496b369a6c015a6ee7b2207eb19ca
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.237636@sha256:946704f49e1a741704ecac844abac33fb1f6386a35bbc8f489c8b5427ea6ff22
 
 .docker_build_image:
   needs:
