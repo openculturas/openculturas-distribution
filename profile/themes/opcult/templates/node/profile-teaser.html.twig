@@ -90,7 +90,7 @@
       <div class="profile--picture">
         {{ content.field_portrait }}
       </div>
-     {% if node.bundle == 'profile' and node.hasField('field_badges') %}
+      {% if node.bundle == 'profile' and node.hasField('field_badges') and not node.isNew() %}
        {#     Reuse field from viewmode full for all viewmodes which use the template. #}
        {{ drupal_field('field_badges', 'node', node.id, 'full') }}
      {% endif %}
