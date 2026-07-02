@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityViewModeInterface;
+use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\NodeInterface;
 use Drupal\user\RoleInterface;
 
@@ -187,5 +188,56 @@ function openculturas_update_10126(): void {
     $role->grantPermission('use draften transition to_review');
     $role->grantPermission('use draften_member transition create_new_draft');
     $role->save();
+  }
+}
+
+/**
+ * Remove orphaned "Comments" layout builder blocks when openculturas_discussions is not installed.
+ */
+function openculturas_update_10127(): void {
+  /*
+   * The openculturas_discussions module is optional. If it was ever enabled and
+   * then uninstalled, sites can be left with a "field_block:node:%:field_comments"
+   * layout builder component that no longer resolves to a real block plugin,
+   * since the field itself is removed on uninstall.
+   *
+   * @see \Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomConfigDevelSubscriber::excludeOpenCulturasDiscussions()
+   */
+  if (\Drupal::moduleHandler()->moduleExists('openculturas_discussions')) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $entityViewDisplayStorage */
+  $entityViewDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  $bundles = ['event', 'location', 'profile', 'article'];
+  foreach ($bundles as $bundle) {
+    /** @var \Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay|null $display */
+    $display = $entityViewDisplayStorage->load('node.' . $bundle . '.full');
+    if (!$display instanceof LayoutBuilderEntityViewDisplay) {
+      continue;
+    }
+
+    if (!$display->isLayoutBuilderEnabled()) {
+      continue;
+    }
+
+    $changed = FALSE;
+    foreach ($display->getSections() as $delta => $section) {
+      foreach ($section->getComponents() as $uuid => $component) {
+        $plugin_id = (string) ($component->get('configuration')['id'] ?? '');
+        if (str_ends_with($plugin_id, ':field_comments')) {
+          $section->removeComponent($uuid);
+          $changed = TRUE;
+        }
+      }
+
+      if (!$section->getComponents()) {
+        $display->removeSection($delta);
+      }
+    }
+
+    if ($changed) {
+      $display->save();
+    }
   }
 }
