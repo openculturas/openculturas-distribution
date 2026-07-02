@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use DrupalFinder\DrupalFinderComposerRuntime;
-use DrupalRector\Set\Drupal10SetList;
+use DrupalRector\Set\DrupalSetProvider;
 use Rector\Config\RectorConfig;
 
 $drupalFinder = new DrupalFinderComposerRuntime();
@@ -20,9 +20,8 @@ return RectorConfig::configure()
     instanceOf: true,
     earlyReturn: true
   )
-  ->withSets(
-    [Drupal10SetList::DRUPAL_10]
-  )
+  ->withComposerBased(twig: TRUE, phpunit: TRUE, symfony: TRUE, drupal: TRUE)
+  ->withSetProviders(DrupalSetProvider::class)
   ->withAutoloadPaths(
     [
       $drupalRoot . '/core',
