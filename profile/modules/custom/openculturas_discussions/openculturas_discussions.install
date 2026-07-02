@@ -90,137 +90,6 @@ function openculturas_discussions_install(bool $is_syncing): void {
 
       $display->save();
     }
-
-    // View displays.
-    $display = $entity_display->getViewDisplay('node', $bundle, 'full');
-    if (!$display->isNew()) {
-      if ($display instanceof LayoutBuilderEntityViewDisplay && $display->isLayoutBuilderEnabled()) {
-        /** @var \Drupal\Core\Field\FormatterPluginManager $formatterManager */
-        $formatterManager = \Drupal::service('plugin.manager.field.formatter');
-        $formatterSettings = $formatterManager->getDefaultSettings('viewfield_default');
-        $formatterSettings['always_build_output'] = TRUE;
-        /** @var \Drupal\Core\Block\BlockManagerInterface $blockManager */
-        $blockManager = \Drupal::service('plugin.manager.block');
-        /** @var \Drupal\layout_builder\Plugin\Block\FieldBlock $fieldBlock */
-        $fieldBlock = $blockManager->createInstance(sprintf('field_block:node:%s:field_comments', $bundle), [
-          'label' => 'Comments',
-          'label_display' => 'visible',
-        ]);
-        $fieldBlockConf = $fieldBlock->getConfiguration();
-        $fieldBlockConf['formatter']['settings'] = $formatterSettings;
-        $fieldBlockConf['formatter']['label'] = 'hidden';
-        $fieldBlockConf['context_mapping'] = ['entity' => 'layout_builder.entity', 'view_mode' => 'view_mode'];
-        $component_field_comments = new SectionComponent(
-          uuid: '48b3e6a3-abb8-452d-8695-1e980c92c4fb',
-          region: 'first',
-          configuration: $fieldBlockConf,
-          additional: [
-            'component_attributes' => [
-              'block_attributes' => [
-                'id' => '',
-                'class' => 'intro-inline',
-                'style' => '',
-                'data' => '',
-              ],
-              'block_title_attributes' => [
-                'id' => '',
-                'class' => '',
-                'style' => '',
-                'data' => '',
-              ],
-              'block_content_attributes' => [
-                'id' => '',
-                'class' => '',
-                'style' => '',
-                'data' => '',
-              ],
-            ],
-          ]
-        );
-        if ($bundle === 'article') {
-          $component_field_comments->set('uuid', '48b3e6a3-abb8-452d-8695-1e980c92c4fb');
-          $layout_settings = [
-            'label' => 'Comments',
-            'layout_custom_classes' => 'section-with-background comments--section',
-            'layout_id' => 'comments',
-          ];
-          $display->appendSection(new Section('layout_oc1col_section', $layout_settings, [$component_field_comments]));
-        }
-        // @todo refactor this.
-        elseif ($bundle === 'event') {
-          $component_field_comments->set('uuid', 'cd25b039-9b4d-4077-9056-9d04a9c6c73b');
-          /** @var array{block_attributes: array} $component_attributes */
-          $component_attributes = $component_field_comments->get('component_attributes');
-          $component_attributes['block_attributes']['id'] = 'comments';
-          $component_attributes['block_attributes']['class'] = '';
-          $component_field_comments->set('component_attributes', $component_attributes);
-          foreach ($display->getSections() as $section) {
-            foreach ($section->getComponents() as $component) {
-              if ($component->getUuid() === 'd698f54f-5120-4086-8200-7eafa66a43dc') {
-                $component_field_comments->setRegion($component->getRegion());
-                $section->insertAfterComponent($component->getUuid(), $component_field_comments);
-                break 2;
-              }
-            }
-          }
-        }
-        elseif ($bundle === 'location') {
-          $component_field_comments->set('uuid', 'bf779167-96df-4a78-bcc9-5bfc3bf96046');
-          /** @var array{block_attributes: array} $component_attributes */
-          $component_attributes = $component_field_comments->get('component_attributes');
-          $component_attributes['block_attributes']['id'] = 'comments';
-          $component_attributes['block_attributes']['class'] = '';
-          $component_field_comments->set('component_attributes', $component_attributes);
-          foreach ($display->getSections() as $section) {
-            foreach ($section->getComponents() as $component) {
-              if ($component->getUuid() === '52b11a81-dab1-4e9e-ad1d-e5c5dbbf6c21') {
-                $component_field_comments->setRegion($component->getRegion());
-                $section->insertAfterComponent($component->getUuid(), $component_field_comments);
-                break 2;
-              }
-            }
-          }
-        }
-        elseif ($bundle === 'profile') {
-          $component_field_comments->set('uuid', 'a1d4f59b-2c94-432e-89c9-69bc90cb61af');
-          /** @var array{block_attributes: array} $component_attributes */
-          $component_attributes = $component_field_comments->get('component_attributes');
-          $component_attributes['block_attributes']['id'] = 'comments';
-          $component_attributes['block_attributes']['class'] = '';
-          $component_field_comments->set('component_attributes', $component_attributes);
-          foreach ($display->getSections() as $section) {
-            foreach ($section->getComponents() as $component) {
-              if ($component->getUuid() === '3dbd98a3-b45d-4d01-ba14-d8a671496ddd') {
-                $component_field_comments->setRegion($component->getRegion());
-                $section->insertAfterComponent($component->getUuid(), $component_field_comments);
-                break 2;
-              }
-            }
-          }
-        }
-      }
-      else {
-        $display->setComponent('field_comments', ['weight' => 1, 'label' => 'hidden', 'settings' => ['always_build_output' => TRUE]]);
-        $display->setThirdPartySetting('field_group', 'group_comments', [
-          'label' => 'Comments',
-          'children' => ['field_comments'],
-          'format_type' => 'details',
-          'parent_name' => '',
-          'region' => 'content',
-          'weight' => $display->getHighestWeight() + 1,
-          'format_settings' => [
-            'classes' => 'comments',
-            'id' => 'comments',
-            'show_empty_fields' => FALSE,
-            'open' => TRUE,
-            'required_fields' => FALSE,
-            'description' => '',
-          ],
-        ]);
-      }
-
-      $display->save();
-    }
   }
 
   $view = Views::getView('moderated_content');
@@ -246,6 +115,160 @@ function openculturas_discussions_install(bool $is_syncing): void {
   }
 
   InstallerHelper::install();
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * The layout builder field block for "field_comments" can only be built once
+ * the field itself exists. That field is shipped as optional configuration,
+ * which Drupal installs after every module's hook_install() has already run,
+ * so this logic cannot live in hook_install().
+ *
+ * @see openculturas_discussions_install()
+ */
+function openculturas_discussions_modules_installed(array $modules, bool $is_syncing): void {
+  if ($is_syncing || !in_array('openculturas_discussions', $modules, TRUE)) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display */
+  $entity_display = \Drupal::service('entity_display.repository');
+
+  $bundles = ['event', 'location', 'profile', 'article'];
+  foreach ($bundles as $bundle) {
+    $display = $entity_display->getViewDisplay('node', $bundle, 'full');
+    if ($display->isNew()) {
+      continue;
+    }
+
+    if ($display instanceof LayoutBuilderEntityViewDisplay && $display->isLayoutBuilderEnabled()) {
+      /** @var \Drupal\Core\Field\FormatterPluginManager $formatterManager */
+      $formatterManager = \Drupal::service('plugin.manager.field.formatter');
+      $formatterSettings = $formatterManager->getDefaultSettings('viewfield_default');
+      $formatterSettings['always_build_output'] = TRUE;
+      /** @var \Drupal\Core\Block\BlockManagerInterface $blockManager */
+      $blockManager = \Drupal::service('plugin.manager.block');
+      /** @var \Drupal\layout_builder\Plugin\Block\FieldBlock $fieldBlock */
+      $fieldBlock = $blockManager->createInstance(sprintf('field_block:node:%s:field_comments', $bundle), [
+        'label' => 'Comments',
+        'label_display' => 'visible',
+      ]);
+      $fieldBlockConf = $fieldBlock->getConfiguration();
+      $fieldBlockConf['formatter']['settings'] = $formatterSettings;
+      $fieldBlockConf['formatter']['label'] = 'hidden';
+      $fieldBlockConf['context_mapping'] = ['entity' => 'layout_builder.entity', 'view_mode' => 'view_mode'];
+      $component_field_comments = new SectionComponent(
+        uuid: '48b3e6a3-abb8-452d-8695-1e980c92c4fb',
+        region: 'first',
+        configuration: $fieldBlockConf,
+        additional: [
+          'component_attributes' => [
+            'block_attributes' => [
+              'id' => '',
+              'class' => 'intro-inline',
+              'style' => '',
+              'data' => '',
+            ],
+            'block_title_attributes' => [
+              'id' => '',
+              'class' => '',
+              'style' => '',
+              'data' => '',
+            ],
+            'block_content_attributes' => [
+              'id' => '',
+              'class' => '',
+              'style' => '',
+              'data' => '',
+            ],
+          ],
+        ]
+      );
+      if ($bundle === 'article') {
+        $component_field_comments->set('uuid', '48b3e6a3-abb8-452d-8695-1e980c92c4fb');
+        $layout_settings = [
+          'label' => 'Comments',
+          'layout_custom_classes' => 'section-with-background comments--section',
+          'layout_id' => 'comments',
+        ];
+        $display->appendSection(new Section('layout_oc1col_section', $layout_settings, [$component_field_comments]));
+      }
+      // @todo refactor this.
+      elseif ($bundle === 'event') {
+        $component_field_comments->set('uuid', 'cd25b039-9b4d-4077-9056-9d04a9c6c73b');
+        /** @var array{block_attributes: array} $component_attributes */
+        $component_attributes = $component_field_comments->get('component_attributes');
+        $component_attributes['block_attributes']['id'] = 'comments';
+        $component_attributes['block_attributes']['class'] = '';
+        $component_field_comments->set('component_attributes', $component_attributes);
+        foreach ($display->getSections() as $section) {
+          foreach ($section->getComponents() as $component) {
+            if ($component->getUuid() === 'd698f54f-5120-4086-8200-7eafa66a43dc') {
+              $component_field_comments->setRegion($component->getRegion());
+              $section->insertAfterComponent($component->getUuid(), $component_field_comments);
+              break 2;
+            }
+          }
+        }
+      }
+      elseif ($bundle === 'location') {
+        $component_field_comments->set('uuid', 'bf779167-96df-4a78-bcc9-5bfc3bf96046');
+        /** @var array{block_attributes: array} $component_attributes */
+        $component_attributes = $component_field_comments->get('component_attributes');
+        $component_attributes['block_attributes']['id'] = 'comments';
+        $component_attributes['block_attributes']['class'] = '';
+        $component_field_comments->set('component_attributes', $component_attributes);
+        foreach ($display->getSections() as $section) {
+          foreach ($section->getComponents() as $component) {
+            if ($component->getUuid() === '52b11a81-dab1-4e9e-ad1d-e5c5dbbf6c21') {
+              $component_field_comments->setRegion($component->getRegion());
+              $section->insertAfterComponent($component->getUuid(), $component_field_comments);
+              break 2;
+            }
+          }
+        }
+      }
+      elseif ($bundle === 'profile') {
+        $component_field_comments->set('uuid', 'a1d4f59b-2c94-432e-89c9-69bc90cb61af');
+        /** @var array{block_attributes: array} $component_attributes */
+        $component_attributes = $component_field_comments->get('component_attributes');
+        $component_attributes['block_attributes']['id'] = 'comments';
+        $component_attributes['block_attributes']['class'] = '';
+        $component_field_comments->set('component_attributes', $component_attributes);
+        foreach ($display->getSections() as $section) {
+          foreach ($section->getComponents() as $component) {
+            if ($component->getUuid() === '3dbd98a3-b45d-4d01-ba14-d8a671496ddd') {
+              $component_field_comments->setRegion($component->getRegion());
+              $section->insertAfterComponent($component->getUuid(), $component_field_comments);
+              break 2;
+            }
+          }
+        }
+      }
+    }
+    else {
+      $display->setComponent('field_comments', ['weight' => 1, 'label' => 'hidden', 'settings' => ['always_build_output' => TRUE]]);
+      $display->setThirdPartySetting('field_group', 'group_comments', [
+        'label' => 'Comments',
+        'children' => ['field_comments'],
+        'format_type' => 'details',
+        'parent_name' => '',
+        'region' => 'content',
+        'weight' => $display->getHighestWeight() + 1,
+        'format_settings' => [
+          'classes' => 'comments',
+          'id' => 'comments',
+          'show_empty_fields' => FALSE,
+          'open' => TRUE,
+          'required_fields' => FALSE,
+          'description' => '',
+        ],
+      ]);
+    }
+
+    $display->save();
+  }
 }
 
 /**
@@ -327,11 +350,15 @@ function openculturas_discussions_uninstall(bool $is_syncing): void {
     if (!$display->isNew()) {
       if ($display instanceof LayoutBuilderEntityViewDisplay && $display->isLayoutBuilderEnabled()) {
         foreach ($display->getSections() as $delta => $section) {
-          foreach ($section->getComponents() as $component) {
-            if ($component->getUuid() === '48b3e6a3-abb8-452d-8695-1e980c92c4fb') {
-              $display->removeSection($delta);
-              break 2;
+          foreach ($section->getComponents() as $uuid => $component) {
+            $plugin_id = (string) ($component->get('configuration')['id'] ?? '');
+            if (str_ends_with($plugin_id, ':field_comments')) {
+              $section->removeComponent($uuid);
             }
+          }
+
+          if (!$section->getComponents()) {
+            $display->removeSection($delta);
           }
         }
       }

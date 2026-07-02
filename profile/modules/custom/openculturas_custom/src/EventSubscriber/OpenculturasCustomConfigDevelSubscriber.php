@@ -261,6 +261,30 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['third_party_settings']['field_group']['group_administrative']['children'] = array_values($data['third_party_settings']['field_group']['group_administrative']['children']);
     }
 
+    if (isset($data['third_party_settings']['layout_builder']['sections']) && is_array($data['third_party_settings']['layout_builder']['sections'])) {
+      foreach ($data['third_party_settings']['layout_builder']['sections'] as $section_index => $section) {
+        if (!isset($section['components'])) {
+          continue;
+        }
+
+        if (!is_array($section['components'])) {
+          continue;
+        }
+
+        foreach ($section['components'] as $component_uuid => $component) {
+          if (isset($component['configuration']['id']) && str_ends_with((string) $component['configuration']['id'], ':field_comments')) {
+            unset($data['third_party_settings']['layout_builder']['sections'][$section_index]['components'][$component_uuid]);
+          }
+        }
+
+        if ($data['third_party_settings']['layout_builder']['sections'][$section_index]['components'] === []) {
+          unset($data['third_party_settings']['layout_builder']['sections'][$section_index]);
+        }
+      }
+
+      $data['third_party_settings']['layout_builder']['sections'] = array_values($data['third_party_settings']['layout_builder']['sections']);
+    }
+
     if ($data['id'] === 'moderated_content' && isset($data['display']['default']['display_options']['filters']['type'])) {
       $data['display']['default']['display_options']['filters']['type']['exposed'] = TRUE;
       $data['display']['default']['display_options']['filters']['type']['operator'] = 'in';
