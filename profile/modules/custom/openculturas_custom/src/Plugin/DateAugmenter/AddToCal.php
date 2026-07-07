@@ -25,8 +25,8 @@ use function trim;
  * Deviations from the upstream class:
  *
  * buildLinks():
- * - Google Calendar description is built with a separate parseField() call
- *   that preserves basic HTML tags (<br>, <p>, etc.), because Google Calendar
+ * - Google Calendar description is built with a separate parseFieldValue()
+ *   call that preserves basic HTML tags (<br>, <p>, etc.), because Google Calendar
  *   renders HTML in event descriptions. The iCal description strips all markup.
  * - RFC 5545 section 3.1 line folding (max 70 chars per content line) is
  *   applied to the iCal output; the upstream does not implement this.
@@ -39,27 +39,42 @@ use function trim;
  * - Ellipsis on truncated descriptions is always appended; the upstream makes
  *   this configurable.
  *
- * parseField():
- * - Adds $allowed_tags (position 5) to allow selective HTML tag stripping,
- *   used for the Google description. This shifts the upstream's $addslashes
- *   parameter to position 6 in this override.
+ * parseFieldValue():
+ * - New method, used instead of the upstream's parseField(), so its
+ *   signature does not need to stay compatible with the parent method.
+ * - Adds $allowed_tags to allow selective HTML tag stripping, used for the
+ *   Google description.
  * - When $keep_line_breaks is TRUE, CRLF pairs are normalised to LF before
  *   further processing; the upstream leaves whitespace untouched in that case.
  */
 class AddToCal extends AddToCalOrigin {
 
   /**
-   * {@inheritdoc}
+   * Builds a prepared array of data for output.
+   *
+   * @param array $output
+   *   The existing render array, to be augmented.
+   * @param \Drupal\Core\Datetime\DrupalDateTime $start
+   *   The object which contains the start time.
+   * @param \Drupal\Core\Datetime\DrupalDateTime|null $end
+   *   The optional object which contains the end time.
+   * @param array $options
+   *   An array of options to further guide output.
+   *
+   * @return array|null
+   *   The prepared ical/outlook/google link data, or NULL if no links
+   *   should be rendered.
    */
-  public function buildLinks(array $output, DrupalDateTime $start, ?DrupalDateTime $end = NULL, array $options = []) {
+  public function buildLinks(array $output, DrupalDateTime $start, ?DrupalDateTime $end = NULL, array $options = []): ?array {
     $google_link = [];
     // Use provided settings if they exist, otherwise look for plugin config.
     $config = $options['settings'] ?? $this->getConfiguration();
     if (empty($config['event_title']) && !isset($options['entity'])) {
       // @todo log some kind of warning that we can't work without the entity
       // or a provided title?
-      return;
+      return NULL;
     }
+
     $def_format = 'Ymd\\THi00';
     $def_format_z = $def_format . '\\Z';
     $end_fallback = $end ?? $start;
@@ -70,20 +85,17 @@ class AddToCal extends AddToCalOrigin {
     if (!empty($options['repeats']) && (empty($options['ends']) || $options['ends'] > $now)) {
       $upcoming_instance = TRUE;
     }
+
     if (!$upcoming_instance && $end_fallback < $now && !$config['past_events']) {
-      return;
+      return NULL;
     }
+
     $entity = $options['entity'] ?? NULL;
     if (!$end instanceof DrupalDateTime) {
       $end = $start;
     }
-    if ($tz = $start->getTimezone()) {
-      $timezone = $tz->getName();
-    }
-    else {
-      $tz = $this->configFactory->get('system.date')->get('timezone');
-      $timezone = $tz['default'];
-    }
+
+    $timezone = $start->getTimezone()->getName();
     if (isset($options['allday']) && $options['allday']) {
       $start_formatted = $start->format("Ymd", ['timezone' => $timezone]);
       // Offset the end by one day for calendar ingestion.
@@ -100,19 +112,22 @@ class AddToCal extends AddToCalOrigin {
         $date_format = $def_format_z;
         $prefix = ':';
       }
+
       $start_formatted = $start->format($date_format, ['timezone' => $timezone]);
       $end_formatted = $end->format($date_format, ['timezone' => $timezone]);
     }
+
     if (!empty($config['event_title'])) {
-      $label = $this->parseField($config['event_title'], $entity);
+      $label = $this->parseFieldValue($config['event_title'], $entity);
     }
     else {
-      $label = $this->parseField($entity->label(), FALSE);
+      $label = $this->parseFieldValue($entity->label(), FALSE);
     }
+
     $description = NULL;
     if (!empty($config['description'])) {
-      $description = $this->parseField($config['description'], $entity, TRUE, TRUE);
-      $google_link['details'] = $this->parseField($config['description'], $entity, TRUE, TRUE, '<br><p><b><u><a><ul><ol>');
+      $description = $this->parseFieldValue($config['description'], $entity, TRUE, TRUE);
+      $google_link['details'] = $this->parseFieldValue($config['description'], $entity, TRUE, TRUE, '<br><p><b><u><a><ul><ol>');
       $google_link['details'] = str_replace('</p>' . PHP_EOL . PHP_EOL . '<p>', '</p><p>', $google_link['details']);
       $max_length = $config['max_desc'] ?? 60;
       if ($max_length) {
@@ -121,10 +136,12 @@ class AddToCal extends AddToCalOrigin {
         $description = trim(substr($description, 0, $max_length)) . '...';
       }
     }
+
     $location = NULL;
     if (!empty($config['location'])) {
-      $location = $this->parseField($config['location'], $entity, TRUE, FALSE, NULL, TRUE);
+      $location = $this->parseFieldValue($config['location'], $entity, TRUE, FALSE, NULL, TRUE);
     }
+
     $uuid = $entity->uuid() ?? Html::getUniqueId($label);
 
     // Build output.
@@ -145,6 +162,7 @@ class AddToCal extends AddToCalOrigin {
       $ical_link['tz'][] = 'END:STANDARD';
       $ical_link['tz'][] = 'END:VTIMEZONE';
     }
+
     $ical_link[] = 'VERSION:2.0';
     $ical_link[] = 'BEGIN:VEVENT';
     $ical_link[] = 'UID:' . $uuid;
@@ -178,17 +196,19 @@ class AddToCal extends AddToCalOrigin {
       $ical_link[] = 'LOCATION:' . $location;
       $google_link['location'] = $location;
     }
+
     $ical_link[] = 'END:VEVENT';
     $ical_link[] = 'END:VCALENDAR';
 
     /* Append every 70 chars a url encoded CRLF sequence followed by a whitespace. see https://icalendar.org/iCalendar-RFC-5545/3-1-content-lines.html */
-    $ical_link = array_map(static fn($content): null|string|array => is_string($content) && mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
+    $ical_link = array_map(static fn(array|string $content): null|string|array => is_string($content) && mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
 
     // Set start/end dates timezone to UTC for Outlook.
     $outlook_link = $ical_link;
     if (isset($outlook_link['tz'])) {
       unset($outlook_link['tz']);
     }
+
     $start->setTimezone($utc);
     $end->setTimezone($utc);
     $outlook_link['start'] = 'DTSTART:' . $start->format($def_format_z);
@@ -220,7 +240,7 @@ class AddToCal extends AddToCalOrigin {
    * @return string
    *   The manipulated value, prepared for use in a link href.
    */
-  public function parseField($field_value, $entity, $strip_markup = FALSE, $keep_line_breaks = FALSE, $allowed_tags = NULL, $addslashes = FALSE): string {
+  public function parseFieldValue($field_value, $entity, $strip_markup = FALSE, $keep_line_breaks = FALSE, $allowed_tags = NULL, $addslashes = FALSE): string {
     if (\Drupal::hasService('token') && $entity) {
       $token_service = \Drupal::service('token');
       $token_data = [
@@ -228,22 +248,27 @@ class AddToCal extends AddToCalOrigin {
       ];
       $field_value = $token_service->replace($field_value, $token_data, ['clear' => TRUE]);
     }
+
     if ($strip_markup) {
       // Strip tags. Requires decoding entities, which will be re-encoded later.
       $field_value = strip_tags(html_entity_decode($field_value), $allowed_tags);
 
       // Strip out line breaks.
-      $field_value = $keep_line_breaks ? preg_replace('/\r\n/m', PHP_EOL, $field_value) : preg_replace('/\n|\r|\r\n|\t/m', ' ', $field_value);
+      $field_value = $keep_line_breaks
+        ? preg_replace('/\r\n/m', PHP_EOL, $field_value) ?? $field_value
+        : preg_replace('/\n|\r|\r\n|\t/m', ' ', $field_value) ?? $field_value;
 
       // Strip out non-breaking spaces.
-      $field_value = (string) str_replace(['&nbsp;', "\xc2\xa0"], ' ', $field_value);
+      $field_value = str_replace(['&nbsp;', "\xc2\xa0"], ' ', $field_value);
 
       // Strip out extra spaces.
-      $field_value = $keep_line_breaks ? $field_value : trim(preg_replace('/\s\s+/', ' ', $field_value));
+      $field_value = $keep_line_breaks ? $field_value : trim(preg_replace('/\s\s+/', ' ', $field_value) ?? $field_value);
     }
+
     if ($addslashes) {
       $field_value = str_replace(',', '\\,', $field_value);
     }
+
     return trim($field_value);
   }
 
