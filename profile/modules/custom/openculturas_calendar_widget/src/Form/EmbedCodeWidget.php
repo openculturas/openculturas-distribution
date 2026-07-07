@@ -25,6 +25,7 @@ final class EmbedCodeWidget extends FormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
     $instance->renderer = $container->get('renderer');

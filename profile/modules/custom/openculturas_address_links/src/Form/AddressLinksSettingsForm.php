@@ -22,6 +22,7 @@ class AddressLinksSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
 
     $form = parent::buildForm($form, $form_state);
@@ -62,6 +63,7 @@ class AddressLinksSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('openculturas_address_links.settings');
     foreach (['directions', 'public_transport'] as $key) {

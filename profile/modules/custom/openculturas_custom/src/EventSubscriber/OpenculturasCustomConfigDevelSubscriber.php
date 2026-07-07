@@ -134,7 +134,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     unset($data['content']['field_section'], $data['hidden']['field_section'], $data['settings']['handler_settings']['target_bundles']['oc_section']);
     if (isset($data['dependencies']['config']) && is_array($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $config_name) {
-        if (str_ends_with($config_name, 'field_section') || str_ends_with($config_name, 'oc_section')) {
+        if (str_ends_with((string) $config_name, 'field_section') || str_ends_with((string) $config_name, 'oc_section')) {
           unset($data['dependencies']['config'][$index]);
         }
       }
@@ -179,7 +179,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     if ($current_config_name === 'user.role.oc_admin' && is_array($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
-        if (str_contains($permission, 'faq')) {
+        if (str_contains((string) $permission, 'faq')) {
           unset($data['permissions'][$index]);
         }
       }
@@ -230,7 +230,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     $data = $configDevelSaveEvent->getData();
     if (is_array($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
-        if (preg_match('/assign \w+ role/', $permission)) {
+        if (preg_match('/assign \w+ role/', (string) $permission)) {
           unset($data['permissions'][$index]);
         }
       }
@@ -250,7 +250,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       foreach ($data['dependencies']['config'] as $index => $config_name) {
         if (
           in_array($config_name, ['filter.format.comment_html', 'node.type.comment', 'workflows.workflow.comment'], TRUE) ||
-          str_ends_with($config_name, 'field_comments') || str_ends_with($config_name, 'field_comments_mode')
+          str_ends_with((string) $config_name, 'field_comments') || str_ends_with((string) $config_name, 'field_comments_mode')
         ) {
           unset($data['dependencies']['config'][$index]);
         }
@@ -305,10 +305,10 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     if (isset($data['permissions']) && is_array($data['permissions'])) {
       foreach ($data['permissions'] as $index => $permission) {
-        if (str_ends_with($permission, 'comment content') ||
-          str_starts_with($permission, 'use comment transition') ||
-          str_contains($permission, 'comment_html') ||
-          str_ends_with($permission, 'comment revisions')) {
+        if (str_ends_with((string) $permission, 'comment content') ||
+          str_starts_with((string) $permission, 'use comment transition') ||
+          str_contains((string) $permission, 'comment_html') ||
+          str_ends_with((string) $permission, 'comment revisions')) {
           unset($data['permissions'][$index]);
         }
       }

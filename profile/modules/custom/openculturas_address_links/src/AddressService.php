@@ -23,52 +23,34 @@ use function is_string;
 class AddressService {
 
   /**
-   * The address format repository.
-   */
-  protected AddressFormatRepositoryInterface $addressFormatRepository;
-
-  /**
-   * The country repository.
-   */
-  protected CountryRepositoryInterface $countryRepository;
-
-  /**
-   * The subdivision repository.
-   */
-  protected SubdivisionRepositoryInterface $subdivisionRepository;
-
-  /**
-   * Language Manager.
-   */
-  protected readonly LanguageManagerInterface $languageManager;
-
-  /**
-   * Config factory service.
-   */
-  protected readonly ConfigFactoryInterface $configFactory;
-
-  /**
-   * Drupal placeholder/token replacement system.
-   */
-  protected readonly Token $token;
-
-  /**
    * Constructs a new instance.
    */
   public function __construct(
-    AddressFormatRepositoryInterface $address_format_repository,
-    CountryRepositoryInterface $country_repository,
-    SubdivisionRepositoryInterface $subdivision_repository,
-    LanguageManagerInterface $languageManager,
-    ConfigFactoryInterface $configFactory,
-    Token $token,
+    /**
+     * The address format repository.
+     */
+    protected AddressFormatRepositoryInterface $addressFormatRepository,
+    /**
+     * The country repository.
+     */
+    protected CountryRepositoryInterface $countryRepository,
+    /**
+     * The subdivision repository.
+     */
+    protected SubdivisionRepositoryInterface $subdivisionRepository,
+    /**
+     * Language Manager.
+     */
+    protected readonly LanguageManagerInterface $languageManager,
+    /**
+     * Config factory service.
+     */
+    protected readonly ConfigFactoryInterface $configFactory,
+    /**
+     * Drupal placeholder/token replacement system.
+     */
+    protected readonly Token $token,
   ) {
-    $this->addressFormatRepository = $address_format_repository;
-    $this->countryRepository = $country_repository;
-    $this->subdivisionRepository = $subdivision_repository;
-    $this->languageManager = $languageManager;
-    $this->configFactory = $configFactory;
-    $this->token = $token;
   }
 
   /**

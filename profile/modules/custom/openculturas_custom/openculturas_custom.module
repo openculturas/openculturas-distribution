@@ -426,7 +426,7 @@ function openculturas_custom_preprocess_block(array &$variables): void {
   }
 
   if ($isAnonymous) {
-    if (str_ends_with($variables['derivative_plugin_id'], 'flag_bookmark_node')) {
+    if (str_ends_with((string) $variables['derivative_plugin_id'], 'flag_bookmark_node')) {
       $variables['content'] = [];
       $variables['content']['flag_bookmark_node'] = [
         '#type' => 'inline_template',
@@ -437,7 +437,7 @@ EOF
       ];
     }
 
-    if (str_ends_with($variables['derivative_plugin_id'], 'flag_bookmark_term')) {
+    if (str_ends_with((string) $variables['derivative_plugin_id'], 'flag_bookmark_term')) {
       $variables['content'] = [];
       $variables['content']['flag_bookmark_term'] = [
         '#type' => 'inline_template',
@@ -448,7 +448,7 @@ EOF
       ];
     }
 
-    if (str_ends_with($variables['derivative_plugin_id'], 'flag_recommendation_node')) {
+    if (str_ends_with((string) $variables['derivative_plugin_id'], 'flag_recommendation_node')) {
       $variables['content'] = [];
       $variables['content']['flag_recommendation_node'] = [
         '#type' => 'inline_template',
@@ -459,7 +459,7 @@ EOF
       ];
     }
 
-    if (($entity instanceof NodeInterface || $entity instanceof TermInterface) && (str_ends_with($variables['derivative_plugin_id'], 'flag_claim_ownership') && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')
+    if (($entity instanceof NodeInterface || $entity instanceof TermInterface) && (str_ends_with((string) $variables['derivative_plugin_id'], 'flag_claim_ownership') && $entity->hasField('field_allow_claiming') && !$entity->get('field_allow_claiming')
       ->isEmpty())) {
       $allowed = (bool) $entity->get('field_allow_claiming')->value;
       if ($allowed) {
@@ -474,7 +474,7 @@ EOF
       }
     }
 
-    if (str_ends_with($variables['derivative_plugin_id'], 'flag_report_abuse')) {
+    if (str_ends_with((string) $variables['derivative_plugin_id'], 'flag_report_abuse')) {
       $variables['content'] = [];
       $variables['content']['flag_report_abuse'] = [
         '#type' => 'inline_template',
@@ -537,7 +537,7 @@ EOF
     }
   }
 
-  if (str_ends_with($variables['derivative_plugin_id'], 'field_people_reference') && ($entity->hasField('field_reference_title') && !$entity->get('field_reference_title')->isEmpty())) {
+  if (str_ends_with((string) $variables['derivative_plugin_id'], 'field_people_reference') && ($entity->hasField('field_reference_title') && !$entity->get('field_reference_title')->isEmpty())) {
     $variables['label'] = NULL;
   }
 }

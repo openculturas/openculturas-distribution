@@ -22,6 +22,7 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function defaultConfiguration(): array {
     return [
       'token_name' => 'preferred_langcode',
@@ -32,6 +33,7 @@ final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableAct
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form['recipient'] = [
       '#type' => 'textfield',

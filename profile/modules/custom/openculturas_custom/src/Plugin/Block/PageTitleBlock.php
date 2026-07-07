@@ -48,6 +48,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
@@ -66,6 +67,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function defaultConfiguration(): array {
     return [
       'label_display' => FALSE,
@@ -78,6 +80,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildConfigurationForm($form, $form_state);
     $form['page_title_block'] = [
@@ -182,6 +185,7 @@ final class PageTitleBlock extends BlockBase implements TitleBlockPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), [
       'route',

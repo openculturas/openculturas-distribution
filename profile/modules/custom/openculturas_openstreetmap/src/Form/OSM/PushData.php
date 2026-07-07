@@ -31,6 +31,7 @@ final class PushData extends FormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);
@@ -93,6 +94,7 @@ final class PushData extends FormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
   }
 

@@ -23,6 +23,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function defaultConfiguration(): array {
     return [
       'token_name' => 'recipients',
@@ -33,6 +34,7 @@ final class LoadNotificationRecipients extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form['token_name'] = [
       '#type' => 'textfield',

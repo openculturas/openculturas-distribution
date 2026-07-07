@@ -29,6 +29,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function defaultConfiguration(): array {
     return parent::defaultConfiguration() + [
       'type' => 'locations',
@@ -48,6 +49,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): OpenCulturasMapBlock {
     $instance = new OpenCulturasMapBlock($configuration, $plugin_id, $plugin_definition);
     $instance->formBuilder = $container->get('form_builder');
@@ -98,6 +100,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function blockForm($form, FormStateInterface $form_state): array {
     $form['type'] = [
       '#title' => $this->t('Type'),
@@ -251,6 +254,7 @@ final class OpenCulturasMapBlock extends BlockBase implements ContainerFactoryPl
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getCacheTags(): array {
     $tags = parent::getCacheTags();
     if (in_array($this->configuration['type'], ['locations', 'dates'])) {

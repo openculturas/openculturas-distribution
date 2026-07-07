@@ -35,6 +35,7 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->fileStorage = $container->get('entity_type.manager')->getStorage('file');
@@ -44,6 +45,7 @@ final class DownloadUrlFormatter extends DownloadLinkFieldFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
     $settings = $this->getSettings();

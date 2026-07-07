@@ -16,12 +16,12 @@ use function is_numeric;
 /**
  * OpenCulturas Openstreetmap event subscriber.
  */
-final class OpenculturasOpenStreetMapSubscriber implements EventSubscriberInterface {
+final readonly class OpenculturasOpenStreetMapSubscriber implements EventSubscriberInterface {
 
   public function __construct(
-    private readonly RequestStack $request_stack,
-    private readonly EntityTypeManagerInterface $entity_type_manager,
-    private readonly AddressLookup $addressLookup,
+    private RequestStack $request_stack,
+    private EntityTypeManagerInterface $entity_type_manager,
+    private AddressLookup $addressLookup,
   ) {}
 
   /**

@@ -41,6 +41,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->mimeFormatter = $container->get('openculturas_media.readable_mime');
@@ -51,6 +52,7 @@ final class DownloadWithMetaFormatter extends DownloadLinkFieldFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
 
     $build = [];

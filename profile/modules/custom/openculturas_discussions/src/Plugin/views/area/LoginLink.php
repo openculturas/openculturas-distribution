@@ -40,6 +40,7 @@ final class LoginLink extends AreaPluginBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): LoginLink {
     $loginLink = parent::create($container, $configuration, $plugin_id, $plugin_definition,);
     $loginLink->accountProxy = $container->get('current_user');

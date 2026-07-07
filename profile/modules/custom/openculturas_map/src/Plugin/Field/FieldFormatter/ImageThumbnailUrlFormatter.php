@@ -27,6 +27,7 @@ class ImageThumbnailUrlFormatter extends EntityReferenceEntityFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
@@ -71,6 +72,7 @@ class ImageThumbnailUrlFormatter extends EntityReferenceEntityFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
     return $field_definition->getFieldStorageDefinition()->getSetting('target_type') === 'media'
       && parent::isApplicable($field_definition);

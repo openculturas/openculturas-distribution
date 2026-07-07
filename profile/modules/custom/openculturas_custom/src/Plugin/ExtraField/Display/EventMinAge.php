@@ -27,6 +27,7 @@ final class EventMinAge extends ExtraFieldBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function viewElements(ContentEntityInterface $entity): array {
     $build = parent::viewElements($entity);
     if ($build !== [] && $this->eventEntity instanceof NodeInterface && is_array($this->referenceViewFormatterSettings)) {

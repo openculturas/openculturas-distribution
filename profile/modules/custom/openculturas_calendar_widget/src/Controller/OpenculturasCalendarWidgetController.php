@@ -45,6 +45,7 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     $instance = parent::create($container);
     $instance->bareHtmlPageRenderer = $container->get('bare_html_page_renderer');

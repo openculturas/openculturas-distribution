@@ -32,6 +32,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
     parent::buildBehaviorForm($paragraph, $form, $form_state);
     $hasFieldTerm = $paragraph->hasField('field_term');
@@ -86,6 +87,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
     $fieldManager = \Drupal::service('entity_field.manager');
     $fieldDefinitions = $fieldManager->getFieldDefinitions('paragraph', (string) $paragraphs_type->id());

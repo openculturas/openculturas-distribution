@@ -18,6 +18,7 @@ final class SelectDataToCopy extends WizardFormTableBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildForm($form, $form_state);
     /** @var array|null $cached_values */
@@ -42,6 +43,7 @@ final class SelectDataToCopy extends WizardFormTableBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
   }
 

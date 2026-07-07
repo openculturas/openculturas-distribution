@@ -32,19 +32,12 @@ class OpenCulturasMapFilterForm extends FormBase {
    */
   public string $viewDisplayId = 'rest_export';
 
-
-  /**
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-   */
-  protected ContainerInterface $container;
-
   /**
    * @var \Drupal\views\ViewExecutable
    */
   protected ViewExecutable $viewExecutable;
 
-  public function __construct(ContainerInterface $container) {
-    $this->container = $container;
+  public function __construct(protected ContainerInterface $container) {
   }
 
   /**
@@ -110,7 +103,7 @@ class OpenCulturasMapFilterForm extends FormBase {
     $skipKeys = ["items_per_page", "offset"];
     foreach ($form as $key => $value) {
       if (
-        stristr($key, "proximity")
+        stristr((string) $key, "proximity")
         || in_array($key, $skipKeys)
       ) {
         unset($form[$key]);
@@ -123,9 +116,9 @@ class OpenCulturasMapFilterForm extends FormBase {
         && !empty($value['#value'])
         && $value['#type'] === 'date'
         && ($value['#default_value'] === $value['#value'])
-        && str_starts_with($value['#default_value'], '+')
+        && str_starts_with((string) $value['#default_value'], '+')
       ) {
-        $form[$key]['#default_value'] = (new DateTimePlus($value['#default_value']))->format('Y-m-d');
+        $form[$key]['#default_value'] = new DateTimePlus($value['#default_value'])->format('Y-m-d');
         $form[$key]['#value'] = $form[$key]['#default_value'];
       }
 

@@ -33,6 +33,7 @@ final class BookmarkFlagIconBlock extends BlockBase implements ContainerFactoryP
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): BookmarkFlagIconBlock {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->account = $container->get('current_user');

@@ -134,6 +134,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     return $this->viewElements($entity);
   }

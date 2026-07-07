@@ -42,6 +42,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);
@@ -70,6 +71,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('openculturas_openstreetmap.settings');
     $form['bounds'] = [
@@ -235,6 +237,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     $created_file = FALSE;
     if ($form_state->getValue('client_id') && $form_state->getValue('client_secret')) {
@@ -279,6 +282,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('openculturas_openstreetmap.settings');
 

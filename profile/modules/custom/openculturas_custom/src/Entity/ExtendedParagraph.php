@@ -20,6 +20,7 @@ class ExtendedParagraph extends Paragraph {
    * @return string|\Drupal\Component\Render\MarkupInterface
    *   Truncated plain text or markup from the field value.
    */
+  #[\Override]
   public function getTextSummary($field_name, FieldDefinitionInterface $field_definition) {
     if ($field_definition->getType() === 'heading') {
       $raw = $this->get($field_name)->text;

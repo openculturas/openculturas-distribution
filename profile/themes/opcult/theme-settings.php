@@ -222,12 +222,8 @@ function opcult_form_system_theme_settings_form_submit(array &$form, FormStateIn
     /** @var array<string, array<string, string>> $layoutBuilderValues */
     $layoutBuilderValues = $values['layout_builder'];
     foreach ($layoutBuilderValues as $entityTypeId => $bundles) {
-      $bundles_with_full_lb = array_filter($bundles, static function (string $option): bool {
-        return $option === 'full_lb';
-      });
-      $bundles_with_full_restore = array_filter($bundles, static function (string $option): bool {
-        return $option === 'full_restore';
-      });
+      $bundles_with_full_lb = array_filter($bundles, static fn(string $option): bool => $option === 'full_lb');
+      $bundles_with_full_restore = array_filter($bundles, static fn(string $option): bool => $option === 'full_restore');
       if ($bundles_with_full_lb !== []) {
         $id = $entityTypeId . '.full_display';
         if (!$entityViewModeStorage->load($id)) {

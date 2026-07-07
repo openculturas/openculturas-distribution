@@ -21,6 +21,7 @@ class EcaNotificationRecipientForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function form(array $form, FormStateInterface $form_state): array {
 
     $form = parent::form($form, $form_state);
@@ -83,6 +84,7 @@ class EcaNotificationRecipientForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function save(array $form, FormStateInterface $form_state) {
     $result = parent::save($form, $form_state);
     $message_args = ['%label' => $this->entity->label()];

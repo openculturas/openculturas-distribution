@@ -30,6 +30,7 @@ final class SlimSelect extends FilterWidgetBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->container = $container;
@@ -39,6 +40,7 @@ final class SlimSelect extends FilterWidgetBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function isApplicable($filter = NULL, array $filter_options = []): bool {
     return !empty($filter_options['type'])
       && $filter_options['type'] === 'select';
@@ -49,6 +51,7 @@ final class SlimSelect extends FilterWidgetBase {
    *
    * @throws \Exception
    */
+  #[\Override]
   public function exposedFormAlter(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
@@ -99,6 +102,7 @@ final class SlimSelect extends FilterWidgetBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function defaultConfiguration(): array {
     return parent::defaultConfiguration() + [
       'advanced' => [
@@ -113,6 +117,7 @@ final class SlimSelect extends FilterWidgetBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     /** @var \Drupal\views\Plugin\views\filter\FilterPluginBase $filter */
     $filter = $this->handler;
@@ -182,9 +187,7 @@ final class SlimSelect extends FilterWidgetBase {
     /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
     $entityRepository = $this->container->get('entity.repository');
 
-    return array_map(static function (TermInterface $term) use ($entityRepository) {
-      return $entityRepository->getTranslationFromContext($term);
-    }, $terms);
+    return array_map(static fn(TermInterface $term) => $entityRepository->getTranslationFromContext($term), $terms);
   }
 
   protected function getTermStorage(): TermStorageInterface {

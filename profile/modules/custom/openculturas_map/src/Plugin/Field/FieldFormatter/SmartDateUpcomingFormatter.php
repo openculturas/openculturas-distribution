@@ -26,6 +26,7 @@ final class SmartDateUpcomingFormatter extends SmartDateDefaultFormatter {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode, mixed $format = ''): array {
     // Get Elements from Default Formatter.
     $elements = parent::viewElements($items, $langcode, $format);

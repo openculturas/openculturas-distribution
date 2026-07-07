@@ -36,6 +36,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
@@ -45,6 +46,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function defaultConfiguration(): array {
     return [
       'enabled' => FALSE,
@@ -55,6 +57,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form['enabled'] = [
       '#title' => $this->t('Enable condition'),
@@ -72,6 +75,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     $this->configuration['enabled'] = (bool) $form_state->getValue('enabled');
     $this->configuration['only_for_owner'] = (bool) $form_state->getValue('only_for_owner');
@@ -123,6 +127,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getCacheContexts(): array {
     $contexts = parent::getCacheContexts();
     if (empty($this->configuration['enabled'])) {

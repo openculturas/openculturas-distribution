@@ -65,6 +65,7 @@ class AddToCal extends AddToCalOrigin {
    *   The prepared ical/outlook/google link data, or NULL if no links
    *   should be rendered.
    */
+  #[\Override]
   public function buildLinks(array $output, DrupalDateTime $start, ?DrupalDateTime $end = NULL, array $options = []): ?array {
     $google_link = [];
     // Use provided settings if they exist, otherwise look for plugin config.
@@ -251,7 +252,7 @@ class AddToCal extends AddToCalOrigin {
 
     if ($strip_markup) {
       // Strip tags. Requires decoding entities, which will be re-encoded later.
-      $field_value = strip_tags(html_entity_decode($field_value), $allowed_tags);
+      $field_value = strip_tags(html_entity_decode((string) $field_value), $allowed_tags);
 
       // Strip out line breaks.
       $field_value = $keep_line_breaks
@@ -269,7 +270,7 @@ class AddToCal extends AddToCalOrigin {
       $field_value = str_replace(',', '\\,', $field_value);
     }
 
-    return trim($field_value);
+    return trim((string) $field_value);
   }
 
 }

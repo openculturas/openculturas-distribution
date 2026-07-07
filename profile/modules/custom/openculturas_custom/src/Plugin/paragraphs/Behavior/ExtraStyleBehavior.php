@@ -23,7 +23,7 @@ use function t;
 )]
 final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
 
-  public const NONE = 'none';
+  public const string NONE = 'none';
 
   /**
    * List of allowed classes from module settings.
@@ -33,6 +33,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->allowedClasses = [self::NONE => t('None')];
@@ -70,6 +71,7 @@ final class ExtraStyleBehavior extends ParagraphsBehaviorBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
     $settings = $paragraph->getAllBehaviorSettings()[$this->getPluginId()] ?? [];
     $form = [

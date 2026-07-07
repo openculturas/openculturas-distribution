@@ -37,6 +37,7 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($plugin_id, $plugin_definition, $configuration['group'], $configuration['settings'], $configuration['label']);
     $instance->moduleHandler = $container->get('module_handler');
@@ -47,6 +48,7 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function settingsForm(): array {
     $form = parent::settingsForm();
     if ($this->moduleHandler->moduleExists('token')) {
@@ -68,6 +70,7 @@ final class SubDetails extends Details implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function process(&$element, $processed_object): void {
     parent::process($element, $processed_object);
     $title = NULL;

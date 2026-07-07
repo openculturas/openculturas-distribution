@@ -15,6 +15,7 @@ class EcaNotificationRecipientListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildHeader() {
     $header = [];
     $header['label'] = $this->t('Label');
@@ -26,6 +27,7 @@ class EcaNotificationRecipientListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildRow(EntityInterface $entity) {
     $row = [];
     /** @var \Drupal\openculturas_custom\EcaNotificationRecipientInterface $entity */

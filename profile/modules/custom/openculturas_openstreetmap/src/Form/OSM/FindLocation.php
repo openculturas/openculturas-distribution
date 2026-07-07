@@ -50,12 +50,12 @@ final class FindLocation extends FormBase {
    */
   protected PhotonSearch $search;
 
-  public const BUTTON_NAME = 'osm-find-button';
+  public const string BUTTON_NAME = 'osm-find-button';
 
   /**
    * @link https://wiki.openstreetmap.org/wiki/Elements
    */
-  public const SUPPORTED_TYPES = ['N', 'W', 'R'];
+  public const array SUPPORTED_TYPES = ['N', 'W', 'R'];
 
   /**
    * @var \Psr\Log\LoggerInterface
@@ -65,6 +65,7 @@ final class FindLocation extends FormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);
@@ -197,6 +198,7 @@ final class FindLocation extends FormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     $keys = [
       'location_name',

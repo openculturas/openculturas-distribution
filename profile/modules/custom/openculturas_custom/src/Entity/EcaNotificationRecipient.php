@@ -95,6 +95,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function preSave(EntityStorageInterface $storage): void {
     $this->eca_model = array_filter($this->eca_model);
     parent::preSave($storage);
@@ -103,6 +104,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function calculateDependencies(): self {
     parent::calculateDependencies();
     foreach ($this->eca_model as $model_name => $status) {
@@ -123,6 +125,7 @@ class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificati
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function onDependencyRemoval(array $dependencies): bool {
     $changed = parent::onDependencyRemoval($dependencies);
     foreach (array_keys($this->eca_model) as $model_name) {

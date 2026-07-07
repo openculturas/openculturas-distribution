@@ -32,6 +32,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $classMap = $this->config('openculturas_custom.settings')
       ->get('allowed_classes');
@@ -66,6 +67,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     $allowed_classes_value = $form_state->getValue('allowed_classes');
     if (is_string($allowed_classes_value)) {
@@ -83,6 +85,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $allowed_classes_value = $form_state->getValue('allowed_classes');
     $classMap = [];

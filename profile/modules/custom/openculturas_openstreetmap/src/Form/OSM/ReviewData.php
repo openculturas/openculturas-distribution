@@ -18,6 +18,7 @@ final class ReviewData extends WizardFormTableBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     /** @var array|null $cached_values */
     $cached_values = $form_state->getTemporaryValue('wizard');
@@ -86,6 +87,7 @@ final class ReviewData extends WizardFormTableBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
   }
 

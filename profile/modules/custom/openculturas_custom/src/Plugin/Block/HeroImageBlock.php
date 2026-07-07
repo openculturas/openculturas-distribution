@@ -37,6 +37,7 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): HeroImageBlock {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->renderer = $container->get('renderer');
@@ -84,6 +85,7 @@ final class HeroImageBlock extends BlockBase implements ContainerFactoryPluginIn
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), [
       'route',

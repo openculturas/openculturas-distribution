@@ -23,6 +23,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);
@@ -47,6 +48,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['#tree'] = TRUE;
     $form['limit_access'] = [
@@ -260,6 +262,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     /** @var array<string,mixed>|null $triggeringElement */
     $triggeringElement = $form_state->getTriggeringElement();
@@ -304,6 +307,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('openculturas_calendar_widget.settings');
     /** @var array|null $triggeringElement */

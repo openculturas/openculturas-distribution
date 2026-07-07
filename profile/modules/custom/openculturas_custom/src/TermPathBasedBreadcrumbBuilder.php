@@ -27,6 +27,7 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function applies(RouteMatchInterface $route_match, ?CacheableMetadata $cacheable_metadata = NULL): bool {
     return $this->breadcrumbBuilder->applies($route_match, $cacheable_metadata);
   }
@@ -34,6 +35,7 @@ class TermPathBasedBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function build(RouteMatchInterface $route_match): Breadcrumb {
     $breadcrumb_by_path = parent::build($route_match);
     $breadcrumb_by_term = $this->breadcrumbBuilder->build($route_match);

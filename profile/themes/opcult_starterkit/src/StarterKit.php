@@ -14,7 +14,7 @@ final class StarterKit implements StarterKitInterface {
     $hyphenated_new = str_replace('_', '-', $machine_name);
     $hyphenated_old = 'opcult-starterkit';
 
-    $finder = (new Finder())
+    $finder = new Finder()
       ->in($working_dir)
       ->files()
       ->name(sprintf('*%s*', $hyphenated_old));

@@ -45,6 +45,7 @@ abstract class WizardFormTableBase extends FormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);

@@ -46,6 +46,7 @@ final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getLabelDisplay(): string {
     return 'above';
   }
@@ -53,6 +54,7 @@ final class SocialMediaButtons extends ExtraFieldDisplayFormattedBase implements
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getLabel(): string {
     return (string) $this->t('Share');
   }

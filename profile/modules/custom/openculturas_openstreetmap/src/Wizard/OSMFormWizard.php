@@ -41,10 +41,12 @@ final class OSMFormWizard extends FormWizardBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getMachineName(): string {
     return $this->machine_name . $this->getRequest()->query->get('node_id');
   }
 
+  #[\Override]
   protected function customizeForm(array $form, FormStateInterface $form_state): array {
     $form['trail'] = [
       '#theme' => ['ctools_wizard_trail'],
@@ -59,6 +61,7 @@ final class OSMFormWizard extends FormWizardBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildForm($form, $form_state);
     if ($form_state->get('ajax')) {
@@ -105,6 +108,7 @@ final class OSMFormWizard extends FormWizardBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function ajaxSubmit(array $form, FormStateInterface $form_state): AjaxResponse {
     $triggered_element = $form_state->getTriggeringElement();
     $button_name = $triggered_element['#name'] ?? NULL;
@@ -127,6 +131,7 @@ final class OSMFormWizard extends FormWizardBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function ajaxFinish(array $form, FormStateInterface $form_state): AjaxResponse {
     /** @var array|null $cached_values */
     $cached_values = $form_state->getTemporaryValue('wizard');
@@ -193,10 +198,10 @@ final class OSMFormWizard extends FormWizardBase {
           $new_tags = array_merge($new_tags, $new_tags_deleted);
           $groups_to_strip = ['contact'];
           foreach (array_keys($existing_tags) as $osm_tag) {
-            if (strpos($osm_tag, ':')) {
-              $group = explode(':', $osm_tag)[0];
+            if (strpos((string) $osm_tag, ':')) {
+              $group = explode(':', (string) $osm_tag)[0];
               if (in_array($group, $groups_to_strip, TRUE)) {
-                $osm_tag_without_group = explode(':', $osm_tag)[1];
+                $osm_tag_without_group = explode(':', (string) $osm_tag)[1];
                 if (isset($new_tags[$osm_tag_without_group])) {
                   $new_tags[$osm_tag] = $new_tags[$osm_tag_without_group];
                   unset($new_tags[$osm_tag_without_group]);
@@ -212,7 +217,7 @@ final class OSMFormWizard extends FormWizardBase {
             $comment .= PHP_EOL . $token->replace($config->get('changeset_footer'), ['node' => $node]);
           }
 
-          $comment = trim($comment) !== '' ? $comment : NULL;
+          $comment = trim((string) $comment) !== '' ? $comment : NULL;
           $changeSetID = $apiClient->createChangeSet(comment: $comment);
           if ($changeSetID) {
             $merged_tags = array_filter(array_merge($existing_tags, $new_tags));

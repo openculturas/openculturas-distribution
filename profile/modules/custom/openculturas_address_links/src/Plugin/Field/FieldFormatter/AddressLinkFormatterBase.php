@@ -33,6 +33,7 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->addressService = $container->get('openculturas_address_links.address_service');
@@ -42,6 +43,7 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function defaultSettings(): array {
     return [
       'title' => '',
@@ -51,6 +53,7 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $elements = parent::settingsForm($form, $form_state);
     $elements['title'] = [
@@ -65,6 +68,7 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function settingsSummary(): array {
     $summary = parent::settingsSummary();
     if ($title = $this->getSetting('title')) {
@@ -105,6 +109,7 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
     /** @var \Drupal\openculturas_address_links\AddressService $addressService */
     $addressService = \Drupal::service('openculturas_address_links.address_service');

@@ -60,6 +60,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     /** @var static $instance */
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
@@ -228,7 +229,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
       $extra_tags,
     ] = $addressLookup->lookup($osm_id_value, TRUE);
 
-    $osm_rebuild_list_array = explode(',', $osm_rebuild_list);
+    $osm_rebuild_list_array = explode(',', (string) $osm_rebuild_list);
 
     if (in_array('field_address_data', $osm_rebuild_list_array, TRUE)) {
       $field_parents = $form['field_address_data']['widget'][0]['subform']['#parents'] ?? NULL;

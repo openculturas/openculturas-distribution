@@ -23,7 +23,7 @@ final class OsmIdItem extends FieldItemBase {
   /**
    * The maximum length for the osm-id value.
    */
-  public const MAX_LENGTH = 256;
+  public const int MAX_LENGTH = 256;
 
   /**
    * {@inheritdoc}
@@ -55,6 +55,7 @@ final class OsmIdItem extends FieldItemBase {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
+  #[\Override]
   public function isEmpty(): bool {
     $value = $this->get('value')->getValue();
     return $value === NULL || $value === '';
@@ -63,6 +64,7 @@ final class OsmIdItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function getConstraints(): array {
     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
     $constraints = parent::getConstraints();

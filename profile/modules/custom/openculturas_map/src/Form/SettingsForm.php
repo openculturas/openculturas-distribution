@@ -42,6 +42,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);
@@ -68,6 +69,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('openculturas_map.settings');
 
@@ -265,6 +267,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     parent::validateForm($form, $form_state);
     if ($form_state->getValue('marker_icon_default')) {
@@ -321,6 +324,7 @@ final class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('openculturas_map.settings');
     $values = $form_state->getValues();
@@ -334,7 +338,7 @@ final class SettingsForm extends ConfigFormBase {
       // Ignore.
     }
 
-    $values['marker_icon_path'] = ltrim(trim($values['marker_icon_path']), '/');
+    $values['marker_icon_path'] = ltrim(trim((string) $values['marker_icon_path']), '/');
     if ($values['marker_icon_path'] !== '') {
       $file_uri = $values['marker_icon_path'];
     }

@@ -40,6 +40,7 @@ final class AddButton extends AreaPluginBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): AddButton {
     $addButton = parent::create($container, $configuration, $plugin_id, $plugin_definition,);
     $addButton->accountProxy = $container->get('current_user');

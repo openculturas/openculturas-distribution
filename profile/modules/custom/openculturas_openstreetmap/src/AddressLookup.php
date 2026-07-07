@@ -29,18 +29,18 @@ use function json_decode;
 use function reset;
 use function strtoupper;
 
-final class AddressLookup implements ContainerInjectionInterface {
+final readonly class AddressLookup implements ContainerInjectionInterface {
   use AutowireTrait;
 
   public function __construct(
-    private readonly ClientInterface $httpClient,
-    private readonly LanguageManagerInterface $languageManager,
+    private ClientInterface $httpClient,
+    private LanguageManagerInterface $languageManager,
     #[Autowire(service: 'geocoder.throttle')]
-    private readonly GeocoderThrottleInterface $geocoderThrottle,
+    private GeocoderThrottleInterface $geocoderThrottle,
     #[Autowire(service: 'cache.default')]
-    private readonly CacheBackendInterface $cache,
-    private readonly TimeInterface $time,
-    private readonly ConfigFactoryInterface $configFactory,
+    private CacheBackendInterface $cache,
+    private TimeInterface $time,
+    private ConfigFactoryInterface $configFactory,
   ) {}
 
   /**

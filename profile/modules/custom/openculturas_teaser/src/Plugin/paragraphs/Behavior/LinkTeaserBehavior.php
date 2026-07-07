@@ -70,6 +70,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public function buildBehaviorForm(ParagraphInterface $paragraph, array &$form, FormStateInterface $form_state): array {
     parent::buildBehaviorForm($paragraph, $form, $form_state);
     // Pay attention to the hash(#) !
@@ -82,6 +83,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
   /**
    * {@inheritdoc}
    */
+  #[\Override]
   public static function isApplicable(ParagraphsTypeInterface $paragraphs_type): bool {
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $fieldManager */
     $fieldManager = \Drupal::service('entity_field.manager');
