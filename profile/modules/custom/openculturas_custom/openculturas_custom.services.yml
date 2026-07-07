@@ -16,3 +16,9 @@ services:
     arguments: ['@config.manager', '@module_handler']
     tags:
       - { name: event_subscriber }
+
+  openculturas_custom.default_content_import_subscriber:
+    class: Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomDefaultContentImportSubscriber
+    arguments: ['@pathauto.generator']
+    tags:
+      - { name: event_subscriber }

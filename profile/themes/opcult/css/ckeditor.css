@@ -12,6 +12,11 @@
 }
 
 .ck-content {
+  --oc-gutter: 1.25rem;
+  --oc-row-gap: 1.25rem;
+}
+
+.ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-size-xxl: 3rem;
@@ -38,6 +43,7 @@
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --text-max-line: 80ch;
 }
 
 .ck-content {
@@ -153,6 +159,7 @@
     --oc-chevron: url('../images/chevron-down-inv.svg');
   }
 }
+
 .ck-content {
   --oc-button-border-radius: .25rem;
   --oc-button-border-width: .125rem;
@@ -179,7 +186,6 @@ a.cta {
   border-radius: 50vi;
   text-decoration: none;
 }
-
 a.cta:focus, a.cta:hover {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
@@ -213,6 +219,7 @@ a.cta:focus, a.cta:hover {
     transform: rotate(360deg);
   }
 }
+
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
   --oc-font-size-icon: 1em;
@@ -224,7 +231,6 @@ a.cta:focus, a.cta:hover {
   --oc-icon-button-radius: 50%;
   --oc-chevron: url('../images/chevron-down.svg');
 }
-
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
@@ -252,14 +258,13 @@ a.cta:focus, a.cta:hover {
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --text-max-line: 80ch;
 }
-
 .ck-content .tiny,
 .ck-content small,
 .ck-content .small {
   font-size: var(--oc-font-size-s);
 }
-
 .ck-content h1,
 .ck-content .h1 {
   color: var(--oc-color-text-headline);
@@ -273,7 +278,6 @@ a.cta:focus, a.cta:hover {
   padding-inline: 0;
   hyphens: none;
 }
-
 .ck-content h2,
 .ck-content .h2 {
   color: var(--oc-color-text-headline);
@@ -287,7 +291,6 @@ a.cta:focus, a.cta:hover {
   padding-inline: 0;
   hyphens: auto;
 }
-
 .ck-content h3,
 .ck-content .h3 {
   color: var(--oc-color-text-headline);
@@ -301,7 +304,6 @@ a.cta:focus, a.cta:hover {
   padding-inline: 0;
   hyphens: auto;
 }
-
 .ck-content h4,
 .ck-content .h4 {
   color: var(--oc-color-text-headline);
@@ -312,7 +314,6 @@ a.cta:focus, a.cta:hover {
   padding-block: 0.25em;
   padding-inline: 0;
 }
-
 .ck-content h5,
 .ck-content .h5 {
   color: var(--oc-color-text);
@@ -323,7 +324,6 @@ a.cta:focus, a.cta:hover {
   padding-block: 0.25em;
   padding-inline: 0;
 }
-
 .ck-content h6,
 .ck-content .h6 {
   font-size: var(--oc-font-size-default);
@@ -333,14 +333,12 @@ a.cta:focus, a.cta:hover {
   padding-block: 0.125em;
   padding-inline: 0;
 }
-
 .ck-content a,
 .ck-content button.link {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
   color: var(--oc-color-link);
 }
-
 .ck-content a:hover,
 .ck-content button.link:hover, .ck-content a:focus,
 .ck-content button.link:focus {
@@ -348,13 +346,11 @@ a.cta:focus, a.cta:hover {
   background: var(--oc-color-link-focus-bg);
   text-decoration: none;
 }
-
 .ck-content a:active,
 .ck-content button.link:active {
   outline: var(--oc-outline-active);
   outline-offset: var(--oc-outline-active-offset);
 }
-
 .ck-content .menu a {
   display: block;
   color: var(--oc-color-menu-link);
@@ -365,25 +361,21 @@ a.cta:focus, a.cta:hover {
   border-color: var(--oc-color-menu-link-border);
   padding: 0.5rem 1rem;
 }
-
 .ck-content .menu a:hover, .ck-content .menu a:focus {
   background: var(--oc-color-menu-link-focus-bg);
   color: var(--oc-color-menu-link-focus-text);
 }
-
 .ck-content del,
 .ck-content s.del {
   -webkit-text-decoration: currentColor line-through solid 0.0625em;
           text-decoration: currentColor line-through solid 0.0625em;
   background-color: var(--oc-color-bg-danger);
 }
-
 .ck-content ins {
   -webkit-text-decoration: currentColor underline solid 0.0625em;
           text-decoration: currentColor underline solid 0.0625em;
   background-color: var(--oc-color-bg-success);
 }
-
 .ck-content body {
   font-family: var(--oc-font-family-default);
   line-height: var(--oc-line-height-default);
@@ -392,116 +384,96 @@ a.cta:focus, a.cta:hover {
   -moz-osx-font-smoothing: grayscale;
   overflow-wrap: anywhere;
 }
-
 .ck-content div {
   position: relative;
 }
-
 .ck-content p {
   margin-block-end: 1em;
 }
-
 .ck-content b,
 .ck-content strong,
 .ck-content .bold {
   font-weight: var(--oc-font-weight-bold);
 }
-
 .ck-content em,
 .ck-content .italic {
   font-style: italic;
 }
-
 .ck-content a:focus-visible img, .ck-content a:hover img {
   outline: 0.125rem solid var(--oc-color-link-focus-bg);
   outline-offset: 0.125rem;
 }
-
 .ck-content ul,
 .ck-content ol {
   margin-block: 0;
 }
-
 .ck-content .content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) {
   margin-block: var(--oc-row-gap);
   list-style: "— ";
 }
-
 .ck-content .content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) ul {
   margin-block-end: 1em;
   list-style-type: square;
 }
-
 .ck-content .content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) ul ul {
   list-style-type: circle;
 }
-
 .ck-content .content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs).inline {
   margin-block-start: 0;
 }
-
 .ck-content .content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs).inline li {
   display: inline-block;
 }
-
 .ck-content .content ol {
   margin-block: var(--oc-row-gap);
 }
-
 .ck-content .content ol ol {
   margin-block-end: 1em;
 }
-
 .ck-content li {
   margin-block-end: 0.25em;
 }
-
 .ck-content li:last-child {
   margin-block-end: 0;
 }
-
 .ck-content dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+  margin-inline: 0;
   margin-block-end: 1em;
-  margin-inline-start: var(--oc-gutter);
-  margin-inline-end: var(--oc-gutter);
+  padding-inline: 0;
 }
-
-.ck-content dl:last-child {
-  margin-block-end: 0;
+.ck-content dl p {
+  margin-block: 0;
 }
-
 .ck-content dt {
-  margin-block-end: 0.5em;
-  margin-inline-start: var(--oc-gutter);
+  grid-column-start: 1;
+  margin-block-end: 0.25em;
+  margin-inline: 0 var(--oc-gutter);
 }
-
 .ck-content dt:last-of-type {
   margin-block-end: 0;
 }
-
 .ck-content dd {
-  margin-block-end: 1em;
+  grid-column-start: 2;
+  margin-inline: 0;
+  margin-block-end: 0.25em;
 }
-
 .ck-content hr {
   border-color: var(--oc-color-divider-dark);
 }
-
 .ck-content sub {
   position: relative;
   font-size: 0.666em;
 }
-
 .ck-content sup {
   position: relative;
   font-size: 0.666em;
 }
-
 .ck-content abbr {
   text-decoration: none;
   border-block-end: 0.125rem dotted var(--oc-color-text-muted);
 }
-
 .ck-content kbd {
   padding: 0 0.5em;
   border: thin solid var(--oc-color-text);
@@ -510,15 +482,12 @@ a.cta:focus, a.cta:hover {
   font-family: inherit;
   font-size: 0.9em;
 }
-
 .ck-content q::before {
   content: "„";
 }
-
 .ck-content q::after {
   content: "“";
 }
-
 .ck-content code,
 .ck-content kbd,
 .ck-content pre,
@@ -527,7 +496,6 @@ a.cta:focus, a.cta:hover {
   font-family: monospace;
   font-size: 1em;
 }
-
 .ck-content pre {
   display: block;
   overflow: scroll;
@@ -535,34 +503,28 @@ a.cta:focus, a.cta:hover {
   padding: 0.5rem 0.5rem 0.75rem;
   white-space: pre;
 }
-
 .ck-content code,
 .ck-content pre,
 .ck-content kbd {
   background-color: var(--oc-color-bg-slight-contrast);
 }
-
 .ck-content mark,
 .ck-content .mark {
   background-color: var(--oc-color-warning);
 }
-
 .ck-content audio,
 .ck-content video {
   inline-size: 100%;
   max-inline-size: 100%;
 }
-
 .ck-content img[alt] {
   color: var(--oc-color-text-muted);
   font-style: italic;
   font-size: var(--oc-font-size-s);
 }
-
 .ck-content img {
   background: var(--oc-image-background);
 }
-
 .ck-content img,
 .ck-content figure {
   position: relative;
@@ -570,20 +532,18 @@ a.cta:focus, a.cta:hover {
   block-size: auto;
   vertical-align: bottom;
 }
-
 .ck-content figure {
   margin: 0;
   text-align: start;
   inline-size: fit-content;
 }
-
 .ck-content figcaption {
   font-size: var(--oc-font-size-default);
   font-weight: var(--oc-font-weight-normal);
   text-align: start;
 }
-
 .ck-content blockquote {
+  max-inline-size: var(--text-max-line);
   margin: calc(2 * var(--oc-row-gap)) 0;
   padding: 1em var(--oc-gutter) 0.5em;
   background-color: var(--oc-color-bg-hardly-any-contrast);
@@ -593,24 +553,19 @@ a.cta:focus, a.cta:hover {
   border: 0.5em solid var(--oc-color-primary);
   border-width: 0 0 0 0.5em;
 }
-
 .ck-content blockquote p {
   margin-block: 0;
   padding-block-end: 0.5em;
 }
-
 .ck-content blockquote p:last-child {
   padding-block-end: 0;
 }
-
 .ck-content blockquote strong {
   font-weight: var(--oc-font-weight-extra-bold);
 }
-
 .ck-content blockquote > *:first-child {
   margin-block-start: 0;
 }
-
 @media screen and (min-width: 48em) {
   .ck-content blockquote {
     margin: calc(3 * var(--oc-row-gap)) 0;
@@ -619,11 +574,9 @@ a.cta:focus, a.cta:hover {
 .ck-content :root {
   --oc-scroll-offset-y: 2rem;
 }
-
 .ck-content [id]:target {
   scroll-margin-block-start: var(--oc-scroll-offset-y);
 }
-
 .ck-content .ck-content {
   --oc-button-border-radius: .25rem;
   --oc-button-border-width: .125rem;
@@ -643,7 +596,6 @@ a.cta:focus, a.cta:hover {
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
 }
-
 .ck-content button,
 .ck-content .button,
 .ck-content input[type=button],
@@ -668,7 +620,6 @@ a.cta:focus, a.cta:hover {
   cursor: pointer;
   box-shadow: var(--oc-button-box-shadow);
 }
-
 .ck-content button:not([disabled]):focus-visible,
 .ck-content .button:not([disabled]):focus-visible,
 .ck-content input[type=button]:not([disabled]):focus-visible,
@@ -681,7 +632,6 @@ a.cta:focus, a.cta:hover {
   border-color: var(--oc-button-focus-border-color);
   border-radius: var(--oc-button-border-radius);
 }
-
 .ck-content .form-submit:not([data-drupal-selector=edit-reset]),
 .ck-content .button--cta,
 .ck-content .oc-button--primary {
@@ -689,7 +639,6 @@ a.cta:focus, a.cta:hover {
   border-color: var(--oc-button-primary-border-color);
   background-color: var(--oc-button-primary-bg-color);
 }
-
 .ck-content .button.danger,
 .ck-content .button--danger,
 .ck-content a.button.danger,
@@ -700,7 +649,6 @@ a.cta:focus, a.cta:hover {
   border-color: var(--oc-button-danger-border-color);
   background-color: var(--oc-button-danger-bg-color);
 }
-
 .ck-content .button.danger:focus,
 .ck-content .button--danger:focus,
 .ck-content .form-submit.danger:focus,
@@ -713,7 +661,6 @@ a.cta:focus, a.cta:hover {
   border-color: var(--oc-button-danger-border-color);
   background-color: var(--oc-button-danger-border-color);
 }
-
 .ck-content .button-small, .ck-content .view-header .button,
 .ck-content .button--add {
   --oc-button-padding: var(--oc-button-padding-s);
@@ -722,32 +669,27 @@ a.cta:focus, a.cta:hover {
   font-weight: var(--oc-font-weight-medium);
   border-width: 0.09375rem;
 }
-
 .ck-content a.cta {
   padding: var(--oc-button-padding-s);
   border: 0.125rem solid var(--oc-color-link);
   border-radius: 50vi;
   text-decoration: none;
 }
-
 .ck-content a.cta:focus, .ck-content a.cta:hover {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
 }
-
 .ck-content .inverted button,
 .ck-content .inverted .button,
 .ck-content .inverted input[type=button],
 .ck-content .inverted input[type=submit] {
   border-color: var(--oc-color-text-inverted);
 }
-
 .ck-content .view-header .button,
 .ck-content .button--add {
   margin-inline-end: 0;
   margin-block: 1rem;
 }
-
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
   --oc-font-size-icon: 1em;
@@ -759,7 +701,6 @@ a.cta:focus, a.cta:hover {
   --oc-icon-button-radius: 50%;
   --oc-chevron: url('../images/chevron-down.svg');
 }
-
 .ck-content summary .summary::before, .ck-content summary:not(:has(span.summary))::after {
   content: "";
   display: inline-block;
@@ -770,17 +711,14 @@ a.cta:focus, a.cta:hover {
   vertical-align: baseline;
   transform: translateY(0.125em);
 }
-
 .ck-content summary .summary::before {
   font-size: var(--oc-font-size-icon);
   margin-inline-end: 0.333em;
   inset-inline-start: -0.333em;
 }
-
 .ck-content summary:not(:has(span.summary))::after {
   font-size: var(--oc-font-size-icon);
 }
-
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
@@ -808,8 +746,8 @@ a.cta:focus, a.cta:hover {
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --text-max-line: 80ch;
 }
-
 .ck-content .details-title, .ck-content summary .summary, .ck-content summary:not(:has(span.summary)):has(.details-title, summary .summary)::after {
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
@@ -822,7 +760,6 @@ a.cta:focus, a.cta:hover {
   padding-inline: 0;
   hyphens: auto;
 }
-
 .ck-content details details .details-title, .ck-content details details summary .summary, .ck-content summary details details .summary {
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
@@ -835,7 +772,6 @@ a.cta:focus, a.cta:hover {
   padding-inline: 0;
   hyphens: auto;
 }
-
 .ck-content details {
   inline-size: 100%;
   margin-block: calc(0.5 * var(--oc-gutter));
@@ -845,7 +781,6 @@ a.cta:focus, a.cta:hover {
   border-block-end: var(--oc-divider-dark);
   border-inline: none;
 }
-
 .ck-content .details-title, .ck-content summary .summary {
   display: inline-block;
   inline-size: 100%;
@@ -853,7 +788,6 @@ a.cta:focus, a.cta:hover {
   padding-block: 0.5em 0.75em;
   color: inherit;
 }
-
 .ck-content summary {
   position: relative;
   display: flex;
@@ -864,38 +798,30 @@ a.cta:focus, a.cta:hover {
   cursor: pointer;
   list-style: none;
 }
-
 .ck-content summary::-webkit-details-marker {
   display: none;
 }
-
 .ck-content summary .summary::before {
   --icon-url: url("../sprite/oc-sprite.svg#caret-down-light");
 }
-
 .ck-content summary .summary {
   flex-basis: 1em;
   transform: rotate(0deg);
   transform-origin: center center;
   transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
 }
-
 .ck-content summary .summary::before {
   margin-inline: 0;
 }
-
 .ck-content summary:hover, .ck-content summary:focus-visible {
   color: var(--oc-color-link);
 }
-
 .ck-content details[open] > summary .summary {
   transform: rotate(-180deg);
 }
-
 .ck-content summary:not(:has(span.summary))::after {
   --icon-url: url("../sprite/oc-sprite.svg#caret-down-light");
 }
-
 .ck-content summary:not(:has(span.summary))::after {
   margin-block-start: 0.333em;
   flex-basis: 1em;
@@ -903,82 +829,65 @@ a.cta:focus, a.cta:hover {
   transform-origin: center center;
   transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
 }
-
 .ck-content summary:not(:has(span.summary)):has(.details-title, summary .summary)::after {
   margin: 0;
   padding-block: 1.5em 0.75em;
 }
-
 .ck-content details[open] > summary::after {
   transform: rotate(-180deg);
 }
-
 .ck-content .text-formatted details {
   border-block-end: var(--oc-divider-light);
 }
-
 .ck-content .text-formatted details summary {
   font-weight: var(--oc-font-weight-semi-bold);
 }
-
 .ck-content .details-wrapper {
   margin: 0;
   padding: var(--oc-row-gap) 0 calc(2 * var(--oc-row-gap));
 }
-
 .ck-content details details {
   inline-size: calc(100% - 2.5 * var(--oc-gutter));
   margin: 0 calc(2 * var(--oc-gutter)) 0 0;
   border-block-end-width: 0;
 }
-
 .ck-content details details:last-of-type {
   border-block-end-width: 0;
 }
-
 .ck-content details details .details-title, .ck-content details details summary .summary, .ck-content summary details details .summary {
   margin-block: 0;
 }
-
 .ck-content details details .details-wrapper {
   padding-block-start: 0;
   padding-block-end: var(--oc-row-gap);
 }
-
 .ck-content details .node details {
   margin-block-end: 0;
   padding-block-end: 0;
 }
-
 .ck-content .legal-login details .details-wrapper {
   padding-block-end: 0;
 }
-
 .ck-content .block-facets {
   vertical-align: text-top;
   padding: 0;
 }
-
 .ck-content .block-facets summary {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 0;
 }
-
 .ck-content .block-facets details {
   inline-size: 100%;
   border-width: 0;
   padding-block: 0;
 }
-
 .ck-content .block-facets ul {
   margin-block-start: var(--oc-row-gap);
 }
-
 .ck-content details.error-with-backtrace summary {
   display: block;
 }
-
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
@@ -1006,13 +915,12 @@ a.cta:focus, a.cta:hover {
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --text-max-line: 80ch;
 }
-
 .ck-content caption {
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-
 .ck-content .ck-content {
   --oc-button-border-radius: .25rem;
   --oc-button-border-width: .125rem;
@@ -1032,7 +940,6 @@ a.cta:focus, a.cta:hover {
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
 }
-
 .ck-content th a[href*=sort] {
   display: inline-block;
   margin: 0 1em 1em 0;
@@ -1050,7 +957,6 @@ a.cta:focus, a.cta:hover {
   text-transform: var(--oc-tag-text-transform);
   letter-spacing: var(--oc-tag-letter-spacing);
 }
-
 .ck-content th a[href*=sort] {
   background-color: var(--oc-tag-link-bg-color);
   border-color: var(--oc-tag-link-border-color);
@@ -1058,7 +964,6 @@ a.cta:focus, a.cta:hover {
   text-decoration: none;
   box-shadow: var(--oc-tag-box-shadow);
 }
-
 .ck-content th a[href*=sort]:focus, .ck-content th a[href*=sort]:hover {
   background-color: var(--oc-tag-link-focus-bg-color);
   border-color: var(--oc-tag-link-focus-border-color);
@@ -1067,33 +972,27 @@ a.cta:focus, a.cta:hover {
           text-decoration: var(--oc-underline);
   border-radius: var(--oc-tag-border-radius);
 }
-
 .ck-content th a[href*=sort]:active {
   background-color: var(--oc-tag-link-active-bg-color);
   border-color: var(--oc-tag-link-active-border-color);
   color: var(--oc-tag-link-active-text-color);
 }
-
 .ck-content a.cta {
   padding: var(--oc-button-padding-s);
   border: 0.125rem solid var(--oc-color-link);
   border-radius: 50vi;
   text-decoration: none;
 }
-
 .ck-content a.cta:focus, .ck-content a.cta:hover {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
 }
-
 .ck-content div:has(> table) {
   overflow-x: auto;
 }
-
 .ck-content caption {
   text-align: start;
 }
-
 .ck-content td,
 .ck-content th {
   padding-block: 0.5em;
@@ -1101,40 +1000,32 @@ a.cta:focus, a.cta:hover {
   vertical-align: top;
   border-block-end: var(--oc-divider-light);
 }
-
 .ck-content td:first-child,
 .ck-content th:first-child {
   padding-inline-start: 0;
 }
-
 .ck-content td:last-child,
 .ck-content th:last-child {
   padding-inline-end: 0;
 }
-
 .ck-content td:last-child,
 .ck-content th:last-child {
   padding-inline-end: 0;
 }
-
 .ck-content th {
   text-align: start;
   font-weight: var(--oc-font-weight-semi-bold);
 }
-
 .ck-content thead th {
   border-block-end: var(--oc-divider-dark);
 }
-
 .ck-content tbody th {
   border-inline-end: var(--oc-divider-dark);
 }
-
 .ck-content tfoot td {
   border-block-start: var(--oc-divider-dark);
   font-weight: var(--oc-font-weight-medium);
 }
-
 .ck-content table {
   display: table;
   inline-size: 100%;
@@ -1142,24 +1033,19 @@ a.cta:focus, a.cta:hover {
   margin: var(--oc-row-gap) auto;
   border-collapse: collapse;
 }
-
 .ck-content table p {
   margin: 0;
 }
-
 .ck-content table code,
 .ck-content table pre {
   max-inline-size: 40ch;
 }
-
 .ck-content table .field-multiple-drag {
   white-space: nowrap;
 }
-
 .ck-content table .draggable {
   position: relative;
 }
-
 .ck-content table .draggable .tabledrag-handle {
   inset-block-start: calc(50% - 0.55rem);
   display: block;
@@ -1167,15 +1053,12 @@ a.cta:focus, a.cta:hover {
   block-size: 2rem;
   cursor: row-resize;
 }
-
 .ck-content table .draggable .tabledrag-handle:active, .ck-content table .draggable .tabledrag-handle:hover {
   background: transparent;
 }
-
 .ck-content table .draggable .tabledrag-handle:active {
   outline: 0;
 }
-
 .ck-content table .draggable .tabledrag-handle .handle {
   inline-size: 1rem;
   block-size: 1rem;
@@ -1184,15 +1067,12 @@ a.cta:focus, a.cta:hover {
   background-image: none;
   background-color: var(--oc-color-text-muted);
 }
-
 .ck-content table .draggable.drag {
   background-color: var(--oc-color-bg-warning);
 }
-
 .ck-content table .draggable:has(.tabledrag-changed) {
   border-block-end: 0.125rem solid var(--oc-color-warning);
 }
-
 .ck-content th a[href*=sort] {
   text-decoration: none;
   margin: 0;
@@ -1200,31 +1080,25 @@ a.cta:focus, a.cta:hover {
   padding-inline: 1rem 0.5rem;
   white-space: nowrap;
 }
-
 .ck-content th a[href*=sort]::after {
   opacity: 0.5;
   transform: translateY(0.125em) rotate(0deg);
   transform-origin: center center;
   transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
 }
-
 .ck-content th a[href*=sort]:focus, .ck-content th a[href*=sort]:hover {
   color: var(--oc-color-link-focus-text);
   text-decoration: none;
 }
-
 .ck-content th a[href*=sort]:focus::after, .ck-content th a[href*=sort]:hover::after {
   transform: translateY(0.125em) rotate(180deg);
 }
-
 .ck-content th:has(.tablesort--asc) a:focus::after, .ck-content th:has(.tablesort--asc) a:hover::after {
   opacity: 1;
 }
-
 .ck-content td.is-active {
   background-color: transparent;
 }
-
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
   --oc-font-size-icon: 1em;
@@ -1236,7 +1110,6 @@ a.cta:focus, a.cta:hover {
   --oc-icon-button-radius: 50%;
   --oc-chevron: url('../images/chevron-down.svg');
 }
-
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
@@ -1264,18 +1137,16 @@ a.cta:focus, a.cta:hover {
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --text-max-line: 80ch;
 }
-
 .ck-content .tiny,
 .ck-content .small {
   font-size: var(--oc-font-size-s);
 }
-
 .ck-content .allcaps {
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-
 .ck-content .ck-content {
   --oc-button-border-radius: .25rem;
   --oc-button-border-width: .125rem;
@@ -1295,7 +1166,6 @@ a.cta:focus, a.cta:hover {
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
 }
-
 .ck-content a.cta, .ck-content .view > .more-link a,
 .ck-content .more-link.field a,
 .ck-content a.more-link,
@@ -1305,7 +1175,6 @@ a.cta:focus, a.cta:hover {
   border-radius: 50vi;
   text-decoration: none;
 }
-
 .ck-content a.cta:focus, .ck-content .view > .more-link a:focus,
 .ck-content .more-link.field a:focus,
 .ck-content a.more-link:focus,
@@ -1316,51 +1185,43 @@ a.cta:focus, a.cta:hover {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
 }
-
 .ck-content .block-menu .block--title {
   padding-inline: 1rem;
 }
-
 .ck-content .quotee {
   font-size: var(--oc-font-size-default);
   font-weight: var(--oc-font-weight-normal);
 }
-
 .ck-content .callout {
   background-color: var(--oc-color-info);
   color: var(--oc-color-text-inverted);
   padding: var(--oc-row-gap) var(--oc-gutter);
   block-size: auto;
 }
-
 .ck-content blockquote.plain {
+  margin-block: var(--oc-row-gap);
   padding-inline: calc(2 * var(--oc-gutter));
   background-color: transparent;
   border-width: 0;
   font-size: var(--oc-font-size-default);
   font-weight: unset;
 }
-
 .ck-content blockquote.plain strong {
   font-weight: var(--oc-font-weight-bold);
 }
-
 .ck-content blockquote.plain .quotee, .ck-content blockquote.plain + .quotee {
   font-weight: var(--oc-font-weight-semi-bold);
 }
-
 .ck-content .inset {
   margin-block-end: 1.25rem;
   padding: 0.5rem 1.25rem 1.25rem;
   color: var(--oc-color-info);
   background: var(--oc-color-bg-info);
 }
-
 .ck-content .inset > h3,
 .ck-content .inset h4 {
   color: var(--oc-color-info);
 }
-
 @media screen and (min-width: 48em) {
   .ck-content .inset {
     float: inline-end;
@@ -1375,30 +1236,24 @@ a.cta:focus, a.cta:hover {
 .ck-content .text-formatted a.cta {
   display: inline-block;
 }
-
 .ck-content .inverted {
   padding: var(--oc-row-gap) var(--oc-gutter);
   background: var(--oc-color-bg-dark);
   color: var(--oc-color-text-inverted);
 }
-
 .ck-content .inverted a {
   color: var(--oc-color-link-inverted);
   font-weight: var(--oc-font-weight-semi-bold);
 }
-
 .ck-content .text-formatted h2 {
   margin-block-start: calc(2 * var(--oc-row-gap));
 }
-
 .ck-content .contextual-region:has(.button-popover-trigger, .attribution-toggle, .flag--link) .contextual {
   inset-block-start: calc(1 * var(--oc-icon-button-size));
 }
-
 .ck-content .visually-hidden.teaser--title + .contextual {
   inset-block-start: calc(-0.25 * var(--oc-icon-button-size));
 }
-
 .ck-content .anchorlinks,
 .ck-content .content ul.anchorlinks {
   display: flex;
@@ -1407,17 +1262,14 @@ a.cta:focus, a.cta:hover {
   padding-inline-start: 0;
   list-style: none;
 }
-
 .ck-content .anchorlinks a,
 .ck-content .content ul.anchorlinks a {
   padding-block: 0;
   padding-inline: 1rem;
 }
-
 .ck-content .qa--only {
   background-color: var(--oc-color-bg-danger);
 }
-
 .ck-content .qa--only::after {
   position: absolute;
   inset-block-start: auto;
@@ -1429,11 +1281,9 @@ a.cta:focus, a.cta:hover {
   color: var(--oc-color-danger);
   font-size: 0.5rem;
 }
-
 .ck-content .responsive-hide {
   display: none;
 }
-
 @container (width > 32rem) {
   .ck-content .responsive-hide {
     display: block;
@@ -1447,26 +1297,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .space-before {
   margin-block-start: var(--oc-row-gap);
 }
-
 .ck-content .space-after {
   margin-block-end: calc(0.5 * var(--oc-section-spacing));
 }
-
 .ck-content .legal-terms-scroll {
   padding-inline-end: var(--oc-scroll-layer-padding);
   scrollbar-color: var(--oc-scrollbar-color);
   box-shadow: var(--oc-box-shadow-inset);
 }
-
 .ck-content .synopsis-more-link:has(a) + .synopsis-more-link:has(a) {
   display: none;
 }
-
 .ck-content ul.visually-plain {
   list-style: none;
   padding: unset;
 }
-
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
   --oc-font-size-icon: 1em;
@@ -1478,7 +1323,6 @@ a.cta:focus, a.cta:hover {
   --oc-icon-button-radius: 50%;
   --oc-chevron: url('../images/chevron-down.svg');
 }
-
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
@@ -1506,17 +1350,15 @@ a.cta:focus, a.cta:hover {
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --text-max-line: 80ch;
 }
-
 .ck-content .description {
   font-size: var(--oc-font-size-s);
 }
-
 .ck-content legend {
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-
 .ck-content .ck-content {
   --oc-form-field-padding-block: .5rem;
   --oc-form-field-padding-inline: 1rem;
@@ -1536,7 +1378,6 @@ a.cta:focus, a.cta:hover {
   --oc-input-error-border-color: var(--oc-color-danger);
   --oc-input-error-border-style: var(--oc-input-border-style);
 }
-
 .ck-content .ck-content {
   --oc-button-border-radius: .25rem;
   --oc-button-border-width: .125rem;
@@ -1556,19 +1397,16 @@ a.cta:focus, a.cta:hover {
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
 }
-
 .ck-content a.cta {
   padding: var(--oc-button-padding-s);
   border: 0.125rem solid var(--oc-color-link);
   border-radius: 50vi;
   text-decoration: none;
 }
-
 .ck-content a.cta:focus, .ck-content a.cta:hover {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
 }
-
 .ck-content button,
 .ck-content input,
 .ck-content optgroup,
@@ -1576,35 +1414,28 @@ a.cta:focus, a.cta:hover {
 .ck-content textarea {
   font: inherit;
 }
-
 .ck-content .block-system-main-block:has(> form) {
   padding-block-start: var(--oc-row-gap);
 }
-
 .ck-content .block-system-main-block:has(> form) > form {
   margin-block-start: 0;
 }
-
 .ck-content form {
   margin: var(--oc-row-gap) 0;
   padding: var(--oc-row-gap) var(--oc-gutter);
 }
-
 .ck-content form,
 .ck-content .form-area {
   background: var(--oc-color-bg-form);
 }
-
 .ck-content .form-item,
 .ck-content .form-actions {
   padding-block: var(--oc-form-item-padding-block);
 }
-
 .ck-content .form-item .form-item,
 .ck-content .form-actions .form-item {
   padding-block: 0;
 }
-
 .ck-content fieldset,
 .ck-content fieldset.fieldgroup {
   padding: var(--oc-row-gap) var(--oc-gutter);
@@ -1612,55 +1443,50 @@ a.cta:focus, a.cta:hover {
   background: var(--oc-color-bg-fieldset);
   border: 0.125rem solid transparent;
 }
-
 .ck-content fieldset.error,
 .ck-content fieldset.fieldgroup.error {
   border-color: var(--oc-color-danger);
 }
-
 .ck-content fieldset.error > legend,
 .ck-content fieldset.fieldgroup.error > legend {
   color: var(--oc-color-danger);
 }
-
 .ck-content fieldset fieldset {
   padding: 0;
   border-width: 0;
   background: transparent;
 }
-
 .ck-content .form-required::after,
-.ck-content summary.form-required .details-title::after {
+.ck-content summary.form-required .details-title::after,
+.ck-content input[required] + label::after,
+.ck-content label:has(+ input[required])::after {
   content: " *";
   vertical-align: text-top;
+  align-self: start;
+  padding-block-start: 0.125rem;
   color: var(--oc-color-danger);
   background-image: none;
 }
-
 .ck-content summary.form-required::after {
   display: none;
 }
-
 .ck-content .form--inline .form-item {
   margin-block-start: 0;
 }
-
 .ck-content label {
+  max-inline-size: var(--text-max-line);
   display: block;
   padding: 0.25rem;
   font-weight: var(--oc-font-weight-label);
 }
-
 .ck-content label.option {
   display: inline-block;
 }
-
 .ck-content *[disabled],
 .ck-content .form-disabled label {
   pointer-events: none;
   opacity: 0.5;
 }
-
 .ck-content input,
 .ck-content select,
 .ck-content textarea {
@@ -1671,7 +1497,6 @@ a.cta:focus, a.cta:hover {
   background-color: var(--oc-input-bg-color);
   color: var(--oc-color-text);
 }
-
 .ck-content input.error,
 .ck-content select.error,
 .ck-content textarea.error {
@@ -1679,7 +1504,6 @@ a.cta:focus, a.cta:hover {
   border-style: var(--oc-input-error-border-style);
   border-color: var(--oc-input-error-border-color);
 }
-
 .ck-content input:focus, .ck-content input:focus-visible,
 .ck-content select:focus,
 .ck-content select:focus-visible,
@@ -1689,37 +1513,30 @@ a.cta:focus, a.cta:hover {
   border-style: var(--oc-input-focus-border-style);
   border-color: var(--oc-input-focus-border-color);
 }
-
 .ck-content input:focus-visible,
 .ck-content select:focus-visible,
 .ck-content textarea:focus-visible {
   outline: none;
 }
-
 .ck-content *::placeholder {
   text-align: left;
   color: var(--oc-input-placeholder-color);
   font-family: var(--oc-font-family-default);
 }
-
 .ck-content .form-autocomplete {
   padding-inline-end: 2rem;
   background-position: right 0.5rem center !important;
 }
-
 .ck-content [dir=rtl] .form-autocomplete {
   background-position: left 0.5rem center !important;
 }
-
 .ck-content .ui-autocomplete li.ui-menu-item {
   background-color: var(--oc-input-bg-color);
   font-size: var(--oc-font-size-autocomplete-list);
 }
-
 .ck-content input[size] {
   max-inline-size: 100%;
 }
-
 @media screen and (min-width: 70em) {
   .ck-content input[size="30"] {
     max-inline-size: 15rem;
@@ -1728,7 +1545,6 @@ a.cta:focus, a.cta:hover {
 .ck-content input.bef-datepicker {
   max-inline-size: 11rem;
 }
-
 @media screen and (min-width: 70em) {
   .ck-content .view-search input[size="30"] {
     max-inline-size: 30rem;
@@ -1743,35 +1559,29 @@ a.cta:focus, a.cta:hover {
   background-size: 1em;
   appearance: none;
 }
-
 .ck-content select[multiple].slimselect:not([data-once]) {
   block-size: 2.48rem;
   background: var(--oc-input-bg-color);
 }
-
 .ck-content select[multiple].slimselect:not([data-once]) optgroup,
 .ck-content select[multiple].slimselect:not([data-once]) option {
   visibility: hidden;
 }
-
 .ck-content [dir=rtl] select {
   background-position: left 0.5em top 0.5em;
 }
-
 .ck-content input[type=checkbox],
 .ck-content input[type=radio] {
   position: relative;
   inset-block-start: 0.1rem;
   inline-size: 1em;
   block-size: 1em;
-  margin-inline-end: 0.5rem;
+  margin-inline-end: 1rem;
   vertical-align: baseline;
 }
-
 .ck-content input[type=radio] {
   font-size: 1.25em;
 }
-
 .ck-content input[type=radio],
 .ck-content input[type=checkbox] {
   --oc-font-size-icon: var(--oc-font-size-icon-l);
@@ -1780,7 +1590,6 @@ a.cta:focus, a.cta:hover {
   border-color: transparent;
   padding: 0.25rem;
 }
-
 .ck-content input[type=radio]:focus, .ck-content input[type=radio]:hover,
 .ck-content input[type=checkbox]:focus,
 .ck-content input[type=checkbox]:hover {
@@ -1788,12 +1597,10 @@ a.cta:focus, a.cta:hover {
   border-color: transparent;
   box-shadow: unset;
 }
-
 .ck-content input[type=radio]::before,
 .ck-content input[type=checkbox]::before {
   background-color: var(--oc-input-bg-color);
 }
-
 .ck-content input[type=radio]::before, .ck-content input[type=radio]::after,
 .ck-content input[type=checkbox]::before,
 .ck-content input[type=checkbox]::after {
@@ -1801,48 +1608,40 @@ a.cta:focus, a.cta:hover {
   margin: -0.125em 0 0 !important;
   inset: 0 !important;
 }
-
 .ck-content .form-item:has(input:checked) > label {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
 }
-
 .ck-content .form-type-checkbox,
 .ck-content .form-type-radio {
   display: flex;
-  gap: 0 1rem;
+  gap: 0;
 }
-
 .ck-content .ui-menu .ui-menu-item-wrapper {
   display: block;
   color: var(--oc-color-text);
   border: 0;
   background-color: transparent;
 }
-
 .ck-content .ui-menu .ui-menu-item-wrapper:hover, .ck-content .ui-menu .ui-menu-item-wrapper:focus {
   color: var(--oc-color-link-focus-text);
   background-color: var(--oc-color-link-focus-bg);
   border: 0;
 }
-
 .ck-content .ui-autocomplete .ui-menu-item-wrapper.ui-state-active,
 .ck-content .ui-dialog .ui-autocomplete .ui-menu-item-wrapper.ui-state-active {
   margin: 0;
   color: var(--oc-color-text-inverted);
   background-color: var(--oc-color-interaction);
 }
-
 .ck-content fieldset[data-drupal-selector=edit-radius-wrapper] {
   margin-block: 0;
   border: 1px dotted var(--oc-color-text-muted);
   background-color: transparent;
 }
-
 .ck-content fieldset[data-drupal-selector=edit-radius-wrapper] .form-wrapper {
   margin: 0;
 }
-
 @container (width > 32rem) {
   .ck-content fieldset[data-drupal-selector=edit-radius-wrapper] .fieldset-wrapper {
     display: flex;
@@ -1854,17 +1653,14 @@ a.cta:focus, a.cta:hover {
 .ck-content fieldset[data-drupal-selector=edit-radius-wrapper] .form-item-radius-value input {
   max-inline-size: 7rem;
 }
-
 .ck-content fieldset[data-drupal-selector=edit-radius-wrapper] .form-item-radius-source-configuration-origin-address input {
   inline-size: 100%;
   max-inline-size: 28rem;
 }
-
 .ck-content .form-textarea-wrapper,
 .ck-content .filter-wrapper {
   background: var(--oc-color-bg-fieldset);
 }
-
 .ck-content .form-textarea-wrapper .cke_top,
 .ck-content .form-textarea-wrapper .cke_contents,
 .ck-content .form-textarea-wrapper .cke_bottom,
@@ -1873,70 +1669,56 @@ a.cta:focus, a.cta:hover {
 .ck-content .filter-wrapper .cke_bottom {
   background: var(--oc-color-bg-fieldset);
 }
-
 .ck-content .form-textarea-wrapper .filter-guidelines-item,
 .ck-content .filter-wrapper .filter-guidelines-item {
   margin: 0;
 }
-
 .ck-content .field-suffix .button {
   margin-block-end: var(--oc-gutter);
 }
-
 .ck-content .form-type-password-confirm {
   display: flex;
   flex-flow: row wrap;
   gap: var(--oc-row-gap) var(--oc-gutter);
 }
-
 .ck-content .password-confirm-message .error {
   color: var(--oc-color-danger);
 }
-
 .ck-content .password-confirm-message .ok {
   color: var(--oc-color-success);
 }
-
 .ck-content .password-strength__indicator {
   border: 0.0625rem solid transparent;
 }
-
 .ck-content .password-strength__indicator.is-weak {
   border-color: var(--oc-color-danger);
   background-color: var(--oc-color-danger);
 }
-
 .ck-content .password-strength__indicator.is-fair {
   border-color: var(--oc-color-warning);
   background-color: var(--oc-color-warning);
 }
-
 .ck-content .password-strength__indicator.is-good {
   border-color: var(--oc-color-info);
   background-color: var(--oc-color-info);
 }
-
 .ck-content .password-strength__indicator.is-strong {
   border-color: var(--oc-color-success);
   background-color: var(--oc-color-success);
 }
-
 .ck-content .password-suggestions {
   padding: var(--oc-row-gap) var(--oc-gutter) calc(2 * var(--oc-row-gap));
   color: var(--oc-color-info);
   border-color: var(--oc-color-info);
   background-color: var(--oc-color-bg-info);
 }
-
 .ck-content .content .password-suggestions ul {
   margin-block: 0.5rem 0;
 }
-
 .ck-content .path-user,
 .ck-content .contact-form {
   --oc-narrow-form-size: 30rem;
 }
-
 @media screen and (min-width: 48em) {
   .ck-content .path-user,
   .ck-content .contact-form {
@@ -1951,34 +1733,27 @@ a.cta:focus, a.cta:hover {
   max-inline-size: var(--oc-narrow-form-size);
   margin-inline: auto;
 }
-
 .ck-content .path-user:has(.user-form) .block-local-tasks-block, .ck-content .path-user:has(.user-login-form) .block-local-tasks-block, .ck-content .path-user:has(.user-pass) .block-local-tasks-block, .ck-content .path-user:has(.contact-message-personal-form) .block-local-tasks-block {
   text-align: center;
 }
-
 .ck-content .contact-form .main__page-title {
   max-inline-size: var(--oc-narrow-form-size);
   margin-inline: auto;
 }
-
 .ck-content .contact-form .main__page-title .block-local-tasks-block {
   text-align: center;
 }
-
 .ck-content .contact-form form.user-form, .ck-content .contact-form form.user-login-form, .ck-content .contact-form form.user-pass, .ck-content .contact-form form.contact-message-personal-form, .ck-content .contact-form form.contact-form {
   border-radius: var(--oc-card-border-radius);
   margin-inline: auto;
   max-inline-size: var(--oc-narrow-form-size);
 }
-
 .ck-content .contact-form .form-item:has(label):not(:has(input, textarea, select)) {
   padding-inline: 0.25rem;
 }
-
 .ck-content .contact-form .form-item:has(label):not(:has(input, textarea, select)) label {
   padding-inline: 0;
 }
-
 .ck-content .views-exposed-form {
   container-type: inline-size;
   inline-size: 100%;
@@ -1988,14 +1763,12 @@ a.cta:focus, a.cta:hover {
   align-items: flex-end;
   gap: 0 var(--oc-gutter);
 }
-
 .ck-content .views-exposed-form .bef--secondary .details-wrapper {
   display: flex;
   flex-flow: row wrap;
   gap: 0 var(--oc-gutter);
   align-items: last baseline;
 }
-
 @media screen and (min-width: 48em) {
   .ck-content .views-exposed-form .form-type-checkbox {
     align-self: flex-end;
@@ -2006,11 +1779,9 @@ a.cta:focus, a.cta:hover {
   margin-inline-start: 0.125em;
   margin-inline-end: 0;
 }
-
 .ck-content .views-exposed-form .form-submit {
   margin-block-end: 0;
 }
-
 .ck-content .views-exposed-form .form--inline .form-actions {
   display: flex;
   flex-flow: row wrap;
@@ -2018,21 +1789,17 @@ a.cta:focus, a.cta:hover {
   justify-content: space-between;
   gap: 0.75rem 1rem;
 }
-
 .ck-content .views-exposed-form .form--inline .form-actions button {
   margin: 0;
 }
-
 .ck-content .block--search .form--inline .form-type-textfield,
 .ck-content .form--compact .form--inline .form-type-textfield {
   flex: 2 2 auto;
 }
-
 .ck-content .block--search .form--inline .form-actions,
 .ck-content .form--compact .form--inline .form-actions {
   flex: 1 1 auto;
 }
-
 @media screen and (min-width: 48em) {
   .ck-content .block--search .form--inline,
   .ck-content .form--compact .form--inline {
@@ -2049,12 +1816,10 @@ a.cta:focus, a.cta:hover {
 .ck-content .form--compact .form-text {
   max-inline-size: 100%;
 }
-
 .ck-content .block--search .details-wrapper,
 .ck-content .form--compact .details-wrapper {
   padding: 0;
 }
-
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
   --oc-font-size-icon: 1em;
@@ -2066,7 +1831,6 @@ a.cta:focus, a.cta:hover {
   --oc-icon-button-radius: 50%;
   --oc-chevron: url('../images/chevron-down.svg');
 }
-
 .ck-content .more-link a::after,
 .ck-content a.more-link::after, .ck-content .text-formatted a[href^=http]::after,
 .ck-content .text-formatted a.external::after,
@@ -2099,7 +1863,6 @@ a.cta:focus, a.cta:hover {
   vertical-align: baseline;
   transform: translateY(0.125em);
 }
-
 .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content .button--edit a::before, .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
@@ -2121,7 +1884,6 @@ a.cta:focus, a.cta:hover {
   margin-inline-end: 0.333em;
   inset-inline-start: -0.333em;
 }
-
 .ck-content .more-link a::after,
 .ck-content a.more-link::after, .ck-content .text-formatted a[href^=http]::after,
 .ck-content .text-formatted a.external::after,
@@ -2131,7 +1893,6 @@ a.cta:focus, a.cta:hover {
 .ck-content .more-link a.external::after, .ck-content input[type=radio]::after, .ck-content input[type=checkbox]::after, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after {
   font-size: var(--oc-font-size-icon);
 }
-
 .ck-content .button--edit a {
   --oc-font-size-icon: var(--oc-font-size-icon-m);
   --oc-icon-button-size: calc(1.5 * var(--oc-font-size-icon));
@@ -2150,7 +1911,6 @@ a.cta:focus, a.cta:hover {
   padding: 0;
   margin: 0;
 }
-
 .ck-content .button--edit a::before {
   font-size: var(--oc-font-size-icon-m);
   transform: translateY(0);
@@ -2158,12 +1918,10 @@ a.cta:focus, a.cta:hover {
   inline-size: 100%;
   block-size: 100%;
 }
-
 .ck-content .more-link a::after,
 .ck-content a.more-link::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-right-light");
 }
-
 .ck-content .text-formatted a[href^=http]::after,
 .ck-content .text-formatted a.external::after,
 .ck-content .teaser--title a[href^=http]::after,
@@ -2172,7 +1930,6 @@ a.cta:focus, a.cta:hover {
 .ck-content .more-link a.external::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-right-light");
 }
-
 .ck-content .text-formatted a[href^=http],
 .ck-content .text-formatted a.external,
 .ck-content .teaser--title a[href^=http],
@@ -2182,7 +1939,6 @@ a.cta:focus, a.cta:hover {
   --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
   --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
 }
-
 .ck-content .text-formatted a[href^=http]::before,
 .ck-content .text-formatted a.external::before,
 .ck-content .teaser--title a[href^=http]::before,
@@ -2197,7 +1953,6 @@ a.cta:focus, a.cta:hover {
   position: absolute;
   opacity: 0;
 }
-
 .ck-content .text-formatted a[href^=http][target],
 .ck-content .text-formatted a.external[target],
 .ck-content .teaser--title a[href^=http][target],
@@ -2206,7 +1961,6 @@ a.cta:focus, a.cta:hover {
 .ck-content .more-link a.external[target] {
   content: var(--icon-url-ltr)/"External site in new window";
 }
-
 .ck-content [dir=rtl] .text-formatted a[href^=http]::before,
 .ck-content [dir=rtl] .text-formatted a.external::before,
 .ck-content [dir=rtl] .teaser--title a[href^=http]::before,
@@ -2215,7 +1969,6 @@ a.cta:focus, a.cta:hover {
 .ck-content [dir=rtl] .more-link a.external::before {
   content: var(--icon-url-rtl)/"External site";
 }
-
 .ck-content [dir=rtl] .text-formatted a[href^=http],
 .ck-content [dir=rtl] .text-formatted a.external,
 .ck-content [dir=rtl] .teaser--title a[href^=http],
@@ -2224,7 +1977,6 @@ a.cta:focus, a.cta:hover {
 .ck-content [dir=rtl] .more-link a.external {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
 }
-
 .ck-content [dir=rtl] .text-formatted a[href^=http][target]::before,
 .ck-content [dir=rtl] .text-formatted a.external[target]::before,
 .ck-content [dir=rtl] .teaser--title a[href^=http][target]::before,
@@ -2233,163 +1985,129 @@ a.cta:focus, a.cta:hover {
 .ck-content [dir=rtl] .more-link a.external[target]::before {
   content: var(--icon-url-rtl)/"External site in new window";
 }
-
 .ck-content .text-formatted [lang=de] a[href^=http],
 .ck-content .teaser--title [lang=de] a[href^=http],
 .ck-content .more-link [lang=de] a[href^=http] {
   content: var(--icon-url-ltr)/"Externe Seite";
 }
-
 .ck-content .text-formatted [lang=de][target],
 .ck-content .teaser--title [lang=de][target],
 .ck-content .more-link [lang=de][target] {
   content: var(--icon-url-ltr)/"Externe Seite in neuem Fenster";
 }
-
 .ck-content .text-formatted [lang=fr] a[href^=http],
 .ck-content .teaser--title [lang=fr] a[href^=http],
 .ck-content .more-link [lang=fr] a[href^=http] {
   content: var(--icon-url-ltr)/"Site externe";
 }
-
 .ck-content .text-formatted [lang=fr][target],
 .ck-content .teaser--title [lang=fr][target],
 .ck-content .more-link [lang=fr][target] {
   content: var(--icon-url-ltr)/"Site externe (nouvelle fenêtre)";
 }
-
 .ck-content .text-formatted a[href^=http]:has(img)::after,
 .ck-content .teaser--title a[href^=http]:has(img)::after,
 .ck-content .more-link a[href^=http]:has(img)::after {
   display: none;
 }
-
 .ck-content .anchorlinks::before {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-line-down-light");
 }
-
 .ck-content input[type=radio]::before {
   --icon-url: url("../sprite/oc-sprite.svg#circle-fill");
 }
-
 .ck-content input[type=radio]::after {
   --icon-url: url("../sprite/oc-sprite.svg#circle-light");
 }
-
 .ck-content input[type=radio]:checked::before {
   --icon-url: url("../sprite/oc-sprite.svg#check-circle-light");
 }
-
 .ck-content input[type=checkbox]::before {
   --icon-url: url("../sprite/oc-sprite.svg#square-fill");
 }
-
 .ck-content input[type=checkbox]::after {
   --icon-url: url("../sprite/oc-sprite.svg#square-light");
 }
-
 .ck-content input[type=checkbox]:checked::before {
   --icon-url: url("../sprite/oc-sprite.svg#check-square-light");
 }
-
 .ck-content .attribution-popover-trigger::before {
   --icon-url: url("../sprite/oc-sprite.svg#copyright-fill");
 }
-
 .ck-content .tablesort {
   display: none;
 }
-
 .ck-content th a[href*=sort]::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrows-vertical-light");
 }
-
 .ck-content th:has(.tablesort--desc) a[href*=sort]::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-down-light");
 }
-
 .ck-content th:has(.tablesort--asc) a[href*=sort]::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-light");
 }
-
 .ck-content .button--edit a {
   display: inline-block;
 }
-
 .ck-content .button--edit a::before {
   --icon-url: url("../sprite/oc-sprite.svg#pencil-simple-light");
 }
-
 .ck-content .button--edit a {
   --oc-font-size-icon: var(--oc-font-size-icon-default);
 }
-
 .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
 .ck-content .cookiesjsr-layer--close::before {
   --icon-url: url("../sprite/oc-sprite.svg#x-light");
 }
-
 .ck-content .icon.monitor::before, .ck-content .icon.tv::before {
   --icon-url: url("../sprite/oc-sprite.svg#monitor-light");
 }
-
 .ck-content .icon.map-pin::before, .ck-content .icon.location-dot::before {
   --icon-url: url("../sprite/oc-sprite.svg#map-pin-light");
 }
-
 .ck-content .icon.list::before, .ck-content .icon.table-list::before {
   --icon-url: url("../sprite/oc-sprite.svg#list-light");
 }
-
 .ck-content .icon.squares-four::before, .ck-content .icon.table-cells-large::before {
   --icon-url: url("../sprite/oc-sprite.svg#squares-four-light");
 }
-
 .ck-content .icon.archive::before, .ck-content .icon.box-archive::before {
   --icon-url: url("../sprite/oc-sprite.svg#archive-light");
 }
-
 .ck-content .menu--call-to-action a[data-drupal-link-system-path]::before {
   --icon-url: url("../sprite/oc-sprite.svg#plus-circle-light");
 }
-
 .ck-content .menu--call-to-action a[href*="node/add/location"]::before,
 .ck-content .icon .fa-map-location::before,
 .ck-content .icon .map-pin-area::before {
   --icon-url: url("../sprite/oc-sprite.svg#map-pin-area-light");
 }
-
 .ck-content .menu--call-to-action a[href*="node/add/profile"]::before,
 .ck-content .icon .fa-person-dots-from-line::before,
 .ck-content .icon .user-check::before {
   --icon-url: url("../sprite/oc-sprite.svg#user-check-light");
 }
-
 .ck-content .icon .fa-people-line::before,
 .ck-content .icon .users-four::before {
   --icon-url: url("../sprite/oc-sprite.svg#users-four-light");
 }
-
 .ck-content .menu--call-to-action a[href*="node/add/date"]::before,
 .ck-content .icon .fa-calendar-check::before,
 .ck-content .icon .calendar-check::before {
   --icon-url: url("../sprite/oc-sprite.svg#calendar-check-light");
 }
-
 .ck-content .menu--call-to-action a[href*="node/add/article"]::before,
 .ck-content .icon .fa-book-open::before,
 .ck-content .icon .book-open-text::before {
   --icon-url: url("../sprite/oc-sprite.svg#book-open-text-light");
 }
-
 .ck-content .menu--call-to-action a[href*="node/add/event"]::before,
 .ck-content .icon .fa-masks-theater::before,
 .ck-content .icon .mask-happy::before {
   --icon-url: url("../sprite/oc-sprite.svg#mask-happy-light");
 }
-
 .ck-content .copy::before,
 .ck-content .clipboard::before,
 .ck-content *[class*=copy-button]::before {
@@ -2444,6 +2162,7 @@ a.cta:focus, a.cta:hover {
     background-blend-mode: color-burn;
   }
 }
+
 .ck.ck-content {
   font-family: var(--oc-font-family-default);
   line-height: var(--oc-line-height-default);

@@ -26,12 +26,14 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   moderation_state:
     -
       value: published
+  path:
+    -
+      alias: /calendar
+      langcode: en
+      pathauto: 0
   content_translation_source:
     -
       value: und
@@ -57,9 +59,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           content_translation_source:
             -
               value: und
@@ -72,15 +71,27 @@ default:
               display_id: upcoming_dates
               arguments: ''
               items_to_display: ''
+        translations:
+          de:
+            status:
+              -
+                value: true
+            behavior_settings:
+              -
+                value: {  }
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+  field_search_api_exclude:
+    -
+      value: false
   field_subtitle:
     -
       value: 'Upcoming dates'
       format: minimal_html
-  path:
-    -
-      alias: /calendar
-      langcode: en
-      pathauto: 0
 translations:
   de:
     status:
@@ -95,12 +106,14 @@ translations:
     created:
       -
         value: 1651665587
-    revision_translation_affected:
-      -
-        value: true
     moderation_state:
       -
         value: published
+    path:
+      -
+        alias: /kalender
+        langcode: de
+        pathauto: 0
     content_translation_source:
       -
         value: en

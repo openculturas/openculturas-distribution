@@ -2,7 +2,7 @@
 // Wrapper section paragraph + included view fields
 // ---
 // Related:
-// paragraph/teaser-wrapper/teaser-wrapper.scss
+// paragraph/teaser-wrapper/teaser-wrapper.scss (e.g. horizontal teasers based on available space)
 // paragraph/paragraph.scss (generic classes/behaviours)
 // views/views.scss
 // ---------------------------------------
@@ -13,7 +13,7 @@
 
 // View mode grid ("side by side" sets header, intro text + more link inline
 
-.paragraph--type--wrapper-section.paragraph--view-mode--grid {
+.wrapper-paragraph.paragraph--view-mode--grid {
   //margin-block: var(--oc-section-spacing);
   @extend %grid;
   @extend %grid-headline-inline;
@@ -98,7 +98,6 @@
 
 // Hide View redundant header/more link
 
-//.paragraph--type--wrapper-section:has(.intro) {
 .paragraph--type--wrapper-section {
   .view-header,
   .view .more-link,
@@ -126,7 +125,6 @@
 
 // ---
 // OC Map block exceed block height overlays more-link
-// (@todo Check theory: virtual margin of repositioned button)
 
 .paragraph--type--wrapper-section:has(.block-openculturas-map) .more-link {
   z-index: +2;
@@ -163,6 +161,10 @@
       }
     }
   }
+}
+
+.wrapper-paragraph .field.more-link {
+  margin-block-start: calc(2 * var(--oc-row-gap));
 }
 
 

@@ -81,9 +81,13 @@ legend {
 }
 
 .form-required::after,
-summary.form-required .details-title::after {
+summary.form-required .details-title::after,
+input[required] + label::after,
+label:has(+ input[required])::after {
   content: " *";
   vertical-align: text-top;
+  align-self: start;
+  padding-block-start: .125rem;
   color: var(--oc-color-danger);
   background-image: none;
 }
@@ -99,6 +103,7 @@ summary.form-required::after {
 }
 
 label {
+  max-inline-size: var(--text-max-line);
   display: block;
   padding: 0.25rem;
   font-weight: var(--oc-font-weight-label);
@@ -216,7 +221,7 @@ input[type="radio"] {
   inset-block-start: 0.1rem;
   inline-size: 1em; // "width"
   block-size: 1em; // "height"
-  margin-inline-end: 0.5rem;
+  margin-inline-end: 1rem;
   vertical-align: baseline;
 }
 
@@ -265,7 +270,7 @@ input[type="checkbox"] {
 .form-type-checkbox,
 .form-type-radio {
   display: flex;
-  gap: 0 1rem;
+  gap: 0;
 }
 
 // ---

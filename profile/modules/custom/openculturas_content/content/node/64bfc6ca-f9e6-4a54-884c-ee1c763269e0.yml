@@ -26,12 +26,14 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   moderation_state:
     -
       value: published
+  path:
+    -
+      alias: /legal
+      langcode: en
+      pathauto: 0
   content_translation_source:
     -
       value: und
@@ -40,14 +42,15 @@ default:
       value: false
   body:
     -
-      value: "<p>(Place address, contact data, and further mandatory information here!)</p>\r\n\r\n<h2>Credits</h2>\r\n\r\n<p>System: <a href=\"https://www.openculturas.org\">OpenCulturas</a> based on Drupal</p>\r\n\r\n<p>Development: <a href=\"https://www.cowain.eu/\">CoWAIN</a></p>\r\n\r\n<p>Implementation: N. N.</p>\r\n\r\n<p>Design: N. N.</p>\r\n\r\n<p>Photography: see copyright information attached to the images</p>\r\n\r\n<p>Maps: <a href=\"https://leafletjs.com/\">Leaflet</a> + <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors</p>\r\n"
-      format: basic_html
+      value: '<p><span class="mark">[Place postal address, contact data, and further mandatory information here!]</span></p><h2>Credits</h2><dl><dt><p>System:</p></dt><dd><p><a href="https://www.openculturas.org/en">OpenCulturas</a> based on Drupal</p></dd><dt><p>Development:</p></dt><dd><p><a href="https://www.cowain.eu/">CoWAIN</a></p></dd><dt><p>Implementation:</p></dt><dd><p><span class="mark">N. N.</span></p></dd><dt><p>Design:</p></dt><dd><p><span class="mark">N. N.</span> (based on OpenCulturas)</p></dd><dt><p>Photography:</p></dt><dd><p>See copyright information attached to the images</p></dd><dt><p>Maps:</p></dt><dd><p><a href="https://leafletjs.com/">Leaflet</a> + <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p></dd></dl>'
+      format: full_html
       summary: ''
-  path:
+  field_layout_switcher:
     -
-      alias: /legal
-      langcode: en
-      pathauto: 0
+      value: layout-text-heavy
+  field_search_api_exclude:
+    -
+      value: false
 translations:
   de:
     status:
@@ -62,12 +65,14 @@ translations:
     created:
       -
         value: 1651664962
-    revision_translation_affected:
-      -
-        value: true
     moderation_state:
       -
         value: published
+    path:
+      -
+        alias: /impressum
+        langcode: de
+        pathauto: 0
     content_translation_source:
       -
         value: en
@@ -76,10 +81,10 @@ translations:
         value: false
     body:
       -
-        value: "<p>(Anschrift, Kontaktdaten und weitere Pflichtangaben hier einfügen!)</p>\r\n\r\n<h2>Credits</h2>\r\n\r\n<p>System: <a href=\"https://www.openculturas.org\">OpenCulturas</a> based on Drupal</p>\r\n\r\n<p>Entwicklung: <a href=\"https://www.cowain.eu/\">CoWAIN</a></p>\r\n\r\n<p>Implementation: N. N.</p>\r\n\r\n<p>Design: N. N.</p>\r\n\r\n<p>Fotografie: siehe Urhebervermerke an den Bildern</p>\r\n\r\n<p>Karten: <a href=\"https://leafletjs.com/\">Leaflet</a> + <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors</p>\r\n"
-        format: basic_html
+        value: '<p><span class="mark">[Ladungsfähige Anschrift, Kontaktdaten und weitere Pflichtangaben hier einfügen!]</span></p><h2>Credits</h2><dl><dt><p>System:</p></dt><dd><p><a href="https://www.openculturas.org/de">OpenCulturas</a> auf Basis von Drupal</p></dd><dt><p>Entwicklung:</p></dt><dd><p><a href="https://www.cowain.de/">CoWAIN</a></p></dd><dt><p>Implementation:</p></dt><dd><p><span class="mark">N. N.</span></p></dd><dt><p>Design:</p></dt><dd><p><span class="mark">N. N.</span> (based on OpenCulturas)</p></dd><dt><p>Fotografie:</p></dt><dd><p>Siehe Urhebervermerke an den Bildern</p></dd><dt><p>Karten:</p></dt><dd><p><a href="https://leafletjs.com/">Leaflet</a> + <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p></dd></dl>'
+        format: full_html
         summary: ''
     field_subtitle:
       -
-        value: 'Web-Impressum und Anbieterkennzeichnung gemäß § 5 Telemediengesetz'
+        value: 'Web-Impressum und Anbieterkennzeichnung'
         format: minimal_html

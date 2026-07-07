@@ -3,14 +3,20 @@
 // ---
 // Compiles to css/ckeditor.css
 // Referenced in opcult_starterkit.info.yml under ckeditor5-stylesheets.
+//
+// If you override CSS custom properties (e.g. colors, fonts) defined as placeholders in your theme,
+// extend them here so they take effect in the editor:
+//
+// @use "my-abstracts" as *;
+// .ck-content {
+//   @extend %my-colors-base;
+// }
+
 // =======================================
 
 @use "sass:meta";
 
-// Inherit opcult's CKEditor setup (resolved via loadPaths).
-@include meta.load-css("_ckeditor");
-
-// Sub-theme CKEditor customizations.
+// Sub-theme CKEditor additions/customizations.
 .ck-content {
   @include meta.load-css("_ckeditor-opcult_starterkit");
 }

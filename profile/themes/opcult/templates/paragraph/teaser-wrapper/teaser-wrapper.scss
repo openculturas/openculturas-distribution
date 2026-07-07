@@ -5,37 +5,14 @@
 // - paragraph/paragraph.scss (generic classes/behaviours)
 // - paragraph/paragraph--wrapper-section.scss
 // - node/teasers.scss
-// @todo: merge pararallel stylings (wrapper-section)
 // ---------------------------------------
 
 @use "../../../sass/abstracts" as *;
 
-// General styles teaser_wrapper has in common with wrapper_section: see paragraphs.scss
+// General styles teaser_wrapper has in common with wrapper_section,
+// e.g. intro inline in mode "side by side":
+// see paragraphs.scss
 
-// ---
-// View mode: slider
-
-//.paragraph--view-mode--slider {
-//}
-
-// ---
-// Intro inline in mode "side by side"
-
-.paragraph--type--teaser-wrapper.paragraph--view-mode--grid {
-  @extend %grid;
-  @extend %grid-4;
-  @extend %grid-headline-inline;
-
-  .field--name-field-heading {
-    h2,
-    h3,
-    h4 {
-      margin-block-start: var(--oc-card-margin-block);
-      padding-block-start: 0;
-      hyphens: manual;
-    }
-  }
-}
 
 // ---
 // View mode: grid
