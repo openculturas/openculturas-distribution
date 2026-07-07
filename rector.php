@@ -21,6 +21,7 @@ return RectorConfig::configure()
     earlyReturn: true
   )
   ->withComposerBased(twig: TRUE, phpunit: TRUE, symfony: TRUE, drupal: TRUE)
+  ->withPhpSets()
   ->withSetProviders(DrupalSetProvider::class)
   ->withAutoloadPaths(
     [
@@ -41,9 +42,12 @@ return RectorConfig::configure()
     __DIR__ . '/profile/'
   ])
   ->withPHPStanConfigs([__DIR__ . '/phpstan-for-rector.neon'])
-  ->withPhpVersion(\Rector\ValueObject\PhpVersion::PHP_81)
   ->withSkip(
     [
+      // Drupal render arrays (e.g. '#submit', '#process') must stay
+      // serializable for the form cache; first-class callables become
+      // Closures, which serialize() rejects.
+      \Rector\Php81\Rector\Array_\ArrayToFirstClassCallableRector::class,
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
       \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class => [
