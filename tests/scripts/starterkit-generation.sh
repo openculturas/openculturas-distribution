@@ -22,7 +22,7 @@ main() {
     rm --recursive "themes/custom/myowntheme"
   fi
 
-  php core/scripts/drupal generate-theme --name MyOwnTheme --description "My own theme based on opcult for Openculturas" --path themes/custom --starterkit opcult_starterkit myowntheme
+  ../vendor/bin/dr generate-theme --name MyOwnTheme --description "My own theme based on opcult for Openculturas" --path themes/custom --starterkit opcult_starterkit myowntheme
   cd themes/custom/myowntheme
   npm install
   npm run build

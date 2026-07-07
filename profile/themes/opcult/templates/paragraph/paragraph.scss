@@ -6,16 +6,28 @@
 
 @use "../../sass/abstracts" as *;
 
-// General spacing for certain types (caveat: do not add text/media paragraphs)
+// General spacing for certain types (caveat: do not add text/media paragraphs here)
 .paragraph--type--view {
   margin-block-end: var(--oc-section-spacing);
 }
 
-.paragraph--type--wrapper-section,
-.paragraph--type--teaser-wrapper {
-  padding-block: var(--oc-row-gap);
+// New common class for
+// .paragraph--type--wrapper-section + .paragraph--type--teaser-wrapper
+.wrapper-paragraph {
+  padding-block: calc(.75 * var(--oc-section-spacing)) var(--oc-section-spacing);
 }
 
+// No end padding for neighboring paragraphs w/o background
+.field--name-field-content-paragraphs > .field__items > .field__item:has(> .paragraph:not([class*="style__"], [class*="inverted"])):has(+ .field__item > .paragraph:not([class*="style__"], [class*="inverted"])) .wrapper-paragraph {
+  padding-block-end: 0;
+}
+
+// Respect headline margin when not side-by-side
+.wrapper-paragraph:not(.paragraph--view-mode--grid):has(.field--name-field-heading) {
+  padding-block-start: calc(.5 * var(--oc-section-spacing));
+}
+
+// Unset default Views block margin
 .paragraph--type--wrapper-section {
   .field__item:last-child > .paragraph--type--view {
     margin-block-end: 0;
@@ -27,17 +39,7 @@
 
 .paragraph.inverted,
 .paragraph:is([class*="style__"]) {
-  padding-block-end: calc(1 * var(--oc-section-spacing));
   padding-inline: var(--oc-gutter);
-}
-
-.paragraph.inverted.paragraph--view-mode--grid,
-.paragraph.paragraph--view-mode--grid:is([class*="style__"]) {
-  padding-block-start: calc(.75 * var(--oc-section-spacing));
-}
-
-.field--name-field-content-paragraphs > .field__items > .field__item:has(.paragraph:is([class*="style__"])) + .field__item > .paragraph:not(:is([class*="style__"])) {
-  margin-block-start: calc(.75 * var(--oc-section-spacing));
 }
 
 .style__slight_contrast {
@@ -55,8 +57,7 @@
 
 // Whitespoce for given and further custom classes (starting with "style__")
 
-.paragraph--type--wrapper-section,
-.paragraph--type--teaser-wrapper {
+.wrapper-paragraph {
   &.inverted,
   &:is([class*="style__"]) {
     margin-inline: calc(-1 * var(--oc-page-padding-inline));
@@ -71,11 +72,6 @@
     margin-block: calc(-.5 * var(--oc-row-gap));
     margin-inline: calc(-.5 * var(--oc-gutter));
   }
-
-  // ... and inside a slider
-  //.slider-container .paragraph--teaser {
-  //  margin-block: var(--oc-row-gap) calc(-.5 * var(--oc-row-gap));
-  //}
 }
 
 
@@ -86,15 +82,13 @@
   .field--name-field-content-paragraphs {
     margin-inline-start: calc(1 * var(--oc-grid-step));
 
-    .paragraph--type--wrapper-section,
-    .paragraph--type--teaser-wrapper,
+    .wrapper-paragraph,
     .paragraph--type--gallery {
       margin-inline-start: calc(-1 * calc(var(--oc-grid-step) + var(--oc-page-padding-inline)));
       padding-inline: var(--oc-page-padding-inline);
     }
 
-    .paragraph--type--wrapper-section:not(.paragraph--view-mode--grid),
-    .paragraph--type--teaser-wrapper:not(.paragraph--view-mode--grid) {
+    .wrapper-paragraph:not(.paragraph--view-mode--grid) {
       padding-inline-start: calc(2 * calc(var(--oc-grid-step)) + var(--oc-page-padding-inline));
     }
 
@@ -124,7 +118,8 @@
       margin-inline-start: calc(1 * var(--oc-grid-step));
 
       .field--name-field-body,
-      .paragraph--type--download {
+      .paragraph--type--download,
+      .view.faq {
         margin-inline-start: calc(1 * var(--oc-grid-step)); // matches 2 steps for .field--name-body
       }
 
@@ -147,6 +142,7 @@
   --oc-card-background: color-mix(in oklab, var(--oc-color-bg-dark) 93%, var(--oc-color-bg-light));
   --oc-color-link: var(--oc-color-link-inverted);
   --oc-color-interaction: var(--oc-color-interaction-inverted);
+  --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 93%, var(--oc-color-bg-light));
 
   h2,
   h3,
@@ -160,15 +156,3 @@
     border-color: var(--oc-color-bg-dark)
   }
 }
-
-// Whitespace at the end of default-styled paragraphs when followed by one with a background
-//
-//.field--name-field-content-paragraphs {
-//  .field__item:has(+ .field__item > .style__slight_contrast),
-//  .field__item:has(+ .field__item > .style__vivid_contrast),
-//  .field__item:has(+ .field__item > .inverted) {
-//    > .paragraph {
-//      padding-block-end: var(--oc-row-gap);
-//    }
-//  }
-//}

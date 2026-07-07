@@ -1,5 +1,6 @@
 // ---------------------------------------
 // Swiffy slider slideshows (gallery, sponsors, teasers)
+// @todo Change snap-align configuration
 // ---------------------------------------
 
 @use "../../sass/abstracts" as *;
@@ -9,6 +10,7 @@
 .swiffy-slider {
   --swiffy-slider-item-gap: var(--oc-gutter);
   --swiffy-slider-nav-dark: var(--oc-color-interaction);
+  --swiffy-slider-snap-align: center; // overriding config @todo
   container-type: inline-size;
 }
 
@@ -55,13 +57,13 @@
   margin-block-end: calc(-.5 * var(--swiffy-slider-indicator-outside-size)); // amend absolute positioning of buttons
 }
 
-// Adjust vertical alignment
-
-.swiffy-slider li {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// Adjusting vertical alignment
+// Caveat! Results in uncontrollable slider component height
+//.swiffy-slider li {
+//  display: flex; // causes slider height errors
+//  align-items: center;
+//  justify-content: center;
+//}
 
 .swiffy-slider article.teaser {
   margin-block: calc(.5 * var(--oc-card-margin-block));
@@ -301,11 +303,17 @@ button.slider-nav {
   }
 }
 
-
-
 // Prevent teasers w/o image + little text from shrinking
 .slide-visible .paragraph--teaser,
 .swiffy-slider article.teaser {
   inline-size: 100%;
 }
 
+// Supporters + platform sponsors sliders: vertically centered logos
+
+.platform-sponsors .swiffy-slider li,
+#supporters .swiffy-slider li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

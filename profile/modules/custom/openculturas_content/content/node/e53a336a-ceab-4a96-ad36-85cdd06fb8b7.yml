@@ -26,23 +26,31 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   moderation_state:
     -
       value: published
+  path:
+    -
+      alias: /terms
+      langcode: en
+      pathauto: 0
   content_translation_source:
     -
       value: und
   content_translation_outdated:
     -
       value: false
-  path:
+  body:
     -
-      alias: /terms
-      langcode: en
-      pathauto: 0
+      value: '<p><span class="mark">[In case this platform remains open for </span><a href="/admin/config/people/accounts"><span class="mark">self-registration</span></a><span class="mark">, place your terms &amp; conditions here. Otherwise unpublish this page.]</span></p>'
+      format: full_html
+      summary: ''
+  field_layout_switcher:
+    -
+      value: layout-text-heavy
+  field_search_api_exclude:
+    -
+      value: false
 translations:
   de:
     status:
@@ -56,16 +64,23 @@ translations:
         value: Nutzungsbedingungen
     created:
       -
-        value: 1651664823
-    revision_translation_affected:
-      -
-        value: true
+        value: 1782915342
     moderation_state:
       -
         value: published
+    path:
+      -
+        alias: /terms
+        langcode: de
+        pathauto: 0
     content_translation_source:
       -
         value: en
     content_translation_outdated:
       -
         value: false
+    body:
+      -
+        value: '<p><span class="mark">[Wenn diese Plattform offen bleibt für </span><a href="/admin/config/people/accounts"><span class="mark">User-Registrierungen</span></a><span class="mark">, füge hier eure Nutzungsbedingungen ein. Andernfalls setze diese Seite auf unveröffentlicht.]</span></p>'
+        format: full_html
+        summary: ''

@@ -298,6 +298,10 @@ function opcult_preprocess_paragraph(array &$variables): void {
     $variables['member_is_published'] = $node->isPublished();
     $variables['user_has_edit_access'] = $node->access('edit');
   }
+
+  if ($paragraph->bundle() === 'wrapper_section' || $paragraph->bundle() === 'teaser_wrapper') {
+    $variables['attributes']['class'][] = 'wrapper-paragraph';
+  }
 }
 
 /**

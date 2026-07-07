@@ -26,12 +26,14 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   moderation_state:
     -
       value: published
+  path:
+    -
+      alias: /events
+      langcode: en
+      pathauto: 0
   content_translation_source:
     -
       value: und
@@ -57,9 +59,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           content_translation_source:
             -
               value: und
@@ -72,11 +71,23 @@ default:
               display_id: event_catalogue_block
               arguments: ''
               items_to_display: ''
-  path:
+        translations:
+          de:
+            status:
+              -
+                value: true
+            behavior_settings:
+              -
+                value: {  }
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+  field_search_api_exclude:
     -
-      alias: /events
-      langcode: en
-      pathauto: 0
+      value: false
 translations:
   de:
     status:
@@ -91,12 +102,14 @@ translations:
     created:
       -
         value: 1656943725
-    revision_translation_affected:
-      -
-        value: true
     moderation_state:
       -
         value: published
+    path:
+      -
+        alias: /veranstaltungen
+        langcode: de
+        pathauto: 0
     content_translation_source:
       -
         value: en

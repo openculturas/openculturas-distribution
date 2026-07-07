@@ -10,7 +10,11 @@ changes when updating OpenCulturas.
 ### 1. Run the theme launcher
 
 In your web document root, run
-`php web/core/scripts/drupal generate-theme --starterkit opcult_starterkit opcult_sub --name "OpCult Sub" --path themes/custom`
+`vendor/bin/dr generate-theme --starterkit opcult_starterkit opcult_sub --name "OpCult Sub" --path themes/custom`
+
+or in DDev:
+
+`ddev exec dr generate-theme --starterkit opcult_starterkit opcult_sub --name "OpCult Sub" --path themes/custom`
 
 **Customize**
 

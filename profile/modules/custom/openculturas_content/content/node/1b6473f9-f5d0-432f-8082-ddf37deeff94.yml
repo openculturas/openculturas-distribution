@@ -26,31 +26,28 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   moderation_state:
     -
       value: published
+  path:
+    -
+      alias: /magazine
+      langcode: en
+      pathauto: 0
   content_translation_source:
     -
       value: und
   content_translation_outdated:
     -
       value: false
-  body:
-    -
-      value: "<h2>Browse by columns</h2>\r\n"
-      format: basic_html
-      summary: ''
   field_content_paragraphs:
     -
       entity:
         _meta:
           version: '1.0'
           entity_type: paragraph
-          uuid: ad2916e2-61c3-4acf-9817-dff8a8f9740b
-          bundle: view
+          uuid: cb1e33eb-b171-4d2f-b91b-b785decdab07
+          bundle: wrapper_section
           default_langcode: en
         default:
           status:
@@ -58,34 +55,73 @@ default:
               value: true
           created:
             -
-              value: 1656936907
+              value: 1782917983
           behavior_settings:
             -
-              value: {  }
-          revision_translation_affected:
-            -
-              value: true
+              value:
+                extra_style:
+                  class: none
           content_translation_source:
             -
               value: und
           content_translation_outdated:
             -
               value: false
-          field_view:
+          field_content_paragraphs:
             -
-              target_id: vocabulary
-              display_id: block_term_grid_columns
-              arguments: ''
-              items_to_display: ''
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 397720c2-8b78-40dc-934c-34b62b77fa78
+                  bundle: view
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782918027
+                  behavior_settings:
+                    -
+                      value: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_view:
+                    -
+                      target_id: vocabulary
+                      display_id: block_term_grid_columns
+                      arguments: ''
+                      items_to_display: ''
+                translations:
+                  de:
+                    status:
+                      -
+                        value: true
+                    behavior_settings:
+                      -
+                        value: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+          field_heading:
+            -
+              size: h2
+              text: 'Browse by columns'
+          paragraph_view_mode:
+            -
+              value: default
         translations:
           de:
             status:
-              -
-                value: true
-            behavior_settings:
-              -
-                value: {  }
-            revision_translation_affected:
               -
                 value: true
             content_translation_source:
@@ -94,13 +130,20 @@ default:
             content_translation_outdated:
               -
                 value: false
+            field_heading:
+              -
+                size: h2
+                text: 'Nach Rubriken durchstöbern'
+            paragraph_view_mode:
+              -
+                value: default
     -
       entity:
         _meta:
           version: '1.0'
           entity_type: paragraph
-          uuid: d62d641e-536b-4db5-8dcc-d96ca7d06088
-          bundle: text
+          uuid: 879fa1a3-142a-4c9a-b8f0-0079f65c981d
+          bundle: wrapper_section
           default_langcode: en
         default:
           status:
@@ -108,32 +151,73 @@ default:
               value: true
           created:
             -
-              value: 1656936940
+              value: 1782918051
           behavior_settings:
             -
-              value: {  }
-          revision_translation_affected:
-            -
-              value: true
+              value:
+                extra_style:
+                  class: none
           content_translation_source:
             -
               value: und
           content_translation_outdated:
             -
               value: false
-          field_body:
+          field_content_paragraphs:
             -
-              value: "<h2>Latest article</h2>\r\n"
-              format: basic_html
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 8dd4c4cd-301e-41f2-89ee-a26082b2ab3c
+                  bundle: view
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782918077
+                  behavior_settings:
+                    -
+                      value: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_view:
+                    -
+                      target_id: related_article
+                      display_id: related_article_latest
+                      arguments: ''
+                      items_to_display: '24'
+                translations:
+                  de:
+                    status:
+                      -
+                        value: true
+                    behavior_settings:
+                      -
+                        value: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+          field_heading:
+            -
+              size: h2
+              text: 'Latest articles'
+          paragraph_view_mode:
+            -
+              value: default
         translations:
           de:
             status:
-              -
-                value: true
-            behavior_settings:
-              -
-                value: {  }
-            revision_translation_affected:
               -
                 value: true
             content_translation_source:
@@ -142,65 +226,16 @@ default:
             content_translation_outdated:
               -
                 value: false
-            field_body:
+            field_heading:
               -
-                value: "<h2>Neueste Artikel</h2>\r\n"
-                format: basic_html
+                size: h2
+                text: 'Aktuellste Beiträge'
+            paragraph_view_mode:
+              -
+                value: default
+  field_search_api_exclude:
     -
-      entity:
-        _meta:
-          version: '1.0'
-          entity_type: paragraph
-          uuid: 1b62b443-35f1-416c-bbd6-3354c55d0a7f
-          bundle: view
-          default_langcode: en
-        default:
-          status:
-            -
-              value: true
-          created:
-            -
-              value: 1656937000
-          behavior_settings:
-            -
-              value: {  }
-          revision_translation_affected:
-            -
-              value: true
-          content_translation_source:
-            -
-              value: und
-          content_translation_outdated:
-            -
-              value: false
-          field_view:
-            -
-              target_id: related_article
-              display_id: related_article_latest
-              arguments: ''
-              items_to_display: ''
-        translations:
-          de:
-            status:
-              -
-                value: true
-            behavior_settings:
-              -
-                value: {  }
-            revision_translation_affected:
-              -
-                value: true
-            content_translation_source:
-              -
-                value: en
-            content_translation_outdated:
-              -
-                value: false
-  path:
-    -
-      alias: /magazine
-      langcode: en
-      pathauto: 0
+      value: false
 translations:
   de:
     status:
@@ -215,20 +250,17 @@ translations:
     created:
       -
         value: 1656936836
-    revision_translation_affected:
-      -
-        value: true
     moderation_state:
       -
         value: published
+    path:
+      -
+        alias: /magazin
+        langcode: de
+        pathauto: 0
     content_translation_source:
       -
         value: en
     content_translation_outdated:
       -
         value: false
-    body:
-      -
-        value: "<h2>Nach Rubriken durchstöbern</h2>\r\n"
-        format: basic_html
-        summary: ''

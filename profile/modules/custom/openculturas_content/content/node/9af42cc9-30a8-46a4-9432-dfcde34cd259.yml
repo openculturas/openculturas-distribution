@@ -4,6 +4,17 @@ _meta:
   uuid: 9af42cc9-30a8-46a4-9432-dfcde34cd259
   bundle: page
   default_langcode: en
+  depends:
+    13e1886c-791b-4ef9-a1f4-17f2eb819d53: node
+    3521cd29-8d0d-4367-9ae6-9e9b9e904551: node
+    fea2bde2-e5af-4c1d-9ac9-e2d69199d013: node
+    1b6473f9-f5d0-432f-8082-ddf37deeff94: node
+    79ce741a-c816-4b54-a47b-f3210e9e6338: node
+    e53a336a-ceab-4a96-ad36-85cdd06fb8b7: node
+    64bfc6ca-f9e6-4a54-884c-ee1c763269e0: node
+    af738793-80dc-4b37-8790-878b4df30e5a: node
+    f2dbc4e9-5f8e-4032-9ce8-ddf3557b868c: node
+    93123c3e-0cec-4f07-8335-77e5dfaf1dec: media
 default:
   revision_uid:
     -
@@ -26,23 +37,824 @@ default:
   sticky:
     -
       value: false
-  revision_translation_affected:
-    -
-      value: true
   moderation_state:
     -
       value: published
+  path:
+    -
+      alias: /welcome
+      langcode: en
+      pathauto: 0
   content_translation_source:
     -
       value: und
   content_translation_outdated:
     -
       value: false
-  path:
+  body:
     -
-      alias: /welcome
-      langcode: en
-      pathauto: 0
+      value: "<p>OpenCulturas has been successfully installed. This is your home page. Feel free to add/remove content, it's all yours!</p>"
+      format: advanced_html
+      summary: ''
+  field_content_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 99975b64-9790-42da-9bf0-73682b79720c
+          bundle: wrapper_section
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1782895187
+          behavior_settings:
+            -
+              value:
+                extra_style:
+                  class: none
+          content_translation_source:
+            -
+              value: und
+          content_translation_outdated:
+            -
+              value: false
+          field_content_paragraphs:
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: e478fad5-e148-4f2b-9a95-97d008032671
+                  bundle: view
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1783097715
+                  behavior_settings:
+                    -
+                      value: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_view:
+                    -
+                      target_id: related_date
+                      display_id: block_front_dates
+                      arguments: ''
+                      items_to_display: ''
+          field_heading:
+            -
+              size: h2
+              text: 'Upcoming dates'
+          field_intro:
+            -
+              value: '<p>Any upcoming dates are automatically aggregated here.</p>'
+              format: basic_html
+          field_url_single_value:
+            -
+              target_uuid: 13e1886c-791b-4ef9-a1f4-17f2eb819d53
+              resolvable_uri: /en/calendar
+              title: 'Event calendar'
+              options: {  }
+          paragraph_view_mode:
+            -
+              value: grid
+        translations:
+          de:
+            status:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+            field_heading:
+              -
+                size: h2
+                text: 'Nächste Termine'
+            field_intro:
+              -
+                value: '<p>Alle kommenden Termine werden automatisch hier zusammengestellt.</p>'
+                format: basic_html
+            field_url_single_value:
+              -
+                target_uuid: 13e1886c-791b-4ef9-a1f4-17f2eb819d53
+                resolvable_uri: /en/calendar
+                title: Veranstaltungskalender
+                options: {  }
+            paragraph_view_mode:
+              -
+                value: grid
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 97643932-13ec-4ccc-ae05-8e1e7507802d
+          bundle: wrapper_section
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1782895274
+          behavior_settings:
+            -
+              value:
+                extra_style:
+                  class: none
+          content_translation_source:
+            -
+              value: und
+          content_translation_outdated:
+            -
+              value: false
+          field_content_paragraphs:
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 85f6690e-5f45-4797-8a67-26c400934db2
+                  bundle: view
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895406
+                  behavior_settings:
+                    -
+                      value: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_view:
+                    -
+                      target_id: oc_frontpage
+                      display_id: block_front_profiles
+                      arguments: ''
+                      items_to_display: ''
+                translations:
+                  de:
+                    status:
+                      -
+                        value: true
+                    behavior_settings:
+                      -
+                        value: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+          field_heading:
+            -
+              size: h2
+              text: 'Community highlights'
+          field_intro:
+            -
+              value: '<p>Any profile with the flag <em>Promoted to front page</em> is automatically teasered here.</p>'
+              format: basic_html
+          field_url_single_value:
+            -
+              target_uuid: 3521cd29-8d0d-4367-9ae6-9e9b9e904551
+              resolvable_uri: /en/community
+              title: 'Community overview'
+              options: {  }
+          paragraph_view_mode:
+            -
+              value: default
+        translations:
+          de:
+            status:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+            field_heading:
+              -
+                size: h2
+                text: Community-Highlights
+            field_intro:
+              -
+                value: '<p>Profile mit der Kennzeichnung <em>Auf der Startseite anzeigen</em> werden hier angeteasert.</p>'
+                format: basic_html
+            field_url_single_value:
+              -
+                target_uuid: 3521cd29-8d0d-4367-9ae6-9e9b9e904551
+                resolvable_uri: /en/community
+                title: Community-Übersicht
+                options: {  }
+            paragraph_view_mode:
+              -
+                value: default
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 5bf0a59b-2d04-41d2-8074-40be41fb7891
+          bundle: wrapper_section
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1782895420
+          behavior_settings:
+            -
+              value:
+                extra_style:
+                  class: inverted
+          content_translation_source:
+            -
+              value: und
+          content_translation_outdated:
+            -
+              value: false
+          field_content_paragraphs:
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 8ac7a2da-9c85-4bf7-b57d-c91480b8e379
+                  bundle: view
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895463
+                  behavior_settings:
+                    -
+                      value: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_view:
+                    -
+                      target_id: oc_frontpage
+                      display_id: block_front_locations
+                      arguments: ''
+                      items_to_display: ''
+                translations:
+                  de:
+                    status:
+                      -
+                        value: true
+                    behavior_settings:
+                      -
+                        value: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+          field_heading:
+            -
+              size: h2
+              text: 'Location highlights'
+          field_intro:
+            -
+              value: '<p>Any location with the flag <em>Promoted to front page</em> is automatically teasered here.</p>'
+              format: basic_html
+          field_url_single_value:
+            -
+              target_uuid: fea2bde2-e5af-4c1d-9ac9-e2d69199d013
+              resolvable_uri: /en/locations
+              title: 'All locations'
+              options: {  }
+          paragraph_view_mode:
+            -
+              value: default
+        translations:
+          de:
+            status:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+            field_heading:
+              -
+                size: h2
+                text: 'Besondere Orte'
+            field_intro:
+              -
+                value: '<p>Orte mit der Kennzeichnung <em>Auf der Startseite anzeigen</em> werden hier angeteasert.</p>'
+                format: basic_html
+            field_url_single_value:
+              -
+                target_uuid: fea2bde2-e5af-4c1d-9ac9-e2d69199d013
+                resolvable_uri: /en/locations
+                title: 'Alle Orte'
+                options: {  }
+            paragraph_view_mode:
+              -
+                value: default
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: aa6a08e1-1b35-4fe1-b781-57a818ba702c
+          bundle: wrapper_section
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1782895472
+          behavior_settings:
+            -
+              value:
+                extra_style:
+                  class: none
+          content_translation_source:
+            -
+              value: und
+          content_translation_outdated:
+            -
+              value: false
+          field_content_paragraphs:
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 49abce13-f26d-482e-9a2a-40c99b16bb60
+                  bundle: view
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782928863
+                  behavior_settings:
+                    -
+                      value: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_view:
+                    -
+                      target_id: oc_frontpage
+                      display_id: block_front_articles_x
+                      arguments: ''
+                      items_to_display: ''
+                translations:
+                  de:
+                    status:
+                      -
+                        value: true
+                    behavior_settings:
+                      -
+                        value: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+          field_heading:
+            -
+              size: h2
+              text: Magazine
+          field_intro:
+            -
+              value: '<p>Any new magazine article is automatically teasered here.</p>'
+              format: basic_html
+          field_url_single_value:
+            -
+              target_uuid: 1b6473f9-f5d0-432f-8082-ddf37deeff94
+              resolvable_uri: /en/magazine
+              title: Magazine
+              options: {  }
+          paragraph_view_mode:
+            -
+              value: grid
+        translations:
+          de:
+            status:
+              -
+                value: true
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+            field_heading:
+              -
+                size: h2
+                text: Magazin
+            field_intro:
+              -
+                value: '<p>Alle neuen Magazinartikel werden automatisch hier angeteasert.</p>'
+                format: basic_html
+            field_url_single_value:
+              -
+                target_uuid: 1b6473f9-f5d0-432f-8082-ddf37deeff94
+                resolvable_uri: /en/magazine
+                title: Magazin
+                options: {  }
+            paragraph_view_mode:
+              -
+                value: default
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 87cfcb0a-f4a3-47e3-958a-f230d7e6921c
+          bundle: teaser_wrapper
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1782895593
+          behavior_settings:
+            -
+              value:
+                extra_style:
+                  class: style__vivid_contrast
+          content_translation_source:
+            -
+              value: und
+          content_translation_outdated:
+            -
+              value: false
+          field_heading:
+            -
+              size: h2
+              text: 'Discover more'
+          field_intro:
+            -
+              value: '<p>Select content for teaser placement and if you like, change them individually</p>'
+              format: basic_html
+          field_teasers:
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: ffc9f9aa-6180-417b-9d15-178219d264ab
+                  bundle: teaser_node
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895680
+                  behavior_settings:
+                    -
+                      value:
+                        extra_style:
+                          class: none
+                        node_teaser: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_article:
+                    -
+                      entity: 79ce741a-c816-4b54-a47b-f3210e9e6338
+                translations:
+                  de:
+                    behavior_settings:
+                      -
+                        value:
+                          extra_style:
+                            class: none
+                          node_teaser: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: c2ad07c9-43ac-4803-9f1d-06c603e610cb
+                  bundle: teaser_external
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782928167
+                  behavior_settings:
+                    -
+                      value:
+                        extra_style:
+                          class: none
+                        link_teaser:
+                          subtitle: 'Need help getting started?'
+                          body: 'Find some useful answers on openculturas.org: Administratorʼs manual, Editorʼs handbook, Contributing usersʼ FAQ'
+                          media: '1'
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_url_single_value:
+                    -
+                      uri: 'https://www.openculturas.org/en/manual'
+                      resolvable_uri: 'https://www.openculturas.org/en/manual'
+                      title: 'OpenCulturas manuals'
+                      options: {  }
+                translations:
+                  de:
+                    behavior_settings:
+                      -
+                        value:
+                          extra_style:
+                            class: none
+                          link_teaser:
+                            subtitle: 'Unterstützung bei der Inbetriebnahme von OpenCulturas'
+                            body: 'Ein paar nützliche Hilfestellungen findet ihr auf openculturas.org: Administrationshandbuch, Redaktionshandbuch, FAQ und mehr!'
+                            media: '1'
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+                    field_url_single_value:
+                      -
+                        uri: 'https://www.openculturas.org/en/manual'
+                        resolvable_uri: 'https://www.openculturas.org/en/manual'
+                        title: OpenCulturas-Handbücher
+                        options: {  }
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 1af199b1-fcb7-44af-b95e-4f18a5da9d17
+                  bundle: teaser_node
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895703
+                  behavior_settings:
+                    -
+                      value:
+                        extra_style:
+                          class: none
+                        node_teaser: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_article:
+                    -
+                      entity: e53a336a-ceab-4a96-ad36-85cdd06fb8b7
+                translations:
+                  de:
+                    behavior_settings:
+                      -
+                        value:
+                          extra_style:
+                            class: none
+                          node_teaser: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: 137ae48b-28a5-4a4c-90b3-20fbe44c30a9
+                  bundle: teaser_node
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895907
+                  behavior_settings:
+                    -
+                      value:
+                        extra_style:
+                          class: none
+                        node_teaser: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_article:
+                    -
+                      entity: 64bfc6ca-f9e6-4a54-884c-ee1c763269e0
+                translations:
+                  de:
+                    behavior_settings:
+                      -
+                        value:
+                          extra_style:
+                            class: none
+                          node_teaser: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: fc68e905-2486-4f93-a667-c17ebf183997
+                  bundle: teaser_node
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895913
+                  behavior_settings:
+                    -
+                      value:
+                        extra_style:
+                          class: none
+                        node_teaser: {  }
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_article:
+                    -
+                      entity: af738793-80dc-4b37-8790-878b4df30e5a
+                translations:
+                  de:
+                    behavior_settings:
+                      -
+                        value:
+                          extra_style:
+                            class: none
+                          node_teaser: {  }
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+            -
+              entity:
+                _meta:
+                  version: '1.0'
+                  entity_type: paragraph
+                  uuid: cb0d3eb3-96d7-43ec-b73b-11968daa113a
+                  bundle: teaser_node
+                  default_langcode: en
+                default:
+                  status:
+                    -
+                      value: true
+                  created:
+                    -
+                      value: 1782895759
+                  behavior_settings:
+                    -
+                      value:
+                        extra_style:
+                          class: none
+                        node_teaser:
+                          title: 'Event catalogue'
+                          subtitle: 'Discover events'
+                          body: "Regular programs or bookable events can be found in a catalogue even when there's no upcoming date attached."
+                  content_translation_source:
+                    -
+                      value: und
+                  content_translation_outdated:
+                    -
+                      value: false
+                  field_article:
+                    -
+                      entity: f2dbc4e9-5f8e-4032-9ce8-ddf3557b868c
+                translations:
+                  de:
+                    behavior_settings:
+                      -
+                        value:
+                          extra_style:
+                            class: none
+                          node_teaser:
+                            title: Veranstaltungskatalog
+                            subtitle: 'Entdecke die Angebote'
+                            body: 'Regelmäßige Programme oder buchbare Veranstaltungen sind im Katalog zu finden, auch wenn noch kein Termin feststeht.'
+                    content_translation_source:
+                      -
+                        value: en
+                    content_translation_outdated:
+                      -
+                        value: false
+          paragraph_view_mode:
+            -
+              value: slider_duo
+        translations:
+          de:
+            content_translation_source:
+              -
+                value: en
+            content_translation_outdated:
+              -
+                value: false
+            field_heading:
+              -
+                size: h2
+                text: 'Mehr entdecken'
+            field_intro:
+              -
+                value: '<p>Anzuteasernden Inhalt auswählen und bei Bedarf individuell umgestalten</p>'
+                format: basic_html
+            paragraph_view_mode:
+              -
+                value: slider_duo
+  field_mood_image:
+    -
+      entity: 93123c3e-0cec-4f07-8335-77e5dfaf1dec
+  field_search_api_exclude:
+    -
+      value: false
 translations:
   de:
     status:
@@ -56,16 +868,23 @@ translations:
         value: Willkommen
     created:
       -
-        value: 1657106382
-    revision_translation_affected:
-      -
-        value: true
+        value: 1782914818
     moderation_state:
       -
         value: published
+    path:
+      -
+        alias: /willkommen
+        langcode: de
+        pathauto: 0
     content_translation_source:
       -
         value: en
     content_translation_outdated:
       -
         value: false
+    body:
+      -
+        value: '<p>OpenCulturas wurde erfolgreich installiert. Dies ist eure Startseite. Ändert, ergänzt oder entfernt die Inhalte ganz nach Belieben.</p>'
+        format: advanced_html
+        summary: ''

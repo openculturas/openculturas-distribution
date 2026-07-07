@@ -13,6 +13,10 @@
   inline-size: 100%;
 }
 
+.section-wrapper:not(:has(.section > div)) {
+  padding-block: 0;
+}
+
 // ---
 // Layout builder top-level sections
 
@@ -94,6 +98,13 @@ body {
       padding-block-end: .125rem; // prevent needless scrollbar
     }
   }
+}
+
+// ---
+// General padding for copy area
+
+.copy-area {
+  padding-block-end: var(--oc-section-spacing);
 }
 
 // ---
@@ -243,9 +254,3 @@ body {
   }
 }
 
-// ---
-// Comments section empty content is not properly hiding
-
-.comments--section:not(:has(.section div)) {
-  padding: 0;
-}

@@ -992,6 +992,20 @@ function openculturas_custom_config_schema_info_alter(array &$definitions): void
   if (isset($definitions['paragraphs.paragraphs_type.*']['mapping']['label'])) {
     $definitions['paragraphs.paragraphs_type.*']['mapping']['label']['translation context'] = 'entity_bundle_name';
   }
+
+  // The "delta" field in the related_date* and oc_map_dates views uses the
+  // numeric field's "Rewrite results" text as a Twig token expression
+  // (e.g. "{{ title }}") to build a link to the parent node, not as
+  // human-readable prose. Marking it translatable let a community
+  // translation mistranslate the literal token (see
+  // https://localize.drupal.org/translate/languages/de/translate?sid=2446810),
+  // silently breaking the token match and blanking the rendered link text.
+  // The base "alter" mapping is defined on the parent "views_field" type and
+  // only appears here once merged, so it must be added rather than altered.
+  if (isset($definitions['views.field.numeric'])) {
+    $definitions['views.field.numeric']['mapping']['alter']['mapping']['text']['type'] = 'string';
+    $definitions['views.field.numeric']['mapping']['alter']['mapping']['path']['type'] = 'string';
+  }
 }
 
 /**

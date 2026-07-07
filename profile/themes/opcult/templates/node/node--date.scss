@@ -112,3 +112,26 @@
     margin-block: 0;
   }
 }
+
+// ---
+// Distinguish date-related text from event default description
+// Related: field-text.scss
+
+.page-node-type-date .field--name-field-body-addon::after {
+  content: "";
+  display: block;
+  inline-size: calc(2 * var(--oc-grid-step));
+  border-bottom: var(--oc-divider-dark);
+  margin-bottom: var(--oc-row-gap);
+}
+
+@container copy-area (width > 90ch) {
+  .page-node-type-date .field--name-field-body-addon {
+    &::after {
+      inline-size: calc(2 * var(--oc-grid-step) - var(--oc-gutter));
+    }
+    .field__item {
+      padding-inline-start: calc(2 * var(--oc-grid-step));
+    }
+  }
+}
