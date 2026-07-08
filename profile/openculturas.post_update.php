@@ -451,3 +451,13 @@ function openculturas_post_update_taxonomy_term_page_type_full_mood_image_class(
 
   return $logger->output();
 }
+
+/**
+ * Imports configuration core.date_format.site_month_and_year.
+ */
+function openculturas_post_update_core_date_format_site_month_and_year(): string {
+  $full_config_names = [
+    'core.date_format.site_month_and_year',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
