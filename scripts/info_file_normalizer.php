@@ -284,6 +284,12 @@ if (!str_contains(VERSION, '-dev')) {
     $publiccodeContent,
     1
   );
+  $publiccodeContent = preg_replace(
+    '/^releaseDate: .*$/m',
+    "releaseDate: '" . date('Y-m-d') . "'",
+    $publiccodeContent,
+    1
+  );
   file_put_contents($publiccodeFile, $publiccodeContent);
 }
 
