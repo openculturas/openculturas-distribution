@@ -210,34 +210,40 @@ function openculturas_update_10127(): void {
   /** @var \Drupal\Core\Entity\EntityStorageInterface $entityViewDisplayStorage */
   $entityViewDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
   $bundles = ['event', 'location', 'profile', 'article'];
+  // The 'full_lb' view mode is the opcult theme's layout builder template
+  // (see theme-settings.php), copied onto 'full' when a site switches a
+  // bundle to layout builder output, so it needs the same cleanup.
+  $view_modes = ['full', 'full_lb'];
   foreach ($bundles as $bundle) {
-    /** @var \Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay|null $display */
-    $display = $entityViewDisplayStorage->load('node.' . $bundle . '.full');
-    if (!$display instanceof LayoutBuilderEntityViewDisplay) {
-      continue;
-    }
+    foreach ($view_modes as $view_mode) {
+      /** @var \Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay|null $display */
+      $display = $entityViewDisplayStorage->load('node.' . $bundle . '.' . $view_mode);
+      if (!$display instanceof LayoutBuilderEntityViewDisplay) {
+        continue;
+      }
 
-    if (!$display->isLayoutBuilderEnabled()) {
-      continue;
-    }
+      if (!$display->isLayoutBuilderEnabled()) {
+        continue;
+      }
 
-    $changed = FALSE;
-    foreach ($display->getSections() as $delta => $section) {
-      foreach ($section->getComponents() as $uuid => $component) {
-        $plugin_id = (string) ($component->get('configuration')['id'] ?? '');
-        if (str_ends_with($plugin_id, ':field_comments')) {
-          $section->removeComponent($uuid);
-          $changed = TRUE;
+      $changed = FALSE;
+      foreach ($display->getSections() as $delta => $section) {
+        foreach ($section->getComponents() as $uuid => $component) {
+          $plugin_id = (string) ($component->get('configuration')['id'] ?? '');
+          if (str_ends_with($plugin_id, ':field_comments')) {
+            $section->removeComponent($uuid);
+            $changed = TRUE;
+          }
+        }
+
+        if (!$section->getComponents()) {
+          $display->removeSection($delta);
         }
       }
 
-      if (!$section->getComponents()) {
-        $display->removeSection($delta);
+      if ($changed) {
+        $display->save();
       }
-    }
-
-    if ($changed) {
-      $display->save();
     }
   }
 }
