@@ -383,58 +383,71 @@ function openculturas_post_update_taxonomy_term_page_type_full_mood_image_class(
   /** @var \Drupal\update_helper\UpdateLogger $logger */
   $logger = \Drupal::service('update_helper.logger');
 
-  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
-  /** @var \Drupal\layout_builder\Entity\LayoutEntityDisplayInterface|null $display */
-  $display = $displayStorage->load('taxonomy_term.page_type.full');
-  if (!$display instanceof LayoutEntityDisplayInterface) {
-    $logger->notice('SKIPPED. Display taxonomy_term.page_type.full not found.');
+  // The block-field-mood-image class only styles opcult's layout builder
+  // template (see theme-settings.php), so there is nothing to do on sites
+  // that never installed the theme.
+  if (!\Drupal::service('theme_handler')->themeExists('opcult')) {
+    $logger->notice('SKIPPED. Theme opcult is not installed.');
     return $logger->output();
   }
 
-  $moodImageComponent = NULL;
-  foreach ($display->getSections() as $section) {
-    foreach ($section->getComponents() as $component) {
-      if ($component->getUuid() === '3cf68c61-638f-420d-b8d9-636e238efbb6' && $component->getPluginId() === 'field_block:taxonomy_term:page_type:field_mood_image') {
-        $moodImageComponent = $component;
-        break 2;
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  // The 'full_lb' view mode is the opcult theme's layout builder template,
+  // copied onto 'full' when a site switches the page_type bundle to layout
+  // builder output, so it needs the same fix.
+  foreach (['full', 'full_lb'] as $viewMode) {
+    $display = $displayStorage->load('taxonomy_term.page_type.' . $viewMode);
+    if (!$display instanceof LayoutEntityDisplayInterface) {
+      $logger->notice('SKIPPED. Display taxonomy_term.page_type.' . $viewMode . ' not found.');
+      continue;
+    }
+
+    $moodImageComponent = NULL;
+    foreach ($display->getSections() as $section) {
+      foreach ($section->getComponents() as $component) {
+        if ($component->getUuid() === '3cf68c61-638f-420d-b8d9-636e238efbb6' && $component->getPluginId() === 'field_block:taxonomy_term:page_type:field_mood_image') {
+          $moodImageComponent = $component;
+          break 2;
+        }
       }
     }
+
+    if (!$moodImageComponent) {
+      $logger->notice('SKIPPED. Mood image block component not found in taxonomy_term.page_type.' . $viewMode . ' display.');
+      continue;
+    }
+
+    if (!empty($moodImageComponent->get('additional'))) {
+      $logger->notice('SKIPPED. Mood image block additional attributes have been customized in taxonomy_term.page_type.' . $viewMode . ' display.');
+      continue;
+    }
+
+    $moodImageComponent->set('additional', [
+      'component_attributes' => [
+        'block_attributes' => [
+          'id' => '',
+          'class' => 'block-field-mood-image',
+          'style' => '',
+          'data' => '',
+        ],
+        'block_title_attributes' => [
+          'id' => '',
+          'class' => '',
+          'style' => '',
+          'data' => '',
+        ],
+        'block_content_attributes' => [
+          'id' => '',
+          'class' => '',
+          'style' => '',
+          'data' => '',
+        ],
+      ],
+    ]);
+    $display->save();
+
+    $logger->info('Added block-field-mood-image class to the mood image block in taxonomy_term.page_type.' . $viewMode . ' display.');
   }
 
-  if (!$moodImageComponent) {
-    $logger->notice('SKIPPED. Mood image block component not found in taxonomy_term.page_type.full display.');
-    return $logger->output();
-  }
-
-  if (!empty($moodImageComponent->get('additional'))) {
-    $logger->notice('SKIPPED. Mood image block additional attributes have been customized.');
-    return $logger->output();
-  }
-
-  $moodImageComponent->set('additional', [
-    'component_attributes' => [
-      'block_attributes' => [
-        'id' => '',
-        'class' => 'block-field-mood-image',
-        'style' => '',
-        'data' => '',
-      ],
-      'block_title_attributes' => [
-        'id' => '',
-        'class' => '',
-        'style' => '',
-        'data' => '',
-      ],
-      'block_content_attributes' => [
-        'id' => '',
-        'class' => '',
-        'style' => '',
-        'data' => '',
-      ],
-    ],
-  ]);
-  $display->save();
-
-  $logger->info('Added block-field-mood-image class to the mood image block in taxonomy_term.page_type.full display.');
   return $logger->output();
 }
