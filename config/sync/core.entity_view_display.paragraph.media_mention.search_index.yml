@@ -1,0 +1,52 @@
+uuid: 6acf8aff-efac-41f4-90ac-434edfdddfe2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.media_mention.field_media_mention_language
+    - field.field.paragraph.media_mention.field_media_mention_link_source
+    - field.field.paragraph.media_mention.field_media_mention_quotation
+    - field.field.paragraph.media_mention.field_media_mention_source_name
+    - paragraphs.paragraphs_type.media_mention
+  module:
+    - field_formatter_class
+    - link
+    - text
+id: paragraph.media_mention.search_index
+targetEntityType: paragraph
+bundle: media_mention
+mode: search_index
+content:
+  field_media_mention_link_source:
+    type: link_separate
+    label: hidden
+    settings:
+      trim_length: 120
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
+    region: content
+  field_media_mention_quotation:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_media_mention_source_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_media_mention_language: true
+  search_api_excerpt: true

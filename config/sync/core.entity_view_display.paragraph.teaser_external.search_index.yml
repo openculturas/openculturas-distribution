@@ -1,0 +1,32 @@
+uuid: 9098a4d5-1acb-4540-9533-dcb690acbdf0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.teaser_external.field_url_single_value
+    - paragraphs.paragraphs_type.teaser_external
+  module:
+    - field_formatter_class
+    - link
+id: paragraph.teaser_external.search_index
+targetEntityType: paragraph
+bundle: teaser_external
+mode: search_index
+content:
+  field_url_single_value:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 120
+      url_only: true
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

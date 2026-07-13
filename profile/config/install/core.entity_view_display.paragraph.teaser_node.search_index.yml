@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.teaser_node.field_article
+    - paragraphs.paragraphs_type.teaser_node
+  module:
+    - field_formatter_class
+id: paragraph.teaser_node.search_index
+targetEntityType: paragraph
+bundle: teaser_node
+mode: search_index
+content:
+  field_article:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

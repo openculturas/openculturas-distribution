@@ -1,0 +1,28 @@
+uuid: 1d074036-823f-4af1-b3d8-639c7c61f8b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.download.field_media_multiple
+    - paragraphs.paragraphs_type.download
+  module:
+    - field_formatter_class
+id: paragraph.download.search_index
+targetEntityType: paragraph
+bundle: download
+mode: search_index
+content:
+  field_media_multiple:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: search_index
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

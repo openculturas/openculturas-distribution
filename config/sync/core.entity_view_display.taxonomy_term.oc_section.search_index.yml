@@ -1,0 +1,42 @@
+uuid: 3c8be122-ea04-45de-85f2-93e49c6f6d45
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.search_index
+    - field.field.taxonomy_term.oc_section.field_colorcode
+    - field.field.taxonomy_term.oc_section.field_mood_image
+    - field.field.taxonomy_term.oc_section.field_related_article_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_artist_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_event_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_location_view_ref
+    - field.field.taxonomy_term.oc_section.field_related_organizer_view_ref
+    - field.field.taxonomy_term.oc_section.field_upcoming_dates_view_ref
+    - taxonomy.vocabulary.oc_section
+  module:
+    - text
+id: taxonomy_term.oc_section.search_index
+targetEntityType: taxonomy_term
+bundle: oc_section
+mode: search_index
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_colorcode: true
+  field_mood_image: true
+  field_related_article_view_ref: true
+  field_related_artist_view_ref: true
+  field_related_event_view_ref: true
+  field_related_location_view_ref: true
+  field_related_organizer_view_ref: true
+  field_upcoming_dates_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

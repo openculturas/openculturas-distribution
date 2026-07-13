@@ -1,0 +1,26 @@
+uuid: b4226f34-533a-46f7-8fe4-de03337da856
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.address_data.field_address
+    - field.field.paragraph.address_data.field_address_location
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - address
+id: paragraph.address_data.search_index
+targetEntityType: paragraph
+bundle: address_data
+mode: search_index
+content:
+  field_address:
+    type: address_plain
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_address_location: true
+  search_api_excerpt: true

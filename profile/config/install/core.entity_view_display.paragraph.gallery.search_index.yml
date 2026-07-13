@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.gallery.field_gallery
+    - field.field.paragraph.gallery.paragraph_view_mode
+    - paragraphs.paragraphs_type.gallery
+  module:
+    - field_formatter_class
+id: paragraph.gallery.search_index
+targetEntityType: paragraph
+bundle: gallery
+mode: search_index
+content:
+  field_gallery:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: search_index
+      link: false
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true

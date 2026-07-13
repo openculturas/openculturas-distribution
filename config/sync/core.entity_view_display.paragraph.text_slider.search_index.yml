@@ -1,0 +1,29 @@
+uuid: 120f56c3-cf3e-47da-820d-f844e88c8a20
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.text_slider.field_slider_card
+    - field.field.paragraph.text_slider.paragraph_view_mode
+    - paragraphs.paragraphs_type.text_slider
+  module:
+    - field_formatter_class
+    - text
+id: paragraph.text_slider.search_index
+targetEntityType: paragraph
+bundle: text_slider
+mode: search_index
+content:
+  field_slider_card:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 0
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true

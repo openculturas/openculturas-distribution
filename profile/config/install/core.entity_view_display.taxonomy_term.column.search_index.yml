@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.search_index
+    - field.field.taxonomy_term.column.field_mood_image
+    - field.field.taxonomy_term.column.field_related_article_view_ref
+    - field.field.taxonomy_term.column.field_term_children_view_ref
+    - taxonomy.vocabulary.column
+  module:
+    - text
+id: taxonomy_term.column.search_index
+targetEntityType: taxonomy_term
+bundle: column
+mode: search_index
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_mood_image: true
+  field_related_article_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

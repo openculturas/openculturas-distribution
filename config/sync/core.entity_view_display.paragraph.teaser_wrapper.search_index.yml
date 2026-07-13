@@ -1,0 +1,71 @@
+uuid: d779e442-2f38-4058-ae4b-2020540193ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.teaser_wrapper.field_heading
+    - field.field.paragraph.teaser_wrapper.field_intro
+    - field.field.paragraph.teaser_wrapper.field_teasers
+    - field.field.paragraph.teaser_wrapper.paragraph_view_mode
+    - paragraphs.paragraphs_type.teaser_wrapper
+  module:
+    - entity_reference_revisions
+    - field_formatter_class
+    - field_group
+    - heading
+    - text
+third_party_settings:
+  field_group:
+    group_header:
+      children: {  }
+      label: Header
+      parent_name: ''
+      region: hidden
+      weight: 3
+      format_type: html_element
+      format_settings:
+        classes: intro
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+id: paragraph.teaser_wrapper.search_index
+targetEntityType: paragraph
+bundle: teaser_wrapper
+mode: search_index
+content:
+  field_heading:
+    type: heading
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_intro:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_teasers:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: search_index
+      link: ''
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    weight: 2
+    region: content
+hidden:
+  paragraph_view_mode: true
+  search_api_excerpt: true

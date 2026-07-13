@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\image\ImageEffectInterface;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\openculturas_discussions\InstallerHelper;
@@ -460,4 +461,175 @@ function openculturas_post_update_core_date_format_site_month_and_year(): string
     'core.date_format.site_month_and_year',
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
+
+/**
+ * Imports the new "search_index" view mode and displays for media, paragraph and taxonomy_term entities.
+ */
+function openculturas_post_update_search_index_displays(): string {
+  $full_config_names = [
+    'core.entity_view_mode.media.search_index',
+    'core.entity_view_mode.paragraph.search_index',
+    'core.entity_view_mode.taxonomy_term.search_index',
+    'core.entity_view_display.media.audio.search_index',
+    'core.entity_view_display.media.document.search_index',
+    'core.entity_view_display.media.image.search_index',
+    'core.entity_view_display.media.logo_image.search_index',
+    'core.entity_view_display.media.remote_video.search_index',
+    'core.entity_view_display.media.sponsor.search_index',
+    'core.entity_view_display.paragraph.a11y_wheelchair.search_index',
+    'core.entity_view_display.paragraph.accessibility.search_index',
+    'core.entity_view_display.paragraph.address_data.search_index',
+    'core.entity_view_display.paragraph.block.search_index',
+    'core.entity_view_display.paragraph.bookable_event.search_index',
+    'core.entity_view_display.paragraph.contact_data.search_index',
+    'core.entity_view_display.paragraph.download.search_index',
+    'core.entity_view_display.paragraph.gallery.search_index',
+    'core.entity_view_display.paragraph.media.search_index',
+    'core.entity_view_display.paragraph.media_mention.search_index',
+    'core.entity_view_display.paragraph.member.search_index',
+    'core.entity_view_display.paragraph.teaser_external.search_index',
+    'core.entity_view_display.paragraph.teaser_node.search_index',
+    'core.entity_view_display.paragraph.teaser_term.search_index',
+    'core.entity_view_display.paragraph.teaser_wrapper.search_index',
+    'core.entity_view_display.paragraph.text.search_index',
+    'core.entity_view_display.paragraph.text_slider.search_index',
+    'core.entity_view_display.paragraph.view.search_index',
+    'core.entity_view_display.paragraph.wrapper_section.search_index',
+    'core.entity_view_display.taxonomy_term.article_type.search_index',
+    'core.entity_view_display.taxonomy_term.category.search_index',
+    'core.entity_view_display.taxonomy_term.column.search_index',
+    'core.entity_view_display.taxonomy_term.event_type.search_index',
+    'core.entity_view_display.taxonomy_term.location_type.search_index',
+    'core.entity_view_display.taxonomy_term.page_type.search_index',
+  ];
+
+  $moduleHandler = \Drupal::moduleHandler();
+  if ($moduleHandler->moduleExists('openculturas_faq')) {
+    $full_config_names[] = 'core.entity_view_display.taxonomy_term.faq_category.search_index';
+  }
+
+  if ($moduleHandler->moduleExists('openculturas_section')) {
+    $full_config_names[] = 'core.entity_view_display.taxonomy_term.oc_section.search_index';
+  }
+
+  return _openculturas_post_update_import_or_revert_config($full_config_names);
+}
+
+/**
+ * Points paragraph/address reference fields on the node "search_index" displays at the search_index view mode.
+ */
+function openculturas_post_update_search_index_displays_set_reference_view_mode(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $changes = [
+    'node.article.search_index' => ['field_content_paragraphs' => 'default'],
+    'node.event.search_index' => [
+      'field_accessibility' => 'default',
+      'field_press_quotes' => 'default',
+    ],
+    'node.location.search_index' => [
+      'field_accessibility' => 'default',
+      'field_address_data' => 'address_block',
+      'field_press_quotes' => 'default',
+    ],
+    'node.page.search_index' => ['field_content_paragraphs' => 'default'],
+    'node.profile.search_index' => [
+      'field_address_data' => 'address_block',
+      'field_press_quotes' => 'default',
+    ],
+  ];
+  if (\Drupal::moduleHandler()->moduleExists('openculturas_faq')) {
+    $changes['node.faq.search_index'] = ['field_content_paragraphs' => 'default'];
+  }
+
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  foreach ($changes as $displayId => $fields) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $display */
+    $display = $displayStorage->load($displayId);
+    if (!$display instanceof EntityViewDisplayInterface) {
+      $logger->notice('SKIPPED. Display ' . $displayId . ' not found.');
+      continue;
+    }
+
+    $changed = FALSE;
+    foreach ($fields as $fieldName => $previousViewMode) {
+      $component = $display->getComponent($fieldName);
+      if ($component === NULL) {
+        $logger->notice('SKIPPED. Component ' . $fieldName . ' not found in ' . $displayId . ' display.');
+        continue;
+      }
+
+      if (($component['settings']['view_mode'] ?? NULL) !== $previousViewMode) {
+        $logger->notice('SKIPPED. ' . $fieldName . ' in ' . $displayId . ' display has been customized.');
+        continue;
+      }
+
+      $component['settings']['view_mode'] = 'search_index';
+      $display->setComponent($fieldName, $component);
+      $changed = TRUE;
+    }
+
+    if ($changed) {
+      $display->save();
+      $logger->info('Updated ' . $displayId . ' display.');
+    }
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Shows the bookable-info and people-reference fields on the node "search_index" displays.
+ */
+function openculturas_post_update_search_index_displays_show_reference_fields(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $peopleReferenceComponent = [
+    'type' => 'entity_reference_revisions_label',
+    'label' => 'hidden',
+    'settings' => ['link' => FALSE],
+  ];
+  $changes = [
+    'node.event.search_index' => [
+      'field_bookable_info' => [
+        'type' => 'entity_reference_revisions_entity_view',
+        'label' => 'hidden',
+        'settings' => ['view_mode' => 'search_index', 'link' => ''],
+      ],
+      'field_people_reference' => $peopleReferenceComponent,
+    ],
+    'node.location.search_index' => ['field_people_reference' => $peopleReferenceComponent],
+    'node.profile.search_index' => ['field_people_reference' => $peopleReferenceComponent],
+  ];
+
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  foreach ($changes as $displayId => $fields) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $display */
+    $display = $displayStorage->load($displayId);
+    if (!$display instanceof EntityViewDisplayInterface) {
+      $logger->notice('SKIPPED. Display ' . $displayId . ' not found.');
+      continue;
+    }
+
+    $changed = FALSE;
+    foreach ($fields as $fieldName => $component) {
+      if ($display->getComponent($fieldName) !== NULL) {
+        $logger->notice('SKIPPED. ' . $fieldName . ' in ' . $displayId . ' display has already been customized.');
+        continue;
+      }
+
+      $display->setComponent($fieldName, $component);
+      $changed = TRUE;
+    }
+
+    if ($changed) {
+      $display->save();
+      $logger->info('Updated ' . $displayId . ' display.');
+    }
+  }
+
+  return $logger->output();
 }

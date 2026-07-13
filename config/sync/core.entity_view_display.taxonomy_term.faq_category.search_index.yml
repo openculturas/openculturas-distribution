@@ -1,0 +1,37 @@
+uuid: 2ba70e17-da0f-4b87-9c51-5a327844bd0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.search_index
+    - field.field.taxonomy_term.faq_category.field_mood_image
+    - field.field.taxonomy_term.faq_category.field_related_faq_view_ref
+    - field.field.taxonomy_term.faq_category.field_term_children_view_ref
+    - taxonomy.vocabulary.faq_category
+  module:
+    - text
+id: taxonomy_term.faq_category.search_index
+targetEntityType: taxonomy_term
+bundle: faq_category
+mode: search_index
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_faq_list:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_mood_image: true
+  field_related_faq_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

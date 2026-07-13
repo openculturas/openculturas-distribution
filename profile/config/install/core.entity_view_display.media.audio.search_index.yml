@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.search_index
+    - field.field.media.audio.field_licenses
+    - field.field.media.audio.field_media_audio_file
+    - media.type.audio
+id: media.audio.search_index
+targetEntityType: media
+bundle: audio
+mode: search_index
+content:
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_licenses: true
+  field_media_audio_file: true
+  langcode: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

@@ -1,0 +1,32 @@
+uuid: 11b004a9-7490-4841-8c3a-55eb3f6f2fcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.search_index
+    - field.field.taxonomy_term.page_type.field_mood_image
+    - field.field.taxonomy_term.page_type.field_related_article_view_ref
+    - field.field.taxonomy_term.page_type.field_term_children_view_ref
+    - taxonomy.vocabulary.page_type
+  module:
+    - text
+id: taxonomy_term.page_type.search_index
+targetEntityType: taxonomy_term
+bundle: page_type
+mode: search_index
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_social_media_buttons: true
+  field_mood_image: true
+  field_related_article_view_ref: true
+  field_term_children_view_ref: true
+  flag_bookmark_term: true
+  langcode: true
+  search_api_excerpt: true

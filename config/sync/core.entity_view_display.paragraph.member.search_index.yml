@@ -1,0 +1,32 @@
+uuid: 6751ad91-f5b3-4bff-afd4-7b2ae4c28222
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.search_index
+    - field.field.paragraph.member.field_member
+    - field.field.paragraph.member.field_member_function
+    - paragraphs.paragraphs_type.member
+id: paragraph.member.search_index
+targetEntityType: paragraph
+bundle: member
+mode: search_index
+content:
+  field_member:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_member_function:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true
