@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleUninstallValidatorInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\node\NodeStorageInterface;
 
 /**
  * Prevents uninstalling of openculturas_discussions when comment content was created.
@@ -18,22 +17,14 @@ final class OpenCulturasDiscussionsUninstallValidator implements ModuleUninstall
   use StringTranslationTrait;
 
   /**
-   * The node entity storage.
-   *
-   * @var \Drupal\node\NodeStorageInterface
-   */
-  protected NodeStorageInterface $nodeStorage;
-
-  /**
    * Constructs a new OpenCulturasDiscussionsUninstallValidator.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity manager.
+   *   The entity type manager.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
    *   The string translation service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, TranslationInterface $translation) {
-    $this->nodeStorage = $entityTypeManager->getStorage('node');
+  public function __construct(protected EntityTypeManagerInterface $entityTypeManager, TranslationInterface $translation) {
     $this->setStringTranslation($translation);
   }
 
@@ -60,7 +51,7 @@ final class OpenCulturasDiscussionsUninstallValidator implements ModuleUninstall
    *   TRUE if there are comment nodes, FALSE otherwise.
    */
   protected function hasCommentNodes(): bool {
-    $nodes = $this->nodeStorage->getQuery()
+    $nodes = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'comment')
       ->accessCheck(FALSE)
       ->range(0, 1)

@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleUninstallValidatorInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\node\NodeStorageInterface;
 
 /**
  * Prevents uninstalling of openculturas_faq when faq content was created.
@@ -18,23 +17,15 @@ class OpenCulturasFaqUninstallValidator implements ModuleUninstallValidatorInter
   use StringTranslationTrait;
 
   /**
-   * The node entity storage.
-   *
-   * @var \Drupal\node\NodeStorageInterface
-   */
-  protected NodeStorageInterface $nodeStorage;
-
-  /**
    * Constructs a new OpenCulturasFrequentlyAskedQuestionsUninstallValidator.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
-   *   The entity manager.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
    *   The string translation service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, TranslationInterface $string_translation) {
-    $this->nodeStorage = $entity_manager->getStorage('node');
-    $this->setStringTranslation($string_translation);
+  public function __construct(protected EntityTypeManagerInterface $entityTypeManager, TranslationInterface $stringTranslation) {
+    $this->setStringTranslation($stringTranslation);
   }
 
   /**
@@ -60,7 +51,7 @@ class OpenCulturasFaqUninstallValidator implements ModuleUninstallValidatorInter
    *   TRUE if there are faq nodes, FALSE otherwise.
    */
   protected function hasFaqNodes(): bool {
-    $nodes = $this->nodeStorage->getQuery()
+    $nodes = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'faq')
       ->accessCheck(FALSE)
       ->range(0, 1)
