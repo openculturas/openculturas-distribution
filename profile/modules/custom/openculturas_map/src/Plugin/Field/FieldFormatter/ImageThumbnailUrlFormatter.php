@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\openculturas_map\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\Attribute\FieldFormatter;
-use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceEntityFormatter;
@@ -30,7 +29,6 @@ class ImageThumbnailUrlFormatter extends EntityReferenceEntityFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
-    assert($items instanceof EntityReferenceFieldItemListInterface);
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       /** @var \Drupal\media\MediaInterface $media */
       $media = Media::load($entity->id());
