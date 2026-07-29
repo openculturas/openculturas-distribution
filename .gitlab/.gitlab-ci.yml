@@ -177,6 +177,7 @@ rector dry-run:
     when: always
     reports:
       codequality: [gl-code-quality-report.json]
+      junit: [junit.xml]
   allow_failure: true
 
 🧹 SCSS linting (stylelint):
@@ -187,7 +188,9 @@ rector dry-run:
         - .stylelintcache
       when: always
   script:
-    - npm run lint:scss -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json
+    - npm run lint:scss -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json || EXIT_CODE=$?
+    - npm run lint:scss -- --cache --cache-location .stylelintcache --cache-strategy content --custom-formatter=stylelint-junit-formatter --output-file=$CI_PROJECT_DIR/junit.xml || true
+    - exit ${EXIT_CODE:-0}
 
 🧹 CSS linting (stylelint):
   extends: .stylelint
@@ -197,7 +200,9 @@ rector dry-run:
         - .stylelintcache
       when: always
   script:
-    - npm run lint:css -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json
+    - npm run lint:css -- --cache --cache-location .stylelintcache --cache-strategy content --color  --custom-formatter=@gitlab-formatters/stylelint-formatter-gitlab --output-file=$CI_PROJECT_DIR/gl-code-quality-report.json || EXIT_CODE=$?
+    - npm run lint:css -- --cache --cache-location .stylelintcache --cache-strategy content --custom-formatter=stylelint-junit-formatter --output-file=$CI_PROJECT_DIR/junit.xml || true
+    - exit ${EXIT_CODE:-0}
 
 .eslint:
   extends: .composer_npm
@@ -219,11 +224,14 @@ rector dry-run:
     when: always
     reports:
       codequality: [gl-code-quality-report.json]
+      junit: [junit.xml]
 
 🧹 JavaScript linting (eslint):
   extends: .eslint
   script:
-    - npm run lint:js -- --cache --format gitlab .
+    - npm run lint:js -- --cache --format gitlab . || EXIT_CODE=$?
+    - npm run lint:js -- --cache --format junit --output-file junit.xml . || true
+    - exit ${EXIT_CODE:-0}
 
 build:artifacts:
   extends: .build:artifacts
