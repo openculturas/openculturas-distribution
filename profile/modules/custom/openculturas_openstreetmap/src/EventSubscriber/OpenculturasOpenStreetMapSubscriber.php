@@ -48,6 +48,7 @@ final class OpenculturasOpenStreetMapSubscriber implements EventSubscriberInterf
       }
 
       if ($node instanceof NodeInterface) {
+        /** @var array<string, mixed> $values */
         $values = $wizardEvent->getValues();
         $values['node_id'] = $node_id;
         if (!$node->get('field_osm_id')->isEmpty()) {
