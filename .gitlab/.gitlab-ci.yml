@@ -19,6 +19,9 @@ stages:
 
 variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
+  # Skill/AGENTS.md files are versioned; only sync locally after a real
+  # `composer update` of drupal/ai_best_practices, never on CI's fresh installs.
+  AI_BEST_PRACTICES_SKIP_PACKAGE_SYNC: 1
 
 .composer:
   image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.242428@sha256:2ac77a4bc0097f1031c07a4ef6865adf2323ea10dfe5f96139aab5f55b345da4
