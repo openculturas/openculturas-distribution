@@ -10,11 +10,11 @@
 %cc-effects {
   // Box shadows
   --oc-box-shadow-centered: 0 0 1rem -0.25rem var(--oc-shadow-color);
-  --oc-box-shadow-centered-s: 0 0 .5rem -0.25rem var(--oc-shadow-color);
-  --oc-box-shadow-up: 0 -.25rem .5rem -0.25rem var(--oc-shadow-color);
-  --oc-box-shadow-down: 0 .75rem .5rem -0.25rem var(--oc-shadow-color);
-  --oc-box-shadow-left: -.5rem 0 .5rem 0.125rem var(--oc-shadow-color);
-  --oc-box-shadow-inset: inset 0 -.25rem .25rem -.125rem var(--oc-shadow-color);
+  --oc-box-shadow-centered-s: 0 0 0.5rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-up: 0 -0.25rem 0.5rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-down: 0 0.75rem 0.5rem -0.25rem var(--oc-shadow-color);
+  --oc-box-shadow-left: -0.5rem 0 0.5rem 0.125rem var(--oc-shadow-color);
+  --oc-box-shadow-inset: inset 0 -0.25rem 0.25rem -0.125rem var(--oc-shadow-color);
 
   // Border radius variants (button radius see _buttons)
   --oc-profile-image-size: 6rem;
@@ -23,17 +23,17 @@
   --oc-location-image-border-radius: 0;
   --oc-image-border-radius: 0;
   --oc-details-border-radius: 0;
-  --oc-border-radius-tiny: .125rem;
+  --oc-border-radius-tiny: 0.125rem;
 
   // Dividers and special borders
-  --oc-divider-dark: .125rem solid var(--oc-color-divider-dark); // 2px
-  --oc-divider-light: .0625rem solid var(--oc-color-divider-light); // 1px
-  --oc-outline-active: .125rem solid var(--oc-color-interaction);
-  --oc-outline-active-offset: .25rem;
+  --oc-divider-dark: 0.125rem solid var(--oc-color-divider-dark); // 2px
+  --oc-divider-light: 0.0625rem solid var(--oc-color-divider-light); // 1px
+  --oc-outline-active: 0.125rem solid var(--oc-color-interaction);
+  --oc-outline-active-offset: 0.25rem;
 
   // Media captions
   --oc-color-text-caption: var(--oc-color-text);
-  --oc-caption-border-width: 0 0 .0625rem .0625rem;
+  --oc-caption-border-width: 0 0 0.0625rem 0.0625rem;
   --oc-caption-border-style: solid;
   --oc-caption-border-radius: 0 0 0 var(--oc-image-border-radius);
 
@@ -41,10 +41,10 @@
   --oc-scrollbar-color: var(--oc-color-interaction) var(--oc-color-bg-light);
   --oc-scroll-layer-padding: var(--oc-gutter);
 
-    // Transitions
+  // Transitions
   --oc-transition-duration: 0.3s;
   --oc-transition-timing-function: ease;
-  --oc-animation-timing-function: cubic-bezier(.13,.48,.83,.55);
+  --oc-animation-timing-function: cubic-bezier(0.13, 0.48, 0.83, 0.55);
   --oc-animation-repeat: infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -66,16 +66,16 @@
   z-index: +1;
 
   &::after {
-    content: '';
-    block-size: 0.75rem;
-    inline-size: 0.75rem;
+    display: inline-block;
+    box-sizing: border-box;
     margin-inline-start: 0.75rem;
+    content: "";
+    animation: rotation 1s var(--oc-animation-timing-function) var(--oc-animation-repeat);
     border: 2px solid var(--oc-color-info);
     border-color: var(--oc-color-info) var(--oc-color-info) transparent var(--oc-color-bg-info);
     border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s var(--oc-animation-timing-function) var(--oc-animation-repeat);
+    block-size: 0.75rem;
+    inline-size: 0.75rem;
   }
 
   @keyframes rotation {

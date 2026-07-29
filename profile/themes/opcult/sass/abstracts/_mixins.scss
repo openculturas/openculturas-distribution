@@ -4,9 +4,9 @@
 
 @use "sass:map";
 @use "sass:list";
-//@use "../../sprite/symbol/sprite";
-@use "icons";
 
+// @use "../../sprite/symbol/sprite";
+@use "icons";
 
 // ---------------------------------------
 // Mixin: Breakpoints
@@ -20,13 +20,19 @@
 //   }
 // ---------------------------------------
 
-$breakpoints: (                // Size at default font size 16px;
-  xs: 'max-width: 29.9999em', // < 480px
-  s: 'min-width: 30em',       // 480px
-  m: 'min-width: 48em',       // 768px
-  l: 'min-width: 70em',       // 1120px
-  xl: 'min-width: 85em',      // 1360px
-  xxl: 'min-width: 120em'     // 1920px = oc-layout-max-width
+$breakpoints: (
+  // Size at default font size 16px;
+  xs: "max-width: 29.9999em",
+  // < 480px
+  s: "min-width: 30em",
+  // 480px
+  m: "min-width: 48em",
+  // 768px
+  l: "min-width: 70em",
+  // 1120px
+  xl: "min-width: 85em",
+  // 1360px
+  xxl: "min-width: 120em" // 1920px = oc-layout-max-width
 );
 
 @mixin breakpoint($name: xs) {
@@ -35,7 +41,6 @@ $breakpoints: (                // Size at default font size 16px;
     @content;
   }
 }
-
 
 // Mixin: Icon
 // ---
@@ -72,25 +77,26 @@ $breakpoints: (                // Size at default font size 16px;
 @mixin icon($icon: arrow-right, $iconset: light, $position: before) {
   // Validate $iconset parameter
   $valid-iconsets: (light, thin, fill, regular, bold, duotone);
-  @if not list.index($valid-iconsets, $iconset) {
-    @error "Invalid iconset '#{$iconset}'. Valid options are: #{$valid-iconsets}";
-  }
 
   // Validate position parameter
   $valid-positions: (before, after);
-  @if not list.index($valid-positions, $position) {
-    @error "Invalid position '#{$position}'. Valid options are: #{$valid-positions}";
-  }
 
   // Build the sprite id
-  //$sprite-id: '.icon--#{$icon}-#{$iconset}';
+  // $sprite-id: '.icon--#{$icon}-#{$iconset}';
 
   // Render element
   &::#{$position} {
-    //@extend #{$sprite-id};
+    --icon-url: url("../sprite/oc-sprite.svg##{$icon}-#{$iconset}");
+
+    // @extend #{$sprite-id};
     @extend %icon;
     @extend %icon-#{$position};
-    --icon-url: url("../sprite/oc-sprite.svg##{$icon}-#{$iconset}");
+  }
+  @if not list.index($valid-iconsets, $iconset) {
+    @error "Invalid iconset '#{$iconset}'. Valid options are: #{$valid-iconsets}";
+  }
+  @if not list.index($valid-positions, $position) {
+    @error "Invalid position '#{$position}'. Valid options are: #{$valid-positions}";
   }
 }
 
@@ -103,11 +109,12 @@ $breakpoints: (                // Size at default font size 16px;
 @mixin visually-hidden() {
   position: absolute !important;
   overflow: hidden;
+  // stylelint-disable-next-line property-no-deprecated -- kept as a fallback for browsers without clip-path support
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   inline-size: 1px;
   block-size: 1px;
-  word-wrap: normal;
+  overflow-wrap: normal;
 }
 
 // Mixin: Clearfix
@@ -123,6 +130,7 @@ $breakpoints: (                // Size at default font size 16px;
 //  }
 
 @mixin clearfix() {
+  // stylelint-disable-next-line nesting-selector-no-missing-scoping-root -- resolves against the selector this mixin is included into
   &::after {
     display: table;
     clear: both;

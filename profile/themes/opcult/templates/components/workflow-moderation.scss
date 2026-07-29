@@ -33,7 +33,7 @@
     margin-block-end: 0;
   }
 
-  form  {
+  form {
     margin-block-end: 0;
   }
 }
@@ -45,71 +45,71 @@
   }
 
   .section--last {
-    inline-size: 100%
+    inline-size: 100%;
   }
 }
 
-//.date--moderation.layout-oc2col-section {
+// .date--moderation.layout-oc2col-section {
 //  > .section--second {
 //    @include breakpoint(m) {
 //      flex-basis: 40%;
 //    }
 //  }
-//}
+// }
 
 // ---
 // Unpublished nodes highlighting
 
 .entity--unpublished {
+  outline: 0.125rem dashed var(--oc-color-danger);
+  outline-offset: 0.125rem;
   background-color: var(--oc-color-bg-warning);
-  outline: .125rem dashed var(--oc-color-danger);
-  outline-offset: .125rem;
 
   &.view-mode-full {
+    outline-width: 0.1875rem;
+    outline-offset: 0.5rem;
     background-color: transparent;
-    outline-offset: .5rem;
-    outline-width: .1875rem;
   }
 }
 
 .entity--unpublished::before {
-  content: "Unpublished";
-  display: block;
   position: absolute;
   z-index: +1;
-  inline-size: auto;
+  display: block;
+  padding: 0.25em 1em;
+  content: "Unpublished";
   text-align: center;
-  font-size: var(--oc-font-size-s);
-  padding: .25em 1em;
   color: var(--oc-color-danger);
   background-color: var(--oc-color-bg-danger);
+  font-size: var(--oc-font-size-s);
+  inline-size: auto;
 
   html[lang="de"] & {
     content: "Unveröffentlicht";
   }
 
   .block-system-main-block > & {
-    display: block;
     position: relative;
-    font-weight: var(--oc-font-weight-bold);
-    font-size: var(--oc-font-size-m);
+    display: block;
     padding: var(--oc-row-gap) var(--oc-gutter);
     color: var(--oc-color-danger);
     background-color: var(--oc-color-bg-danger);
-
+    font-size: var(--oc-font-size-m);
+    font-weight: var(--oc-font-weight-bold);
   }
 }
 
 .teaser.entity--unpublished {
-  @include icon(warning,fill,after);
+  @include icon(warning, fill, after);
 
   &::after {
     --oc-font-size-icon: var(--oc-font-size-icon-l);
-    color: var(--oc-color-warning-dark);
+
     position: absolute;
+    z-index: +2;
+    color: var(--oc-color-warning-dark);
     inset-inline-start: 0;
     inset-block-start: 0;
-    z-index: +2;
   }
 }
 
@@ -117,13 +117,13 @@
 // Unpublished embedded entities with pending workflow (e.g. members paragraph)
 
 .node--workflow-pending::before {
-  display: block;
-  inline-size: auto;
   position: absolute;
   z-index: +1;
+  display: block;
   content: "Review pending";
-  background-color: var(--oc-color-bg-warning);
   color: var(--oc-color-warning-dark);
+  background-color: var(--oc-color-bg-warning);
+  inline-size: auto;
 
   html[lang="de"] & {
     content: "Freigabe ausstehend";
@@ -134,8 +134,8 @@
   .entity--unpublished,
   .node--workflow-pending {
     &::before {
-      font-size: var(--oc-font-size-xs);
       padding: 1em 2em;
+      font-size: var(--oc-font-size-xs);
     }
   }
 }
@@ -148,26 +148,26 @@
       z-index: +1;
       inline-size: 100%;
       inset-block-start: 1em;
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 }
 
 .entity--unpublished.view-mode-compact {
-  margin-block-start: .25em;
+  margin-block-start: 0.25em;
 
   &::before {
-    font-size: var(--font-size-s);
     position: absolute;
-    inset-block-start: -.25em;
-    inset-inline-end: 0;
     z-index: +1;
-    padding: 0 .25rem;
+    padding: 0 0.25rem;
+    font-size: var(--font-size-s);
+    inset-block-start: -0.25em;
+    inset-inline-end: 0;
   }
 
   &::after {
-    inset-inline-start: -.5rem;
-    inset-block-start: -.5rem;
+    inset-inline-start: -0.5rem;
+    inset-block-start: -0.5rem;
   }
 }
 
@@ -206,8 +206,9 @@
 
   .form-item label {
     @extend %label;
-    padding-inline-start: 0;
+
     margin: 0;
+    padding-inline-start: 0;
   }
 
   input,
@@ -220,11 +221,11 @@
 // OC moderation states block
 
 .block-views-blockoc-er-mod-states-block-states-info {
+  color: var(--oc-color-info);
+  background: var(--oc-color-bg-info);
   margin-block: 0;
   padding-block: var(--oc-row-gap);
   padding-inline: 2.5rem;
-  background: var(--oc-color-bg-info);
-  color: var(--oc-color-info);
 }
 
 .referenced-states-info .description {
@@ -232,7 +233,7 @@
 }
 
 .block-extra-field-blocknodedatecontent-moderation-control + .block-views-blockoc-er-mod-states-block-states-info {
-  margin-block-start: calc(-1 * var(--oc-section-spacing) + .25rem);
+  margin-block-start: calc(-1 * var(--oc-section-spacing) + 0.25rem);
 }
 
 // ---
@@ -246,5 +247,3 @@
     margin-inline: 0;
   }
 }
-
-

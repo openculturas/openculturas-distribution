@@ -9,19 +9,19 @@
 
 .header-wrapper,
 .header__offcanvas-menu--heading {
-  --oc-padding-header-start: .5rem;
+  --oc-padding-header-start: 0.5rem;
   --oc-padding-header-end: 2rem;
 
   display: grid;
   grid-template-areas:
     "utilities utilities burger"
     "branding highlights highlights";
-  grid-template-columns: 4fr 5fr 3fr;
   grid-template-rows: auto;
+  grid-template-columns: 4fr 5fr 3fr;
   margin-block-start: 0;
-  grid-column-gap: 0;
-  grid-row-gap: 0;
   padding-block-end: var(--oc-padding-header-end);
+  column-gap: 0;
+  row-gap: 0;
 
   @include breakpoint(m) {
     grid-template-areas:
@@ -34,22 +34,19 @@
     grid-template-areas:
       "branding utilities burger"
       "branding highlights .";
-    grid-row-gap: 0;
+    row-gap: 0;
   }
 }
 
 .header__offcanvas-menu--heading {
-  grid-template-areas:
-    "branding utilities burger";
+  grid-template-areas: "branding utilities burger";
 
   @include breakpoint(m) {
-    grid-template-areas:
-      "branding utilities burger";
+    grid-template-areas: "branding utilities burger";
   }
 
   @include breakpoint(l) {
-    grid-template-areas:
-      "branding utilities burger";
+    grid-template-areas: "branding utilities burger";
   }
 }
 
@@ -62,13 +59,13 @@
   }
 
   @include breakpoint(l) {
-    //grid-row: 1 / span 2;
+    // grid-row: 1 / span 2;
   }
 }
 
 .header__burger {
-  grid-area: burger;
   position: relative;
+  grid-area: burger;
   padding-block-start: var(--oc-padding-header-start);
 }
 
@@ -97,7 +94,9 @@
   padding-block-start: 1rem;
   padding-block-end: 0.75rem;
 
-  img, figure, svg {
+  img,
+  figure,
+  svg {
     block-size: auto;
     min-inline-size: var(--oc-logo-min-width);
     inline-size: 100%;
@@ -111,14 +110,16 @@
 
 .site-logo {
   display: inline-block;
-  outline-offset: .25rem;
   padding: 0;
-  //margin-block-start: 1rem;
+
+  // margin-block-start: 1rem;
   border-width: 0;
+  outline-offset: 0.25rem;
 
   &:focus,
   &:hover {
     background-color: var(--oc-color-bg-light);
+
     // inherits further styling from linked images
   }
 
@@ -131,11 +132,12 @@
 
 .site-name {
   display: none;
-  //display: inline-block;
-  //position: relative;
-  //inset-block-start: .25rem;
-  //inset-inline-start: var(--oc-gutter);
-  //font-size: var(--oc-font-size-xl);
+
+  // display: inline-block;
+  // position: relative;
+  // inset-block-start: .25rem;
+  // inset-inline-start: var(--oc-gutter);
+  // font-size: var(--oc-font-size-xl);
 }
 
 .site-slogan {
@@ -154,13 +156,21 @@
 // Burger button: see navigation/header-toggles.scss
 
 .offcanvas_dialog {
-  background: transparent;
-  border: 0 none;
   padding: 0;
+  border: 0 none;
+  background: transparent;
 
   // backdrop only works with popover attribute in <dialog>, but then takes full viewport width
   &::backdrop {
     @extend %backdrop;
+  }
+
+  .dialog-wrapper {
+    // transition: 1s var(--oc-transition-duration) all var(--oc-transition-timing-function) allow-discrete;
+    // border-radius: 0 0 0 50%;
+    // inline-size: 0;
+    animation-name: fade-in;
+    animation-duration: var(--oc-transition-duration);
   }
 
   @keyframes fade-in {
@@ -170,14 +180,6 @@
     to {
       opacity: 1;
     }
-  }
-
-  .dialog-wrapper {
-    //transition: 1s var(--oc-transition-duration) all var(--oc-transition-timing-function) allow-discrete;
-    //border-radius: 0 0 0 50%;
-    //inline-size: 0;
-    animation-name: fade-in;
-    animation-duration: var(--oc-transition-duration);
   }
 }
 
@@ -191,7 +193,7 @@
   margin: 0 auto;
 
   .dialog-wrapper {
-    //block-size: auto;
+    // block-size: auto;
     inline-size: var(--oc-page-width);
     margin-inline-start: var(--drupal-displace-offset-left);
     padding-inline: 0;
@@ -217,11 +219,12 @@
 
   .block {
     flex: 1 1 auto;
-    //border-block-end: var(--oc-divider-dark);
+
+    // border-block-end: var(--oc-divider-dark);
     //
-    //@include breakpoint(s) {
+    // @include breakpoint(s) {
     //  border-block-end-color: transparent;
-    //}
+    // }
   }
 
   .block:has(.views-exposed-form) {

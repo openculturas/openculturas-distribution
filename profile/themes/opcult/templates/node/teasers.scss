@@ -32,17 +32,18 @@ article.teaser,
 
 // Image padding (yes, using margin)
 .teaser--top {
+  overflow: hidden;
+  border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
   margin-block: var(--oc-card-image-padding-block) 0;
   margin-inline: var(--oc-card-image-padding-inline);
-  border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
-  overflow: hidden;
 }
 
 // empty image fallback background
 .teaser--top.no-image {
+  @extend %teaser-image-fallback;
+
   inline-size: 100%;
   aspect-ratio: var(--oc-aspect-ratio-landscape);
-  @extend %teaser-image-fallback;
 }
 
 // Body padding
@@ -77,8 +78,8 @@ h4.teaser--title {
 
     &:focus,
     &:hover {
-      background-color: var(--oc-color-link-focus-bg);
       color: var(--oc-color-link-focus-text);
+      background-color: var(--oc-color-link-focus-bg);
     }
   }
 }
@@ -105,6 +106,9 @@ h4.teaser--title {
 // View mode teaser_big (horizontal layout)
 
 article.teaser-big {
+  .teaser--top {
+    @extend %image-fill;
+  }
   @include breakpoint(m) {
     display: flex;
     flex-flow: row nowrap;
@@ -117,13 +121,9 @@ article.teaser-big {
     }
 
     .teaser--body {
-      padding-inline-start: 0;
       align-self: center;
+      padding-inline-start: 0;
     }
-  }
-
-  .teaser--top {
-    @extend %image-fill;
   }
 }
 
@@ -141,7 +141,7 @@ article.teaser-big {
   article.profile-teaser,
   article.location-teaser {
     &:not(.teaser-unified) {
-      //max-inline-size: fit-content; // does not work, try different solution if necessary
+      // max-inline-size: fit-content; // does not work, try different solution if necessary
     }
   }
 }

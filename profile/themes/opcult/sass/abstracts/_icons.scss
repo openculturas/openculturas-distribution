@@ -15,26 +15,26 @@
   --oc-font-size-icon-xxl: 3rem;
   --oc-icon-button-size: calc(1.5 * var(--oc-font-size-icon)); // inherit + padding
   --oc-icon-button-radius: 50%;
-  --oc-chevron: url('../images/chevron-down.svg');
+  --oc-chevron: url("../images/chevron-down.svg");
 }
 
 // mixin provides mask-image + adds placeholder to ::before or ::after
 %icon {
-  content: "";
   display: inline-block;
+  content: "";
+  transform: translateY(0.125em);
+  vertical-align: baseline;
+  background-color: currentColor;
   inline-size: var(--oc-font-size-icon);
   block-size: var(--oc-font-size-icon);
-  background-color: currentColor;
   mask: var(--icon-url) no-repeat center / contain;
-  vertical-align: baseline;
-  transform: translateY(.125em);
 }
 
 %icon-before {
   &::before {
+    margin-inline-end: 0.333em; // whitespace to text
     font-size: var(--oc-font-size-icon);
-    margin-inline-end: .333em; // whitespace to text
-    inset-inline-start: -.333em; // adjust button padding (mere decorative icons needs adjustment)
+    inset-inline-start: -0.333em; // adjust button padding (mere decorative icons needs adjustment)
   }
 }
 
@@ -49,23 +49,26 @@
   --oc-icon-button-size: calc(1.5 * var(--oc-font-size-icon));
   --oc-button-border-radius: 50%;
   --oc-button-padding: 0;
-  //size: var(--icon-button-size); // not yet a standard
+
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  border: 0.25rem solid transparent;
+  border-radius: var(--oc-icon-button-radius);
+  font-weight: normal;
+  line-height: 1;
+
+  // size: var(--icon-button-size); // not yet a standard
   inline-size: var(--oc-icon-button-size);
   min-inline-size: var(--oc-icon-button-size);
   block-size: var(--oc-icon-button-size);
   mask-clip: border-box; // allows enlarged target size via transparent border
-  border: .25rem solid transparent;
-  overflow: hidden;
-  white-space: nowrap;
-  border-radius: var(--oc-icon-button-radius);
-  line-height: 1;
-  font-weight: normal;
-  padding: 0;
-  margin: 0;
+
   // pure icon buttons/links are expected to use ::before
   &::before {
-    font-size: var(--oc-font-size-icon-m);
     transform: translateY(0); // unset adjustment to text
+    font-size: var(--oc-font-size-icon-m);
     margin-inline: 0;
     inline-size: 100%;
     block-size: 100%;
@@ -77,22 +80,23 @@
 
   &:not([disabled]):focus-visible,
   &:not([disabled]):hover {
-    color: var(--oc-button-focus-text-color);
-    background-color: var(--oc-button-focus-bg-color);
-    border-color: var(--oc-button-focus-border-color);
     padding: 0;
+    color: var(--oc-button-focus-text-color);
+    border-color: var(--oc-button-focus-border-color);
+    background-color: var(--oc-button-focus-bg-color);
   }
 }
 
 %icon-link {
-  background-color: transparent;
   @extend %icon-only;
+
+  background-color: transparent;
 
   &:focus-visible,
   &:hover {
     color: var(--oc-color-link-focus-text);
-    background-color: var(--oc-color-link-focus-bg);
     border-color: transparent;
+    background-color: var(--oc-color-link-focus-bg);
   }
 }
 
@@ -102,5 +106,3 @@
     mask-size: 75%;
   }
 }
-
-

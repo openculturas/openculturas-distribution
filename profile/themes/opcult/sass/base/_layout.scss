@@ -22,15 +22,16 @@
 
 .layout-grid-overlay {
   position: absolute;
+  z-index: +1000;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(var(--oc-column-count), 1fr);
+  gap: var(--oc-gutter);
   inset-block-start: 0;
   inset-inline-start: 0;
   inline-size: 100%;
   block-size: 100%;
   padding-inline: var(--oc-page-padding-inline);
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(var(--oc-column-count), 1fr);
-  grid-gap: var(--oc-gutter);
-  z-index: +1000;
 }
+
 // end debugging helper

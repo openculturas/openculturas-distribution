@@ -8,7 +8,7 @@
 
 %cc-teasers {
   // Teaser cards
-  --oc-card-margin-block: calc(.5 * var(--oc-row-gap)); // vertical margin (not to confuse with grid gap)
+  --oc-card-margin-block: calc(0.5 * var(--oc-row-gap)); // vertical margin (not to confuse with grid gap)
   --oc-card-margin-inline: var(--oc-column-padding); // horizontal margin
   --oc-card-padding-block: 1rem; // vertical content padding (avoid 0, see .quick-info--toggle)
   --oc-card-padding-inline: 2rem; // horizontal content padding (avoid 0, see .quick-info--toggle)
@@ -47,55 +47,55 @@
 // Teaser image fallback placeholders
 
 %teaser-image-fallback {
+  opacity: 1;
   background-color: var(--oc-color-primary-darker);
   background-image: var(--oc-image-fallback-image);
   background-repeat: no-repeat;
-  background-size: var(--oc-teaser-bg-scale);
   background-position: var(--oc-teaser-bg-pos-x) var(--oc-teaser-bg-pos-y);
-  opacity: 1;
+  background-size: var(--oc-teaser-bg-scale);
 }
 
 %teaser-image-fallback-randomized {
-  &:nth-child(2n+1) {
+  &:nth-child(2n + 1) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-pos-x: 50%;
       --oc-teaser-bg-scale: 180%;
     }
   }
-  &:nth-child(4n+1) {
+  &:nth-child(4n + 1) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-pos-x: 10%;
     }
   }
-  &:nth-child(3n+1) {
+  &:nth-child(3n + 1) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-pos-y: 20%;
       --oc-teaser-bg-scale: 240%;
     }
   }
-  &:nth-child(3n+3) {
+  &:nth-child(3n + 3) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-pos-y: 40%;
     }
   }
-  &:nth-child(4n+4) {
+  &:nth-child(4n + 4) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-scale: 300%;
     }
   }
-  &:nth-child(5n+4) {
+  &:nth-child(5n + 4) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-scale: 200%;
       --oc-teaser-bg-pos-y: 90%;
     }
   }
-  &:nth-child(5n+2) {
+  &:nth-child(5n + 2) {
     .no-image,
     .field--name-field-mood-image:not(:has(img)) {
       --oc-teaser-bg-pos-x: 60%;

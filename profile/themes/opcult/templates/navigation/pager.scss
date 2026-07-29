@@ -11,9 +11,9 @@
 
 .pager__items,
 .js-pager__items {
-  list-style: none;
   display: flex;
   flex-flow: row wrap;
+  list-style: none;
   gap: var(--oc-row-gap) var(--oc-gutter);
   margin-block: var(--oc-row-gap);
 
@@ -37,9 +37,9 @@
 
 .pager__item a {
   display: inline-flex;
-  line-height: 1;
   place-content: center;
-  padding: .5rem .75rem;
+  padding: 0.5rem 0.75rem;
+  line-height: 1;
 
   nav & {
     border-color: transparent;
@@ -52,7 +52,7 @@
 
 [class*="pager__item--"] a {
   font-size: 1.5em;
-  padding-inline: .5rem;
+  padding-inline: 0.5rem;
 
   &::before {
     transform: none;
@@ -63,6 +63,6 @@
 // related: base/_icons-ext.scss
 
 .pager:has([data-drupal-views-infinite-scroll-pager]) {
-  text-align: center;
   margin-block-start: calc(2 * var(--oc-row-gap));
+  text-align: center;
 }

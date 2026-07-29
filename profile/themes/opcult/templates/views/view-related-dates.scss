@@ -24,10 +24,10 @@
 
 .calendar {
   h3 {
+    padding: 0;
     font-size: var(--oc-font-size-m);
     margin-block: 1rem 0;
     margin-inline: 0;
-    padding: 0;
 
     a {
       text-decoration: none;
@@ -41,7 +41,7 @@
     }
 
     .smart-date--date {
-      margin-inline-end: .25em;
+      margin-inline-end: 0.25em;
     }
 
     .smart-date--time {
@@ -50,9 +50,9 @@
     }
 
     .field--name-field-event-status {
+      margin-block-end: 0.25rem;
       font-size: var(--oc-font-size-s);
       font-weight: var(--oc-font-weight-normal);
-      margin-block-end: .25rem;
     }
   }
 
@@ -73,6 +73,7 @@
 
 .calendar .view-empty {
   @include icon(calendar-slash);
+
   display: flex;
 
   &::before {
@@ -83,7 +84,7 @@
 // ---
 // Compact date teasers
 .no-teaser-image .teaser--title {
-  margin-block: .5rem;
+  margin-block: 0.5rem;
 }
 
 // ---
@@ -102,6 +103,7 @@
 // Include no-image fallback
 
 .calendar .field--name-field-mood-image:not(:has(img)) {
-  aspect-ratio: var(--oc-aspect-ratio-landscape);
   @extend %teaser-image-fallback;
+
+  aspect-ratio: var(--oc-aspect-ratio-landscape);
 }

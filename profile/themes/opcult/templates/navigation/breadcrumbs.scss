@@ -9,29 +9,31 @@
 }
 
 .breadcrumbs {
-  font-size: var(--oc-font-size-s);
   color: var(--oc-color-text-muted);
+  font-size: var(--oc-font-size-s);
 
   ol {
-    margin: 0;
-    padding-inline: 0;
-    list-style: none;
     display: flex;
     flex-flow: row wrap;
+    margin: 0;
+    list-style: none;
+    padding-inline: 0;
     gap: 0;
-    //@include icon(gps);
+
+    // @include icon(gps);
   }
 
   li {
-    //&:after {
-      //content: '//\00A0';
-    //}
+    // &:after {
+    // content: '//\00A0';
+    // }
   }
 
   nav a {
-    padding-inline: .25rem;
     @extend %link-menu;
     @include icon(caret-right, light, after);
+
+    padding-inline: 0.25rem;
 
     &::after {
       transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
@@ -43,4 +45,3 @@
     }
   }
 }
-

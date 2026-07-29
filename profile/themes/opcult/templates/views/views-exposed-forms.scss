@@ -37,8 +37,9 @@
   .details-title,
   details.form-wrapper .details-title {
     @extend %label;
-    text-align: end;
+
     margin: 0;
+    text-align: end;
     color: var(--oc-color-interaction);
   }
 }
@@ -58,50 +59,52 @@ details.form-wrapper {
 
 .filter-collapsible {
   position: absolute;
+  z-index: +3;
+  padding: 0;
+  transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+  border: 0 none;
+  background: var(--oc-color-bg-exposed-form);
+  box-shadow: var(--oc-box-shadow-left);
   inset-block-start: 0; // "top"
   inset-inline-end: 0;
   margin-block: 0.5rem 0;
   margin-inline: 0;
-  padding: 0;
   inline-size: 2rem;
   min-block-size: 3rem;
   block-size: fit-content;
-  transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
-  z-index: +3;
-  background: var(--oc-color-bg-exposed-form);
-  border: 0 none;
-  box-shadow: var(--oc-box-shadow-left);
 
   & > summary {
+    --oc-font-size-icon: var(--oc-font-size-icon-m);
     @extend %label;
-    color: var(--oc-color-interaction);
+    @include icon(sliders);
+
     display: flex;
-    gap: .5rem;
-    justify-content: flex-start;
     align-items: center;
-    block-size: fit-content;
+    justify-content: flex-start;
+    margin: 0;
+    transform: translateX(-0.25rem);
     white-space: nowrap;
+    color: var(--oc-color-interaction);
+    gap: 0.5rem;
+    block-size: fit-content;
     padding-block: 0;
     padding-inline: 0;
-    margin: 0;
-    //margin-bottom: -3rem; // ...but do not push form too far down
+
+    // margin-bottom: -3rem; // ...but do not push form too far down
     text-orientation: sideways;
     writing-mode: sideways-rl;
-    transform: translateX(-.25rem);
-    @include icon(sliders);
-    --oc-font-size-icon: var(--oc-font-size-icon-m);
 
     .summary {
+      margin: 0;
+      padding: 0;
       transform: rotate(90deg);
       transform-origin: center center;
-      padding: 0;
-      margin: 0;
     }
 
     &:focus,
     &:hover {
-      background: var(--oc-color-interaction);
       color: var(--oc-color-text-inverted);
+      background: var(--oc-color-interaction);
     }
   }
 
@@ -116,11 +119,23 @@ details.form-wrapper {
     padding: 0;
 
     > summary .summary {
-      transform: rotate(-90deg) translatex(.25em);
+      transform: rotate(-90deg) translateX(0.25em);
     }
 
     &:has(.bef--secondary[open]) {
       inline-size: auto;
+    }
+
+    & > summary {
+      z-index: +1;
+      justify-content: flex-end;
+      block-size: auto;
+      text-orientation: initial;
+      writing-mode: initial;
+
+      &::before {
+        transform: rotate(-90deg);
+      }
     }
 
     @include breakpoint(m) {
@@ -128,18 +143,6 @@ details.form-wrapper {
 
       &:has(.bef--secondary[open]) {
         inline-size: 53rem;
-      }
-    }
-
-    & > summary {
-      block-size: auto;
-      justify-content: flex-end;
-      text-orientation: initial;
-      writing-mode: initial;
-      z-index: +1;
-
-      &::before {
-        transform: rotate(-90deg);
       }
     }
   }
@@ -180,7 +183,7 @@ details.form-wrapper {
   .js-form-item-field-sub-type-target-id,
   .form-item-organizer,
   .form-item-location {
-    flex-basis: calc(50% - 0.5rem/2);
+    flex-basis: calc(50% - 0.5rem / 2);
   }
 
   .form-item {
@@ -197,7 +200,7 @@ details.form-wrapper {
     inline-size: 100%;
   }
 
-  input[size='30'] {
+  input[size="30"] {
     @include breakpoint(l) {
       max-inline-size: unset;
     }
@@ -214,13 +217,13 @@ details.form-wrapper {
 // ---
 // Place secondary filter toggle in line
 
-//.views-exposed-form:has([data-drupal-selector="edit-secondary"]) {
+// .views-exposed-form:has([data-drupal-selector="edit-secondary"]) {
 //  --oc-exposed-filter-width: 20rem;
 //  padding-inline-end: 12rem;
-//}
+// }
 //
-//.views-exposed-form:not([data-drupal-selector*="oc-map"]),
-//.views-exposed-form:not(:has(> .filter-collapsible)) {
+// .views-exposed-form:not([data-drupal-selector*="oc-map"]),
+// .views-exposed-form:not(:has(> .filter-collapsible)) {
 //  .bef--secondary {
 //    position: absolute;
 //    inset-block-start: 2.85rem; // @todo Check w/ different variables
@@ -243,7 +246,7 @@ details.form-wrapper {
 //      padding-inline: var(--oc-gutter);
 //    }
 //  }
-//}
+// }
 
 // Views collapsible filter w/o map: no rotation
 
@@ -254,13 +257,13 @@ details.form-wrapper {
     margin-block: 0;
 
     > summary {
+      margin: 0;
+      padding-inline-start: 1rem;
       text-orientation: unset;
       writing-mode: unset;
-      padding-inline-start: 1rem;
-      margin: 0;
 
       .summary {
-        transform: rotate(0deg) translateY(-.25rem);
+        transform: rotate(0deg) translateY(-0.25rem);
       }
     }
 

@@ -32,7 +32,7 @@ form[role="search"] input[type="submit"] {
   }
   &.action-unflag {
     .flag--link,
-    .flag--button  {
+    .flag--button {
       @include icon(bookmark-simple, fill);
     }
   }
@@ -40,12 +40,12 @@ form[role="search"] input[type="submit"] {
 
 .flag-recommendation-node {
   .flag--link,
-  .flag--button  {
+  .flag--button {
     @include icon(star);
   }
   &.action-unflag {
     .flag--link,
-    .flag--button  {
+    .flag--button {
       @include icon(star, fill);
     }
   }
@@ -53,12 +53,12 @@ form[role="search"] input[type="submit"] {
 
 .flag-report-abuse {
   .flag--link,
-  .flag--button  {
+  .flag--button {
     @include icon(hand);
   }
   &.action-unflag {
     .flag--link,
-    .flag--button  {
+    .flag--button {
       @include icon(hand, fill);
     }
   }
@@ -66,12 +66,12 @@ form[role="search"] input[type="submit"] {
 
 .flag-claim-ownership {
   .flag--link,
-  .flag--button  {
+  .flag--button {
     @include icon(hand-arrow-down);
   }
   &.action-unflag {
     .flag--link,
-    .flag--button  {
+    .flag--button {
       @include icon(hand-arrow-down, fill);
     }
   }
@@ -79,7 +79,7 @@ form[role="search"] input[type="submit"] {
 
 .action-unflag {
   .flag--link,
-  .flag--button  {
+  .flag--button {
     &:focus,
     &:hover {
       @include icon(x);
@@ -199,8 +199,6 @@ form[role="search"] input[type="submit"] {
   @include icon(dots-three-vertical);
 }
 
-
-
 // ---
 // Address links
 
@@ -244,9 +242,9 @@ a.public-transport {
 
 // @todo #1369 ajax event obviously suppresses ::before
 // Caveat: below PoC overrides search form icon
-//.views-exposed-form input[type="submit"] {
+// .views-exposed-form input[type="submit"] {
 //  @include icon(check);
-//}
+// }
 .views-exposed-form input[name="reset"] {
   @include icon(arrow-counter-clockwise);
 }
@@ -256,7 +254,7 @@ a.public-transport {
 
 .wheelchair,
 .paragraph--type--a11y-wheelchair > .label {
-  @include icon(wheelchair-motion)
+  @include icon(wheelchair-motion);
 }
 .a11y--wheelchair .field__item {
   @include icon(buildings);
@@ -319,11 +317,12 @@ a.public-transport {
   &::before {
     margin-inline-start: 0;
   }
+
   // Option: less prominent icon contrast
-  //&::before,
-  //&::after {
-    //opacity: .5;
-  //}
+  // &::before,
+  // &::after {
+  // opacity: .5;
+  // }
 }
 
 // ---
@@ -419,7 +418,7 @@ a.bluesky,
 }
 
 a.youtube,
-.fa-youtube{
+.fa-youtube {
   @include icon(youtube-logo);
 }
 
@@ -429,7 +428,7 @@ a.tiktok,
 }
 
 a.twitch,
-.fa-twitch{
+.fa-twitch {
   @include icon(twitch-logo);
 }
 
@@ -464,7 +463,7 @@ a.soundcloud,
 
 a.vimeo,
 .fa-vimeo {
-  @include icon(vimeo-logo)
+  @include icon(vimeo-logo);
 }
 
 a.snapchat,
@@ -504,7 +503,7 @@ a.tumblr,
 
 a.reddit,
 .fa-reddit {
-  @include icon(reddit-logo)
+  @include icon(reddit-logo);
 }
 
 a.matrix,
@@ -517,71 +516,68 @@ a.spotify,
   @include icon(spotify-logo);
 }
 
-//a.paypal,
-//.fa-paypal {
+// a.paypal,
+// .fa-paypal {
 //  @include icon(paypal-logo);
-//}
+// }
 //
-//a.skype,
-//.fa-skype {
+// a.skype,
+// .fa-skype {
 //  @include icon(skype-logo);
-//}
+// }
 //
-//a.slack,
-//.fa-slack {
+// a.slack,
+// .fa-slack {
 //  @include icon(slack-logo);
-//}
+// }
 //
-//a.diaspora,
-//.fa-diaspora {
+// a.diaspora,
+// .fa-diaspora {
 //  @include icon(asterisk-simple);
-//}
+// }
 //
-//a.wechat,
-//.fa-wechat {
+// a.wechat,
+// .fa-wechat {
 //  @include icon(wechat-logo);
-//}
+// }
 //
-//a.microsoft-teams,
-//.fa-microsoft-teams {
+// a.microsoft-teams,
+// .fa-microsoft-teams {
 //  @include icon(microsoft-teams-logo);
-//}
+// }
 //
-//a.apple-podcasts,
-//.fa-apple-podcasts {
+// a.apple-podcasts,
+// .fa-apple-podcasts {
 //  @include icon(apple-podcasts-logo);
-//}
+// }
 //
-//a.behance,
-//.fa-behance {
+// a.behance,
+// .fa-behance {
 //  @include icon(behance-logo);
-//}
+// }
 //
-//a.amazon,
-//.fa-amazon {
+// a.amazon,
+// .fa-amazon {
 //  @include icon(amazon-logo);
-//}
+// }
 //
-//a.medium,
-//.fa-medium {
+// a.medium,
+// .fa-medium {
 //  @include icon(medium-logo);
-//}
+// }
 
 // ---
 // Feed icons
 
 .feed-icon,
 .views-data-export-feed .feed-icon {
-  @extend %icon-link;
   --oc-font-size-icon: var(--oc-font-size-icon-l);
-
-  &::before {
-  }
+  @extend %icon-link;
 }
 
 .feed-icon {
-  background-image: none;
   display: inline-block;
+  background-image: none;
 }
 
 .csv-feed,

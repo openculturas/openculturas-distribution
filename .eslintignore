@@ -2,10 +2,19 @@
 /node_modules/
 /vendor/
 /.ddev/
-/profile/themes/
 /profile/config/update/
 /profile/modules/custom/openculturas_content/content
+
+# Exported Drupal configuration (drush config:export / config_devel), not hand-authored YAML.
+/config/sync/
+/**/config/install/
+/**/config/optional/
 /**/assets/vendor/
+
+# Theme build tooling: dependencies live in each theme's own package.json,
+# never installed by the root npm ci in CI.
+/**/gulpfile.js
+/**/gulpfile.mjs
 /tests
 /scripts
 /screenshots

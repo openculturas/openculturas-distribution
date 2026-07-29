@@ -10,7 +10,7 @@
 .view-mode-legal {
   .profile-teaser,
   .profile--address {
-    word-wrap: normal;
+    overflow-wrap: normal;
     hyphens: none;
   }
 }
@@ -26,26 +26,27 @@
 // Flexible custom grid
 
 .view-mode-legal {
-  inline-size: 100%;
   @extend %grid;
+
+  inline-size: 100%;
   grid-template-rows: minmax(min-content, auto) auto;
   grid-template-columns: minmax(20ch, 100%);
-
-  @include breakpoint(m) {
-    grid-template-columns: minmax(min-content, auto) auto;
-  }
   .profile--address {
     @include breakpoint(m) {
-      grid-column: 1;
       grid-row: 2;
+      grid-column: 1;
     }
   }
 
   .profile--contact {
     @include breakpoint(m) {
-      min-inline-size: 30rem;
-      grid-column: 2;
       grid-row: 1 / span 2;
+      grid-column: 2;
+      min-inline-size: 30rem;
     }
+  }
+
+  @include breakpoint(m) {
+    grid-template-columns: minmax(min-content, auto) auto;
   }
 }

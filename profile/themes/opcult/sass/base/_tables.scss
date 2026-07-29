@@ -5,17 +5,14 @@
 @use "../abstracts/typography" as *;
 @use "../abstracts/buttons" as *;
 
-
 div:has(> table) {
   overflow-x: auto;
 }
 
 caption {
   @extend %allcaps;
-  text-align: start;
-}
 
-tr {
+  text-align: start;
 }
 
 td,
@@ -96,13 +93,13 @@ table {
 
       // Phosphoricons have no appropriate icons, therefore we borrow from Gin
       .handle {
+        margin: 0.333em 0 0;
+        background-color: var(--oc-color-text-muted);
+        background-image: none;
         inline-size: 1rem;
         block-size: 1rem;
-        margin: .333em 0 0;
         -webkit-mask-image: url(../images/gin-sprite.svg#drag-y-view);
         mask-image: url(../images/gin-sprite.svg#drag-y-view);
-        background-image: none;
-        background-color: var(--oc-color-text-muted);
       }
     }
 
@@ -111,7 +108,7 @@ table {
     }
 
     &:has(.tabledrag-changed) {
-      border-block-end: .125rem solid var(--oc-color-warning);
+      border-block-end: 0.125rem solid var(--oc-color-warning);
     }
   }
 }
@@ -119,25 +116,26 @@ table {
 // Sortable table header links
 // Related: icons.scss
 th a[href*="sort"] {
-  text-decoration: none;
   @extend %tag;
   @extend %tag-link;
+
   margin: 0;
-  color: var(--oc-color-interaction);
-  padding-inline: 1rem .5rem;
   white-space: nowrap;
+  text-decoration: none;
+  color: var(--oc-color-interaction);
+  padding-inline: 1rem 0.5rem;
 
   &::after {
-    opacity: .5;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
     transform: translateY(0.125em) rotate(0deg);
     transform-origin: center center;
-    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+    opacity: 0.5;
   }
 
   &:focus,
   &:hover {
-    color: var(--oc-color-link-focus-text);
     text-decoration: none;
+    color: var(--oc-color-link-focus-text);
     &::after {
       transform: translateY(0.125em) rotate(180deg);
     }
@@ -147,7 +145,7 @@ th a[href*="sort"] {
 th:has(.tablesort--asc) a {
   &:focus,
   &:hover {
-    //color: var(--oc-color-link-focus-text);
+    // color: var(--oc-color-link-focus-text);
     &::after {
       opacity: 1;
     }
@@ -157,4 +155,3 @@ th:has(.tablesort--asc) a {
 td.is-active {
   background-color: transparent;
 }
-

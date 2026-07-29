@@ -12,7 +12,7 @@
 // Generic
 
 .field {
-  //margin: 1rem 0;
+  // margin: 1rem 0;
   max-inline-size: 100%;
 }
 
@@ -36,9 +36,9 @@ h3 .field--name-field-sub-type {
 
 .field--label-inline {
   .field__label {
-    display: inline-block;
-    padding-inline-end: .75rem;
     position: relative;
+    display: inline-block;
+    padding-inline-end: 0.75rem;
   }
 
   .field__items,
@@ -47,11 +47,11 @@ h3 .field--name-field-sub-type {
     display: inline;
   }
 
-  .field__item:not(:last-child):after {
+  .field__item:not(:last-child)::after {
     content: "//";
   }
 
-  .field__item.field__item.reference--taxonomy_term:after {
+  .field__item.field__item.reference--taxonomy_term::after {
     content: "";
   }
 }
@@ -66,8 +66,8 @@ h3 .field--name-field-sub-type {
     margin: 0;
   }
   .field__item:not(:last-child)::after {
-    content: "//";
     display: inline;
+    content: "//";
   }
 }
 
@@ -79,8 +79,8 @@ h2 p {
 // Prefix/suffix of integer fields need whitespace
 
 .field--type-integer {
-  .prefix:after,
-  .suffix:before {
+  .prefix::after,
+  .suffix::before {
     content: " ";
   }
 }
@@ -94,9 +94,9 @@ h2 p {
 }
 
 //// Active since field (followed by interaction buttons)
-//.field--name-field-started {
+// .field--name-field-started {
 //  margin-block-end: 2rem;
-//}
+// }
 
 // Detailed FAQ question (blockquote)
 .detailed-question blockquote {
@@ -112,9 +112,9 @@ h2 p {
   .field-url {
     display: inline-block;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
     inline-size: 100%;
-    white-space: nowrap;
   }
 }
 

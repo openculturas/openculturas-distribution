@@ -10,8 +10,8 @@
 
 details {
   inline-size: 100%; // "width"
-  margin-block: calc(.5 * var(--oc-gutter));
-  padding-block: calc(.5 * var(--oc-gutter));
+  margin-block: calc(0.5 * var(--oc-gutter));
+  padding-block: calc(0.5 * var(--oc-gutter));
   padding-inline: 0;
   border-block-start: 0 none;
   border-block-end: var(--oc-divider-dark);
@@ -21,6 +21,7 @@ details {
 // Summary text wrapper
 .details-title {
   @extend %h2;
+
   display: inline-block;
   inline-size: 100%;
   margin: 0;
@@ -32,11 +33,11 @@ summary {
   position: relative;
   display: flex;
   flex-flow: row;
-  gap: 1em;
   align-items: flex-start;
   justify-content: space-between;
-  cursor: pointer;
   list-style: none;
+  cursor: pointer;
+  gap: 1em;
 
   // Disable default marker element on webkit browsers.
   &::-webkit-details-marker {
@@ -47,14 +48,16 @@ summary {
   .summary {
     @include icon(caret-down);
     @extend .details-title;
+
     flex-basis: 1em;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
     transform: rotate(0deg);
     transform-origin: center center;
-    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
 
     &::before {
       margin-inline: 0;
-    //  transform: translateX(0) translateY(0);
+
+      //  transform: translateX(0) translateY(0);
     }
   }
 
@@ -69,7 +72,7 @@ details[open] {
     transform: rotate(-180deg);
 
     &::before {
-      //transform: translateX(0) translateY(0);
+      // transform: translateX(0) translateY(0);
     }
   }
 }
@@ -80,16 +83,17 @@ summary:not(:has(span.summary)) {
   @include icon(caret-down, light, after);
 
   &::after {
-    margin-block-start: .333em;
     flex-basis: 1em;
+    margin-block-start: 0.333em;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
     transform: rotate(0deg);
     transform-origin: center center;
-    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
   }
 }
 
 summary:not(:has(span.summary)):has(.details-title)::after {
   @extend %h2;
+
   margin: 0;
   padding-block: 1.5em 0.75em;
 }
@@ -116,7 +120,6 @@ details[open] {
   padding: var(--oc-row-gap) 0 calc(2 * var(--oc-row-gap));
 }
 
-
 // Nested details, e.g. legacy FAQ
 
 details details {
@@ -130,6 +133,7 @@ details details {
 
   .details-title {
     @extend %h3;
+
     margin-block: 0;
   }
 
@@ -160,8 +164,8 @@ details {
 // Facets
 
 .block-facets {
-  vertical-align: text-top;
   padding: 0;
+  vertical-align: text-top;
 }
 
 .block-facets {
@@ -174,7 +178,8 @@ details {
   details {
     inline-size: 100%;
     border-width: 0;
-    //margin-block: 0;
+
+    // margin-block: 0;
     padding-block: 0;
   }
   ul {

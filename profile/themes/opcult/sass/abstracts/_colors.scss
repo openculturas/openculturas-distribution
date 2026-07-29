@@ -10,13 +10,13 @@
 // used in ckeditor, too
 
 %cc-colors-base {
-  --oc-color-primary: #9D1980;
+  --oc-color-primary: #9d1980;
   --oc-color-secondary: #4e083c;
 
   // Text colors
   --oc-color-text: #1f1f1f;
   --oc-color-text-muted: #7b7d85;
-  --oc-color-text-inverted: #ffffff;
+  --oc-color-text-inverted: #fff;
   --oc-color-text-headline: currentColor;
 
   // Link/interaction colors
@@ -38,14 +38,14 @@
   --oc-color-danger: #d41317;
   --oc-color-info: #1f71b8;
   --oc-color-success: #008d36;
-  --oc-color-warning: #ffdd00;
+  --oc-color-warning: #fd0;
   --oc-color-divider-light: #e8e9eb;
   --oc-color-divider-dark: #7b7d85;
 
   // Background colors (basic)
-  --oc-color-bg-light: #ffffff;
+  --oc-color-bg-light: #fff;
   --oc-color-bg-dark: #303236;
-  --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
+  --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary));
   --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
   --oc-color-bg-exposed-form: var(--oc-color-bg-form);
   --oc-color-bg-fieldset: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
@@ -114,7 +114,7 @@
   // Contrast colors (OpenCulturas brand colors)
   --oc-color-oc-spectrum-1: #d41317; // OC red
   --oc-color-oc-spectrum-2: #da5914; // OC orange
-  --oc-color-oc-spectrum-3: #ffdd00; // OC yellow
+  --oc-color-oc-spectrum-3: #fd0; // OC yellow
   --oc-color-oc-spectrum-4: #008d36; // OC green
   --oc-color-oc-spectrum-5: #1d70b7; // OC blue
 
@@ -131,15 +131,10 @@
 
   // Optional OC gradients (use in background-image declaration)
   --oc-color-gradient-smooth: linear-gradient(90deg, var(--oc-color-accent-1), var(--oc-color-accent-2), var(--oc-color-accent-3));
-  --oc-color-gradient-blocks: repeating-linear-gradient(-45deg,
-    var(--oc-color-accent-2) 0%,
-    var(--oc-color-accent-2) 5%,
-    var(--oc-color-accent-1) 5%,
-    var(--oc-color-accent-1) 10%
-  );
+  --oc-color-gradient-blocks: repeating-linear-gradient(-45deg, var(--oc-color-accent-2) 0%, var(--oc-color-accent-2) 5%, var(--oc-color-accent-1) 5%, var(--oc-color-accent-1) 10%);
 
   // Content section background (color or image) + whitespace
-  //--oc-bg-section-buffer: see templates/layout-regions.scss
+  // --oc-bg-section-buffer: see templates/layout-regions.scss
   --oc-bg-teaser-section: var(--oc-color-bg-slight-contrast);
   --oc-section-spacing-teaser: var(--oc-bg-section-buffer);
   --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
@@ -163,7 +158,7 @@
   --oc-bg-slight: color-mix(in oklab, var(--oc-color-bg-dark) 10%, transparent);
 
   // Shadow colors
-  --oc-shadow-color: color-mix(in oklab, #000000 30%, transparent);
+  --oc-shadow-color: color-mix(in oklab, #000 30%, transparent);
   --oc-color-teaser-overlay: #26031f; // used in teaser-unified special gradient; do not use color-mix here
 
   // Footer
@@ -181,7 +176,6 @@
   --oc-color-bg-cluster-icon: var(--oc-color-primary);
 }
 
-
 // ---
 // Dark mode base colors
 // used in ckeditor, too
@@ -189,7 +183,7 @@
 %cc-colors-base-dark {
   @media screen {
     // Base colors DM
-    --oc-color-primary: #9D1980;
+    --oc-color-primary: #9d1980;
     --oc-color-secondary: #4e083c;
 
     // Text colors DM
@@ -201,7 +195,7 @@
     --oc-color-interaction-inverted: color-mix(in oklab, var(--oc-color-interaction) 50%, var(--oc-color-text-inverted));
 
     // Link/interaction colors DM
-    --oc-color-link: #ffdd00; //#e795f0;
+    --oc-color-link: #fd0; // #e795f0;
     --oc-color-interaction: #74eaea;
 
     // Functional colors DM
@@ -233,22 +227,23 @@
 
     // Other DM
     --oc-image-background: var(--oc-color-bg-hardly-any-contrast);
-    --oc-chevron: url('../images/chevron-down-inv.svg');
+    --oc-chevron: url("../images/chevron-down-inv.svg");
   }
 }
 
-
 %cc-colors-ext-dark {
+  // Other DM ext
+  --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
   @media screen {
     // Dark logo
     --oc-logo-negative: url(../logo_negative.svg);
 
     // Contrast colors (OpenCulturas brand colors) DM ext
-    //--oc-color-oc-spectrum-1: #d41317;
-    //--oc-color-oc-spectrum-2: #da5914;
-    //--oc-color-oc-spectrum-3: #ffdd00;
-    //--oc-color-oc-spectrum-4: #008d36;
-    //--oc-color-oc-spectrum-5: #1d70b7;
+    // --oc-color-oc-spectrum-1: #d41317;
+    // --oc-color-oc-spectrum-2: #da5914;
+    // --oc-color-oc-spectrum-3: #ffdd00;
+    // --oc-color-oc-spectrum-4: #008d36;
+    // --oc-color-oc-spectrum-5: #1d70b7;
 
     // Map contrast colors DM ext
     --oc-color-accent-1: #404b38;
@@ -258,18 +253,15 @@
     // Footer DM ext
     --oc-color-bg-footer: #000;
     --oc-color-text-footer: #efefef;
-    --oc-color-link-footer: #ffdd00;
+    --oc-color-link-footer: #fd0;
 
     // Shadow colors DM ext
-    --oc-shadow-color: color-mix(in oklab, #000000 60%, transparent);
+    --oc-shadow-color: color-mix(in oklab, #000 60%, transparent);
   }
 
-  // Other DM ext
-  --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
-  //--oc-color-hero-text: currentColor;
-  //--oc-bg-hero-image: transparent;
-  //--oc-color-marker-icon: var(--oc-color-primary);
-  //--oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
-  //--oc-color-bg-cluster-icon: var(--oc-color-primary);
-
+  // --oc-color-hero-text: currentColor;
+  // --oc-bg-hero-image: transparent;
+  // --oc-color-marker-icon: var(--oc-color-primary);
+  // --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
+  // --oc-color-bg-cluster-icon: var(--oc-color-primary);
 }

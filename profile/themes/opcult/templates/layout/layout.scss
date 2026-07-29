@@ -20,17 +20,15 @@
 html {
   scroll-behavior: smooth;
   @media screen and (prefers-reduced-motion: reduce) {
-    & {
-      scroll-behavior: auto;
-    }
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background-color: var(--oc-color-neutral-canvas);
   margin: 0 auto;
   padding-block-start: var(--oc-page-margin-top);
   padding-block-end: var(--oc-page-margin-bottom);
+  background-color: var(--oc-color-neutral-canvas);
   padding-inline: 0;
   scrollbar-color: var(--oc-scrollbar-color);
 }
@@ -46,23 +44,23 @@ footer.oc-base-section {
 
 .layout-background {
   @include breakpoint(m) {
+    position: fixed;
     background-image: none;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position-x: center;
     background-position-y: 0;
-    background-size: cover; //alternative: contain;
+    background-size: cover; // alternative: contain;
     background-blend-mode: multiply;
-    position: fixed;
     inline-size: 100vw;
-    block-size: 100vh; //alternative: calc(100vw / 2); // aspect ratio of header image style
+    block-size: 100vh; // alternative: calc(100vw / 2); // aspect ratio of header image style
 
     &::after {
-      content: '';
       display: block;
-      inline-size: 100vw;
-      block-size: 100vh; //alternative: calc(100vw / 2);
+      content: "";
       background-color: var(--oc-color-bg-page-backdrop);
+      inline-size: 100vw;
+      block-size: 100vh; // alternative: calc(100vw / 2);
       backdrop-filter: blur(20px);
     }
   }
@@ -101,14 +99,13 @@ footer.oc-base-section {
 
 h2.block--title,
 .intro-inline:has(h2) {
-  margin-block-start: calc(.5 * var(--oc-section-spacing));
+  margin-block-start: calc(0.5 * var(--oc-section-spacing));
 }
 
-
-//.section-wrapper:not(.section-with-background) .section--last h2.block--title {
+// .section-wrapper:not(.section-with-background) .section--last h2.block--title {
 //  margin-block-start: 0;
 //  padding-block-start: 0;
-//}
+// }
 
 .main__content {
   padding-block-end: var(--oc-section-spacing);
@@ -123,6 +120,7 @@ h2.block--title,
 
 .block-compact {
   --oc-block-size: 100%;
+
   max-inline-size: var(--oc-block-size);
   flex-basis: var(--oc-block-size);
 
@@ -138,15 +136,6 @@ h2.block--title,
   display: flex;
   flex-flow: column;
 
-  @include breakpoint(m) {
-    max-inline-size: var(--oc-block-size);
-    flex-basis: var(--oc-block-size);
-  }
-
-  @include breakpoint(xl) {
-    --oc-block-size: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
-  }
-
   > .field {
     inline-size: 100%;
 
@@ -160,10 +149,19 @@ h2.block--title,
         gap: var(--oc-row-gap) var(--oc-gutter);
 
         > .field__item {
-        flex-basis: calc(50% - calc(.5 * var(--oc-gutter)));
+          flex-basis: calc(50% - calc(0.5 * var(--oc-gutter)));
         }
       }
     }
+  }
+
+  @include breakpoint(m) {
+    max-inline-size: var(--oc-block-size);
+    flex-basis: var(--oc-block-size);
+  }
+
+  @include breakpoint(xl) {
+    --oc-block-size: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
   }
 }
 

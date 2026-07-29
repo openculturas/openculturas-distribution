@@ -25,11 +25,12 @@
 a.flag--link,
 .flag--button {
   @extend %button-small;
-  margin: 1.5rem 1rem 0rem 0; // keep aligned w/ share toggle margin (see block/block--socialmedialinks.scss)
+
+  margin: 1.5rem 1rem 0 0; // keep aligned w/ share toggle margin (see block/block--socialmedialinks.scss)
 }
 
 .flag .flag--button.disabled {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 // ---
@@ -37,6 +38,7 @@ a.flag--link,
 
 a.flag--link {
   @extend %button;
+
   display: inline-block;
   color: var(--oc-color-interaction);
 }
@@ -45,18 +47,18 @@ a.flag--link {
 // Flag messages
 
 .js-flag-message {
-  background-color: var(--oc-color-bg-success);
-  border-color: var(--oc-color-success);
-  font-size: var(--oc-font-size-s);
+  position: absolute;
+  z-index: +1;
   display: block;
   margin: 0;
-  padding: .5rem 1rem;
-  position: absolute;
-  inset-inline-start: 3rem;
+  padding: 0.5rem 1rem;
   text-align: end;
-  inset-block-start: -.5rem;
   white-space: nowrap;
-  z-index: +1;
+  border-color: var(--oc-color-success);
+  background-color: var(--oc-color-bg-success);
+  font-size: var(--oc-font-size-s);
+  inset-inline-start: 3rem;
+  inset-block-start: -0.5rem;
 }
 
 .js-flag-message {
@@ -66,8 +68,8 @@ a.flag--link {
 .action-flag {
   // warn user upon removing a bookmark.
   .js-flag-message {
-    background-color: var(--oc-color-bg-warning);
     border-color: var(--oc-color-warning);
+    background-color: var(--oc-color-bg-warning);
   }
 }
 
@@ -90,9 +92,10 @@ a.flag--link {
   .flag--button {
     @extend %icon-only;
     @extend %icon-large;
+
     margin: 0;
-    border-style: var(--oc-button-border-style);
     border-width: var(--oc-button-border-width);
+    border-style: var(--oc-button-border-style);
     border-color: var(--oc-button-border-color);
 
     &:focus,
@@ -129,37 +132,23 @@ a.flag--link {
   &:has(.flag.flag-bookmark-term) {
     position: absolute;
     inline-size: auto;
-    inset-block-start: calc(.5 * var(--oc-font-size-xxl)); // relative to h1 size
-    inset-inline-end: .5rem;
+    inset-block-start: calc(0.5 * var(--oc-font-size-xxl)); // relative to h1 size
+    inset-inline-end: 0.5rem;
     z-index: +1;
   }
 }
-
 
 // ---
 // Compact flag styling in bookmarks view
 // see views/views.scss
 
 .bookmarks .flag {
-  .flag--button {
-    &:before {
-    }
-
-    &:focus,
-    &:hover {
-    }
-
-    &:focus::before,
-    &:hover::before {
-
-    }
-  }
   &.action-unflag {
     .flag--button {
       &:focus::before,
       &:hover::before {
-        background-color: var(--oc-color-bg-danger);
         border-color: var(--oc-color-danger);
+        background-color: var(--oc-color-bg-danger);
       }
     }
   }

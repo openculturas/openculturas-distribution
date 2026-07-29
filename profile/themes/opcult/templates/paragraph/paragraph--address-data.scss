@@ -10,15 +10,16 @@
 @use "../../sass/abstracts" as *;
 
 .address-container {
-  background-color: var(--oc-color-bg-dark-translucent);
-  grid-column: 1 / -1;
-  @extend %grid;
   --oc-grid-item-count: 1; // see layout-regions.scss
-  gap: 0 var(--oc-gutter);
+  @extend %grid;
+
   grid-template-areas:
     "address"
     "map"
     "links";
+  grid-column: 1 / -1;
+  background-color: var(--oc-color-bg-dark-translucent);
+  gap: 0 var(--oc-gutter);
 
   &--address {
     grid-area: address;
@@ -31,12 +32,13 @@
   }
 
   @include breakpoint(m) {
-    grid-template-columns: calc(3 * var(--oc-grid-step) - var(--oc-gutter)) auto;
-    gap: 0;
     grid-template-areas:
       "address map"
       "links map";
-    //margin-block-end: var(--oc-row-gap);
+    grid-template-columns: calc(3 * var(--oc-grid-step) - var(--oc-gutter)) auto;
+    gap: 0;
+
+    // margin-block-end: var(--oc-row-gap);
   }
 }
 
@@ -56,17 +58,13 @@
 .address-container--links {
   display: flex;
   flex-flow: row wrap;
-  gap: var(--oc-row-gap) var(--oc-gutter);
-  justify-content: flex-start;
   align-self: end;
+  justify-content: flex-start;
   padding-block-end: var(--oc-row-gap);
   padding-inline-start: var(--oc-gutter);
+  gap: var(--oc-row-gap) var(--oc-gutter);
 }
 
 .address-container--map {
   padding: var(--oc-row-gap) var(--oc-gutter);
 }
-
-
-
-

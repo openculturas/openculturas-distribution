@@ -8,28 +8,28 @@
 // Toggles
 
 .utility-toggle--wrapper {
-  margin-inline-end: 1rem;
   display: inline-block;
+  margin-inline-end: 1rem;
 }
 
 // Popover dimensions + placement (non-modals)
 // -
-//.account-toggle--popover-content,
-//.language-toggle--popover-content,
-//.share-toggle--popover-content,
-//.attribution-toggle--popover-content,
-//.quick-info--popover-content,
-//.addtocal-toggle--popover-content,
+// .account-toggle--popover-content,
+// .language-toggle--popover-content,
+// .share-toggle--popover-content,
+// .attribution-toggle--popover-content,
+// .quick-info--popover-content,
+// .addtocal-toggle--popover-content,
 
 .popover-content {
+  padding: 0 0 0.25em;
+  transform: translateX(-1rem);
+  border: 0;
+  background: var(--oc-color-bg-light);
+  box-shadow: var(--oc-box-shadow-down);
   inline-size: max-content;
   max-inline-size: 30rem;
   inset: unset;
-  transform: translateX(-1rem);
-  background: var(--oc-color-bg-light);
-  box-shadow: var(--oc-box-shadow-down);
-  border: 0;
-  padding: 0 0 .25em;
 
   ul,
   ol {
@@ -41,34 +41,34 @@
   }
 
   li {
-    padding-block: .25em;
+    padding-block: 0.25em;
 
     a {
-      padding-block: .25rem;
+      padding-block: 0.25rem;
       padding-inline: 1rem 1.5rem; // most links in popover lists have icons
     }
   }
 
   li button {
-    border: 0 none;
-    border-radius: 0;
     display: block;
-    inline-size: 100%;
     margin: 0;
     text-align: left;
-    font-weight: var(--oc-font-weight-normal);
-    text-transform: none;
     letter-spacing: normal;
-    padding-block: .25rem;
-    padding-inline: 1rem 1.5rem;
+    text-transform: none;
     color: var(--oc-color-menu-link);
+    border: 0 none;
+    border-radius: 0;
+    font-weight: var(--oc-font-weight-normal);
+    inline-size: 100%;
+    padding-block: 0.25rem;
+    padding-inline: 1rem 1.5rem;
 
     &:focus,
     &:hover,
     &:active {
-      background-color: var(--oc-color-menu-link-focus-bg);
       color: var(--oc-color-menu-link-focus-text);
       border-radius: 0;
+      background-color: var(--oc-color-menu-link-focus-bg);
     }
   }
 }
@@ -91,7 +91,7 @@
 
 // User account menu
 @supports (anchor-name: --account-menu-trigger) {
-  .account-toggle--trigger  {
+  .account-toggle--trigger {
     anchor-name: --account-menu-trigger;
   }
 

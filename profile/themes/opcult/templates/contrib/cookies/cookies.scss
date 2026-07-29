@@ -8,7 +8,6 @@
 body #cookiesjsr {
   --default-margin: var(--oc-gutter);
   --font-size-reset: 1rem;
-
   --btn-font-color: var(--oc-button-text-color);
   --btn-border-color: var(--oc-button-border-color);
   --btn-bg-color: var(--oc-button-bg-color);
@@ -21,14 +20,11 @@ body #cookiesjsr {
   --btn-prime-inv-font-color: var(--oc-button-primary-text-color);
   --btn-prime-inv-border-color: var(--oc-button-primary-border-color);
   --btn-prime-inv-bg-color: var(--oc-button-primary-bg-color);
-
   --link-list-font-color: var(--oc-color-link-inverted);
   --link-list-separator-color: var(--oc-color-text-inverted);
-
   --banner-logo-offset: 100px;
   --banner-bg-color: var(--oc-color-bg-dark);
   --banner-font-color: var(--oc-color-text-inverted);
-
   --layer-header-height: 3.5em;
   --layer-header-bg-color: var(--oc-color-interaction);
   --layer-header-font-color: var(--oc-color-text-inverted);
@@ -44,7 +40,6 @@ body #cookiesjsr {
   --layer-footer-bg-color: var(--oc-color-bg-slight-contrast);
   --layer-footer-font-color: var(--oc-color-text);
   --layer-footer-height: 4.5em;
-
   --switch-border-color: var(--oc-color-bg-slight-contrast);
   --switch-handle-color: var(--oc-color-bg-light);
   --switch-bg-off: var(--oc-color-bg-slight-contrast);
@@ -64,9 +59,6 @@ body #cookiesjsr {
     min-inline-size: 70rem;
     max-inline-size: 70rem;
     inline-size: 100%;
-  }
-
-  @include breakpoint(xxl) {
   }
 }
 
@@ -107,27 +99,27 @@ body #cookiesjsr {
   }
 
   .cookiesjsr-service-group--tab {
+    // Add chevrons in mobile and add spacing
+    @include icon(caret-down);
+
     // Override Button default
     border-radius: 0;
 
     &:active {
-      border: .0625rem dashed var(--oc-color-text-inverted);
+      border: 0.0625rem dashed var(--oc-color-text-inverted);
       outline: none;
     }
 
-    // Add chevrons in mobile and add spacing
-    @include icon(caret-down);
-
     // Pixel defined: @see libraries/cookiesjsr/styles/_vars.scss
-    @media screen and (max-width: 767px ) {
-      line-height: 1.6;
+    @media screen and (max-width: 767px) {
       background: var(--oc-color-bg-light);
+      line-height: 1.6;
 
-      &:before {
+      &::before {
         display: block;
         float: inline-end;
-        font-size: var(--oc-font-size-icon-m);
         transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+        font-size: var(--oc-font-size-icon-m);
       }
     }
   }
@@ -136,7 +128,7 @@ body #cookiesjsr {
 
   .cookiesjsr-service-group {
     // Pixel defined: @see libraries/cookiesjsr/styles/_vars.scss
-    @media screen and (max-width: 767px ) {
+    @media screen and (max-width: 767px) {
       margin: 0 1.25rem 1.25rem;
     }
   }
@@ -149,15 +141,15 @@ body #cookiesjsr {
   .cookiesjsr-btn.important.invert {
     &:focus,
     &:hover {
-      background: var(--oc-button-focus-bg-color);
+      transform: unset;
       color: var(--oc-button-focus-text-color);
       border-color: var(--oc-button-focus-border-color);
-      transform: unset;
+      background: var(--oc-button-focus-bg-color);
     }
     &:active {
       color: var(--oc-button-active-text-color);
-      background: var(--oc-button-active-bg-color);
       border-color: var(--oc-button-active-border-color);
+      background: var(--oc-button-active-bg-color);
     }
   }
 }
@@ -165,7 +157,6 @@ body #cookiesjsr {
 // Banner
 
 .cookiesjsr-banner {
-
   &.active {
     padding: var(--oc-gutter);
   }
@@ -175,7 +166,7 @@ body #cookiesjsr {
   }
 
   .links--row {
-    padding-block-end: .25rem; // Keep some space for active-outline.
+    padding-block-end: 0.25rem; // Keep some space for active-outline.
   }
 }
 
@@ -186,30 +177,32 @@ body #cookiesjsr {
 // In Video placeholder, when cookies off
 
 .cookies-fallback {
-  border-color: var(--oc-color-divider-light);
   padding: 1.25rem 2.5rem;
+  border-color: var(--oc-color-divider-light);
 
   .cookies-fallback--btn {
     @extend %button;
-    padding: .5em 2em;
+
+    padding: 0.5em 2em;
     text-transform: unset;
     min-block-size: unset; // "min-height"
   }
   .cookies-fallback--link {
     @extend %button;
+
+    padding: 0.5em 2em;
     font-size: unset;
-    padding: .5em 2em;
     &:focus,
     &:hover {
+      text-decoration: none;
       color: var(--oc-button-focus-text-color);
       background: var(--oc-button-focus-bg-color);
-      text-decoration: none;
     }
 
     &:active {
+      text-decoration: none;
       color: var(--oc-button-active-text-color);
       background: var(--oc-button-active-bg-color);
-      text-decoration: none;
     }
   }
 }
@@ -221,11 +214,10 @@ body #cookiesjsr {
 
 // temporarily fixes https://www.drupal.org/project/cookies/issues/3350253
 .cookies-fallback--video {
-  background-image: none;
   background-color: var(--oc-color-bg-slight-contrast);
+  background-image: none;
 }
 
 .cookies-fallback--text {
   padding-block-end: 1rem;
 }
-

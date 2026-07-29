@@ -1,30 +1,28 @@
-(function ($, Drupal, once) {
-
+(($, Drupal, once) => {
   // Add body class on scroll.
   Drupal.behaviors.scrollToTop = {
-    // eslint-disable-next-line no-unused-vars
-    attach(context, settings) {
-      $(once('scroll-class', 'body', context))
-        .each(function() {
-          const headerOffset = $('.navbar-secondary', context).outerHeight();
-          const $body = $(this);
-          const $window = $(window);
+    attach(context) {
+      // eslint-disable-next-line func-names -- jQuery binds `this` to the DOM element here
+      $(once('scroll-class', 'body', context)).each(function () {
+        const headerOffset = $('.navbar-secondary', context).outerHeight();
+        const $body = $(this);
+        const $window = $(window);
 
-          $window.scroll(function(event) {
-            const scrollPos = $window.scrollTop();
-            const pxToBottom = $body.height() - (scrollPos + $window.height());
+        $window.scroll(() => {
+          const scrollPos = $window.scrollTop();
+          const pxToBottom = $body.height() - (scrollPos + $window.height());
 
-            $body.toggleClass(
-              'is-scrolling-past-navbar',
-              scrollPos > headerOffset,
-            );
-            $body.toggleClass('is-scrolling', scrollPos > $window.height() / 4);
-            $body.toggleClass('is-scrolled-bottom', pxToBottom < 30);
-          });
+          $body.toggleClass(
+            'is-scrolling-past-navbar',
+            scrollPos > headerOffset,
+          );
+          $body.toggleClass('is-scrolling', scrollPos > $window.height() / 4);
+          $body.toggleClass('is-scrolled-bottom', pxToBottom < 30);
         });
+      });
       $(context)
         .find('.scroll-to-top')
-        .click(function() {
+        .click(() => {
           $('html, body').animate(
             {
               scrollTop: 0,
@@ -34,4 +32,4 @@
         });
     },
   };
-}(jQuery, Drupal, once));
+})(jQuery, Drupal, once);

@@ -10,7 +10,6 @@
 // When using a light or transparent background, keep specific SCSS below -> see comments below
 
 .slimselect {
-
   // Main theme color for selected values, hover states, and focus indicators BETTER: dark background like var(--oc-contrast-color-1)
   --ss-primary-color: var(--oc-tag-bg-color);
 
@@ -63,13 +62,14 @@
   --ss-border-radius: var(--oc-input-border-radius);
 }
 
-//nest in body so the --oc-details-border-radius works
+// nest in body so the --oc-details-border-radius works
 body {
-  //nest correctly to override light text color set in --ss-bg-color
+  // nest correctly to override light text color set in --ss-bg-color
   .ss-main {
     .ss-values {
-      //set padding and radius
+      // set padding and radius
       --ss-border-radius: 50vi;
+
       // use form field defaults
       padding: var(--oc-form-field-padding);
       border: var(--oc-input-border);
@@ -87,7 +87,7 @@ body {
           stroke: var(--oc-color-text);
         }
         .ss-value-delete {
-            border: none;
+          border: none;
         }
       }
     }
@@ -98,6 +98,7 @@ body {
     }
     .ss-deselect {
       @extend %button;
+
       align-items: start;
       margin: 0.2rem;
       padding: 0.2rem;
@@ -123,9 +124,10 @@ body {
         color: unset;
         background-color: transparent;
 
-        &:hover, &:focus {
-          background-color: var(--oc-color-interaction);
+        &:hover,
+        &:focus {
           color: var(--oc-color-text-inverted);
+          background-color: var(--oc-color-interaction);
         }
 
         &:not(.ss-disabled) {
@@ -150,13 +152,13 @@ body {
 
 // List opening toggle
 .ss-main .ss-arrow {
-  flex: 0 1 auto;
   display: flex;
+  flex: 0 1 auto;
   align-items: center;
   justify-content: flex-end;
+  margin: var(--ss-spacing-l) var(--ss-spacing-m) auto var(--ss-spacing-m);
   inline-size: var(--oc-font-size-s);
   block-size: var(--oc-font-size-s);
-  margin: var(--ss-spacing-l)  var(--ss-spacing-m) auto var(--ss-spacing-m);
 }
 
 // Opened list

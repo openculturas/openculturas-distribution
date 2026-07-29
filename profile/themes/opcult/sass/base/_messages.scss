@@ -14,25 +14,18 @@ div[data-drupal-messages] {
 }
 
 .messages {
+  position: relative;
   display: flex;
   flex-flow: column;
-  gap: .5rem;
   align-items: center;
+  color: var(--oc-color-text);
+  border-width: 0.125rem;
+  border-style: solid;
   background-image: none;
   box-shadow: var(--oc-box-shadow-centered);
-  position: relative;
-  border-width: .125rem;
-  border-style: solid;
-  color: var(--oc-color-text);
+  gap: 0.5rem;
   padding-block: var(--oc-row-gap);
   padding-inline: 1rem 2rem;
-  //margin-block-end: var(--oc-section-spacing); // tears blocks w/ background apart
-
-  @include breakpoint(m) {
-    flex-flow: row wrap;
-    align-content: flex-start;
-    padding-inline: var(--oc-gutter) calc(2 * var(--oc-gutter));
-  }
 
   &:has(ul) {
     @include breakpoint(m) {
@@ -47,18 +40,26 @@ div[data-drupal-messages] {
 
   a,
   a:hover {
-    //color: currentColor; // would need extra hover handling
+    // color: currentColor; // would need extra hover handling
     display: inline;
-    font-weight: var(--oc-font-weight-bold);
     text-decoration: var(--oc-underline);
+    font-weight: var(--oc-font-weight-bold);
+  }
+
+  // margin-block-end: var(--oc-section-spacing); // tears blocks w/ background apart
+
+  @include breakpoint(m) {
+    flex-flow: row wrap;
+    align-content: flex-start;
+    padding-inline: var(--oc-gutter) calc(2 * var(--oc-gutter));
   }
 }
 
 // Icons: see base/icons.scss
 
 .messages--error {
-  background-color: var(--oc-color-bg-danger);
   border-color: var(--oc-color-danger);
+  background-color: var(--oc-color-bg-danger);
 
   &::before {
     background-color: var(--oc-color-danger);
@@ -66,8 +67,8 @@ div[data-drupal-messages] {
 }
 
 .messages--status {
-  background-color: var(--oc-color-bg-success);
   border-color: var(--oc-color-success);
+  background-color: var(--oc-color-bg-success);
 
   &::before {
     background-color: var(--oc-color-success);
@@ -76,8 +77,8 @@ div[data-drupal-messages] {
 
 .messages--warning,
 .messages--status:has(a[href*="/development/maintenance"]) {
-  background-color: var(--oc-color-bg-warning);
   border-color: var(--oc-color-warning);
+  background-color: var(--oc-color-bg-warning);
 
   &::before {
     background-color: var(--oc-color-warning-dark);
@@ -85,8 +86,8 @@ div[data-drupal-messages] {
 }
 
 .messages--info {
-  background-color: var(--oc-color-bg-info);
   border-color: var(--oc-color-info);
+  background-color: var(--oc-color-bg-info);
 
   &::before {
     background-color: var(--oc-color-info);
@@ -97,9 +98,9 @@ div[data-drupal-messages] {
 // OC utility class, used e.g. for permanent help text on user dashboard
 
 .infobox {
-  background: var(--oc-color-bg-info);
+  text-indent: calc(-1.333 * var(--oc-font-size-icon));
   color: var(--oc-color-info);
+  background: var(--oc-color-bg-info);
   padding-block: var(--oc-row-gap);
   padding-inline: calc(1 * var(--oc-gutter) + var(--oc-font-size-icon)) calc(2 * var(--oc-gutter));
-  text-indent: calc(-1.333 * var(--oc-font-size-icon));
 }

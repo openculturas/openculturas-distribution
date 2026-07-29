@@ -12,6 +12,7 @@
 
 .admin-toolbar__expand-button {
   --oc-button-border-radius: 50%;
+
   padding: revert;
 }
 
@@ -20,7 +21,7 @@
 .toolbar-tray a {
   &:focus,
   &:hover {
-    background-color: transparent
+    background-color: transparent;
   }
 }
 
@@ -36,11 +37,11 @@ nav,
 
 .menu,
 .links {
+  display: flex;
+  flex-flow: column;
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  flex-flow: column;
 
   li {
     margin-block: 0;
@@ -55,7 +56,7 @@ nav,
   flex-flow: row wrap;
 }
 
-ul.menu  ul {
+ul.menu ul {
   margin-inline-start: var(--oc-gutter);
 }
 
@@ -66,14 +67,6 @@ ul.menu  ul {
   display: none;
   max-inline-size: 100%;
 
-  @include breakpoint(m) {
-    display: block;
-  }
-
-  @include breakpoint(l) {
-    margin-block: 1rem 0;
-  }
-
   .menu {
     gap: 1rem 2rem;
   }
@@ -81,7 +74,14 @@ ul.menu  ul {
   a {
     color: var(--oc-color-link);
     border-bottom-color: var(--oc-color-text);
-    padding-block: .5em;
+    padding-block: 0.5em;
+  }
+
+  @include breakpoint(m) {
+    display: block;
+  }
+
+  @include breakpoint(l) {
+    margin-block: 1rem 0;
   }
 }
-

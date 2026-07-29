@@ -59,13 +59,13 @@
 
   .teaser--top,
   .teaser--top.no-image {
+    display: grid;
+    place-content: center;
     border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
     block-size: 100%;
     inline-size: 100%;
     margin-block: 0;
     margin-inline: 0;
-    display: grid;
-    place-content: center;
   }
 
   .field--name-field-mood-image {
@@ -87,29 +87,28 @@
 
 .term-teaser {
   .teaser--top::after {
-    background-color: var(--oc-color-bg-dark);
-    content: '';
     position: absolute;
-    inset: 0 0 0 0;
-    opacity: .4;
+    content: "";
     transition: opacity var(--oc-transition-duration) var(--oc-transition-timing-function);
+    opacity: 0.4;
+    background-color: var(--oc-color-bg-dark);
+    inset: 0 0 0 0;
   }
 
   .taxonomy-term--tagwrapper {
     margin: auto;
   }
 
-
   img {
-    inline-size: 100%;
-    object-fit: cover;
     transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
+    object-fit: cover;
+    inline-size: 100%;
   }
 
   .taxonomy-term--tag {
     margin: 0 0 7%; // optical center
-    font-weight: var(--oc-font-weight-bold);
     text-align: center;
+    font-weight: var(--oc-font-weight-bold);
   }
 
   a:focus,
@@ -122,10 +121,10 @@
 
     // exception: link covers full teaser
     .taxonomy-term--tag {
-      background-color: var(--oc-tag-link-focus-bg-color);
-      border-color: var(--oc-tag-link-focus-border-color);
-      color: var(--oc-tag-link-focus-text-color);
       text-decoration: var(--oc-underline);
+      color: var(--oc-tag-link-focus-text-color);
+      border-color: var(--oc-tag-link-focus-border-color);
+      background-color: var(--oc-tag-link-focus-bg-color);
     }
 
     img {
@@ -141,5 +140,3 @@
     }
   }
 }
-
-

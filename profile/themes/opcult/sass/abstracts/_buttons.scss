@@ -9,8 +9,8 @@
 // Custom properties
 
 %cc-buttons {
-  --oc-button-border-radius: .25rem; // or "50vi"
-  --oc-button-border-width: .125rem; // 2px
+  --oc-button-border-radius: 0.25rem; // or "50vi"
+  --oc-button-border-width: 0.125rem; // 2px
   --oc-button-border-style: solid;
   --oc-button-padding: var(--oc-button-padding-m);
   --oc-button-padding-m: 0.5em 2em;
@@ -21,8 +21,8 @@
   --oc-tag-border-radius: 50vi;
   --oc-tag-border-width: 0.0625rem;
   --oc-tag-border-style: solid;
-  --oc-tag-padding: .25em 2em;
-  --oc-tag-padding-s: .25em 1em;
+  --oc-tag-padding: 0.25em 2em;
+  --oc-tag-padding-s: 0.25em 1em;
   --oc-tag-text-transform: none;
   --oc-tag-letter-spacing: normal;
   --oc-tag-box-shadow: var(--oc-button-box-shadow);
@@ -42,29 +42,29 @@
   display: inline-block;
   margin-block-end: 1em;
   padding: var(--oc-button-padding);
+  cursor: pointer;
   text-decoration: none;
-  word-wrap: normal;
+  letter-spacing: var(--oc-button-letter-spacing);
+  text-transform: var(--oc-button-text-transform);
+  overflow-wrap: normal;
   hyphens: none;
-  font-family: var(--oc-font-family-default);
-  font-weight: var(--oc-font-weight-bold);
   color: var(--oc-button-text-color);
   border-width: var(--oc-button-border-width);
   border-style: var(--oc-button-border-style);
   border-color: var(--oc-button-border-color);
   border-radius: var(--oc-button-border-radius);
   background-color: var(--oc-button-bg-color);
-  font-size: var(--oc-font-size-button-default);
-  text-transform: var(--oc-button-text-transform);
-  letter-spacing: var(--oc-button-letter-spacing);
-  cursor: pointer;
   box-shadow: var(--oc-button-box-shadow);
+  font-family: var(--oc-font-family-default);
+  font-size: var(--oc-font-size-button-default);
+  font-weight: var(--oc-font-weight-bold);
 
   &:not([disabled]):focus-visible,
   &:not([disabled]):hover {
     color: var(--oc-button-focus-text-color);
-    background-color: var(--oc-button-focus-bg-color);
     border-color: var(--oc-button-focus-border-color);
     border-radius: var(--oc-button-border-radius); // otherwise pseudo button links inherit from link
+    background-color: var(--oc-button-focus-bg-color);
   }
 }
 
@@ -90,10 +90,11 @@
 
 %button-small {
   --oc-button-padding: var(--oc-button-padding-s);
+
   margin-block-end: 0;
+  border-width: 0.09375rem;
   font-size: var(--oc-font-size-s);
   font-weight: var(--oc-font-weight-medium);
-  border-width: .09375rem;
 }
 
 %button-active {
@@ -116,41 +117,41 @@
   display: inline-block;
   margin: 0 1em 1em 0;
   padding: var(--oc-tag-padding);
-  hyphens: auto;
   text-align: center;
-  background-color: var(--oc-tag-bg-color);
+  letter-spacing: var(--oc-tag-letter-spacing);
+  text-transform: var(--oc-tag-text-transform);
+  hyphens: auto;
+  color: var(--oc-tag-text-color);
   border-width: var(--oc-tag-border-width);
   border-style: var(--oc-tag-border-style);
   border-color: var(--oc-tag-border-color);
   border-radius: var(--oc-tag-border-radius);
-  color: var(--oc-tag-text-color);
-  line-height: 1;
+  background-color: var(--oc-tag-bg-color);
   font-size: var(--oc-font-size-tag-default);
-  text-transform: var(--oc-tag-text-transform);
-  letter-spacing: var(--oc-tag-letter-spacing);
+  line-height: 1;
 }
 
 %tag-link {
-  background-color: var(--oc-tag-link-bg-color);
-  border-color: var(--oc-tag-link-border-color);
-  color: var(--oc-tag-link-text-color);
   text-decoration: none;
+  color: var(--oc-tag-link-text-color);
+  border-color: var(--oc-tag-link-border-color);
+  background-color: var(--oc-tag-link-bg-color);
   box-shadow: var(--oc-tag-box-shadow);
 
   &:focus,
   &:hover {
-    background-color: var(--oc-tag-link-focus-bg-color);
-    border-color: var(--oc-tag-link-focus-border-color);
-    color: var(--oc-tag-link-focus-text-color);
     text-decoration: var(--oc-underline);
+    color: var(--oc-tag-link-focus-text-color);
+    border-color: var(--oc-tag-link-focus-border-color);
     border-radius: var(--oc-tag-border-radius);
+    background-color: var(--oc-tag-link-focus-bg-color);
   }
 
   // caveat: does not work well with active elements that shift focus
   &:active {
-    background-color: var(--oc-tag-link-active-bg-color);
-    border-color: var(--oc-tag-link-active-border-color);
     color: var(--oc-tag-link-active-text-color);
+    border-color: var(--oc-tag-link-active-border-color);
+    background-color: var(--oc-tag-link-active-bg-color);
   }
 }
 
@@ -158,9 +159,9 @@
 // Note: For accessibility reasons, differentiate between button and button link
 %button-link {
   padding: var(--oc-button-padding-s);
-  border: .125rem solid var(--oc-color-link);
-  border-radius: 50vi;
   text-decoration: none;
+  border: 0.125rem solid var(--oc-color-link);
+  border-radius: 50vi;
 
   &:focus,
   &:hover {

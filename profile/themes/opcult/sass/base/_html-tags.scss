@@ -6,9 +6,9 @@
 @use "../abstracts/typography" as *;
 
 body {
+  color: var(--oc-color-text);
   font-family: var(--oc-font-family-default);
   line-height: var(--oc-line-height-default);
-  color: var(--oc-color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-wrap: anywhere;
@@ -80,8 +80,8 @@ a {
   &:focus-visible,
   &:hover {
     img {
-      outline: .125rem solid var(--oc-color-link-focus-bg);
-      outline-offset: .125rem;
+      outline: 0.125rem solid var(--oc-color-link-focus-bg);
+      outline-offset: 0.125rem;
     }
   }
 }
@@ -95,7 +95,7 @@ ol {
 
 .content ul:not(.slider-container, .menu, .pager__items, .orientation-horizontal, .entity-moderation-form, .visually-plain, .tabs) {
   margin-block: var(--oc-row-gap);
-  list-style: '— ';
+  list-style: "— ";
 
   ul {
     margin-block-end: 1em;
@@ -134,6 +134,7 @@ li {
 dl {
   display: grid;
   grid-template-columns: max-content auto;
+
   // margin-inline: 0 var(--oc-gutter);
   // border-inline-start: .0625rem solid var(--oc-color-info);
   // padding-inline: var(--oc-gutter) 0;
@@ -159,7 +160,7 @@ dt {
 dd {
   grid-column-start: 2;
   margin-inline: 0;
-  margin-block-end: .25em;
+  margin-block-end: 0.25em;
 }
 
 // Tables
@@ -171,12 +172,14 @@ hr {
 
 sub {
   position: relative;
+
   // inset-block-end: -0.25em; // "bottom"
   font-size: 0.666em; // deliberately not using a custom property
 }
 
 sup {
   position: relative;
+
   // inset-block-start: -0.5em; // "top"
   font-size: 0.666em; // deliberately not using a custom property
 }
@@ -189,7 +192,7 @@ small,
 
 abbr {
   text-decoration: none;
-  border-block-end: .125rem dotted var(--oc-color-text-muted);
+  border-block-end: 0.125rem dotted var(--oc-color-text-muted);
 }
 
 kbd {
@@ -257,8 +260,8 @@ video {
 
 img[alt] {
   color: var(--oc-color-text-muted);
-  font-style: italic;
   font-size: var(--oc-font-size-s);
+  font-style: italic;
 }
 
 img {
@@ -280,27 +283,28 @@ figure {
 }
 
 figcaption {
+  text-align: start;
   font-size: var(--oc-font-size-default);
   font-weight: var(--oc-font-weight-normal);
-  text-align: start;
 }
 
 blockquote {
-  max-inline-size: var(--text-max-line);
   margin: calc(2 * var(--oc-row-gap)) 0;
-  padding: 1em var(--oc-gutter) .5em;
-  background-color: var(--oc-color-bg-hardly-any-contrast);
+  padding: 1em var(--oc-gutter) 0.5em;
   color: inherit;
+  border: 0.5em solid var(--oc-color-primary);
+  border-width: 0 0 0 0.5em;
+  background-color: var(--oc-color-bg-hardly-any-contrast);
   font-size: var(--oc-font-size-m);
   font-weight: var(--oc-font-weight-bold);
-  border: .5em solid var(--oc-color-primary);
-  border-width: 0 0 0 .5em;
-  //display: flex;
-  //@include icon(caret-double-right); // @use abstracts/icons-ext
+  max-inline-size: var(--text-max-line);
+
+  // display: flex;
+  // @include icon(caret-double-right); // @use abstracts/icons-ext
 
   p {
     margin-block: 0;
-    padding-block-end: .5em;
+    padding-block-end: 0.5em;
   }
 
   p:last-child {
@@ -327,6 +331,7 @@ blockquote {
 
 [id]:target {
   scroll-margin-block-start: var(--oc-scroll-offset-y);
-  //scroll-snap-align: start;
-  //scroll-snap-stop: normal;
+
+  // scroll-snap-align: start;
+  // scroll-snap-stop: normal;
 }

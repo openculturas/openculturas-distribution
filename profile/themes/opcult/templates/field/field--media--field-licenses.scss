@@ -16,24 +16,26 @@ figcaption .attribution {
 
 .attribution-toggle {
   --oc-font-size-icon: var(--oc-font-size-icon-default);
+
   position: absolute;
-  inset-block-start: .5rem;
-  inset-inline-start: .5rem;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
   z-index: +1; // always on top of captions
 }
 
 .attribution-popover-trigger {
   @extend %icon-button;
   @include icon(copyright, fill, before);
-  background-color: var(--oc-color-info);
+
   color: var(--oc-color-text-inverted);
-  border-width: .25rem;
+  border-width: 0.25rem;
   border-color: transparent;
+  background-color: var(--oc-color-info);
   background-clip: padding-box;
 
-  //&::before {
+  // &::before {
   //  background-color: var(--oc-color-text-inverted);
-  //}
+  // }
 
   &:focus,
   &:hover {
@@ -45,9 +47,9 @@ figcaption .attribution {
 
 // Do not delete this, it is needed for the popover to work.
 .attribution-toggle--popover-content {
-  background: var(--oc-color-bg-info);
-  color: var(--oc-color-info);
   padding: var(--oc-row-gap) var(--oc-gutter);
+  color: var(--oc-color-info);
+  background: var(--oc-color-bg-info);
 
   a {
     color: currentColor;
@@ -57,5 +59,4 @@ figcaption .attribution {
       color: var(--oc-color-link-focus-text);
     }
   }
-
 }

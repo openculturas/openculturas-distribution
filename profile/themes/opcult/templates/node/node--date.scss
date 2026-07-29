@@ -13,9 +13,9 @@
 .calendar .teaser--date,
 .date {
   ul {
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
   }
 }
 
@@ -24,8 +24,8 @@
   --oc-date-font-size-time: var(--oc-font-size-xl); // later: var(--oc-font-size-m)
   time,
   .date-join {
-    font-weight: var(--oc-font-weight-bold);
     font-size: var(--oc-date-font-size-date);
+    font-weight: var(--oc-font-weight-bold);
   }
 
   .smart-date--time,
@@ -49,18 +49,20 @@
 
 .field--name-field-ticketing a {
   @extend %button;
-  //@extend %button-primary; // problematic figure/ground inversion
+
+  // @extend %button-primary; // problematic figure/ground inversion
 }
 
 // ---
 // Visually integrate location teaser in address area
 
 .block-field-blocknodedatefield-location {
+  @extend %page-padding-outdent;
+
   position: absolute;
+  z-index: +1;
   padding-block-start: calc(2 * var(--oc-row-gap));
   padding-inline: var(--oc-gutter);
-  z-index: +1;
-  @extend %page-padding-outdent;
 
   @include breakpoint(s) {
     margin-inline: 0;
@@ -79,14 +81,14 @@
 // Just in case: date entity teaser
 
 .teaser .recurring-output--wrapper {
-  font-weight: var(--oc-font-weight-bold);
+  margin-block-end: 0.5rem;
   font-size: var(--oc-font-size-m);
-  margin-block-end: .5rem;
+  font-weight: var(--oc-font-weight-bold);
 }
 
 .teaser.view-mode-compact .recurring-output--wrapper {
-  font-size: var(--oc-font-size-default);
   margin-block-end: 0;
+  font-size: var(--oc-font-size-default);
 }
 
 // ---
@@ -105,7 +107,7 @@
 .further-dates {
   font-size: var(--oc-font-size-s);
   font-weight: var(--oc-font-weight-medium);
-  margin-block: .5rem;
+  margin-block: 0.5rem;
 
   .teaser-unified &,
   .view-mode-compact & {
@@ -118,11 +120,11 @@
 // Related: field-text.scss
 
 .page-node-type-date .field--name-field-body-addon::after {
-  content: "";
   display: block;
-  inline-size: calc(2 * var(--oc-grid-step));
-  border-bottom: var(--oc-divider-dark);
   margin-bottom: var(--oc-row-gap);
+  content: "";
+  border-bottom: var(--oc-divider-dark);
+  inline-size: calc(2 * var(--oc-grid-step));
 }
 
 @container copy-area (width > 90ch) {

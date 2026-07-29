@@ -5,8 +5,9 @@
 
 @use "mixins" as *;
 
-%grid-auto  {
+%grid-auto {
   --oc-grid-item-max-width: 30rem;
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min-content, var(--oc-grid-item-max-width)));
   gap: var(--oc-row-gap) var(--oc-gutter);
@@ -116,19 +117,19 @@
   > .field__label_headline,
   .view-header,
   .view-content + .more-link {
-    grid-column: 1 / -1;
     grid-row: 1;
+    grid-column: 1 / -1;
     margin: 0;
 
     @include breakpoint(xl) {
-      grid-column: 1;
       grid-row: 1;
+      grid-column: 1;
     }
   }
 
   .view-content + .more-link {
-    grid-column: 1;
     grid-row: 3;
+    grid-column: 1;
     align-self: end;
     justify-self: end;
     margin-block-end: var(--oc-card-margin-block);
@@ -140,12 +141,12 @@
   }
 
   .pager {
-    grid-column: 1;
     grid-row: 4;
+    grid-column: 1;
 
     @include breakpoint(xl) {
-      grid-column: 2/-1;
       grid-row: 3;
+      grid-column: 2/-1;
       align-self: start;
       justify-self: start;
       margin-block-start: 0;
@@ -157,14 +158,15 @@
   > .teaser--wrapper,
   .view-content,
   .views-infinite-scroll-content-wrapper {
-    grid-column: 1 / -1;
-    grid-row: 2;
     display: grid;
-    //grid-template-columns: subgrid; // does not work as expected
+    grid-row: 2;
+    grid-column: 1 / -1;
+
+    // grid-template-columns: subgrid; // does not work as expected
 
     @include breakpoint(xl) {
-      grid-column: 2 / -1;
       grid-row: 1 / span 2;
+      grid-column: 2 / -1;
     }
   }
 
@@ -175,8 +177,8 @@
 
   .views-infinite-scroll-content-wrapper {
     @include breakpoint(xl) {
-      grid-column: 1 / -1;
       grid-row: 1 / span 2;
+      grid-column: 1 / -1;
     }
   }
 }
@@ -189,6 +191,7 @@
 %max-2-horizontal {
   &:not(:has(.views-row:nth-child(3))) {
     --oc-grid-item-count: 1;
+
     grid-column: 1 / -1;
   }
 }
@@ -203,6 +206,7 @@
     }
     @include breakpoint(xl) {
       --oc-grid-item-count: 1;
+
       max-inline-size: calc(6 * var(--oc-grid-step) - var(--oc-gutter));
     }
   }

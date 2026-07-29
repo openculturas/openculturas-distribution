@@ -14,7 +14,7 @@
 // New common class for
 // .paragraph--type--wrapper-section + .paragraph--type--teaser-wrapper
 .wrapper-paragraph {
-  padding-block: calc(.75 * var(--oc-section-spacing)) var(--oc-section-spacing);
+  padding-block: calc(0.75 * var(--oc-section-spacing)) var(--oc-section-spacing);
 }
 
 // No end padding for neighboring paragraphs w/o background
@@ -24,7 +24,7 @@
 
 // Respect headline margin when not side-by-side
 .wrapper-paragraph:not(.paragraph--view-mode--grid):has(.field--name-field-heading) {
-  padding-block-start: calc(.5 * var(--oc-section-spacing));
+  padding-block-start: calc(0.5 * var(--oc-section-spacing));
 }
 
 // Unset default Views block margin
@@ -67,13 +67,12 @@
 
   // Paragraph style inside a wrapper
   .paragraph--teaser {
-    padding-block: calc(.5 * var(--oc-row-gap));
-    padding-inline: calc(.5 * var(--oc-gutter));
-    margin-block: calc(-.5 * var(--oc-row-gap));
-    margin-inline: calc(-.5 * var(--oc-gutter));
+    padding-block: calc(0.5 * var(--oc-row-gap));
+    padding-inline: calc(0.5 * var(--oc-gutter));
+    margin-block: calc(-0.5 * var(--oc-row-gap));
+    margin-inline: calc(-0.5 * var(--oc-gutter));
   }
 }
-
 
 // Better use of whitespace when available
 // related: field/field--text.scss
@@ -153,6 +152,6 @@
   }
 
   .swiffy-slider button {
-    border-color: var(--oc-color-bg-dark)
+    border-color: var(--oc-color-bg-dark);
   }
 }

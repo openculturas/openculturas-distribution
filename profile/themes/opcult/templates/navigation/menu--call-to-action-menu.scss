@@ -7,15 +7,15 @@
 .menu--call-to-action {
   --oc-font-size-icon: var(--oc-font-size-icon-xxl);
   .menu {
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
     gap: var(--oc-row-gap) 0;
 
     @include breakpoint(m) {
-      flex-wrap: wrap;
       flex-direction: row;
+      flex-wrap: wrap;
       gap: var(--oc-row-gap) var(--oc-gutter);
     }
   }
@@ -24,19 +24,15 @@
     display: flex;
     border: 2px solid transparent;
 
-    @include breakpoint(m) {
-      inline-size: calc(50% - var(--oc-gutter) / 2);
-      min-block-size: 8rem;
-    }
-
     > a {
       align-items: center;
-      background: linear-gradient(90deg, var(--oc-color-interaction), var(--oc-color-link));
+
+      // display: flex;
+      padding: var(--oc-row-gap) var(--oc-gutter);
+      color: var(--oc-color-text-inverted);
       border-color: transparent;
       border-radius: var(--oc-button-border-radius);
-      color: var(--oc-color-text-inverted);
-      //display: flex;
-      padding: var(--oc-row-gap) var(--oc-gutter);
+      background: linear-gradient(90deg, var(--oc-color-interaction), var(--oc-color-link));
       block-size: 100%;
       inline-size: 100%;
 
@@ -44,9 +40,14 @@
 
       &:hover,
       &:focus {
-        background: var(--oc-color-link-focus-bg);
         color: var(--oc-color-link-focus-text);
+        background: var(--oc-color-link-focus-bg);
       }
+    }
+
+    @include breakpoint(m) {
+      inline-size: calc(50% - var(--oc-gutter) / 2);
+      min-block-size: 8rem;
     }
   }
 
@@ -60,18 +61,18 @@
 .menu--call-to-action {
   .menu-item a {
     display: grid;
-    grid-gap: 0 var(--oc-gutter);
     grid-template-columns: var(--oc-font-size-icon) auto;
+    gap: 0 var(--oc-gutter);
   }
 
   .menu-link-title {
-    font-size: var(--oc-font-size-m);
-    grid-column: 2;
     grid-row: 1;
+    grid-column: 2;
+    font-size: var(--oc-font-size-m);
   }
 
   .menu-link-description {
-    grid-column: 2;
     grid-row: 2;
+    grid-column: 2;
   }
 }

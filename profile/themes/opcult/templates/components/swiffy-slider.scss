@@ -11,6 +11,7 @@
   --swiffy-slider-item-gap: var(--oc-gutter);
   --swiffy-slider-nav-dark: var(--oc-color-interaction);
   --swiffy-slider-snap-align: center; // overriding config @todo
+
   container-type: inline-size;
 }
 
@@ -24,7 +25,6 @@
   --swiffy-slider-nav-outside-size: 0; // (default: 3.5rem but we position nav buttons absolute)
   --swiffy-slider-indicator-outside-size: 1.75rem; // (default: 1.5rem)
 }
-
 
 // Do not inherit those generic styles
 .swiffy-slider {
@@ -40,6 +40,7 @@
 .swiffy-slider .slider-container {
   --oc-shadow-space-block: 1rem;
   --oc-shadow-space-inline: 1rem;
+
   padding-block: var(--oc-shadow-space-block);
   margin-block: calc(-1 * var(--oc-shadow-space-block));
   padding-inline: var(--oc-shadow-space-inline);
@@ -53,36 +54,36 @@
 }
 
 .swiffy-slider.slider-indicators-outside {
+  margin-block-end: calc(-0.5 * var(--swiffy-slider-indicator-outside-size)); // amend absolute positioning of buttons
   padding-block-end: var(--swiffy-slider-indicator-outside-size); // sw default
-  margin-block-end: calc(-.5 * var(--swiffy-slider-indicator-outside-size)); // amend absolute positioning of buttons
 }
 
 // Adjusting vertical alignment
 // Caveat! Results in uncontrollable slider component height
-//.swiffy-slider li {
+// .swiffy-slider li {
 //  display: flex; // causes slider height errors
 //  align-items: center;
 //  justify-content: center;
-//}
+// }
 
 .swiffy-slider article.teaser {
-  margin-block: calc(.5 * var(--oc-card-margin-block));
-  margin-inline: calc(.5 * var(--oc-card-margin-inline));
+  margin-block: calc(0.5 * var(--oc-card-margin-block));
+  margin-inline: calc(0.5 * var(--oc-card-margin-inline));
 }
 
 // Default reveal setting
 //
-//.swiffy-slider.slider-item-reveal li:not(.slide-visible) {
+// .swiffy-slider.slider-item-reveal li:not(.slide-visible) {
 //  opacity: .5;
-//}
+// }
 
 // Slider navigation + indicators
 
 .slider-nav-dark .slider-nav,
 .slider-indicators-dark .slider-indicators > button:hover {
-  filter: unset; // no shadow effect
-  -webkit-filter: none;
   opacity: 1;
+  -webkit-filter: none;
+  filter: unset; // no shadow effect
 }
 
 button.slider-nav {
@@ -90,8 +91,8 @@ button.slider-nav {
 
   &:focus,
   &:hover {
-    background-color: var(--oc-button-focus-bg-color);
     border-color: var(--oc-button-focus-border-color);
+    background-color: var(--oc-button-focus-bg-color);
 
     &::after {
       background-color: var(--oc-button-focus-text-color);
@@ -114,8 +115,8 @@ button.slider-nav {
 }
 
 .slider-indicators-dark .slider-indicators > * {
-  background-color: var(--oc-button-text-color);
   filter: invert(0);
+  background-color: var(--oc-button-text-color);
 
   &:focus,
   &:hover {
@@ -149,7 +150,7 @@ button.slider-nav {
 .swiffy-slider.slider-nav-autohide.slider-item-first-visible .slider-nav:not(.slider-nav-next),
 .swiffy-slider.slider-nav-autohide.slider-item-last-visible .slider-nav.slider-nav-next {
   visibility: initial;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .slider-nav::before,
@@ -261,20 +262,20 @@ button.slider-nav {
     }
   }
 
-   @include breakpoint(m) {
-     &.slider-item-show2:not(:has(.slider-container > li:nth-child(3))),
-     &.slider-item-show3:not(:has(.slider-container > li:nth-child(3))),
-     &.slider-item-show4:not(:has(.slider-container > li:nth-child(4))),
-     &.slider-item-show5:not(:has(.slider-container > li:nth-child(4))),
-     &.slider-item-show6:not(:has(.slider-container > li:nth-child(4))) {
-       --swiffy-slider-indicator-outside-size: 0;
+  @include breakpoint(m) {
+    &.slider-item-show2:not(:has(.slider-container > li:nth-child(3))),
+    &.slider-item-show3:not(:has(.slider-container > li:nth-child(3))),
+    &.slider-item-show4:not(:has(.slider-container > li:nth-child(4))),
+    &.slider-item-show5:not(:has(.slider-container > li:nth-child(4))),
+    &.slider-item-show6:not(:has(.slider-container > li:nth-child(4))) {
+      --swiffy-slider-indicator-outside-size: 0;
 
-       .slider-indicators,
-       .slider-nav {
-         display: none;
-       }
-     }
-   }
+      .slider-indicators,
+      .slider-nav {
+        display: none;
+      }
+    }
+  }
 
   @include breakpoint(l) {
     &.slider-item-show3:not(:has(.slider-container > li:nth-child(4))),

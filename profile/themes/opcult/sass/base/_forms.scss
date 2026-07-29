@@ -54,9 +54,9 @@ form,
 fieldset,
 fieldset.fieldgroup {
   padding: var(--oc-row-gap) var(--oc-gutter);
-  margin-block: var(--oc-row-gap);
+  border: 0.125rem solid transparent;
   background: var(--oc-color-bg-fieldset);
-  border: .125rem solid transparent;
+  margin-block: var(--oc-row-gap);
 
   &.error {
     border-color: var(--oc-color-danger);
@@ -84,10 +84,10 @@ legend {
 summary.form-required .details-title::after,
 input[required] + label::after,
 label:has(+ input[required])::after {
+  align-self: start;
+  padding-block-start: 0.125rem;
   content: " *";
   vertical-align: text-top;
-  align-self: start;
-  padding-block-start: .125rem;
   color: var(--oc-color-danger);
   background-image: none;
 }
@@ -124,24 +124,25 @@ input,
 select,
 textarea {
   padding: var(--oc-form-field-padding);
+  color: var(--oc-color-text);
   border: var(--oc-input-border);
   border-color: var(--oc-input-border-color);
   border-radius: var(--oc-input-border-radius);
   background-color: var(--oc-input-bg-color);
-  color: var(--oc-color-text);
 
   &.error {
-    background-color: var(--oc-input-error-bg-color); // use brightness similar to default, do not invert!
     border-style: var(--oc-input-error-border-style);
     border-color: var(--oc-input-error-border-color);
+    background-color: var(--oc-input-error-bg-color); // use brightness similar to default, do not invert!
   }
 
   &:focus,
   &:focus-visible {
-    background-color: var(--oc-input-focus-bg-color);
     border-style: var(--oc-input-focus-border-style);
     border-color: var(--oc-input-focus-border-color);
-    //box-shadow: var(--oc-input-focus-box-shadow);
+    background-color: var(--oc-input-focus-bg-color);
+
+    // box-shadow: var(--oc-input-focus-box-shadow);
   }
 
   &:focus-visible {
@@ -194,8 +195,8 @@ select {
   position: relative;
   padding-inline-end: 2em;
   background-image: var(--oc-chevron);
-  background-position: right 0.5em top 0.5em ;
   background-repeat: no-repeat;
+  background-position: right 0.5em top 0.5em;
   background-size: 1em;
   appearance: none;
   &[multiple].slimselect:not([data-once]) {
@@ -206,6 +207,7 @@ select {
       visibility: hidden;
     }
   }
+
   // workaround until css level 4 units are supported
   [dir="rtl"] & {
     background-position: left 0.5em top 0.5em;
@@ -229,7 +231,6 @@ input[type="radio"] {
   font-size: 1.25em;
 }
 
-
 // ---
 // Radio/checkbox eye-candy
 // Related: _icons-base.scss
@@ -237,15 +238,16 @@ input[type="radio"] {
 input[type="radio"],
 input[type="checkbox"] {
   --oc-font-size-icon: var(--oc-font-size-icon-l);
-  appearance: none;
-  background-color: transparent;
+
+  padding: 0.25rem;
   border-color: transparent;
-  padding: .25rem;
+  background-color: transparent;
+  appearance: none;
 
   &:focus,
   &:hover {
-    background-color: transparent;
     border-color: transparent;
+    background-color: transparent;
     box-shadow: unset;
   }
 
@@ -285,8 +287,8 @@ input[type="checkbox"] {
   &:hover,
   &:focus {
     color: var(--oc-color-link-focus-text);
-    background-color: var(--oc-color-link-focus-bg);
     border: 0;
+    background-color: var(--oc-color-link-focus-bg);
   }
 }
 
@@ -304,7 +306,7 @@ input[type="checkbox"] {
 // Distance/radius field
 
 fieldset[data-drupal-selector="edit-radius-wrapper"] {
-  //margin-inline: calc(-1 * var(--oc-gutter));
+  // margin-inline: calc(-1 * var(--oc-gutter));
   margin-block: 0;
   border: 1px dotted var(--oc-color-text-muted);
   background-color: transparent;
@@ -358,7 +360,6 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
   margin-block-end: var(--oc-gutter);
 }
 
-
 // ---
 // Password fields
 // See also: contrib/password.scss (show password toggle)
@@ -381,7 +382,7 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
 // Password indicator
 
 .password-strength__indicator {
-  border: .0625rem solid transparent;
+  border: 0.0625rem solid transparent;
 
   &.is-weak {
     border-color: var(--oc-color-danger);
@@ -409,21 +410,21 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
 }
 
 .content .password-suggestions ul {
-  margin-block: .5rem 0;
+  margin-block: 0.5rem 0;
 }
 
 // ---
 // Date picker widget
 // @todo check usage
 
-//.ui-datepicker.ui-widget {
+// .ui-datepicker.ui-widget {
 //  padding: 0.5em 0.5em 0;
 //  border-color: transparent;
 //  box-shadow: var(--oc-box-shadow-centered);
 //  font-family: var(--oc-font-base);
-//}
+// }
 //
-//.ui-datepicker {
+// .ui-datepicker {
 //  .ui-datepicker-prev,
 //  .ui-datepicker-next {
 //    display: inline-block;
@@ -493,7 +494,7 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
 //  .ui-state-disabled {
 //    color: var(--oc-color-text-muted) !important; // override specificity
 //  }
-//}
+// }
 
 // ---
 // Standalone forms + user route forms: narrower
@@ -545,11 +546,10 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
     }
   }
 
-
   // Non-editable form fields lacking markup
 
   .form-item:has(label):not(:has(input, textarea, select)) {
-    padding-inline: .25rem; // same as label
+    padding-inline: 0.25rem; // same as label
 
     label {
       padding-inline: 0;
@@ -562,12 +562,12 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
 // Advanced details wrapper: see _details.scss
 
 .views-exposed-form {
-  container-type: inline-size; // fields can detect their parent's inline size
-  inline-size: 100%;
-  padding: 0 var(--oc-gutter) var(--oc-row-gap);
   display: flex;
   flex-flow: row wrap;
   align-items: flex-end;
+  padding: 0 var(--oc-gutter) var(--oc-row-gap);
+  container-type: inline-size; // fields can detect their parent's inline size
+  inline-size: 100%;
   gap: 0 var(--oc-gutter);
 
   .bef--secondary .details-wrapper {
@@ -580,21 +580,22 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
   // checkbox has no label above
   .form-type-checkbox {
     input {
-      //margin-inline-end: 0.125em;
-      //font-size: 1.5em;
-    }
-
-    @include breakpoint(m) {
-      align-self: flex-end;
-      // extra padding aligns nicely with text fields
-      padding-block: calc(var(--oc-form-item-padding-block) + var(--oc-form-field-padding-block));
+      // margin-inline-end: 0.125em;
+      // font-size: 1.5em;
     }
 
     [dir="rtl"] & {
       input {
-        margin-inline-start: .125em;
+        margin-inline-start: 0.125em;
         margin-inline-end: 0;
       }
+    }
+
+    @include breakpoint(m) {
+      align-self: flex-end;
+
+      // extra padding aligns nicely with text fields
+      padding-block: calc(var(--oc-form-item-padding-block) + var(--oc-form-field-padding-block));
     }
   }
 
@@ -648,4 +649,3 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
     padding: 0;
   }
 }
-

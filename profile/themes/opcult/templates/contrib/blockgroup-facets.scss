@@ -24,27 +24,28 @@
 
 summary.facet {
   --oc-font-size-icon: var(--oc-font-size-icon-m);
-  color: var(--oc-color-interaction);
-  font-weight: var(--oc-font-weight-medium);
+
   padding: 1em var(--oc-gutter);
+  color: var(--oc-color-interaction);
   border: 1px solid transparent;
+  font-weight: var(--oc-font-weight-medium);
 
   &:focus,
   &:hover {
-    background-color: var(--oc-color-interaction);
     color: var(--oc-color-text-inverted);
+    background-color: var(--oc-color-interaction);
   }
 
   &::after {
     flex-basis: 2em;
     justify-self: flex-end;
+    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
     transform: rotate(0deg);
     transform-origin: center center;
-    transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
   }
 
   span {
-    flex: 2 2 auto
+    flex: 2 2 auto;
   }
 }
 
@@ -58,8 +59,8 @@ summary.facet {
 
   &:focus,
   &:hover {
-    background-color: var(--oc-color-interaction);
     color: var(--oc-color-text-inverted);
+    background-color: var(--oc-color-interaction);
   }
 }
 
@@ -86,6 +87,7 @@ summary.facet {
 a.facets-soft-limit-link {
   @extend %button;
   @extend %button-small;
+
   margin-inline-start: 2.5rem; // adjust to list items above
 }
 
@@ -94,7 +96,6 @@ a.facets-soft-limit-link {
 .facets-widget-links:has(.facet-active) summary::before {
   background-color: var(--oc-color-danger);
 }
-
 
 .facets-reset {
   font-weight: var(--oc-font-weight-medium);
@@ -111,8 +112,9 @@ a.facets-soft-limit-link {
 }
 
 .facet-item .is-active {
-  margin-inline-start: -1.5em;
   @include icon(x);
+
+  margin-inline-start: -1.5em;
 
   &::before {
     background-color: var(--oc-color-danger);
@@ -123,4 +125,3 @@ a.facets-soft-limit-link {
 .js-facet-deactivate {
   display: none;
 }
-

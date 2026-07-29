@@ -14,40 +14,25 @@
 // View mode grid ("side by side" sets header, intro text + more link inline
 
 .wrapper-paragraph.paragraph--view-mode--grid {
-  //margin-block: var(--oc-section-spacing);
+  // margin-block: var(--oc-section-spacing);
   @extend %grid;
   @extend %grid-headline-inline;
-  gap: 0 var(--oc-gutter);
 
-  @include breakpoint(s) {
-    --oc-grid-item-count: 1;
-  }
-  @include breakpoint(m) {
-    --oc-grid-item-count: 2;
-  }
-  @include breakpoint(l) {
-    --oc-grid-item-count: 3;
-  }
-  @include breakpoint(xl) {
-    --oc-grid-item-count: 4;
-  }
-  @include breakpoint(xxl) {
-    --oc-grid-item-count: 4;
-  }
+  gap: 0 var(--oc-gutter);
 
   .field--name-field-content-paragraphs {
     grid-column: 1 / -1;
 
     @include breakpoint(l) {
-      grid-column: 2 / -1;
       grid-row: 1 / span 2;
+      grid-column: 2 / -1;
     }
   }
 
   .intro-inline,
   .intro {
-    grid-column: 1 / -1;
     grid-row: 1;
+    grid-column: 1 / -1;
 
     @include breakpoint(l) {
       grid-column: 1;
@@ -81,6 +66,9 @@
   // Modify standalone grid to fit in
   .view .views-infinite-scroll-content-wrapper,
   .view:not(:has(.views-infinite-scroll-content-wrapper)) {
+    .view-content {
+      grid-column: 1 / -1;
+    }
 
     @include breakpoint(l) {
       --oc-grid-item-count: 2;
@@ -89,10 +77,22 @@
     @include breakpoint(xl) {
       --oc-grid-item-count: 3;
     }
+  }
 
-    .view-content {
-      grid-column: 1 / -1;
-    }
+  @include breakpoint(s) {
+    --oc-grid-item-count: 1;
+  }
+  @include breakpoint(m) {
+    --oc-grid-item-count: 2;
+  }
+  @include breakpoint(l) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 4;
+  }
+  @include breakpoint(xxl) {
+    --oc-grid-item-count: 4;
   }
 }
 
@@ -120,8 +120,6 @@
 .intro-inline :has(article.teaser) h2.block--title {
   margin-block-start: var(--oc-card-margin-block);
 }
-
-
 
 // ---
 // OC Map block exceed block height overlays more-link
@@ -152,12 +150,13 @@
   @include breakpoint(l) {
     .paragraph--type--text .field__item > *:first-child {
       margin-block-start: 0;
-      padding-block-start: calc(calc(var(--oc-font-size-xl)* var(--oc-line-height-headings)) - var(--oc-font-size-default));
+      padding-block-start: calc(calc(var(--oc-font-size-xl) * var(--oc-line-height-headings)) - var(--oc-font-size-default));
     }
-    &:has(h2) .paragraph--type--text .field__item >  {
+    &:has(h2) .paragraph--type--text .field__item > {
       *:first-child:is(h3) {
-        padding-block-start: .75em;
-        //padding-block-start: calc(var(--oc-font-size-xl) * var(--oc-line-height-headings) - var(--oc-font-size-ml) * var(--oc-line-height-headings));
+        padding-block-start: 0.75em;
+
+        // padding-block-start: calc(var(--oc-font-size-xl) * var(--oc-line-height-headings) - var(--oc-font-size-ml) * var(--oc-line-height-headings));
       }
     }
   }
@@ -167,11 +166,10 @@
   margin-block-start: calc(2 * var(--oc-row-gap));
 }
 
-
 // PoC Reverse every second container
 // @todo Backlog: setting to set explicit wrapper class "reverse"
 
-//.field--name-field-content-paragraphs .field__item:has(.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media)):nth-child(2n) {
+// .field--name-field-content-paragraphs .field__item:has(.paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media)):nth-child(2n) {
 //  @include breakpoint(m) {
 //    .paragraph--type--wrapper-section.paragraph--view-mode--grid:has(.paragraph--type--media) {
 //      > .intro,
@@ -185,5 +183,5 @@
 //      }
 //    }
 //  }
-//}
+// }
 //

@@ -8,8 +8,8 @@
 @use "../../sass/abstracts" as *;
 
 .teaser-unified {
-  background: transparent;
   display: grid;
+  background: transparent;
   gap: 0;
   aspect-ratio: var(--oc-aspect-ratio-landscape-deriv);
 
@@ -20,8 +20,8 @@
   .teaser--top,
   .teaser--body,
   .teaser--footer {
-    grid-column: 1;
     grid-row: 1;
+    grid-column: 1;
   }
 
   .teaser--top {
@@ -70,8 +70,8 @@
 
 .quick-info-toggle--wrapper {
   position: absolute;
-  inset-inline-end: calc(.25 * var(--oc-card-padding-inline));
-  inset-block-end: calc(.25 * var(--oc-card-padding-block));
+  inset-inline-end: calc(0.25 * var(--oc-card-padding-inline));
+  inset-block-end: calc(0.25 * var(--oc-card-padding-block));
 }
 
 .quick-info--toggle {
@@ -90,27 +90,14 @@
   --teaser-overlay-color: var(--oc-color-teaser-overlay);
 
   .teaser--body {
-    color: hsla(255, 0%, 100%);
+    color: hsl(255, 0%, 100%);
   }
 
   .teaser--top::after {
-    content: '';
     position: absolute;
+    content: "";
+    background-image: linear-gradient(180deg, color-mix(in sRGB, var(--teaser-overlay-color) 0%, transparent) 0%, color-mix(in sRGB, var(--teaser-overlay-color) 2%, transparent) 10%, color-mix(in sRGB, var(--teaser-overlay-color) 8%, transparent) 20%, color-mix(in sRGB, var(--teaser-overlay-color) 18%, transparent) 30%, color-mix(in sRGB, var(--teaser-overlay-color) 32%, transparent) 40%, color-mix(in sRGB, var(--teaser-overlay-color) 50%, transparent) 50%, color-mix(in sRGB, var(--teaser-overlay-color) 65%, transparent) 60%, color-mix(in sRGB, var(--teaser-overlay-color) 76%, transparent) 70%, color-mix(in sRGB, var(--teaser-overlay-color) 84%, transparent) 80%, color-mix(in sRGB, var(--teaser-overlay-color) 90%, transparent) 90%, color-mix(in sRGB, var(--teaser-overlay-color) 93%, transparent) 100%);
     inset: 0 0 0 0;
-    background-image: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--teaser-overlay-color)  0%, transparent)  0%,
-        color-mix(in srgb, var(--teaser-overlay-color)  2%, transparent) 10%,
-        color-mix(in srgb, var(--teaser-overlay-color)  8%, transparent) 20%,
-        color-mix(in srgb, var(--teaser-overlay-color) 18%, transparent) 30%,
-        color-mix(in srgb, var(--teaser-overlay-color) 32%, transparent) 40%,
-        color-mix(in srgb, var(--teaser-overlay-color) 50%, transparent) 50%,
-        color-mix(in srgb, var(--teaser-overlay-color) 65%, transparent) 60%,
-        color-mix(in srgb, var(--teaser-overlay-color) 76%, transparent) 70%,
-        color-mix(in srgb, var(--teaser-overlay-color) 84%, transparent) 80%,
-        color-mix(in srgb, var(--teaser-overlay-color) 90%, transparent) 90%,
-        color-mix(in srgb, var(--teaser-overlay-color) 93%, transparent) 100%
-    );
 
     // ---
     // Variations
@@ -136,8 +123,8 @@
   }
 
   h3.teaser--title a {
-    color: hsla(255, 0%, 100%);
     text-decoration: var(--oc-underline);
+    color: hsl(255, 0%, 100%);
   }
 }
 
@@ -149,8 +136,8 @@
     aspect-ratio: unset;
 
     .teaser--body {
-      color: var(--oc-color-text);
       grid-row: 2;
+      color: var(--oc-color-text);
     }
 
     .teaser--footer {
@@ -159,6 +146,7 @@
 
     h3.teaser--title a {
       @extend %link-default;
+
       text-decoration: none;
     }
   }
@@ -167,8 +155,8 @@
     border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
 
     &::after {
-      background-image: none;
       display: none;
+      background-image: none;
     }
   }
 }
@@ -226,4 +214,3 @@
     }
   }
 }
-

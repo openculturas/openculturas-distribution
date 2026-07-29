@@ -8,32 +8,33 @@
   --oc-font-size-icon: var(--oc-font-size-icon-xl);
 
   .file--download {
-    border: .125rem solid var(--oc-color-link);
+    padding: 0.75rem 1rem 0.75rem;
+    border: 0.125rem solid var(--oc-color-link);
     max-inline-size: fit-content;
-    padding: .75rem 1rem .75rem;
     margin-block: var(--oc-row-gap);
 
     &:has(a:hover, a:focus) {
-      background-color: var(--oc-color-link-focus-bg);
       color: var(--oc-color-link-focus-text);
+      background-color: var(--oc-color-link-focus-bg);
     }
   }
 
   a.file {
-    display: inline-flex;
     @include icon(download-simple);
+
+    display: inline-flex;
 
     &::before {
       position: relative;
       inset-inline-start: 0;
-      inset-block-start: calc(-.125 * var(--oc-font-size-icon));
+      inset-block-start: calc(-0.125 * var(--oc-font-size-icon));
     }
   }
 
   .meta {
     display: block;
+    text-indent: calc(var(--oc-font-size-icon) * 1.333);
     color: currentColor;
     font-size: var(--oc-font-size-s);
-    text-indent: calc(var(--oc-font-size-icon) * 1.333);
   }
 }

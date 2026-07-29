@@ -10,7 +10,7 @@
 
 .profile-teaser {
   display: flex;
-  gap: calc(var(--oc-profile-image-size) * .25);
+  gap: calc(var(--oc-profile-image-size) * 0.25);
 
   .field--name-field-sub-type,
   .sub-type {
@@ -29,9 +29,9 @@
 .profile-teaser {
   .profile--top {
     display: grid;
+    grid-template-areas: "picture";
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
-    grid-template-areas: "picture";
     justify-items: center;
   }
 
@@ -50,7 +50,8 @@ article.profile-teaser {
   border-radius: var(--oc-profile-card-border-radius);
   background: var(--oc-profile-card-background);
   box-shadow: var(--oc-profile-card-box-shadow);
-  //block-size: var(--oc-profile-card-height-equalizer);
+
+  // block-size: var(--oc-profile-card-height-equalizer);
   min-block-size: calc(var(--oc-profile-image-size) + calc(2 * var(--oc-profile-card-padding-block)));
 
   &.teaser-unified {
@@ -69,7 +70,7 @@ article.profile-teaser {
   }
 
   .profile--content {
-    padding-block: calc(var(--oc-profile-image-size) * .125) 0;
+    padding-block: calc(var(--oc-profile-image-size) * 0.125) 0;
     align-self: start;
     inline-size: auto;
   }
@@ -80,8 +81,8 @@ article.profile-teaser {
 
 .media--type-user-profile-picture .field--name-field-media-image {
   display: inline-block;
-  border-radius: var(--oc-profile-image-border-radius);
   overflow: hidden;
+  border-radius: var(--oc-profile-image-border-radius);
 
   img {
     max-inline-size: var(--oc-profile-image-size);
@@ -96,7 +97,8 @@ article.profile-teaser {
 // Placeholder behind profile picture
 
 .profile--picture {
-  @include icon(user-circle);  // alternatives: user-circle-dashed, user-focus
+  @include icon(user-circle); // alternatives: user-circle-dashed, user-focus
+
   block-size: var(--oc-profile-image-size);
   border-radius: var(--oc-profile-image-border-radius);
   background-color: var(--oc-color-bg-slight-contrast);
@@ -139,7 +141,7 @@ article.profile-teaser {
   --oc-profile-image-size: var(--oc-profile-image-size-s);
 
   .profile--content {
-    //align-self: flex-start;
+    // align-self: flex-start;
     align-self: center;
   }
 

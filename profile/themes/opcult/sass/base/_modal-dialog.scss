@@ -35,7 +35,6 @@ dialog form {
   @extend %dialog-content;
 }
 
-
 // So much for the theory, now to specificity from hell:
 // @todo Backlog: Refactoring once Drupal introduces proper dialog elements
 // @todo Fix button border inheritance
@@ -43,6 +42,7 @@ dialog form {
 .ui-dialog.ui-widget .ui-dialog-titlebar,
 .ui-dialog .ui-dialog-titlebar {
   @extend %dialog-titlebar;
+
   gap: 0;
 }
 
@@ -60,17 +60,18 @@ dialog form {
 
 .ui-dialog .ui-dialog-titlebar-close,
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close {
-  position: relative;
-  inset: auto;
-  margin: 0;
-  padding: .5rem;
-  transform: unset;
-  transition: unset;
-  border: unset;
-  background: var(--oc-color-text-inverted);
-  color: var(--oc-color-interaction);
   @include icon(x, light, before);
   @extend %icon-button;
+
+  position: relative;
+  margin: 0;
+  padding: 0.5rem;
+  transition: unset;
+  transform: unset;
+  color: var(--oc-color-interaction);
+  border: unset;
+  background: var(--oc-color-text-inverted);
+  inset: auto;
 
   .ui-icon-closethick {
     display: none;
@@ -82,9 +83,10 @@ dialog form {
 }
 
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+  @extend %label;
+
   margin: 0;
   padding: 0;
-  @extend %label;
 }
 
 .ui-dialog.ui-widget,
@@ -92,7 +94,7 @@ dialog form {
 .ui-dialog .ui-dialog-titlebar .ui-dialog-title,
 .ui-dialog.ui-widget select,
 .ui-dialog.ui-widget input,
-.ui-dialog.ui-widget button{
+.ui-dialog.ui-widget button {
   font-family: inherit;
   font-size: var(--oc-font-size-default);
 }
@@ -116,21 +118,23 @@ dialog form {
 
 .ui-dialog.ui-widget .ui-widget-content.ui-dialog-buttonpane,
 .ui-dialog.ui-widget .ui-dialog-content .form-actions {
+  margin: 0;
   padding: 0 var(--oc-gutter);
   border-width: 0;
   background-color: transparent;
-  margin: 0;
 
   button,
   .button,
   .ui-button {
     @extend %button;
+
     border-color: var(--oc-button-border-color) !important;
   }
 
   .button--primary,
   #edit-submit.form-submit {
     @extend %button-primary;
+
     border-color: var(--oc-button-primary-border-color);
   }
 
@@ -142,4 +146,3 @@ dialog form {
 .ui-dialog.ui-widget > .ui-dialog-buttonpane .ui-dialog-buttonset {
   gap: var(--oc-row-gap) var(--oc-gutter);
 }
-

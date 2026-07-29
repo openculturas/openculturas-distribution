@@ -28,7 +28,7 @@
 
   // Hero header
   --oc-bg-hero-padding-inline: var(--oc-gutter); // set to 0 with transparent --oc-bg-hero-section
-  --oc-bg-hero-padding-block: .5rem; // set to 0 with transparent --oc-bg-hero-section
+  --oc-bg-hero-padding-block: 0.5rem; // set to 0 with transparent --oc-bg-hero-section
 
   // Media ratios
   --oc-aspect-ratio-landscape: 16/9;
@@ -66,16 +66,16 @@
   --oc-viewport-width: 100vw;
   --oc-gutter-count: calc(var(--oc-column-count) - 1);
 
-  // when Gin admin toolbar is present
-  &.toolbar-horizontal {
-    --oc-viewport-width: calc(100vw - var(--drupal-displace-offset-left));
-  }
-
   // Now we calculate the grid based on the given values
   --oc-page-width: calc(var(--oc-viewport-width) - calc(2 * var(--oc-page-margin-sides)));
   --oc-layout-width: calc(var(--oc-page-width) - calc(2 * var(--oc-page-padding-inline)));
   --oc-column-width: calc(calc(var(--oc-layout-width) - calc(var(--oc-gutter-count) * var(--oc-gutter))) / var(--oc-column-count));
   --oc-grid-step: calc(var(--oc-column-width) + var(--oc-gutter));
+
+  // when Gin admin toolbar is present
+  &.toolbar-horizontal {
+    --oc-viewport-width: calc(100vw - var(--drupal-displace-offset-left));
+  }
 
   @include breakpoint(xxl) {
     --oc-page-width: calc(var(--oc-layout-max-width) + calc(2 * var(--oc-page-padding-inline)));
@@ -85,12 +85,12 @@
 }
 
 // DOES NOT WORK:
-//body.gin--vertical-toolbar,
-//body.gin--horizontal-toolbar,
-//body.gin--classic-toolbar {
+// body.gin--vertical-toolbar,
+// body.gin--horizontal-toolbar,
+// body.gin--classic-toolbar {
 //  padding-block-start: calc(var(--oc-page-margin-top) + var(--gin-toolbar-y-offset)) !important;
 //  padding-inline-start: calc(var(--oc-page-margin-sides) + var(--gin-toolbar-x-offset,256px)) !important;
-//}
+// }
 
 // ---
 // Cover available space with image

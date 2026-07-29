@@ -12,10 +12,10 @@
 // Maps-related
 
 .leaflet-container {
+  background: transparent; // fallback for non-loading tiles
   font-family: var(--oc-font-family-default);
   font-size: var(--oc-font-size-default);
   isolation: isolate;
-  background: transparent; // fallback for non-loading tiles
 }
 
 .leaflet-container,
@@ -45,8 +45,8 @@ img.leaflet-marker-icon {
   background-color: transparent;
 
   div {
-    background-color: unset;
     color: unset;
+    background-color: unset;
   }
 }
 
@@ -63,47 +63,47 @@ img.leaflet-marker-icon {
 
   div,
   span {
-    border-radius: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    inline-size: 1.5rem;
-    block-size: 1.5rem;
-    background-color: var(--oc-color-marker-icon);
-    color: var(--oc-color-text-inverted);
+    justify-content: center;
     text-align: center;
+    color: var(--oc-color-text-inverted);
+    border-radius: 50%;
+    background-color: var(--oc-color-marker-icon);
     font-size: var(--oc-font-size-s);
     line-height: 1;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
   }
 }
 
 // Optional: different sizes
-//.marker-cluster-medium div {
+// .marker-cluster-medium div {
 //  inline-size: 2rem;
 //  block-size: 2rem;
 //  inset-inline: -.25rem;
 //  inset-block: -.25rem;
 //  border: .0625rem solid var(--oc-color-bg-light-opaque);
-//}
+// }
 //
-//.marker-cluster-big div {
+// .marker-cluster-big div {
 //  inline-size: 2.5rem;
 //  block-size: 2.5rem;
 //  inset-inline: -.5rem;
 //  inset-block: -.5rem;
 //  border: .0625rem solid var(--oc-color-bg-light-opaque);
-//}
+// }
 
 // ---
 // User location marker (from locate control)
 
 .marker-located {
+  border: 0.0625rem solid var(--oc-color-bg-light);
+  border-radius: 100%;
+  outline: 0.25rem solid var(--oc-color-info);
+  background: var(--oc-color-info);
   inline-size: 0.9rem;
   block-size: 0.9rem;
-  border-radius: 100%;
-  background: var(--oc-color-info);
-  border: .0625rem solid var(--oc-color-bg-light);
-  outline: .25rem solid var(--oc-color-info);
 }
 
 // ---
@@ -111,8 +111,8 @@ img.leaflet-marker-icon {
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: var(--oc-color-bg-light);
   color: var(--oc-color-text);
+  background: var(--oc-color-bg-light);
   box-shadow: var(--oc-box-shadow-centered);
 }
 
@@ -121,9 +121,9 @@ img.leaflet-marker-icon {
 }
 
 .leaflet-popup-content {
+  margin: 1rem 3rem 1.125rem 1rem;
   font-family: var(--oc-font-family-default);
   font-size: var(--oc-font-size-s);
-  margin: 1rem 3rem 1.125rem 1rem;
 
   a {
     @extend %link-default;
@@ -137,8 +137,8 @@ img.leaflet-marker-icon {
   a.leaflet-popup-close-button {
     @extend %button;
     @extend %icon-only;
-    border-color: transparent;
 
+    border-color: transparent;
     inset-block-start: 0.5em;
     inset-inline-end: 0.5em;
   }
@@ -152,11 +152,11 @@ img.leaflet-marker-icon {
 
 .leaflet-popup-content {
   span[class^="Event"] {
-    padding-inline-end: .5em;
+    padding-inline-end: 0.5em;
   }
 
   time {
-    padding-inline-end: .25em;
+    padding-inline-end: 0.25em;
   }
 }
 
@@ -164,9 +164,9 @@ img.leaflet-marker-icon {
 // Leaflet controls
 
 .leaflet-container .leaflet-control-container {
+  position: relative;
   font-size: var(--oc-font-size-icon);
   block-size: 100%;
-  position: relative;
 }
 
 .leaflet-touch .leaflet-control-layers,
@@ -185,24 +185,24 @@ img.leaflet-marker-icon {
   }
 
   a {
-    background-image: unset;
-    background-color: var(--oc-button-bg-color);
     color: var(--oc-button-text-color);
+    background-color: var(--oc-button-bg-color);
+    background-image: unset;
   }
 
   a::before {
+    box-sizing: initial;
+    margin: 0;
     transform: none;
     inline-size: 100%;
     block-size: 100%;
-    box-sizing: initial;
     mask-size: 75%;
-    margin: 0;
   }
 
   a:focus,
   a:hover {
-    background-color: var(--oc-button-focus-bg-color);
     color: var(--oc-button-focus-text-color);
+    background-color: var(--oc-button-focus-bg-color);
   }
 }
 
@@ -233,39 +233,40 @@ a.leaflet-control-zoom-out {
 // Geocoder widget
 // geocoder is a button, not a link; we override inherited pixel height here
 .leaflet-control-geocoder {
-  background-color: var(--oc-color-bg-light);
   height: 34px;
-    //overflow: hidden;
+  background-color: var(--oc-color-bg-light);
+
+  // overflow: hidden;
 }
 
 .leaflet-control-geocoder .leaflet-control-geocoder-icon {
+  position: relative; // needed for absolute ::before positioning
   display: inline-block;
-  border-radius: unset;
-  background-image: unset;
-  background-color: var(--oc-button-bg-color);
-  transform: none;
-  font-size: var(--oc-font-size-icon);
-  color: var(--oc-button-text-color);
   margin: 0;
   padding: 0; // reset theme button padding (<button> vs <a>)
-  position: relative; // needed for absolute ::before positioning
+  transform: none;
+  color: var(--oc-button-text-color);
+  border-radius: unset;
+  background-color: var(--oc-button-bg-color);
+  background-image: unset;
+  font-size: var(--oc-font-size-icon);
 
   &::before {
     position: absolute; // avoid inline-block rendering issues with <button>
+    margin: 0;
+    transform: none;
+    background-color: var(--oc-button-text-color);
     inset: 0;
     inline-size: auto;
     block-size: auto;
     mask-size: 75%;
-    transform: none;
-    margin: 0;
-    background-color: var(--oc-button-text-color);
   }
 
   &:focus,
   &:hover {
-    background-color: var(--oc-button-focus-bg-color);
     color: var(--oc-button-focus-text-color);
     border-radius: 0;
+    background-color: var(--oc-button-focus-bg-color);
 
     &::before {
       background-color: var(--oc-button-focus-text-color);
@@ -280,10 +281,10 @@ a.leaflet-control-zoom-out {
 // Geocoder search form + results
 
 .leaflet-control-geocoder-form input {
+  padding: var(--oc-form-field-padding);
   font-size: var(--oc-font-size-s);
   line-height: 1;
   block-size: 1.75rem;
-  padding: var(--oc-form-field-padding);
 }
 
 .leaflet-control-geocoder-form {
@@ -314,19 +315,19 @@ a.leaflet-control-zoom-out {
 }
 
 .leaflet-control-geocoder-alternatives li {
-  border-block-end: var(--oc-divider-light);
   color: var(--oc-color-text);
+  border-block-end: var(--oc-divider-light);
   font-size: var(--oc-font-size-s);
   line-height: 1.25;
   margin-block: 0;
-  padding-block: .25em;
+  padding-block: 0.25em;
   padding-inline: 1em;
 }
 
 .leaflet-control-geocoder-alternatives li:hover,
 .leaflet-control-geocoder-selected {
-  background-color: var(--oc-color-interaction);
   color: var(--oc-color-text-inverted);
+  background-color: var(--oc-color-interaction);
 
   a {
     color: var(--oc-color-text-inverted);
@@ -366,10 +367,10 @@ a.leaflet-control-zoom-out {
 // Scroll info overlay
 
 .leaflet-container::after {
+  padding: 1rem;
+  color: var(--oc-color-text-inverted);
+  background: var(--oc-color-bg-dark-opaque);
   font-family: var(--oc-font-family);
   font-size: var(--oc-font-size-m);
   font-weight: var(--oc-font-weight-semi-bold);
-  background: var(--oc-color-bg-dark-opaque);
-  color: var(--oc-color-text-inverted);
-  padding: 1rem;
 }

@@ -13,8 +13,8 @@
 // Hero area
 
 .wrapper--content-header {
-  background-color: var(--oc-bg-hero-section);
   color: var(--oc-color-hero-text);
+  background-color: var(--oc-bg-hero-section);
 
   // to be safe on dark backgrounds: link color same as headlines color
   .sub-type a,
@@ -57,7 +57,7 @@
 .wrapper--content-main {
   display: grid;
   grid-template-columns: repeat(var(--oc-column-count), 1fr);
-  grid-gap: var(--oc-row-gap) var(--oc-gutter);
+  gap: var(--oc-row-gap) var(--oc-gutter);
 }
 
 .wrapper--content-main {
@@ -111,22 +111,26 @@
 // Layout 2 (Image above title block)
 // Layout 3 (Title block above image)
 
-
 .oc_hero_layout_1,
 .oc_hero_layout_2,
 .oc_hero_layout_3 {
-
   --oc-bg-hero-section: transparent;
   --oc-color-hero-text: currentColor;
 
   .wrapper--content-header,
   .wrapper--content-main {
-    grid-gap: 0 var(--oc-gutter);
+    gap: 0 var(--oc-gutter);
   }
 
   .section--title {
-    grid-column: 1 / -1;
     grid-row: 2;
+    grid-column: 1 / -1;
+
+    > .block-layout-builder {
+      inline-size: 100%;
+      display: flex;
+      justify-content: center;
+    }
 
     @include breakpoint(m) {
       grid-column: 2 / -2;
@@ -139,22 +143,16 @@
     @include breakpoint(xxl) {
       grid-column: 4 / -4;
     }
-
-    > .block-layout-builder {
-      inline-size: 100%;
-      display: flex;
-      justify-content: center;
-    }
   }
 
   .section--mood {
-    grid-column: 1 / -1;
     grid-row: 1;
+    grid-column: 1 / -1;
   }
 
   .section--essentials {
-    grid-column: 1 / -1;
     grid-row: 3;
+    grid-column: 1 / -1;
     align-self: self-end;
   }
 
@@ -163,9 +161,9 @@
     padding-inline: var(--oc-gutter);
   }
 
-  //.media--view-mode-profile-image {
+  // .media--view-mode-profile-image {
   //  border: .125rem solid var(--oc-color-bg-light);
-  //}
+  // }
 }
 
 // ---
@@ -197,9 +195,9 @@
   // Sticky page title block
   .wrapper--content-header:has(.block-field-mood-image) {
     .page-title-wrapper {
+      margin-block-end: var(--oc-title-inset);
       background-color: var(--oc-color-bg-light);
       inset-block-start: var(--oc-title-inset);
-      margin-block-end: var(--oc-title-inset);
 
       @include breakpoint(l) {
         margin-block-end: 0;
@@ -209,12 +207,12 @@
     .section--title {
       .block-layout-builder:has(.flag) {
         position: absolute;
+        align-items: end;
+        justify-content: end;
+        padding-inline-end: calc(0.5 * var(--oc-gutter));
         inset-inline-end: 0;
         inset-block-start: auto;
         inset-block-end: calc(calc(-1 * var(--oc-title-bottom-stop) + calc(2 * var(--oc-row-gap))));
-        justify-content: end;
-        align-items: end;
-        padding-inline-end: calc(.5 * var(--oc-gutter));
         block-size: 100%;
         inline-size: auto;
 
@@ -231,12 +229,13 @@
 
       @include breakpoint(l) {
         --oc-title-inset: 0;
+
         block-size: 100%;
 
         .block-openculturas-custom-page-title {
           position: sticky;
-          overflow-y: auto;
           overflow-x: hidden;
+          overflow-y: auto;
           inset-block-start: 5dvh;
         }
       }
@@ -272,8 +271,8 @@
   .wrapper--content-header:has(.block-field-mood-image) {
     .section--title {
       @include breakpoint(m) {
-        margin-block-start: calc(-1 * var(--oc-section-spacing));
         z-index: +1;
+        margin-block-start: calc(-1 * var(--oc-section-spacing));
         background-color: var(--oc-color-bg-light);
       }
     }
@@ -291,11 +290,11 @@
     inline-size: calc(100% + 2 * var(--oc-gutter));
 
     .block-layout-builder:has(.flag) {
-      inset-block-start: calc(.75 * var(--oc-font-size-xxl));
+      inset-block-start: calc(0.75 * var(--oc-font-size-xxl));
       inset-inline-end: 1rem;
 
       @include breakpoint(m) {
-        inset-inline-end: .25rem;
+        inset-inline-end: 0.25rem;
       }
     }
   }
@@ -303,7 +302,6 @@
   .headlines-wrapper {
     text-align: start;
   }
-
 
   .section--essentials {
     @include breakpoint(m) {
@@ -339,7 +337,7 @@
 
   .section--title {
     .block-layout-builder:has(.flag) {
-      inset-block-start: calc(.75 * var(--oc-font-size-xxl));
+      inset-block-start: calc(0.75 * var(--oc-font-size-xxl));
       inset-inline-end: 1rem;
     }
   }
@@ -354,29 +352,12 @@
   }
 
   .wrapper--content-header:has(.block-field-mood-image) {
-    //--oc-bg-hero-section: color-mix(in oklab, var(--oc-color-primary) 5%, transparent);
+    // --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-primary) 5%, transparent);
   }
 
   .page-title-wrapper {
-    background-color: transparent;
     padding-block-start: var(--oc-bg-hero-padding-block);
-  }
-
-  @include breakpoint(m) {
-    .section--title {
-      grid-column: 1 / span 5;
-      grid-row: 1;
-    }
-
-    .section--mood {
-      grid-column: 6 / -1;
-      grid-row: 1 / span 2;
-    }
-
-    .section--essentials {
-      grid-column: 1 / span 5;
-      grid-row: 2;
-    }
+    background-color: transparent;
   }
 
   .wrapper--content-header:not(:has(.block-field-mood-image)) {
@@ -392,9 +373,9 @@
   }
 
   // optionally use fallback image
-  //.section--mood:not(:has(.media)) {
+  // .section--mood:not(:has(.media)) {
   //  @extend %teaser-image-fallback;
-  //}
+  // }
 
   .section--title .page-title-wrapper {
     @include breakpoint(l) {
@@ -421,14 +402,31 @@
     flex-flow: column;
     gap: var(--oc-row-gap);
     align-content: space-between;
-    //justify-content: space-between;
+
+    // justify-content: space-between;
 
     &:has(.block) {
-      padding-inline-start: var(--oc-bg-hero-padding-inline);
       padding-block-end: var(--oc-bg-hero-padding-block);
+      padding-inline-start: var(--oc-bg-hero-padding-inline);
     }
   }
 
+  @include breakpoint(m) {
+    .section--title {
+      grid-row: 1;
+      grid-column: 1 / span 5;
+    }
+
+    .section--mood {
+      grid-row: 1 / span 2;
+      grid-column: 6 / -1;
+    }
+
+    .section--essentials {
+      grid-row: 2;
+      grid-column: 1 / span 5;
+    }
+  }
 }
 
 // ---
@@ -441,9 +439,9 @@
     grid-column: 1 / -5;
   }
 
-  //@include breakpoint(l) {
+  // @include breakpoint(l) {
   //  grid-column: 1 / -4;
-  //}
+  // }
 }
 
 .section--aside {
@@ -453,9 +451,9 @@
     grid-column: -4 / -1;
   }
 
-  //@include breakpoint(l) {
+  // @include breakpoint(l) {
   //  grid-column: -3 / -1;
-  //}
+  // }
 }
 
 // related: block/page-title-custom.scss

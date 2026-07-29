@@ -42,9 +42,9 @@
 .media figcaption:has(.field),
 .paragraph--type--media .field--name-field-caption {
   display: inline-block;
-  border-color: var(--oc-caption-border-color);
-  border-style: var(--oc-caption-border-style);
   border-width: var(--oc-caption-border-width);
+  border-style: var(--oc-caption-border-style);
+  border-color: var(--oc-caption-border-color);
   border-radius: var(--oc-caption-border-radius);
   background: var(--oc-bg-caption);
   padding-block: var(--oc-row-gap);
@@ -53,8 +53,8 @@
 
 .media figcaption .field {
   padding: 0;
-  font-style: italic;
   color: var(--oc-color-text-caption);
+  font-style: italic;
 }
 
 .field--name-field-caption p {
@@ -74,28 +74,29 @@
 // Audio player
 
 .field--name-field-media-audio-file {
-  background-color: var(--oc-color-bg-slight-contrast);
-  display: inline-block;
-  max-inline-size: 42.5rem;
-  padding-block-start: 3rem;
   @include icon(microphone-stage);
+
+  display: inline-block;
+  padding-block-start: 3rem;
   color: var(--oc-color-text-muted);
+  background-color: var(--oc-color-bg-slight-contrast);
+  max-inline-size: 42.5rem;
 
   &::before {
     display: block;
     margin: 0;
+    transform: translateX(0) translateY(-40%);
+    font-size: var(--oc-font-size-icon-xxl);
     padding-block: 0 2rem;
     inline-size: 100%;
-    font-size: var(--oc-font-size-icon-xxl);
-    transform: translateX(0) translateY(-40%);
     -webkit-mask-position-y: 0;
     mask-position-y: 0;
     mask-size: contain;
   }
 }
 
-//audio {
-//}
+// audio {
+// }
 
 // ---
 // Profile pictures

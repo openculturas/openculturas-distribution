@@ -36,9 +36,9 @@ form[role="search"],
 }
 
 #views-exposed-form-search-search-input {
+  justify-content: center;
   background-color: transparent;
   inline-size: auto;
-  justify-content: center;
 
   @include breakpoint(m) {
     flex-flow: row;
@@ -79,6 +79,7 @@ form[role="search"],
 .view-search .view-content {
   @extend %grid;
   @extend %grid-2;
+
   margin-block-start: var(--oc-section-spacing);
 
   .views-row {
@@ -106,7 +107,7 @@ form[role="search"],
 
     @include breakpoint(m) {
       grid-template-columns: 1fr 5fr;
-      gap: .5rem var(--oc-gutter);
+      gap: 0.5rem var(--oc-gutter);
     }
   }
 
@@ -119,8 +120,7 @@ form[role="search"],
   }
 
   .view-empty {
-    color: var(--oc-color-danger);
     padding: var(--oc-section-spacing) var(--oc-gutter);
+    color: var(--oc-color-danger);
   }
 }
-

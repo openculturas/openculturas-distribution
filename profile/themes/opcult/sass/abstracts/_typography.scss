@@ -9,8 +9,8 @@
 
 %cc-typography {
   // Font families
-  --oc-font-family-default: "Montserrat", "Segoe UI", Roboto, sans-serif;
-  --oc-font-family-head: "Montserrat", "Segoe UI", Roboto, sans-serif;
+  --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
+  --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
 
   // Font sizes
   --oc-font-size-xxl: 3rem;
@@ -19,15 +19,15 @@
   --oc-font-size-ml: 1.5rem;
   --oc-font-size-m: 1.25rem;
   --oc-font-size-default: 1rem;
-  --oc-font-size-s: .875rem;
-  --oc-font-size-xs: .75rem; // Use sparsely for accessibility reasons
+  --oc-font-size-s: 0.875rem;
+  --oc-font-size-xs: 0.75rem; // Use sparsely for accessibility reasons
 
   // Icon font sizes
   // see: icons.scss
 
   // Button font sizes
   --oc-font-size-button-default: 1rem;
-  --oc-font-size-button-s: .875rem;
+  --oc-font-size-button-s: 0.875rem;
   --oc-font-size-tag-default: 1rem;
 
   // Other font sizes
@@ -45,12 +45,11 @@
   --oc-font-weight-bold: 700;
   --oc-font-weight-extra-bold: 820;
   --oc-font-weight-black: 900;
-
   --oc-font-weight-teaser-subtitle: var(--oc-font-weight-semi-bold);
   --oc-font-weight-label: var(--oc-font-weight-semi-bold);
 
   // Misc
-  --oc-underline: underline .0625rem solid var(--oc-underline-color);
+  --oc-underline: underline 0.0625rem solid var(--oc-underline-color);
   --text-max-line: 80ch;
 }
 
@@ -72,7 +71,8 @@
 
 %label {
   @extend %allcaps;
-  margin-block: .5em;
+
+  margin-block: 0.5em;
   margin-inline: 0;
   font-size: var(--oc-font-size-s);
   font-weight: var(--oc-font-weight-bold);
@@ -80,51 +80,51 @@
 }
 
 %h1 {
+  hyphens: none;
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
   font-size: var(--oc-font-size-xxl);
-  line-height: var(--oc-line-height-headings);
   font-weight: var(--oc-font-weight-bold);
+  line-height: var(--oc-line-height-headings);
   margin-block: 0;
   margin-inline: 0;
-  padding-block: .25em;
+  padding-block: 0.25em;
   padding-inline: 0;
-  hyphens: none;
 }
 
 %h2 {
+  hyphens: auto;
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
   font-size: var(--oc-font-size-xl);
-  line-height: var(--oc-line-height-headings);
   font-weight: var(--oc-font-weight-bold);
-  margin-block: .75em .25em;
+  line-height: var(--oc-line-height-headings);
+  margin-block: 0.75em 0.25em;
   margin-inline: 0;
-  padding-block: .25em;
+  padding-block: 0.25em;
   padding-inline: 0;
-  hyphens: auto;
 }
 
 %h3 {
+  hyphens: auto;
   color: var(--oc-color-text-headline);
   font-family: var(--oc-font-family-head);
   font-size: var(--oc-font-size-ml);
-  line-height: var(--oc-line-height-headings);
   font-weight: var(--oc-font-weight-bold);
-  margin-block: .75em .25em;
+  line-height: var(--oc-line-height-headings);
+  margin-block: 0.75em 0.25em;
   margin-inline: 0;
-  padding-block: .25em;
+  padding-block: 0.25em;
   padding-inline: 0;
-  hyphens: auto;
 }
 
 %h4 {
   color: var(--oc-color-text-headline);
   font-size: var(--oc-font-size-m);
   font-weight: var(--oc-font-weight-medium);
-  margin-block: .75em .25em;
+  margin-block: 0.75em 0.25em;
   margin-inline: 0;
-  padding-block: .25em;
+  padding-block: 0.25em;
   padding-inline: 0;
 }
 
@@ -132,18 +132,18 @@
   color: var(--oc-color-text);
   font-size: var(--oc-font-size-default);
   font-weight: var(--oc-font-weight-semi-bold);
-  margin-block: .5em .25em;
+  margin-block: 0.5em 0.25em;
   margin-inline: 0;
-  padding-block: .25em;
+  padding-block: 0.25em;
   padding-inline: 0;
 }
 
 %h6 {
   font-size: var(--oc-font-size-default);
   font-weight: var(--oc-font-weight-light);
-  margin-block: .25em .125em;
+  margin-block: 0.25em 0.125em;
   margin-inline: 0;
-  padding-block: .125em;
+  padding-block: 0.125em;
   padding-inline: 0;
 }
 
@@ -152,14 +152,14 @@
   color: var(--oc-color-link);
 
   &.is-active {
-    //color: unset;
+    // color: unset;
   }
 
   &:hover,
   &:focus {
+    text-decoration: none;
     color: var(--oc-color-link-focus-text);
     background: var(--oc-color-link-focus-bg);
-    text-decoration: none;
   }
 
   &:active {
@@ -167,36 +167,35 @@
     outline-offset: var(--oc-outline-active-offset);
   }
 
-  //.text-formatted & {
-    //text-decoration: none;
-    //border-block-end: 1px solid currentColor;
-  //}
+  // .text-formatted & {
+  // text-decoration: none;
+  // border-block-end: 1px solid currentColor;
+  // }
 }
 
 %link-menu {
   display: block;
-  color: var(--oc-color-menu-link);
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  font-weight: var(--oc-font-weight-normal);
-  border-style: solid;
+  color: var(--oc-color-menu-link);
   border-width: 0 0 1px;
+  border-style: solid;
   border-color: var(--oc-color-menu-link-border);
-  padding: .5rem 1rem;
+  font-weight: var(--oc-font-weight-normal);
 
   &:hover,
   &:focus {
-    background: var(--oc-color-menu-link-focus-bg);
     color: var(--oc-color-menu-link-focus-text);
+    background: var(--oc-color-menu-link-focus-bg);
   }
 }
 
 %deletion {
-  text-decoration: currentColor line-through solid .0625em;
+  text-decoration: currentColor line-through solid 0.0625em;
   background-color: var(--oc-color-bg-danger);
 }
 
 %insertion {
-  text-decoration: currentColor underline solid .0625em;
+  text-decoration: currentColor underline solid 0.0625em;
   background-color: var(--oc-color-bg-success);
 }
-

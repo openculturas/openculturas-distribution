@@ -7,6 +7,7 @@
 .paragraph--type--bookable-event {
   @extend %grid;
   @extend %grid-3;
+
   gap: 0 var(--oc-gutter);
 
   .profile--content {
@@ -17,19 +18,19 @@
     order: -1;
   }
 
-  //.field--name-field-body {
+  // .field--name-field-body {
   //  grid-column: 1 / span 2;
-  //}
+  // }
   //
-  //.field--name-field-media-multiple {
+  // .field--name-field-media-multiple {
   //  grid-column: 1;
   //  grid-row: 2;
-  //}
+  // }
   //
-  //.field--name-field-contact-person {
+  // .field--name-field-contact-person {
   //  grid-column: 2;
   //  grid-row: 2;
-  //}
+  // }
 
   @include breakpoint(m) {
     .field {
@@ -37,19 +38,20 @@
     }
 
     .field--name-field-body {
-      grid-column: 1;
       grid-row: 1;
+      grid-column: 1;
     }
 
     .field--name-field-media-multiple {
-      grid-column: 2;
       grid-row: 1;
+      grid-column: 2;
     }
 
     .field--name-field-contact-person {
-      grid-column: 3;
       grid-row: 1;
-      //grid-row: 1 / span 2;
+      grid-column: 3;
+
+      // grid-row: 1 / span 2;
     }
   }
 }

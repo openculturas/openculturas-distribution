@@ -22,7 +22,6 @@
   padding-inline: 1rem; // same as menu link padding
 }
 
-
 // WYSIWYG utility classes set in CKEditor
 
 // Blockquote styles
@@ -34,22 +33,23 @@
 }
 
 .callout {
-  background-color: var(--oc-color-info);
-  color: var(--oc-color-text-inverted);
   padding: var(--oc-row-gap) var(--oc-gutter);
+  color: var(--oc-color-text-inverted);
+  background-color: var(--oc-color-info);
   block-size: auto;
+
   // uncomment when using before/after icons (note: does not work well with add'l .quotee)
-  //display: inline-flex;
-  //gap: var(--oc-gutter);
+  // display: inline-flex;
+  // gap: var(--oc-gutter);
 }
 
 blockquote.plain {
-  margin-block: var(--oc-row-gap);
-  padding-inline: calc(2 * var(--oc-gutter));
-  background-color: transparent;
   border-width: 0;
+  background-color: transparent;
   font-size: var(--oc-font-size-default);
   font-weight: unset;
+  margin-block: var(--oc-row-gap);
+  padding-inline: calc(2 * var(--oc-gutter));
 
   strong {
     font-weight: var(--oc-font-weight-bold);
@@ -75,10 +75,11 @@ blockquote.plain {
 
   @include breakpoint(m) {
     float: inline-end;
-    max-inline-size: 16.25rem;
-    //margin: 0 0 1.25rem 1.25rem;
-    margin-inline-start: 1.25rem;
     margin-block-end: 1.25rem;
+
+    // margin: 0 0 1.25rem 1.25rem;
+    margin-inline-start: 1.25rem;
+    max-inline-size: 16.25rem;
   }
 }
 
@@ -86,8 +87,9 @@ blockquote.plain {
 .more-link.field a,
 a.more-link,
 .text-formatted a.cta {
-  display: inline-block;
   @extend %button-link;
+
+  display: inline-block;
 }
 
 // ---
@@ -95,8 +97,8 @@ a.more-link,
 
 .inverted {
   padding: var(--oc-row-gap) var(--oc-gutter);
-  background: var(--oc-color-bg-dark);
   color: var(--oc-color-text-inverted);
+  background: var(--oc-color-bg-dark);
 
   a {
     color: var(--oc-color-link-inverted);
@@ -111,13 +113,14 @@ a.more-link,
 // Prevent contextual links toggle overlapping icon buttons
 .contextual-region:has(.button-popover-trigger, .attribution-toggle, .flag--link) {
   .contextual {
-    //inset-inline-end: calc(-1 * var(--oc-icon-button-size));
+    // inset-inline-end: calc(-1 * var(--oc-icon-button-size));
     inset-block-start: calc(1 * var(--oc-icon-button-size));
   }
 }
+
 // Same for details summary toggle
 .visually-hidden.teaser--title + .contextual {
-  inset-block-start: calc(-.25 * var(--oc-icon-button-size));
+  inset-block-start: calc(-0.25 * var(--oc-icon-button-size));
 }
 
 // ---
@@ -125,7 +128,7 @@ a.more-link,
 // Related: _icons-base.scss
 
 .anchorlinks,
-.content  ul.anchorlinks {
+.content ul.anchorlinks {
   display: flex;
   flex-flow: row wrap;
   margin-inline-start: 0;
@@ -183,7 +186,7 @@ a.more-link,
 }
 
 .space-after {
-  margin-block-end: calc(.5 * var(--oc-section-spacing));
+  margin-block-end: calc(0.5 * var(--oc-section-spacing));
 }
 
 // Scroll layers
@@ -206,6 +209,6 @@ a.more-link,
 // Invisible list markup for accessibility reasons (template class .visually-plain)
 
 ul.visually-plain {
-  list-style: none;
   padding: unset;
+  list-style: none;
 }

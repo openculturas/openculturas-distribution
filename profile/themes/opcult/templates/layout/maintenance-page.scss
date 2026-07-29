@@ -8,6 +8,8 @@
   --oc-layout-max-width: 40rem;
   --oc-page-margin-sides: 1rem;
 
+  background-color: var(--oc-color-primary-darker);
+
   @include breakpoint(s) {
     --oc-page-margin-sides: 2rem;
   }
@@ -19,8 +21,6 @@
   @include breakpoint(l) {
     --oc-page-margin-sides: 10rem;
   }
-
-  background-color: var(--oc-color-primary-darker);
 }
 
 // visually center vertically
@@ -38,16 +38,16 @@
 
 // cf. %teaser-image-fallback
 .maintenance-page .layout-background {
+  position: fixed;
   opacity: 1;
-  background-image: var(--oc-image-fallback-image);
   background-color: var(--oc-color-primary-darker);
+  background-image: var(--oc-image-fallback-image);
   background-repeat: no-repeat;
-  background-size: 200%;
+  background-attachment: fixed;
   background-position-x: 35%;
   background-position-y: bottom -4rem;
-  background-attachment: fixed;
+  background-size: 200%;
   background-blend-mode: multiply;
-  position: fixed;
   inline-size: 100vw;
   block-size: 100vh;
 
@@ -64,8 +64,8 @@
   }
 
   .header {
-    border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
     padding-block-start: 1rem;
+    border-radius: var(--oc-card-border-radius) var(--oc-card-border-radius) 0 0;
   }
 
   main {
@@ -79,4 +79,3 @@
     padding-block: 2rem 6rem;
   }
 }
-

@@ -21,9 +21,9 @@
 // Layout builder top-level sections
 
 .layout {
-  --oc-bg-section-buffer: 1px calc(.5 * var(--oc-section-spacing)); // for colored sections (we expect h2 with top margin)
+  --oc-bg-section-buffer: 1px calc(0.5 * var(--oc-section-spacing)); // for colored sections (we expect h2 with top margin)
 
-  padding-block-end: calc(.5 * var(--oc-section-spacing));
+  padding-block-end: calc(0.5 * var(--oc-section-spacing));
 }
 
 .no-whitespace-above {
@@ -91,11 +91,11 @@ body {
 
     .section--aside {
       position: sticky;
-      inset-block-start: var(--oc-row-gap);
-      overflow-y: auto;
       overflow-x: hidden;
+      overflow-y: auto;
+      padding-block-end: 0.125rem; // prevent needless scrollbar
+      inset-block-start: var(--oc-row-gap);
       block-size: min-content;
-      padding-block-end: .125rem; // prevent needless scrollbar
     }
   }
 }
@@ -114,7 +114,8 @@ body {
 
 .section-with-background {
   background: var(--oc-element-bg);
-  //margin-block: var(--oc-bg-section-buffer);
+
+  // margin-block: var(--oc-bg-section-buffer);
   margin-inline: calc(-1 * var(--oc-page-padding-inline));
   padding-block: var(--oc-bg-section-buffer);
   padding-inline: var(--oc-page-padding-inline);
@@ -130,9 +131,9 @@ body {
 }
 
 // @todo Extend principle for block attributes
-//.block-with-background {
+// .block-with-background {
 //  background: var(--oc-element-bg);
-//}
+// }
 
 .teaser--section {
   --oc-element-bg: var(--oc-bg-teaser-section);
@@ -160,7 +161,8 @@ body {
 
 .archive--section {
   --oc-element-bg: var(--oc-bg-archive-section);
-  padding-block: 0 .25rem; // section-with-background padding is too much here (collapsed details)
+
+  padding-block: 0 0.25rem; // section-with-background padding is too much here (collapsed details)
 
   details {
     margin-block: 0;
@@ -187,36 +189,34 @@ body {
   --oc-element-bg: var(--oc-bg-slight);
 }
 
-
 // ---
 // Address section
 // See paragraph--address-data.scss
 
 .layout-oc2col-section.address-region {
+  > .section--first {
+    @include breakpoint(l) {
+      grid-row: 1;
+      grid-column: 1 / 8;
+    }
+  }
+
+  > .section--second {
+    @include breakpoint(l) {
+      grid-row: 1;
+      grid-column: 8 / -1;
+    }
+
+    @include breakpoint(xl) {
+      grid-column: 9 / -1;
+    }
+  }
   @include breakpoint(m) {
     flex-flow: column;
   }
 
   @include breakpoint(l) {
     flex-flow: row nowrap;
-  }
-
-  > .section--first {
-    @include breakpoint(l) {
-      grid-column: 1 / 8;
-      grid-row: 1;
-    }
-  }
-
-  > .section--second {
-    @include breakpoint(l) {
-      grid-column: 8 / -1;
-      grid-row: 1;
-    }
-
-    @include breakpoint(xl) {
-      grid-column: 9 / -1;
-    }
   }
 }
 
@@ -253,4 +253,3 @@ body {
     }
   }
 }
-

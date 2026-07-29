@@ -27,18 +27,18 @@ a.more-link {
 .more-link {
   a[href^="http"],
   a.external {
-    @include icon(arrow-up-right, light, after);
     --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
     --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
+    @include icon(arrow-up-right, light, after);
 
     &::before {
-      content: var(--icon-url-ltr) / "External site";
-      display: inline-block;
-      inline-size: .85em;
-      block-size: .85em;
-      vertical-align: -.125rem;
       position: absolute;
+      display: inline-block;
+      content: var(--icon-url-ltr) / "External site";
+      vertical-align: -0.125rem;
       opacity: 0;
+      inline-size: 0.85em;
+      block-size: 0.85em;
     }
 
     &[target] {
@@ -46,11 +46,10 @@ a.more-link {
     }
 
     [dir="rtl"] & {
+      --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
       &::before {
         content: var(--icon-url-rtl) / "External site";
       }
-
-      --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
     }
 
     [dir="rtl"] & {
@@ -146,10 +145,11 @@ th:has(.tablesort--asc) a[href*="sort"] {
 
 // Edit button in tables
 .button--edit a {
-  display: inline-block;
+  --oc-font-size-icon: var(--oc-font-size-icon-default);
   @include icon(pencil-simple);
   @extend %icon-only;
-  --oc-font-size-icon: var(--oc-font-size-icon-default);
+
+  display: inline-block;
 }
 
 // ---
@@ -214,7 +214,7 @@ a.leaflet-popup-close-button,
 }
 .icon .fa-people-line,
 .icon .users-four {
-  //@include icon(users-three);
+  // @include icon(users-three);
   @include icon(users-four);
 }
 .menu--call-to-action a[href*="node/add/date"],
@@ -230,7 +230,7 @@ a.leaflet-popup-close-button,
 .menu--call-to-action a[href*="node/add/event"],
 .icon .fa-masks-theater,
 .icon .mask-happy {
-  //@include icon(microphone-stage);
+  // @include icon(microphone-stage);
   @include icon(mask-happy);
 }
 
@@ -242,7 +242,7 @@ a.leaflet-popup-close-button,
 
 // Toolbar: custom links
 // @todo Check when Navigation module is enabled + links are added
-//.toolbar-button[href$="/admin/structure/taxonomy"] {
+// .toolbar-button[href$="/admin/structure/taxonomy"] {
 //  @include icon(hash);
 //  --icon: var(--icon-url);
-//}
+// }
