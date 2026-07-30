@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Action;
 
+use Drupal\Core\Action\Attribute\Action;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Entity\Eca;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use function trim;
 
 /**
  * Load the notification recipients.
- *
- * @Action(
- *   id = "openculturas_load_notification_recipients",
- *   label = @Translation("OpenCulturas: Load the notification recipients"),
- *   description = @Translation("Load the notification recipients for current model and store it as a token.")
- * )
  */
+#[Action(
+  id: 'openculturas_load_notification_recipients',
+  label: new TranslatableMarkup('OpenCulturas: Load the notification recipients'),
+)]
+#[EcaAction(
+  description: new TranslatableMarkup('Load the notification recipients for current model and store it as a token.'),
+)]
 final class LoadNotificationRecipients extends ConfigurableActionBase {
 
   /**

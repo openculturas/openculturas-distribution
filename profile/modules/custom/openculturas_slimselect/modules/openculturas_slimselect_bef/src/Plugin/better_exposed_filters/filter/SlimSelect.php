@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\openculturas_slimselect_bef\Plugin\better_exposed_filters\filter;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\better_exposed_filters\Attribute\FiltersWidget;
 use Drupal\better_exposed_filters\Plugin\better_exposed_filters\filter\FilterWidgetBase;
 use Drupal\taxonomy\Plugin\views\filter\TaxonomyIndexTid;
 use Drupal\taxonomy\TermInterface;
@@ -14,12 +16,11 @@ use function array_map;
 
 /**
  * Default widget implementation.
- *
- * @BetterExposedFiltersFilterWidget(
- *   id = "slimselect",
- *   label = "Slim Select",
- * )
  */
+#[FiltersWidget(
+  id: 'slimselect',
+  title: new TranslatableMarkup('Slim Select'),
+)]
 final class SlimSelect extends FilterWidgetBase {
 
   /**

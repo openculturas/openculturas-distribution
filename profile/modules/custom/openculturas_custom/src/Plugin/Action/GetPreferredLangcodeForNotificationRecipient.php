@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\Action;
 
+use Drupal\Core\Action\Attribute\Action;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use function trim;
 
 /**
  * Get the preferred langcode of notification recipient.
- *
- * @Action(
- *   id = "openculturas_preferred_langcode_recipients",
- *   label = @Translation("OpenCulturas: Get the preferred langcode of notification recipient"),
- *   description = @Translation("Get the preferred langcode of notification recipient and store it as a token.")
- * )
  */
+#[Action(
+  id: 'openculturas_preferred_langcode_recipients',
+  label: new TranslatableMarkup('OpenCulturas: Get the preferred langcode of notification recipient'),
+)]
+#[EcaAction(
+  description: new TranslatableMarkup('Get the preferred langcode of notification recipient and store it as a token.'),
+)]
 final class GetPreferredLangcodeForNotificationRecipient extends ConfigurableActionBase {
 
   /**

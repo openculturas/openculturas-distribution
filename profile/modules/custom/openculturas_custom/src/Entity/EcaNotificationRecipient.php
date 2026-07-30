@@ -5,56 +5,60 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\Attribute\ConfigEntityType;
+use Drupal\Core\Entity\EntityDeleteForm;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Entity\Eca;
 use Drupal\openculturas_custom\EcaNotificationRecipientInterface;
+use Drupal\openculturas_custom\EcaNotificationRecipientListBuilder;
+use Drupal\openculturas_custom\Form\EcaNotificationRecipientForm;
 use function array_filter;
 use function is_array;
 
 /**
  * Defines the eca notification recipient entity type.
- *
- * @ConfigEntityType(
- *   id = "eca_notification_recipient",
- *   label = @Translation("Notification recipient"),
- *   label_collection = @Translation("Notification recipients"),
- *   label_singular = @Translation("notification recipient"),
- *   label_plural = @Translation("notification recipients"),
- *   label_count = @PluralTranslation(
- *     singular = "@count notification recipient",
- *     plural = "@count notification recipients",
- *   ),
- *   handlers = {
- *     "list_builder" = "Drupal\openculturas_custom\EcaNotificationRecipientListBuilder",
- *     "form" = {
- *       "add" = "Drupal\openculturas_custom\Form\EcaNotificationRecipientForm",
- *       "edit" = "Drupal\openculturas_custom\Form\EcaNotificationRecipientForm",
- *       "delete" = "Drupal\Core\Entity\EntityDeleteForm"
- *     }
- *   },
- *   config_prefix = "eca_notification_recipient",
- *   admin_permission = "administer eca_notification_recipient",
- *   static_cache = TRUE,
- *   links = {
- *     "collection" = "/admin/config/workflow/eca-notification-recipient",
- *     "add-form" = "/admin/config/workflow/eca-notification-recipient/add",
- *     "edit-form" = "/admin/config/workflow/eca-notification-recipient/{eca_notification_recipient}",
- *     "delete-form" = "/admin/config/workflow/eca-notification-recipient/{eca_notification_recipient}/delete"
- *   },
- *   entity_keys = {
- *     "id" = "id",
- *     "label" = "label",
- *     "eca_model" = "eca_model",
- *     "preferred_langcode" = "preferred_langcode"
- *   },
- *   config_export = {
- *     "id",
- *     "label",
- *     "eca_model",
- *     "preferred_langcode"
- *   }
- * )
  */
+#[ConfigEntityType(
+  id: 'eca_notification_recipient',
+  label: new TranslatableMarkup('Notification recipient'),
+  label_collection: new TranslatableMarkup('Notification recipients'),
+  label_singular: new TranslatableMarkup('notification recipient'),
+  label_plural: new TranslatableMarkup('notification recipients'),
+  config_prefix: 'eca_notification_recipient',
+  static_cache: TRUE,
+  entity_keys: [
+    'id' => 'id',
+    'label' => 'label',
+    'eca_model' => 'eca_model',
+    'preferred_langcode' => 'preferred_langcode',
+  ],
+  handlers: [
+    'list_builder' => EcaNotificationRecipientListBuilder::class,
+    'form' => [
+      'add' => EcaNotificationRecipientForm::class,
+      'edit' => EcaNotificationRecipientForm::class,
+      'delete' => EntityDeleteForm::class,
+    ],
+  ],
+  links: [
+    'collection' => '/admin/config/workflow/eca-notification-recipient',
+    'add-form' => '/admin/config/workflow/eca-notification-recipient/add',
+    'edit-form' => '/admin/config/workflow/eca-notification-recipient/{eca_notification_recipient}',
+    'delete-form' => '/admin/config/workflow/eca-notification-recipient/{eca_notification_recipient}/delete',
+  ],
+  admin_permission: 'administer eca_notification_recipient',
+  label_count: [
+    'singular' => '@count notification recipient',
+    'plural' => '@count notification recipients',
+  ],
+  config_export: [
+    'id',
+    'label',
+    'eca_model',
+    'preferred_langcode',
+  ],
+)]
 class EcaNotificationRecipient extends ConfigEntityBase implements EcaNotificationRecipientInterface {
 
   /**

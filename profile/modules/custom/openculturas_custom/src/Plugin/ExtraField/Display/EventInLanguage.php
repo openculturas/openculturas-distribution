@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\extra_field\Attribute\ExtraFieldDisplay;
 use Drupal\node\NodeInterface;
 use function is_array;
 
 /**
- * phpcs:ignore
- * field_inlanguage via field_event_description reference.
- *
- * @ExtraFieldDisplay(
- *   id = "event_inlanguage",
- *   label = @Translation("Event language"),
- *   description = "field_inlanguage via field_event_description reference",
- *   visible = false,
- *   bundles = {
- *     "node.date",
- *   }
- * )
+ * Field field_inlanguage via field_event_description reference.
  */
+#[ExtraFieldDisplay(
+  id: "event_inlanguage",
+  label: new TranslatableMarkup("Event language"),
+  description: new TranslatableMarkup("field_inlanguage via field_event_description reference"),
+  bundles: [
+    "node.date",
+  ],
+  visible: FALSE,
+)]
 final class EventInLanguage extends ExtraFieldBase {
 
   /**
