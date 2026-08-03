@@ -8,6 +8,9 @@
 declare(strict_types=1);
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\Sql\DefaultTableMapping;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\FieldStorageConfigInterface;
 use Drupal\image\ImageEffectInterface;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\openculturas_discussions\InstallerHelper;
@@ -48,6 +51,48 @@ function _openculturas_post_update_import_or_revert_config(array $full_config_na
     else {
       $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_config_name));
     }
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Pins the "uuid" of existing config objects to a fixed value.
+ *
+ * Config_devel strips "uuid" from files exported to a module's or profile's
+ * config/install directory, so importing such a file via
+ * _openculturas_post_update_import_or_revert_config() always assigns a
+ * fresh random uuid. For field storage/field configs that matters: a later
+ * "drush config:import" comparing against config/sync's fixed uuid then
+ * sees a uuid mismatch for the same config name and deletes and recreates
+ * the entity instead of updating it, which for field storage means losing
+ * all data written to its dedicated tables in between.
+ *
+ * @param array<string, string> $uuids_by_config_name
+ *   Full config name => the uuid it must have.
+ *
+ * @return string
+ *   Logger output.
+ */
+function _openculturas_post_update_pin_config_uuid(array $uuids_by_config_name): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $configFactory = \Drupal::configFactory();
+
+  foreach ($uuids_by_config_name as $full_config_name => $uuid) {
+    $config = $configFactory->getEditable($full_config_name);
+    if ($config->isNew()) {
+      $logger->warning(sprintf('Unable to pin uuid for %s config, because configuration does not exist.', $full_config_name));
+      continue;
+    }
+
+    if ($config->get('uuid') === $uuid) {
+      $logger->notice(sprintf('SKIPPED. %s already has uuid %s.', $full_config_name, $uuid));
+      continue;
+    }
+
+    $config->set('uuid', $uuid)->save();
+    $logger->info(sprintf('Pinned uuid %s on %s config.', $uuid, $full_config_name));
   }
 
   return $logger->output();
@@ -632,4 +677,128 @@ function openculturas_post_update_search_index_displays_show_reference_fields():
   }
 
   return $logger->output();
+}
+
+/**
+ * Adds "field_location_precision" and shows it on the address_data form.
+ *
+ * The view displays need no update: a field that is absent from a display's
+ * "content" is rendered as hidden regardless of whether it is listed under
+ * "hidden" (see EntityDisplayBase::getComponent()), so existing sites hide
+ * the new field automatically without any config change.
+ */
+function openculturas_post_update_address_data_location_precision(): string {
+  $output = _openculturas_post_update_import_or_revert_config([
+    'field.storage.paragraph.field_location_precision',
+    'field.field.paragraph.address_data.field_location_precision',
+  ]);
+
+  $output .= _openculturas_post_update_pin_config_uuid([
+    'field.storage.paragraph.field_location_precision' => '2ad9a0c5-f49a-4121-9d59-e9711ba4537e',
+    'field.field.paragraph.address_data.field_location_precision' => '895bfdfd-ec1c-4c4d-b5ab-3dd2e3893bfb',
+  ]);
+
+  return $output . _openculturas_post_update_import_or_revert_config([
+    'core.entity_form_display.paragraph.address_data.default',
+    'field.field.paragraph.address_data.field_address_location',
+  ], TRUE);
+}
+
+/**
+ * Enables lazy loading for field_address_location in the "map" view mode.
+ */
+function openculturas_post_update_address_data_map_lazy_load(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $display */
+  $display = $displayStorage->load('paragraph.address_data.map');
+  if (!$display instanceof EntityViewDisplayInterface) {
+    $logger->notice('SKIPPED. Display paragraph.address_data.map not found.');
+    return $logger->output();
+  }
+
+  $component = $display->getComponent('field_address_location');
+  if ($component === NULL) {
+    $logger->notice('SKIPPED. Component field_address_location not found in paragraph.address_data.map display.');
+    return $logger->output();
+  }
+
+  if (($component['settings']['map_lazy_load']['lazy_load'] ?? NULL) !== FALSE) {
+    $logger->notice('SKIPPED. field_address_location lazy loading in paragraph.address_data.map display has been customized.');
+    return $logger->output();
+  }
+
+  $component['settings']['map_lazy_load']['lazy_load'] = TRUE;
+  $display->setComponent('field_address_location', $component);
+  $display->save();
+
+  $logger->info('Enabled lazy loading for field_address_location in paragraph.address_data.map display.');
+  return $logger->output();
+}
+
+/**
+ * Sets "field_location_precision" to "auto" on existing address data.
+ *
+ * Writes the field's dedicated tables directly instead of loading and saving
+ * every address_data paragraph (and every one of its translations) through
+ * the Entity API, since that would resave every revision of every such
+ * paragraph across the whole site just to set one column.
+ */
+function openculturas_post_update_address_data_location_precision_default_value(): void {
+  $fieldStorage = FieldStorageConfig::loadByName('paragraph', 'field_location_precision');
+  if (!$fieldStorage instanceof FieldStorageConfigInterface) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+  $tableMapping = $storage->getTableMapping();
+  $dataTable = $storage->getDataTable();
+  $revisionDataTable = $storage->getRevisionDataTable();
+  if (!$tableMapping instanceof DefaultTableMapping || !is_string($dataTable) || !is_string($revisionDataTable)) {
+    return;
+  }
+
+  $fieldTable = $tableMapping->getDedicatedDataTableName($fieldStorage);
+  $fieldRevisionTable = $tableMapping->getDedicatedRevisionTableName($fieldStorage);
+  $valueColumn = $tableMapping->getFieldColumnName($fieldStorage, 'value');
+
+  $database = \Drupal::database();
+
+  $select = $database->select($dataTable, 'base');
+  $select->leftJoin($fieldTable, 'existing', 'existing.entity_id = base.id AND existing.langcode = base.langcode');
+  $select->condition('base.type', 'address_data');
+  $select->isNull('existing.entity_id');
+  $select->addField('base', 'type', 'bundle');
+  $select->addField('base', 'id', 'entity_id');
+  $select->addField('base', 'revision_id', 'revision_id');
+  $select->addField('base', 'langcode', 'langcode');
+  $select->addExpression('0', 'deleted');
+  $select->addExpression('0', 'delta');
+  $select->addExpression("'auto'", $valueColumn);
+  $database->insert($fieldTable)->from($select)->execute();
+
+  // "paragraphs_item_field_data" has one row per translation, so joining it
+  // directly onto every revision would multiply rows for entities with more
+  // than one translation. Bundle is immutable for a given paragraph id, so
+  // deduplicate to one row per id first.
+  $bundles = $database->select($dataTable, 'bundles')
+    ->fields('bundles', ['id', 'type'])
+    ->distinct();
+
+  $select = $database->select($revisionDataTable, 'revision');
+  $select->innerJoin($bundles, 'base', 'base.id = revision.id');
+  $select->leftJoin($fieldRevisionTable, 'existing', 'existing.entity_id = revision.id AND existing.revision_id = revision.revision_id AND existing.langcode = revision.langcode');
+  $select->condition('base.type', 'address_data');
+  $select->isNull('existing.entity_id');
+  $select->addField('base', 'type', 'bundle');
+  $select->addField('revision', 'id', 'entity_id');
+  $select->addField('revision', 'revision_id', 'revision_id');
+  $select->addField('revision', 'langcode', 'langcode');
+  $select->addExpression('0', 'deleted');
+  $select->addExpression('0', 'delta');
+  $select->addExpression("'auto'", $valueColumn);
+  $database->insert($fieldRevisionTable)->from($select)->execute();
 }

@@ -427,7 +427,7 @@
 
     static factoryWithGeoJSON(id, title, geoJSON, data, popup_html, upcoming_dates = false) {
       let marker;
-      L.geoJSON(geoJSON, {
+      const geoJsonLayer = L.geoJSON(geoJSON, {
         pointToLayer: function (feature, latlng) {
           marker = this.factory(
             parseInt(id),
@@ -440,6 +440,24 @@
         )
         }.bind(this)
       });
+      // Non-point geometries (e.g. an area location's polygon) never trigger
+      // pointToLayer, so fall back to the geometry's bounds centroid instead
+      // of silently dropping the entry.
+      if(!marker) {
+        const bounds = geoJsonLayer.getBounds();
+        if(bounds.isValid()) {
+          const center = bounds.getCenter();
+          marker = this.factory(
+            parseInt(id),
+            title,
+            center.lat,
+            center.lng,
+            data,
+            popup_html,
+            upcoming_dates
+          );
+        }
+      }
       if(marker) {
         return marker;
       }

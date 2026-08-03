@@ -4,9 +4,32 @@ dependencies:
   config:
     - field.field.paragraph.address_data.field_address
     - field.field.paragraph.address_data.field_address_location
+    - field.field.paragraph.address_data.field_location_precision
     - paragraphs.paragraphs_type.address_data
   module:
     - address
+    - field_formatter_class
+    - field_group
+    - leaflet
+third_party_settings:
+  field_group:
+    group_geofield_refinement:
+      children:
+        - field_location_precision
+        - field_address_location
+      label: 'Manual map refinement'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: geofield_manual
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: false
 id: paragraph.address_data.default
 targetEntityType: paragraph
 bundle: address_data
@@ -14,10 +37,96 @@ mode: default
 content:
   field_address:
     type: address_default
-    weight: 0
+    weight: 1
     region: content
     settings:
       wrapper_type: details
+    third_party_settings: {  }
+  field_address_location:
+    type: leaflet_widget_default
+    weight: 1
+    region: content
+    settings:
+      geometry_validation: true
+      map:
+        leaflet_map: openstreetmap
+        height: 400
+        auto_center: 1
+        map_position:
+          force: false
+          center:
+            lat: 0.0
+            lon: 0.0
+          zoomControlPosition: topleft
+          zoom: 14
+          minZoom: 1
+          maxZoom: 18
+          zoomFiner: 0
+        scroll_zoom_enabled: 1
+      input:
+        show: true
+        readonly: false
+      toolbar:
+        position: topright
+        marker: defaultMarker
+        drawPolyline: true
+        drawRectangle: true
+        drawPolygon: true
+        drawCircle: false
+        drawText: false
+        editMode: true
+        dragMode: true
+        cutPolygon: true
+        removalMode: true
+        rotateMode: true
+      reset_map:
+        control: false
+        options: '{"position":"topleft","title":"Reset View"}'
+      map_scale:
+        control: true
+        options: '{"position":"bottomright","maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":false}'
+      fullscreen:
+        control: false
+        options: '{"position":"topleft","pseudoFullscreen":false}'
+      path: '{"color":"#3388ff","opacity":"1.0","stroke":true,"weight":3,"fill":"depends","fillColor":"*","fillOpacity":"0.2","radius":"6"}'
+      feature_properties:
+        values: ''
+      locate:
+        control: true
+        options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Locate my position"}}'
+        automatic: false
+      geocoder:
+        control: true
+        settings:
+          set_marker: true
+          popup: false
+          autocomplete:
+            placeholder: 'Search Address'
+            title: 'Search an Address on the Map'
+          position: topright
+          input_size: 20
+          providers:
+            openstreetmap:
+              weight: 0
+              checked: true
+          min_terms: 4
+          delay: 800
+          zoom: 16
+          options: ''
+      geojson_overlays:
+        sources:
+          fields: {  }
+        zoom_to_geojson: true
+        path: '{"color":"#f71ed3","opacity":"0.7","stroke":true,"weight":2,"fillColor":"#ffddfe","fillOpacity":"0.1","radius":3,"dashArray":"5, 5"}'
+        snapping: true
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+  field_location_precision:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
     third_party_settings: {  }
   translation:
     weight: 10
@@ -26,5 +135,4 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_address_location: true
   status: true

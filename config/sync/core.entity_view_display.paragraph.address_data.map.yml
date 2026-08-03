@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.paragraph.map
     - field.field.paragraph.address_data.field_address
     - field.field.paragraph.address_data.field_address_location
+    - field.field.paragraph.address_data.field_location_precision
     - paragraphs.paragraphs_type.address_data
   module:
     - field_formatter_class
@@ -20,7 +21,7 @@ content:
     label: visually_hidden
     settings:
       multiple_map: false
-      leaflet_map: 'OSM Mapnik'
+      leaflet_map: openstreetmap
       height: 400
       height_unit: px
       hide_empty_map: true
@@ -29,13 +30,13 @@ content:
       fitbounds_options: '{"padding":[0,0]}'
       reset_map:
         control: false
-        position: topright
+        options: '{"position":"topleft","title":"Reset View"}'
       map_scale:
         control: false
         options: '{"position":"bottomright","maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":false}'
       locate:
         control: false
-        options: '{"position": "topright", "setView": "untilPanOrZoom", "returnToPrevBounds":true, "keepCurrentZoomLevel": true, "strings": {"title": "Locate my position"}}'
+        options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Locate my position"}}'
         automatic: false
       leaflet_tooltip:
         value: ''
@@ -43,21 +44,20 @@ content:
       popup: false
       popup_content: ''
       leaflet_popup:
-        control: ''
+        control: '0'
         content: ''
-        options: '{"maxWidth":"300","minWidth":"50", "autoPan": true}'
-        value: ''
-        view_mode: full
+        options: '{"maxWidth":"300","minWidth":"50","autoPan":true}'
       map_position:
         force: false
         center:
           lat: 0.0
           lon: 0.0
+        zoomControlPosition: topleft
         zoom: 12
         minZoom: 1
         maxZoom: 18
         zoomFiner: 0
-      weight: null
+      weight: '0'
       icon:
         iconType: marker
         iconUrl: ''
@@ -95,6 +95,9 @@ content:
         control: false
         settings:
           popup: false
+          autocomplete:
+            placeholder: 'Search Address'
+            title: 'Search an Address on the Map'
           position: topright
           input_size: 25
           providers:
@@ -106,7 +109,7 @@ content:
           zoom: 16
           options: ''
       map_lazy_load:
-        lazy_load: false
+        lazy_load: true
     third_party_settings:
       field_formatter_class:
         class: ''
@@ -114,4 +117,5 @@ content:
     region: content
 hidden:
   field_address: true
+  field_location_precision: true
   search_api_excerpt: true

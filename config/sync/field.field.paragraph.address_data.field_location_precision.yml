@@ -1,0 +1,23 @@
+uuid: 895bfdfd-ec1c-4c4d-b5ab-3dd2e3893bfb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_location_precision
+    - paragraphs.paragraphs_type.address_data
+  module:
+    - options
+id: paragraph.address_data.field_location_precision
+field_name: field_location_precision
+entity_type: paragraph
+bundle: address_data
+label: 'Map marker'
+description: '<em>Auto</em> determines the map marker position automatically, using the address above. <em>Manual</em> hands the map below fully over to manual editing (draw a boundary or place a marker yourself) and stops it from being updated from the address.'
+required: true
+translatable: false
+default_value:
+  -
+    value: auto
+default_value_callback: ''
+settings: {  }
+field_type: list_string
