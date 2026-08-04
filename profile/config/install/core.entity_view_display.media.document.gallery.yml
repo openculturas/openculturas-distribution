@@ -1,28 +1,43 @@
-uuid: 23331239-198d-460c-8147-5ebd4892ddd8
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.media_library
+    - core.entity_view_mode.media.gallery
     - field.field.media.document.field_filesize
     - field.field.media.document.field_inlanguage
     - field.field.media.document.field_licenses
     - field.field.media.document.field_media_file
     - field.field.media.document.field_mimetype
-    - image.style.medium
+    - image.style.media_library
     - media.type.document
   module:
     - attribution
+    - field_formatter_class
+    - openculturas_media
     - svg_image
-id: media.document.media_library
+id: media.document.gallery
 targetEntityType: media
 bundle: document
-mode: media_library
+mode: gallery
 content:
   field_licenses:
-    type: attribution_creative_commons_icons
+    type: attribution_creative_commons_refined
     label: hidden
     settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_media_file:
+    type: media_entity_download_meta
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+      disposition: attachment
+      trim_length: '80'
+      url_only: ''
+      url_plain: ''
+      rel: ''
+      target: ''
     third_party_settings: {  }
     weight: 1
     region: content
@@ -31,21 +46,22 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: medium
+      image_style: media_library
       image_loading:
         attribute: lazy
       svg_attributes:
-        width: null
-        height: null
+        width: 220
+        height: 220
       svg_render_as_image: true
-    third_party_settings: {  }
+    third_party_settings:
+      field_formatter_class:
+        class: ''
     weight: 0
     region: content
 hidden:
   created: true
   field_filesize: true
   field_inlanguage: true
-  field_media_file: true
   field_mimetype: true
   langcode: true
   name: true

@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\Sql\DefaultTableMapping;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -801,4 +802,116 @@ function openculturas_post_update_address_data_location_precision_default_value(
   $select->addExpression('0', 'delta');
   $select->addExpression("'auto'", $valueColumn);
   $database->insert($fieldRevisionTable)->from($select)->execute();
+}
+
+/**
+ * Adds "field_licenses" to the document and remote video media types.
+ */
+function openculturas_post_update_media_field_licenses(): string {
+  $output = _openculturas_post_update_import_or_revert_config([
+    'field.field.media.document.field_licenses',
+    'field.field.media.remote_video.field_licenses',
+    'core.entity_view_display.media.document.content_asset',
+    'core.entity_view_display.media.document.gallery',
+  ]);
+
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $formDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+  foreach ([
+    'media.document.default',
+    'media.document.media_library',
+    'media.remote_video.default',
+    'media.remote_video.media_library',
+  ] as $displayId) {
+    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface|null $display */
+    $display = $formDisplayStorage->load($displayId);
+    if (!$display instanceof EntityFormDisplayInterface) {
+      $logger->notice('SKIPPED. Display ' . $displayId . ' not found.');
+      continue;
+    }
+
+    $display->setComponent('field_licenses', [
+      'type' => 'attribution_source_author_license',
+      'region' => 'content',
+    ])->save();
+    $logger->info('Added field_licenses widget to ' . $displayId . ' form display.');
+  }
+
+  $viewDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  foreach ([
+    'media.document.download' => ['type' => 'attribution_creative_commons_refined', 'label' => 'above'],
+    'media.document.media_library' => ['type' => 'attribution_creative_commons_icons', 'label' => 'hidden'],
+    'media.remote_video.default' => ['type' => 'attribution_creative_commons_icons', 'label' => 'above'],
+    'media.remote_video.content_asset' => ['type' => 'attribution_creative_commons_refined', 'label' => 'hidden'],
+    'media.remote_video.gallery' => ['type' => 'attribution_creative_commons_refined', 'label' => 'above'],
+    'media.remote_video.media_library' => ['type' => 'attribution_creative_commons_icons', 'label' => 'hidden'],
+  ] as $displayId => $formatter) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $display */
+    $display = $viewDisplayStorage->load($displayId);
+    if (!$display instanceof EntityViewDisplayInterface) {
+      $logger->notice('SKIPPED. Display ' . $displayId . ' not found.');
+      continue;
+    }
+
+    $display->setComponent('field_licenses', $formatter + ['region' => 'content'])->save();
+    $logger->info('Added field_licenses formatter to ' . $displayId . ' view display.');
+  }
+
+  // The document teaser only shows the download link now; the filesize,
+  // language and mimetype are surfaced on the dedicated download/gallery
+  // view modes instead.
+  /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $documentDefaultDisplay */
+  $documentDefaultDisplay = $viewDisplayStorage->load('media.document.default');
+  if ($documentDefaultDisplay instanceof EntityViewDisplayInterface) {
+    $documentDefaultDisplay
+      ->removeComponent('field_filesize')
+      ->removeComponent('field_inlanguage')
+      ->removeComponent('field_mimetype')
+      ->save();
+    $logger->info('Hide field_filesize, field_inlanguage and field_mimetype on media.document.default view display.');
+  }
+
+  return $output . $logger->output();
+}
+
+/**
+ * Shows the thumbnail on the "gallery" view display for audio media.
+ */
+function openculturas_post_update_media_audio_gallery_thumbnail(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $display */
+  $display = $displayStorage->load('media.audio.gallery');
+  if (!$display instanceof EntityViewDisplayInterface) {
+    $logger->notice('SKIPPED. Display media.audio.gallery not found.');
+    return $logger->output();
+  }
+
+  if ($display->getComponent('thumbnail') === NULL) {
+    $display->setComponent('thumbnail', [
+      'type' => 'image',
+      'label' => 'hidden',
+      'settings' => [
+        'image_link' => '',
+        'image_style' => 'media_library',
+        'image_loading' => ['attribute' => 'lazy'],
+        'svg_attributes' => ['width' => 220, 'height' => 220],
+        'svg_render_as_image' => TRUE,
+      ],
+      'third_party_settings' => [
+        'field_formatter_class' => ['class' => ''],
+      ],
+      'region' => 'content',
+    ])->save();
+    $logger->info('Added thumbnail formatter to media.audio.gallery view display.');
+  }
+  else {
+    $logger->notice('SKIPPED. thumbnail component already exists in media.audio.gallery display.');
+  }
+
+  return $logger->output();
 }

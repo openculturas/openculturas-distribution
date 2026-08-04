@@ -1,7 +1,9 @@
+uuid: 960af32b-ad67-4014-8e11-d1aae6c0b399
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.media.content_asset
     - field.field.media.document.field_filesize
     - field.field.media.document.field_inlanguage
     - field.field.media.document.field_licenses
@@ -9,24 +11,32 @@ dependencies:
     - field.field.media.document.field_mimetype
     - media.type.document
   module:
+    - attribution
     - field_formatter_class
-    - media_entity_download
-id: media.document.default
+    - openculturas_media
+id: media.document.content_asset
 targetEntityType: media
 bundle: document
-mode: default
+mode: content_asset
 content:
+  field_licenses:
+    type: attribution_creative_commons_refined
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_media_file:
-    type: media_entity_download_download_link
-    label: visually_hidden
+    type: media_entity_download_meta
+    label: hidden
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: '0'
-      target: '0'
-      disposition: attachment
-      use_description_as_link_text: true
+      trim_length: '80'
+      use_description_as_link_text: '1'
+      disposition: inline
+      url_only: ''
+      url_plain: ''
+      rel: 0
+      target: 0
     third_party_settings:
       field_formatter_class:
         class: ''
@@ -36,7 +46,6 @@ hidden:
   created: true
   field_filesize: true
   field_inlanguage: true
-  field_licenses: true
   field_mimetype: true
   langcode: true
   name: true

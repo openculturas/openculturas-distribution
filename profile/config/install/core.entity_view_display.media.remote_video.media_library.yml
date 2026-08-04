@@ -3,28 +3,37 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
+    - field.field.media.remote_video.field_licenses
     - field.field.media.remote_video.field_media_oembed_video
     - image.style.medium
     - media.type.remote_video
   module:
+    - attribution
     - svg_image
 id: media.remote_video.media_library
 targetEntityType: media
 bundle: remote_video
 mode: media_library
 content:
+  field_licenses:
+    type: attribution_creative_commons_icons
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
   thumbnail:
     type: image
     label: hidden
     settings:
       image_link: ''
       image_style: medium
+      image_loading:
+        attribute: lazy
       svg_attributes:
         width: null
         height: null
       svg_render_as_image: true
-      image_loading:
-        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content

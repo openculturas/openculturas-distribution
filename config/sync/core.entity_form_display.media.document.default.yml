@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.media.document.field_filesize
     - field.field.media.document.field_inlanguage
+    - field.field.media.document.field_licenses
     - field.field.media.document.field_media_file
     - field.field.media.document.field_mimetype
     - media.type.document
   module:
+    - attribution
     - file
     - languagefield
 id: media.document.default
@@ -29,6 +31,12 @@ content:
     settings:
       format:
         name: name
+    third_party_settings: {  }
+  field_licenses:
+    type: attribution_source_author_license
+    weight: 2
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_media_file:
     type: file_generic
