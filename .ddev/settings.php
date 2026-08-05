@@ -25,7 +25,8 @@ $settings['config_exclude_modules'] = [
   'eca_ui',
   'config_devel',
   'config_update_ui',
-  'smtp'
+  'smtp',
+  'language_audit'
 ];
 
 $settings['simple_environment_anonymous'] = TRUE;
