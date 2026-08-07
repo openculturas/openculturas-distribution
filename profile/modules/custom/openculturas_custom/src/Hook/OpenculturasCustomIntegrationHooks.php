@@ -100,8 +100,38 @@ class OpenculturasCustomIntegrationHooks {
       $definitions['core.entity_view_display.*.*.*.third_party.field_group']['sequence']['mapping']['label']['translation context'] = 'field_group_label';
     }
 
+    // Field blocks and extra field blocks are the Layout Builder equivalent
+    // of the field_group labels above: since 3.1.x moved node output from
+    // field_group to Layout Builder, the same label text (e.g. "Gallery",
+    // "Contact") now recurs as block labels across many view displays.
+    // OpenculturasCustomDateEventHooks::preprocessBlock() translates these
+    // labels explicitly at render time (theme-independent, so it applies
+    // regardless of which theme a site activates), so community translations
+    // are reused there instead of retranslating identical strings. "label"
+    // must stay untranslatable so Drupal can never generate a per-language
+    // config override for it — the config value must always be the raw
+    // English source, or the preprocess step's t() call would translate an
+    // already-translated value a second time.
+    //
+    // Both types inherit "label" from "block_settings" via their "type" key
+    // rather than declaring it themselves, so it is not present yet at this
+    // level; it still merges correctly once added here because the config
+    // schema system deep-merges a type's own mapping over its parent's.
+    if (isset($definitions['block.settings.field_block:*:*:*'])) {
+      $definitions['block.settings.field_block:*:*:*']['mapping']['label']['translatable'] = FALSE;
+    }
+
+    if (isset($definitions['block.settings.extra_field_block:*:*:*'])) {
+      $definitions['block.settings.extra_field_block:*:*:*']['mapping']['label']['translatable'] = FALSE;
+    }
+
     if (isset($definitions['paragraphs.paragraphs_type.*']['mapping']['label'])) {
       $definitions['paragraphs.paragraphs_type.*']['mapping']['label']['translation context'] = 'entity_bundle_name';
+    }
+
+    // We do not need translated CSS.
+    if (isset($definitions['asset_injector.css.*']['mapping']['code'])) {
+      $definitions['asset_injector.css.*']['mapping']['code']['translatable'] = FALSE;
     }
 
     // The "delta" field in the related_date* and oc_map_dates views uses the
@@ -114,8 +144,8 @@ class OpenculturasCustomIntegrationHooks {
     // The base "alter" mapping is defined on the parent "views_field" type and
     // only appears here once merged, so it must be added rather than altered.
     if (isset($definitions['views.field.numeric'])) {
-      $definitions['views.field.numeric']['mapping']['alter']['mapping']['text']['type'] = 'string';
-      $definitions['views.field.numeric']['mapping']['alter']['mapping']['path']['type'] = 'string';
+      $definitions['views.field.numeric']['mapping']['alter']['mapping']['text']['translatable'] = FALSE;
+      $definitions['views.field.numeric']['mapping']['alter']['mapping']['path']['translatable'] = FALSE;
     }
   }
 

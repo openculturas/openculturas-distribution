@@ -28,6 +28,7 @@ main() {
     mkdir -p /app/data/files/translations
     chown -R www-data:www-data /app/data
   fi
+  _drush locale:import de profiles/contrib/openculturas-profile/modules/custom/openculturas_custom/translations/de.po
   _drush deploy
   if [[ -n ${CLOUDRON:-} ]]; then
     chown -R www-data:www-data /app/data

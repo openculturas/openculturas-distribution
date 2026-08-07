@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $labels = [];
 
-$exclude_list = ['[node:title]'];
+$exclude_list = ['[node:title]', 'OpenStreetMap', 'Tabs'];
 foreach (['entity_form_display', 'entity_view_display'] as $entity_type) {
   foreach (\Drupal::entityTypeManager()->getStorage($entity_type)->loadMultiple() as $display) {
     /** @var \Drupal\Core\Entity\Display\EntityDisplayInterface $display */
@@ -13,6 +13,31 @@ foreach (['entity_form_display', 'entity_view_display'] as $entity_type) {
       foreach ($field_groups as $field_group) {
         if (isset($field_group['label']) && ($label = trim($field_group['label'])) && !in_array($label, $exclude_list, TRUE)) {
           $labels[] = $field_group['label'];
+        }
+      }
+    }
+
+    // Field blocks and extra field blocks are the Layout Builder equivalent
+    // of field_group labels; their "label" gets the same translation context
+    // at render time (see OpenculturasCustomDateEventHooks::preprocessBlock()),
+    // so their strings must be collected here too.
+    if ($display instanceof \Drupal\layout_builder\Entity\LayoutEntityDisplayInterface) {
+      foreach ($display->getSections() as $section) {
+        foreach ($section->getComponents() as $component) {
+          $configuration = $component->get('configuration');
+          $base_plugin_id = explode(\Drupal\Component\Plugin\PluginBase::DERIVATIVE_SEPARATOR, $configuration['id'] ?? '')[0];
+          if (!in_array($base_plugin_id, ['field_block', 'extra_field_block'], TRUE)) {
+            continue;
+          }
+          // A hidden label is never rendered, so it does not need translating;
+          // it usually still holds the block's raw, HTML-bearing default
+          // admin title (e.g. Flag's "Flag: <em>...</em>" placeholder).
+          if (($configuration['label_display'] ?? '') !== 'visible') {
+            continue;
+          }
+          if (isset($configuration['label']) && ($label = trim($configuration['label'])) && !in_array($label, $exclude_list, TRUE)) {
+            $labels[] = $configuration['label'];
+          }
         }
       }
     }

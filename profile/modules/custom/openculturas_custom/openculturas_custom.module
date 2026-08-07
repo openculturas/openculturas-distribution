@@ -55,3 +55,15 @@ function openculturas_custom_premiere_allowed_values_function(): array {
     'special' => t('Special', [], ['context' => 'premiere']),
   ];
 }
+
+/**
+ * Set dynamic allowed values for the location_precision field. (Entity type paragraph)
+ *
+ * @see options_allowed_values()
+ */
+function openculturas_custom_location_precision_allowed_values_function(): array {
+  return [
+    'auto' => t('Auto', [], ['context' => 'mode']),
+    'manual' => t('Manual', [], ['context' => 'mode']),
+  ];
+}

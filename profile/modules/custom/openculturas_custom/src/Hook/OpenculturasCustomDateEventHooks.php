@@ -236,6 +236,18 @@ class OpenculturasCustomDateEventHooks {
    */
   #[Hook('preprocess_block')]
   public function preprocessBlock(array &$variables): void {
+    // Field blocks and extra field blocks share their label text with
+    // field_group labels; "label" is deliberately kept untranslatable in
+    // config schema (see
+    // OpenculturasCustomIntegrationHooks::configSchemaInfoAlter()) so Drupal
+    // can never create a per-language config override for it. Translating it
+    // here instead — rather than in a theme template — makes it work
+    // regardless of which theme a site activates.
+    if (!empty($variables['label']) && in_array($variables['base_plugin_id'] ?? NULL, ['field_block', 'extra_field_block'], TRUE)) {
+      // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+      $variables['label'] = $this->t($variables['label'], [], ['context' => 'field_group_label']);
+    }
+
     $derivative_plugin_id = $variables['derivative_plugin_id'] ?? NULL;
     if (!$derivative_plugin_id) {
       return;
