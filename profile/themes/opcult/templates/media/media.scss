@@ -40,7 +40,8 @@
 // Captions
 
 .media figcaption:has(.field),
-.paragraph--type--media .field--name-field-caption {
+.paragraph--type--media .field--name-field-caption,
+.text-formatted .media + figcaption {
   display: inline-block;
   border-width: var(--oc-caption-border-width);
   border-style: var(--oc-caption-border-style);
@@ -49,6 +50,10 @@
   background: var(--oc-bg-caption);
   padding-block: var(--oc-row-gap);
   padding-inline: var(--oc-gutter);
+}
+
+.text-formatted .media + figcaption {
+  inline-size: 100%;
 }
 
 .media figcaption .field {
@@ -114,5 +119,40 @@
     float: inline-end;
     text-align: start;
     padding-inline: 3rem 0;
+  }
+}
+
+// ---
+// Sponsor logos
+// prevent SVG logos w/o included width/height from rendering too small
+
+.sponsors,
+#supporters {
+  .media {
+    display: grid;
+    block-size: 100%;
+    inline-size: 100%;
+    place-items: center;
+
+    img {
+      min-block-size: 4rem;
+      max-block-size: 6rem;
+      inline-size: auto;
+      max-inline-size: 10rem;
+    }
+
+    img[src*=".svg"],
+    svg {
+      min-block-size: 5rem;
+      block-size: 100%;
+      inline-size: auto;
+    }
+  }
+}
+
+.media > {
+  a:focus,
+  a:hover {
+    background-color: transparent;
   }
 }

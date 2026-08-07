@@ -1,7 +1,10 @@
 // ---------------------------------------
 // Flag links/buttons
 // ---
-// Related: _icons-ext.scss, _popovers.scss
+// Related:
+//   _icons-ext.scss,
+//   _popovers.scss
+//   contrib/social_media_links/block--socialmedialinks.scss
 // Inventory:
 //   .flag-bookmark-node,
 //   .flag-bookmark-term,
@@ -122,6 +125,16 @@ a.flag--link {
   display: inline-block;
   inline-size: max-content;
   flex-basis: max-content;
+}
+
+// ---
+// Layout builder: share buttons in hero
+
+.section--essentials {
+  .block-layout-builder:has(.flag),
+  .block-layout-builder:has(.share-buttons) {
+    align-self: flex-end;
+  }
 }
 
 // ---

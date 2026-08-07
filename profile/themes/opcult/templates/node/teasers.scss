@@ -36,6 +36,10 @@ article.teaser,
   border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
   margin-block: var(--oc-card-image-padding-block) 0;
   margin-inline: var(--oc-card-image-padding-inline);
+
+  img {
+    display: block;
+  }
 }
 
 // empty image fallback background
@@ -109,6 +113,7 @@ article.teaser-big {
   .teaser--top {
     @extend %image-fill;
   }
+
   @include breakpoint(m) {
     display: flex;
     flex-flow: row nowrap;

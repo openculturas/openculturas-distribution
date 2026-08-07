@@ -82,7 +82,6 @@
 .slider-nav-dark .slider-nav,
 .slider-indicators-dark .slider-indicators > button:hover {
   opacity: 1;
-  -webkit-filter: none;
   filter: unset; // no shadow effect
 }
 
@@ -112,6 +111,15 @@ button.slider-nav {
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 75%;
+}
+
+[dir="rtl"] {
+  .slider-nav::after {
+    transform: rotate(180deg);
+  }
+  .slider-nav.slider-nav-next::after {
+    transform: rotate(0deg);
+  }
 }
 
 .slider-indicators-dark .slider-indicators > * {

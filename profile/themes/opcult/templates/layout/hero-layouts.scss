@@ -46,6 +46,9 @@
   img {
     max-inline-size: unset;
     inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: var(--oc-aspect-ratio-mood);
+    object-fit: cover;
   }
 }
 
@@ -368,12 +371,34 @@
   }
 
   // fit image to available space
-  .section--mood {
-    @extend %image-fill;
+  .section--mood:has(.block-field-mood-image) {
+    max-inline-size: 100%;
+
+    // aspect-ratio: var(--oc-aspect-ratio-mood); // avoid - cannot stretch higher then
+
+    // makeshift aspect-ratio: sets a minimum height related to --oc-aspect-ratio-mood
+    &::before {
+      display: block;
+      padding-block-start: var(--oc-hero-4-min-height);
+      content: "";
+    }
+
+    // while image rendering in progress: avoid layout shift
+    div:not(.attribution-toggle, .contextual) {
+      position: absolute;
+      inset: 0;
+    }
+
+    img {
+      display: block;
+      block-size: 100%;
+      inline-size: 100%;
+      object-fit: cover;
+    }
   }
 
   // optionally use fallback image
-  // .section--mood:not(:has(.media)) {
+  // .section--mood:not(:has(.block-field-mood-image)) {
   //  @extend %teaser-image-fallback;
   // }
 

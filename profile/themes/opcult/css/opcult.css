@@ -31,7 +31,8 @@ form[role=search] input[type=submit]::before, .flag-bookmark-node .flag--link::b
 .menu a[data-drupal-link-system-path="user/login"]::before, .tabs a[data-drupal-link-system-path="user/logout"]::before,
 .menu a[data-drupal-link-system-path="user/logout"]::before, .tabs a[data-drupal-link-system-path="user/register"]::before,
 .menu a[data-drupal-link-system-path="user/register"]::before, .tabs a[data-drupal-link-system-path="user/password"]::before,
-.menu a[data-drupal-link-system-path="user/password"]::before, .tabs a[data-drupal-link-system-path$="/edit"]::before,
+.menu a[data-drupal-link-system-path="user/password"]::before, [dir=rtl] .tabs a[data-drupal-link-system-path="user/password"]::before,
+[dir=rtl] .menu a[data-drupal-link-system-path="user/password"]::before, .tabs a[data-drupal-link-system-path$="/edit"]::before,
 .menu a[data-drupal-link-system-path$="/edit"]::before, .tabs a[data-drupal-link-system-path$="/delete"]::before,
 .menu a[data-drupal-link-system-path$="/delete"]::before, .tabs a[data-drupal-link-system-path$="/layout"]::before,
 .menu a[data-drupal-link-system-path$="/layout"]::before, .tabs a[data-drupal-link-system-path$="/revisions"]::before,
@@ -47,7 +48,7 @@ form[role=search] input[type=submit]::before, .flag-bookmark-node .flag--link::b
 .menu a[aria-current=page]::before, .pager__item--first a::before, .pager__item--previous a::before, .pager__item--next a::before, .pager__item--last a::before, .button-popover-trigger::before, .address-navigation a::before,
 a.address-navigation::before, .public-transport a::before,
 a.public-transport::before, .addtocal__google::before, .addtocal__outlook::before, .addtocal__ical::before, .pager:has([data-drupal-views-infinite-scroll-pager]) .button::before, .view-header .button::before,
-.button--add::before, .views-exposed-form input[name=reset]::before, .wheelchair::before,
+.button--add::before, .views-exposed-form input[name=reset]::before, [dir=rtl] .views-exposed-form input[name=reset]::before, .wheelchair::before,
 .paragraph--type--a11y-wheelchair > .label::before, .a11y--wheelchair .field__item::before, .a11y--wheelchair-toilet .field__item::before, .field--name-field-ticketing a::before, .scroll-to-top::before, .facets-widget-links summary::before, .facets-widget-links summary::after, .location::before, .field-email:not(.field-social)::before, .field-phone::before, .field-url::before, .field-legal-url::before, .messages--error::before, .messages--status::before, .messages--warning::before,
 .messages--status:has(a[href*="/development/maintenance"])::before, .messages--info::before,
 .infobox::before, .map-link::before, .eye-open::before, .eye-close::before, a.print::before,
@@ -145,7 +146,8 @@ form[role=search] input[type=submit]::before, .flag-bookmark-node .flag--link::b
 .menu a[data-drupal-link-system-path="user/login"]::before, .tabs a[data-drupal-link-system-path="user/logout"]::before,
 .menu a[data-drupal-link-system-path="user/logout"]::before, .tabs a[data-drupal-link-system-path="user/register"]::before,
 .menu a[data-drupal-link-system-path="user/register"]::before, .tabs a[data-drupal-link-system-path="user/password"]::before,
-.menu a[data-drupal-link-system-path="user/password"]::before, .tabs a[data-drupal-link-system-path$="/edit"]::before,
+.menu a[data-drupal-link-system-path="user/password"]::before, [dir=rtl] .tabs a[data-drupal-link-system-path="user/password"]::before,
+[dir=rtl] .menu a[data-drupal-link-system-path="user/password"]::before, .tabs a[data-drupal-link-system-path$="/edit"]::before,
 .menu a[data-drupal-link-system-path$="/edit"]::before, .tabs a[data-drupal-link-system-path$="/delete"]::before,
 .menu a[data-drupal-link-system-path$="/delete"]::before, .tabs a[data-drupal-link-system-path$="/layout"]::before,
 .menu a[data-drupal-link-system-path$="/layout"]::before, .tabs a[data-drupal-link-system-path$="/revisions"]::before,
@@ -161,7 +163,7 @@ form[role=search] input[type=submit]::before, .flag-bookmark-node .flag--link::b
 .menu a[aria-current=page]::before, .pager__item--first a::before, .pager__item--previous a::before, .pager__item--next a::before, .pager__item--last a::before, .button-popover-trigger::before, .address-navigation a::before,
 a.address-navigation::before, .public-transport a::before,
 a.public-transport::before, .addtocal__google::before, .addtocal__outlook::before, .addtocal__ical::before, .pager:has([data-drupal-views-infinite-scroll-pager]) .button::before, .view-header .button::before,
-.button--add::before, .views-exposed-form input[name=reset]::before, .wheelchair::before,
+.button--add::before, .views-exposed-form input[name=reset]::before, [dir=rtl] .views-exposed-form input[name=reset]::before, .wheelchair::before,
 .paragraph--type--a11y-wheelchair > .label::before, .a11y--wheelchair .field__item::before, .a11y--wheelchair-toilet .field__item::before, .field--name-field-ticketing a::before, .scroll-to-top::before, .facets-widget-links summary::before, .location::before, .field-email:not(.field-social)::before, .field-phone::before, .field-url::before, .field-legal-url::before, .messages--error::before, .messages--status::before, .messages--warning::before,
 .messages--status:has(a[href*="/development/maintenance"])::before, .messages--info::before,
 .infobox::before, .map-link::before, .eye-open::before, .eye-close::before, a.print::before,
@@ -369,6 +371,8 @@ body {
   --oc-aspect-ratio-landscape: 16/9;
   --oc-aspect-ratio-portrait: 9/16;
   --oc-aspect-ratio-landscape-deriv: 16/8.9;
+  --oc-aspect-ratio-mood: 2/1;
+  --oc-hero-4-min-height: 50%;
   --oc-logo-min-width: 8rem;
   --oc-logo-max-width: 10rem;
 }
@@ -417,15 +421,14 @@ body.toolbar-horizontal {
 }
 
 @media screen {
-  .views-row article:not(.term-teaser) .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), article.teaser-big .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), .oc_hero_layout_4 .section--mood div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block),
+  .views-row article:not(.term-teaser) .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), article.teaser-big .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block),
   .views-row article:not(.term-teaser) .teaser--top figure,
   .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top figure,
-  article.teaser-big .teaser--top figure,
-  .oc_hero_layout_4 .section--mood figure {
+  article.teaser-big .teaser--top figure {
     inline-size: 100%;
     block-size: 100%;
   }
-  .views-row article:not(.term-teaser) .teaser--top img, .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top img, article.teaser-big .teaser--top img, .oc_hero_layout_4 .section--mood img {
+  .views-row article:not(.term-teaser) .teaser--top img, .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top img, article.teaser-big .teaser--top img {
     object-fit: cover;
     inline-size: 100%;
     block-size: 100%;
@@ -2107,6 +2110,7 @@ td.is-active {
 .popover-content li button {
   display: block;
   margin: 0;
+  text-align: start;
   text-align: left;
   letter-spacing: normal;
   text-transform: none;
@@ -2439,7 +2443,7 @@ textarea:focus-visible {
 }
 
 *::placeholder {
-  text-align: left;
+  text-align: start;
   color: var(--oc-input-placeholder-color);
   font-family: var(--oc-font-family-default);
 }
@@ -3241,9 +3245,17 @@ form[role=search] input[type=submit]::before {
 .menu a[data-drupal-link-system-path="user/login"]::before {
   --icon-url: url("../sprite/oc-sprite.svg#sign-in-light");
 }
+[dir=rtl] .tabs a[data-drupal-link-system-path="user/login"],
+[dir=rtl] .menu a[data-drupal-link-system-path="user/login"] {
+  transform: rotate(180deg);
+}
 .tabs a[data-drupal-link-system-path="user/logout"]::before,
 .menu a[data-drupal-link-system-path="user/logout"]::before {
   --icon-url: url("../sprite/oc-sprite.svg#sign-out-light");
+}
+[dir=rtl] .tabs a[data-drupal-link-system-path="user/logout"],
+[dir=rtl] .menu a[data-drupal-link-system-path="user/logout"] {
+  transform: rotate(180deg);
 }
 .tabs a[data-drupal-link-system-path="user/register"]::before,
 .menu a[data-drupal-link-system-path="user/register"]::before {
@@ -3252,6 +3264,10 @@ form[role=search] input[type=submit]::before {
 .tabs a[data-drupal-link-system-path="user/password"]::before,
 .menu a[data-drupal-link-system-path="user/password"]::before {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-arc-left-light");
+}
+[dir=rtl] .tabs a[data-drupal-link-system-path="user/password"]::before,
+[dir=rtl] .menu a[data-drupal-link-system-path="user/password"]::before {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-arc-right-light");
 }
 .tabs a[data-drupal-link-system-path$="/edit"]::before,
 .menu a[data-drupal-link-system-path$="/edit"]::before {
@@ -3358,6 +3374,9 @@ a.public-transport::before {
 
 .views-exposed-form input[name=reset]::before {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-counter-clockwise-light");
+}
+[dir=rtl] .views-exposed-form input[name=reset]::before {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-clockwise-light");
 }
 
 .wheelchair::before,
@@ -3922,6 +3941,9 @@ footer.footer {
 .section--mood img {
   max-inline-size: unset;
   inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: var(--oc-aspect-ratio-mood);
+  object-fit: cover;
 }
 
 .wrapper--content-header,
@@ -4200,6 +4222,24 @@ footer.footer {
 .oc_hero_layout_4 .wrapper--content-header:not(:has(.block-field-mood-image)) .section--essentials {
   grid-column: 1/-2;
 }
+.oc_hero_layout_4 .section--mood:has(.block-field-mood-image) {
+  max-inline-size: 100%;
+}
+.oc_hero_layout_4 .section--mood:has(.block-field-mood-image)::before {
+  display: block;
+  padding-block-start: var(--oc-hero-4-min-height);
+  content: "";
+}
+.oc_hero_layout_4 .section--mood:has(.block-field-mood-image) div:not(.attribution-toggle, .contextual) {
+  position: absolute;
+  inset: 0;
+}
+.oc_hero_layout_4 .section--mood:has(.block-field-mood-image) img {
+  display: block;
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+}
 @media screen and (min-width: 70em) {
   .oc_hero_layout_4 .section--title .page-title-wrapper {
     flex-flow: column;
@@ -4355,6 +4395,11 @@ footer.oc-base-section {
 h2.block--title,
 .intro-inline:has(h2) {
   margin-block-start: calc(0.5 * var(--oc-section-spacing));
+}
+
+.section--last h2.block--title {
+  font-size: var(--oc-font-size-ml);
+  padding-block: calc(var(--oc-font-size-xl) * 0.25 + var(--oc-font-size-xl) - var(--oc-font-size-ml));
 }
 
 .main__content {
@@ -6066,6 +6111,13 @@ button.slider-nav:focus::after, button.slider-nav:hover::after {
   mask-size: 75%;
 }
 
+[dir=rtl] .slider-nav::after {
+  transform: rotate(180deg);
+}
+[dir=rtl] .slider-nav.slider-nav-next::after {
+  transform: rotate(0deg);
+}
+
 .slider-indicators-dark .slider-indicators > * {
   filter: invert(0);
   background-color: var(--oc-button-text-color);
@@ -6843,6 +6895,11 @@ a.flag--link {
   flex-basis: max-content;
 }
 
+.section--essentials .block-layout-builder:has(.flag),
+.section--essentials .block-layout-builder:has(.share-buttons) {
+  align-self: flex-end;
+}
+
 .block-layout-builder:has(.flag.flag-bookmark-node), .block-layout-builder:has(.flag.flag-bookmark-term) {
   position: absolute;
   inline-size: auto;
@@ -6880,7 +6937,8 @@ a.flag--link {
 }
 
 .media figcaption:has(.field),
-.paragraph--type--media .field--name-field-caption {
+.paragraph--type--media .field--name-field-caption,
+.text-formatted .media + figcaption {
   display: inline-block;
   border-width: var(--oc-caption-border-width);
   border-style: var(--oc-caption-border-style);
@@ -6889,6 +6947,10 @@ a.flag--link {
   background: var(--oc-bg-caption);
   padding-block: var(--oc-row-gap);
   padding-inline: var(--oc-gutter);
+}
+
+.text-formatted .media + figcaption {
+  inline-size: 100%;
 }
 
 .media figcaption .field {
@@ -6937,6 +6999,34 @@ a.flag--link {
     text-align: start;
     padding-inline: 3rem 0;
   }
+}
+
+.sponsors .media,
+#supporters .media {
+  display: grid;
+  block-size: 100%;
+  inline-size: 100%;
+  place-items: center;
+}
+.sponsors .media img,
+#supporters .media img {
+  min-block-size: 4rem;
+  max-block-size: 6rem;
+  inline-size: auto;
+  max-inline-size: 10rem;
+}
+.sponsors .media img[src*=".svg"],
+.sponsors .media svg,
+#supporters .media img[src*=".svg"],
+#supporters .media svg {
+  min-block-size: 5rem;
+  block-size: 100%;
+  inline-size: auto;
+}
+
+.media > a:focus,
+.media > a:hover {
+  background-color: transparent;
 }
 
 .media--view-mode-download {
@@ -7277,6 +7367,9 @@ article.teaser,
   border-radius: var(--oc-card-radius-calculated) var(--oc-card-radius-calculated) 0 0;
   margin-block: var(--oc-card-image-padding-block) 0;
   margin-inline: var(--oc-card-image-padding-inline);
+}
+.teaser--top img {
+  display: block;
 }
 
 .teaser--top.no-image {

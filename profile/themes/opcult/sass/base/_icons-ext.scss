@@ -6,6 +6,8 @@
 // - block/block--dark-mode-toggle
 // - navigation/toggles
 // - media/media-download
+// ---
+// @todo add rtl variants for all "left"/"right" arrow types
 // ---------------------------------------
 
 @use "../abstracts/mixins" as *;
@@ -120,15 +122,24 @@ form[role="search"] input[type="submit"] {
   }
   a[data-drupal-link-system-path="user/login"] {
     @include icon(sign-in);
+    [dir="rtl"] & {
+      transform: rotate(180deg);
+    }
   }
   a[data-drupal-link-system-path="user/logout"] {
     @include icon(sign-out);
+    [dir="rtl"] & {
+      transform: rotate(180deg);
+    }
   }
   a[data-drupal-link-system-path="user/register"] {
     @include icon(user-plus);
   }
   a[data-drupal-link-system-path="user/password"] {
     @include icon(arrow-arc-left);
+    [dir="rtl"] & {
+      @include icon(arrow-arc-right);
+    }
   }
   a[data-drupal-link-system-path$="/edit"] {
     @include icon(pencil);
@@ -247,6 +258,9 @@ a.public-transport {
 // }
 .views-exposed-form input[name="reset"] {
   @include icon(arrow-counter-clockwise);
+  [dir="rtl"] & {
+    @include icon(arrow-clockwise);
+  }
 }
 
 // ---
