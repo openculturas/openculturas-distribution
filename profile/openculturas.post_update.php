@@ -687,8 +687,16 @@ function openculturas_post_update_search_index_displays_show_reference_fields():
  * "content" is rendered as hidden regardless of whether it is listed under
  * "hidden" (see EntityDisplayBase::getComponent()), so existing sites hide
  * the new field automatically without any config change.
+ *
+ * Also switches "field_address_location" and "field_location_precision" to
+ * field_permissions' custom permission type and grants the resulting
+ * permissions, so non-admin roles keep seeing/editing these fields the way
+ * they could before the field-level permissions were introduced.
  */
 function openculturas_post_update_address_data_location_precision(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
   $output = _openculturas_post_update_import_or_revert_config([
     'field.storage.paragraph.field_location_precision',
     'field.field.paragraph.address_data.field_location_precision',
@@ -699,10 +707,29 @@ function openculturas_post_update_address_data_location_precision(): string {
     'field.field.paragraph.address_data.field_location_precision' => '895bfdfd-ec1c-4c4d-b5ab-3dd2e3893bfb',
   ]);
 
-  return $output . _openculturas_post_update_import_or_revert_config([
+  $output .= _openculturas_post_update_import_or_revert_config([
     'core.entity_form_display.paragraph.address_data.default',
     'field.field.paragraph.address_data.field_address_location',
+    'field.storage.paragraph.field_address_location',
   ], TRUE);
+
+  user_role_grant_permissions('anonymous', [
+    'view field_address_location',
+    'view field_location_precision',
+  ]);
+  user_role_grant_permissions('authenticated', [
+    'view field_address_location',
+    'view field_location_precision',
+  ]);
+  user_role_grant_permissions('oc_admin', [
+    'create field_address_location',
+    'create field_location_precision',
+    'edit field_address_location',
+    'edit field_location_precision',
+  ]);
+  $logger->info('Granted field_address_location and field_location_precision permissions to the anonymous, authenticated and oc_admin roles.');
+
+  return $output . $logger->output();
 }
 
 /**
