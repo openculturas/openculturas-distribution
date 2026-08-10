@@ -33,15 +33,29 @@ figcaption .attribution {
   background-color: var(--oc-color-info);
   background-clip: padding-box;
 
-  // &::before {
-  //  background-color: var(--oc-color-text-inverted);
-  // }
+  &::before {
+    --oc-font-size-icon: var(--oc-font-size-icon-m);
+
+    font-size: var(--oc-font-size-icon);
+    block-size: 100%;
+    inline-size: 100%;
+  }
 
   &:focus,
   &:hover {
     &::before {
       background-color: var(--oc-color-text-inverted);
     }
+  }
+}
+
+.attribution-toggle:has(div[class*="attribution--license-cc"]),
+.attribution-toggle:has(div[class*="attribution--creation-ai"]) {
+  .attribution-popover-trigger::before {
+    transform: translateY(0);
+    font-size: var(--oc-font-size-icon);
+    block-size: 100%;
+    inline-size: 100%;
   }
 }
 

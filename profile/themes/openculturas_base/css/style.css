@@ -8518,8 +8518,8 @@ readers do not read off random characters that represent icons */
  * Copyright 2024 Fonticons, Inc.
  */
 :root, :host {
-  --fa-style-family-classic: 'Font Awesome 6 Free';
-  --fa-font-solid: normal 900 1em/1 'Font Awesome 6 Free';
+  --fa-style-family-classic: "Font Awesome 6 Free";
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Free";
 }
 
 @font-face {
@@ -8541,8 +8541,8 @@ readers do not read off random characters that represent icons */
  * Copyright 2024 Fonticons, Inc.
  */
 :root, :host {
-  --fa-style-family-brands: 'Font Awesome 6 Brands';
-  --fa-font-brands: normal 400 1em/1 'Font Awesome 6 Brands';
+  --fa-style-family-brands: "Font Awesome 6 Brands";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 6 Brands";
 }
 
 @font-face {
@@ -14148,6 +14148,92 @@ header .contextual {
   }
 }
 
+.attribution--divider::after {
+  margin: 0 0.25em;
+  content: "|";
+  opacity: 0.75;
+}
+
+.attribution img.attribution--license-icon,
+.attribution img.attribution--creation-icon {
+  display: inline-block;
+  inline-size: auto;
+  block-size: 1.25em;
+  vertical-align: middle;
+}
+
+.attribution details,
+.oc--attribution--layer details {
+  inline-size: auto;
+  margin-block: 0.5em;
+  padding-block: 0;
+  border-block-width: 0;
+  font-size: var(--font-size-s);
+}
+.attribution details .details-wrapper,
+.oc--attribution--layer details .details-wrapper {
+  padding-block: 0;
+}
+.attribution details[open] .details-wrapper,
+.oc--attribution--layer details[open] .details-wrapper {
+  padding-block: 0.5em;
+}
+.attribution summary,
+.oc--attribution--layer summary {
+  display: inline-flex;
+  margin-block: 0;
+  padding-block: 0;
+  border-block-end: 0.0625rem solid var(--color-info);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: var(--button-border-radius);
+}
+.attribution summary .details-title,
+.oc--attribution--layer summary .details-title {
+  padding-inline-end: 0.5em;
+  font-family: var(--font-base);
+  font-size: var(--font-size-s);
+}
+.attribution summary .summary, .attribution summary::before,
+.oc--attribution--layer summary .summary,
+.oc--attribution--layer summary::before {
+  padding-block: 0.125em;
+  font-size: var(--font-size-s);
+  margin-top: 0;
+}
+.attribution summary:focus, .attribution summary:hover, .attribution summary:focus::before, .attribution summary:hover::before,
+.oc--attribution--layer summary:focus,
+.oc--attribution--layer summary:hover,
+.oc--attribution--layer summary:focus::before,
+.oc--attribution--layer summary:hover::before {
+  background-color: var(--color-interaction);
+  color: var(--color-text-inverted);
+}
+.attribution summary:focus::before, .attribution summary:hover::before,
+.oc--attribution--layer summary:focus::before,
+.oc--attribution--layer summary:hover::before {
+  background-color: transparent;
+  outline-width: 0;
+}
+.attribution:has(details) .attribution--stop,
+.oc--attribution--layer:has(details) .attribution--stop {
+  display: none;
+}
+
+.attribution--toggle-label {
+  display: inline-flex;
+  min-width: max-content;
+}
+
+.block-openculturas-custom-hero-image dialog {
+  text-align: left;
+}
+
+details.attribution,
+details.attribution summary {
+  border-width: 0;
+}
+
 .field--name-field-badges {
   font-weight: bold;
 }
@@ -16761,6 +16847,7 @@ body.gin--vertical-toolbar.offcanvas-open .header__offcanvas-menu--grid {
     width: 100vw;
     height: 50vw;
     background-color: var(--color-bg-page-layout);
+    -webkit-backdrop-filter: blur(7px);
     backdrop-filter: blur(7px);
   }
 }

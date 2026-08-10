@@ -1,0 +1,94 @@
+// Handling mainly new content provided by new default formatter
+// Related: field--attribution--view-mode-header.scss
+
+.attribution--divider::after {
+  margin: 0 0.25em;
+  content: "|";
+  opacity: 0.75;
+}
+
+.attribution img.attribution--license-icon,
+.attribution img.attribution--creation-icon {
+  display: inline-block;
+  inline-size: auto;
+  block-size: 1.25em;
+  vertical-align: middle;
+}
+
+// at least the ai prompt always appears as details
+
+.attribution,
+.oc--attribution--layer {
+  details {
+    inline-size: auto;
+    margin-block: .5em;
+    padding-block: 0;
+    border-block-width: 0;
+    font-size: var(--font-size-s);
+
+    .details-wrapper {
+      padding-block: 0;
+    }
+
+    &[open] .details-wrapper {
+      padding-block: .5em;
+    }
+  }
+
+  summary  {
+    display: inline-flex;
+    margin-block: 0;
+    padding-block: 0;
+    border-block-end: .0625rem solid var(--color-info);
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: var(--button-border-radius);
+
+    .details-title {
+      padding-inline-end: .5em;
+      font-family: var(--font-base);
+      font-size: var(--font-size-s);
+    }
+
+    .summary,
+    &::before {
+      padding-block: .125em;
+      font-size: var(--font-size-s);
+      margin-top: 0;
+    }
+
+    &:focus,
+    &:hover,
+    &:focus::before,
+    &:hover::before {
+      background-color: var(--color-interaction);
+      color: var(--color-text-inverted);
+    }
+
+    &:focus::before,
+    &:hover::before {
+      background-color: transparent;
+      outline-width: 0;
+    }
+  }
+
+  &:has(details) .attribution--stop {
+    display: none;
+  }
+}
+
+// in case (by any means) someone selects the field-label-as-toggle option
+// combined with header image attribution toggle
+.attribution--toggle-label {
+  display: inline-flex;
+  min-width: max-content;
+}
+
+.block-openculturas-custom-hero-image dialog {
+  text-align: left;
+}
+
+details.attribution,
+details.attribution summary {
+  border-width: 0;
+}

@@ -1,0 +1,79 @@
+// ---------------------------------------
+// Attribution formatter overrides
+// ---
+// Related: _details.scss, _icons-ext.scss
+// ---------------------------------------
+
+@use "../../../sass/abstracts" as *;
+
+.attribution--divider::after {
+  margin: 0 0.25em;
+  content: "|";
+  opacity: 0.75;
+}
+
+// In case the icons options are chosen
+
+.attribution img,
+.section--hero .attribution img {
+  object-fit: unset;
+  inline-size: unset;
+  block-size: unset;
+}
+
+.attribution img.attribution--license-icon,
+.attribution img.attribution--creation-icon {
+  display: inline-block;
+  inline-size: auto;
+  block-size: 1.25em;
+  vertical-align: middle;
+}
+
+// at least the ai prompt always appears as details
+
+.attribution,
+.oc--attribution--layer {
+  details {
+    inline-size: auto;
+    margin-block: 0.5em;
+    padding-block: 0;
+    border-block-width: 0;
+    font-size: var(--oc-font-size-s);
+
+    .details-wrapper {
+      padding-block: 0;
+    }
+
+    &[open] .details-wrapper {
+      padding-block: 0.5em;
+    }
+  }
+
+  summary {
+    display: inline-flex;
+    cursor: pointer;
+    border-block-end: 0.0625rem solid var(--oc-color-info);
+    margin-block: 0;
+    padding-block: 0;
+
+    .details-title {
+      font-family: var(--oc-font-family-default);
+      font-size: var(--oc-font-size-s);
+    }
+
+    .summary {
+      padding-block: 0.333em;
+      font-size: var(--oc-font-size-s);
+    }
+  }
+
+  &:has(details) .attribution--stop {
+    display: none;
+  }
+}
+
+// in case (by any means) someone selects the field-label-as-toggle option
+.attribution--toggle-label {
+  display: inline-flex;
+  min-width: max-content;
+}

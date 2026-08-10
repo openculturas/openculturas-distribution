@@ -88,7 +88,7 @@ a.x::before,
 .fa-tumblr::before, a.reddit::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
-.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .more-link a::after,
+.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .more-link a::after,
 a.more-link::after, .text-formatted a[href^=http]::after,
 .text-formatted a.external::after,
 .teaser--title a[href^=http]::after,
@@ -203,7 +203,7 @@ a.x::before,
 .fa-tumblr::before, a.reddit::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
-.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .anchorlinks::before, input[type=radio]::before, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, .button--edit a::before, button.close::before,
+.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .anchorlinks::before, input[type=radio]::before, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, .button--edit a::before, button.close::before,
 a.button.close::before,
 a.leaflet-popup-close-button::before,
 .cookiesjsr-layer--close::before, .icon.monitor::before, .icon.tv::before, .icon.map-pin::before, .icon.location-dot::before, .icon.list::before, .icon.table-list::before, .icon.squares-four::before, .icon.table-cells-large::before, .icon.archive::before, .icon.box-archive::before, .menu--call-to-action a[data-drupal-link-system-path]::before, .menu--call-to-action a[href*="node/add/location"]::before,
@@ -421,7 +421,7 @@ body.toolbar-horizontal {
 }
 
 @media screen {
-  .views-row article:not(.term-teaser) .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), article.teaser-big .teaser--top div:not(.attribution-toggle, .contextual, .popover-content, .layout-builder__add-block),
+  .views-row article:not(.term-teaser) .teaser--top div:not(.attribution, .attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top div:not(.attribution, .attribution-toggle, .contextual, .popover-content, .layout-builder__add-block), article.teaser-big .teaser--top div:not(.attribution, .attribution-toggle, .contextual, .popover-content, .layout-builder__add-block),
   .views-row article:not(.term-teaser) .teaser--top figure,
   .paragraph--view-mode--grid .field--type-entity-reference-revisions > .field__items > .field__item .teaser--top figure,
   article.teaser-big .teaser--top figure {
@@ -3637,6 +3637,14 @@ a.spotify::before,
   --icon-url: url("../sprite/oc-sprite.svg#file-xml-light");
 }
 
+.attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before {
+  --icon-url: url("../sprite/oc-sprite.svg#cc-fill");
+}
+
+.attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before {
+  --icon-url: url("../sprite/oc-sprite.svg#ai-fill");
+}
+
 footer.footer {
   position: relative;
 }
@@ -5245,6 +5253,71 @@ h2.page-subtitle {
   --icon-url: url("../sprite/oc-sprite.svg#calendar-check-light");
 }
 
+.attribution--divider::after {
+  margin: 0 0.25em;
+  content: "|";
+  opacity: 0.75;
+}
+
+.attribution img,
+.section--hero .attribution img {
+  object-fit: unset;
+  inline-size: unset;
+  block-size: unset;
+}
+
+.attribution img.attribution--license-icon,
+.attribution img.attribution--creation-icon {
+  display: inline-block;
+  inline-size: auto;
+  block-size: 1.25em;
+  vertical-align: middle;
+}
+
+.attribution details,
+.oc--attribution--layer details {
+  inline-size: auto;
+  margin-block: 0.5em;
+  padding-block: 0;
+  border-block-width: 0;
+  font-size: var(--oc-font-size-s);
+}
+.attribution details .details-wrapper,
+.oc--attribution--layer details .details-wrapper {
+  padding-block: 0;
+}
+.attribution details[open] .details-wrapper,
+.oc--attribution--layer details[open] .details-wrapper {
+  padding-block: 0.5em;
+}
+.attribution summary,
+.oc--attribution--layer summary {
+  display: inline-flex;
+  cursor: pointer;
+  border-block-end: 0.0625rem solid var(--oc-color-info);
+  margin-block: 0;
+  padding-block: 0;
+}
+.attribution summary .details-title,
+.oc--attribution--layer summary .details-title {
+  font-family: var(--oc-font-family-default);
+  font-size: var(--oc-font-size-s);
+}
+.attribution summary .summary,
+.oc--attribution--layer summary .summary {
+  padding-block: 0.333em;
+  font-size: var(--oc-font-size-s);
+}
+.attribution:has(details) .attribution--stop,
+.oc--attribution--layer:has(details) .attribution--stop {
+  display: none;
+}
+
+.attribution--toggle-label {
+  display: inline-flex;
+  min-width: max-content;
+}
+
 .block-block-groupfacets-group {
   display: grid;
   grid-auto-flow: row;
@@ -6693,8 +6766,22 @@ figcaption .attribution {
   background-color: var(--oc-color-info);
   background-clip: padding-box;
 }
+.attribution-popover-trigger::before {
+  --oc-font-size-icon: var(--oc-font-size-icon-m);
+  font-size: var(--oc-font-size-icon);
+  block-size: 100%;
+  inline-size: 100%;
+}
 .attribution-popover-trigger:focus::before, .attribution-popover-trigger:hover::before {
   background-color: var(--oc-color-text-inverted);
+}
+
+.attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before,
+.attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before {
+  transform: translateY(0);
+  font-size: var(--oc-font-size-icon);
+  block-size: 100%;
+  inline-size: 100%;
 }
 
 .attribution-toggle--popover-content {
