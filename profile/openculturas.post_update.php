@@ -942,3 +942,40 @@ function openculturas_post_update_media_audio_gallery_thumbnail(): string {
 
   return $logger->output();
 }
+
+/**
+ * Event status in view "related_dates_archive" in displays "related_date_event" and "related_date_location".
+ */
+function openculturas_post_update_related_dates_archive_event_status(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $view_id = 'related_dates_archive';
+  $texts = [
+    'related_date_event' => "<div class=\"teaser--top\">\r\n</div>\r\n<div class=\"teaser--body\">\r\n  <h3 class=\"teaser\">\r\n    <div class=\"field--name-field-event-status\"><span class=\"field__item\">{{ field_event_status_1 }}</span></div>\r\n    <div class=\"teaser--date\">{{ field_date }}</div>\r\n    <div class=\"teaser--title\">{{ field_premiere_1 }}{{ delta }}</div>\r\n  </h3>\r\n  {{ nothing }}\r\n</div>",
+    'related_date_location' => "<div class=\"teaser--top\">\r\n  <div class=\"field--name-field-mood-image\">\r\n    {{ field_mood_image }}\r\n  </div>\r\n</div>\r\n<div class=\"teaser--body\">\r\n  <h3 class=\"teaser\">\r\n    <div class=\"field--name-field-event-status\"><span class=\"field__item\">{{ field_event_status_1 }}</span></div>\r\n    <div class=\"teaser--date\">{{ field_date }}</div>\r\n    <div class=\"field--name-field-sub-type\">{{ field_sub_type }}</div>\r\n    <div class=\"teaser--title\">{{ field_premiere_1 }}{{ delta }}</div>\r\n  </h3>\r\n  <div class=\"subtitle\">{{ field_subtitle }}</div>\r\n  {{ nothing }}\r\n</div>",
+  ];
+
+  foreach ($texts as $display_id => $text) {
+    $view = Views::getView($view_id);
+    if ($view && $view->setDisplay($display_id)) {
+      $display = $view->getDisplay();
+      /** @var \Drupal\views\Plugin\views\field\FieldHandlerInterface|null $handler */
+      $handler = $display->getHandler('field', 'nothing_1');
+      if ($handler) {
+        $fields = $display->getOption('fields');
+        $field_nothing = &$fields['nothing_1'];
+        $field_nothing['alter']['text'] = $text;
+        $display->setOption('fields', $fields);
+        $view->save();
+      }
+      else {
+        $logger->notice(sprintf('SKIPPED. Field nothing_1 not found in view %s and display %s.', $view_id, $display_id));
+      }
+    }
+    else {
+      $logger->notice(sprintf('SKIPPED. View (%s) or display (%s) not found.', $view_id, $display_id));
+    }
+  }
+
+  return $logger->output();
+}
