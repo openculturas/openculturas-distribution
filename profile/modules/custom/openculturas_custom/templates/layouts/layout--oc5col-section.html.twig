@@ -33,7 +33,7 @@
         </div>
       {% endif %}
 
-      {% if content.third %}
+      {% if content.third|render|trim or in_preview|default(false) %}
         {% set class = 'section section--third section--essentials' %}
         <div {{ region_attributes.third.addClass(class) }}>
           {{ content.third }}
@@ -45,14 +45,14 @@
   {% if content.fourth or content.fifth %}
     <div class="wrapper--content-main">
 
-      {% if content.fourth %}
+      {% if content.fourth|render|trim or in_preview|default(false) %}
         {% set class = 'section section--fourth section--first section--content' %}
         <div {{ region_attributes.fourth.addClass(class) }}>
           {{ content.fourth }}
         </div>
       {% endif %}
 
-      {% if content.fifth %}
+      {% if content.fifth|render|trim or in_preview|default(false) %}
         {% set class = 'section section--fifth section--last section--aside' %}
         <div {{ region_attributes.fifth.addClass(class) }}>
           {{ content.fifth }}

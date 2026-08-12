@@ -16,7 +16,7 @@
 
 {% block section_content %}
 
-  {% if content.first %}
+  {% if content.first|render|trim or in_preview|default(false) %}
     <div {{ region_attributes.first.addClass('section section--first-last') }}>
       {{ content.first }}
     </div>

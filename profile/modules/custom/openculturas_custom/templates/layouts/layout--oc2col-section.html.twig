@@ -16,14 +16,14 @@
 
 {% block section_content %}
 
-  {% if content.first %}
+  {% if content.first|render|trim or in_preview|default(false) %}
     {% set class = 'section section--first' %}
     <div {{ region_attributes.first.addClass(class) }}>
       {{ content.first }}
     </div>
   {% endif %}
 
-  {% if content.second %}
+  {% if content.second|render|trim or in_preview|default(false) %}
     {% set class = 'section section--second section--last' %}
     <div {{ region_attributes.second.addClass(class) }}>
       {{ content.second }}
