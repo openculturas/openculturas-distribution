@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
@@ -21,7 +22,7 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
   ];
   $form['background_image']['background_image_mode'] = [
     '#type'          => 'radios',
-    '#default_value' => theme_get_setting('background_image.mode') ?? 'mood_image',
+    '#default_value' => \Drupal::service(ThemeSettingsProvider::class)->getSetting('background_image.mode') ?? 'mood_image',
     '#description' => t('An image can be appended behind the content to cover the viewport background.'),
     '#options' => [
       'no_image' => t('None'),
@@ -32,7 +33,7 @@ function openculturas_base_form_system_theme_settings_alter(array &$form, FormSt
   $form['background_image']['background_image_path'] = [
     '#type' => 'textfield',
     '#title' => t('Path to custom background image'),
-    '#default_value' => theme_get_setting('background_image.path'),
+    '#default_value' => \Drupal::service(ThemeSettingsProvider::class)->getSetting('background_image.path'),
     '#states' => [
       'visible' => [
         ':input[name="background_image_mode"]' => ['value' => 'global_image'],

@@ -182,9 +182,7 @@ final class SlimSelect extends FilterWidgetBase {
     /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository */
     $entityRepository = $this->container->get('entity.repository');
 
-    return array_map(static function (TermInterface $term) use ($entityRepository) {
-      return $entityRepository->getTranslationFromContext($term);
-    }, $terms);
+    return array_map(static fn(TermInterface $term) => $entityRepository->getTranslationFromContext($term), $terms);
   }
 
   protected function getTermStorage(): TermStorageInterface {

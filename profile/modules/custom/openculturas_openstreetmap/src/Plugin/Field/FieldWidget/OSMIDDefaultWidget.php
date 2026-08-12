@@ -324,7 +324,7 @@ final class OSMIDDefaultWidget extends WidgetBase {
           $field_user_input['office_hours'][0]['value'] = $field_value;
           NestedArray::setValue($user_input, $field_parents, $field_user_input);
         }
-        catch (\Exception $exception) {
+        catch (\Exception) {
         }
       }
 

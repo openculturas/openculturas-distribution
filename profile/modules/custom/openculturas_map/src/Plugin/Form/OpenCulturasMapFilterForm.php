@@ -32,19 +32,12 @@ class OpenCulturasMapFilterForm extends FormBase {
    */
   public string $viewDisplayId = 'rest_export';
 
-
-  /**
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-   */
-  protected ContainerInterface $container;
-
   /**
    * @var \Drupal\views\ViewExecutable
    */
   protected ViewExecutable $viewExecutable;
 
-  public function __construct(ContainerInterface $container) {
-    $this->container = $container;
+  public function __construct(protected ContainerInterface $container) {
   }
 
   /**

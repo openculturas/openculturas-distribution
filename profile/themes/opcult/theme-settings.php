@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
@@ -21,7 +22,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
   ];
   $form['background_image']['background_image_mode'] = [
     '#type'          => 'radios',
-    '#default_value' => theme_get_setting('background_image.mode') ?? 'mood_image',
+    '#default_value' => \Drupal::service(ThemeSettingsProvider::class)->getSetting('background_image.mode') ?? 'mood_image',
     '#description' => t('An image can be appended behind the content to cover the viewport background.'),
     '#options' => [
       'no_image' => t('None'),
@@ -32,7 +33,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
   $form['background_image']['background_image_path'] = [
     '#type' => 'textfield',
     '#title' => t('Path to custom background image'),
-    '#default_value' => theme_get_setting('background_image.path'),
+    '#default_value' => \Drupal::service(ThemeSettingsProvider::class)->getSetting('background_image.path'),
     '#states' => [
       'visible' => [
         ':input[name="background_image_mode"]' => ['value' => 'global_image'],
@@ -74,7 +75,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
   ];
   $form['hero_layout']['hero_layout'] = [
     '#type'          => 'radios',
-    '#default_value' => theme_get_setting('hero_layout') ?? 'oc_hero_layout_1',
+    '#default_value' => \Drupal::service(ThemeSettingsProvider::class)->getSetting('hero_layout') ?? 'oc_hero_layout_1',
     '#description' => t('Basic layout of main image and title block.'),
     '#options' => [
       'oc_hero_layout_1' => t('Image with title block inset'),
@@ -211,12 +212,8 @@ function opcult_form_system_theme_settings_form_submit(array &$form, FormStateIn
     $entityViewModeStorage = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
     $entityViewDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
     foreach ($values['layout_builder'] as $entityTypeId => $bundles) {
-      $bundles_with_full_lb = array_filter($bundles, static function (string $option): bool {
-        return $option === 'full_lb';
-      });
-      $bundles_with_full_restore = array_filter($bundles, static function (string $option): bool {
-        return $option === 'full_restore';
-      });
+      $bundles_with_full_lb = array_filter($bundles, static fn(string $option): bool => $option === 'full_lb');
+      $bundles_with_full_restore = array_filter($bundles, static fn(string $option): bool => $option === 'full_restore');
       if ($bundles_with_full_lb !== []) {
         $id = $entityTypeId . '.full_display';
         if (!$entityViewModeStorage->load($id)) {

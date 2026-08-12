@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use DrupalFinder\DrupalFinderComposerRuntime;
-use DrupalRector\Set\Drupal10SetList;
+use DrupalRector\Set\DrupalSetProvider;
 use Rector\Config\RectorConfig;
 
 $drupalFinder = new DrupalFinderComposerRuntime();
@@ -20,9 +20,9 @@ return RectorConfig::configure()
     instanceOf: true,
     earlyReturn: true
   )
-  ->withSets(
-    [Drupal10SetList::DRUPAL_10]
-  )
+  ->withComposerBased(twig: TRUE, phpunit: TRUE, symfony: TRUE, drupal: TRUE)
+  ->withPhpSets()
+  ->withSetProviders(DrupalSetProvider::class)
   ->withAutoloadPaths(
     [
       $drupalRoot . '/core',
@@ -45,6 +45,10 @@ return RectorConfig::configure()
   ->withPhpVersion(\Rector\ValueObject\PhpVersion::PHP_81)
   ->withSkip(
     [
+      // Drupal render arrays (e.g. '#submit', '#process') must stay
+      // serializable for the form cache; first-class callables become
+      // Closures, which serialize() rejects.
+      \Rector\Php81\Rector\Array_\ArrayToFirstClassCallableRector::class,
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
       \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class => [

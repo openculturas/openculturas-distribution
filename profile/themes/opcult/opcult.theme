@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
 /**
  * @file
  * Functions to support theming in the OpenCulturas Base theme.
  */
-
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Render\Markup;
 use Drupal\address\AddressInterface;
@@ -30,8 +30,8 @@ function opcult_preprocess_html(array &$variables): void {
     }
   }
 
-  $variables['custom_favicons'] = !theme_get_setting('favicon.use_default');
-  $hero_layout = theme_get_setting('hero_layout');
+  $variables['custom_favicons'] = !\Drupal::service(ThemeSettingsProvider::class)->getSetting('favicon.use_default');
+  $hero_layout = \Drupal::service(ThemeSettingsProvider::class)->getSetting('hero_layout');
   if ($hero_layout) {
     $variables['attributes']['class'][] = $hero_layout;
   }
@@ -43,7 +43,7 @@ function opcult_preprocess_html(array &$variables): void {
  * Provides header image to serve as layout background.
  */
 function opcult_preprocess_page(array &$variables): void {
-  $bg_image = theme_get_setting('background_image.mode') ?? 'mood_image';
+  $bg_image = \Drupal::service(ThemeSettingsProvider::class)->getSetting('background_image.mode') ?? 'mood_image';
   $mood_image_uri = NULL;
   if ($bg_image === 'mood_image') {
     // Check if the current page is a node or a taxonomy term page.
@@ -76,7 +76,7 @@ function opcult_preprocess_page(array &$variables): void {
     }
   }
   elseif ($bg_image === 'global_image') {
-    $mood_image_uri = theme_get_setting('background_image.path');
+    $mood_image_uri = \Drupal::service(ThemeSettingsProvider::class)->getSetting('background_image.path');
   }
 
   if (is_string($mood_image_uri)) {
