@@ -15,7 +15,9 @@ input[type="submit"] {
   @extend %button;
 
   .inverted & {
-    border-color: var(--oc-color-text-inverted);
+    --oc-button-bg-color: transparent;
+    --oc-button-border-color: var(--oc-color-link-footer);
+    --oc-button-text-color: var(--oc-color-link-footer);
   }
 }
 
@@ -67,3 +69,22 @@ button[type="submit"].button--danger {
 //  inset-block-end: .5rem;
 //  clip-path: polygon(0 0, 50% 100%, 100% 0);
 // }
+
+// ---
+// Button placed in menu (e.g. cookies settings)
+
+.menu-item {
+  button,
+  a.button,
+  a[role="button"] {
+    --oc-button-bg-color: transparent;
+    --oc-button-border-color: var(--oc-color-menu-link);
+    --oc-button-text-color: var(--oc-color-menu-link);
+
+    font-size: var(--oc-font-size-s);
+    margin-block: 0.25em;
+    margin-inline: 1em;
+    padding-block: 0.25em;
+    padding-inline: 1.5em;
+  }
+}

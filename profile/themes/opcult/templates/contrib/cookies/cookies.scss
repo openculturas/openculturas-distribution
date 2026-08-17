@@ -1,177 +1,145 @@
 // ---------------------------------------
 // COOKiES module (consent management)
 // Redefine module's variables
+// Override of custom cookies_popover module CSS
 // ---------------------------------------
 
 @use "../../../sass/abstracts" as *;
 
-body #cookiesjsr {
-  --default-margin: var(--oc-gutter);
-  --font-size-reset: 1rem;
-  --btn-font-color: var(--oc-button-text-color);
-  --btn-border-color: var(--oc-button-border-color);
-  --btn-bg-color: var(--oc-button-bg-color);
-  --btn-prime-font-color: var(--oc-button-primary-text-color);
-  --btn-prime-border-color: var(--oc-button-primary-border-color);
-  --btn-prime-bg-color: var(--oc-button-primary-bg-color);
-  --btn-inv-font-color: var(--oc-button-text-color);
-  --btn-inv-border-color: var(--oc-button-border-color);
-  --btn-inv-bg-color: var(--oc-button-bg-color);
-  --btn-prime-inv-font-color: var(--oc-button-primary-text-color);
-  --btn-prime-inv-border-color: var(--oc-button-primary-border-color);
-  --btn-prime-inv-bg-color: var(--oc-button-primary-bg-color);
-  --link-list-font-color: var(--oc-color-link-inverted);
-  --link-list-separator-color: var(--oc-color-text-inverted);
-  --banner-logo-offset: 100px;
-  --banner-bg-color: var(--oc-color-bg-dark);
-  --banner-font-color: var(--oc-color-text-inverted);
-  --layer-header-height: 3.5em;
-  --layer-header-bg-color: var(--oc-color-interaction);
-  --layer-header-font-color: var(--oc-color-text-inverted);
-  --layer-body-bg-color: var(--oc-color-bg-slight-contrast);
-  --layer-tab-bg-color: var(--oc-color-bg-slight-contrast);
-  --layer-tab-font-color: var(--oc-color-text);
-  --layer-tab-active-bg-color: var(--oc-color-bg-light);
-  --layer-tab-active-font-color: var(--oc-color-text);
-  --layer-bg-dark: var(--oc-color-bg-light);
-  --layer-font-light: var(--oc-color-text);
-  --layer-font-dark: var(--oc-color-text);
-  --layer-border-color: var(--oc-color-divider-dark);
-  --layer-footer-bg-color: var(--oc-color-bg-slight-contrast);
-  --layer-footer-font-color: var(--oc-color-text);
-  --layer-footer-height: 4.5em;
-  --switch-border-color: var(--oc-color-bg-slight-contrast);
-  --switch-handle-color: var(--oc-color-bg-light);
-  --switch-bg-off: var(--oc-color-bg-slight-contrast);
-  --switch-bg-on: var(--oc-color-success);
-  --switch-width: 2.75rem;
-  --switch-height: 1.25rem;
-  --switch-always-on-font-color: var(--oc-color-success);
-  --switch-always-on-bg-color: transparent;
+// ---
+// Custom properties
+
+#cookiesjsr {
+  --cjsr-popover-backdrop-background: var(--oc-color-backdrop);
+  --cjsr-popover-backdrop-filter: blur(3px);
+  --cjsr-font-size-s: var(--oc-font-size-s);
+  --cjsr-text-max-line: 80ch;
+  --cjsr-color-main: var(--oc-color-interaction);
+  --cjsr-color-base-light: var(--oc-color-bg-light);
+  --cjsr-color-base-muted: var(--oc-color-slight-contrast);
+  --cjsr-color-base-dark: var(--oc-text-color);
+  --cjsr-color-switch: var(--oc-color-success);
+  --cjsr-default-margin: var(--oc-gutter);
+
+  // --cjsr-btn-font-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-border-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-bg-color: var(--cjsr-color-main);
+  // --cjsr-btn-prime-font-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-prime-border-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-prime-bg-color: var(--cjsr-color-main);
+  // --cjsr-btn-inv-font-color: var(--cjsr-color-main);
+  // --cjsr-btn-inv-border-color: var(--cjsr-color-main);
+  // --cjsr-btn-inv-bg-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-prime-inv-font-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-prime-inv-border-color: var(--cjsr-color-base-light);
+  // --cjsr-btn-prime-inv-bg-color: var(--cjsr-color-main);
+  // --cjsr-link-list-font-color: var(--cjsr-color-main);
+  // --cjsr-link-list-separator-color: var(--cjsr-color-base-dark);
+  // --cjsr-banner-logo-offset: 100px;
+  // --cjsr-banner-bg-color: var(--cjsr-color-main);
+  // --cjsr-banner-font-color: var(--cjsr-color-base-light);
+  --cjsr-banner-box-shadow: var(--oc-box-shadow-up);
+
+  // --cjsr-layer-header-bg-color: var(--cjsr-color-main);
+  --cjsr-layer-header-font-color: var(--oc-color-text-inverted);
+
+  // --cjsr-layer-body-bg-color: var(--cjsr-color-base-muted);
+  // --cjsr-layer-tab-bg-color: var(--cjsr-color-base-muted);
+  --cjsr-layer-tab-font-color: var(--oc-color-text);
+
+  // --cjsr-layer-tab-active-bg-color: var(--cjsr-color-base-light);
+  --cjsr-layer-tab-active-font-color: var(--oc-color-text);
+
+  // --cjsr-layer-bg-dark: var(--cjsr-color-main);
+  // --cjsr-layer-font-light: var(--cjsr-color-base-light);
+  // --cjsr-layer-font-dark: var(--cjsr-color-base-dark)f37;
+  --cjsr-layer-border-color: var(--oc-color-divider-dark);
+
+  // --cjsr-layer-footer-bg-color: var(--cjsr-color-main);
+  --cjsr-layer-footer-font-color: var(--oc-color-text-inverted);
+
+  // --cjsr-switch-border-color: #d4d5d6;
+  // --cjsr-switch-handle-color: var(--cjsr-color-base-light);
+  --cjsr-switch-bg-off: var(--oc-color-bg-slight-contrast);
+
+  // --cjsr-switch-bg-on: var(--cjsr-color-switch);
+  // --cjsr-switch-width: 2.815em;
+  // --cjsr-switch-height: 1.25em;
+  // --cjsr-switch-always-on-font-color: var(--cjsr-color-switch);
+  // --cjsr-switch-always-on-bg-color: var(--cjsr-color-base-light);
 }
 
-// Handle difficult media query-based widths
+// Links + buttons
 
-.cookiesjsr-layer {
-  min-inline-size: 90vw;
-
-  @include breakpoint(l) {
-    min-inline-size: 70rem;
-    max-inline-size: 70rem;
-    inline-size: 100%;
-  }
-}
-
-// Links below text
-
-.cookiesjsr-service--links a {
-  font-size: var(--oc-font-size-s);
-}
-
-.cookiesjsr-banner--links {
-  font-size: var(--oc-font-size-default);
-}
-
-.cookiesjsr-links.links--row li a {
-  text-decoration: var(--oc-underline);
+.cookiesjsr-links--row a {
+  padding: 0.25em 1em;
+  text-decoration: underline;
+  color: var(--oc-color-link);
 
   &:focus,
   &:hover {
     color: var(--oc-color-text-inverted);
   }
+}
 
-  &:active {
-    color: var(--oc-color-text-inverted);
+.cookiesjsr--app {
+  button.cookiesjsr-btn {
+    @extend %button-small;
+
+    margin-inline: 1rem;
+    margin-block: 0.5rem;
   }
 }
 
-// Settings overlay
-// Icon see base/_icons-base.scss
-
-.cookiesjsr-layer {
-  .cookiesjsr-layer--close {
-    --oc-font-size-icon: var(--oc-font-size-icon-default);
-    @extend %icon-only;
-
-    &::before {
-      line-height: unset;
-    }
-  }
-
-  .cookiesjsr-service-group--tab {
-    // Add chevrons in mobile and add spacing
-    @include icon(caret-down);
-
-    // Override Button default
-    border-radius: 0;
-
-    &:active {
-      border: 0.0625rem dashed var(--oc-color-text-inverted);
-      outline: none;
-    }
-
-    // Pixel defined: @see libraries/cookiesjsr/styles/_vars.scss
-    @media screen and (max-width: 767px) {
-      background: var(--oc-color-bg-light);
-      line-height: 1.6;
-
-      &::before {
-        display: block;
-        float: inline-end;
-        transition: transform var(--oc-transition-duration) var(--oc-transition-timing-function);
-        font-size: var(--oc-font-size-icon-m);
-      }
-    }
-  }
-
-  // Add a little space in mobile
-
-  .cookiesjsr-service-group {
-    // Pixel defined: @see libraries/cookiesjsr/styles/_vars.scss
-    @media screen and (max-width: 767px) {
-      margin: 0 1.25rem 1.25rem;
-    }
-  }
-
-  .cookiesjsr-btn {
-    @extend %button;
-  }
-
-  // "Primary-button"
-  .cookiesjsr-btn.important.invert {
-    &:focus,
-    &:hover {
-      transform: unset;
-      color: var(--oc-button-focus-text-color);
-      border-color: var(--oc-button-focus-border-color);
-      background: var(--oc-button-focus-bg-color);
-    }
-    &:active {
-      color: var(--oc-button-active-text-color);
-      border-color: var(--oc-button-active-border-color);
-      background: var(--oc-button-active-bg-color);
-    }
-  }
-}
-
+// ---
 // Banner
 
 .cookiesjsr-banner {
-  &.active {
-    padding: var(--oc-gutter);
-  }
+  gap: var(--oc-row-gap) var(--oc-gutter);
+  padding: var(--oc-row-gap) calc(2 * var(--oc-gutter));
 
-  .cookiesjsr-banner--info {
-    padding-block-start: var(--oc-gutter);
-  }
-
-  .links--row {
-    padding-block-end: 0.25rem; // Keep some space for active-outline.
+  .gin--vertical-toolbar & {
+    inset-inline-start: var(--drupal-displace-offset-left);
   }
 }
 
-.cookiesjsr-layer--label-all {
-  font-size: var(--oc-font-size-xs);
+.cookiesjsr-banner .cookiesjsr-links--row a {
+  padding: 0.25em 1em;
+  text-decoration: underline;
+  color: var(--oc-color-text-inverted);
+}
+
+// ---
+// Settings layer
+
+.cookiesjsr-layer {
+  border: 0.125rem solid var(--cjsr-color-base-light);
+  background-color: var(--oc-color-bg-light);
+}
+
+.cookiesjsr-layer__body {
+  background-color: var(--oc-color-bg-slight-contrast);
+}
+
+.cookiesjsr-layer__title {
+  @extend %label;
+}
+
+// see base/icons_base.scss
+.cookiesjsr-layer .cookiesjsr-layer__close {
+  @extend %icon-button;
+
+  text-indent: unset;
+  color: var(--oc-color-interaction);
+  background-color: var(--oc-color-text-inverted);
+  background-image: unset;
+}
+
+// ---
+// Settings re-open button
+
+button.editCookieSettings {
+  @extend %button-small;
 }
 
 // In Video placeholder, when cookies off
@@ -182,11 +150,15 @@ body #cookiesjsr {
 
   .cookies-fallback--btn {
     @extend %button;
+    @extend %button-small;
 
-    padding: 0.5em 2em;
+    margin-block-end: 1.5rem;
     text-transform: unset;
-    min-block-size: unset; // "min-height"
+    min-block-size: unset;
   }
+
+  // @todo review
+  // keep for legacy reasons, becomes obsolete with button transform
   .cookies-fallback--link {
     @extend %button;
 
@@ -220,4 +192,6 @@ body #cookiesjsr {
 
 .cookies-fallback--text {
   padding-block-end: 1rem;
+  color: var(--oc-color-text);
+  font-size: var(--oc-font-size-s);
 }

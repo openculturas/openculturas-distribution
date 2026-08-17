@@ -10,6 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Entity\EntityViewModeInterface;
 use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\NodeInterface;
+use Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomCookiesLegalPagesSubscriber;
 use Drupal\user\RoleInterface;
 
 /**
@@ -111,6 +112,21 @@ function openculturas_install_content(): void {
   }
 
   $config->save();
+
+  /** @var \Drupal\node\NodeInterface|null $node */
+  $node = $entityRepository->loadEntityByUuid('node', 'af738793-80dc-4b37-8790-878b4df30e5a');
+  // File: profile/modules/custom/openculturas_content/content/node/af738793-80dc-4b37-8790-878b4df30e5a.yml.
+  $privacyPath = $node instanceof NodeInterface ? '/node/' . $node->id() : NULL;
+
+  /** @var \Drupal\node\NodeInterface|null $node */
+  $node = $entityRepository->loadEntityByUuid('node', '64bfc6ca-f9e6-4a54-884c-ee1c763269e0');
+  // File: profile/modules/custom/openculturas_content/content/node/64bfc6ca-f9e6-4a54-884c-ee1c763269e0.yml.
+  $imprintPath = $node instanceof NodeInterface ? '/node/' . $node->id() : NULL;
+
+  $legalPaths = array_filter([$privacyPath, $imprintPath]);
+  if ($legalPaths !== []) {
+    OpenculturasCustomCookiesLegalPagesSubscriber::addPathsToCookiesUiBlocks(\Drupal::entityTypeManager(), $legalPaths);
+  }
 
   if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png')) {
     $config = $configFactory->getEditable('gin.settings');
@@ -245,5 +261,85 @@ function openculturas_update_10127(): void {
         $display->save();
       }
     }
+  }
+}
+
+/**
+ * Enable the cookies_popover module and update the cookies module config.
+ *
+ * Also installs Menu Link Attributes and grants oc_admin its "use"
+ * permission, so editors can set a menu link's Link to the `<button>`
+ * route and add the `editCookieSettings` class, turning it into a real
+ * button that reopens the cookiesjsr settings layer. Also grants oc_admin
+ * permission to configure the COOKiES widget texts, i.e. the privacy
+ * policy and imprint links.
+ */
+function openculturas_update_10128(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('cookies_popover')) {
+    $module_installer->install(['cookies_popover']);
+  }
+
+  if (!\Drupal::moduleHandler()->moduleExists('menu_link_attributes')) {
+    $module_installer->install(['menu_link_attributes']);
+  }
+
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('cookies.config');
+  if (!$config->isNew()) {
+    $config->set('deny_all_on_layer_close', FALSE);
+    $config->set('use_default_styles', FALSE);
+    $config->save();
+  }
+
+  user_role_grant_permissions('oc_admin', [
+    'use menu link attributes',
+    'configure cookies widget texts',
+    'administer cookies services and service groups',
+  ]);
+}
+
+/**
+ * Applies the customized cookies.texts wording to existing sites.
+ *
+ * Skips any value a site has already changed away from the module default.
+ */
+function openculturas_update_10129(): void {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('cookies.texts');
+  if ($config->isNew()) {
+    return;
+  }
+
+  $replacements = [
+    'bannerText' => [
+      'old' => 'We use a selection of our own and third-party cookies on the pages of this website: Essential cookies, which are required in order to use the website; functional cookies, which provide better easy of use when using the website; performance cookies, which we use to generate aggregated data on website use and statistics; and marketing cookies, which are used to display relevant content and advertising. If you choose "ACCEPT ALL", you consent to the use of all cookies. You can accept and reject individual cookie types and  revoke your consent for the future at any time under "Settings".',
+      'new' => 'We are avoiding third-party cookies wherever possible. For now you may opt in to watch videos. If you choose „Accept all” you consent to the use of all given cookies. You can accept and reject individual cookie types and revoke your consent for the future at any time under <em>Settings</em>.',
+    ],
+    'allowed' => [
+      'old' => 'Allowed',
+      'new' => 'allowed',
+    ],
+    'denied' => [
+      'old' => 'Denied',
+      'new' => 'denied',
+    ],
+    'placeholderAcceptAllText' => [
+      'old' => 'Accept All Cookies',
+      'new' => 'Accept all cookies',
+    ],
+  ];
+
+  $changed = FALSE;
+  foreach ($replacements as $key => $value) {
+    if ($config->get($key) === $value['old']) {
+      $config->set($key, $value['new']);
+      $changed = TRUE;
+    }
+  }
+
+  if ($changed) {
+    $config->save();
   }
 }

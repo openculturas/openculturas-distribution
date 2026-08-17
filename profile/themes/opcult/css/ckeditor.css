@@ -152,6 +152,7 @@
     --oc-color-neutral-canvas: #303236;
     --oc-color-bg-page: color-mix(in oklab, var(--oc-color-bg-light) 93%, var(--oc-color-bg-dark));
     --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 85%, transparent);
+    --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-light) 85%, transparent);
     --oc-bg-slight: color-mix(in oklab, var(--oc-color-bg-dark) 5%, transparent);
     --oc-button-primary-border-color: var(--oc-color-text);
     --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
@@ -683,12 +684,26 @@ a.cta:focus, a.cta:hover {
 .ck-content .inverted .button,
 .ck-content .inverted input[type=button],
 .ck-content .inverted input[type=submit] {
-  border-color: var(--oc-color-text-inverted);
+  --oc-button-bg-color: transparent;
+  --oc-button-border-color: var(--oc-color-link-footer);
+  --oc-button-text-color: var(--oc-color-link-footer);
 }
 .ck-content .view-header .button,
 .ck-content .button--add {
   margin-inline-end: 0;
   margin-block: 1rem;
+}
+.ck-content .menu-item button,
+.ck-content .menu-item a.button,
+.ck-content .menu-item a[role=button] {
+  --oc-button-bg-color: transparent;
+  --oc-button-border-color: var(--oc-color-menu-link);
+  --oc-button-text-color: var(--oc-color-menu-link);
+  font-size: var(--oc-font-size-s);
+  margin-block: 0.25em;
+  margin-inline: 1em;
+  padding-block: 0.25em;
+  padding-inline: 1.5em;
 }
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
@@ -1244,6 +1259,12 @@ a.cta:focus, a.cta:hover {
 .ck-content .inverted a {
   color: var(--oc-color-link-inverted);
   font-weight: var(--oc-font-weight-semi-bold);
+}
+.ck-content .inverted button,
+.ck-content .inverted a[role=button].button {
+  --oc-button-bg-color: transparent;
+  --oc-button-border-color: var(--oc-color-link-inverted);
+  --oc-button-text-color: var(--oc-color-link-inverted);
 }
 .ck-content .text-formatted h2 {
   margin-block-start: calc(2 * var(--oc-row-gap));
@@ -1840,7 +1861,8 @@ a.cta:focus, a.cta:hover {
 .ck-content .more-link a.external::after, .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]::after, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]::after, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after, .ck-content .button--edit a::before, .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
-.ck-content .cookiesjsr-layer--close::before, .ck-content .icon.monitor::before, .ck-content .icon.tv::before, .ck-content .icon.map-pin::before, .ck-content .icon.location-dot::before, .ck-content .icon.list::before, .ck-content .icon.table-list::before, .ck-content .icon.squares-four::before, .ck-content .icon.table-cells-large::before, .ck-content .icon.archive::before, .ck-content .icon.box-archive::before, .ck-content .menu--call-to-action a[data-drupal-link-system-path]::before, .ck-content .menu--call-to-action a[href*="node/add/location"]::before,
+.ck-content .cookiesjsr-layer--close::before,
+.ck-content .cookiesjsr-layer .cookiesjsr-layer__close::before, .ck-content .icon.monitor::before, .ck-content .icon.tv::before, .ck-content .icon.map-pin::before, .ck-content .icon.location-dot::before, .ck-content .icon.list::before, .ck-content .icon.table-list::before, .ck-content .icon.squares-four::before, .ck-content .icon.table-cells-large::before, .ck-content .icon.archive::before, .ck-content .icon.box-archive::before, .ck-content .menu--call-to-action a[data-drupal-link-system-path]::before, .ck-content .menu--call-to-action a[href*="node/add/location"]::before,
 .ck-content .icon .fa-map-location::before,
 .ck-content .icon .map-pin-area::before, .ck-content .menu--call-to-action a[href*="node/add/profile"]::before,
 .ck-content .icon .fa-person-dots-from-line::before,
@@ -1866,7 +1888,8 @@ a.cta:focus, a.cta:hover {
 .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content .button--edit a::before, .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
-.ck-content .cookiesjsr-layer--close::before, .ck-content .icon.monitor::before, .ck-content .icon.tv::before, .ck-content .icon.map-pin::before, .ck-content .icon.location-dot::before, .ck-content .icon.list::before, .ck-content .icon.table-list::before, .ck-content .icon.squares-four::before, .ck-content .icon.table-cells-large::before, .ck-content .icon.archive::before, .ck-content .icon.box-archive::before, .ck-content .menu--call-to-action a[data-drupal-link-system-path]::before, .ck-content .menu--call-to-action a[href*="node/add/location"]::before,
+.ck-content .cookiesjsr-layer--close::before,
+.ck-content .cookiesjsr-layer .cookiesjsr-layer__close::before, .ck-content .icon.monitor::before, .ck-content .icon.tv::before, .ck-content .icon.map-pin::before, .ck-content .icon.location-dot::before, .ck-content .icon.list::before, .ck-content .icon.table-list::before, .ck-content .icon.squares-four::before, .ck-content .icon.table-cells-large::before, .ck-content .icon.archive::before, .ck-content .icon.box-archive::before, .ck-content .menu--call-to-action a[data-drupal-link-system-path]::before, .ck-content .menu--call-to-action a[href*="node/add/location"]::before,
 .ck-content .icon .fa-map-location::before,
 .ck-content .icon .map-pin-area::before, .ck-content .menu--call-to-action a[href*="node/add/profile"]::before,
 .ck-content .icon .fa-person-dots-from-line::before,
@@ -2058,7 +2081,8 @@ a.cta:focus, a.cta:hover {
 .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
-.ck-content .cookiesjsr-layer--close::before {
+.ck-content .cookiesjsr-layer--close::before,
+.ck-content .cookiesjsr-layer .cookiesjsr-layer__close::before {
   --icon-url: url("../sprite/oc-sprite.svg#x-light");
 }
 .ck-content .icon.monitor::before, .ck-content .icon.tv::before {

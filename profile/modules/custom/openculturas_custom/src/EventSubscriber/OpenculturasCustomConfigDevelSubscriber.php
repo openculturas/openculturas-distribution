@@ -53,6 +53,11 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     $config_name = pathinfo((string) $file_path, PATHINFO_FILENAME);
     $entity_type_id = $this->configManager->getEntityTypeIdByName($config_name);
     $extension = basename(dirname((string) $file_path, 3));
+
+    if ($extension === 'openculturas-profile' && $config_name === 'cookies.texts') {
+      $this->excludeCookiesLegalLinks($event);
+    }
+
     if ($entity_type_id === NULL) {
       return;
     }
@@ -90,6 +95,10 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
 
     if ($entity_type_id === 'entity_view_display') {
       $this->enforceOpcultTheme($event);
+    }
+
+    if ($entity_type_id === 'block' && ($data['plugin'] ?? NULL) === 'cookies_ui_block') {
+      $this->excludeCookiesLegalPages($event);
     }
 
     // // @phpstan-ignore-next-line
@@ -368,6 +377,48 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $data['content']['field_osm_id'],
     );
 
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * Strips the site's legal-page paths back out of the Cookies UI block.
+   *
+   * OpenculturasCustomCookiesLegalPagesSubscriber adds the paths behind
+   * cookies.texts' privacyUri/imprintUri to this block's request_path
+   * ignore list on every save, so they don't leak into the profile's
+   * shipped default config as site-specific node paths.
+   */
+  private function excludeCookiesLegalPages(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    $pages = $data['visibility']['request_path']['pages'] ?? NULL;
+    if (!is_string($pages)) {
+      return;
+    }
+
+    $legalPaths = OpenculturasCustomCookiesLegalPagesSubscriber::getLegalPaths($this->configManager->getConfigFactory()->get('cookies.texts'));
+    if ($legalPaths === []) {
+      return;
+    }
+
+    $remainingPages = array_filter(
+      array_map(trim(...), explode("\n", $pages)),
+      static fn (string $page): bool => !in_array($page, $legalPaths, TRUE),
+    );
+    $data['visibility']['request_path']['pages'] = implode("\n", $remainingPages);
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * Resets the privacy policy and imprint links before export.
+   *
+   * They point at this site's own content nodes, so - like the paths in
+   * excludeCookiesLegalPages() - they must never become part of the
+   * profile's shipped default config.
+   */
+  private function excludeCookiesLegalLinks(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    $data['privacyUri'] = '';
+    $data['imprintUri'] = '';
     $configDevelSaveEvent->setData($data);
   }
 

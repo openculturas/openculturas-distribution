@@ -158,3 +158,31 @@ dialog.modal button.close {
     line-height: var(--font-size-icon);
   }
 }
+
+// ---
+// Button base styles
+// Default buttons (and pseudo-links with button class)
+
+button,
+.button,
+input[type="button"],
+input[type="submit"] {
+  @extend %button;
+
+  .region-footer & {
+    color: var(--color-text-inverted);
+    border-color: var(--color-text-inverted);
+    background-color: transparent;
+  }
+}
+
+// ---
+// Buttons in menus
+
+.menu-item button {
+  font-size: var(--font-size-s);
+  margin-block: 0.25em;
+  margin-inline: 1em;
+  padding-block: 0.25em;
+  padding-inline: 1.5em;
+}

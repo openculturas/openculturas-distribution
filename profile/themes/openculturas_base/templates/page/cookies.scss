@@ -1,60 +1,3 @@
-#cookiesjsr {
-  --default-margin: var(--grid-gutter);
-  --layer-body-bg-color: var(--color-bg-slight-contrast);
-
-  --layer-header-height: 3.5em;
-  --layer-header-bg-color: var(--color-bg-slight-contrast);
-  --layer-header-font-color: var(--color-text);
-
-  --layer-font-light: var(--color-text);
-  --layer-font-dark:  var(--color-text);
-  --layer-footer-bg-color: var(--color-bg-slight-contrast);
-  --layer-footer-font-color:  var(--color-text);
-  // --layer-footer-height: 4.5em;
-  // Unused. --layer-bg-dark:  var(--color-bg-dark);
-
-  --layer-tab-active-bg-color: var(--color-bg-light);
-  --layer-tab-active-font-color: var(--color-text);
-
-  --layer-tab-font-color: var(--color-text);
-  --layer-border-color: transparent;
-  --layer-tab-bg-color: var(--color-bg-slight-contrast);
-
-  --btn-prime-inv-font-color: var(--color-text-inverted);
-  --btn-prime-inv-bg-color: var(--color-link);
-  --btn-prime-inv-border-color: var(--color-link);
-
-  --btn-prime-font-color:  var(--color-interaction);
-  --btn-prime-border-color: var(--color-interaction);
-  --btn-prime-bg-color: var(--color-text-inverted);
-
-  --btn-inv-border-color: var(--color-interaction);
-  --btn-inv-font-color: var(--color-interaction);
-  --btn-inv-bg-color: var(--color-text-inverted);
-
-  --switch-border-color: var(--color-text);
-  --switch-handle-color: var(--color-text-inverted);
-  --switch-bg-off: var(--color-text-muted);
-  --switch-width: 2.82rem;
-  --switch-height: 1.25rem;
-  --switch-always-on-bg-color: var(--color-text-inverted);
-
-  --link-list-font-color: var(--color-text);
-  --link-list-separator-color: var(--color-text-inverted);
-
-  // Banner
-  --banner-bg-color: var(--color-bg-slight-contrast);
-  --banner-font-color: var(--color-text);
-  //--banner-logo-offset: 100px; // max-height: calc(100vh - --banner-logo-offset);
-
-  --btn-font-color: var(--color-text-inverted);
-  --btn-bg-color: var(--color-link);
-  --btn-border-color: var(--color-link);
-
-  --switch-always-on-font-color: var(--color-success);
-  --switch-bg-on: var(--color-success);
-}
-
 // Links under Text.
 .cookiesjsr-links.links--row li a {
   text-decoration: underline;
@@ -168,15 +111,14 @@
   padding: 1.25rem 2.5rem;
 
   .cookies-fallback--btn {
-  @extend %button;
-  padding: .5em 2em;
-  text-transform: unset;
-  min-height: unset;
+    @extend %button-small;
+    text-transform: unset;
+    min-height: unset;
+    margin: .5rem 0;
   }
   .cookies-fallback--link {
-    @extend %button;
+    @extend %button-small;
     font-size: unset;
-    padding: .5em 2em;
     &:focus,
     &:hover {
       color: var(--color-text-inverted);
@@ -197,9 +139,118 @@
   aspect-ratio: 16/9;
 }
 
-// @todo check back with https://www.drupal.org/project/cookies/issues/3350253
+.cookies-fallback--text {
+  font-size: var(--font-size-s);
+  color: var(--color-text);
+}
+
 .cookies-fallback--video {
   background-image: none;
   background-color: var(--color-bg-slight-contrast);
 }
 
+// ---
+// Update to Cookies 2.x
+
+// ---------------------------------------
+// COOKiES module (consent management)
+// Redefine module's variables
+// Override of custom cookies_popover module CSS
+// ---------------------------------------
+
+// ---
+// Custom properties
+
+.block-cookies-ui-block #cookiesjsr {
+  //--cjsr-popover-backdrop-background: inherit;
+  //--cjsr-popover-backdrop-filter: inherit;
+  --cjsr--font-size-s: var(--font-size-s);
+  --cjsr-text-max-line: 80ch;
+  --cjsr-color-main: var(--color-bg-slight-contrast);
+  --cjsr-color-base-light: var(--color-bg-light);
+  --cjsr-color-base-muted: var(--color-bg-slight-contrast);
+  --cjsr-color-base-dark: var(--color-text);
+  --cjsr-color-switch: var(--color-success);
+
+  --cjsr-default-margin: var(--grid-gutter);
+  //--cjsr-btn-font-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-border-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-bg-color: var(--cjsr-color-main);
+  //--cjsr-btn-prime-font-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-prime-border-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-prime-bg-color: var(--cjsr-color-main);
+  //--cjsr-btn-inv-font-color: var(--cjsr-color-main);
+  //--cjsr-btn-inv-border-color: var(--cjsr-color-main);
+  //--cjsr-btn-inv-bg-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-prime-inv-font-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-prime-inv-border-color: var(--cjsr-color-base-light);
+  //--cjsr-btn-prime-inv-bg-color: var(--cjsr-color-main);
+  //--cjsr-link-list-font-color: var(--cjsr-color-main);
+  //--cjsr-link-list-separator-color: var(--cjsr-color-base-dark);
+  //--cjsr-banner-logo-offset: 100px;
+  --cjsr-banner-bg-color: var(--color-bg-slight-contrast);
+  --cjsr-banner-font-color: var(--color-text);
+  //--cjsr-banner-box-shadow: var(--oc-box-shadow-up);
+  --cjsr-layer-header-bg-color: var(--color-bg-slight-contrast);
+  --cjsr-layer-header-font-color: var(--color-text);
+  --cjsr-layer-body-bg-color: var(--color-bg-slight-contrast);
+  //--cjsr-layer-tab-bg-color: var(--cjsr-color-base-muted);
+  //--cjsr-layer-tab-font-color: var(--cjsr-color-base-dark);
+  //--cjsr-layer-tab-active-bg-color: var(--cjsr-color-base-light);
+  //--cjsr-layer-tab-active-font-color: var(--cjsr-color-base-light);
+  //--cjsr-layer-bg-dark: var(--cjsr-color-main);
+  //--cjsr-layer-font-light: var(--cjsr-color-base-light);
+  //--cjsr-layer-font-dark: var(--cjsr-color-base-dark)f37;
+  --cjsr-layer-border-color: var(--color-divider-dark);
+  --cjsr-layer-footer-bg-color: var(--color-bg-slight-contrast);
+  --cjsr-layer-footer-font-color: var(--color-text);
+  //--cjsr-switch-border-color: #d4d5d6;
+  //--cjsr-switch-handle-color: var(--cjsr-color-base-light);
+  //--cjsr-switch-bg-off: var(--cjsr-color-base-muted);
+  //--cjsr-switch-bg-on: var(--cjsr-color-switch);
+  //--cjsr-switch-width: 2.815em;
+  //--cjsr-switch-height: 1.25em;
+  //--cjsr-switch-always-on-font-color: var(--cjsr-color-switch);
+  //--cjsr-switch-always-on-bg-color: var(--cjsr-color-base-light);
+}
+
+.cookiesjsr-links.cookiesjsr-links--row a {
+  padding: 0.25em 1em;
+  text-decoration: underline;
+  color: var(--color-link);
+
+  &:focus,
+  &:hover {
+    color: var(--color-text-inverted);
+  }
+}
+
+// ---
+// Banner
+
+.cookiesjsr-banner {
+  gap: var(--row-gap) var(--grid-gutter);
+  padding: var(--row-gap) calc(2 * var(--grid-gutter));
+
+  .gin--vertical-toolbar & {
+    inset-inline-start: var(--drupal-displace-offset-left);
+  }
+}
+
+// ---
+// Settings layer
+
+//.cookiesjsr--app {
+//  button.cookiesjsr-btn {
+//    @extend %button-small;
+//    margin-inline: 1rem;
+//    margin-block: .5rem;
+//  }
+//}
+
+// ---
+// Settings re-open button in footer
+
+button.editCookieSettings {
+  @extend %button-small;
+}

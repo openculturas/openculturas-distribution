@@ -22,3 +22,9 @@ services:
     arguments: ['@pathauto.generator']
     tags:
       - { name: event_subscriber }
+
+  openculturas_custom.cookies_legal_pages_subscriber:
+    class: Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomCookiesLegalPagesSubscriber
+    arguments: ['@entity_type.manager', '@config.installer']
+    tags:
+      - { name: event_subscriber }
