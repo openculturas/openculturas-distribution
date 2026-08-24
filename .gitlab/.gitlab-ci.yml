@@ -293,6 +293,22 @@ database:snapshot:
   rules:
     - if: $DB_CREATE_SNAPSHOT
 
+🔍 npm audit:
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.246401@sha256:3559a73235c90a3a1602b84752e95e2d0f5975e80dc1ba6243518f2e4882f4a4
+  stage: cronjobs
+  needs: []
+  script:
+    - |
+      EXIT_CODE=0
+      for directory in . profile/themes/openculturas_base profile/themes/opcult; do
+        echo "== npm audit: ${directory} =="
+        npm --prefix "${directory}" ci --no-audit --prefer-offline
+        npm --prefix "${directory}" audit --audit-level=moderate || EXIT_CODE=$?
+      done
+      exit "${EXIT_CODE}"
+  rules:
+    - if: $NPM_AUDIT_CHECK
+
 test create project:
   extends: .composer
   needs: []
