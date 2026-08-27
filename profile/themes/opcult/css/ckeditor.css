@@ -90,7 +90,7 @@
   --oc-color-info-dark: color-mix(in oklab, var(--oc-color-info) 60%, var(--oc-color-bg-dark));
   --oc-color-bg-success: color-mix(in oklab, var(--oc-color-success) 10%, var(--oc-color-bg-light));
   --oc-color-success-dark: color-mix(in oklab, var(--oc-color-success) 60%, var(--oc-color-bg-dark));
-  --oc-color-bg-warning: color-mix(in oklab, var(--oc-color-warning) 20%, var(--oc-color-bg-light));
+  --oc-color-bg-warning: color-mix(in oklab, var(--oc-color-warning) 40%, var(--oc-color-bg-light));
   --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 75%, var(--oc-color-bg-dark));
   --oc-button-bg-color: var(--oc-color-bg-light);
   --oc-button-border-color: var(--oc-color-interaction);
@@ -511,7 +511,13 @@ a.cta:focus, a.cta:hover {
 }
 .ck-content mark,
 .ck-content .mark {
-  background-color: var(--oc-color-warning);
+  background-color: var(--oc-color-bg-warning);
+}
+.ck-content a:focus mark,
+.ck-content a:focus .mark,
+.ck-content a:hover mark,
+.ck-content a:hover .mark {
+  background-color: var(--oc-color-link-focus-bg);
 }
 .ck-content audio,
 .ck-content video {
@@ -1853,12 +1859,10 @@ a.cta:focus, a.cta:hover {
   --oc-chevron: url("../images/chevron-down.svg");
 }
 .ck-content .more-link a::after,
-.ck-content a.more-link::after, .ck-content .text-formatted a[href^=http]::after,
-.ck-content .text-formatted a.external::after,
-.ck-content .teaser--title a[href^=http]::after,
-.ck-content .teaser--title a.external::after,
-.ck-content .more-link a[href^=http]::after,
-.ck-content .more-link a.external::after, .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]::after, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]::after, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after, .ck-content .button--edit a::before, .ck-content button.close::before,
+.ck-content a.more-link::after, .ck-content [dir=rtl] .more-link a::after,
+.ck-content [dir=rtl] a.more-link::after, .ck-content a[href^=http]::after,
+.ck-content a.external::after, .ck-content [lang][dir=rtl] a[href^=http]::after,
+.ck-content [lang][dir=rtl] a.external::after, .ck-content .anchorlinks::before, .ck-content input[type=radio]::before, .ck-content input[type=radio]::after, .ck-content input[type=radio]:checked::before, .ck-content input[type=checkbox]::before, .ck-content input[type=checkbox]::after, .ck-content input[type=checkbox]:checked::before, .ck-content .attribution-popover-trigger::before, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after, .ck-content .button--edit a::before, .ck-content button.close::before,
 .ck-content a.button.close::before,
 .ck-content a.leaflet-popup-close-button::before,
 .ck-content .cookiesjsr-layer--close::before,
@@ -1908,12 +1912,10 @@ a.cta:focus, a.cta:hover {
   inset-inline-start: -0.333em;
 }
 .ck-content .more-link a::after,
-.ck-content a.more-link::after, .ck-content .text-formatted a[href^=http]::after,
-.ck-content .text-formatted a.external::after,
-.ck-content .teaser--title a[href^=http]::after,
-.ck-content .teaser--title a.external::after,
-.ck-content .more-link a[href^=http]::after,
-.ck-content .more-link a.external::after, .ck-content input[type=radio]::after, .ck-content input[type=checkbox]::after, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after {
+.ck-content a.more-link::after, .ck-content [dir=rtl] .more-link a::after,
+.ck-content [dir=rtl] a.more-link::after, .ck-content a[href^=http]::after,
+.ck-content a.external::after, .ck-content [lang][dir=rtl] a[href^=http]::after,
+.ck-content [lang][dir=rtl] a.external::after, .ck-content input[type=radio]::after, .ck-content input[type=checkbox]::after, .ck-content th a[href*=sort]::after, .ck-content th:has(.tablesort--desc) a[href*=sort]::after, .ck-content th:has(.tablesort--asc) a[href*=sort]::after {
   font-size: var(--oc-font-size-icon);
 }
 .ck-content .button--edit a {
@@ -1945,93 +1947,53 @@ a.cta:focus, a.cta:hover {
 .ck-content a.more-link::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-right-light");
 }
-.ck-content .text-formatted a[href^=http],
-.ck-content .text-formatted a.external,
-.ck-content .teaser--title a[href^=http],
-.ck-content .teaser--title a.external,
-.ck-content .more-link a[href^=http],
-.ck-content .more-link a.external {
+.ck-content [dir=rtl] .more-link a::after,
+.ck-content [dir=rtl] a.more-link::after {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-left-light");
+}
+.ck-content a[href^=http],
+.ck-content a.external {
   --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
   --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
 }
-.ck-content .text-formatted a[href^=http]::after,
-.ck-content .text-formatted a.external::after,
-.ck-content .teaser--title a[href^=http]::after,
-.ck-content .teaser--title a.external::after,
-.ck-content .more-link a[href^=http]::after,
-.ck-content .more-link a.external::after {
+.ck-content a[href^=http]::after,
+.ck-content a.external::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-right-light");
 }
-.ck-content .text-formatted a[href^=http]::before,
-.ck-content .text-formatted a.external::before,
-.ck-content .teaser--title a[href^=http]::before,
-.ck-content .teaser--title a.external::before,
-.ck-content .more-link a[href^=http]::before,
-.ck-content .more-link a.external::before {
-  position: absolute;
+.ck-content a[href^=http]::after,
+.ck-content a.external::after {
   display: inline-block;
   content: var(--icon-url-ltr)/"External site";
-  vertical-align: -0.125rem;
-  opacity: 0;
   inline-size: 0.85em;
   block-size: 0.85em;
 }
-.ck-content .text-formatted a[href^=http][target],
-.ck-content .text-formatted a.external[target],
-.ck-content .teaser--title a[href^=http][target],
-.ck-content .teaser--title a.external[target],
-.ck-content .more-link a[href^=http][target],
-.ck-content .more-link a.external[target] {
+.ck-content a[href^=http][target]::after,
+.ck-content a.external[target]::after {
   content: var(--icon-url-ltr)/"External site in new window";
 }
-.ck-content [dir=rtl] .text-formatted a[href^=http],
-.ck-content [dir=rtl] .text-formatted a.external,
-.ck-content [dir=rtl] .teaser--title a[href^=http],
-.ck-content [dir=rtl] .teaser--title a.external,
-.ck-content [dir=rtl] .more-link a[href^=http],
-.ck-content [dir=rtl] .more-link a.external {
-  --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
-}
-.ck-content [dir=rtl] .text-formatted a[href^=http]::before,
-.ck-content [dir=rtl] .text-formatted a.external::before,
-.ck-content [dir=rtl] .teaser--title a[href^=http]::before,
-.ck-content [dir=rtl] .teaser--title a.external::before,
-.ck-content [dir=rtl] .more-link a[href^=http]::before,
-.ck-content [dir=rtl] .more-link a.external::before {
-  content: var(--icon-url-rtl)/"External site";
-}
-.ck-content [dir=rtl] .text-formatted a[href^=http][target]::before,
-.ck-content [dir=rtl] .text-formatted a.external[target]::before,
-.ck-content [dir=rtl] .teaser--title a[href^=http][target]::before,
-.ck-content [dir=rtl] .teaser--title a.external[target]::before,
-.ck-content [dir=rtl] .more-link a[href^=http][target]::before,
-.ck-content [dir=rtl] .more-link a.external[target]::before {
-  content: var(--icon-url-rtl)/"External site in new window";
-}
-.ck-content .text-formatted [lang=de] a[href^=http],
-.ck-content .teaser--title [lang=de] a[href^=http],
-.ck-content .more-link [lang=de] a[href^=http] {
+.ck-content [lang=de] a[href^=http]::after {
   content: var(--icon-url-ltr)/"Externe Seite";
 }
-.ck-content .text-formatted [lang=de][target],
-.ck-content .teaser--title [lang=de][target],
-.ck-content .more-link [lang=de][target] {
+.ck-content [lang=de][target]::after {
   content: var(--icon-url-ltr)/"Externe Seite in neuem Fenster";
 }
-.ck-content .text-formatted [lang=fr] a[href^=http],
-.ck-content .teaser--title [lang=fr] a[href^=http],
-.ck-content .more-link [lang=fr] a[href^=http] {
+.ck-content [lang=fr] a[href^=http]::after {
   content: var(--icon-url-ltr)/"Site externe";
 }
-.ck-content .text-formatted [lang=fr][target],
-.ck-content .teaser--title [lang=fr][target],
-.ck-content .more-link [lang=fr][target] {
+.ck-content [lang=fr][target]::after {
   content: var(--icon-url-ltr)/"Site externe (nouvelle fenêtre)";
 }
-.ck-content .text-formatted a[href^=http]:has(img)::after,
-.ck-content .teaser--title a[href^=http]:has(img)::after,
-.ck-content .more-link a[href^=http]:has(img)::after {
-  display: none;
+.ck-content [lang][dir=rtl] a[href^=http]::after,
+.ck-content [lang][dir=rtl] a.external::after {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
+}
+.ck-content [lang][dir=rtl] a[href^=http]::after,
+.ck-content [lang][dir=rtl] a.external::after {
+  content: var(--icon-url-rtl)/"External site";
+}
+.ck-content a[href^=http]:has(img)::after,
+.ck-content a.social-media-link[href^=http]::after {
+  display: none !important;
 }
 .ck-content .anchorlinks::before {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-line-down-light");

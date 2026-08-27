@@ -1,10 +1,12 @@
 # Additional styles loaded after opcult's CSS (inherited automatically via base theme).
+# Note: preprocess is disabled in opcult's CSS.
+#    To make sure, the sub-theme's CSS is loaded last, we set it to preprocess: false, too
 global:
   dependencies:
     - opcult/global
   css:
     theme:
-      css/opcult_starterkit.css: {}
+      css/opcult_starterkit.css: { preprocess: false }
   # Uncomment to add custom JavaScript:
   # js:
   #   js/opcult_starterkit.js: {}

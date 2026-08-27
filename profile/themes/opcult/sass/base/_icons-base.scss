@@ -17,72 +17,72 @@
 .more-link a,
 a.more-link {
   @include icon(arrow-right, light, after);
+
+  [dir="rtl"] & {
+    @include icon(arrow-left, light, after);
+  }
 }
 
 // ---
 // External links
 
-.text-formatted,
-.teaser--title,
-.more-link {
+a[href^="http"],
+a.external {
+  --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
+  --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
+  @include icon(arrow-up-right, light, after);
+
+  &::after {
+    // position: absolute;
+    display: inline-block;
+    content: var(--icon-url-ltr) / "External site";
+
+    // vertical-align: -0.125rem;
+    // opacity: 0;
+    inline-size: 0.85em;
+    block-size: 0.85em;
+  }
+
+  &[target]::after {
+    content: var(--icon-url-ltr) / "External site in new window";
+  }
+}
+
+[lang="de"] {
+  a[href^="http"]::after {
+    content: var(--icon-url-ltr) / "Externe Seite";
+  }
+
+  &[target]::after {
+    content: var(--icon-url-ltr) / "Externe Seite in neuem Fenster";
+  }
+}
+
+[lang="fr"] {
+  a[href^="http"]::after {
+    content: var(--icon-url-ltr) / "Site externe";
+  }
+
+  &[target]::after {
+    content: var(--icon-url-ltr) / "Site externe (nouvelle fenêtre)";
+  }
+}
+
+[lang][dir="rtl"] {
   a[href^="http"],
   a.external {
-    --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
-    --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
-    @include icon(arrow-up-right, light, after);
+    @include icon(arrow-up-left, light, after);
 
-    &::before {
-      position: absolute;
-      display: inline-block;
-      content: var(--icon-url-ltr) / "External site";
-      vertical-align: -0.125rem;
-      opacity: 0;
-      inline-size: 0.85em;
-      block-size: 0.85em;
-    }
-
-    &[target] {
-      content: var(--icon-url-ltr) / "External site in new window";
-    }
-
-    [dir="rtl"] & {
-      --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
-      &::before {
-        content: var(--icon-url-rtl) / "External site";
-      }
-    }
-
-    [dir="rtl"] & {
-      &[target]::before {
-        content: var(--icon-url-rtl) / "External site in new window";
-      }
+    &::after {
+      content: var(--icon-url-rtl) / "External site";
     }
   }
+}
 
-  [lang="de"] {
-    a[href^="http"] {
-      content: var(--icon-url-ltr) / "Externe Seite";
-    }
-
-    &[target] {
-      content: var(--icon-url-ltr) / "Externe Seite in neuem Fenster";
-    }
-  }
-
-  [lang="fr"] {
-    a[href^="http"] {
-      content: var(--icon-url-ltr) / "Site externe";
-    }
-
-    &[target] {
-      content: var(--icon-url-ltr) / "Site externe (nouvelle fenêtre)";
-    }
-  }
-
-  // Visual exception for image links
-  a[href^="http"]:has(img)::after {
-    display: none;
-  }
+// Visual exception for image/icon links
+a[href^="http"]:has(img)::after,
+a.social-media-link[href^="http"]::after {
+  display: none !important;
 }
 
 // ---

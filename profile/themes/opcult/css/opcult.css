@@ -89,12 +89,10 @@ a.x::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
 .fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .more-link a::after,
-a.more-link::after, .text-formatted a[href^=http]::after,
-.text-formatted a.external::after,
-.teaser--title a[href^=http]::after,
-.teaser--title a.external::after,
-.more-link a[href^=http]::after,
-.more-link a.external::after, .anchorlinks::before, input[type=radio]::before, input[type=radio]::after, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]::after, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .button--edit a::before, button.close::before,
+a.more-link::after, [dir=rtl] .more-link a::after,
+[dir=rtl] a.more-link::after, a[href^=http]::after,
+a.external::after, [lang][dir=rtl] a[href^=http]::after,
+[lang][dir=rtl] a.external::after, .anchorlinks::before, input[type=radio]::before, input[type=radio]::after, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]::after, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .button--edit a::before, button.close::before,
 a.button.close::before,
 a.leaflet-popup-close-button::before,
 .cookiesjsr-layer--close::before,
@@ -233,12 +231,10 @@ a.leaflet-popup-close-button::before,
 }
 
 .facets-widget-links summary::after, .more-link a::after,
-a.more-link::after, .text-formatted a[href^=http]::after,
-.text-formatted a.external::after,
-.teaser--title a[href^=http]::after,
-.teaser--title a.external::after,
-.more-link a[href^=http]::after,
-.more-link a.external::after, input[type=radio]::after, input[type=checkbox]::after, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .breadcrumbs nav a::after, .teaser.entity--unpublished::after, .mode-toggle[data-active=true]::after, summary:not(:has(span.summary))::after {
+a.more-link::after, [dir=rtl] .more-link a::after,
+[dir=rtl] a.more-link::after, a[href^=http]::after,
+a.external::after, [lang][dir=rtl] a[href^=http]::after,
+[lang][dir=rtl] a.external::after, input[type=radio]::after, input[type=checkbox]::after, th a[href*=sort]::after, th:has(.tablesort--desc) a[href*=sort]::after, th:has(.tablesort--asc) a[href*=sort]::after, .breadcrumbs nav a::after, .teaser.entity--unpublished::after, .mode-toggle[data-active=true]::after, summary:not(:has(span.summary))::after {
   font-size: var(--oc-font-size-icon);
 }
 
@@ -669,7 +665,7 @@ ins {
   --oc-color-info-dark: color-mix(in oklab, var(--oc-color-info) 60%, var(--oc-color-bg-dark));
   --oc-color-bg-success: color-mix(in oklab, var(--oc-color-success) 10%, var(--oc-color-bg-light));
   --oc-color-success-dark: color-mix(in oklab, var(--oc-color-success) 60%, var(--oc-color-bg-dark));
-  --oc-color-bg-warning: color-mix(in oklab, var(--oc-color-warning) 20%, var(--oc-color-bg-light));
+  --oc-color-bg-warning: color-mix(in oklab, var(--oc-color-warning) 40%, var(--oc-color-bg-light));
   --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 75%, var(--oc-color-bg-dark));
   --oc-button-bg-color: var(--oc-color-bg-light);
   --oc-button-border-color: var(--oc-color-interaction);
@@ -1719,7 +1715,14 @@ kbd {
 
 mark,
 .mark {
-  background-color: var(--oc-color-warning);
+  background-color: var(--oc-color-bg-warning);
+}
+
+a:focus mark,
+a:focus .mark,
+a:hover mark,
+a:hover .mark {
+  background-color: var(--oc-color-link-focus-bg);
 }
 
 audio,
@@ -2981,94 +2984,58 @@ div[data-drupal-messages] {
 a.more-link::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-right-light");
 }
+[dir=rtl] .more-link a::after,
+[dir=rtl] a.more-link::after {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-left-light");
+}
 
-.text-formatted a[href^=http],
-.text-formatted a.external,
-.teaser--title a[href^=http],
-.teaser--title a.external,
-.more-link a[href^=http],
-.more-link a.external {
+a[href^=http],
+a.external {
   --icon-url-ltr: url("../sprite/oc-sprite.svg#arrow-up-right-light");
   --icon-url-rtl: url("../sprite/oc-sprite.svg#arrow-up-left-light");
 }
-.text-formatted a[href^=http]::after,
-.text-formatted a.external::after,
-.teaser--title a[href^=http]::after,
-.teaser--title a.external::after,
-.more-link a[href^=http]::after,
-.more-link a.external::after {
+a[href^=http]::after,
+a.external::after {
   --icon-url: url("../sprite/oc-sprite.svg#arrow-up-right-light");
 }
-.text-formatted a[href^=http]::before,
-.text-formatted a.external::before,
-.teaser--title a[href^=http]::before,
-.teaser--title a.external::before,
-.more-link a[href^=http]::before,
-.more-link a.external::before {
-  position: absolute;
+a[href^=http]::after,
+a.external::after {
   display: inline-block;
   content: var(--icon-url-ltr)/"External site";
-  vertical-align: -0.125rem;
-  opacity: 0;
   inline-size: 0.85em;
   block-size: 0.85em;
 }
-.text-formatted a[href^=http][target],
-.text-formatted a.external[target],
-.teaser--title a[href^=http][target],
-.teaser--title a.external[target],
-.more-link a[href^=http][target],
-.more-link a.external[target] {
+a[href^=http][target]::after,
+a.external[target]::after {
   content: var(--icon-url-ltr)/"External site in new window";
 }
-[dir=rtl] .text-formatted a[href^=http],
-[dir=rtl] .text-formatted a.external,
-[dir=rtl] .teaser--title a[href^=http],
-[dir=rtl] .teaser--title a.external,
-[dir=rtl] .more-link a[href^=http],
-[dir=rtl] .more-link a.external {
-  --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
-}
-[dir=rtl] .text-formatted a[href^=http]::before,
-[dir=rtl] .text-formatted a.external::before,
-[dir=rtl] .teaser--title a[href^=http]::before,
-[dir=rtl] .teaser--title a.external::before,
-[dir=rtl] .more-link a[href^=http]::before,
-[dir=rtl] .more-link a.external::before {
-  content: var(--icon-url-rtl)/"External site";
-}
-[dir=rtl] .text-formatted a[href^=http][target]::before,
-[dir=rtl] .text-formatted a.external[target]::before,
-[dir=rtl] .teaser--title a[href^=http][target]::before,
-[dir=rtl] .teaser--title a.external[target]::before,
-[dir=rtl] .more-link a[href^=http][target]::before,
-[dir=rtl] .more-link a.external[target]::before {
-  content: var(--icon-url-rtl)/"External site in new window";
-}
-.text-formatted [lang=de] a[href^=http],
-.teaser--title [lang=de] a[href^=http],
-.more-link [lang=de] a[href^=http] {
+
+[lang=de] a[href^=http]::after {
   content: var(--icon-url-ltr)/"Externe Seite";
 }
-.text-formatted [lang=de][target],
-.teaser--title [lang=de][target],
-.more-link [lang=de][target] {
+[lang=de][target]::after {
   content: var(--icon-url-ltr)/"Externe Seite in neuem Fenster";
 }
-.text-formatted [lang=fr] a[href^=http],
-.teaser--title [lang=fr] a[href^=http],
-.more-link [lang=fr] a[href^=http] {
+
+[lang=fr] a[href^=http]::after {
   content: var(--icon-url-ltr)/"Site externe";
 }
-.text-formatted [lang=fr][target],
-.teaser--title [lang=fr][target],
-.more-link [lang=fr][target] {
+[lang=fr][target]::after {
   content: var(--icon-url-ltr)/"Site externe (nouvelle fenêtre)";
 }
-.text-formatted a[href^=http]:has(img)::after,
-.teaser--title a[href^=http]:has(img)::after,
-.more-link a[href^=http]:has(img)::after {
-  display: none;
+
+[lang][dir=rtl] a[href^=http]::after,
+[lang][dir=rtl] a.external::after {
+  --icon-url: url("../sprite/oc-sprite.svg#arrow-up-left-light");
+}
+[lang][dir=rtl] a[href^=http]::after,
+[lang][dir=rtl] a.external::after {
+  content: var(--icon-url-rtl)/"External site";
+}
+
+a[href^=http]:has(img)::after,
+a.social-media-link[href^=http]::after {
+  display: none !important;
 }
 
 .anchorlinks::before {
@@ -4022,6 +3989,10 @@ footer.footer {
 }
 .section--essentials .block-layout-builder > .field {
   margin: 0;
+}
+
+.section--essentials:has(.date-main--status) {
+  flex-flow: column;
 }
 
 .section--title:has(.flag) .page-title-wrapper {
