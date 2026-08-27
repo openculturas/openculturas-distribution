@@ -1,0 +1,7 @@
+services:
+  openculturas_content.teaser_media_content_entity_normalizer:
+    class: Drupal\openculturas_content\Normalizer\TeaserMediaContentEntityNormalizer
+    decorates: default_content.content_entity_normalizer
+    arguments:
+      - '@openculturas_content.teaser_media_content_entity_normalizer.inner'
+      - '@openculturas_teaser.teaser_behavior_media_reference_resolver'
