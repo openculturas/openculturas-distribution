@@ -273,9 +273,10 @@ foreach ($finder->getIterator() as $file) {
   file_put_contents($file->getPathname(), trim(implode("\n", $altered_with_comments)) . "\n");
 }
 
-// Only stable, tagged versions (never the "x-dev" placeholder) are published
-// in publiccode.yml, since that file describes released software.
-if (!str_contains(VERSION, '-dev')) {
+// Only stable releases (e.g. "3.1.0", never pre-releases like "3.1.0-rc1"
+// or the "x-dev" placeholder) are published in publiccode.yml, since that
+// file describes released software.
+if (preg_match('/^\d+\.\d+\.\d+$/', VERSION)) {
   $publiccodeFile = 'publiccode.yml';
   $publiccodeContent = file_get_contents($publiccodeFile);
   $publiccodeContent = preg_replace(
