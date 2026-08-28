@@ -63,9 +63,7 @@ class OfficeHoursToOsmFormatter {
     $added_days = 1;
     foreach ($opening_hours as $day => $range_values) {
       if (is_array($range_values)) {
-        if ($same_day_range_first === NULL) {
-          $same_day_range_first = $day;
-        }
+        $same_day_range_first ??= $day;
 
         $same_day_range_last = $day;
         if ($day !== $added_days || count($range_values) > 1) {
