@@ -78,8 +78,12 @@ final readonly class TeaserBehaviorMediaReferenceResolver {
     $this->walkBehaviorSettings($data, function (array &$settings): void {
       foreach (self::BEHAVIOR_PLUGIN_IDS as $behaviorPluginId) {
         $mediaUuid = $settings[$behaviorPluginId]['media'] ?? NULL;
-        if (!is_string($mediaUuid) || is_numeric($mediaUuid)) {
-          continue;
+        if (!is_string($mediaUuid)) {
+            continue;
+        }
+
+        if (is_numeric($mediaUuid)) {
+            continue;
         }
 
         $media = $this->entityRepository->loadEntityByUuid('media', $mediaUuid);
