@@ -27,7 +27,7 @@ variables:
   AI_BEST_PRACTICES_SKIP_PACKAGE_SYNC: 1
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.249434@sha256:4ae93391bf1332ffaa16462be380e10211e7d25b8d14555afeafae0d5f9af3bb
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.250395@sha256:eab3321ea85d7a2f57308891cf3d350cf47a96d23c2662bbf7add6f140e27d59
   stage: validate
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
@@ -160,7 +160,7 @@ rector dry-run:
           - "**/*.{scss,css,js}"
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.249434@sha256:4ae93391bf1332ffaa16462be380e10211e7d25b8d14555afeafae0d5f9af3bb
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.250395@sha256:eab3321ea85d7a2f57308891cf3d350cf47a96d23c2662bbf7add6f140e27d59
   stage: validate
   extends: .validate_rules_npm
   needs:
@@ -241,7 +241,7 @@ rector dry-run:
 
 build:artifacts:
   extends: .build:artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.249434@sha256:4ae93391bf1332ffaa16462be380e10211e7d25b8d14555afeafae0d5f9af3bb
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.250395@sha256:eab3321ea85d7a2f57308891cf3d350cf47a96d23c2662bbf7add6f140e27d59
 
 .docker_build_image:
   needs:
@@ -294,7 +294,7 @@ database:snapshot:
     - if: $DB_CREATE_SNAPSHOT
 
 🔍 npm audit:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.249434@sha256:4ae93391bf1332ffaa16462be380e10211e7d25b8d14555afeafae0d5f9af3bb
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.250395@sha256:eab3321ea85d7a2f57308891cf3d350cf47a96d23c2662bbf7add6f140e27d59
   stage: cronjobs
   needs: []
   script:
