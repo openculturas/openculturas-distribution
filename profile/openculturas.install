@@ -8,6 +8,8 @@
 declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityViewModeInterface;
+use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomCookiesLegalPagesSubscriber;
@@ -341,5 +343,21 @@ function openculturas_update_10129(): void {
 
   if ($changed) {
     $config->save();
+  }
+}
+
+/**
+ * Makes the address paragraph's location field non-translatable.
+ *
+ * The geocoder-derived geofield value is the same regardless of the
+ * language the address was entered in, so per-language copies only
+ * cause the geocoded point to go missing in untranslated languages.
+ */
+function openculturas_update_10130(): void {
+  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
+  $field = FieldConfig::loadByName('paragraph', 'address_data', 'field_address_location');
+  if ($field instanceof FieldConfigInterface && $field->isTranslatable()) {
+    $field->setTranslatable(FALSE);
+    $field->save();
   }
 }
