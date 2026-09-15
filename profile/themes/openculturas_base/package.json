@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Frontend tooling for the openculturas_base theme",
   "scripts": {
+    "postinstall": "node scripts/write-install-marker.js",
+    "prebuild": "node scripts/check-install-marker.js",
     "build": "set NODE_ENV=production && gulp build",
     "watch": "set NODE_ENV=development && gulp watch"
   },

@@ -4,6 +4,8 @@
   "description": "OpenCulturas Next",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node scripts/write-install-marker.js",
+    "prebuild": "node scripts/check-install-marker.js",
     "build": "gulp build",
     "watch": "gulp watch",
     "svg": "gulp buildSvg"
