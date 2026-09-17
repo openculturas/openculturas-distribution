@@ -111,12 +111,18 @@ ddev drush sql:query "DESCRIBE <table_name>;"
 ```
 
 ### PHP Quality Checks
+
+Checks (run all before committing PHP changes — these mirror CI):
 ```bash
 ddev composer run php:lint        # PHP parallel lint
 ddev composer run php:cs          # PHPCS only
-ddev composer run php:cs-fix      # Auto-fix PHPCS issues
 ddev composer run php:phpstan     # Static analysis (level: max)
 ddev composer run php:rector      # Rector dry-run
+```
+
+Auto-fixers:
+```bash
+ddev composer run php:cs-fix      # Auto-fix PHPCS issues
 ddev composer run php:rector-fix  # Rector auto-fix
 ```
 
