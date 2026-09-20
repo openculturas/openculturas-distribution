@@ -68,7 +68,8 @@ abstract class AddressLinkFormatterBase extends FormatterBase {
    */
   public function settingsSummary(): array {
     $summary = parent::settingsSummary();
-    if ($title = $this->getSetting('title')) {
+    $title = $this->getSetting('title');
+    if (is_string($title) && $title !== '') {
       $summary[] = $this->t('Title: @title', ['@title' => $title]);
     }
 

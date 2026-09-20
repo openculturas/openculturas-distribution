@@ -71,7 +71,7 @@ final class OsmIdItem extends FieldItemBase {
       'value' => [
         'Length' => [
           'max' => self::MAX_LENGTH,
-          'maxMessage' => $this->t('%name: the OSM ID may not exceed @max characters.', ['%name' => $this->getFieldDefinition()->getLabel(), '@max' => self::MAX_LENGTH]),
+          'maxMessage' => $this->t('%name: the OSM ID may not exceed @max characters.', ['%name' => $this->getFieldDefinition()->getLabel() ?? $this->getFieldDefinition()->getName(), '@max' => self::MAX_LENGTH]),
         ],
       ],
     ]);

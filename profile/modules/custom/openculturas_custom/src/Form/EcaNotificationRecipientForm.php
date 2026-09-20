@@ -84,7 +84,7 @@ class EcaNotificationRecipientForm extends EntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
     $result = parent::save($form, $form_state);
-    $message_args = ['%label' => $this->entity->label()];
+    $message_args = ['%label' => $this->entity->label() ?? (string) $this->entity->id()];
     $message = $result == SAVED_NEW
       ? $this->t('Created new notification recipient %label.', $message_args)
       : $this->t('Updated notification recipient %label.', $message_args);
