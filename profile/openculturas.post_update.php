@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\Sql\DefaultTableMapping;
@@ -16,6 +17,7 @@ use Drupal\image\ImageEffectInterface;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\openculturas_discussions\InstallerHelper;
 use Drupal\update_helper\ConfigName;
+use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
 /**
@@ -978,4 +980,31 @@ function openculturas_post_update_related_dates_archive_event_status(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Recomputes cache_metadata for views using a "Rendered entity" field.
+ *
+ * @param array|null $sandbox
+ *   Batch sandbox, provided by the update system.
+ *
+ * @param-out array $sandbox
+ */
+function openculturas_post_update_rendered_entity_field_cache_metadata(?array &$sandbox = NULL): void {
+  // Re-runs core's views_post_update_rendered_entity_field_cache_metadata()
+  // (issue #3187770), removed in Drupal 11.0 on the assumption every site
+  // already passed through it. dashboard, media_library, my_bookmarks and
+  // my_recommendations still carried the stale tags regardless.
+  $sandbox ??= [];
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', function (ViewEntityInterface $view): bool {
+    foreach ($view->get('display') as $display) {
+      foreach ($display['display_options']['fields'] ?? [] as $field) {
+        if (($field['plugin_id'] ?? NULL) === 'rendered_entity') {
+          return TRUE;
+        }
+      }
+    }
+
+    return FALSE;
+  });
 }
