@@ -158,6 +158,18 @@ class OpenculturasCustomDateEventHooks {
       $build['field_event_description']['#title'] = $this->t('See all about');
       if (isset($build['field_date'])) {
         $request = $this->requestStack->getCurrentRequest();
+
+        // The output below varies by the date_delta query argument, so this
+        // cache context must be declared unconditionally, even when the
+        // argument is absent from the current request. Otherwise the render
+        // cache ends up with a different set of bubbled contexts depending
+        // on whether date_delta was present, and Drupal's cache redirect
+        // mechanism rejects the mismatch as an overwrite of an existing
+        // redirect.
+        $dateDeltaCacheMetadata = new CacheableMetadata();
+        $dateDeltaCacheMetadata->addCacheContexts(['url.query_args:date_delta']);
+        $dateDeltaCacheMetadata->applyTo($build['field_date']);
+
         if ($request instanceof Request && $request->query->has('date_delta') && is_numeric($delta = $request->query->get('date_delta'))) {
           $cloned_entity = clone $entity;
           /** @var \Drupal\smart_date\Plugin\Field\FieldType\SmartDateFieldItemList $field */
@@ -177,11 +189,7 @@ class OpenculturasCustomDateEventHooks {
               $build['field_date'] = $field->view($display_settings);
             }
 
-            $cacheMetadata = CacheableMetadata::createFromRenderArray($build['field_date']);
-            $cacheMetadata->setCacheContexts([
-              'url.query_args:date_delta',
-            ]);
-            $cacheMetadata->applyTo($build['field_date']);
+            $dateDeltaCacheMetadata->applyTo($build['field_date']);
           }
         }
 
@@ -316,6 +324,18 @@ class OpenculturasCustomDateEventHooks {
 
     if ($derivative_plugin_id === 'node:date:field_date' && isset($variables['content'][0])) {
       $request = $this->requestStack->getCurrentRequest();
+
+      // The output below varies by the date_delta query argument, so this
+      // cache context must be declared unconditionally, even when the
+      // argument is absent from the current request. Otherwise the render
+      // cache ends up with a different set of bubbled contexts depending on
+      // whether date_delta was present, and Drupal's cache redirect
+      // mechanism rejects the mismatch as an overwrite of an existing
+      // redirect.
+      $dateDeltaCacheMetadata = new CacheableMetadata();
+      $dateDeltaCacheMetadata->addCacheContexts(['url.query_args:date_delta']);
+      $dateDeltaCacheMetadata->applyTo($variables['content'][0]);
+
       if ($request instanceof Request && $request->query->has('date_delta') && is_numeric($date_delta = $request->query->get('date_delta'))) {
         $delta = (int) $date_delta;
         if ($delta >= 0 && $entity->hasField('field_date') && !$entity->get('field_date')->isEmpty()) {
@@ -338,12 +358,8 @@ class OpenculturasCustomDateEventHooks {
               $variables['content'] = [];
               $variables['content'][] = $field->view($display_settings);
               // Ensure correct caching per query argument.
-              $cacheMetadata = CacheableMetadata::createFromRenderArray($variables['content'][0]);
-              $cacheMetadata->addCacheContexts([
-                'url.query_args:date_delta',
-              ]);
-              $cacheMetadata->addCacheableDependency($entity);
-              $cacheMetadata->applyTo($variables['content'][0]);
+              $dateDeltaCacheMetadata->addCacheableDependency($entity);
+              $dateDeltaCacheMetadata->applyTo($variables['content'][0]);
             }
           }
         }
@@ -372,6 +388,15 @@ class OpenculturasCustomDateEventHooks {
   #[Hook('views_post_execute')]
   public function viewsPostExecute(ViewExecutable $view): void {
     if ($view->current_display === 'related_date_alternative' && $view->id() === 'related_date') {
+      // The result set below varies by the date_delta query argument, so
+      // this cache context must be declared unconditionally, even when the
+      // argument is absent from the current request. Otherwise the render
+      // cache ends up with a different set of bubbled contexts depending on
+      // whether date_delta was present, and Drupal's cache redirect
+      // mechanism rejects the mismatch as an overwrite of an existing
+      // redirect.
+      $view->addCacheContext('url.query_args:date_delta');
+
       $displayedNode = $this->routeMatch->getParameter('node');
       if (!$displayedNode instanceof NodeInterface) {
         return;
