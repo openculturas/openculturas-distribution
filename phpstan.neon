@@ -5,13 +5,16 @@ parameters:
   checkInternalClassCaseSensitivity: true
   scanDirectories:
     - web/
-    - tests/
   paths:
     - profile/
+    - tests/
   ignoreErrors:
     - identifier: missingType.iterableValue
     - identifier: missingType.generics
     - identifier: globalDrupalDependencyInjection.useDependencyInjection
+    # Kept as a helper for future tests; PHPStan analyses traits only where used.
+    - identifier: trait.unused
+      path: tests/src/Traits/NodeTrait.php
   excludePaths:
     - '*/node_modules/*'
     - '*/ProxyClass/*'
