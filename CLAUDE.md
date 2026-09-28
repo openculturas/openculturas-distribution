@@ -126,6 +126,27 @@ ddev composer run php:cs-fix      # Auto-fix PHPCS issues
 ddev composer run php:rector-fix  # Rector auto-fix
 ```
 
+### PHPUnit Tests
+
+Tests use Drupal Test Traits and run against the existing local site (no
+separate install), so they depend on its current database and config.
+
+```bash
+# ExistingSite tests
+ddev exec vendor/bin/phpunit --testsuite existing-site
+
+# Single test class
+ddev exec vendor/bin/phpunit --filter FaviconLinksTest
+
+# JavaScript tests need the selenium-chrome service, which only starts with
+# its compose profile
+ddev start --profiles=selenium
+ddev exec vendor/bin/phpunit --testsuite existing-site-javascript
+```
+
+`DTT_BASE_URL` and `DTT_MINK_DRIVER_ARGS` come from
+`.ddev/config.selenium-standalone-chrome.yaml`.
+
 ### JS/CSS Linting
 
 These commands run inside the DDEV container (`ddev exec`). The `lint:js` script hardcodes `.` as target — to lint specific files use `npx eslint` directly.

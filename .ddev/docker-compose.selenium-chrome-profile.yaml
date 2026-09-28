@@ -1,0 +1,11 @@
+# Keeps the selenium-chrome service from the ddev-selenium-standalone-chrome
+# add-on out of a plain `ddev start`. Start it only for JavaScript tests:
+#
+#   ddev start --profiles=selenium
+#
+# Kept separate from docker-compose.selenium-chrome.yaml so add-on updates
+# don't overwrite it.
+services:
+  selenium-chrome:
+    profiles:
+      - selenium
