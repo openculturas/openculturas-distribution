@@ -39,36 +39,21 @@ trait UserTrait {
       );
       if ($users === []) {
         $values = ['roles' => [$role->id()]];
-        $account = $this->createUser([], $user_name, $values);
+        $account = $this->createUser([], $user_name, FALSE, $values);
       }
       else {
         $account = reset($users);
       }
+
+      if (!$account instanceof UserInterface) {
+        throw new \RuntimeException(sprintf('The user %s could not be loaded or created.', $user_name));
+      }
+
       $this->drupalLogin($account);
     }
     else {
       throw new \InvalidArgumentException(sprintf('A role %s does not exists.', $role_name));
     }
-  }
-
-  /**
-   * To login existing user we need set a new password.
-   *
-   * @param \Drupal\user\UserInterface $user
-   *   User account who get the new password.
-   *
-   * @see \Drupal\Tests\openculturas\Traits\UserTrait::drupalLogin
-   */
-  protected function setNewPassword(UserInterface $user): void {
-    /** @var \Drupal\user\UserStorageInterface $storage */
-    $storage = $this->container->get('entity_type.manager')->getStorage('user');
-    $pass_raw = $this->container->get('password_generator')->generate();
-    $user->setPassword($pass_raw);
-    $storage->save($user);
-    // Add the raw password so that we can log in as this user.
-    $user->pass_raw = $pass_raw;
-    // Support BrowserTestBase as well.
-    $user->passRaw = $user->pass_raw;
   }
 
 }

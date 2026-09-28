@@ -4,9 +4,9 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
          failOnWarning="true"
-         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
+         displayDetailsOnPhpunitDeprecations="true"
          cacheResult="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd">
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd">
   <php>
     <ini name="error_reporting" value="E_ALL"/>
     <ini name="display_errors" value="1"/>
@@ -14,7 +14,6 @@
     <ini name="memory_limit" value="-1"/>
     <ini name="zend.enable_gc" value="1"/>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
-
   </php>
   <testsuites>
     <testsuite name="existing-site">
@@ -26,14 +25,10 @@
       <directory>./profile/modules/custom/*/tests/src/ExistingSiteJavascript</directory>
     </testsuite>
   </testsuites>
-  <listeners>
-    <listener class="\Drupal\Tests\Listeners\DrupalListener">
-    </listener>
-  </listeners>
-  <!-- Filter for coverage reports. -->
-  <coverage>
+  <!-- Source code for coverage and deprecation reports. -->
+  <source>
     <include>
       <directory>./profile</directory>
     </include>
-  </coverage>
+  </source>
 </phpunit>

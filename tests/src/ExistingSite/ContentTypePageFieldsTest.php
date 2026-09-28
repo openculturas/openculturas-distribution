@@ -6,18 +6,17 @@ namespace Drupal\Tests\openculturas\ExistingSite;
 
 use Drupal\Tests\openculturas\ExistingSiteBase;
 use Drupal\Tests\openculturas\Traits\UserTrait;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group openculturas
- */
+#[Group('openculturas')]
 class ContentTypePageFieldsTest extends ExistingSiteBase {
 
   use UserTrait;
 
-  public function testFieldsExistsForEditor(): void {
+  public function testFieldsExistForAdministrator(): void {
     $this->drupalGet('node/add/page');
     $this->assertSession()->statusCodeEquals(403);
-    $this->loginWithRole('magazine_editor');
+    $this->loginWithRole('administrator');
     // English.
     $this->drupalGet('node/add/page');
     $this->assertSession()->statusCodeEquals(200);
