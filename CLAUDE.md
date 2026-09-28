@@ -142,6 +142,9 @@ ddev exec vendor/bin/phpunit --filter FaviconLinksTest
 # its compose profile
 ddev start --profiles=selenium
 ddev exec vendor/bin/phpunit --testsuite existing-site-javascript
+
+# Stop the selenium-chrome service again; `ddev restart` leaves it running
+docker rm --force ddev-openculturas-selenium-chrome
 ```
 
 `DTT_BASE_URL` and `DTT_MINK_DRIVER_ARGS` come from
