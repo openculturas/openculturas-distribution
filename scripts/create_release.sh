@@ -4,6 +4,7 @@ DEPENDENCIES=(git ddev sed)
 SCRIPT_NAME=$(basename "$0")
 SCRIPT_VERSION="1.0.0"
 NORMALIZER_FILE="scripts/info_file_normalizer.php"
+PUBLICCODE_FILE="publiccode.yml"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -22,8 +23,9 @@ fi
 function usage() {
     cat <<EOM
 
-Prepare an OpenCulturas release: bump the version in all .info.yml files,
-commit, tag, then reset the working tree to the next -dev version.
+Prepare an OpenCulturas release: bump the version in all .info.yml files
+(and in publiccode.yml for stable releases), commit, tag, then reset the
+working tree to the next -dev version.
 
 usage: ${SCRIPT_NAME} [version] [options]
 
@@ -150,7 +152,7 @@ function run_normalizer() {
 
 function commit_changes() {
     local message="$1"
-    git add -A -- profile "$NORMALIZER_FILE" || {
+    git add --all -- profile "$NORMALIZER_FILE" "$PUBLICCODE_FILE" || {
         print_error "Failed to stage changes"
         exit 1
     }
