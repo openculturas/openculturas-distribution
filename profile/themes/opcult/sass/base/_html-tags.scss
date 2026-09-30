@@ -260,9 +260,16 @@ ins {
 
 // media
 
-audio,
 video {
   inline-size: 100%; // "width"
+  max-inline-size: 100%;
+}
+
+// audio has no intrinsic size like video/img, so a percentage inline-size
+// resolves to 0 inside ancestors that compute fit-content/max-content
+// (e.g. figure), collapsing the native player to a 0px-wide, invisible box.
+audio {
+  inline-size: 20rem;
   max-inline-size: 100%;
 }
 
