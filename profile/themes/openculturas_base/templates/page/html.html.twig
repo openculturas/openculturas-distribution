@@ -40,21 +40,12 @@
     <css-placeholder token="{{ placeholder_token }}">
     <js-placeholder token="{{ placeholder_token }}">
 
-    {# Load custom favicons instead of default, if they are defined. #}
-    {% if custom_favicons %}
-    {# @todo Make all the settings below configurable. #}
-    {% else %}
-      <link rel="apple-touch-icon" sizes="180x180" href="/{{ base_path ~ directory }}/favicons/apple-touch-icon.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="/{{ base_path ~ directory }}/favicons/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="/{{ base_path ~ directory }}/favicons/favicon-16x16.png">
-      <link rel="manifest" href="/{{ base_path ~ directory }}/favicons/site.webmanifest" crossorigin="use-credentials">
-      <link rel="mask-icon" href="/{{ base_path ~ directory }}/favicons/safari-pinned-tab.svg" color="#9e1981">
-      <link rel="shortcut icon" href="/{{ base_path ~ directory }}/favicons/favicon.ico">
-      <meta name="msapplication-TileColor" content="#9e1981">
-      <meta name="msapplication-config" content="/{{ base_path ~ directory }}/favicons/browserconfig.xml">
-      <meta name="theme-color" content="#ffffff">
-    {% endif %}
-
+    {# Icon <link> tags are provided by the metatag_favicons defaults. #}
+    <link rel="mask-icon" href="{{ file_url(favicon_directory ~ '/safari-pinned-tab.svg') }}" color="#9e1981">
+    <meta name="msapplication-TileColor" content="#9e1981">
+    <meta name="msapplication-config" content="{{ file_url(favicon_directory ~ '/browserconfig.xml') }}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="{{ file_url(favicon_directory ~ '/site.webmanifest') }}" crossorigin="use-credentials">
   </head>
   <body{{ attributes.addClass(body_classes) }}>
     {#

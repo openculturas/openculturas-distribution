@@ -13,6 +13,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomCookiesLegalPagesSubscriber;
+use Drupal\openculturas_custom\GetThemeFaviconsPath;
 use Drupal\user\RoleInterface;
 
 /**
@@ -130,9 +131,10 @@ function openculturas_install_content(): void {
     OpenculturasCustomCookiesLegalPagesSubscriber::addPathsToCookiesUiBlocks(\Drupal::entityTypeManager(), $legalPaths);
   }
 
-  if (file_exists(DRUPAL_ROOT . '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png')) {
+  $faviconsPath = GetThemeFaviconsPath::getPath('opcult');
+  if ($faviconsPath !== NULL) {
     $config = $configFactory->getEditable('gin.settings');
-    $config->set('favicon.path', '/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/favicons/drupal-oc-icon.png');
+    $config->set('favicon.path', $faviconsPath . '/drupal-oc-icon.png');
     $config->save();
   }
 }
@@ -359,5 +361,56 @@ function openculturas_update_10130(): void {
   if ($field instanceof FieldConfigInterface && $field->isTranslatable()) {
     $field->setTranslatable(FALSE);
     $field->save();
+  }
+}
+
+/**
+ * Re-resolves Gin's favicon path via the active theme extension path.
+ */
+function openculturas_update_10131(): void {
+  // Replaces the previous downstream-only hardcoded path, which also pointed
+  // at openculturas_base instead of opcult.
+  $faviconsPath = GetThemeFaviconsPath::getPath('opcult');
+  if ($faviconsPath !== NULL) {
+    $config = \Drupal::configFactory()->getEditable('gin.settings');
+    $config->set('favicon.path', $faviconsPath . '/drupal-oc-icon.png');
+    $config->save();
+  }
+}
+
+/**
+ * Enables metatag_favicons and seeds the default favicon icon tags.
+ */
+function openculturas_update_10132(): void {
+  // Favicon <link> tags are now rendered by metatag_favicons instead of
+  // hardcoded theme markup.
+  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  if (!\Drupal::moduleHandler()->moduleExists('metatag_favicons')) {
+    $module_installer->install(['metatag_favicons']);
+  }
+
+  $config = \Drupal::configFactory()->getEditable('metatag.metatag_defaults.global');
+  $tags = $config->get('tags');
+  $tags = is_array($tags) ? $tags : [];
+
+  // Only fills in tags that aren't already set, so sites that already
+  // customized any of these keys keep their own value.
+  $defaults = [
+    'shortcut_icon' => '[site:favicon-shortcut-icon]',
+    'icon_96x96' => '[site:favicon-path]/favicon-96x96.png',
+    'apple_touch_icon' => '[site:favicon-path]/apple-touch-icon.png',
+    'svg_icon' => '[site:favicon-path]/favicon.svg',
+  ];
+  $changed = FALSE;
+  foreach ($defaults as $key => $value) {
+    if (!isset($tags[$key])) {
+      $tags[$key] = $value;
+      $changed = TRUE;
+    }
+  }
+
+  if ($changed) {
+    $config->set('tags', $tags)->save();
   }
 }

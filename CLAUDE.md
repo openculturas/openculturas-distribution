@@ -69,8 +69,8 @@ ddev drush config:export -y
 # Import config from sync dir
 ddev drush config:import -y
 
-# Preview pending config changes
-ddev drush config:export --diff
+# List config objects that differ between DB and sync dir (read-only)
+ddev drush config:status
 
 # Inspect a specific config object
 ddev drush config:get <config.name>
@@ -78,6 +78,17 @@ ddev drush config:get <config.name>
 # Show config sync directory path
 ddev drush status --field=config-sync
 ```
+
+`ddev drush config:export --diff` is not a preview: run non-interactively,
+it prints the diff and then exports to `config/sync`. To see a full diff
+without touching the sync dir, export to a scratch directory and compare:
+
+```bash
+ddev drush config:export --destination=/tmp/config-preview -y
+ddev exec diff --recursive --unified config/sync /tmp/config-preview
+```
+
+Check `git status -- config/sync` after any drush config command.
 
 ### Development Commands
 

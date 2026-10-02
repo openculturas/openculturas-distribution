@@ -90,12 +90,14 @@ image, hero layout, and layout builder settings are available.
 
 ### 7. Provide your logo
 
-Plase a logo.svg and logo_negative.svg in your theme's root folder with your logo. If your logo does not need a "negative" version for dark mode,
-add a copy with the "negative" name nevertheless. That way the base theme inheritance handles everything.
+Plase a logo.svg and logo_negative.svg in your theme's root folder with your logo. If your logo does not need a "negative"
+version for dark mode, add a copy with the "negative" name nevertheless. That way the base theme inheritance handles everything.
 
 ### 8. Provide your favicons
 
-Overwrite/edit the files in favicons/ folder and check the site.webmanifest. See [favicons README](favicons/README.md).
+Overwrite/edit the files in favicons/ folder and check the site.webmanifest. Keep the file names — the
+site-wide `metatag_favicons` defaults resolve to your theme's `favicons/` folder automatically, no extra
+config needed. See [favicons README](favicons/README.md).
 
 ## Customization
 

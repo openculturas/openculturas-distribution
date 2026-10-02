@@ -39,17 +39,8 @@
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token }}">
     <js-placeholder token="{{ placeholder_token }}">
-
-    {# Load custom favicons instead of default, if they are defined. #}
-    {% if custom_favicons %}
-    {% else %}
-      <link rel="icon" type="image/png" href="/{{ base_path ~ directory }}/favicons/favicon-96x96.png" sizes="96x96" />
-      <link rel="icon" type="image/svg+xml" href="/{{ base_path ~ directory }}/favicons/favicon.svg" />
-      <link rel="shortcut icon" href="/{{ base_path ~ directory }}/favicons/favicon.ico" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/{{ base_path ~ directory }}/favicons/apple-touch-icon.png" />
-      <link rel="manifest" href="/{{ base_path ~ directory }}/favicons/site.webmanifest" />
-
-    {% endif %}
+    {# Favicon <link> tags are provided by the metatag_favicons defaults. #}
+    <link rel="manifest" href="{{ file_url(favicon_directory ~ '/site.webmanifest') }}" />
 
   </head>
   <body{{ attributes.addClass(body_classes) }}>

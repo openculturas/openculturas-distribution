@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_base\Hook;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -16,7 +15,6 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Template\Attribute;
-use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\address\AddressInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 use Drupal\image\ImageStyleInterface;
@@ -34,10 +32,6 @@ class OpenculturasBaseHooks {
    *
    * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The current route match.
-   * @param \Drupal\Core\Theme\ThemeManagerInterface $themeManager
-   *   The theme manager.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The config factory.
    * @param \Drupal\Core\Extension\ThemeSettingsProvider $themeSettingsProvider
    *   The theme settings provider.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -47,8 +41,6 @@ class OpenculturasBaseHooks {
    */
   public function __construct(
     protected RouteMatchInterface $routeMatch,
-    protected ThemeManagerInterface $themeManager,
-    protected ConfigFactoryInterface $configFactory,
     protected ThemeSettingsProvider $themeSettingsProvider,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityRepositoryInterface $entityRepository,
@@ -66,11 +58,6 @@ class OpenculturasBaseHooks {
         $variables['entity_type_id'] = $parameter->getEntityTypeId();
         break;
       }
-    }
-
-    if ($this->themeManager->getActiveTheme()->getName() === 'openculturas_base') {
-      $config = $this->configFactory->get('openculturas_base.settings');
-      $variables['custom_favicons'] = !$config->get('favicon.use_default');
     }
   }
 

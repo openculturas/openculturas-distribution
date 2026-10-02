@@ -58,6 +58,10 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $this->excludeCookiesLegalLinks($event);
     }
 
+    if ($extension === 'openculturas-profile' && $config_name === 'gin.settings') {
+      $this->setDownstreamGinFaviconPath($event);
+    }
+
     if ($entity_type_id === NULL) {
       return;
     }
@@ -419,6 +423,22 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
     $data = $configDevelSaveEvent->getData();
     $data['privacyUri'] = '';
     $data['imprintUri'] = '';
+    $configDevelSaveEvent->setData($data);
+  }
+
+  /**
+   * Exports Gin's favicon path for the downstream install layout.
+   *
+   * Downstream projects require openculturas/openculturas-distribution as a
+   * drupal-profile, so the profile lives below
+   * profiles/contrib/openculturas-distribution/profile. This repository's own
+   * site uses a different path, which must not become part of the profile's
+   * shipped default config. openculturas_install_content() re-resolves the
+   * path for the actual install layout either way.
+   */
+  private function setDownstreamGinFaviconPath(ConfigDevelSaveEvent $configDevelSaveEvent): void {
+    $data = $configDevelSaveEvent->getData();
+    $data['favicon']['path'] = 'profiles/contrib/openculturas-distribution/profile/themes/opcult/favicons/drupal-oc-icon.png';
     $configDevelSaveEvent->setData($data);
   }
 

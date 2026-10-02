@@ -63,7 +63,6 @@ class OpcultHooks {
       }
     }
 
-    $variables['custom_favicons'] = !$this->themeSettingsProvider->getSetting('favicon.use_default');
     $hero_layout = $this->themeSettingsProvider->getSetting('hero_layout');
     if (is_string($hero_layout) && $hero_layout !== '') {
       /** @var array<string, mixed> $attributes */
