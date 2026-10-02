@@ -47,4 +47,4 @@
       }
     },
   };
-})(Drupal, jQuery, once);
+})(Drupal);
