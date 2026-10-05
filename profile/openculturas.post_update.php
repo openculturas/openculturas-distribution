@@ -321,9 +321,6 @@ function openculturas_post_update_3_0(): string {
     'field.field.node.date.field_accessibility',
     'field.field.node.event.field_accessibility',
 
-    // Fix Drupal modal content padding, User-friendly complex tables.
-    'asset_injector.css.oc_gin_theme_overrides',
-
     // Hide labels.
     'core.entity_view_display.paragraph.accessibility.default',
     'core.entity_view_display.paragraph.contact_data.default',
@@ -416,13 +413,9 @@ function openculturas_post_update_revert_gin_theme_overrides_5(): void {
 }
 
 /**
- * Revert asset_injector.css.oc_gin_theme_overrides.
+ * No-op. Revert asset_injector.css.oc_gin_theme_overrides.
  */
-function openculturas_post_update_revert_gin_theme_overrides_6(): string {
-  $full_config_names = [
-    'asset_injector.css.oc_gin_theme_overrides',
-  ];
-  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
+function openculturas_post_update_revert_gin_theme_overrides_6(): void {
 }
 
 /**
@@ -1007,4 +1000,14 @@ function openculturas_post_update_rendered_entity_field_cache_metadata(?array &$
 
     return FALSE;
   });
+}
+
+/**
+ * Revert asset_injector.css.oc_gin_theme_overrides.
+ */
+function openculturas_post_update_revert_gin_theme_overrides_7(): string {
+  $full_config_names = [
+    'asset_injector.css.oc_gin_theme_overrides',
+  ];
+  return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }

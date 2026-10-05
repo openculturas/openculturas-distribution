@@ -320,6 +320,21 @@ ddev xdebug off
   existing method instead (e.g. the `preprocess_block` implementation in
   `OpenculturasCustomDateEventHooks`).
 
+## Update Hooks
+
+- Changes to `asset_injector.css.oc_gin_theme_overrides` reach existing sites
+  only through a revert in `profile/openculturas.post_update.php`. Never use
+  `hook_update_N()` or another config import path for it. Only the newest
+  `openculturas_post_update_revert_gin_theme_overrides_N()` reverts the
+  config. Older ones, and entries in multi-config post-updates, become no-ops
+  (empty body, `void` return, docblock prefixed with `No-op.`) so a site
+  updating across several releases reverts once.
+- If the newest revert post-update is not part of a tagged release yet
+  (`git tag --contains <commit>` is empty), change only the config file and
+  keep that post-update. Otherwise add
+  `openculturas_post_update_revert_gin_theme_overrides_<N+1>()` and make the
+  previous one a no-op.
+
 ## Dependency Updates
 
 - Renovate bumps of a package pinned only via npm `overrides` (e.g. `postcss`
