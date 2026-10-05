@@ -44,7 +44,6 @@ t('Manual map refinement', [], ['context' => 'field_group_label']);
 t('Media', [], ['context' => 'field_group_label']);
 t('Member of', [], ['context' => 'field_group_label']);
 t('Members', [], ['context' => 'field_group_label']);
-t('Mention by', [], ['context' => 'field_group_label']);
 t('Mentioned in this article', [], ['context' => 'field_group_label']);
 t('Mentions', [], ['context' => 'field_group_label']);
 t('Meta information', [], ['context' => 'field_group_label']);
