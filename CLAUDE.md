@@ -137,6 +137,14 @@ ddev composer run php:cs-fix      # Auto-fix PHPCS issues
 ddev composer run php:rector-fix  # Rector auto-fix
 ```
 
+PHPStan enforces a cognitive complexity limit of 15 per function
+(`tomasvotruba/cognitive-complexity`). Functions that already exceed it are
+listed in `phpstan-baseline.neon` with their current score, so their
+complexity may not grow. When a change lowers a baselined score, PHPStan
+reports the entry as unmatched; regenerate the baseline with
+`ddev exec vendor/bin/phpstan analyse --generate-baseline`. Never regenerate it
+to hide a score that went up: split the function instead.
+
 ### PHPUnit Tests
 
 Tests use Drupal Test Traits and run against the existing local site (no

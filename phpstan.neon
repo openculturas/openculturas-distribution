@@ -15,6 +15,10 @@ parameters:
     # Kept as a helper for future tests; PHPStan analyses traits only where used.
     - identifier: trait.unused
       path: tests/src/Traits/NodeTrait.php
+    # Hook classes bundle unrelated hooks, so a summed class score says little.
+    - identifier: complexity.classLike
+  cognitive_complexity:
+    function: 15
   excludePaths:
     - '*/node_modules/*'
     - '*/ProxyClass/*'
