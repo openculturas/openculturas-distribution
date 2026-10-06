@@ -337,11 +337,23 @@ ddev xdebug off
   config. Older ones, and entries in multi-config post-updates, become no-ops
   (empty body, `void` return, docblock prefixed with `No-op.`) so a site
   updating across several releases reverts once.
-- If the newest revert post-update is not part of a tagged release yet
-  (`git tag --contains <commit>` is empty), change only the config file and
-  keep that post-update. Otherwise add
+- Before adding a new revert post-update, check whether the newest one is
+  part of a tag (every tag counts as a release, including `-rc` tags):
+
+  ```bash
+  commit=$(git log --format=%h --reverse -S'gin_theme_overrides_<N>' -- profile/openculturas.post_update.php | head -1)
+  git tag --contains "$commit"
+  ```
+
+  Empty output: change only the config file and keep that post-update. It
+  reverts to whatever the config file contains when it runs. Sites running an
+  untagged development branch don't count. Otherwise add
   `openculturas_post_update_revert_gin_theme_overrides_<N+1>()` and make the
   previous one a no-op.
+- Merge or rebase conflicts where both sides added the same
+  `openculturas_post_update_revert_gin_theme_overrides_<N>()` are resolved by
+  keeping one copy. Apply the tag check above. Don't bump to `<N+1>` because
+  of the conflict alone.
 
 ## Dependency Updates
 
