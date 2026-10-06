@@ -388,8 +388,9 @@ also asserting at least one keyboard-flow expectation. Axe alone is
 not a green light.
 
 Do not skip `#[RunTestsInSeparateProcesses]` on Kernel or Functional
-PHPUnit tests — required from Drupal 11.3, recommended on 10.x. See
-the `drupal-automated-testing` skill for the broader contract.
+PHPUnit tests — deprecated when missing since Drupal 11.3, an
+exception from Drupal 12.0. See the `drupal-automated-testing` skill
+for the broader contract.
 
 ## See also
 
