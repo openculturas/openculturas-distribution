@@ -352,18 +352,21 @@ code: |+
   }
 
   .image-data__crop-wrapper .claro-details__summary-summary::after {
-    font-family: "Font Awesome 6 Free",sans-serif;
-    display: inline;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 1;
-    content: "\f565";
-    height: 2rem;
-    width: 2rem;
-    font-size: 1rem;
-    padding-left: .25rem;
-    color: var(--gin-color-primary)
+    --phi-crop-light: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' d='M0 0h256v256H0z'/%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='12' d='M64 24v168h168M24 64h40'/%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='12' d='M96 64h96v96M192 192v40'/%3E%3C/svg%3E");
+    display: inline-block;
+    content: "";
+    block-size: 1rem;
+    inline-size: 1rem;
+    padding-inline-start: .25rem;
+    background-color: var(--gin-color-primary);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    -webkit-mask-size: 1rem 1rem;
+    mask-size: 1rem 1rem;
+    -webkit-mask-image: var(--phi-crop-light);
+    mask-image: var(--phi-crop-light);
   }
 
   /* Radio + checkbox fields more compact */
