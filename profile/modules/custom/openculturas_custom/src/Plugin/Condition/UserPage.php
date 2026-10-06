@@ -103,7 +103,7 @@ final class UserPage extends ConditionPluginBase implements ContainerFactoryPlug
     }
 
     if (!empty($this->configuration['only_for_owner'])) {
-      return $is_owner && $is_route;
+      return $is_owner;
     }
 
     return $is_route;
