@@ -30,11 +30,17 @@ const paths = {
 };
 
 gulp.task('sass', () => {
+  const compiler = sass();
+  // Only the development build survives a Sass error, so a typo does not end
+  // a running session. The production build must fail instead.
+  if (development()) {
+    compiler.on('error', sass.logError);
+  }
   return gulp
     .src(paths.styles.src)
     .pipe(sassGlob())
     .pipe(development(sourcemaps.init()))
-    .pipe(sass().on('error', sass.logError))
+    .pipe(compiler)
     .pipe(production(gulpAutoprefixer({ cascade: false })))
     .pipe(development(sourcemaps.write()))
     .pipe(gulp.dest(paths.styles.dest));

@@ -26,6 +26,33 @@ variables:
   # `composer update` of drupal/ai_best_practices, never on CI's fresh installs.
   AI_BEST_PRACTICES_SKIP_PACKAGE_SYNC: 1
 
+renovate:update-artifacts:
+  extends: .renovate:update-artifacts
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
+  before_script:
+    - mkdir --parents --verbose /app/code
+    - rsync --archive --exclude=.composer --exclude=.npm . /app/code
+    - cd /app/code
+    - git config user.email "$GITLAB_USER_EMAIL" && git config user.name "$GITLAB_USER_NAME"
+    - git remote set-url origin "$CI_PROJECT_URL"
+    - |
+      if [[ ${CI_PROJECT_URL} =~ (([^/]*/){3}) ]]; then
+        mkdir --parents "$HOME/.config/git"
+        echo "${BASH_REMATCH[1]/:\/\//://gitlab-ci-token:${GL_TOKEN:-$GITLAB_TOKEN}@}" > "$HOME/.config/git/credentials"
+        git config --global credential.helper store
+      fi
+    # The target branch may not contain the script yet.
+    - cp .gitlab/renovate-update-artifacts.sh /tmp/renovate-update-artifacts.sh
+  script:
+    - bash /tmp/renovate-update-artifacts.sh
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ /^chore\(renovate\): update artifacts/'
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $UPDATE_ARTIFACTS
+    - if: '($CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH =~ $RENOVATE_BRANCH_PREFIX_PATTERN)'
+
 .composer:
   image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
   stage: validate

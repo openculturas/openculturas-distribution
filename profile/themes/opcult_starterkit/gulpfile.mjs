@@ -18,7 +18,7 @@ const sass = gulpSass(dartSass);
 import sourcemaps from 'gulp-sourcemaps';     // Create sass sourcemaps.
 import autoprefixer from 'gulp-autoprefixer'; // Adds vendor prefixes to CSS rules.
 import { deleteSync } from 'del';             // Delete generated files when needed.
-import plumber from 'gulp-plumber';           // Used to catch errors and continue build.
+import plumber from 'gulp-plumber';           // Used to catch errors and continue watching.
 import svgSprite from "gulp-svg-sprite";      // Build svg-sprite to make referencing SVG icons easier.
 
 /**
@@ -37,13 +37,17 @@ export function cleanSvg(done) {
   done();
 }
 
-// Compile sass to css.
-export function css() {
-  return src('sass/**/*.scss')
-    .pipe(plumber(function (error) {
+// Compile sass to css. The keepGoing flag logs Sass errors instead of failing,
+// so a typo does not end the watcher. One time builds must fail on errors.
+function compileCss(keepGoing) {
+  const stream = src('sass/**/*.scss');
+  const source = keepGoing
+    ? stream.pipe(plumber(function (error) {
       console.log(error.message);
       this.emit('end');
     }))
+    : stream;
+  return source
     .pipe(sourcemaps.init())
     .pipe(sass.sync({
       style: 'expanded',
@@ -52,6 +56,14 @@ export function css() {
     .pipe(autoprefixer())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('css'));
+}
+
+export function css() {
+  return compileCss(false);
+}
+
+function cssKeepGoing() {
+  return compileCss(true);
 }
 
 // Build SVG sprite.
@@ -84,7 +96,7 @@ export function svg() {
 
 // Watch sass files & rebuild on any changes.
 export function watchFiles() {
-  watch('sass/**/*.scss', series('css'));
+  watch('sass/**/*.scss', series(cssKeepGoing));
 }
 
 // One time build process.
