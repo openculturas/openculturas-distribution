@@ -28,7 +28,7 @@ variables:
 
 renovate:update-artifacts:
   extends: .renovate:update-artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.258385@sha256:3f33c445d8211a7272d5fd6fa9c53e1961523ea06d195cb337207e6ff9bf4a14
   before_script:
     - mkdir --parents --verbose /app/code
     - rsync --archive --exclude=.composer --exclude=.npm . /app/code
@@ -54,7 +54,7 @@ renovate:update-artifacts:
     - if: '($CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH =~ $RENOVATE_BRANCH_PREFIX_PATTERN)'
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.258385@sha256:3f33c445d8211a7272d5fd6fa9c53e1961523ea06d195cb337207e6ff9bf4a14
   stage: validate
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
@@ -187,7 +187,7 @@ rector dry-run:
           - "**/*.{scss,css,js}"
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.258385@sha256:3f33c445d8211a7272d5fd6fa9c53e1961523ea06d195cb337207e6ff9bf4a14
   stage: validate
   extends: .validate_rules_npm
   needs:
@@ -268,7 +268,7 @@ rector dry-run:
 
 build:artifacts:
   extends: .build:artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.258385@sha256:3f33c445d8211a7272d5fd6fa9c53e1961523ea06d195cb337207e6ff9bf4a14
 
 .docker_build_image:
   needs:
@@ -321,7 +321,7 @@ database:snapshot:
     - if: $DB_CREATE_SNAPSHOT
 
 🔍 npm audit:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.257705@sha256:0f99830a906a140be583205de7e194ae33b05f4e2081893b7cbf05c713cf0526
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.258385@sha256:3f33c445d8211a7272d5fd6fa9c53e1961523ea06d195cb337207e6ff9bf4a14
   stage: cronjobs
   needs: []
   script:
