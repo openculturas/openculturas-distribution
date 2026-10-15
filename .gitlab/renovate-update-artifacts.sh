@@ -69,6 +69,9 @@ update_database_artifacts() {
   git checkout "${CI_COMMIT_BRANCH}"
   composer install --no-interaction --no-progress --ansi
   vendor/bin/drush updatedb --yes --ansi
+  # Resave all config entities so schema changes made by updated modules land
+  # in this commit instead of in the diff of the next unrelated change.
+  vendor/bin/drush php:script scripts/resave_config_entities.php --ansi
   vendor/bin/drush config:export --yes --ansi
   composer run cde
 }
