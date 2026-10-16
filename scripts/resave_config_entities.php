@@ -10,6 +10,11 @@ declare(strict_types=1);
  * would otherwise introduce on their own the next time somebody edits an
  * entity become visible in one dedicated diff.
  *
+ * Entities are loaded without configuration overrides from settings.php.
+ * Saving an entity loaded with overrides would write the override values
+ * (for example local hostnames or an enabled config split) into the active
+ * configuration.
+ *
  * Usage: ddev drush scr scripts/resave_config_entities.php
  * Then review: git diff --stat -- config/sync
  */
@@ -30,7 +35,7 @@ foreach ($entity_type_manager->getDefinitions() as $entity_type_id => $definitio
     continue;
   }
   $count = 0;
-  foreach ($storage->loadMultiple() as $entity) {
+  foreach ($storage->loadMultipleOverrideFree() as $entity) {
     try {
       $entity->save();
       $count++;
