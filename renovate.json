@@ -7,6 +7,9 @@
     ":semanticCommitTypeAll(chore)"
   ],
   "rangeStrategy": "bump",
+  "vulnerabilityAlerts": {
+    "enabled": true
+  },
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
@@ -64,6 +67,12 @@
     {
       "matchPackageNames": ["drupal/office_hours"],
       "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Maintenance branches only receive security fixes: no regular composer and npm updates",
+      "matchBaseBranches": ["3.0.x", "2.6.x"],
+      "matchManagers": ["composer", "npm"],
+      "enabled": false
     },
     {
       "description": "Only allow patch updates on 3.0.x and 2.6.x for packages whose newer minor/major releases require a drupal/core version these branches don't have, or other reason",
