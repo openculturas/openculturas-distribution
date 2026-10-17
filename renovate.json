@@ -75,6 +75,13 @@
       "enabled": false
     },
     {
+      "description": "Maintenance branches: no updates of the inline library packages in composer.json (custom regex managers)",
+      "matchBaseBranches": ["3.0.x", "2.6.x"],
+      "matchManagers": ["custom.regex"],
+      "matchFileNames": ["**/composer.json"],
+      "enabled": false
+    },
+    {
       "description": "Only allow patch updates on 3.0.x and 2.6.x for packages whose newer minor/major releases require a drupal/core version these branches don't have, or other reason",
       "matchBaseBranches": ["3.0.x", "2.6.x"],
       "matchPackageNames": ["drupal/smart_date", "drupal/attribution", "drupal/oauth2_client"],
@@ -88,23 +95,6 @@
         "registry.cowain.dev/lvsn/openculturas-distribution",
         "openculturas/drupal-core-dev",
         "drupal/language_audit"
-      ],
-      "enabled": false
-    },
-    {
-      "description": "Restore useBaseBranchConfig=merge behavior for 2.6.x: these packages were disabled in the 2.6.x branch's own renovate.json",
-      "matchBaseBranches": ["2.6.x"],
-      "matchPackageNames": [
-        "ajaxorg/ace-builds",
-        "choices-js/choices.js",
-        "dynamicweb/swiffy-slider",
-        "elmarquis/leaflet.gesture-handling",
-        "heiseonline/shariff",
-        "leaflet/leaflet.fullscreen",
-        "leaflet/leaflet.markercluster",
-        "fengyuanchen/cropperjs",
-        "fengyuanchen/jquery-cropper",
-        "fortawesome/font-awesome"
       ],
       "enabled": false
     }
