@@ -24,11 +24,11 @@ When submitting code or comments, we expect contributors to follow [Drupal's Cod
 
 ## Found a security issue?
 
-See [SECURITY.md](SECURITY.md)</a>
+See [SECURITY.md](SECURITY.md)
 
 ## Development principles
 
-See [DEVELOPMENT.md](DEVELOPMENT.md)</a>
+See [DEVELOPMENT.md](DEVELOPMENT.md)
 
 ## Questions? Let's talk!
 

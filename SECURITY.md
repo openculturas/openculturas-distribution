@@ -8,6 +8,7 @@ When you find a vulnerability, follow these steps:
 2. In case you feel uncertain about email encryption contact us _without any details_ first (i. e. "I found a security vulnerability, please give me a safe way to communicate details")
 3. Assess category and severity, if possible—the [security risk calculator](https://www.drupal.org/drupal-security-team/security-risk-calculator) may help.
 4. Note details how to reproduce the exploit (in theory)
+5. After reporting, stay available for questions: we may need your help to reproduce or verify the issue. Please watch out for our response and reply promptly—ideally within a few working days.
 
 ### Email
 
@@ -18,9 +19,9 @@ Best contact us in English or German.
 
 ### Do not
 
-- By any means, for the sake of all OpenCulturas site owners an their registered users, **please keep your findings confidential**
+- By any means, for the sake of all OpenCulturas site owners and their registered users, **please keep your findings confidential**
 - **Do not exploit** the vulnerability yourself. If you happen to gain access to, say, personal data, do not make a copy, do not take a screenshot. Simply note the steps a theoretical exploit would require
-- Do **not brag publicly** about what you found. You will get credits in the course of publishing the security patch. Please give us your prefered user name and a public link to an account so we can properly attribute your contribution to safer software
+- Do **not brag publicly** about what you found. You will get credits in the course of publishing the security patch. Please give us your preferred user name and a public link to an account so we can properly attribute your contribution to safer software
 
 ### Alternative: report to the Drupal security team
 
