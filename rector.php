@@ -57,4 +57,5 @@ return RectorConfig::configure()
       __DIR__ . '/profile/modules/custom/openculturas_discussions/src/ProxyClass/OpenCulturasDiscussionsUninstallValidator.php',
     ]
   )
+  ->withIndent(indentChar: ' ', indentSize: 2)
   ->withParallel(maxNumberOfProcess: 2);
