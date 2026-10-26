@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.gallery.field_entity_popover
     - field.field.paragraph.gallery.field_gallery
     - field.field.paragraph.gallery.paragraph_view_mode
     - paragraphs.paragraphs_type.gallery
   module:
+    - entity_popover
     - field_formatter_class
     - media_library
     - media_library_edit
@@ -16,6 +18,13 @@ targetEntityType: paragraph
 bundle: gallery
 mode: default
 content:
+  field_entity_popover:
+    type: entity_popover_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_gallery:
     type: media_library_widget
     weight: 0

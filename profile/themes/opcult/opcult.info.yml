@@ -14,6 +14,36 @@ libraries:
   - opcult/global
 
 libraries-override:
+  # gin_toolbar unconditionally adds these as dependencies of core's
+  # drupal.dialog/drupal.ajax libraries (gin_toolbar_library_info_alter()) so
+  # dialogs stay on-brand while browsing in the admin theme — but that also
+  # bleeds Claro's/Gin's dialog styling (and Gin's toolbar-matching nav) into
+  # core dialogs opened on the frontend (e.g. Flag's confirmation dialogs) for
+  # any user with toolbar access. Disabling them here only removes CSS/a
+  # cosmetic JS throbber-markup override; falls back to Drupal's own default
+  # dialog/throbber markup, which Opcult styles itself.
+  claro/claro.drupal.dialog: false
+  claro/ajax: false
+  gin/dialog: false
+  gin/ajax: false
+  # gin_toolbar separately force-attaches gin/gin_base (for the toolbar nav)
+  # to every page for any user with toolbar access — gin_base itself depends
+  # on gin_dialog, a second, independent path to the same dialog CSS above.
+  gin/gin_dialog: false
+  # jQuery UI's own base button theme (used by .ui-dialog's buttons/close
+  # icon) still leaks its own hover/focus states even with Gin/Claro's CSS
+  # gone — Opcult styles dialog buttons itself (_modal-dialog.scss).
+  core/drupal.dialog:
+    css:
+      component:
+        assets/vendor/jquery.ui/themes/base/button.css: false
+        assets/vendor/jquery.ui/themes/base/dialog.css: false
+  # theme.css also resets font-weight to normal on .ui-button:hover/:focus —
+  # a second, independent jQuery UI file causing the same class of leak.
+  core/internal.jquery_ui:
+    css:
+      theme:
+        assets/vendor/jquery.ui/themes/base/theme.css: false
   # Prevent social_media_links from loading fontawesome via CDN. We use local svg sprite anyway.
   social_media_links/fontawesome.component: false
   # Removed to set a border in our CSS.

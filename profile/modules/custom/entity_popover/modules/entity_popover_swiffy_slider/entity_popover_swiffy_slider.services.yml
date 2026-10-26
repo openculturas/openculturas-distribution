@@ -1,0 +1,17 @@
+services:
+  Drupal\entity_popover_swiffy_slider\PopoverFormatterSettings:
+    arguments:
+      $formatterPluginManager: '@plugin.manager.field.formatter'
+  Drupal\entity_popover_swiffy_slider\InheritedFieldRenderer:
+    arguments:
+      $renderer: '@renderer'
+      $popoverFormatterSettings: '@Drupal\entity_popover_swiffy_slider\PopoverFormatterSettings'
+  Drupal\entity_popover_swiffy_slider\Hook\EntityPopoverSwiffySliderHooks:
+    arguments:
+      $formatterPluginManager: '@plugin.manager.field.formatter'
+      $popoverFormatterSettings: '@Drupal\entity_popover_swiffy_slider\PopoverFormatterSettings'
+  Drupal\entity_popover_swiffy_slider\EventSubscriber\WrapFieldBlockPopover:
+    arguments:
+      $popoverFormatterSettings: '@Drupal\entity_popover_swiffy_slider\PopoverFormatterSettings'
+    tags:
+      - { name: event_subscriber }

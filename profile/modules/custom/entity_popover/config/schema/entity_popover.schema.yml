@@ -1,0 +1,16 @@
+field.formatter.settings.entity_popover:
+  type: mapping
+  label: 'Entity popover format settings'
+  mapping:
+    view_mode:
+      type: string
+      label: 'View mode'
+
+# The entity_popover field type behaves exactly like "boolean" — only its
+# identity and default formatter differ — so its settings reuse that type's
+# schema rather than redefining an identical mapping.
+field.field_settings.entity_popover:
+  type: field.field_settings.boolean
+
+field.value.entity_popover:
+  type: field.value.boolean

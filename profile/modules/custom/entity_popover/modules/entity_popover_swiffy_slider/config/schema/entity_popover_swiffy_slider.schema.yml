@@ -1,0 +1,17 @@
+field.formatter.third_party.entity_popover_swiffy_slider:
+  type: mapping
+  label: 'Entity popover (alternate formatter) settings'
+  mapping:
+    enable:
+      type: boolean
+      label: 'Enable popover'
+    details:
+      type: mapping
+      label: 'Popover settings'
+      mapping:
+        formatter:
+          type: string
+          label: 'Popover formatter'
+        formatter_settings:
+          type: field.formatter.settings.[%parent.formatter]
+          label: 'Popover formatter settings'

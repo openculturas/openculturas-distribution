@@ -19,10 +19,23 @@
     <testsuite name="existing-site">
       <directory>./tests/src/ExistingSite</directory>
       <directory>./profile/modules/custom/*/tests/src/ExistingSite</directory>
+      <directory>./profile/modules/custom/*/modules/*/tests/src/ExistingSite</directory>
     </testsuite>
     <testsuite name="existing-site-javascript">
       <directory>./tests/src/ExistingSiteJavascript</directory>
       <directory>./profile/modules/custom/*/tests/src/ExistingSiteJavascript</directory>
+    </testsuite>
+    <!--
+      Destructive lifecycle tests for openculturas_responsive_images and
+      openculturas_entity_popover. They install, migrate, revert and uninstall
+      the modules through the UI, so they must never run as part of
+      existing-site, which developers run against their own working site.
+
+      Run only through tests/scripts/lifecycle_test.sh, which restores a DDEV
+      snapshot before every scenario and puts the database back afterwards.
+    -->
+    <testsuite name="lifecycle">
+      <directory>./tests/src/Lifecycle</directory>
     </testsuite>
   </testsuites>
   <!-- Source code for coverage and deprecation reports. -->

@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.free_format
+  module:
+    - crop
+  enforced:
+    module:
+      - openculturas_responsive_images
+name: oc_bounds_1200_900
+label: 'OC bounds 1200x900'
+effects:
+  dbe8e6b0-7a93-4fa3-91bc-b8cf9306883c:
+    uuid: dbe8e6b0-7a93-4fa3-91bc-b8cf9306883c
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: free_format
+      automatic_crop_provider: null
+  97f40766-d1db-4b69-aa00-523b386671e9:
+    uuid: 97f40766-d1db-4b69-aa00-523b386671e9
+    id: image_scale
+    weight: -9
+    data:
+      width: 1200
+      height: 900
+      upscale: false
+  672c7a4e-d9a8-41fd-8756-70128c8fd12c:
+    uuid: 672c7a4e-d9a8-41fd-8756-70128c8fd12c
+    id: image_convert
+    weight: 3
+    data:
+      extension: webp

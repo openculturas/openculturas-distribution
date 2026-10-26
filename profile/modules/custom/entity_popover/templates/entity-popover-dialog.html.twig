@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a toggle that opens the host entity in
+ * an alternate view mode inside a native dialog popover.
+ *
+ * Available variables:
+ * - unique_id: Identifier shared between the trigger button and the dialog.
+ * - toggle_label: Accessible label for the button that opens the dialog.
+ * - close_label: Accessible label for the button that closes the dialog.
+ * - dialog_content: The host entity, rendered in the configured view mode.
+ */
+#}
+<button type="button" popovertarget="{{ unique_id }}" class="button entity-popover__trigger">{{ toggle_label }}</button>
+<dialog id="{{ unique_id }}" class="entity-popover__dialog" popover="auto">
+  <div class="dialog-titlebar">
+    <span class="dialog-title">{{ toggle_label }}</span>
+    <button type="button" popovertarget="{{ unique_id }}" popovertargetaction="hide" class="close entity-popover__close">{{ close_label }}</button>
+  </div>
+  <div class="entity-popover__content dialog-content">
+    {{ dialog_content }}
+  </div>
+</dialog>

@@ -1,0 +1,20 @@
+services:
+  Drupal\openculturas_entity_popover\DisplayWirer:
+    arguments:
+      $popoverFormatterSettings: '@Drupal\entity_popover_swiffy_slider\PopoverFormatterSettings'
+  Drupal\openculturas_entity_popover\NodeDisplayUnwirer: {}
+  Drupal\openculturas_entity_popover\FieldUnwirer:
+    arguments:
+      $fieldPurger: '@Drupal\Core\Field\FieldPurger'
+      $deletedFieldsRepository: '@entity_field.deleted_fields_repository'
+      $logger: '@logger.channel.openculturas_entity_popover'
+
+  logger.channel.openculturas_entity_popover:
+    parent: logger.channel_base
+    arguments: ['openculturas_entity_popover']
+
+  openculturas_entity_popover.config_devel_subscriber:
+    class: Drupal\openculturas_entity_popover\EventSubscriber\ConfigDevelSubscriber
+    autowire: true
+    tags:
+      - { name: event_subscriber }

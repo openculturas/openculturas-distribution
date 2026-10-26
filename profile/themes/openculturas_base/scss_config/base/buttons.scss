@@ -142,8 +142,10 @@ button.close,
 dialog.modal button.close {
   @include icon(xmark);
 
+  position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  overflow: hidden;
   width: var(--font-size-icon);
   height: var(--font-size-icon);
   margin: 0;
@@ -156,6 +158,21 @@ dialog.modal button.close {
   &::after {
     padding: 0;
     line-height: var(--font-size-icon);
+  }
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-inline: 0 2px;
+
+  &:focus,
+  &:hover {
+    border-color: var(--color-text-inverted);
+  }
+
+  .ui-icon.ui-icon-closethick {
+    transform: unset;
   }
 }
 

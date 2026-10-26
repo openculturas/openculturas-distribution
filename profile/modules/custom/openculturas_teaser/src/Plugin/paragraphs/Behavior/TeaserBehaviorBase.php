@@ -20,6 +20,11 @@ use function is_numeric;
 abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
 
   /**
+   * Media view mode used for the teaser image when a display sets none.
+   */
+  public const string DEFAULT_MEDIA_VIEW_MODE = 'teaser_image_big';
+
+  /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    *   The entity type manager.
    */
@@ -71,7 +76,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
         '#allowed_bundles' => ['image'],
         '#title' => $this->t('Media'),
         '#default_value' => $settings['media'] ?? NULL,
-        '#description' => $this->t('Upload or select a teaser image.'),
+        '#description' => $this->t('Upload or select a teaser image. It renders using the media view mode configured for this paragraph view mode (see "Teaser image view mode" on Manage Display).'),
       ],
     ];
     // Hint: Do not return the form, or we get the ugly paragraphs-behavior tabs, which we do not want. See internal issue 863.
@@ -126,6 +131,49 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
   }
 
   /**
+   * Gets the media view mode configured for the given teaser display.
+   *
+   * Site builders configure this per paragraph view mode (e.g. "Default",
+   * "Smaller image") via a third-party setting on the entity view display,
+   * added by OpenculturasTeaserHooks::formEntityViewDisplayEditFormAlter().
+   *
+   * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display
+   *   The teaser paragraph's own currently-active view display.
+   *
+   * @return string
+   *   The media view mode machine name.
+   */
+  protected function getConfiguredMediaViewMode(EntityViewDisplayInterface $display): string {
+    $value = $display->getThirdPartySetting('openculturas_teaser', 'media_view_mode');
+    return is_string($value) && $value !== '' ? $value : self::DEFAULT_MEDIA_VIEW_MODE;
+  }
+
+  /**
+   * Adds the paragraph's cacheability to the teased entity's render array.
+   *
+   * @param array $build
+   *   The render array of the referenced entity, changed in place.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The teaser paragraph.
+   * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display
+   *   The teaser paragraph's own currently-active view display.
+   */
+  protected function addTeaserCacheability(array &$build, ParagraphInterface $paragraph, EntityViewDisplayInterface $display): void {
+    $cacheableMetadata = CacheableMetadata::createFromRenderArray($build);
+    $cacheableMetadata->addCacheableDependency($paragraph);
+    // The display holds the teaser image view mode, so saving it has to
+    // invalidate the cached teaser.
+    $cacheableMetadata->addCacheableDependency($display);
+    $cacheableMetadata->applyTo($build);
+    // We need an additional cache key, or the field renders all references
+    // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE:LANGCODE).
+    // The paragraph's view mode is part of the key, because each paragraph
+    // display can configure its own teaser image view mode.
+    $build['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
+    $build['#cache']['keys'][] = $display->getMode();
+  }
+
+  /**
    * Creates the render array for a teaser.
    *
    * @param array $build
@@ -134,6 +182,8 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    *   Paragraph's settings.
    * @param string $entityKey
    *   The array key that contains the entity to teaser.
+   * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display
+   *   The teaser paragraph's own currently-active view display.
    *
    * @return array
    *   The complete render array.
@@ -142,7 +192,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  protected function getBaseBuildArray(array $build, array $settings, string $entityKey): array {
+  protected function getBaseBuildArray(array $build, array $settings, string $entityKey, EntityViewDisplayInterface $display): array {
     if (!array_key_exists($entityKey, $build)) {
       $this->messenger()
         ->addError($this->t('Invalid arguments provided, @entity_key does not exist.', ['@entity_key' => $entityKey]));
@@ -196,7 +246,7 @@ abstract class TeaserBehaviorBase extends ParagraphsBehaviorBase {
       if ($media instanceof MediaInterface) {
         $cacheableMetadata->addCacheableDependency($media);
         $build['#media'] = $this->entityTypeManager->getViewBuilder('media')
-          ->view($media, 'teaser_image_big');
+          ->view($media, $this->getConfiguredMediaViewMode($display));
       }
     }
 

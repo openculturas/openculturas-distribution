@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.slider
+    - field.field.paragraph.gallery.field_entity_popover
     - field.field.paragraph.gallery.field_gallery
     - field.field.paragraph.gallery.paragraph_view_mode
     - paragraphs.paragraphs_type.gallery
@@ -19,13 +20,14 @@ content:
     type: swiffy_slider_entity_reference
     label: hidden
     settings:
-      view_mode: gallery
-      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-1x1&slider-item-snapping=slider-item-nosnap&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale'
+      view_mode: gallery_big
+      swiffy_slider_permalink: 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-1x1&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale'
     third_party_settings:
       field_formatter_class:
         class: ''
     weight: 0
     region: content
 hidden:
+  field_entity_popover: true
   paragraph_view_mode: true
   search_api_excerpt: true

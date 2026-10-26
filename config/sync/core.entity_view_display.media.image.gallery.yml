@@ -7,11 +7,11 @@ dependencies:
     - field.field.media.image.field_caption
     - field.field.media.image.field_licenses
     - field.field.media.image.field_media_image
-    - image.style.gallery
     - media.type.image
+    - responsive_image.styles.oc_bounds_600
   module:
     - attribution
-    - svg_image
+    - svg_image_responsive
     - text
 id: media.image.gallery
 targetEntityType: media
@@ -33,11 +33,11 @@ content:
     weight: 3
     region: content
   field_media_image:
-    type: image
+    type: responsive_image
     label: visually_hidden
     settings:
+      responsive_image_style: oc_bounds_600
       image_link: ''
-      image_style: gallery
       image_loading:
         attribute: lazy
       svg_attributes:

@@ -161,6 +161,7 @@ a.menu-item--toggle:before,
 .region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/register"]:before,
 .region-utilities-links .account-toggle--wrapper .menu li a[data-drupal-link-system-path="user/login"]:before,
 .account-toggle--wrapper .button-popover-trigger:before,
+.account-toggle--wrapper .entity-popover__trigger:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-legal-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-url a:before,
 .block-social-media-links-block .block-social-media-links--wrapper .field__item.field-phone a:before,
@@ -168,11 +169,13 @@ a.menu-item--toggle:before,
 .header__utilities .block-views-exposed-filter-blocksearch-search-input button:before,
 .header__utilities .block-views-exposed-filter-blocksearch-search-input .form-item:has(input):after,
 .button-popover-trigger:before,
+.entity-popover__trigger:before,
 .leaflet-popup-close-button:before,
 .openculturas-map--overlay:before,
 .openculturas-map--results .map-link:before,
 .openculturas-map--reload:before,
 .language-toggle--wrapper .button-popover-trigger:before,
+.language-toggle--wrapper .entity-popover__trigger:before,
 .mode-toggle.toggle-dark:before,
 .dark-mode-toggle--popover-button[data-icon=dark]:before,
 .mode-toggle.toggle-light:before,
@@ -11070,6 +11073,10 @@ img[alt] {
   font-style: italic;
 }
 
+.media img {
+  image-orientation: none;
+}
+
 img,
 figure {
   max-width: 100%;
@@ -11878,7 +11885,7 @@ button {
   overflow-wrap: normal;
 }
 
-.cookiesjsr-layer .cookiesjsr-btn, .add-to-calendar.modal a, .button-popover-trigger::before, .dark-mode-toggle--popover-button::before, .leaflet-container a.leaflet-popup-close-button,
+.cookiesjsr-layer .cookiesjsr-btn, .add-to-calendar.modal a, .button-popover-trigger::before, .entity-popover__trigger::before, .dark-mode-toggle--popover-button::before, .leaflet-container a.leaflet-popup-close-button,
 button,
 .button,
 input[type=button],
@@ -11897,7 +11904,7 @@ input[type=submit], .shariff .button-style-icon a, button.editCookieSettings, .c
   border-radius: var(--button-border-radius);
   background-color: var(--color-bg-light);
 }
-.inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .button-popover-trigger::before, .inverted .dark-mode-toggle--popover-button::before, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .flag a, .flag .inverted a, .inverted .extra-field-social-media-buttons button, .extra-field-social-media-buttons .inverted button, .inverted .openculturas-map--results .map-link, .openculturas-map--results .inverted .map-link, .inverted .openculturas-map--reload,
+.inverted .cookiesjsr-layer .cookiesjsr-btn, .cookiesjsr-layer .inverted .cookiesjsr-btn, .inverted .add-to-calendar.modal a, .add-to-calendar.modal .inverted a, .inverted .button-popover-trigger::before, .inverted .entity-popover__trigger::before, .inverted .dark-mode-toggle--popover-button::before, .inverted .leaflet-container a.leaflet-popup-close-button, .leaflet-container .inverted a.leaflet-popup-close-button, .inverted .shariff .button-style-icon a, .shariff .button-style-icon .inverted a, .inverted .cookies-fallback .cookies-fallback--link, .cookies-fallback .inverted .cookies-fallback--link, .inverted .cookies-fallback .cookies-fallback--btn, .cookies-fallback .inverted .cookies-fallback--btn, .inverted .flag a, .flag .inverted a, .inverted .extra-field-social-media-buttons button, .extra-field-social-media-buttons .inverted button, .inverted .openculturas-map--results .map-link, .openculturas-map--results .inverted .map-link, .inverted .openculturas-map--reload,
 .inverted .button-small,
 .inverted .button,
 .inverted button,
@@ -11906,8 +11913,8 @@ input[type=submit], .shariff .button-style-icon a, button.editCookieSettings, .c
 .inverted .form-submit:not([data-drupal-selector^=edit-reset]) {
   border-color: var(--color-text-inverted);
 }
-.cookiesjsr-layer .cookiesjsr-btn:focus, .add-to-calendar.modal a:focus, .button-popover-trigger:focus::before, .dark-mode-toggle--popover-button:focus::before, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .flag a:focus, .extra-field-social-media-buttons button:focus, .openculturas-map--results .map-link:focus, .openculturas-map--reload:focus,
-.button-small:focus, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .button-popover-trigger:not([disabled]):hover::before, .dark-mode-toggle--popover-button:not([disabled]):hover::before, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .flag a:not([disabled]):hover, .openculturas-map--results .map-link:not([disabled]):hover, .openculturas-map--reload:not([disabled]):hover,
+.cookiesjsr-layer .cookiesjsr-btn:focus, .add-to-calendar.modal a:focus, .button-popover-trigger:focus::before, .entity-popover__trigger:focus::before, .dark-mode-toggle--popover-button:focus::before, .leaflet-container a.leaflet-popup-close-button:focus, .shariff .button-style-icon a:focus, .cookies-fallback .cookies-fallback--link:focus, .cookies-fallback .cookies-fallback--btn:focus, .flag a:focus, .extra-field-social-media-buttons button:focus, .openculturas-map--results .map-link:focus, .openculturas-map--reload:focus,
+.button-small:focus, .cookiesjsr-layer .cookiesjsr-btn:not([disabled]):hover, .add-to-calendar.modal a:not([disabled]):hover, .button-popover-trigger:not([disabled]):hover::before, .entity-popover__trigger:not([disabled]):hover::before, .dark-mode-toggle--popover-button:not([disabled]):hover::before, .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .shariff .button-style-icon a:not([disabled]):hover, .cookies-fallback .cookies-fallback--link:not([disabled]):hover, .cookies-fallback .cookies-fallback--btn:not([disabled]):hover, .flag a:not([disabled]):hover, .openculturas-map--results .map-link:not([disabled]):hover, .openculturas-map--reload:not([disabled]):hover,
 .button-small:not([disabled]):hover,
 .button:focus,
 .button:not([disabled]):hover,
@@ -12017,7 +12024,7 @@ button[type=submit].button--danger:before {
   line-height: 1;
 }
 
-.cookiesjsr-layer .cookiesjsr-btn:active, .add-to-calendar.modal a:active, .button-popover-trigger:active::before, .dark-mode-toggle--popover-button:active::before, .leaflet-container a.leaflet-popup-close-button:active, .cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .flag a:active, .extra-field-social-media-buttons button:active, .openculturas-map--results .map-link:active, .openculturas-map--reload:active,
+.cookiesjsr-layer .cookiesjsr-btn:active, .add-to-calendar.modal a:active, .button-popover-trigger:active::before, .entity-popover__trigger:active::before, .dark-mode-toggle--popover-button:active::before, .leaflet-container a.leaflet-popup-close-button:active, .cookies-fallback .cookies-fallback--link:active, .cookies-fallback .cookies-fallback--btn:active, .flag a:active, .extra-field-social-media-buttons button:active, .openculturas-map--results .map-link:active, .openculturas-map--reload:active,
 .button-small:active, .shariff .button-style-icon a:active,
 .button:active,
 button:active,
@@ -12058,8 +12065,10 @@ dialog.modal button.close:before {
 }
 button.close,
 dialog.modal button.close {
+  position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  overflow: hidden;
   width: var(--font-size-icon);
   height: var(--font-size-icon);
   margin: 0;
@@ -12073,6 +12082,18 @@ dialog.modal button.close::before,
 dialog.modal button.close::after {
   padding: 0;
   line-height: var(--font-size-icon);
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-inline: 0 2px;
+}
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close:focus, .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close:hover {
+  border-color: var(--color-text-inverted);
+}
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon.ui-icon-closethick {
+  transform: unset;
 }
 
 .region-footer button,
@@ -13048,7 +13069,7 @@ button.mode-toggle:focus, button.mode-toggle:hover, button.mode-toggle:active {
   padding: 0.625rem 1.25rem;
 }
 
-.language-toggle--wrapper .button-popover-trigger:before {
+.language-toggle--wrapper .button-popover-trigger:before, .language-toggle--wrapper .entity-popover__trigger:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -13582,7 +13603,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   display: inline-block;
 }
 
-.button-popover-trigger {
+.button-popover-trigger, .entity-popover__trigger {
   border-width: 0;
   overflow: hidden;
   padding: 0;
@@ -13594,7 +13615,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   background-color: transparent;
   border-color: transparent;
 }
-.button-popover-trigger:before {
+.button-popover-trigger:before, .entity-popover__trigger:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -13604,7 +13625,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   line-height: 1;
   content: "\f142";
 }
-.button-popover-trigger::before {
+.button-popover-trigger::before, .entity-popover__trigger::before {
   border-color: transparent;
   background-color: transparent;
   width: 2rem;
@@ -13613,7 +13634,7 @@ body .block-system-main-block > article.layout-wide.view-mode-full .attachment-b
   left: 0;
   padding: 0.5rem 0.333rem;
 }
-.button-popover-trigger:focus::before, .button-popover-trigger:hover::before {
+.button-popover-trigger:focus::before, .entity-popover__trigger:focus::before, .button-popover-trigger:hover::before, .entity-popover__trigger:hover::before {
   background-color: var(--color-interaction);
   color: var(--color-text-inverted);
 }
@@ -13906,7 +13927,7 @@ header .contextual {
   margin: 0;
 }
 
-.account-toggle--wrapper .button-popover-trigger:before {
+.account-toggle--wrapper .button-popover-trigger:before, .account-toggle--wrapper .entity-popover__trigger:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -14305,6 +14326,32 @@ details.attribution summary {
   overflow: hidden;
   width: calc(2rem + 2px);
   height: calc(2rem + 2px);
+}
+
+.field.field--type-entity-popover {
+  position: absolute;
+  right: 0;
+  bottom: -0.5rem;
+  margin: 0;
+}
+
+.swiffy-slider + .field--type-entity-popover {
+  bottom: 0.5rem;
+}
+
+.entity-popover__trigger:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  content: "\f424";
+}
+.entity-popover__trigger {
+  inset: unset;
+  border: 1px solid var(--color-interaction);
 }
 
 body .interact {

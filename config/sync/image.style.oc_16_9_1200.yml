@@ -1,0 +1,37 @@
+uuid: 23b86970-f21e-43a7-8ab4-2e69fc029963
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.oc_16_9
+  module:
+    - crop
+  enforced:
+    module:
+      - openculturas_responsive_images
+_core:
+  default_config_hash: JazDi1TfvhxH1xNwIkCR2u-pv64GKBKz1SBJXJ6Fg_A
+name: oc_16_9_1200
+label: 'OC 16:9 1200px'
+effects:
+  aabc2319-8157-40b7-8d0f-edf302b4635b:
+    uuid: aabc2319-8157-40b7-8d0f-edf302b4635b
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: oc_16_9
+      automatic_crop_provider: null
+  e40ca2a6-ce52-4902-8c79-a17520b4a12c:
+    uuid: e40ca2a6-ce52-4902-8c79-a17520b4a12c
+    id: image_convert
+    weight: -8
+    data:
+      extension: webp
+  d98629bc-ef55-413f-a4f6-88d67439816d:
+    uuid: d98629bc-ef55-413f-a4f6-88d67439816d
+    id: image_scale_and_crop
+    weight: -9
+    data:
+      width: 1200
+      height: 675
+      anchor: center-center

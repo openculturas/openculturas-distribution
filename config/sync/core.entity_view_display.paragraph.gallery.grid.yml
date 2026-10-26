@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.grid
+    - field.field.paragraph.gallery.field_entity_popover
     - field.field.paragraph.gallery.field_gallery
     - field.field.paragraph.gallery.paragraph_view_mode
     - paragraphs.paragraphs_type.gallery
   module:
+    - entity_popover
     - field_formatter_class
     - layout_builder
 third_party_settings:
@@ -19,6 +21,14 @@ targetEntityType: paragraph
 bundle: gallery
 mode: grid
 content:
+  field_entity_popover:
+    type: entity_popover
+    label: hidden
+    settings:
+      view_mode: slider
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_gallery:
     type: entity_reference_entity_view
     label: hidden

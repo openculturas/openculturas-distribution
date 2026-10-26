@@ -1,0 +1,7 @@
+services:
+  entity_popover.render_context:
+    class: Drupal\entity_popover\RenderContextGuard
+  entity_popover.paragraph_backfiller:
+    class: Drupal\entity_popover\ParagraphBackfiller
+    autowire: true
+  Drupal\entity_popover\ParagraphBackfiller: '@entity_popover.paragraph_backfiller'

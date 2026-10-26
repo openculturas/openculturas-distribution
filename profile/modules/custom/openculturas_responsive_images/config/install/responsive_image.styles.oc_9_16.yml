@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.oc_9_16_1200
+    - image.style.oc_9_16_400
+    - image.style.oc_9_16_600
+    - image.style.oc_9_16_800
+  module:
+    - openculturas_responsive_images
+  enforced:
+    module:
+      - openculturas_responsive_images
+id: oc_9_16
+label: 'OC 9:16'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: 'auto, (min-width: 1200px) 1200px, 100vw'
+      sizes_image_styles:
+        - oc_9_16_400
+        - oc_9_16_600
+        - oc_9_16_800
+        - oc_9_16_1200
+    breakpoint_id: openculturas_responsive_images.oc_responsive_image
+    multiplier: 1x
+breakpoint_group: oc_responsive_image
+fallback_image_style: oc_9_16_1200

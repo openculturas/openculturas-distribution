@@ -8,9 +8,11 @@
   --oc-dialog-bg-color: var(--oc-color-bg-light);
   --oc-dialog-text-color: var(--oc-color-text);
   --oc-dialog-border: 0.0625rem solid var(--oc-color-interaction);
-  --oc-dialog-titlebar-bg-color: var(--oc-color-interaction);
-  --oc-dialog-titlebar-text-color: var(--oc-color-text-inverted);
-  --oc-dialog-border-radius: 0.25rem;
+  --oc-dialog-titlebar-bg-color: var(--oc-color-bg-color);
+  --oc-dialog-titlebar-border-color: transparent;
+  --oc-dialog-titlebar-border-width: 0.0625rem;
+  --oc-dialog-titlebar-text-color: var(--oc-color-text);
+  --oc-dialog-border-radius: 0.5rem;
 }
 
 %dialog-wrapper {
@@ -34,8 +36,11 @@
   align-items: center;
   justify-content: space-between;
   color: var(--oc-dialog-titlebar-text-color);
+  border-width: 0 0 var(--oc-dialog-titlebar-border-width);
+  border-block-end: 0 solid var(--oc-dialog-titlebar-border-color);
   border-radius: var(--oc-dialog-border-radius) var(--oc-dialog-border-radius) 0 0;
   background-color: var(--oc-dialog-titlebar-bg-color);
+  font-weight: var(--oc-font-weight-medium);
   gap: 0 var(--oc-gutter);
   padding-block: 0.5rem;
   padding-inline: var(--oc-gutter) 0.5rem;

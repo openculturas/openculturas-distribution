@@ -1,0 +1,109 @@
+// ---------------------------------------
+// Entity popover formatter ("lightbox, litebox, zoom")
+// related: swiffy-slider.scss
+// ---------------------------------------
+
+@use "../../sass/abstracts" as *;
+
+.entity-popover__dialog {
+  --swiffy-slider-indicator-outside-size: 1.75rem; // copied from swiffy-slider
+
+  overflow-x: hidden;
+  block-size: max-content;
+  max-block-size: 95vh;
+  inline-size: 100%;
+  max-inline-size: 95vw;
+}
+
+// Trigger button
+
+.entity-popover__trigger {
+  @extend %icon-only;
+  @extend %icon-large;
+
+  background-color: transparent;
+
+  .media & {
+    --oc-font-size-icon: var(--oc-font-size-icon-m);
+
+    background-color: var(--oc-button-bg-color);
+  }
+
+  &:focus,
+  &:hover {
+    border-color: var(--oc-button-focus-border-color);
+    background-color: var(--oc-button-focus-bg-color);
+  }
+
+  .paragraph--type--gallery & {
+    margin-block-end: 0;
+    inset-block-end: 0.125rem;
+    inset-inline-end: 0;
+  }
+
+  .paragraph--type--gallery.paragraph--view-mode--grid & {
+    inset-inline-end: unset;
+    inset-inline-start: calc(-1 * var(--oc-gutter));
+  }
+}
+
+// Dialog
+
+.entity-popover__dialog::backdrop {
+  background-color: var(--oc-color-backdrop);
+}
+
+.entity-popover__content {
+  max-block-size: calc(100% - var(--swiffy-slider-indicator-outside-size));
+  min-block-size: 0; // let overflow: auto (entity-popover.css) actually kick in as a flex item
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  > div {
+    inline-size: max-content;
+    margin-block: 0;
+  }
+
+  > div:is(.swiffy-slider),
+  > div:has(.swiffy-slider) {
+    inline-size: 100%;
+  }
+
+  // Only the standalone (non-slider) image case may grow past the theme's
+  // default max-inline-size: 100% — slider slides must keep it, or their
+  // (larger, gallery_big-styled) images overflow their own slide column.
+  > div:not(:has(.swiffy-slider)) img {
+    // max-block-size: 80%;
+    max-inline-size: unset;
+  }
+
+  .slider-item-ratio-1x1 {
+    --swiffy-slider-item-ratio: unset;
+  }
+
+  .swiffy-slider .slider-container {
+    padding-inline: 0; // unset --oc-shadow-space-inline to safe whitespace
+  }
+}
+
+// Inheritance amendments
+
+.section--mood .entity-popover__content img {
+  aspect-ratio: unset;
+}
+
+// Layout adjustments
+
+@container copy-area (width > 90ch) {
+  dialog.modal {
+    .paragraph {
+      margin-inline: auto;
+      padding-inline: 0;
+
+      @include breakpoint(m) {
+        padding-inline: var(--oc-gutter);
+      }
+    }
+  }
+}

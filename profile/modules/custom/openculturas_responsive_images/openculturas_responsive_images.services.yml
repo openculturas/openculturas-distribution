@@ -1,0 +1,16 @@
+services:
+  openculturas_responsive_images.shared_config_switcher:
+    class: Drupal\openculturas_responsive_images\SharedConfigSwitcher
+    autowire: true
+  Drupal\openculturas_responsive_images\SharedConfigSwitcher: '@openculturas_responsive_images.shared_config_switcher'
+
+  openculturas_responsive_images.config_devel_subscriber:
+    class: Drupal\openculturas_responsive_images\EventSubscriber\ConfigDevelSubscriber
+    autowire: true
+    tags:
+      - { name: event_subscriber }
+
+  openculturas_responsive_images.crop_migrator:
+    class: Drupal\openculturas_responsive_images\CropMigrator
+    autowire: true
+  Drupal\openculturas_responsive_images\CropMigrator: '@openculturas_responsive_images.crop_migrator'

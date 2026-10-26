@@ -1,0 +1,32 @@
+uuid: e49bcfe3-7729-49ef-a03c-400f002ab9e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.oc_bounds_1200_900
+    - image.style.oc_bounds_1600_1200
+    - image.style.oc_bounds_400_300
+    - image.style.oc_bounds_800_600
+  module:
+    - openculturas_responsive_images
+  enforced:
+    module:
+      - openculturas_responsive_images
+_core:
+  default_config_hash: Cu4YirYWeZVasGZMAcqvp7i8AYbZru1yc1Tml_5z_JQ
+id: oc_bounds_800
+label: 'OC bounds 800'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: 'auto, 800px'
+      sizes_image_styles:
+        - oc_bounds_400_300
+        - oc_bounds_800_600
+        - oc_bounds_1200_900
+        - oc_bounds_1600_1200
+    breakpoint_id: openculturas_responsive_images.oc_responsive_image
+    multiplier: 1x
+breakpoint_group: oc_responsive_image
+fallback_image_style: oc_bounds_800_600

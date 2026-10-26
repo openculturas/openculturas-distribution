@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\opcult\Hook;
 
 use Drupal\Component\Utility\Xss;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
@@ -41,12 +43,15 @@ class OpcultHooks {
    *   The entity type manager.
    * @param \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository
    *   The entity repository.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
    */
   public function __construct(
     protected RouteMatchInterface $routeMatch,
     protected ThemeSettingsProvider $themeSettingsProvider,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityRepositoryInterface $entityRepository,
+    protected ModuleHandlerInterface $moduleHandler,
   ) {
   }
 
@@ -82,46 +87,43 @@ class OpcultHooks {
   public function preprocessPage(array &$variables): void {
     $bg_image = $this->themeSettingsProvider->getSetting('background_image.mode') ?? 'mood_image';
     $mood_image_uri = NULL;
-    if ($bg_image === 'mood_image') {
-      // Check if the current page is a node or a taxonomy term page.
-      /** @var \Drupal\node\NodeInterface|null $entity */
-      $entity = $this->routeMatch->getParameter('node');
-      if (!$entity instanceof NodeInterface) {
-        /** @var \Drupal\taxonomy\TermInterface|null $entity */
-        $entity = $this->routeMatch->getParameter('taxonomy_term');
-      }
-
-      if ($entity instanceof ContentEntityInterface && $entity->hasField('field_mood_image')) {
-        $mood_image = $entity->get('field_mood_image')->entity;
-      }
-      else {
-        return;
-      }
-
-      // Get the URL of the image style "header_image" and set it as a variable for page.html.twig.
-      if ($mood_image instanceof MediaInterface) {
-        /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
-        $field = $mood_image->get('field_media_image');
-        $references = $field->referencedEntities();
-        if ($references === []) {
-          return;
-        }
-
-        /** @var \Drupal\file\FileInterface|false $file */
-        $file = reset($references);
-        if ($file instanceof FileInterface) {
-          $mood_image_uri = $file->getFileUri();
-        }
-      }
+    if ($bg_image === 'mood_image' || $bg_image === 'mood_image_high_resolution') {
+      $mood_image_uri = $this->getRouteEntityMoodImageUri();
     }
     elseif ($bg_image === 'global_image') {
       $mood_image_uri = $this->themeSettingsProvider->getSetting('background_image.path');
     }
 
     if (is_string($mood_image_uri)) {
+      // The backdrop is a single non-responsive derivative (a CSS
+      // background-image can't use srcset). It always renders at a 16:9
+      // ratio, independent of whatever ratio the in-grid Header image
+      // formatter uses: the backdrop is blurred and cropped with
+      // background-size: cover, so it doesn't need to match the in-grid
+      // ratio, and 16:9 suits full-bleed coverage on wide viewports better
+      // than the taller ratios recommended for in-grid use. Resolution is a
+      // separate, explicit site-builder choice via this theme setting
+      // (medium 1200px vs. high 2000px) since a blurred backdrop rarely
+      // needs full detail. The oc_16_9_* styles ship with the optional
+      // openculturas_responsive_images module, so the backdrop follows the
+      // installed module, also before its switch and after a revert. Until
+      // the crops are migrated there are no oc_16_9 crops, and the styles
+      // fall back to a centered 16:9 crop. Without the module, the backdrop
+      // uses the header_image style.
+      $width_tier = $bg_image === 'mood_image_high_resolution' ? 2000 : 1200;
+
       /** @var \Drupal\image\ImageStyleStorageInterface $imageStorage */
       $imageStorage = $this->entityTypeManager->getStorage('image_style');
-      $mood_image_style = $imageStorage->load('header_image');
+
+      // Installing the module creates the oc_16_9_* styles but flushes no
+      // render cache, so a page rendered before is invalidated by the style
+      // list instead.
+      new CacheableMetadata()
+        ->addCacheTags($imageStorage->getEntityType()->getListCacheTags())
+        ->applyTo($variables);
+
+      $style_name = $this->moduleHandler->moduleExists('openculturas_responsive_images') ? 'oc_16_9_' . $width_tier : 'header_image';
+      $mood_image_style = $imageStorage->load($style_name) ?? $imageStorage->load('header_image');
       if (!$mood_image_style instanceof ImageStyleInterface) {
         return;
       }
@@ -129,6 +131,33 @@ class OpcultHooks {
       $mood_image_bg = $mood_image_style->buildUrl($mood_image_uri);
       $variables['mood_image_bg'] = $mood_image_bg;
     }
+  }
+
+  /**
+   * Returns the mood image file URI of the current node or term page.
+   */
+  private function getRouteEntityMoodImageUri(): ?string {
+    /** @var \Drupal\node\NodeInterface|null $entity */
+    $entity = $this->routeMatch->getParameter('node');
+    if (!$entity instanceof NodeInterface) {
+      /** @var \Drupal\taxonomy\TermInterface|null $entity */
+      $entity = $this->routeMatch->getParameter('taxonomy_term');
+    }
+
+    if (!$entity instanceof ContentEntityInterface || !$entity->hasField('field_mood_image')) {
+      return NULL;
+    }
+
+    $mood_image = $entity->get('field_mood_image')->entity;
+    if (!$mood_image instanceof MediaInterface) {
+      return NULL;
+    }
+
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field */
+    $field = $mood_image->get('field_media_image');
+    $references = $field->referencedEntities();
+    $file = reset($references);
+    return $file instanceof FileInterface ? $file->getFileUri() : NULL;
   }
 
   /**

@@ -14,6 +14,8 @@ use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomCookiesLegalPagesSubscriber;
 use Drupal\openculturas_custom\GetThemeFaviconsPath;
+use Drupal\openculturas_responsive_images\SharedConfigSwitcher;
+use Drupal\update_helper\ConfigName;
 use Drupal\user\RoleInterface;
 
 /**
@@ -143,12 +145,15 @@ function openculturas_install_content(): void {
  * Callback function to install OpenCulturas modules.
  *
  * The modules need configurations of the OpenCulturas profile, therefore
- * we install them after the profile was installed.
+ * we install them after the profile was installed. Fresh installs use
+ * responsive images by default, so the profile's image displays are switched
+ * to them here. Existing sites switch from the module's settings form.
  */
 function openculturas_install_openculturas_modules(): void {
   /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
   $module_installer = \Drupal::service('module_installer');
-  $module_installer->install(['openculturas_map']);
+  $module_installer->install(['openculturas_map', 'openculturas_responsive_images', 'openculturas_entity_popover']);
+  \Drupal::service(SharedConfigSwitcher::class)->switchToResponsive();
 }
 
 /**
@@ -413,4 +418,129 @@ function openculturas_update_10132(): void {
   if ($changed) {
     $config->set('tags', $tags)->save();
   }
+}
+
+/**
+ * Adds the "Gallery big" and "Smaller image" paragraph view modes.
+ */
+function openculturas_update_10133(): string {
+  // "Gallery big" is a baseline fallback so entity_popover's zoom target
+  // always exists, whether or not the optional openculturas_responsive_images
+  // module is installed - it uses image style teaser_big and a plain
+  // 1600x1200 oembed size, both already part of the base distribution.
+  //
+  // "Smaller image" is the new, more compact teaser rendering used by the
+  // "Gallery" and "Slider (multiple)" teaser_wrapper displays - existing
+  // sites already have those two displays, so they are switched over to it
+  // explicitly below instead of relying on the config import loop, which
+  // only creates configuration that does not exist yet.
+  $full_configuration_names = [
+    'core.entity_view_mode.media.gallery_big',
+    'core.entity_view_display.media.image.gallery_big',
+    'core.entity_view_display.media.remote_video.gallery_big',
+    'core.entity_view_mode.paragraph.smaller_image',
+    'core.entity_view_display.paragraph.teaser_external.smaller_image',
+    'core.entity_view_display.paragraph.teaser_node.smaller_image',
+    'core.entity_view_display.paragraph.teaser_term.smaller_image',
+  ];
+
+  /** @var \Drupal\config_update\ConfigReverter $configUpdater */
+  $configUpdater = \Drupal::service('config_update.config_update');
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $configFactory = \Drupal::configFactory();
+
+  foreach ($full_configuration_names as $full_configuration_name) {
+    if (!$configFactory->get($full_configuration_name)->isNew()) {
+      $logger->notice(sprintf('SKIPPED. %s already exists.', $full_configuration_name));
+      continue;
+    }
+
+    $configuration_name = ConfigName::createByFullName($full_configuration_name);
+    if ($configUpdater->import($configuration_name->getType(), $configuration_name->getName())) {
+      $logger->info(sprintf('Configuration %s has been successfully imported.', $full_configuration_name));
+    }
+    else {
+      $logger->warning(sprintf('Unable to import %s config, because configuration file is not found.', $full_configuration_name));
+    }
+  }
+
+  foreach (['grid', 'slider_multiple'] as $mode) {
+    $full_configuration_name = 'core.entity_view_display.paragraph.teaser_wrapper.' . $mode;
+    $configuration = $configFactory->getEditable($full_configuration_name);
+    if ($configuration->isNew()) {
+      $logger->notice(sprintf('SKIPPED. %s does not exist.', $full_configuration_name));
+      continue;
+    }
+
+    $configuration->set('content.field_teasers.settings.view_mode', 'smaller_image')->save();
+    $logger->info(sprintf('Switched field_teasers on %s to the "Smaller image" view mode.', $full_configuration_name));
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Updates the "Slider single" paragraph view mode's swiffy_slider_permalink.
+ */
+function openculturas_update_10134(): void {
+  $configFactory = \Drupal::configFactory();
+  $configuration = $configFactory->getEditable('core.entity_view_display.paragraph.gallery.slider');
+  if (!$configuration->isNew()) {
+    $configuration->set('content.field_gallery.settings.swiffy_slider_permalink', 'https://swiffyslider.com/configuration/?slider-item-ratio-value=slider-item-ratio-1x1&slider-nav-dark=slider-nav-dark&slider-nav-arrows=slider-nav-outside&slider-nav-visible=slider-nav-visible&slider-nav-autohide=slider-nav-autohide&slider-indicators-dark=slider-indicators-dark&slider-indicators-outside=slider-indicators-outside&slider-indicators-sm=slider-indicators-sm&slider-nav-animation-style=slider-nav-animation-scale');
+    $configuration->save();
+  }
+}
+
+/**
+ * Aligns the "Gallery" video display's max size with "Gallery big"'s.
+ */
+function openculturas_update_10135(): void {
+  // Both must share the same oEmbed max_width/max_height - Drupal core's
+  // OEmbed URL resolver caches a resource per request keyed only by URL, so
+  // rendering the same video through two different sizes in one request (the
+  // entity_popover dialog vs. the normal display) makes the second one
+  // silently reuse the first's dimensions.
+  $configFactory = \Drupal::configFactory();
+  $configuration = $configFactory->getEditable('core.entity_view_display.media.remote_video.gallery');
+  if (!$configuration->isNew()) {
+    $configuration->set('content.field_media_oembed_video.settings.max_width', 1600);
+    $configuration->set('content.field_media_oembed_video.settings.max_height', 1200);
+    $configuration->set('content.field_media_oembed_video.settings.loading.attribute', 'lazy');
+    $configuration->save();
+  }
+}
+
+/**
+ * Deletes two disabled, structurally unreachable media view displays.
+ */
+function openculturas_update_10136(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+
+  $obsolete_display_ids = [
+    'media.image.profile_image',
+    'media.user_profile_picture.header_image',
+  ];
+
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $viewDisplayStorage */
+  $viewDisplayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  foreach ($obsolete_display_ids as $obsolete_display_id) {
+    /** @var \Drupal\Core\Entity\Display\EntityDisplayInterface|null $display */
+    $display = $viewDisplayStorage->load($obsolete_display_id);
+    if (!$display) {
+      $logger->notice(sprintf('SKIPPED. %s does not exist.', $obsolete_display_id));
+      continue;
+    }
+
+    if ($display->status()) {
+      $logger->warning(sprintf('SKIPPED. %s is enabled.', $obsolete_display_id));
+      continue;
+    }
+
+    $display->delete();
+    $logger->info(sprintf('Deleted %s.', $obsolete_display_id));
+  }
+
+  return $logger->output();
 }

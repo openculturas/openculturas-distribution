@@ -5,21 +5,21 @@ dependencies:
   config:
     - core.entity_view_mode.media.profile_image
     - field.field.media.user_profile_picture.field_media_image
-    - image.style.profile
     - media.type.user_profile_picture
+    - responsive_image.styles.oc_1_1_profile
   module:
-    - svg_image
+    - svg_image_responsive
 id: media.user_profile_picture.profile_image
 targetEntityType: media
 bundle: user_profile_picture
 mode: profile_image
 content:
   field_media_image:
-    type: image
+    type: responsive_image
     label: hidden
     settings:
+      responsive_image_style: oc_1_1_profile
       image_link: ''
-      image_style: profile
       image_loading:
         attribute: lazy
       svg_attributes:

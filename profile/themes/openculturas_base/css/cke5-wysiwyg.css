@@ -10947,6 +10947,9 @@ readers do not read off random characters that represent icons */
   color: var(--color-text-muted);
   font-style: italic;
 }
+.ck-content .media img {
+  image-orientation: none;
+}
 .ck-content img,
 .ck-content figure {
   max-width: 100%;
@@ -11848,8 +11851,10 @@ readers do not read off random characters that represent icons */
 }
 .ck-content button.close,
 .ck-content dialog.modal button.close {
+  position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  overflow: hidden;
   width: var(--font-size-icon);
   height: var(--font-size-icon);
   margin: 0;
@@ -11863,6 +11868,17 @@ readers do not read off random characters that represent icons */
 .ck-content dialog.modal button.close::after {
   padding: 0;
   line-height: var(--font-size-icon);
+}
+.ck-content .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-inline: 0 2px;
+}
+.ck-content .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close:focus, .ck-content .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close:hover {
+  border-color: var(--color-text-inverted);
+}
+.ck-content .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon.ui-icon-closethick {
+  transform: unset;
 }
 .region-footer .ck-content button,
 .region-footer .ck-content .button,

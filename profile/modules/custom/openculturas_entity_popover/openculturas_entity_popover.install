@@ -1,0 +1,107 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the openculturas_entity_popover module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Installer\InstallerKernel;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\openculturas_entity_popover\DisplayWirer;
+use Drupal\openculturas_entity_popover\FieldUnwirer;
+use Drupal\openculturas_entity_popover\NodeDisplayUnwirer;
+
+/**
+ * Implements hook_install().
+ *
+ * Adds the popover toggle to the gallery and media paragraphs and wires the
+ * popover onto their displays and the node galleries. Existing paragraphs
+ * keep the toggle empty, so the site builder is told how to fill it if there
+ * are any.
+ */
+function openculturas_entity_popover_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  \Drupal::service(DisplayWirer::class)->wireAll();
+
+  if (InstallerKernel::installationAttempted()) {
+    return;
+  }
+
+  $paragraphCount = \Drupal::entityTypeManager()->getStorage('paragraph')->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('type', ['gallery', 'media'], 'IN')
+    ->count()
+    ->execute();
+  if ($paragraphCount === 0) {
+    return;
+  }
+
+  \Drupal::messenger()->addStatus(t('The popover toggle is now available on Gallery and Media paragraphs, enabled by default for content created from now on. Existing entities keep the toggle empty until you bulk-update them at @settings - this is not done automatically, to avoid an install routine that touches every entity on a site with a lot of content.', [
+    '@settings' => Link::fromTextAndUrl(
+      t('Entity popover settings'),
+      Url::fromRoute('entity_popover.settings')
+    )->toString(),
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Removes the popover settings this module added itself, and nothing else:
+ *
+ * - On the node displays in DisplayWirer::FIELD_GALLERY_DISPLAYS, the
+ *   entity_popover_swiffy_slider settings on field_gallery go away, in the
+ *   display component or in the Layout Builder field block, exactly as
+ *   DisplayWirer wired them. Every other field and every other display stays
+ *   as it is. A popover a site builder set up on another field of a node
+ *   display keeps both its setting and the display's dependency on
+ *   entity_popover_swiffy_slider, because that module stays installed when
+ *   this one goes and the setting is a valid formatter setting of it. The
+ *   displays are saved as entities, so Drupal recalculates the config
+ *   dependencies itself instead of this hook pruning them.
+ *
+ * - The field_entity_popover field configs on the paragraph bundles
+ *   DisplayWirer creates them on, and their data, go away immediately rather
+ *   than being left for cron - otherwise "Fields pending deletion" blocks
+ *   uninstalling entity_popover itself (its field type) right after.
+ *
+ * What is deliberately kept: a popover on a node display the module never
+ * wired, on a bundle outside DisplayWirer::FIELD_BUNDLES, and on any other
+ * display entirely. Those belong to the site, not to this module. The wide
+ * sweep that also covers them lives in DisplayUnwirer, which runs on the
+ * config_devel export of the profile's own config - there the profile must
+ * not reference any popover at all, no matter who created the setting.
+ *
+ * The field storage itself is only removed when no field config is left on
+ * it: FieldConfig::postDelete() does that on its own once the last field is
+ * gone, so this hook never deletes it a second time. A bundle a site builder
+ * hung field_entity_popover on keeps both its field config and its data, and
+ * with them the storage.
+ *
+ * All of this runs only for an interactive uninstall. During a config import
+ * ($is_syncing) the sync directory owns the field storage and its field
+ * configs: the field storage depends only on entity_popover and paragraphs,
+ * not on this module, so deleting and purging it here would only make
+ * ConfigImporter recalculate the changelist and re-create it empty from
+ * config/sync, silently losing every stored toggle value. If entity_popover
+ * (the field type provider) is uninstalled in the same import, core's
+ * ConfigImporterFieldPurger purges the field data before the module goes
+ * away.
+ *
+ * @see \Drupal\field\ConfigImporterFieldPurger
+ * @see \Drupal\field\Entity\FieldConfig::postDelete()
+ */
+function openculturas_entity_popover_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+
+  \Drupal::service(NodeDisplayUnwirer::class)->unwireAll();
+  \Drupal::service(FieldUnwirer::class)->unwireAll();
+}

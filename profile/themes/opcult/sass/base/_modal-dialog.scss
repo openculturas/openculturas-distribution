@@ -18,8 +18,12 @@ dialog.modal,
   @extend %dialog-wrapper;
 }
 
-dialog form {
-  padding: var(--oc-row-gap) var(--oc-gutter); // @todo Check
+dialog,
+.ui-dialog {
+  form {
+    padding: var(--oc-row-gap) var(--oc-gutter);
+    margin-block: 0;
+  }
 }
 
 .ui-dialog .ui-dialog-titlebar,
@@ -29,62 +33,93 @@ dialog form {
   button {
     @extend %icon-button;
   }
+
+  h1 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ui-dialog .ui-dialog-buttonpane button:not(:last-child) {
+  margin-inline-end: var(--oc-gutter);
+}
+
+.ui-dialog {
+  .ui-helper-clearfix {
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.ui-dialog .ui-dialog-title {
+  color: var(--oc-dialog-titlebar-text-color);
 }
 
 .dialog-content {
   @extend %dialog-content;
 }
 
-// So much for the theory, now to specificity from hell:
-// @todo Backlog: Refactoring once Drupal introduces proper dialog elements
-// @todo Fix button border inheritance
+//// So much for the theory, now to specificity from hell:
+//// @todo Backlog: Refactoring once Drupal introduces proper dialog elements
+//// @todo Fix button border inheritance
+//
+// .ui-dialog.ui-widget .ui-dialog-titlebar,
+// .ui-dialog .ui-dialog-titlebar {
+//  @extend %dialog-titlebar;
+//
+//  gap: 0;
+// }
 
-.ui-dialog.ui-widget .ui-dialog-titlebar,
-.ui-dialog .ui-dialog-titlebar {
-  @extend %dialog-titlebar;
-
-  gap: 0;
-}
-
-.ui-dialog .ui-dialog-titlebar-close {
-  inset-inline-end: 0;
-}
+// .ui-dialog .ui-dialog-titlebar-close {
+//  inset-inline-end: 0;
+// }
 
 .ui-widget-overlay.ui-front {
   background: var(--oc-color-backdrop);
 }
 
-.ui-button-icon-only {
-  text-indent: 0;
-}
-
-.ui-dialog .ui-dialog-titlebar-close,
-.ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close {
-  @include icon(x, light, before);
+.ui-button-icon-only.ui-dialog-titlebar-close {
   @extend %icon-button;
-
-  position: relative;
-  margin: 0;
-  padding: 0.5rem;
-  transition: unset;
-  transform: unset;
-  color: var(--oc-color-interaction);
-  border: unset;
-  background: var(--oc-color-text-inverted);
-  inset: auto;
-
-  .ui-icon-closethick {
-    display: none;
-  }
-
-  span.ui-button-icon-space {
-    display: none;
-  }
 }
+
+// .ui-button-icon-only {
+//  text-indent: 0;
+// }
+//
+// .ui-dialog .ui-dialog-titlebar-close,
+// .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-titlebar-close {
+//  @include icon(x, light, before);
+//  @extend %icon-button;
+//
+//  position: relative;
+//  margin: 0;
+//  padding: 0.5rem;
+//  transition: unset;
+//  transform: unset;
+//  color: var(--oc-color-interaction);
+//  border: unset;
+//  background: var(--oc-color-text-inverted);
+//  inset: auto;
+//
+//  .ui-icon-closethick {
+//    display: none;
+//  }
+//
+//  span.ui-button-icon-space {
+//    display: none;
+//  }
+// }
 
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
-  @extend %label;
-
+  // @extend %label;
+  // font-weight: normal;
   margin: 0;
   padding: 0;
 }
@@ -123,19 +158,19 @@ dialog form {
   border-width: 0;
   background-color: transparent;
 
-  button,
-  .button,
-  .ui-button {
-    @extend %button;
-
-    border-color: var(--oc-button-border-color) !important;
-  }
+  // button,
+  // .button,
+  // .ui-button {
+  //  @extend %button;
+  //
+  //  border-color: var(--oc-button-border-color) !important;
+  // }
 
   .button--primary,
   #edit-submit.form-submit {
     @extend %button-primary;
 
-    border-color: var(--oc-button-primary-border-color);
+    // border-color: var(--oc-button-primary-border-color);
   }
 
   .button--danger {

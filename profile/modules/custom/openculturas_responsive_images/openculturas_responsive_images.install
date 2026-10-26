@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the openculturas_responsive_images module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Installer\InstallerKernel;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\openculturas_responsive_images\CropMigrator;
+use Drupal\openculturas_responsive_images\SharedConfigSwitcher;
+
+/**
+ * Implements hook_install().
+ *
+ * Tells the site builder what is left to do. Installing the module doesn't
+ * switch any shared config, so on an existing site the image displays still
+ * use the legacy image styles. Fresh installs switch in the profile's install
+ * task right after this, so there is nothing to do there.
+ */
+function openculturas_responsive_images_install(bool $is_syncing): void {
+  if ($is_syncing || InstallerKernel::installationAttempted() || \Drupal::service(SharedConfigSwitcher::class)->isResponsive()) {
+    return;
+  }
+
+  $settingsLink = Link::fromTextAndUrl(
+    t('OpenCulturas - Responsive images settings'),
+    Url::fromRoute('openculturas_responsive_images.settings')
+  )->toString();
+
+  // Same check as the settings form, so both agree on what is left to migrate.
+  $hasMigratableCrops = \Drupal::service(CropMigrator::class)->migratableSourceTypes() !== [];
+
+  $message = $hasMigratableCrops
+    ? t('Responsive images are installed but not used yet. Go to @settings, migrate your existing image crops onto the new ratios, then switch the image displays.', ['@settings' => $settingsLink])
+    : t('Responsive images are installed but not used yet. Go to @settings and switch the image displays.', ['@settings' => $settingsLink]);
+  \Drupal::messenger()->addStatus($message);
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Reverts the shared config switched by SharedConfigSwitcher, and deletes crop
+ * content entities of this module's crop types before core removes the
+ * crop type config entities themselves - core's config dependency system
+ * handles the config side automatically, but has no knowledge of content
+ * that references a bundle by machine name.
+ *
+ * Shared config is left to the sync directory during an import, while crops are
+ * content that no config import removes, so they are deleted in both cases.
+ */
+function openculturas_responsive_images_uninstall(bool $is_syncing): void {
+  if (!$is_syncing) {
+    \Drupal::service(SharedConfigSwitcher::class)->revertToLegacy();
+  }
+
+  \Drupal::state()->delete(CropMigrator::MAPPINGS_STATE_KEY);
+
+  /** @var \Drupal\crop\CropStorageInterface $cropStorage */
+  $cropStorage = \Drupal::entityTypeManager()->getStorage('crop');
+  $cropIds = $cropStorage->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('type', CropMigrator::OWN_CROP_TYPES, 'IN')
+    ->execute();
+
+  foreach (array_chunk($cropIds, 50) as $chunk) {
+    $cropStorage->delete($cropStorage->loadMultiple($chunk));
+  }
+}

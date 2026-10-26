@@ -1,0 +1,40 @@
+.entity-popover__trigger {
+  position: absolute;
+  inset-block-end: 0.5rem;
+  inset-inline-end: 0.5rem;
+  z-index: 1;
+}
+
+.entity-popover__dialog {
+  margin: auto;
+  padding: 1rem;
+  border: 0;
+  inline-size: 90vw;
+  max-inline-size: 100%;
+  block-size: 90vh;
+  max-block-size: 100%;
+}
+
+.entity-popover__dialog:popover-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.entity-popover__dialog::backdrop {
+  background-color: rgb(0, 0, 0, 0.7);
+}
+
+.entity-popover__dialog .dialog-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-end: 0.5rem;
+}
+
+.entity-popover__content {
+  overflow: auto;
+  flex: 1;
+  inline-size: 100%;
+  block-size: auto;
+}

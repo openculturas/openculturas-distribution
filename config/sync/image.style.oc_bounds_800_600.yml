@@ -1,0 +1,37 @@
+uuid: 8266f5ff-e079-4ff3-9122-1d752ac730dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.free_format
+  module:
+    - crop
+  enforced:
+    module:
+      - openculturas_responsive_images
+_core:
+  default_config_hash: Ld9kJ7eB-Av0gt5Gx2mp2-Rz0wRkV3NBwRs0yJi4PMY
+name: oc_bounds_800_600
+label: 'OC bounds 800x600'
+effects:
+  5dc2996b-f8b9-433d-b622-043ceb215461:
+    uuid: 5dc2996b-f8b9-433d-b622-043ceb215461
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: free_format
+      automatic_crop_provider: null
+  aa52b350-8642-41e9-81b0-1d9248629c80:
+    uuid: aa52b350-8642-41e9-81b0-1d9248629c80
+    id: image_scale
+    weight: -9
+    data:
+      width: 800
+      height: 600
+      upscale: false
+  28ff50cc-017b-4550-932c-975167852416:
+    uuid: 28ff50cc-017b-4550-932c-975167852416
+    id: image_convert
+    weight: 3
+    data:
+      extension: webp

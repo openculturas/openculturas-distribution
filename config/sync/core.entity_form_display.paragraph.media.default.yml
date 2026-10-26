@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.media.field_caption
+    - field.field.paragraph.media.field_entity_popover
     - field.field.paragraph.media.field_media
     - paragraphs.paragraphs_type.media
   module:
     - allowed_formats
+    - entity_popover
     - media_library
     - media_library_edit
     - text
@@ -27,6 +29,13 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '0'
+  field_entity_popover:
+    type: entity_popover_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_media:
     type: media_library_widget
     weight: 0

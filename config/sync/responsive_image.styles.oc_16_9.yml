@@ -1,0 +1,34 @@
+uuid: 2ab77d9b-fd5c-4a52-ad01-ecf30782aee4
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.oc_16_9_1200
+    - image.style.oc_16_9_1600
+    - image.style.oc_16_9_2000
+    - image.style.oc_16_9_400
+    - image.style.oc_16_9_800
+  module:
+    - openculturas_responsive_images
+  enforced:
+    module:
+      - openculturas_responsive_images
+_core:
+  default_config_hash: NwZ4IJVfhmTxWAI70iRmkks6pLyW_bgonkQ90Qurzzk
+id: oc_16_9
+label: 'OC 16:9'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: 'auto, (min-width: 1600px) 1600px, 100vw'
+      sizes_image_styles:
+        - oc_16_9_400
+        - oc_16_9_800
+        - oc_16_9_1200
+        - oc_16_9_1600
+        - oc_16_9_2000
+    breakpoint_id: openculturas_responsive_images.oc_responsive_image
+    multiplier: 1x
+breakpoint_group: oc_responsive_image
+fallback_image_style: oc_16_9_1200

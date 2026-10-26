@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -67,7 +66,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
     $term = $buildTerm['#taxonomy_term'] ?? NULL;
     if ($term instanceof TermInterface) {
       $id = sprintf('%s-%s-%s', $paragraph->bundle(), $paragraph->id(), $term->id());
-      $buildTerm = $this->getBaseBuildArray($buildTerm, $settings, '#taxonomy_term');
+      $buildTerm = $this->getBaseBuildArray($buildTerm, $settings, '#taxonomy_term', $display);
       $buildTerm['#attributes'] = new Attribute([
         'class' => [
           'teaser-internal',
@@ -75,12 +74,7 @@ class TermTeaserBehavior extends TeaserBehaviorBase {
         ],
         'id' => $id,
       ]);
-      $cacheableMetadata = CacheableMetadata::createFromRenderArray($buildTerm);
-      $cacheableMetadata->addCacheableDependency($paragraph);
-      $cacheableMetadata->applyTo($buildTerm);
-      // We need an additional cache key, or the field renders all references
-      // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE:LANGCODE).
-      $buildTerm['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
+      $this->addTeaserCacheability($buildTerm, $paragraph, $display);
     }
   }
 

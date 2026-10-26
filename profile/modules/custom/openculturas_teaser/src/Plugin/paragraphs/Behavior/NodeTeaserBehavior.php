@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_teaser\Plugin\paragraphs\Behavior;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
@@ -33,10 +32,10 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
     /** @var array{field_article: array<0,array>} $build */
     $buildNode = &$build['field_article'][0];
     /** @var \Drupal\node\NodeInterface|null $node */
-    $node = $buildNode['#node'];
+    $node = $buildNode['#node'] ?? NULL;
     if ($node instanceof NodeInterface) {
       $id = sprintf('%s-%s-%s', $paragraph->bundle(), $paragraph->id(), $node->id());
-      $buildNode = $this->getBaseBuildArray($buildNode, $settings, '#node');
+      $buildNode = $this->getBaseBuildArray($buildNode, $settings, '#node', $display);
       $buildNode['#attributes'] = new Attribute([
         'class' => [
           'teaser-internal',
@@ -44,14 +43,8 @@ class NodeTeaserBehavior extends TeaserBehaviorBase {
         ],
         'id' => $id,
       ]);
+      $this->addTeaserCacheability($buildNode, $paragraph, $display);
     }
-
-    $cacheableMetadata = CacheableMetadata::createFromRenderArray($buildNode);
-    $cacheableMetadata->addCacheableDependency($paragraph);
-    $cacheableMetadata->applyTo($buildNode);
-    // We need an additional cache key, or the field renders all references
-    // with default cache keys. (entity_view:ENTITY_TYPE_ID:ENTITY_ID:VIEW_MODE:LANGCODE).
-    $buildNode['#cache']['keys'][] = 'ParagraphsBehavior-' . $paragraph->id();
   }
 
   /**

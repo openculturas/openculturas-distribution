@@ -5,8 +5,28 @@ declare(strict_types=1);
 use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\Core\Url;
 use Drupal\file\FileInterface;
+
+/**
+ * Builds the header image view mode hint, linked only if Field UI is enabled.
+ */
+function _opcult_header_image_view_mode_hint(): \Stringable {
+  $label = t('Header image media view mode');
+  if (!\Drupal::moduleHandler()->moduleExists('field_ui')) {
+    return $label;
+  }
+
+  return Link::fromTextAndUrl(
+    $label,
+    Url::fromRoute('entity.entity_view_display.media.view_mode', [
+      'media_type' => 'image',
+      'view_mode_name' => 'header_image',
+    ])
+  )->toString();
+}
 
 /**
  * Implements hook_form_system_theme_settings_alter().
@@ -24,16 +44,7 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
     '#type' => 'details',
     '#title' => t('Background image'),
   ];
-  $form['background_image']['background_image_mode'] = [
-    '#type'          => 'radios',
-    '#default_value' => $themeSettingsProvider->getSetting('background_image.mode') ?? 'mood_image',
-    '#description' => t('An image can be appended behind the content to cover the viewport background.'),
-    '#options' => [
-      'no_image' => t('None'),
-      'mood_image' => t('Use header image from content page'),
-      'global_image' => t('Use global image globally (upload here)'),
-    ],
-  ];
+  $form['background_image']['background_image_mode'] = _opcult_background_image_mode_element($themeSettingsProvider);
   $form['background_image']['background_image_path'] = [
     '#type' => 'textfield',
     '#title' => t('Path to custom background image'),
@@ -80,7 +91,10 @@ function opcult_form_system_theme_settings_alter(array &$form, FormStateInterfac
   $form['hero_layout']['hero_layout'] = [
     '#type'          => 'radios',
     '#default_value' => $themeSettingsProvider->getSetting('hero_layout') ?? 'oc_hero_layout_1',
-    '#description' => t('Basic layout of main image and title block.'),
+    '#description' => t('Basic layout of main image and title block. For the half-width @layout, an aspect ratio other than the default 2:1 (e.g. 16:9) might fit better — pick one on the @view_mode formatter.', [
+      '@layout' => t('"Title block side by side with image" layout'),
+      '@view_mode' => _opcult_header_image_view_mode_hint(),
+    ]),
     '#options' => [
       'oc_hero_layout_1' => t('Image with title block inset'),
       'oc_hero_layout_2' => t('Image above title block'),
@@ -350,4 +364,42 @@ function _opcult_form_system_theme_settings_validate_path(string $path): false|s
   }
 
   return FALSE;
+}
+
+/**
+ * Builds the background image mode radios for the theme settings form.
+ *
+ * The resolution choice needs the oc_16_9_* image styles, which ship with the
+ * optional openculturas_responsive_images module. The backdrop uses them as
+ * soon as the module is installed, also before its switch and after a revert;
+ * until the crops are migrated, they render a centered 16:9 crop.
+ *
+ * @return array<string, mixed>
+ *   The radios form element.
+ */
+function _opcult_background_image_mode_element(ThemeSettingsProvider $themeSettingsProvider): array {
+  if (\Drupal::moduleHandler()->moduleExists('openculturas_responsive_images')) {
+    $mood_image_options = [
+      'mood_image' => t('Use header image from content page (medium resolution)'),
+      'mood_image_high_resolution' => t('Use header image from content page (high resolution)'),
+    ];
+  }
+  else {
+    $mood_image_options = [
+      'mood_image' => t('Use header image from content page'),
+    ];
+  }
+
+  $options = [
+    'no_image' => t('None'),
+    ...$mood_image_options,
+    'global_image' => t('Use global image globally (upload here)'),
+  ];
+  $mode = $themeSettingsProvider->getSetting('background_image.mode') ?? 'mood_image';
+  return [
+    '#type'          => 'radios',
+    '#default_value' => is_string($mode) && isset($options[$mode]) ? $mode : 'mood_image',
+    '#description' => t('An image can be appended behind the content to cover the viewport background.'),
+    '#options' => $options,
+  ];
 }

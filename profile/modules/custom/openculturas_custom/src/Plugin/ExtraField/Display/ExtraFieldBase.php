@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openculturas_custom\Plugin\ExtraField\Display;
 
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -11,6 +12,7 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\entity_popover_swiffy_slider\InheritedFieldRenderer;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -50,6 +52,11 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   protected EntityRepositoryInterface $entityRepository;
 
   /**
+   * NULL if entity_popover_swiffy_slider is not installed.
+   */
+  protected ?InheritedFieldRenderer $inheritedFieldRenderer = NULL;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
@@ -59,6 +66,7 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->entityDisplayRepository = $container->get('entity_display.repository');
     $instance->entityRepository = $container->get('entity.repository');
+    $instance->inheritedFieldRenderer = $container->has(InheritedFieldRenderer::class) ? $container->get(InheritedFieldRenderer::class) : NULL;
     return $instance;
   }
 
@@ -137,6 +145,39 @@ abstract class ExtraFieldBase extends ExtraFieldDisplayFormattedBase implements 
   #[\Override]
   public function view(ContentEntityInterface $entity): array {
     return $this->viewElements($entity);
+  }
+
+  /**
+   * Renders a field inherited from $this->eventEntity to a markup string.
+   *
+   * Delegates to entity_popover_swiffy_slider's InheritedFieldRenderer
+   * service (if that module is installed) so a popover enabled on the
+   * referenced event's own field_gallery/field_mood_image still works on
+   * this inherited copy — otherwise, since this bypasses both classic
+   * entity rendering and Layout Builder's own field block rendering
+   * entirely (calling FieldItemList::view() directly), neither of
+   * entity_popover_swiffy_slider's own hooks would ever see it. Falls back
+   * to a plain render with no popover support if that module isn't
+   * installed: this class's own job (inheriting a field from a referenced
+   * entity at all) has nothing to do with entity_popover, so it must keep
+   * working without it.
+   *
+   * @param string $fieldName
+   *   The field name on $this->eventEntity to render.
+   * @param array $displaySettings
+   *   The formatter configuration to render it with.
+   */
+  protected function renderInheritedField(string $fieldName, array $displaySettings): string|MarkupInterface {
+    if (!$this->eventEntity instanceof NodeInterface) {
+      return '';
+    }
+
+    if ($this->inheritedFieldRenderer instanceof InheritedFieldRenderer) {
+      return $this->inheritedFieldRenderer->render($this->eventEntity, $fieldName, $displaySettings);
+    }
+
+    $renderArray = $this->eventEntity->get($fieldName)->view($displaySettings);
+    return $this->renderer->render($renderArray);
   }
 
 }

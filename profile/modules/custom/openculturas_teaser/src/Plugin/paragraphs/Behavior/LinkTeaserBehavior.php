@@ -56,7 +56,7 @@ class LinkTeaserBehavior extends TeaserBehaviorBase {
       if ($media instanceof MediaInterface) {
         $cacheableMetadata->addCacheableDependency($media);
         $teaser['#media'] = $this->entityTypeManager->getViewBuilder('media')
-          ->view($media, 'teaser_image_big');
+          ->view($media, $this->getConfiguredMediaViewMode($display));
       }
     }
 

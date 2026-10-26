@@ -72,6 +72,7 @@ install:
   - 'drupal:page_cache'
   - 'drupal:path'
   - 'drupal:path_alias'
+  - 'drupal:responsive_image'
   - 'drupal:rest'
   - 'drupal:serialization'
   - 'drupal:shortcut'
@@ -167,6 +168,7 @@ install:
   - 'social_media_links:social_media_links'
   - 'social_media_links:social_media_links_field'
   - 'svg_image:svg_image'
+  - 'svg_image:svg_image_responsive'
   - 'swiffy_slider:swiffy_slider'
   - 'twig_tweak:twig_tweak'
   - 'update_helper:update_helper'
@@ -507,9 +509,9 @@ config_devel:
     - core.entity_view_display.media.image.content_asset
     - core.entity_view_display.media.image.default
     - core.entity_view_display.media.image.gallery
+    - core.entity_view_display.media.image.gallery_big
     - core.entity_view_display.media.image.header_image
     - core.entity_view_display.media.image.media_library
-    - core.entity_view_display.media.image.profile_image
     - core.entity_view_display.media.image.search_index
     - core.entity_view_display.media.image.teaser_image
     - core.entity_view_display.media.image.teaser_image_big
@@ -521,6 +523,7 @@ config_devel:
     - core.entity_view_display.media.remote_video.content_asset
     - core.entity_view_display.media.remote_video.default
     - core.entity_view_display.media.remote_video.gallery
+    - core.entity_view_display.media.remote_video.gallery_big
     - core.entity_view_display.media.remote_video.media_library
     - core.entity_view_display.media.remote_video.search_index
     - core.entity_view_display.media.sponsor.default
@@ -528,7 +531,6 @@ config_devel:
     - core.entity_view_display.media.sponsor.media_library
     - core.entity_view_display.media.sponsor.search_index
     - core.entity_view_display.media.user_profile_picture.default
-    - core.entity_view_display.media.user_profile_picture.header_image
     - core.entity_view_display.media.user_profile_picture.media_library
     - core.entity_view_display.media.user_profile_picture.profile_image
     - core.entity_view_display.node.article.compact
@@ -624,10 +626,13 @@ config_devel:
     - core.entity_view_display.paragraph.member.search_index
     - core.entity_view_display.paragraph.teaser_external.default
     - core.entity_view_display.paragraph.teaser_external.search_index
+    - core.entity_view_display.paragraph.teaser_external.smaller_image
     - core.entity_view_display.paragraph.teaser_node.default
     - core.entity_view_display.paragraph.teaser_node.search_index
+    - core.entity_view_display.paragraph.teaser_node.smaller_image
     - core.entity_view_display.paragraph.teaser_term.default
     - core.entity_view_display.paragraph.teaser_term.search_index
+    - core.entity_view_display.paragraph.teaser_term.smaller_image
     - core.entity_view_display.paragraph.teaser_wrapper.default
     - core.entity_view_display.paragraph.teaser_wrapper.grid
     - core.entity_view_display.paragraph.teaser_wrapper.search_index
@@ -687,6 +692,7 @@ config_devel:
     - core.entity_view_mode.media.download
     - core.entity_view_mode.media.full
     - core.entity_view_mode.media.gallery
+    - core.entity_view_mode.media.gallery_big
     - core.entity_view_mode.media.header_image
     - core.entity_view_mode.media.logo
     - core.entity_view_mode.media.media_library
@@ -724,6 +730,7 @@ config_devel:
     - core.entity_view_mode.paragraph.slider
     - core.entity_view_mode.paragraph.slider_duo
     - core.entity_view_mode.paragraph.slider_multiple
+    - core.entity_view_mode.paragraph.smaller_image
     - core.entity_view_mode.paragraph.trigger_warnings
     - core.entity_view_mode.path_alias.token
     - core.entity_view_mode.shortcut.token

@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.oc_bounds_400_300
+    - image.style.oc_bounds_600_450
+    - image.style.oc_bounds_800_600
+  module:
+    - openculturas_responsive_images
+  enforced:
+    module:
+      - openculturas_responsive_images
+id: oc_bounds_600
+label: 'OC bounds 600'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: 'auto, 600px'
+      sizes_image_styles:
+        - oc_bounds_400_300
+        - oc_bounds_600_450
+        - oc_bounds_800_600
+    breakpoint_id: openculturas_responsive_images.oc_responsive_image
+    multiplier: 1x
+breakpoint_group: oc_responsive_image
+fallback_image_style: oc_bounds_600_450

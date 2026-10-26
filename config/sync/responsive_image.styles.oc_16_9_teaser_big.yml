@@ -1,0 +1,34 @@
+uuid: 295d0354-ab53-407d-abe6-25b8ba5ab2d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.oc_16_9_1200
+    - image.style.oc_16_9_1600
+    - image.style.oc_16_9_2000
+    - image.style.oc_16_9_400
+    - image.style.oc_16_9_800
+  module:
+    - openculturas_responsive_images
+  enforced:
+    module:
+      - openculturas_responsive_images
+_core:
+  default_config_hash: wZ3IFyeaXqd2EEskafkqkuJNMbEOWgOoiaytgEO-d8s
+id: oc_16_9_teaser_big
+label: 'OC 16:9 (Teaser big)'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: 'auto, 1600px'
+      sizes_image_styles:
+        - oc_16_9_400
+        - oc_16_9_800
+        - oc_16_9_1200
+        - oc_16_9_1600
+        - oc_16_9_2000
+    breakpoint_id: openculturas_responsive_images.oc_responsive_image
+    multiplier: 1x
+breakpoint_group: oc_responsive_image
+fallback_image_style: oc_16_9_1200
