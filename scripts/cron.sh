@@ -17,7 +17,7 @@ readonly DOCROOT="$__DIR__/../web"
 _drush() {
   PATH="$__DIR__/../vendor/bin:$PATH"
   export PATH
-  drush --yes --ansi --uri="$CLOUDRON_APP_DOMAIN" "$@"
+  drush --yes --ansi --uri="$CLOUDRON_APP_ORIGIN" "$@"
 }
 
 main() {
