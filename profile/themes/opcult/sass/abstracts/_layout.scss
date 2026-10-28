@@ -10,8 +10,27 @@
 
 @use "mixins" as *;
 
+// Viewport bounds every fluid length (font sizes, spacing, ...) interpolates
+// across. Must be extended onto :root (see base/_custom-properties.scss):
+// a custom property's var() references resolve against the element where
+// the property is DECLARED, not where it's used, so any clamp() depending
+// on these — including :root-level ones like the font-size tokens in
+// abstracts/_typography.scss — would be invalid if these lived on body
+// instead (body is a descendant of :root, not an ancestor).
+%cc-fluid-bounds {
+  --oc-fluid-vp-min: 20; // rem, 320px at the default root font size
+  --oc-fluid-vp-max: 90; // rem, 1440px at the default root font size
+}
+
 %cc-basic-spacings {
-  --oc-gutter: 1.25rem; // Gap (horizontal) between layout columns.
+  // --oc-gutter is fluid: --*-min and --*-max (unitless rem) interpolate
+  // across --oc-fluid-vp-min/-max (%cc-fluid-bounds above).
+  // Change only the two plain numbers;
+  // DON'T TOUCH the clamp() calculation.
+
+  --oc-gutter-max: 2; // Gap (horizontal) between layout columns.
+  --oc-gutter-min: calc(var(--oc-gutter-max) * 0.625);
+  --oc-gutter: clamp(calc(var(--oc-gutter-min) * 1rem), calc(var(--oc-gutter-min) * 1rem + (var(--oc-gutter-max) - var(--oc-gutter-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-gutter-max) * 1rem));
   --oc-row-gap: 1.25rem; // Gap (vertical) between rows.
 }
 
@@ -19,12 +38,21 @@
   // Page layout basics
   --oc-page-margin-top: 0;
   --oc-page-margin-bottom: 1rem;
-  --oc-page-margin-sides: 0.25rem;
-  --oc-page-padding-inline: 1rem;
+
+  // --oc-page-margin-sides/-padding-inline/-section-spacing are fluid, same
+  // convention as --oc-gutter above.
+  --oc-page-margin-sides-max: 3;
+  --oc-page-margin-sides-min: calc(var(--oc-page-margin-sides-max) * 0.0833);
+  --oc-page-margin-sides: clamp(calc(var(--oc-page-margin-sides-min) * 1rem), calc(var(--oc-page-margin-sides-min) * 1rem + (var(--oc-page-margin-sides-max) - var(--oc-page-margin-sides-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-page-margin-sides-max) * 1rem));
+  --oc-page-padding-inline-max: 5;
+  --oc-page-padding-inline-min: calc(var(--oc-page-padding-inline-max) * 0.2);
+  --oc-page-padding-inline: clamp(calc(var(--oc-page-padding-inline-min) * 1rem), calc(var(--oc-page-padding-inline-min) * 1rem + (var(--oc-page-padding-inline-max) - var(--oc-page-padding-inline-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-page-padding-inline-max) * 1rem));
   --oc-column-count: 12; // Amount of columns in the layout grid.
   --oc-column-padding: 0; // Horizontal padding inside a column.
   --oc-layout-max-width: 100rem; // Prevent layout becoming too wide on large screens.
-  --oc-section-spacing: 3rem; // Vertically structuring spacing.
+  --oc-section-spacing-max: 5;
+  --oc-section-spacing-min: calc(var(--oc-section-spacing-max) * 0.6);
+  --oc-section-spacing: clamp(calc(var(--oc-section-spacing-min) * 1rem), calc(var(--oc-section-spacing-min) * 1rem + (var(--oc-section-spacing-max) - var(--oc-section-spacing-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-section-spacing-max) * 1rem)); // Vertically structuring spacing.
 
   // Hero header
   --oc-bg-hero-padding-inline: var(--oc-gutter); // set to 0 with transparent --oc-bg-hero-section
@@ -38,26 +66,6 @@
   --oc-hero-4-min-height: 50%; // adjust to aspect ratio, e.g. with 1/1 set to 100% (only applies in hero_layout_4)
   --oc-logo-min-width: 8rem;
   --oc-logo-max-width: 10rem;
-
-  @include breakpoint(m) {
-    --oc-page-margin-sides: 1.25rem;
-    --oc-page-padding-inline: 1.5rem;
-  }
-
-  @include breakpoint(l) {
-    --oc-page-padding-inline: 3.5rem;
-    --oc-gutter: 2rem;
-    --oc-section-spacing: 4rem;
-  }
-
-  @include breakpoint(xl) {
-    --oc-page-margin-sides: 3rem;
-  }
-
-  @include breakpoint(xxl) {
-    --oc-page-padding-inline: 5rem;
-    --oc-section-spacing: 5rem;
-  }
 }
 
 // ---

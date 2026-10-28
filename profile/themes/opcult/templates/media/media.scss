@@ -66,10 +66,14 @@
   inline-size: 100%;
 }
 
-.media figcaption .field {
-  padding: 0;
+.media figcaption .field,
+.paragraph--type--media .field--name-field-caption {
   color: var(--oc-color-text-caption);
   font-style: italic;
+}
+
+.media figcaption .field {
+  padding: 0;
 }
 
 .field--name-field-caption p {
@@ -136,6 +140,12 @@
 // Sponsor logos
 // prevent SVG logos w/o included width/height from rendering too small
 
+.media--type-sponsor img,
+.media--view-mode-logo img {
+  max-inline-size: 11.875rem;
+  max-block-size: 11.875rem;
+}
+
 .sponsors,
 #supporters {
   .media {
@@ -146,9 +156,7 @@
 
     img {
       min-block-size: 4rem;
-      max-block-size: 6rem;
       inline-size: auto;
-      max-inline-size: 10rem;
     }
 
     img[src*=".svg"],

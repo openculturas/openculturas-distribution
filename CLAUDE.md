@@ -354,6 +354,14 @@ ddev xdebug off
   `openculturas_post_update_revert_gin_theme_overrides_<N>()` are resolved by
   keeping one copy. Apply the tag check above. Don't bump to `<N+1>` because
   of the conflict alone.
+- `asset_injector.css.opcult_overrides` follows the same rules with
+  `openculturas_post_update_revert_opcult_overrides_<N>()`, with one
+  difference: it is an opt-in CSS override template for site builders
+  (`status: false` by default), so the post-update reverts it only while it
+  exists and is disabled. An enabled injector carries a site's own
+  customization, and a missing one was deleted on purpose. The
+  config file lives in `profile/themes/opcult/config/optional/` and is
+  exported with `ddev drush cde opcult`.
 
 ## Dependency Updates
 

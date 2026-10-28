@@ -16,7 +16,8 @@
   --oc-card-image-padding-inline: 0; // independent teaser image horizontal padding
   --oc-card-background: var(--oc-color-bg-light); // or "transparent" or "var(--oc-color-bg-hardly-any-contrast)"
   --oc-card-box-shadow: var(--oc-box-shadow-centered); // or "0 none"
-  --oc-card-border-default: 1px solid transparent;
+  --oc-card-border-style: solid;
+  --oc-card-border-default: 1px var(--oc-card-border-style) var(--oc-card-border-color);
   --oc-card-border: var(--oc-card-border-default); // or "0 none", overridden by oc-card-border-width
   --oc-card-border-inline: 1px; // only one value!
   --oc-card-border-block: 1px; // only one value!
@@ -32,8 +33,10 @@
   --oc-profile-card-padding-inline: 1rem;
   --oc-profile-card-background: var(--oc-color-bg-light);
   --oc-profile-card-box-shadow: 0 none; // or "var(--oc-box-shadow-centered)"
-  --oc-profile-card-border: var(--oc-card-border-default);
-  --oc-profile-card-border-width: 0; // var(--oc-card-border-block) var(--oc-card-border-inline)
+  --oc-profile-card-border-style: solid;
+  --oc-profile-card-border: 0; // to deprecate
+  --oc-profile-card-border-width: 0;
+  --oc-profile-card-border-default: var(--oc-profile-card-border-width) var(--oc-profile-card-border-style) var(--oc-profile-card-border-color);
   --oc-profile-card-border-radius: 0; // 1rem
 
   // Teaser image fallback

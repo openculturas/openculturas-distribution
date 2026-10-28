@@ -5,7 +5,11 @@
 @use "../../sass/abstracts" as *;
 
 .region-breadcrumbs > .block {
-  padding-block: var(--oc-row-gap);
+  padding-block: 0 var(--oc-row-gap);
+
+  @include breakpoint(m) {
+    padding-block: var(--oc-row-gap);
+  }
 }
 
 .breadcrumbs {

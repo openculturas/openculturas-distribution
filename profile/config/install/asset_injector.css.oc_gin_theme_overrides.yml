@@ -5,7 +5,7 @@ dependencies:
     - system
 id: oc_gin_theme_overrides
 label: 'OC Gin theme overrides'
-code: |+
+code: |-
   /*
    * Formtip
    */
@@ -403,8 +403,8 @@ code: |+
     margin-top: .5rem;
   }
 
-  /* 
-   * Editor UX enhancements 
+  /*
+   * Editor UX enhancements
    */
 
   /* Paragraphs types less prominent */
@@ -455,59 +455,59 @@ code: |+
       --space-l: 1rem;
       --space-xl: 1.5rem;
   	}
-  	
-  	:where(*) .button, 
-  	:where(*) .button:not(:focus), 
-  	:where(*) .form-actions .button, 
-  	:where(*) .project__action_button, 
-  	:where(*) .action-link--icon-trash.action-link, 
-  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .button, 
-  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .button:not(:focus), 
-  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .form-actions .button, 
+
+  	:where(*) .button,
+  	:where(*) .button:not(:focus),
+  	:where(*) .form-actions .button,
+  	:where(*) .project__action_button,
+  	:where(*) .action-link--icon-trash.action-link,
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .button,
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .button:not(:focus),
+  	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .form-actions .button,
   	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .project__action_button,
   	:is(#extra-specificity-hack, [data-drupal-admin-styles]) .action-link--icon-trash.action-link {
   	  --gin-spacing-s: .5rem;
   	  --gin-spacing-m: 1rem;
   	}
-  	
+
   	#gin-sticky-edit-submit {
   	  --gin-spacing-s: .75rem;
   	  --gin-spacing-m: 1.25rem;
   	}
-  	
+
   	.claro-details__summary::before {
     --space-m: 1rem;
   }
-  	
+
   	.js .field--widget-paragraphs .field-multiple-drag {
   	  min-width: 1.25rem
   	}
-  	
+
   	button.action-link.action-link--extrasmall {
   	  inset-block-start: -.125em;
   	}
-  	
-  	.fieldset__label, 
-  	.fieldset__label--group, 
+
+  	.fieldset__label,
+  	.fieldset__label--group,
   	.form-item__label {
   	  margin-block-end: var(--gin-spacing-m);
   	}
-  	
+
   	:not(.form-checkboxes):not(td):not(.tabledrag-cell-content__item):not(.media-library-item__click-to-select-checkbox):not(.field-content):not(.ajax-new-content):not(.tablesaw-cell-content) > .form-type--checkbox input {
   	  clip-path: circle(1.5rem at 50% 50%);
   	  border-radius: 50vi;
   	}
-  	
+
   	.horizontal-tabs ul.horizontal-tabs-list li.horizontal-tab-button a {
       padding-block-start: var(--gin-spacing-l);
     }
-    
-    .smartdate--time-inline .form-datetime-wrapper .form-items-inline, 
-  	.smartdate--time-inline div.time-start, 
+
+    .smartdate--time-inline .form-datetime-wrapper .form-items-inline,
+  	.smartdate--time-inline div.time-start,
   	.smartdate--time-inline div.time-end {
   	  justify-content: start;
   	}
-  	
+
   	.smartdate--time-inline .smartdate--separator {
   	  text-align: start;
   	}
@@ -551,7 +551,7 @@ code: |+
     vertical-align: top;
   }
 
-  .views-table tbody td p { 
+  .views-table tbody td p {
     margin-block-start: 0;
   }
 
@@ -597,7 +597,7 @@ code: |+
     gap: 0 .5rem;
   }
 
-  .field--widget-datetime-datelist-no-time .fieldset__label { 
+  .field--widget-datetime-datelist-no-time .fieldset__label {
     padding-inline-start: 0;
     padding-block-end: 0;
   }
@@ -655,7 +655,29 @@ code: |+
     background-color: var(--gin-bg-layer2);
   }
 
+  /* Unset Claro's inappropriate media library thumbnail min-height */
+  .media-library-item__preview-wrapper .media-library-item__preview.js-media-library-item-preview,
+  .media-library-item--grid .media-library-item__preview-wrapper .media-library-item__preview {
+    min-height: auto;
+  }
 
+  /* Fit logos in preview square */
+  .media-library-item .media-library-item__preview .field img[src*="/logo_image"],
+  .media-library-item .media-library-item__preview .field img[src*="/media_logo_image"],
+  .media-library-item .media-library-item__preview .field img[src*="/sponsor"],
+  .media-library-item .media-library-item__preview .field img[src*="/media_sponsor"] {
+    object-fit: contain;
+  }
+
+  /* Dark-mode compatible drag&drop */
+  .paragraphs-dragdrop__list .paragraphs-dragdrop__item {
+    background: transparent;
+  }
+
+  /* Browser default sensitive ACE editor font size */
+  .ace-editor {
+    font-size: 1rem;
+  }
 media: all
 preprocess: true
 conditions:

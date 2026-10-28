@@ -10,7 +10,7 @@
 .header-wrapper,
 .header__offcanvas-menu--heading {
   --oc-padding-header-start: 0.5rem;
-  --oc-padding-header-end: 2rem;
+  --oc-padding-header-end: 0;
 
   display: grid;
   grid-template-areas:
@@ -22,6 +22,14 @@
   padding-block-end: var(--oc-padding-header-end);
   column-gap: 0;
   row-gap: 0;
+
+  @include breakpoint(s) {
+    --oc-padding-header-end: 1rem;
+  }
+
+  @include breakpoint(m) {
+    --oc-padding-header-end: 2rem;
+  }
 
   @include breakpoint(m) {
     grid-template-areas:

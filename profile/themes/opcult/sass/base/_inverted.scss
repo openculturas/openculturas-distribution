@@ -1,0 +1,41 @@
+// ---------------------------------------
+// Invert on inverse-contrast backgrounds
+// ---
+// Related:
+// - base/_custom-properties.scss
+// - templates/paragraph/paragraph.scss (layout-only rules)
+// - templates/layout/page.html.twig (site footer)
+// ---
+// Colors in .inverted utility class.
+// Works unchanged in both color modes: the tokens referenced below are already
+// redefined to their opposite-contrast values in dark mode
+// ---------------------------------------
+
+.inverted {
+  // Reassign base tokens so descendants that consume the plain (non
+  // -inverted) tokens automatically pick up correct contrast too.
+  --oc-color-text: var(--oc-color-text-inverted);
+  --oc-color-link: var(--oc-color-link-inverted);
+  --oc-color-interaction: var(--oc-color-interaction-inverted);
+  --oc-color-bg-light: var(--oc-color-bg-dark);
+  --oc-color-divider-light: color-mix(in oklab, var(--oc-color-text) 10%, transparent); // #e8e9eb
+  --oc-color-divider-dark: color-mix(in oklab, var(--oc-color-text) 50%, transparent); // #7b7d85
+  --oc-card-background: color-mix(in oklab, var(--oc-color-bg-dark-inverted) 93%, var(--oc-color-bg-light));
+  --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-text) 10%, transparent);
+  --oc-color-bg-hardly-any-contrast: color-mix(in oklab, var(--oc-color-bg-dark-inverted) 5%, transparent);
+  --oc-divider-dark: 0.125rem solid var(--oc-color-divider-dark); // 2px
+  --oc-divider-light: 0.0625rem solid var(--oc-color-divider-light); // 1px
+  --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark-inverted) 3%, var(--oc-color-bg-light));
+  --oc-caption-border-color: var(--oc-color-divider-light);
+  --oc-color-text-caption: var(--oc-color-text);
+
+  padding: var(--oc-row-gap) var(--oc-gutter);
+  color: var(--oc-color-text-inverted);
+  background: var(--oc-color-bg-dark);
+
+  .swiffy-slider button {
+    &.slider-nav {
+      border-color: var(--oc-color-interaction);
+    }
+  }
+}

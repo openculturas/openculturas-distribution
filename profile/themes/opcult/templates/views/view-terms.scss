@@ -11,9 +11,20 @@
   @extend %grid-4;
 
   @include breakpoint(xs) {
-    --oc-grid-item-count: 2;
+    --oc-grid-item-count: 1;
 
     gap: var(--oc-row-gap) var(--oc-gutter);
+  }
+
+  @include breakpoint(s) {
+    --oc-grid-item-count: 2;
+  }
+
+  @include breakpoint(l) {
+    --oc-grid-item-count: 3;
+  }
+  @include breakpoint(xl) {
+    --oc-grid-item-count: 4;
   }
 }
 

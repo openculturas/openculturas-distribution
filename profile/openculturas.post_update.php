@@ -1011,3 +1011,30 @@ function openculturas_post_update_revert_gin_theme_overrides_7(): string {
   ];
   return _openculturas_post_update_import_or_revert_config($full_config_names, TRUE);
 }
+
+/**
+ * Revert asset_injector.css.opcult_overrides if it exists and is disabled.
+ */
+function openculturas_post_update_revert_opcult_overrides_1(): string {
+  $full_config_name = 'asset_injector.css.opcult_overrides';
+
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $configuration = \Drupal::config($full_config_name);
+  // A site may have deleted the injector on purpose, so don't recreate it.
+  if ($configuration->isNew()) {
+    $logger->notice(sprintf('SKIPPED. %s does not exist.', $full_config_name));
+    return $logger->output();
+  }
+
+  // Unlike oc_gin_theme_overrides, this injector is an opt-in CSS override
+  // template for site builders (status: false by default). An enabled
+  // injector carries a site's own customization, which an unconditional
+  // revert would overwrite.
+  if ($configuration->get('status')) {
+    $logger->notice(sprintf('SKIPPED. %s is enabled, left as-is.', $full_config_name));
+    return $logger->output();
+  }
+
+  return _openculturas_post_update_import_or_revert_config([$full_config_name], TRUE);
+}

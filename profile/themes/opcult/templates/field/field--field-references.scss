@@ -10,12 +10,16 @@
 
 .intro-inline > .field--name-field-references {
   grid-template-columns: 1fr;
-  grid-column: 2 / -1;
+  grid-column: 1 / -1;
 
   > .field__items {
     @extend %grid;
     @extend %grid-3;
 
     // @extend %grid-headline-inline;
+  }
+
+  @include breakpoint(l) {
+    grid-column: 2 / -1;
   }
 }

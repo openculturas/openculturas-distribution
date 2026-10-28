@@ -2,8 +2,8 @@
 // Colors: basics
 // ---
 // Basic colors used in CKEditor, too
-// Please note: color custom properties %placeholders defined in abstracts/_colors.scss are placed in a selector
-// separately for front-end and ckeditor
+// Please note: color custom properties %placeholders defined in abstracts/_colors.scss
+// are placed in a selector separately for front-end and ckeditor
 // ---------------------------------------
 
 // Base colors
@@ -39,12 +39,13 @@
   --oc-color-info: #1f71b8;
   --oc-color-success: #008d36;
   --oc-color-warning: #fd0;
-  --oc-color-divider-light: #e8e9eb;
-  --oc-color-divider-dark: #7b7d85;
+  --oc-color-divider-light: color-mix(in oklab, var(--oc-color-text) 10%, transparent); // #e8e9eb
+  --oc-color-divider-dark: color-mix(in oklab, var(--oc-color-text) 50%, transparent); // #7b7d85
 
   // Background colors (basic)
   --oc-color-bg-light: #fff;
   --oc-color-bg-dark: #303236;
+  --oc-color-bg-dark-inverted: var(--oc-color-bg-light); // stable alias, safe to use where --oc-color-bg-light is locally reassigned (e.g. .inverted)
   --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary));
   --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
   --oc-color-bg-exposed-form: var(--oc-color-bg-form);
@@ -101,6 +102,8 @@
   --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
   --oc-bg-caption: transparent; // color, gradient or image
   --oc-caption-border-color: var(--oc-color-divider-light);
+  --oc-card-border-color: transparent;
+  --oc-profile-card-border-color: transparent;
 
   // Further input elements (text, textarea)
   // see abstracts/_forms.scss
@@ -203,12 +206,13 @@
     --oc-color-info: #8ccaff;
     --oc-color-success: #008d36;
     --oc-color-warning: #ffae00;
-    --oc-color-divider-light: #38393b;
-    --oc-color-divider-dark: #8b8d95;
+    --oc-color-divider-light: color-mix(in oklab, var(--oc-color-text) 10%, transparent);
+    --oc-color-divider-dark: color-mix(in oklab, var(--oc-color-text) 50%, transparent);
 
     // Background colors DM
     --oc-color-bg-light: #16181a;
     --oc-color-bg-dark: #e6e6e6;
+    --oc-color-bg-dark-inverted: var(--oc-color-bg-light);
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
     --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
     --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
@@ -217,7 +221,7 @@
     --oc-color-neutral-canvas: #303236;
     --oc-color-bg-page: color-mix(in oklab, var(--oc-color-bg-light) 93%, var(--oc-color-bg-dark));
     --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 85%, transparent);
-    --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-light) 85%, transparent);
+    --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
     --oc-bg-slight: color-mix(in oklab, var(--oc-color-bg-dark) 5%, transparent);
 
     // Button colors
@@ -259,10 +263,4 @@
     // Shadow colors DM ext
     --oc-shadow-color: color-mix(in oklab, #000 60%, transparent);
   }
-
-  // --oc-color-hero-text: currentColor;
-  // --oc-bg-hero-image: transparent;
-  // --oc-color-marker-icon: var(--oc-color-primary);
-  // --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
-  // --oc-color-bg-cluster-icon: var(--oc-color-primary);
 }

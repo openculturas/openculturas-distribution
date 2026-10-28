@@ -37,8 +37,7 @@
   }
 }
 
-.profile-teaser.view-mode-embedded-teaser,
-.profile-teaser.view-mode-contact {
+.profile-teaser.view-mode-embedded-teaser {
   text-align: center;
   margin: 0;
 
@@ -190,5 +189,15 @@ div[class*="grid"] .profile-teaser.view-mode-teaser {
   @include breakpoint(m) {
     flex-flow: column;
     text-align: center;
+  }
+}
+
+.node--type-profile.node--view-mode-contact {
+  display: flex;
+  gap: var(--grid-gutter);
+  margin: 0;
+
+  .contact-data {
+    column-count: 1;
   }
 }

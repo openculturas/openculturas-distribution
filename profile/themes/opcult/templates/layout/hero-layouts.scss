@@ -167,35 +167,46 @@
     padding-block: 1rem;
     padding-inline: var(--oc-gutter);
   }
-
-  // .media--view-mode-profile-image {
-  //  border: .125rem solid var(--oc-color-bg-light);
-  // }
 }
 
 // ---
 // Layout 1
 
 .oc_hero_layout_1 {
-  --oc-title-inset: calc(-1 * var(--oc-profile-image-size));
+  --oc-title-inset: calc(-0.5 * var(--oc-profile-image-size));
 
+  // Small viewports: title slides up over the sticky mood image while scrolling
   .section--mood {
+    position: sticky;
+    inset-block-start: 0;
+
     @include breakpoint(l) {
+      position: static;
       grid-row: 1;
     }
   }
 
   .section--title {
     z-index: +1;
+    background-color: var(--oc-color-bg-light);
+    box-shadow: var(--oc-box-shadow-up);
 
     @include breakpoint(l) {
       grid-row: 1;
+      margin-block-start: 0;
+      background-color: transparent;
+      box-shadow: none;
     }
   }
 
   .section--essentials {
+    margin-block-start: 0;
+    padding-block-start: var(--oc-row-gap);
+    background-color: var(--oc-color-bg-light);
+
     @include breakpoint(l) {
       grid-row: 2;
+      background-color: transparent;
     }
   }
 
@@ -203,11 +214,19 @@
   .wrapper--content-header:has(.block-field-mood-image) {
     .page-title-wrapper {
       margin-block-end: var(--oc-title-inset);
-      background-color: var(--oc-color-bg-light);
       inset-block-start: var(--oc-title-inset);
 
       @include breakpoint(l) {
         margin-block-end: 0;
+        background-color: var(--oc-color-bg-light);
+      }
+    }
+
+    .media--type-user-profile-picture .field--name-field-media-image {
+      border: 0.125rem solid var(--oc-color-bg-light);
+
+      @include breakpoint(l) {
+        border: 0 none;
       }
     }
 
@@ -307,7 +326,9 @@
   }
 
   .headlines-wrapper {
-    text-align: start;
+    @include breakpoint(l) {
+      text-align: start;
+    }
   }
 
   .section--essentials {
@@ -407,6 +428,10 @@
   // }
 
   .section--title .page-title-wrapper {
+    @include breakpoint(m) {
+      align-items: start;
+    }
+
     @include breakpoint(l) {
       flex-flow: column;
     }
@@ -490,7 +515,7 @@
   @include breakpoint(m) {
     flex-flow: column;
   }
-  @include breakpoint(xl) {
+  @include breakpoint(l) {
     flex-flow: row;
   }
 }

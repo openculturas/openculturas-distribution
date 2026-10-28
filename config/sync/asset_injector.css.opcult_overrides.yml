@@ -4,34 +4,48 @@ status: false
 dependencies:
   module:
     - system
+  enforced:
+    theme:
+      - opcult
 id: opcult_overrides
 label: 'OpCulturas Next CSS overrides'
 code: |-
+  /* IMPORTANT: duplicate this CSS injector, do not edit it directly.
+   * Otherwise you will lose track of updates.
+   * Go to the CSS injector overview page, select Duplicate in the drop button 
+   * and give your copy a custom name.
+   * Select Edit to make your adjustments, then toggle to Enabled.
+   * Leave the original selector disabled to keep it updatable.
+   */
+
   /*
    * CSS overrides (enable this CSS injector after editing)
-   * All default values are repeated here for orientation. 
+   * All default values are repeated here for orientation.
    * For better performance, remove lines that shall remain unchanged
    * Dark mode options are included below
    */
 
   /*
    * Layout dimensions (make sure your adjustments work in all breakpoints)
+   * Note that some values are relative to the screen size using clamp().
+   * You are changing the "max" values from which corresponding min values are calculated,
+   * therefore the *-max values must be entered unitless, they resolve to rem.
    */
-   
+
    body {
     --oc-page-margin-top: 0;
     --oc-page-margin-bottom: 1rem;
-    --oc-page-margin-sides: 1.25rem;
-    --oc-page-padding-inline: 2rem;
+    --oc-page-margin-sides-max: 3; /* NOTE: unitless number */
+    --oc-page-padding-inline-max: 5; /* NOTE: unitless number */
     --oc-column-count: 12; /* Amount of columns in the layout grid. */
     --oc-column-padding: 0; /* Horizontal padding inside a column. */
-    --oc-gutter: 1.25rem; /* Gap (horizontal) between layout columns. */
-    --oc-row-gap: 1.25rem; /* Gap (vertical) between rows. */
     --oc-layout-max-width: 100rem; /* Prevent layout becoming too wide on large screens. */
-    --oc-section-spacing: 3rem; /* Vertically structuring spacing. */
+    --oc-row-gap: 1.25rem; /* Gap (vertical) between rows. */
+    --oc-gutter-max: 2; /* Gap (horizontal) between layout columns. NOTE: unitless number */
+    --oc-section-spacing-max: 5; /* Vertically structuring spacing. NOTE: unitless number */
   }
 
-  /* 
+  /*
    * Color-related variables
    */
 
@@ -44,15 +58,15 @@ code: |-
     --oc-color-text: #1f1f1f;
     --oc-color-text-muted: #7b7d85;
     --oc-color-text-inverted: #ffffff;
-    --oc-color-headline: currentColor;
+    --oc-color-text-headline: currentColor;
 
     /* Link/interaction colors */
     --oc-color-link: #a1167f;
     --oc-color-interaction: #16635e;
     --oc-color-link-focus-text: var(--oc-color-text-inverted);
     --oc-color-link-focus-bg: var(--oc-color-link);
-    --oc-color-link-opaque: color-mix(in oklab, var(--oc-color-link) 64%, transparent); 
-    --oc-color-bg-link-translucent: color-mix(in oklab, var(--oc-color-link) 7%, transparent); 
+    --oc-color-link-opaque: color-mix(in oklab, var(--oc-color-link) 64%, transparent);
+    --oc-color-bg-link-translucent: color-mix(in oklab, var(--oc-color-link) 7%, transparent);
     --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 20%, var(--oc-color-text-inverted));
     --oc-underline-color: color-mix(in oklab, currentColor 50%, transparent);
     --oc-color-menu-link: color-mix(in oklab, var(--oc-color-text) 30%, var(--oc-color-link));
@@ -64,9 +78,9 @@ code: |-
     --oc-color-info: #1f71b8;
     --oc-color-success: #008d36;
     --oc-color-warning: #ffdd00;
-    --oc-color-divider-light: #e8e9eb;
-    --oc-color-divider-dark: #7b7d85;
-    
+  	--oc-color-divider-light: color-mix(in oklab, var(--oc-color-text) 10%, transparent);
+    --oc-color-divider-dark: color-mix(in oklab, var(--oc-color-text) 50%, transparent);
+
     /* Accent colors (used in gradients) */
     --oc-color-accent-1: #cdebb0;
     --oc-color-accent-2: #eef0d5;
@@ -98,7 +112,7 @@ code: |-
       var(--oc-color-accent-1) 5%,
       var(--oc-color-accent-1) 10%
     );
-    
+
     /* Paragraph style backgrounds */
     --oc-bg-vivid: var(--oc-color-gradient-blocks);
     --oc-bg-slight: var(--oc-color-bg-slight-contrast);
@@ -112,7 +126,7 @@ code: |-
     --oc-bg-date-section: transparent;
     --oc-bg-archive-section: var(--oc-color-bg-slight-contrast);
     --oc-bg-sub-terms-section: var(--oc-bg-teaser-section);
-    
+
     /* Message colors (system feedback) */
     --oc-color-bg-danger: color-mix(in oklab, var(--oc-color-danger) 15%, var(--oc-color-bg-light));
     --oc-color-danger-dark: color-mix(in oklab, var(--oc-color-danger) 60%, var(--oc-color-bg-dark));
@@ -163,6 +177,15 @@ code: |-
     --oc-color-text-footer: var(--oc-color-text-inverted);
     --oc-color-link-footer: var(--oc-color-link-inverted);
 
+    /* Teaser card border colors */
+    --oc-card-border-color: transparent;
+    --oc-profile-card-border-color: transparent;
+
+    /* Media caption colors */
+    --oc-color-text-caption: var(--oc-color-text); /* a specfic value needs a corresponding dark mode color */
+    --oc-bg-caption: transparent;
+    --oc-caption-border-color: var(--oc-color-divider-light);
+
     /* Other colors */
     --oc-bg-hero-section: inherit; /* see also: --oc-bg-hero-padding-* */
     --oc-bg-hero-image: transparent;
@@ -173,27 +196,27 @@ code: |-
     --oc-color-bg-cluster-icon: var(--oc-color-primary);
   }
 
-  /* 
+  /*
    * Dark mode colors + logo workaround
    */
-   
+
    @media screen {
 
   	:root.dark {
   	  /* Base colors */
   	  --oc-color-primary: #9D1980;
   	  --oc-color-secondary: #4e083c;
-  	
+
   	  /* Text colors DM */
   	  --oc-color-text: #efefef;
   	  --oc-color-text-muted: #9b9d9a;
   	  --oc-color-text-inverted: #191919;
-  	  --oc-color-headline: currentColor;
-  	
+  	  --oc-color-text-headline: currentColor;
+
   	  /* Link/interaction colors DM */
   	  --oc-color-link: #ffdd00;
   	  --oc-color-interaction: #33bcb2;
-  	
+
   	  /* Functional colors DM */
   	  --oc-color-danger: #d41317;
   	  --oc-color-info: #8ccaff;
@@ -201,7 +224,7 @@ code: |-
   	  --oc-color-warning: #ffae00;
   	  --oc-color-divider-light: #38393b;
   	  --oc-color-divider-dark: #8b8d95;
-  	
+
   	  /* Accent colors DM */
       --oc-color-accent-1: #404b38;
       --oc-color-accent-2: #60644c;
@@ -215,36 +238,57 @@ code: |-
       --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
    	  --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
       --oc-color-bg-page: color-mix(in oklab, var(--oc-color-bg-light) 93%, var(--oc-color-bg-dark));
-  	
+
+  	  /* Teaser card border colors */
+  	  --oc-card-border-color: transparent;
+  	  --oc-profile-card-border-color: transparent;
+
   	  /* Footer DM */
   	  --oc-color-bg-footer: #000;
   	  --oc-color-text-footer: #efefef;
   	  --oc-color-link-footer: #ffdd00;
-  	
+
   	  /* Shadow colors DM */
   	  --oc-shadow-color: color-mix(in oklab, #000000 60%, transparent);
-  	  
-  	  /* DARK MODE LOGO */
 
-    	/* 1. If your logo is suitable for dark backgrounds OR when overriding with a custom logo */
+  	  /*
+  	  * DARK MODE LOGO
+  	  * By default, dark mode hides the logo and shows OpenCulturas's own inverted logo instead.
+  	  * You can only upload one version of your custom logo but you have different options
+  	  * for the dark mode. Pick whichever matches your logo:
+  	  */
+
+
+    	/* 1. Your logo already reads fine on a dark background: show your own logo.
+    	(If not, set comment marks around the following and uncomment one of the other options.)
+    	*/
+
+  	  #home-link a {
+  	    background: none;
+  	  }
+  	  #home-link a img {
+  	    opacity: 1;
+  	  }
+
+  	  /* 2.Your logo has a transparent background but dark lettering meant for a light page:
+  	  * simply set a background color.
+  	  */
   	  /*
   	  #home-link a {
-  	    background-color: transparent;
-  	    padding: 0;
-  	  }
+        background-color: #fff;
+        border-radius: var(--oc-border-radius-tiny);
+      }
   	  */
-  	
-  	  /* 2. To use your uploaded custom logo version for dark backgrounds, adjust the following path + file name */
-  	  /* 
-  	  #home-link a {
-  	    background: url('/profiles/contrib/openculturas-distribution/profile/themes/openculturas_base/logo_negative.svg') no-repeat;
-  	    top: unset;
-  	    left: unset;
-  	  }
+
+  	  /* 3. Your logo does not read on a dark background and has no transparency:
+  	  * This is the same technique the base theme uses.
+  	  * Upload a suitable inverted logo (same size as your main logo) via the media library.
+  	  * Copy the path and name to the background placeholder.
   	  */
-  	
-  	  /* 3. Set opacity to 0 to use your custom version */
   	  /*
+  	  #home-link a {
+  	  	background: url('/path/to/your/dark-mode-logo.svg') no-repeat;
+  	  }
   	  #home-link a img {
   	    opacity: 0;
   	  }
@@ -255,18 +299,23 @@ code: |-
 
   /*
    * Typography
+   * Note that some font sizes are relative to the screen size using clamp().
+   * You are changing the "max" values from which corresponding min values are calculated,
+   * therefore the *-max values must be entered unitless, they resolve to rem.
    */
 
   :root {
     /* Font sizes */
-    --oc-font-size-xxl: 3rem;
-    --oc-font-size-xl: 2rem;
-    --oc-font-size-l: 1.75rem;
-    --oc-font-size-ml: 1.5rem;
-    --oc-font-size-m: 1.25rem;
+    --oc-font-size-xxl-max: 6; /* NOTE: unitless number */
+    --oc-font-size-xl-max: 4; /* NOTE: unitless number */
+    --oc-font-size-l-max: 3; /* NOTE: unitless number */
+    --oc-font-size-ml-max: 1.5; /* NOTE: unitless number */
+    --oc-font-size-m-max: 1.25; /* NOTE: unitless number */
     --oc-font-size-default: 1rem;
     --oc-font-size-s: .875rem;
     --oc-font-size-xs: .75rem; /* Use sparsely for accessibility reasons. */
+    
+    --oc-font-size-teaser-title: var(--oc-font-size-ml);
 
     /* Button font sizes */
     --oc-font-size-button-default: 1rem;
@@ -290,10 +339,15 @@ code: |-
     --oc-font-weight-label: var(--oc-font-weight-semi-bold);
   }
 
+  /* Date size in calendar teasers */
+  .calendar h3 {
+    font-size: var(--oc-font-size-m);
+  }
+
   /*
    * Shadows and borders
    */
-   
+
   body {
     /* Box shadows */
     --oc-box-shadow-centered: 0 0 1rem -0.25rem var(--oc-shadow-color);
@@ -314,14 +368,13 @@ code: |-
     /* Dividers and special borders */
     --oc-divider-dark: .125rem solid var(--oc-color-divider-dark); /* 2px */
     --oc-divider-light: .0625rem solid var(--oc-color-divider-light); /* 1px */
-    --oc-card-border-default: .125rem solid var(--oc-color-primary);
     --oc-underline: var(--oc-underline-color) underline solid 1px;
    }
-   
+
   /*
    * Teaser styles
    */
-   
+
   body {
     /* Teaser cards */
     --oc-card-margin-block: calc(.5 * var(--oc-row-gap)); /* vertical margin (not to confuse with grid gap) */
@@ -330,9 +383,10 @@ code: |-
     --oc-card-padding-inline: 2rem; /* horizontal padding */
     --oc-card-background: var(--oc-color-bg-light);
     --oc-card-box-shadow: var(--oc-box-shadow-centered); /* or "0 none" */
-    --oc-card-border-default: .125rem solid transparent;
     --oc-card-border-inline: .125rem; /* only one value! keep in sync with card-border-default */
     --oc-card-border-block: .125rem; /* only one value! keep in sync with card-border-default */
+    --oc-card-border-style: solid;
+    --oc-profile-card-border-width: 0;
     --oc-card-border-radius: 2rem;
 
     /* Profile teaser cards */
@@ -342,8 +396,8 @@ code: |-
     --oc-profile-card-padding-inline: 1rem;
     --oc-profile-card-background: var(--oc-color-bg-light);
     --oc-profile-card-box-shadow: 0 none; /* or "var(--oc-box-shadow-centered)" */
-    --oc-profile-card-border: var(--oc-card-border-default);
     --oc-profile-card-border-width: 0; /* or "var(--oc-card-border-block) var(--oc-card-border-inline)"" */
+    --oc-profile-card-border-style: solid;
     --oc-profile-card-border-radius: 0;
 
     /* Teaser image fallback */
@@ -358,7 +412,7 @@ code: |-
   /*
    * Buttons, taxonomy term tags, form elements
    */
-   
+
   :root {
     /* buttons */
     --oc-button-border-radius: .25rem;
@@ -378,7 +432,7 @@ code: |-
     --oc-tag-text-transform: none;
     --oc-tag-letter-spacing: normal;
     --oc-tag-box-shadow: 0;
-    
+
     /* forms */
     --oc-form-field-padding-block: .5rem;
     --oc-form-field-padding-inline: 1rem;
@@ -400,11 +454,11 @@ code: |-
     --oc-input-error-border-color: var(--oc-color-danger);
     --oc-input-error-border-style: var(--oc-input-border-style);
   }
-   
+
   /*
    * Icon sizes
    */
-   
+
    :root {
     --oc-font-size-icon-default: 1rem;
     --oc-font-size-icon: 1em;
@@ -413,6 +467,15 @@ code: |-
     --oc-font-size-icon-xl: 2rem;
     --oc-font-size-icon-xxl: 3rem;
     --oc-icon-button-radius: 50%;
+  }
+
+  /*
+   * Media captions
+  */
+  body {
+    --oc-caption-border-width: 0 0 0.0625rem 0.0625rem;
+    --oc-caption-border-style: solid;
+    --oc-caption-border-radius: 0 0 0 var(--oc-image-border-radius);
   }
 
   /*

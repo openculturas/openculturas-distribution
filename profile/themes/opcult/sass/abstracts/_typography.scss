@@ -2,7 +2,7 @@
 // Typography variables + placeholders:
 // font sizes, weights, variants + spacings
 // ---
-// Related: base/_html-tags.scss
+// Related: base/_html-tags.scss, abstracts/_layout.scss
 // ---------------------------------------
 
 // Custom properties
@@ -13,11 +13,26 @@
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
 
   // Font sizes
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  // --oc-font-size-xxl/xl/l/ml/m are fluid: --*-min and --*-max (unitless rem)
+  // interpolate across --oc-fluid-vp-min/-max (%cc-fluid-bounds in
+  // abstracts/_layout.scss).
+  // Change only the "max" plain number; changing the "min" calculation factor is possible.
+  // DON'T TOUCH the clamp() calculations.
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem; // Use sparsely for accessibility reasons

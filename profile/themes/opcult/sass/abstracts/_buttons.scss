@@ -92,7 +92,7 @@
   --oc-button-padding: var(--oc-button-padding-s);
 
   margin-block-end: 0;
-  border-width: 0.09375rem;
+  border-width: calc(0.75 * var(--oc-button-border-width));
   font-size: var(--oc-font-size-s);
   font-weight: var(--oc-font-weight-medium);
 }
@@ -160,7 +160,9 @@
 %button-link {
   padding: var(--oc-button-padding-s);
   text-decoration: none;
-  border: 0.125rem solid var(--oc-color-link);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-color-link);
   border-radius: 50vi;
 
   &:focus,

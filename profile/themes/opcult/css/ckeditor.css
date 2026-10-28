@@ -12,18 +12,30 @@
 }
 
 .ck-content {
-  --oc-gutter: 1.25rem;
+  --oc-gutter-max: 2;
+  --oc-gutter-min: calc(var(--oc-gutter-max) * 0.625);
+  --oc-gutter: clamp(calc(var(--oc-gutter-min) * 1rem), calc(var(--oc-gutter-min) * 1rem + (var(--oc-gutter-max) - var(--oc-gutter-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-gutter-max) * 1rem));
   --oc-row-gap: 1.25rem;
 }
 
 .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem;
@@ -70,10 +82,11 @@
   --oc-color-info: #1f71b8;
   --oc-color-success: #008d36;
   --oc-color-warning: #fd0;
-  --oc-color-divider-light: #e8e9eb;
-  --oc-color-divider-dark: #7b7d85;
+  --oc-color-divider-light: color-mix(in oklab, var(--oc-color-text) 10%, transparent);
+  --oc-color-divider-dark: color-mix(in oklab, var(--oc-color-text) 50%, transparent);
   --oc-color-bg-light: #fff;
   --oc-color-bg-dark: #303236;
+  --oc-color-bg-dark-inverted: var(--oc-color-bg-light);
   --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary));
   --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
   --oc-color-bg-exposed-form: var(--oc-color-bg-form);
@@ -122,6 +135,8 @@
   --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
   --oc-bg-caption: transparent;
   --oc-caption-border-color: var(--oc-color-divider-light);
+  --oc-card-border-color: transparent;
+  --oc-profile-card-border-color: transparent;
 }
 
 @media screen {
@@ -140,10 +155,11 @@
     --oc-color-info: #8ccaff;
     --oc-color-success: #008d36;
     --oc-color-warning: #ffae00;
-    --oc-color-divider-light: #38393b;
-    --oc-color-divider-dark: #8b8d95;
+    --oc-color-divider-light: color-mix(in oklab, var(--oc-color-text) 10%, transparent);
+    --oc-color-divider-dark: color-mix(in oklab, var(--oc-color-text) 50%, transparent);
     --oc-color-bg-light: #16181a;
     --oc-color-bg-dark: #e6e6e6;
+    --oc-color-bg-dark-inverted: var(--oc-color-bg-light);
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 8%, var(--oc-color-bg-light));
     --oc-color-warning-dark: color-mix(in oklab, var(--oc-color-warning) 60%, var(--oc-color-bg-dark));
     --oc-color-bg-slight-contrast: color-mix(in oklab, var(--oc-color-bg-dark) 14%, var(--oc-color-bg-light));
@@ -152,7 +168,7 @@
     --oc-color-neutral-canvas: #303236;
     --oc-color-bg-page: color-mix(in oklab, var(--oc-color-bg-light) 93%, var(--oc-color-bg-dark));
     --oc-color-bg-page-backdrop: color-mix(in oklab, var(--oc-color-neutral-canvas) 85%, transparent);
-    --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-light) 85%, transparent);
+    --oc-color-backdrop: color-mix(in oklab, var(--oc-color-bg-light) 75%, transparent);
     --oc-bg-slight: color-mix(in oklab, var(--oc-color-bg-dark) 5%, transparent);
     --oc-button-primary-border-color: var(--oc-color-text);
     --oc-tag-bg-color: color-mix(in oklab, var(--oc-color-bg-dark) 20%, var(--oc-color-bg-light));
@@ -184,7 +200,9 @@
 a.cta {
   padding: var(--oc-button-padding-s);
   text-decoration: none;
-  border: 0.125rem solid var(--oc-color-link);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-color-link);
   border-radius: 50vi;
 }
 a.cta:focus, a.cta:hover {
@@ -235,11 +253,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem;
@@ -380,6 +408,7 @@ a.cta:focus, a.cta:hover {
 .ck-content body {
   color: var(--oc-color-text);
   font-family: var(--oc-font-family-default);
+  font-weight: var(--oc-font-weight-normal);
   line-height: var(--oc-line-height-default);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -675,27 +704,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .button--add {
   --oc-button-padding: var(--oc-button-padding-s);
   margin-block-end: 0;
-  border-width: 0.09375rem;
+  border-width: calc(0.75 * var(--oc-button-border-width));
   font-size: var(--oc-font-size-s);
   font-weight: var(--oc-font-weight-medium);
 }
 .ck-content a.cta {
   padding: var(--oc-button-padding-s);
   text-decoration: none;
-  border: 0.125rem solid var(--oc-color-link);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-color-link);
   border-radius: 50vi;
 }
 .ck-content a.cta:focus, .ck-content a.cta:hover {
   -webkit-text-decoration: var(--oc-underline);
           text-decoration: var(--oc-underline);
-}
-.ck-content .inverted button,
-.ck-content .inverted .button,
-.ck-content .inverted input[type=button],
-.ck-content .inverted input[type=submit] {
-  --oc-button-bg-color: transparent;
-  --oc-button-border-color: var(--oc-color-link-footer);
-  --oc-button-text-color: var(--oc-color-link-footer);
 }
 .ck-content .view-header .button,
 .ck-content .button--add {
@@ -746,11 +769,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem;
@@ -915,11 +948,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem;
@@ -1004,7 +1047,9 @@ a.cta:focus, a.cta:hover {
 .ck-content a.cta {
   padding: var(--oc-button-padding-s);
   text-decoration: none;
-  border: 0.125rem solid var(--oc-color-link);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-color-link);
   border-radius: 50vi;
 }
 .ck-content a.cta:focus, .ck-content a.cta:hover {
@@ -1137,11 +1182,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem;
@@ -1196,7 +1251,9 @@ a.cta:focus, a.cta:hover {
 .ck-content .text-formatted a.cta {
   padding: var(--oc-button-padding-s);
   text-decoration: none;
-  border: 0.125rem solid var(--oc-color-link);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-color-link);
   border-radius: 50vi;
 }
 .ck-content a.cta:focus, .ck-content .view > .more-link a:focus,
@@ -1259,21 +1316,6 @@ a.cta:focus, a.cta:hover {
 .ck-content a.more-link,
 .ck-content .text-formatted a.cta {
   display: inline-block;
-}
-.ck-content .inverted {
-  padding: var(--oc-row-gap) var(--oc-gutter);
-  color: var(--oc-color-text-inverted);
-  background: var(--oc-color-bg-dark);
-}
-.ck-content .inverted a {
-  color: var(--oc-color-link-inverted);
-  font-weight: var(--oc-font-weight-semi-bold);
-}
-.ck-content .inverted button,
-.ck-content .inverted a[role=button].button {
-  --oc-button-bg-color: transparent;
-  --oc-button-border-color: var(--oc-color-link-inverted);
-  --oc-button-text-color: var(--oc-color-link-inverted);
 }
 .ck-content .text-formatted h2 {
   margin-block-start: calc(2 * var(--oc-row-gap));
@@ -1356,11 +1398,21 @@ a.cta:focus, a.cta:hover {
 .ck-content .ck-content {
   --oc-font-family-default: "Montserrat", "Segoe UI", "Roboto", sans-serif;
   --oc-font-family-head: "Montserrat", "Segoe UI", "Roboto", sans-serif;
-  --oc-font-size-xxl: 3rem;
-  --oc-font-size-xl: 2rem;
-  --oc-font-size-l: 1.75rem;
-  --oc-font-size-ml: 1.5rem;
-  --oc-font-size-m: 1.25rem;
+  --oc-font-size-xxl-max: 3;
+  --oc-font-size-xxl-min: calc(var(--oc-font-size-xxl-max) * 0.6666);
+  --oc-font-size-xxl: clamp(calc(var(--oc-font-size-xxl-min) * 1rem), calc(var(--oc-font-size-xxl-min) * 1rem + (var(--oc-font-size-xxl-max) - var(--oc-font-size-xxl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xxl-max) * 1rem));
+  --oc-font-size-xl-max: 2;
+  --oc-font-size-xl-min: calc(var(--oc-font-size-xl-max) * 0.8125);
+  --oc-font-size-xl: clamp(calc(var(--oc-font-size-xl-min) * 1rem), calc(var(--oc-font-size-xl-min) * 1rem + (var(--oc-font-size-xl-max) - var(--oc-font-size-xl-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-xl-max) * 1rem));
+  --oc-font-size-l-max: 1.75;
+  --oc-font-size-l-min: calc(var(--oc-font-size-l-max) * 0.8571);
+  --oc-font-size-l: clamp(calc(var(--oc-font-size-l-min) * 1rem), calc(var(--oc-font-size-l-min) * 1rem + (var(--oc-font-size-l-max) - var(--oc-font-size-l-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-l-max) * 1rem));
+  --oc-font-size-ml-max: 1.5;
+  --oc-font-size-ml-min: calc(var(--oc-font-size-ml-max) * 0.875);
+  --oc-font-size-ml: clamp(calc(var(--oc-font-size-ml-min) * 1rem), calc(var(--oc-font-size-ml-min) * 1rem + (var(--oc-font-size-ml-max) - var(--oc-font-size-ml-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-ml-max) * 1rem));
+  --oc-font-size-m-max: 1.25;
+  --oc-font-size-m-min: calc(var(--oc-font-size-m-max) * 0.9);
+  --oc-font-size-m: clamp(calc(var(--oc-font-size-m-min) * 1rem), calc(var(--oc-font-size-m-min) * 1rem + (var(--oc-font-size-m-max) - var(--oc-font-size-m-min)) * (100vw - var(--oc-fluid-vp-min) * 1rem) / (var(--oc-fluid-vp-max) - var(--oc-fluid-vp-min))), calc(var(--oc-font-size-m-max) * 1rem));
   --oc-font-size-default: 1rem;
   --oc-font-size-s: 0.875rem;
   --oc-font-size-xs: 0.75rem;
@@ -1430,7 +1482,9 @@ a.cta:focus, a.cta:hover {
 .ck-content a.cta {
   padding: var(--oc-button-padding-s);
   text-decoration: none;
-  border: 0.125rem solid var(--oc-color-link);
+  border-width: var(--oc-button-border-width);
+  border-style: var(--oc-button-border-style);
+  border-color: var(--oc-color-link);
   border-radius: 50vi;
 }
 .ck-content a.cta:focus, .ck-content a.cta:hover {
@@ -2113,12 +2167,6 @@ a.cta:focus, a.cta:hover {
 }
 
 @media screen {
-  html.dark .ck-content .inverted {
-    --oc-color-text: var(--oc-color-text-inverted);
-    --oc-color-link: var(--oc-color-link-inverted);
-    --oc-color-divider-light: var(--oc-color-divider-dark);
-    --oc-color-bg-light: var(--oc-color-bg-dark);
-  }
   html.dark .ck-content .site-logo {
     display: inline-block;
     background-image: var(--oc-logo-negative);

@@ -39,14 +39,16 @@
   display: grid;
   grid-template-areas: "teaser";
   place-content: stretch;
+  border: var(--oc-card-border); // to deprecate
+  border-width: var(--oc-card-border-width);
+  border-style: var(--oc-card-border-style);
+  border-color: var(--oc-card-border-color);
+  border-radius: var(--oc-card-border-radius);
+  box-shadow: var(--oc-card-box-shadow);
   inline-size: 100%;
   aspect-ratio: var(--oc-aspect-ratio-landscape);
   margin-block: var(--oc-card-margin-block);
   margin-inline: var(--oc-card-margin-inline);
-  border: var(--oc-card-border);
-  border-width: 0; // var(--oc-card-border-width);
-  border-radius: var(--oc-card-border-radius);
-  box-shadow: var(--oc-card-box-shadow);
 }
 
 .term-teaser-unified,
@@ -54,13 +56,13 @@
   .teaser--top,
   .teaser--body {
     grid-area: teaser;
-    place-content: center;
+    place-content: stretch;
   }
 
   .teaser--top,
   .teaser--top.no-image {
     display: grid;
-    place-content: center;
+    place-content: stretch;
     border-radius: calc(var(--oc-card-border-radius) - var(--oc-card-border-block));
     block-size: 100%;
     inline-size: 100%;
@@ -75,13 +77,6 @@
   .teaser--body {
     padding-block: var(--oc-card-padding-block);
     padding-inline: var(--oc-card-padding-inline);
-  }
-}
-
-.term-teaser-unified {
-  .teaser--top,
-  .teaser--body {
-    place-content: stretch;
   }
 }
 

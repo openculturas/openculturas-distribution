@@ -145,14 +145,14 @@ button.editCookieSettings {
 // In Video placeholder, when cookies off
 
 .cookies-fallback {
-  padding: 1.25rem 2.5rem;
+  padding: 1rem 2rem;
   border-color: var(--oc-color-divider-light);
 
   .cookies-fallback--btn {
     @extend %button;
     @extend %button-small;
 
-    margin-block-end: 1.5rem;
+    margin-block: 0.5rem;
     text-transform: unset;
     min-block-size: unset;
   }
@@ -177,6 +177,14 @@ button.editCookieSettings {
       background: var(--oc-button-active-bg-color);
     }
   }
+
+  @include breakpoint(m) {
+    padding: 1.25rem 2.5rem;
+
+    .cookies-fallback--btn {
+      margin-block: 1rem;
+    }
+  }
 }
 
 .cookies-fallback--wrap {
@@ -191,7 +199,10 @@ button.editCookieSettings {
 }
 
 .cookies-fallback--text {
-  padding-block-end: 1rem;
   color: var(--oc-color-text);
   font-size: var(--oc-font-size-s);
+
+  @include breakpoint(m) {
+    padding-block-end: 1rem;
+  }
 }
