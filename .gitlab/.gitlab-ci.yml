@@ -60,13 +60,19 @@ renovate:update-artifacts:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
     COMPOSER_MEMORY_LIMIT: -1
 
+# Protected branches only receive merged code that already passed validation.
+.no_protected_run:
+  rules:
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+      when: never
+
 .validate_rules:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'schedule'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
-    - if: $CI_COMMIT_REF_PROTECTED
+    - !reference [.no_protected_run, rules]
 
 .validate_rules_php:
   rules:
@@ -269,6 +275,11 @@ rector dry-run:
 build:artifacts:
   extends: .build:artifacts
   image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.264930@sha256:23ec0a130d8249e6742ac74935681b1e38e424ca967f0f5045d434720c6c51ff
+  rules:
+    # The prelive deployment needs the artifacts.
+    - if: $CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_NAME != $PRELIVE_BRANCH_NAME
+      when: never
+    - !reference [.composer:install, rules]
 
 .docker_build_image:
   needs:
@@ -277,10 +288,15 @@ build:artifacts:
     - job: build:artifacts
       artifacts: true
 
+# Template job: only its rules are overridden, because it needs build:artifacts.
+build:image:stage:dry-run:
+  rules:
+    - !reference [.no_protected_run, rules]
+    - !reference [.only_stage_rules_no_default, rules]
+
 build:image:stage:
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-      when: never
+    - !reference [.no_protected_run, rules]
     - !reference [.only_stage_rules_manually_optional, rules]
 
 deploy:stage:
@@ -289,8 +305,7 @@ deploy:stage:
   needs:
     - build:image:stage
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-      when: never
+    - !reference [.no_protected_run, rules]
     - !reference [.only_stage_rules_manually_optional, rules]
 
 deploy:stage:remove:
@@ -298,8 +313,7 @@ deploy:stage:remove:
   needs:
     - deploy:stage
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-      when: never
+    - !reference [.no_protected_run, rules]
     - !reference [.only_stage_rules_manually_optional, rules]
 
 build:image:prelive:
