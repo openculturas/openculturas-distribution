@@ -330,6 +330,19 @@ ddev xdebug off
 
 ## Update Hooks
 
+- `config/sync` only exists on this dev site - it's outside `profile/` and
+  downstream installs (`openculturas/openculturas-distribution`) never get
+  it. They only ship `profile/config/install`, bulk-imported once by
+  `drush site:install --existing-config`. So any config change only reaches
+  an already-installed downstream site through an update hook
+  (`hook_update_N()` or `.post_update.php`) that sets/reverts it
+  programmatically; `drush config:import` working on this dev site says
+  nothing about whether the change will reach anyone else. Exception,
+  decided case-by-case: config that only needs to apply to fresh installs
+  doesn't need a hook. Either way, get the change into the module's own
+  `config/install` (or `config/optional`) first with `ddev drush cde
+  <module>` - a revert hook reads the config from there, and a fresh
+  install's bulk import reads it from there too.
 - Changes to `asset_injector.css.oc_gin_theme_overrides` reach existing sites
   only through a revert in `profile/openculturas.post_update.php`. Never use
   `hook_update_N()` or another config import path for it. Only the newest

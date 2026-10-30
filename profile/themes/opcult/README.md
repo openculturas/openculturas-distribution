@@ -193,7 +193,9 @@ We might introduce a mixin in a future iteration, for the time being the followi
 │   │   ├── _modal-dialog.scss     # Modals layers/dialogs
 │   │   ├── _forms.scss            # Form elements (except buttons)
 │   │   ├── _html-tags.scss        # Pure tags, no dependencies (including basic typography)
-│   │   ├── _icons.scss            # Diverse (re-usable) class-based icons
+│   │   ├── _icons-base.scss       # Diverse (re-usable) class-based icons (including visibility in WYSIWYG editor)
+│   │   ├── _icons-ext.scss        # Icons extended: all further class-based icons
+│   │   ├── _inverted.scss         # Rules for inverting colors on .inverted backgrounds
 │   │   ├── _messages.scss         # Adjust Drupal messages (feedback) in front-end theme
 │   │   ├── _reusables.scss        # Generic utility classes for all-purpose usage
 │   │   ├── _tables.scss           # Generic tables incl. Drupal-specific utility classes in tables
