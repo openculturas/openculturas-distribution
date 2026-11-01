@@ -183,7 +183,8 @@ rector dry-run:
   stage: validate
   extends: .validate_rules_npm
   needs:
-    - phplint
+    - job: phplint
+      optional: true
 
 .composer_npm:
   extends:
