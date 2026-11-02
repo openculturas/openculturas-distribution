@@ -81,7 +81,7 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
       $this->excludeRoleDelegation($event);
     }
 
-    if ($extension === 'openculturas-profile' && $config_name === 'field.field.paragraph.teaser_term.field_term') {
+    if ($extension === 'openculturas-profile' && $config_name === 'views.view.entity_reference_term') {
       $this->excludeOpenCulturasFaq($event, $config_name);
       $this->excludeOpenCulturasSection($event);
     }
@@ -144,7 +144,12 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
   private function excludeOpenCulturasSection(ConfigDevelSaveEvent $configDevelSaveEvent): void {
     $data = $configDevelSaveEvent->getData();
 
-    unset($data['content']['field_section'], $data['hidden']['field_section'], $data['settings']['handler_settings']['target_bundles']['oc_section']);
+    unset(
+      $data['content']['field_section'],
+      $data['hidden']['field_section'],
+      $data['settings']['handler_settings']['target_bundles']['oc_section'],
+      $data['display']['default']['display_options']['filters']['vid']['value']['oc_section'],
+    );
     if (isset($data['dependencies']['config']) && is_array($data['dependencies']['config'])) {
       foreach ($data['dependencies']['config'] as $index => $config_name) {
         if (str_ends_with((string) $config_name, 'field_section') || str_ends_with((string) $config_name, 'oc_section')) {
@@ -178,7 +183,10 @@ final class OpenculturasCustomConfigDevelSubscriber implements EventSubscriberIn
   private function excludeOpenCulturasFaq(ConfigDevelSaveEvent $configDevelSaveEvent, string $current_config_name): void {
     $data = $configDevelSaveEvent->getData();
 
-    unset($data['settings']['handler_settings']['target_bundles']['faq_category']);
+    unset(
+      $data['settings']['handler_settings']['target_bundles']['faq_category'],
+      $data['display']['default']['display_options']['filters']['vid']['value']['faq_category'],
+    );
 
     $config_names = ['node.type.faq', 'taxonomy.vocabulary.faq_category'];
     foreach ($config_names as $config_name) {

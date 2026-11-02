@@ -11,7 +11,9 @@ use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\Sql\DefaultTableMapping;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\FieldConfigInterface;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\image\ImageEffectInterface;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
@@ -1000,6 +1002,154 @@ function openculturas_post_update_rendered_entity_field_cache_metadata(?array &$
 
     return FALSE;
   });
+}
+
+/**
+ * Use entity reference views for the selection of reference fields.
+ */
+function openculturas_post_update_entity_reference_views(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  $moduleHandler = \Drupal::moduleHandler();
+
+  _openculturas_post_update_import_or_revert_config(['views.view.entity_reference_term']);
+  // The shipped view lists only the vocabularies of the profile.
+  if ($moduleHandler->moduleExists('openculturas_faq')) {
+    $moduleHandler->loadInclude('openculturas_faq', 'install');
+    openculturas_faq_set_term_reference_allowed(TRUE);
+    $logger->info('Allowed referencing faq_category terms in views.view.entity_reference_term.');
+  }
+
+  if ($moduleHandler->moduleExists('openculturas_section')) {
+    $moduleHandler->loadInclude('openculturas_section', 'install');
+    openculturas_section_set_term_reference_allowed(TRUE);
+    $logger->info('Allowed referencing oc_section terms in views.view.entity_reference_term.');
+  }
+
+  // New displays used by the fields below.
+  _openculturas_post_update_import_or_revert_config(['views.view.entity_reference_node'], TRUE);
+  // The revert drops the adjustments of openculturas_discussions.
+  if ($moduleHandler->moduleExists('openculturas_discussions')) {
+    InstallerHelper::setCommentFilter();
+    $logger->info('Excluded comments from the er_node_references display again.');
+  }
+
+  $views_by_field = [
+    'node.article.field_author' => ['entity_reference_node', 'er_profiles'],
+    'node.date.field_event_description' => ['entity_reference_node', 'er_event'],
+    'node.date.field_location' => ['entity_reference_node', 'er_locations'],
+    'node.date.field_parent_date' => ['entity_reference_node', 'er_date'],
+    'paragraph.bookable_event.field_contact_person' => ['entity_reference_node', 'er_profiles_contact'],
+    'paragraph.member.field_member' => ['entity_reference_node', 'er_profiles'],
+    'paragraph.teaser_term.field_term' => ['entity_reference_term', 'er_terms'],
+  ];
+  foreach ($views_by_field as $field_id => [$view_name, $display_name]) {
+    $field = FieldConfig::load($field_id);
+    if (!$field instanceof FieldConfigInterface) {
+      $logger->warning(sprintf('SKIPPED. Field %s not found.', $field_id));
+      continue;
+    }
+
+    // Keep a selection handler that was changed on the site.
+    if (!str_starts_with((string) $field->getSetting('handler'), 'default')) {
+      $logger->notice(sprintf('SKIPPED. Field %s does not use the default selection handler.', $field_id));
+      continue;
+    }
+
+    $field->setSetting('handler', 'views');
+    $field->setSetting('handler_settings', [
+      'view' => [
+        'view_name' => $view_name,
+        'display_name' => $display_name,
+        'arguments' => [],
+      ],
+    ]);
+    $field->save();
+    $logger->info(sprintf('Field %s selects its targets with the %s display of views.view.%s.', $field_id, $display_name, $view_name));
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Show 20 instead of 10 autocomplete suggestions for reference fields.
+ */
+function openculturas_post_update_entity_reference_autocomplete_match_limit(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  $field_names_by_bundle = [
+    'node' => [
+      'article' => ['field_author', 'field_references'],
+      'date' => ['field_event_description', 'field_organizer', 'field_parent_date'],
+    ],
+    'paragraph' => [
+      'bookable_event' => ['field_contact_person'],
+      'member' => ['field_member'],
+      'teaser_node' => ['field_article'],
+      'teaser_term' => ['field_term'],
+    ],
+  ];
+  foreach ($field_names_by_bundle as $entity_type_id => $field_names_of_bundles) {
+    foreach ($field_names_of_bundles as $bundle => $field_names) {
+      $formDisplay = $entityDisplayRepository->getFormDisplay($entity_type_id, $bundle);
+      $changed = FALSE;
+      foreach ($field_names as $field_name) {
+        $component = $formDisplay->getComponent($field_name);
+        // Keep a limit that was changed on the site.
+        if ($component === NULL || ($component['type'] ?? NULL) !== 'entity_reference_autocomplete' || ($component['settings']['match_limit'] ?? NULL) !== 10) {
+          $logger->notice(sprintf('SKIPPED. %s on %s.%s.default has no autocomplete widget with 10 suggestions.', $field_name, $entity_type_id, $bundle));
+          continue;
+        }
+
+        $component['settings']['match_limit'] = 20;
+        $formDisplay->setComponent($field_name, $component);
+        $changed = TRUE;
+        $logger->info(sprintf('Set 20 autocomplete suggestions for %s on %s.%s.default.', $field_name, $entity_type_id, $bundle));
+      }
+
+      if ($changed) {
+        $formDisplay->save();
+      }
+    }
+  }
+
+  return $logger->output();
+}
+
+/**
+ * Restrict new inline locations of dates to the location bundle.
+ */
+function openculturas_post_update_date_location_inline_bundle(): string {
+  /** @var \Drupal\update_helper\UpdateLogger $logger */
+  $logger = \Drupal::service('update_helper.logger');
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
+  $entityDisplayRepository = \Drupal::service('entity_display.repository');
+
+  // The views selection handler has no target bundles, so inline entity
+  // form offers all node bundles for new entities without this setting.
+  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'date');
+  $component = $formDisplay->getComponent('field_location');
+  if ($component === NULL || ($component['type'] ?? NULL) !== 'inline_entity_form_complex_open') {
+    $logger->notice('SKIPPED. field_location on node.date.default does not use the inline_entity_form_complex_open widget.');
+    return $logger->output();
+  }
+
+  // Keep a bundle that was chosen on the site.
+  if (($component['settings']['bundle'] ?? '') !== '') {
+    $logger->notice(sprintf('SKIPPED. field_location on node.date.default already restricts new entities to %s.', $component['settings']['bundle']));
+    return $logger->output();
+  }
+
+  $component['settings']['bundle'] = 'location';
+  $formDisplay->setComponent('field_location', $component);
+  $formDisplay->save();
+
+  $logger->info('Restricted new inline entities of field_location on node.date.default to location.');
+
+  return $logger->output();
 }
 
 /**

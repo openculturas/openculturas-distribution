@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_contact_person
-    - node.type.profile
     - paragraphs.paragraphs_type.bookable_event
 id: paragraph.bookable_event.field_contact_person
 field_name: field_contact_person
@@ -17,13 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      profile: profile
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: entity_reference_node
+      display_name: er_profiles_contact
+      arguments: {  }
 field_type: entity_reference

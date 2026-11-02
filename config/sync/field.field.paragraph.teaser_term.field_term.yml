@@ -5,14 +5,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_term
     - paragraphs.paragraphs_type.teaser_term
-    - taxonomy.vocabulary.article_type
-    - taxonomy.vocabulary.category
-    - taxonomy.vocabulary.column
-    - taxonomy.vocabulary.event_type
-    - taxonomy.vocabulary.faq_category
-    - taxonomy.vocabulary.location_type
-    - taxonomy.vocabulary.oc_section
-    - taxonomy.vocabulary.page_type
 id: paragraph.teaser_term.field_term
 field_name: field_term
 entity_type: paragraph
@@ -24,20 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      article_type: article_type
-      category: category
-      column: column
-      event_type: event_type
-      faq_category: faq_category
-      location_type: location_type
-      oc_section: oc_section
-      page_type: page_type
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: article_type
+    view:
+      view_name: entity_reference_term
+      display_name: er_terms
+      arguments: {  }
 field_type: entity_reference

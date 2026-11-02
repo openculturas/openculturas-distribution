@@ -7,8 +7,8 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Field\FieldConfigInterface;
-use Drupal\field\Entity\FieldConfig;
+use Drupal\views\Entity\View;
+use Drupal\views\ViewEntityInterface;
 
 /**
  * Implements hook_install().
@@ -56,16 +56,46 @@ function openculturas_section_install(bool $is_syncing): void {
 
   }
 
-  /** @var \Drupal\Core\Field\FieldConfigInterface|null $field */
-  $field = FieldConfig::loadByName('paragraph', 'teaser_term', 'field_term');
-  if ($field instanceof FieldConfigInterface) {
-    /** @var array{target_bundles?: array<string,string>} $handler_settings */
-    $handler_settings = is_array($field->getSetting('handler_settings')) ? $field->getSetting('handler_settings') : [];
-    if (isset($handler_settings['target_bundles'])) {
-      $handler_settings['target_bundles']['oc_section'] = 'oc_section';
-      asort($handler_settings['target_bundles']);
-      $field->setSetting('handler_settings', $handler_settings);
-      $field->save();
-    }
+  openculturas_section_set_term_reference_allowed(TRUE);
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Runs before the oc_section vocabulary is deleted. Otherwise the view
+ * depending on it would be deleted along with it.
+ */
+function openculturas_section_uninstall(bool $is_syncing): void {
+  if ($is_syncing) {
+    return;
   }
+
+  openculturas_section_set_term_reference_allowed(FALSE);
+}
+
+/**
+ * Allows or disallows referencing oc_section terms in teasers to terms.
+ *
+ * @see views.view.entity_reference_term
+ */
+function openculturas_section_set_term_reference_allowed(bool $allowed): void {
+  $view = View::load('entity_reference_term');
+  if (!$view instanceof ViewEntityInterface) {
+    return;
+  }
+
+  $display = &$view->getDisplay('default');
+  if (!isset($display['display_options']['filters']['vid']['value']) || !is_array($display['display_options']['filters']['vid']['value'])) {
+    return;
+  }
+
+  if ($allowed) {
+    $display['display_options']['filters']['vid']['value']['oc_section'] = 'oc_section';
+    ksort($display['display_options']['filters']['vid']['value']);
+  }
+  else {
+    unset($display['display_options']['filters']['vid']['value']['oc_section']);
+  }
+
+  $view->save();
 }
