@@ -22,6 +22,7 @@
 // .addtocal-toggle--popover-content,
 
 .popover-content {
+  position: fixed;
   padding: 0 0 0.25em;
   transform: translateX(-1rem);
   border: 0;
@@ -158,7 +159,19 @@
 // Further anchors:
 
 // Attribution (copyright)
-// See templates/field/field--media--field-licenses.html.twig
+// The same media can be rendered several times per page, so the anchor name
+// goes only to the trigger whose own popover is open.
+@supports (anchor-name: --attribution-toggle-trigger) {
+  .attribution-toggle--trigger:has(+ .attribution-toggle--popover-content:popover-open) {
+    anchor-name: --attribution-toggle-trigger;
+  }
+
+  .attribution-toggle--popover-content {
+    top: anchor(bottom);
+    left: anchor(left);
+    position-anchor: --attribution-toggle-trigger;
+  }
+}
 
 // Quick info (responsive teaser body)
 // See templates/node/teaser-unified.html.twig

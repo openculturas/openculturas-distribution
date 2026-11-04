@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\opcult\Hook;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -241,6 +242,8 @@ class OpcultHooks {
       }
     }
 
+    $this->preprocessFieldLicensesPopoverIds($variables, $element);
+
     if ($variables['field_name'] === 'field_content_paragraphs' && ($element['#view_mode'] ?? NULL) === 'synopsis') {
       // We want to provide a url as a fallback in case the body text for smart trim
       // is too short, but the entity has content in this field.
@@ -250,6 +253,35 @@ class OpcultHooks {
         $translatedEntity = $this->entityRepository->getTranslationFromContext($fieldableEntity);
         $variables['url'] = $translatedEntity->toUrl()->toString();
       }
+    }
+  }
+
+  /**
+   * Sets a deterministic popover id on each field_licenses item.
+   *
+   * Not Html::getUniqueId(): its per-request counter can desync from a
+   * render cache hit, emitting the same id twice in one response.
+   *
+   * @param array $variables
+   *   The field.html.twig variables, keyed by 'items'.
+   * @param array $element
+   *   The field render element, for '#object', '#view_mode', '#language'.
+   */
+  private function preprocessFieldLicensesPopoverIds(array &$variables, array $element): void {
+    if ($variables['field_name'] !== 'field_licenses' || !is_array($variables['items'])) {
+      return;
+    }
+
+    $fieldableEntity = $element['#object'];
+    if (!$fieldableEntity instanceof FieldableEntityInterface) {
+      return;
+    }
+
+    $entityId = $fieldableEntity->id() !== NULL ? (string) $fieldableEntity->id() : (string) $fieldableEntity->uuid();
+    $viewMode = (string) ($element['#view_mode'] ?? '');
+    $langcode = (string) ($element['#language'] ?? '');
+    foreach ($variables['items'] as $delta => $item) {
+      $variables['items'][$delta]['popover_id'] = Html::getId('popover--attribution-' . $fieldableEntity->getEntityTypeId() . '-' . $entityId . '-' . $delta . '-' . $viewMode . '-' . $langcode);
     }
   }
 

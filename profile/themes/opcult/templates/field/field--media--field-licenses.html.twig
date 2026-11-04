@@ -9,11 +9,10 @@
   'attribution-toggle--wrapper',
 ]
 %}
-{% set popoverId = 'popover--attribution'|clean_unique_id %}
-{% set anchorName = '--' ~ popoverId ~ '--anchor' %}
 
-<!--suppress HtmlUnknownAttribute -->
+{# data-drupal-selector below is read by opcult.js's attributionPopoverDedupeBehavior. #}
 {% for item in items %}
+  {% set popoverId = item.popover_id %}
   <div class="attribution-toggle" data-drupal-selector="attribution-toggle">
     <div{{ item.attributes.addClass('field__item').addClass(field_name|clean_class) }}>
       {% if not label_hidden %}
@@ -26,17 +25,4 @@
       </div>
     </div>
   </div>
-  <!--suppress CssInvalidFunction -->
-  <style>
-    @supports (anchor-name: {{ anchorName }}) {
-      #{{ popoverId }}--trigger {
-        anchor-name: {{ anchorName }};
-      }
-      #{{ popoverId }} {
-        position-anchor: {{ anchorName }};
-        top: anchor(bottom);
-        left: anchor(left);
-      }
-    }
-  </style>
 {% endfor %}

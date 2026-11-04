@@ -2612,6 +2612,7 @@ td.is-active {
 }
 
 .popover-content {
+  position: fixed;
   padding: 0 0 0.25em;
   transform: translateX(-1rem);
   border: 0;
@@ -2714,6 +2715,16 @@ td.is-active {
     top: anchor(bottom);
     left: anchor(left);
     position-anchor: --share-toggle-trigger;
+  }
+}
+@supports (anchor-name: --attribution-toggle-trigger) {
+  .attribution-toggle--trigger:has(+ .attribution-toggle--popover-content:popover-open) {
+    anchor-name: --attribution-toggle-trigger;
+  }
+  .attribution-toggle--popover-content {
+    top: anchor(bottom);
+    left: anchor(left);
+    position-anchor: --attribution-toggle-trigger;
   }
 }
 details {

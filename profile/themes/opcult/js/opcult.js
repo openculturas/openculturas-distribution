@@ -152,6 +152,46 @@
       );
     },
   };
+  /**
+   * Disambiguates duplicate attribution popover ids at runtime.
+   *
+   * field--media--field-licenses.html.twig's id repeats whenever the same
+   * media is referenced more than once in one multi-value field (e.g. a
+   * gallery/slider) - a legitimate case its deterministic id can't account
+   * for by itself. The Map is outside attach() on purpose, to track ids
+   * across separate attach() calls too (e.g. content a view's infinite
+   * scroll appends).
+   * @type {Drupal.behavior}
+   */
+  const seenAttributionPopoverIds = new Map();
+  Drupal.behaviors.attributionPopoverDedupeBehavior = {
+    attach(context) {
+      once(
+        'attributionPopoverDedupeBehavior',
+        '[data-drupal-selector="attribution-toggle"]',
+        context,
+      ).forEach((wrapper) => {
+        const popover = wrapper.querySelector('[popover]');
+        const trigger = wrapper.querySelector('[popovertarget]');
+        if (!popover || !trigger) {
+          return;
+        }
+
+        const baseId = popover.id;
+        const occurrence = seenAttributionPopoverIds.get(baseId) || 0;
+        seenAttributionPopoverIds.set(baseId, occurrence + 1);
+        if (occurrence === 0) {
+          // First occurrence keeps its original, server-rendered id.
+          return;
+        }
+
+        const newId = `${baseId}-z${occurrence}`;
+        trigger.id = `${newId}--trigger`;
+        trigger.setAttribute('popovertarget', newId);
+        popover.id = newId;
+      });
+    },
+  };
 })(Drupal, once);
 
 /**
