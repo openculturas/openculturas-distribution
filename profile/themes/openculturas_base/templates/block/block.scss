@@ -4,3 +4,50 @@
     font-size: $font-size-default;
   }
 }
+
+// ---
+// Popover/modal layer
+
+// The template gives the anchor `block-size: 1px` inline: browsers do not
+// handle intersections of elements without size in the same way.
+.block:has(.modal-trigger__anchor) {
+  position: relative;
+}
+
+.modal-trigger__anchor {
+  position: absolute;
+}
+
+dialog.modal.modal-trigger__popover {
+  inline-size: max-content;
+  max-inline-size: 95vw;
+
+  @include breakpoint(xl) {
+    max-inline-size: 70rem;
+  }
+
+  .dialog-titlebar {
+    h2,
+    h3 {
+      margin-block: 0;
+      color: currentColor;
+      inline-size: 100%;
+    }
+  }
+
+  // buttons aligned "right"
+  .dialog-footer,
+  .dialog-titlebar:not(:has(.dialog-title)) {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .dialog-titlebar .dialog-title {
+
+  }
+
+  .dialog-footer button.text-button {
+    @extend %button-small;
+    margin-right: 0.5rem;
+  }
+}

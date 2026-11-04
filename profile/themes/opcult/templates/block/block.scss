@@ -30,3 +30,43 @@ h2.block--title.label {
     font-size: var(--oc-font-size-s);
   }
 }
+
+// ---
+// Popover/modal layer
+
+// The template gives the anchor `block-size: 1px` inline: browsers do not
+// handle intersections of elements without size in the same way.
+.block:has(.modal-trigger__anchor) {
+  position: relative;
+}
+
+.modal-trigger__anchor {
+  position: absolute;
+}
+
+.modal-trigger__popover {
+  inline-size: max-content;
+  max-inline-size: var(--oc-page-width);
+
+  &::backdrop {
+    @extend %backdrop;
+  }
+
+  .dialog-titlebar {
+    h2,
+    h3 {
+      margin-block: 0.5rem 0;
+      color: currentColor;
+    }
+  }
+
+  // buttons aligned "right"
+  .dialog-footer,
+  .dialog-titlebar:not(:has(.dialog-title)) {
+    justify-content: flex-end;
+  }
+
+  .dialog-footer button.text-button {
+    @extend %dialog-text-button;
+  }
+}

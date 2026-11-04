@@ -37,7 +37,7 @@ final class FieldPopoverBuilder {
    * bundle). Once a bundle gains its own native field, this setting must
    * stop taking effect there — even if it was enabled before the native
    * field existed and a stale value is still stored — so a site builder
-   * never sees the same entity offer two independent "enlarge" toggles.
+   * never sees the same entity offer two independent "zoom" toggles.
    *
    * This is a per-bundle check, not a per-purpose one: it assumes a bundle
    * only ever wants a single popover mechanism. A bundle that legitimately
@@ -121,7 +121,7 @@ final class FieldPopoverBuilder {
     $parent[$dialogKey] = [
       '#theme' => 'entity_popover_dialog',
       '#unique_id' => $uniqueId,
-      '#toggle_label' => new TranslatableMarkup('Enlarge'),
+      '#toggle_label' => new TranslatableMarkup('Zoom'),
       '#close_label' => new TranslatableMarkup('Close'),
       '#dialog_content' => $dialogContent,
       '#weight' => ($fieldBuild['#weight'] ?? 0),

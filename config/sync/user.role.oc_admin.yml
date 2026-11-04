@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.basic
     - field.storage.media.field_sponsor_global
     - field.storage.node.field_badges
     - field.storage.node.field_layout_switcher
     - field.storage.paragraph.field_address_location
-    - field.storage.paragraph.field_block_ref
     - field.storage.paragraph.field_location_precision
     - field.storage.paragraph.field_view
     - filter.format.advanced_html
@@ -28,6 +28,7 @@ dependencies:
     - workflows.workflow.draften_member
     - workflows.workflow.magazine_article
   module:
+    - block_content
     - blockgroup
     - coffee
     - content_moderation
@@ -69,6 +70,7 @@ weight: -5
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access block library'
   - 'access coffee'
   - 'access content overview'
   - 'access contextual links'
@@ -83,6 +85,7 @@ permissions:
   - 'access toolbar'
   - 'access tour'
   - 'access user profiles'
+  - 'administer block content'
   - 'administer blockgroups'
   - 'administer cookies services and service groups'
   - 'administer eca_notification_recipient'
@@ -107,14 +110,16 @@ permissions:
   - 'cancel smart date recur instances'
   - 'configure cookies widget texts'
   - 'create audio media'
+  - 'create basic block content'
   - 'create content translations'
   - 'create faq content'
   - 'create field_address_location'
-  - 'create field_block_ref'
   - 'create field_layout_switcher'
   - 'create field_location_precision'
   - 'create field_sponsor_global'
   - 'create field_view'
+  - 'create paragraph content block'
+  - 'create paragraph content block_editorial'
   - 'create sponsor media'
   - 'create terms in article_type'
   - 'create terms in faq_category'
@@ -128,21 +133,22 @@ permissions:
   - 'delete orphan revisions'
   - 'delete own faq content'
   - 'delete own files'
+  - 'delete paragraph content block'
+  - 'delete paragraph content block_editorial'
   - 'delete terms in article_type'
   - 'delete terms in faq_category'
+  - 'edit any basic block content'
   - 'edit any faq content'
   - 'edit any sponsor media'
   - 'edit behavior plugin settings'
   - 'edit field_address_location'
   - 'edit field_badges'
-  - 'edit field_block_ref'
   - 'edit field_layout_switcher'
   - 'edit field_location_precision'
   - 'edit field_sponsor_global'
   - 'edit field_view'
   - 'edit own comment content'
   - 'edit own faq content'
-  - 'edit own field_block_ref'
   - 'edit own field_layout_switcher'
   - 'edit own field_sponsor_global'
   - 'edit terms in article_type'
@@ -172,6 +178,8 @@ permissions:
   - 'unflag recommendation_node'
   - 'unflag report_abuse'
   - 'update content translations'
+  - 'update paragraph content block'
+  - 'update paragraph content block_editorial'
   - 'use comment transition publish'
   - 'use comment transition unpublish'
   - 'use draften transition create_new_draft'

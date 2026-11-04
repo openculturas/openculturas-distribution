@@ -1,0 +1,149 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.system_block_modal
+    - field.field.block_content.system_block_modal.field_block_ref
+    - field.field.block_content.system_block_modal.field_modal_cooldown_days
+    - field.field.block_content.system_block_modal.field_modal_permanent_dismiss
+    - field.field.block_content.system_block_modal.field_modal_trigger_delay
+    - field.field.block_content.system_block_modal.field_modal_trigger_mode
+  module:
+    - block_field
+    - conditional_fields
+    - field_group
+third_party_settings:
+  field_group:
+    group_modal_layer:
+      children:
+        - field_modal_trigger_mode
+        - field_modal_trigger_delay
+        - field_modal_cooldown_days
+        - field_modal_permanent_dismiss
+      label: 'Modal layer'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
+id: block_content.system_block_modal.default
+targetEntityType: block_content
+bundle: system_block_modal
+mode: default
+content:
+  field_block_ref:
+    type: block_field_default
+    weight: 1
+    region: content
+    settings:
+      plugin_id: ''
+      settings: {  }
+      configuration_form: full
+    third_party_settings: {  }
+  field_modal_cooldown_days:
+    type: number
+    weight: 5
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        8eae5083-9f6c-462e-be7b-10d06eac2427:
+          entity_type: block_content
+          bundle: system_block_modal
+          dependee: field_modal_trigger_mode
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "delay\r\nscroll"
+            value_form:
+              -
+                value: none
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_modal_permanent_dismiss:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings:
+      conditional_fields:
+        17454bc7-d81b-4631-a003-57c83e703be3:
+          entity_type: block_content
+          bundle: system_block_modal
+          dependee: field_modal_trigger_mode
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "delay\r\nscroll"
+            value_form:
+              -
+                value: none
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_modal_trigger_delay:
+    type: number
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        23ca8593-d11b-4d43-aa14-649ec1f59938:
+          entity_type: block_content
+          bundle: system_block_modal
+          dependee: field_modal_trigger_mode
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: delay
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_modal_trigger_mode:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 4
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

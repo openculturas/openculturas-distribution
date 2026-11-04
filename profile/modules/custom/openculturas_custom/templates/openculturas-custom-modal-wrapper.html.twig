@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Default theme implementation to show block_content in a popover that opens
+ * after a delay or when scrolled into view.
+ *
+ * Available variables:
+ * - anchor_id: Unique ID for the in-flow sentinel element.
+ * - popover_id: Unique ID for the popover element.
+ * - trigger_mode: 'delay' or 'scroll'.
+ * - delay: Seconds to wait before showing, in 'delay' mode.
+ * - dismiss_key: Stable per-entity key for the dismiss-cooldown record.
+ * - cooldown_days: Days before the popover shows again after a plain close.
+ * - permanent_dismiss: Whether to show a "Don't show again" control.
+ * - bundle: The block_content entity's bundle, for theme suggestions.
+ * - title: The "Display title" of the block placement, or NULL. Without a
+ *   title, the popover gets a generic accessible name.
+ * - content: The already-rendered block content.
+ */
+#}
+<div
+  id="{{ anchor_id }}"
+  class="modal-trigger__anchor"
+  style="display: block; block-size: 1px; margin: 0; padding: 0; border: 0;"
+  data-modal-trigger-popover="{{ popover_id }}"
+  data-modal-trigger-mode="{{ trigger_mode }}"
+  data-modal-trigger-delay="{{ delay }}"
+  data-modal-trigger-dismiss-key="{{ dismiss_key }}"
+  data-modal-trigger-cooldown-days="{{ cooldown_days }}"
+></div>
+<dialog
+  id="{{ popover_id }}"
+  popover="manual"
+  class="dialog-wrapper modal modal-trigger__popover"
+  {%- if title %}
+  aria-labelledby="{{ popover_id }}-title"
+  {%- else %}
+  aria-label="{{ 'Notice'|t }}"
+  {%- endif %}
+>
+  <div class="dialog-titlebar modal-trigger__actions">
+    {% if title %}
+      <h2 class="dialog-title" id="{{ popover_id }}-title">{{ title }}</h2>
+    {% endif %}
+    <button type="button" class="modal-trigger__close close" popovertarget="{{ popover_id }}" popovertargetaction="hide">
+      <span class="visually-hidden">{{ 'Close'|t }}</span>
+    </button>
+  </div>
+  <div class="dialog-content modal-trigger__content">
+    {{ content }}
+  </div>
+  <div class="dialog-footer">
+    {% if permanent_dismiss %}
+      <button type="button" class="modal-trigger__dont-show-again button-dismiss text-button" data-modal-trigger-dont-show-again>
+        {{ "Don't show again"|t }}
+      </button>
+    {% endif %}
+  </div>
+</dialog>

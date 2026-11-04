@@ -43,7 +43,8 @@
             !(
               event.target.parentNode.classList.contains('contextual') ||
               event.target.parentNode.classList.contains('quick-info') ||
-              event.target.closest('.popover-content')
+              event.target.closest('.popover-content') ||
+              event.target.closest('.modal-trigger__popover')
             )
           ) {
             teaser.querySelector('.teaser--title a').click();

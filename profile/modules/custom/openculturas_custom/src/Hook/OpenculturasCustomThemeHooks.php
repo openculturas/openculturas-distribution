@@ -36,6 +36,21 @@ class OpenculturasCustomThemeHooks {
         ],
         'template' => 'page-title-custom',
       ],
+      'openculturas_custom_modal_wrapper' => [
+        'variables' => [
+          'anchor_id' => NULL,
+          'popover_id' => NULL,
+          'trigger_mode' => NULL,
+          'delay' => NULL,
+          'dismiss_key' => NULL,
+          'cooldown_days' => NULL,
+          'permanent_dismiss' => NULL,
+          'bundle' => NULL,
+          'title' => NULL,
+          'content' => NULL,
+        ],
+        'template' => 'openculturas-custom-modal-wrapper',
+      ],
     ];
   }
 

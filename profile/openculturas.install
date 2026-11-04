@@ -7,15 +7,21 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Entity\EntityViewModeInterface;
 use Drupal\Core\Field\FieldConfigInterface;
+use Drupal\block_content\Entity\BlockContentType;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\language\Entity\ContentLanguageSettings;
 use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 use Drupal\node\NodeInterface;
 use Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomCookiesLegalPagesSubscriber;
 use Drupal\openculturas_custom\GetThemeFaviconsPath;
 use Drupal\openculturas_responsive_images\SharedConfigSwitcher;
+use Drupal\paragraphs\Entity\ParagraphsType;
 use Drupal\update_helper\ConfigName;
+use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
 /**
@@ -543,4 +549,87 @@ function openculturas_update_10136(): string {
   }
 
   return $logger->output();
+}
+
+/**
+ * Updates the basic block_content bundle's description.
+ */
+function openculturas_update_10137(): void {
+  // The old description no longer fits after
+  // openculturas_post_update_block_content_modal_trigger() adds the
+  // modal-trigger fields. Keep a description that a site changed.
+  // Load without translation overrides: compare and save the original values.
+  $bundle = \Drupal::entityTypeManager()->getStorage('block_content_type')->loadOverrideFree('basic');
+  if ($bundle instanceof BlockContentType && $bundle->getDescription() === 'A basic block contains a title and a body.') {
+    $bundle->set('description', 'Basic flexible block with optional modal layer settings');
+    $bundle->save();
+  }
+}
+
+/**
+ * Consolidates "block" paragraph access onto oc_admin.
+ */
+function openculturas_update_10138(): void {
+  // The "block" paragraph can reference any block plugin, system and menu
+  // blocks included, so only oc_admin keeps access to it. A role with
+  // "create paragraph content block" but without the field_permissions
+  // permission "edit field_block_ref" could add a "block" paragraph but not
+  // fill in its block. The paragraph permissions alone control access now.
+  $field = FieldStorageConfig::loadByName('paragraph', 'field_block_ref');
+  if ($field instanceof FieldStorageConfig && $field->getThirdPartySetting('field_permissions', 'permission_type') !== NULL) {
+    $field->unsetThirdPartySetting('field_permissions', 'permission_type');
+    $field->save();
+  }
+
+  foreach ([RoleInterface::ANONYMOUS_ID, RoleInterface::AUTHENTICATED_ID] as $roleId) {
+    if (Role::load($roleId) instanceof RoleInterface) {
+      user_role_revoke_permissions($roleId, [
+        'view field_block_ref',
+        'view own field_block_ref',
+      ]);
+    }
+  }
+
+  if (Role::load('magazine_editor') instanceof RoleInterface) {
+    user_role_revoke_permissions('magazine_editor', [
+      'create paragraph content block',
+      'update paragraph content block',
+      'delete paragraph content block',
+    ]);
+  }
+
+  if (Role::load('oc_admin') instanceof RoleInterface) {
+    user_role_revoke_permissions('oc_admin', [
+      'create field_block_ref',
+      'edit field_block_ref',
+      'edit own field_block_ref',
+    ]);
+    user_role_grant_permissions('oc_admin', [
+      'create paragraph content block',
+      'update paragraph content block',
+      'delete paragraph content block',
+    ]);
+  }
+
+  // Load without translation overrides: compare and save the original values.
+  $paragraphsTypeStorage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  $legacyBundle = $paragraphsTypeStorage instanceof ConfigEntityStorageInterface ? $paragraphsTypeStorage->loadOverrideFree('block') : NULL;
+  if ($legacyBundle instanceof ParagraphsType && $legacyBundle->label() === 'Block' && $legacyBundle->getDescription() === '') {
+    $legacyBundle->set('label', 'Block (administrative)');
+    $legacyBundle->set('description', 'Place and configure blocks like e.g. a map block');
+    $legacyBundle->save();
+  }
+
+  // Load without translation overrides: compare and save the original values.
+  $legacyField = \Drupal::entityTypeManager()->getStorage('field_config')->loadOverrideFree('paragraph.block.field_block_ref');
+  if ($legacyField instanceof FieldConfig && $legacyField->getDescription() === '') {
+    $legacyField->setDescription('Please note: To allow lower-privileged roles to change the content, use Block (content) instead');
+    $legacyField->save();
+  }
+
+  $languageSettings = ContentLanguageSettings::load('paragraph.block');
+  if ($languageSettings instanceof ContentLanguageSettings) {
+    $languageSettings->setDefaultLangcode('current_interface');
+    $languageSettings->save();
+  }
 }

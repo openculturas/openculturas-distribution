@@ -11016,12 +11016,13 @@ readers do not read off random characters that represent icons */
 .ck-content .allcaps,
 .ck-content fieldset summary,
 .ck-content fieldset legend,
+.ck-content div.ui-dialog .ui-dialog-titlebar .ui-dialog-title,
 .ck-content .entity-moderation-form .form-item label,
 .ck-content caption {
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-.ck-content .entity-moderation-form .form-item label {
+.ck-content div.ui-dialog .ui-dialog-titlebar .ui-dialog-title, .ck-content .entity-moderation-form .form-item label {
   margin: 0;
   font-size: var(--font-size-s);
   font-weight: bold;
@@ -11526,6 +11527,15 @@ readers do not read off random characters that represent icons */
   color: var(--color-text-inverted);
   background-color: var(--color-interaction);
 }
+.ck-content dialog.modal .dialog-titlebar.modal-trigger__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--grid-gutter);
+}
+.ck-content dialog.modal .dialog-titlebar button.text-button {
+  margin-bottom: 0 !important;
+}
 .ck-content dialog.modal .dialog-content {
   padding: 1.25rem;
   font-size: var(--font-size-default);
@@ -11534,6 +11544,9 @@ readers do not read off random characters that represent icons */
 .ck-content dialog.modal::backdrop {
   opacity: 0.8;
   background: var(--color-neutral-canvas);
+}
+.ck-content div.ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+  font-family: var(--font-base);
 }
 .ck-content .formtips-processed ul.tips,
 .ck-content div.description.formtips-processed,
@@ -11695,7 +11708,7 @@ readers do not read off random characters that represent icons */
 .ck-content button {
   overflow-wrap: normal;
 }
-.ck-content .leaflet-container a.leaflet-popup-close-button, .ck-content .shariff .button-style-icon a,
+.ck-content .leaflet-container a.leaflet-popup-close-button, .ck-content .shariff .button-style-icon a, .ck-content dialog.modal .dialog-titlebar button.text-button,
 .ck-content .button-small,
 .ck-content .button,
 .ck-content button,
@@ -11713,7 +11726,7 @@ readers do not read off random characters that represent icons */
   border-radius: var(--button-border-radius);
   background-color: var(--color-bg-light);
 }
-.inverted .ck-content .leaflet-container a.leaflet-popup-close-button, .inverted .ck-content .shariff .button-style-icon a,
+.inverted .ck-content .leaflet-container a.leaflet-popup-close-button, .inverted .ck-content .shariff .button-style-icon a, .inverted .ck-content dialog.modal .dialog-titlebar button.text-button,
 .inverted .ck-content .button-small,
 .inverted .ck-content .button,
 .inverted .ck-content button,
@@ -11722,8 +11735,8 @@ readers do not read off random characters that represent icons */
 .inverted .ck-content .form-submit:not([data-drupal-selector^=edit-reset]) {
   border-color: var(--color-text-inverted);
 }
-.ck-content .leaflet-container a.leaflet-popup-close-button:focus, .ck-content .shariff .button-style-icon a:focus,
-.ck-content .button-small:focus, .ck-content .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .ck-content .shariff .button-style-icon a:not([disabled]):hover,
+.ck-content .leaflet-container a.leaflet-popup-close-button:focus, .ck-content .shariff .button-style-icon a:focus, .ck-content dialog.modal .dialog-titlebar button.text-button:focus,
+.ck-content .button-small:focus, .ck-content .leaflet-container a.leaflet-popup-close-button:not([disabled]):hover, .ck-content .shariff .button-style-icon a:not([disabled]):hover, .ck-content dialog.modal .dialog-titlebar button.text-button:not([disabled]):hover,
 .ck-content .button-small:not([disabled]):hover,
 .ck-content .button:focus,
 .ck-content .button:not([disabled]):hover,
@@ -11738,12 +11751,16 @@ readers do not read off random characters that represent icons */
   color: var(--color-text-inverted);
   background-color: var(--color-interaction);
 }
+.ck-content dialog.modal .dialog-titlebar button.text-button,
 .ck-content .button-small {
   padding: 0.25em 1em;
   font-size: var(--font-size-s);
 }
 .ck-content .form-submit:not([data-drupal-selector^=edit-reset]),
-.ck-content .button--cta {
+.ck-content .button--cta,
+.ck-content div.ui-dialog .form-actions .button,
+.ck-content div.ui-dialog .button--primary,
+.ck-content div.ui-dialog .button--primary:not(:focus) {
   color: var(--color-text-inverted);
   border-color: var(--color-link);
   background-color: var(--color-link);
@@ -11812,7 +11829,7 @@ readers do not read off random characters that represent icons */
   font-size: var(--font-size-icon);
   line-height: 1;
 }
-.ck-content .leaflet-container a.leaflet-popup-close-button:active,
+.ck-content .leaflet-container a.leaflet-popup-close-button:active, .ck-content dialog.modal .dialog-titlebar button.text-button:active,
 .ck-content .button-small:active, .ck-content .shariff .button-style-icon a:active,
 .ck-content .button:active,
 .ck-content button:active,
@@ -11822,6 +11839,11 @@ readers do not read off random characters that represent icons */
   border-color: var(--color-bg-light);
   outline: var(--outline-active);
   background-color: var(--color-bg-light);
+}
+.ck-content div.ui-dialog .form-actions .button,
+.ck-content div.ui-dialog .button--primary,
+.ck-content div.ui-dialog .button--primary:not(:focus) {
+  border-color: var(--color-link) !important;
 }
 .ck-content .button--add {
   margin-left: 0;
@@ -11851,9 +11873,6 @@ readers do not read off random characters that represent icons */
 }
 .ck-content button.close,
 .ck-content dialog.modal button.close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
   overflow: hidden;
   width: var(--font-size-icon);
   height: var(--font-size-icon);

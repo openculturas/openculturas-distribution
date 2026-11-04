@@ -28,3 +28,8 @@ services:
     arguments: ['@entity_type.manager', '@config.installer']
     tags:
       - { name: event_subscriber }
+
+  openculturas_custom.modal_trigger_layout_builder_subscriber:
+    class: Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomModalTriggerLayoutBuilderSubscriber
+    tags:
+      - { name: event_subscriber }

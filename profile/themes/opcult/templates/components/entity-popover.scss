@@ -13,6 +13,10 @@
   max-block-size: 95vh;
   inline-size: 100%;
   max-inline-size: 95vw;
+
+  @include breakpoint(xl) {
+    max-inline-size: 95vw;
+  }
 }
 
 // Trigger button
@@ -73,9 +77,28 @@
   // Only the standalone (non-slider) image case may grow past the theme's
   // default max-inline-size: 100% — slider slides must keep it, or their
   // (larger, gallery_big-styled) images overflow their own slide column.
-  > div:not(:has(.swiffy-slider)) img {
-    // max-block-size: 80%;
-    max-inline-size: unset;
+
+  > div:not(:has(.swiffy-slider)) {
+    inline-size: 100%;
+
+    img,
+    iframe {
+      max-inline-size: unset;
+      inline-size: 100%;
+    }
+  }
+
+  .paragraph--type--media .field--name-field-media {
+    inline-size: 100%;
+  }
+
+  .media--view-mode-gallery-big {
+    inline-size: 100%;
+
+    img,
+    iframe {
+      inline-size: 100%;
+    }
   }
 
   .slider-item-ratio-1x1 {

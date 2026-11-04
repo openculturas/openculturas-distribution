@@ -47,6 +47,7 @@ t('Members', [], ['context' => 'field_group_label']);
 t('Mentioned in this article', [], ['context' => 'field_group_label']);
 t('Mentions', [], ['context' => 'field_group_label']);
 t('Meta information', [], ['context' => 'field_group_label']);
+t('Modal layer', [], ['context' => 'field_group_label']);
 t('My Bookmarks', [], ['context' => 'field_group_label']);
 t('My content', [], ['context' => 'field_group_label']);
 t('My interests', [], ['context' => 'field_group_label']);

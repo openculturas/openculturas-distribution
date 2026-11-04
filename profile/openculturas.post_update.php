@@ -19,6 +19,7 @@ use Drupal\image\ImageEffectInterface;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\openculturas_discussions\InstallerHelper;
 use Drupal\update_helper\ConfigName;
+use Drupal\user\RoleInterface;
 use Drupal\views\ViewEntityInterface;
 use Drupal\views\Views;
 
@@ -1187,4 +1188,114 @@ function openculturas_post_update_revert_opcult_overrides_1(): string {
   }
 
   return _openculturas_post_update_import_or_revert_config([$full_config_name], TRUE);
+}
+
+/**
+ * Adds the modal-trigger fields and the system_block_modal block type.
+ */
+function openculturas_post_update_block_content_modal_trigger(): string {
+  $output = _openculturas_post_update_import_or_revert_config([
+    'field.storage.block_content.field_modal_trigger_mode',
+    'field.storage.block_content.field_modal_trigger_delay',
+    'field.storage.block_content.field_modal_cooldown_days',
+    'field.storage.block_content.field_modal_permanent_dismiss',
+    'field.storage.block_content.field_block_ref',
+    'block_content.type.system_block_modal',
+    'field.field.block_content.basic.field_modal_trigger_mode',
+    'field.field.block_content.basic.field_modal_trigger_delay',
+    'field.field.block_content.basic.field_modal_cooldown_days',
+    'field.field.block_content.basic.field_modal_permanent_dismiss',
+    'field.field.block_content.system_block_modal.field_block_ref',
+    'field.field.block_content.system_block_modal.field_modal_trigger_mode',
+    'field.field.block_content.system_block_modal.field_modal_trigger_delay',
+    'field.field.block_content.system_block_modal.field_modal_cooldown_days',
+    'field.field.block_content.system_block_modal.field_modal_permanent_dismiss',
+    'core.entity_form_display.block_content.system_block_modal.default',
+    'core.entity_view_display.block_content.system_block_modal.default',
+    'language.content_settings.block_content.system_block_modal',
+  ]);
+
+  // The revert adds the new fields, their conditional visibility and the
+  // "Modal layer" field group to the basic block_content displays.
+  return $output . _openculturas_post_update_import_or_revert_config([
+    'core.entity_form_display.block_content.basic.default',
+    'core.entity_view_display.block_content.basic.default',
+  ], TRUE);
+}
+
+/**
+ * Adds the block_editorial ("Block (content)") paragraph type.
+ */
+function openculturas_post_update_paragraph_block_editorial(): string {
+  $output = _openculturas_post_update_import_or_revert_config([
+    'paragraphs.paragraphs_type.block_editorial',
+    'field.field.paragraph.block_editorial.field_block_ref',
+    'core.base_field_override.paragraph.block_editorial.created',
+    'core.base_field_override.paragraph.block_editorial.status',
+    'core.entity_form_display.paragraph.block_editorial.default',
+    'core.entity_view_display.paragraph.block_editorial.default',
+    // openculturas_post_update_search_index_displays() imports it too, but
+    // post updates run in alphabetical order, so on sites updating from
+    // before 3.1.0 this function runs first.
+    'core.entity_view_mode.paragraph.search_index',
+    'core.entity_view_display.paragraph.block_editorial.search_index',
+    'language.content_settings.paragraph.block_editorial',
+  ]);
+
+  _openculturas_post_update_add_target_bundle('node.article.field_content_paragraphs', 'block_editorial');
+  _openculturas_post_update_add_target_bundle('node.page.field_content_paragraphs', 'block_editorial');
+
+  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, ['view paragraph content block_editorial']);
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['view paragraph content block_editorial']);
+
+  user_role_grant_permissions('magazine_editor', [
+    'access block library',
+    'create paragraph content block_editorial',
+    'update paragraph content block_editorial',
+    'delete paragraph content block_editorial',
+  ]);
+
+  user_role_grant_permissions('oc_admin', [
+    'access block library',
+    'administer block content',
+    'create basic block content',
+    'edit any basic block content',
+    'create paragraph content block_editorial',
+    'update paragraph content block_editorial',
+    'delete paragraph content block_editorial',
+  ]);
+
+  return $output;
+}
+
+/**
+ * Adds a bundle to a field_content_paragraphs field's allowed target bundles.
+ */
+function _openculturas_post_update_add_target_bundle(string $fieldConfigId, string $bundle): void {
+  // Load without translation overrides, so save() keeps the original label
+  // and description.
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->loadOverrideFree($fieldConfigId);
+  if (!$field instanceof FieldConfig) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Config\StorageInterface $installStorage */
+  $installStorage = \Drupal::service('config_update.extension_storage');
+  $installConfiguration = $installStorage->read('field.field.' . $fieldConfigId);
+  $installWeights = is_array($installConfiguration) ? $installConfiguration['settings']['handler_settings']['target_bundles_drag_drop'] ?? [] : [];
+
+  $settings = $field->getSettings();
+  $settings['handler_settings']['target_bundles'][$bundle] = $bundle;
+  $settings['handler_settings']['target_bundles_drag_drop'][$bundle]['enabled'] = TRUE;
+
+  // Fresh installs list the paragraph types in a new order. Apply the same
+  // order on existing sites, but keep which types a site allows.
+  foreach ($installWeights as $installBundle => $installItem) {
+    if (isset($settings['handler_settings']['target_bundles_drag_drop'][$installBundle], $installItem['weight'])) {
+      $settings['handler_settings']['target_bundles_drag_drop'][$installBundle]['weight'] = $installItem['weight'];
+    }
+  }
+
+  $field->setSettings($settings);
+  $field->save();
 }

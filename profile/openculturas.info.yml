@@ -205,6 +205,7 @@ config_devel:
     - attribution.attribution_license.unsplash
     - auto_entitylabel.settings.node.date
     - block_content.type.basic
+    - block_content.type.system_block_modal
     - choices.settings
     - cookies.config
     - cookies.cookies_service.functional
@@ -342,6 +343,8 @@ config_devel:
     - core.base_field_override.paragraph.address_data.status
     - core.base_field_override.paragraph.block.created
     - core.base_field_override.paragraph.block.status
+    - core.base_field_override.paragraph.block_editorial.created
+    - core.base_field_override.paragraph.block_editorial.status
     - core.base_field_override.paragraph.bookable_event.created
     - core.base_field_override.paragraph.bookable_event.status
     - core.base_field_override.paragraph.contact_data.created
@@ -430,6 +433,7 @@ config_devel:
     - core.date_format.site_month_and_year
     - core.date_format.site_short_date
     - core.entity_form_display.block_content.basic.default
+    - core.entity_form_display.block_content.system_block_modal.default
     - core.entity_form_display.flagging.claim_ownership.default
     - core.entity_form_display.flagging.recommendation_node.default
     - core.entity_form_display.flagging.report_abuse.default
@@ -464,6 +468,7 @@ config_devel:
     - core.entity_form_display.paragraph.accessibility.default
     - core.entity_form_display.paragraph.address_data.default
     - core.entity_form_display.paragraph.block.default
+    - core.entity_form_display.paragraph.block_editorial.default
     - core.entity_form_display.paragraph.bookable_event.default
     - core.entity_form_display.paragraph.contact_data.default
     - core.entity_form_display.paragraph.download.default
@@ -492,6 +497,7 @@ config_devel:
     - core.entity_form_mode.node.compact
     - core.entity_form_mode.user.register
     - core.entity_view_display.block_content.basic.default
+    - core.entity_view_display.block_content.system_block_modal.default
     - core.entity_view_display.flagging.claim_ownership.default
     - core.entity_view_display.flagging.recommendation_node.default
     - core.entity_view_display.flagging.report_abuse.default
@@ -604,6 +610,8 @@ config_devel:
     - core.entity_view_display.paragraph.address_data.search_index
     - core.entity_view_display.paragraph.block.default
     - core.entity_view_display.paragraph.block.search_index
+    - core.entity_view_display.paragraph.block_editorial.default
+    - core.entity_view_display.paragraph.block_editorial.search_index
     - core.entity_view_display.paragraph.bookable_event.default
     - core.entity_view_display.paragraph.bookable_event.search_index
     - core.entity_view_display.paragraph.contact_data.default
@@ -766,6 +774,15 @@ config_devel:
     - facets.facet_source.search_api__views_block__search__search_input
     - facets.facet_source.search_api__views_page__search__search_page
     - field.field.block_content.basic.body
+    - field.field.block_content.basic.field_modal_cooldown_days
+    - field.field.block_content.basic.field_modal_permanent_dismiss
+    - field.field.block_content.basic.field_modal_trigger_delay
+    - field.field.block_content.basic.field_modal_trigger_mode
+    - field.field.block_content.system_block_modal.field_block_ref
+    - field.field.block_content.system_block_modal.field_modal_cooldown_days
+    - field.field.block_content.system_block_modal.field_modal_permanent_dismiss
+    - field.field.block_content.system_block_modal.field_modal_trigger_delay
+    - field.field.block_content.system_block_modal.field_modal_trigger_mode
     - field.field.flagging.claim_ownership.field_comment
     - field.field.flagging.recommendation_node.field_behalf
     - field.field.flagging.report_abuse.field_comment
@@ -914,6 +931,7 @@ config_devel:
     - field.field.paragraph.address_data.field_address_location
     - field.field.paragraph.address_data.field_location_precision
     - field.field.paragraph.block.field_block_ref
+    - field.field.paragraph.block_editorial.field_block_ref
     - field.field.paragraph.bookable_event.field_body
     - field.field.paragraph.bookable_event.field_contact_person
     - field.field.paragraph.bookable_event.field_media_multiple
@@ -983,6 +1001,11 @@ config_devel:
     - field.field.user.user.field_my_profiles
     - field.field.user.user.field_profile_finder
     - field.storage.block_content.body
+    - field.storage.block_content.field_block_ref
+    - field.storage.block_content.field_modal_cooldown_days
+    - field.storage.block_content.field_modal_permanent_dismiss
+    - field.storage.block_content.field_modal_trigger_delay
+    - field.storage.block_content.field_modal_trigger_mode
     - field.storage.flagging.field_behalf
     - field.storage.flagging.field_comment
     - field.storage.media.field_caption
@@ -1152,6 +1175,7 @@ config_devel:
     - image.style.wide
     - image_widget_crop.settings
     - language.content_settings.block_content.basic
+    - language.content_settings.block_content.system_block_modal
     - language.content_settings.content_moderation_state.content_moderation_state
     - language.content_settings.file.file
     - language.content_settings.media.audio
@@ -1172,6 +1196,7 @@ config_devel:
     - language.content_settings.paragraph.accessibility
     - language.content_settings.paragraph.address_data
     - language.content_settings.paragraph.block
+    - language.content_settings.paragraph.block_editorial
     - language.content_settings.paragraph.bookable_event
     - language.content_settings.paragraph.contact_data
     - language.content_settings.paragraph.download
@@ -1246,6 +1271,7 @@ config_devel:
     - paragraphs.paragraphs_type.accessibility
     - paragraphs.paragraphs_type.address_data
     - paragraphs.paragraphs_type.block
+    - paragraphs.paragraphs_type.block_editorial
     - paragraphs.paragraphs_type.bookable_event
     - paragraphs.paragraphs_type.contact_data
     - paragraphs.paragraphs_type.download

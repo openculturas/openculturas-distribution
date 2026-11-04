@@ -556,6 +556,19 @@ dialog.modal {
     background-color: var(--color-interaction);
   }
 
+  .dialog-titlebar.modal-trigger__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--grid-gutter);
+  }
+
+  .dialog-titlebar button.text-button {
+    @extend %button-small;
+
+    margin-bottom: 0 !important;
+  }
+
   .dialog-content {
     padding: 1.25rem;
     font-size: var(--font-size-default);
@@ -565,6 +578,14 @@ dialog.modal {
   &::backdrop {
     opacity: 0.8;
     background: var(--color-neutral-canvas);
+  }
+}
+
+div.ui-dialog .ui-dialog-titlebar {
+  .ui-dialog-title {
+    @extend %label;
+
+    font-family: var(--font-base);
   }
 }
 

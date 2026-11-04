@@ -128,6 +128,16 @@ input[type="submit"] {
   }
 }
 
+div.ui-dialog {
+  .form-actions .button,
+  .button--primary,
+  .button--primary:not(:focus) {
+    @extend %oc-button--primary;
+
+    border-color: var(--color-link) !important;
+  }
+}
+
 // special icons in buttons
 
 .button--add {
@@ -142,9 +152,6 @@ button.close,
 dialog.modal button.close {
   @include icon(xmark);
 
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
   overflow: hidden;
   width: var(--font-size-icon);
   height: var(--font-size-icon);

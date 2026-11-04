@@ -449,6 +449,7 @@ body.toolbar-horizontal {
   --oc-font-size-button-default: 1rem;
   --oc-font-size-button-s: 0.875rem;
   --oc-font-size-tag-default: 1rem;
+  --oc-font-size-teaser-title: var(--oc-font-size-ml);
   --oc-font-size-autocomplete-list: var(--oc-font-size-s);
   --oc-line-height-default: 1.5;
   --oc-line-height-headings: 1.2;
@@ -1134,7 +1135,7 @@ body {
   }
 }
 
-dialog.add-to-calendar::backdrop, .search-toggle--popover-content::backdrop, .offcanvas_dialog::backdrop {
+dialog.add-to-calendar::backdrop, .search-toggle--popover-content::backdrop, .modal-trigger__popover::backdrop, .offcanvas_dialog::backdrop {
   background: var(--oc-color-backdrop);
   backdrop-filter: blur(10px);
 }
@@ -1168,7 +1169,7 @@ dialog.add-to-calendar::backdrop, .search-toggle--popover-content::backdrop, .of
   --oc-dialog-bg-color: var(--oc-color-bg-light);
   --oc-dialog-text-color: var(--oc-color-text);
   --oc-dialog-border: 0.0625rem solid var(--oc-color-interaction);
-  --oc-dialog-titlebar-bg-color: var(--oc-color-bg-color);
+  --oc-dialog-titlebar-bg-color: var(--oc-dialog-bg-color);
   --oc-dialog-titlebar-border-color: transparent;
   --oc-dialog-titlebar-border-width: 0.0625rem;
   --oc-dialog-titlebar-text-color: var(--oc-color-text);
@@ -1179,6 +1180,9 @@ dialog.add-to-calendar::backdrop, .search-toggle--popover-content::backdrop, .of
 dialog.modal,
 .dialog-wrapper, .ui-dialog.ui-widget:not(.ui-dialog-off-canvas),
 .ui-dialog {
+  transition: opacity var(--oc-transition-duration) var(--oc-transition-timing-function), transform var(--oc-transition-duration) var(--oc-transition-timing-function), display var(--oc-transition-duration) var(--oc-transition-timing-function) allow-discrete, overlay var(--oc-transition-duration) var(--oc-transition-timing-function) allow-discrete;
+  transform: none;
+  opacity: 1;
   color: var(--oc-dialog-text-color);
   border: var(--oc-dialog-border);
   border-radius: var(--oc-dialog-border-radius);
@@ -1194,9 +1198,18 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
 .ui-dialog:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar) {
   padding: 0;
 }
+@starting-style {
+  .ui-dialog:not(.ui-dialog-off-canvas),
+  dialog.modal,
+  .dialog-wrapper, .ui-dialog.ui-widget:not(.ui-dialog-off-canvas),
+  .ui-dialog {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+}
 
 .ui-dialog .ui-dialog-titlebar,
-.dialog-titlebar {
+.dialog-titlebar, .dialog-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1210,10 +1223,44 @@ dialog.modal:has(.dialog-titlebar, .dialog-content, .ui-dialog-titlebar),
   padding-block: 0.5rem;
   padding-inline: var(--oc-gutter) 0.5rem;
 }
+.ui-dialog .ui-dialog-titlebar button.close:focus-visible,
+.dialog-titlebar button.close:focus-visible, .dialog-footer button.close:focus-visible {
+  color: var(--oc-color-interaction);
+  border-color: transparent;
+  background-color: transparent;
+}
+.ui-dialog .ui-dialog-titlebar button.close:focus-visible:focus,
+.dialog-titlebar button.close:focus-visible:focus, .dialog-footer button.close:focus-visible:focus, .ui-dialog .ui-dialog-titlebar button.close:focus-visible:hover,
+.dialog-titlebar button.close:focus-visible:hover, .dialog-footer button.close:focus-visible:hover {
+  color: var(--oc-button-focus-text-color);
+  border-color: var(--oc-button-focus-border-color);
+  outline: none;
+  background-color: var(--oc-button-focus-bg-color);
+}
 
 .dialog-content, .ui-dialog.ui-widget .ui-widget-content.ui-dialog-content {
   padding-block: var(--oc-row-gap);
   padding-inline: var(--oc-gutter);
+  min-block-size: 8rem;
+}
+
+.modal-trigger__popover .dialog-footer button.text-button {
+  --oc-button-border-color: var(--oc-dialog-titlebar-bg-color);
+  --oc-button-text-color: var(--oc-dialog-titlebar-text-color);
+  --oc-button-bg-color: var(--oc-dialog-titlebar-bg-color);
+  overflow: visible;
+  margin: 0;
+  padding: var(--oc-button-padding-s);
+  white-space: normal;
+  border-radius: 0.25em;
+  inline-size: auto;
+  min-inline-size: auto;
+  block-size: auto;
+}
+.modal-trigger__popover .dialog-footer button.text-button:not([disabled]):focus, .modal-trigger__popover .dialog-footer button.text-button:not([disabled]):focus-visible, .modal-trigger__popover .dialog-footer button.text-button:not([disabled]):hover, .modal-trigger__popover .dialog-footer button.text-button:not([disabled]):active {
+  padding: var(--oc-button-padding-s);
+  border-color: var(--oc-color-link);
+  background-color: var(--oc-color-link);
 }
 
 .profiles .view-content,
@@ -2799,6 +2846,14 @@ details.error-with-backtrace summary {
   display: block;
 }
 
+@media screen and (min-width: 85em) {
+  .ui-dialog:not(.ui-dialog-off-canvas),
+  dialog.modal,
+  .dialog-wrapper {
+    max-inline-size: 70%;
+  }
+}
+
 dialog form,
 .ui-dialog form {
   padding: var(--oc-row-gap) var(--oc-gutter);
@@ -2826,6 +2881,10 @@ dialog form,
 
 .ui-dialog .ui-dialog-title {
   color: var(--oc-dialog-titlebar-text-color);
+}
+
+.dialog-content :is(h1, h2, h3, h4, h5, h6):first-child {
+  margin-block-start: 0;
 }
 
 .ui-widget-overlay.ui-front {
@@ -3625,6 +3684,10 @@ a.spotify::before,
   --icon-url: url("../sprite/oc-sprite.svg#magnifying-glass-plus-light");
 }
 
+.oc-design-panel-trigger::before {
+  --icon-url: url("../sprite/oc-sprite.svg#palette-light");
+}
+
 footer.footer {
   position: relative;
 }
@@ -3859,19 +3922,18 @@ footer.footer {
 
 .offcanvas_dialog {
   padding: 0;
+  transition: opacity var(--oc-transition-duration) var(--oc-transition-timing-function), display var(--oc-transition-duration) var(--oc-transition-timing-function) allow-discrete, overlay var(--oc-transition-duration) var(--oc-transition-timing-function) allow-discrete;
+  opacity: 1;
   border: 0 none;
   background: transparent;
 }
 .offcanvas_dialog .dialog-wrapper {
-  animation-name: fade-in;
-  animation-duration: var(--oc-transition-duration);
+  transition: none;
+  max-inline-size: unset;
 }
-@keyframes fade-in {
-  from {
+@starting-style {
+  .offcanvas_dialog {
     opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
@@ -3884,10 +3946,15 @@ footer.footer {
   z-index: 2;
   margin: 0 auto;
 }
+body.toolbar-horizontal .offcanvas_dialog {
+  inset-inline-start: var(--drupal-displace-offset-left);
+  inset-inline-end: 0;
+  margin-inline: auto;
+}
 .offcanvas_dialog .dialog-wrapper {
   inline-size: var(--oc-page-width);
-  margin-inline-start: var(--drupal-displace-offset-left);
   padding-inline: 0;
+  border: 0 none;
   border-radius: 0;
   background-color: var(--oc-color-bg-light);
   box-shadow: var(--oc-box-shadow-down);
@@ -3899,7 +3966,23 @@ footer.footer {
 }
 
 .header__offcanvas-menu--content {
+  display: grid;
+  overflow: hidden;
+  grid-template-rows: 0fr;
   padding: var(--oc-row-gap) var(--oc-gutter) var(--oc-section-spacing);
+  transition: grid-template-rows var(--oc-transition-duration) var(--oc-transition-timing-function);
+}
+.header__offcanvas-menu--content > * {
+  min-block-size: 0;
+}
+
+#offcanvas_menu_dialog:popover-open .header__offcanvas-menu--content {
+  grid-template-rows: 1fr;
+}
+@starting-style {
+  #offcanvas_menu_dialog:popover-open .header__offcanvas-menu--content {
+    grid-template-rows: 0fr;
+  }
 }
 
 .region-offcanvas-menu {
@@ -4978,6 +5061,27 @@ h4.block--title {
   font-size: var(--oc-font-size-s);
 }
 
+.block:has(.modal-trigger__anchor) {
+  position: relative;
+}
+
+.modal-trigger__anchor {
+  position: absolute;
+}
+
+.modal-trigger__popover {
+  inline-size: max-content;
+  max-inline-size: var(--oc-page-width);
+}
+.modal-trigger__popover .dialog-titlebar h2,
+.modal-trigger__popover .dialog-titlebar h3 {
+  margin-block: 0.5rem 0;
+  color: currentColor;
+}
+.modal-trigger__popover .dialog-footer,
+.modal-trigger__popover .dialog-titlebar:not(:has(.dialog-title)) {
+  justify-content: flex-end;
+}
 .dark-mode-toggle--popover-button::before {
   --icon-url: url("../sprite/oc-sprite.svg#circle-half-light");
 }
@@ -5546,6 +5650,14 @@ a.facets-soft-limit-link {
     margin-block: 1rem;
   }
 }
+@media screen and (min-width: 48em) {
+  .cookies-fallback {
+    padding: 1.25rem 2.5rem;
+  }
+  .cookies-fallback .cookies-fallback--btn {
+    margin-block: 1rem;
+  }
+}
 
 .cookies-fallback--wrap {
   inline-size: 100%;
@@ -6091,6 +6203,11 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
   inline-size: 100%;
   max-inline-size: 95vw;
 }
+@media screen and (min-width: 85em) {
+  .entity-popover__dialog {
+    max-inline-size: 95vw;
+  }
+}
 
 .entity-popover__trigger {
   background-color: transparent;
@@ -6132,8 +6249,23 @@ body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
 .entity-popover__content > div:has(.swiffy-slider) {
   inline-size: 100%;
 }
-.entity-popover__content > div:not(:has(.swiffy-slider)) img {
+.entity-popover__content > div:not(:has(.swiffy-slider)) {
+  inline-size: 100%;
+}
+.entity-popover__content > div:not(:has(.swiffy-slider)) img,
+.entity-popover__content > div:not(:has(.swiffy-slider)) iframe {
   max-inline-size: unset;
+  inline-size: 100%;
+}
+.entity-popover__content .paragraph--type--media .field--name-field-media {
+  inline-size: 100%;
+}
+.entity-popover__content .media--view-mode-gallery-big {
+  inline-size: 100%;
+}
+.entity-popover__content .media--view-mode-gallery-big img,
+.entity-popover__content .media--view-mode-gallery-big iframe {
+  inline-size: 100%;
 }
 .entity-popover__content .slider-item-ratio-1x1 {
   --swiffy-slider-item-ratio: unset;
@@ -7568,7 +7700,7 @@ article.teaser,
 h3.teaser--title,
 h4.teaser--title {
   font-family: var(--oc-font-family-default);
-  font-size: var(--oc-font-size-m);
+  font-size: var(--oc-font-size-teaser-title);
   margin-block: 0;
   font-weight: var(--oc-font-weight-bold);
 }
@@ -9279,11 +9411,25 @@ details.form-wrapper {
   color: var(--oc-color-text-muted);
 }
 
+.intro-inline:has(.view-related-comments) .views-infinite-scroll-content-wrapper {
+  --oc-grid-item-count: 1;
+}
+
+@media screen and (min-width: 85em) {
+  #comments .view-related-comments {
+    margin-inline-end: var(--oc-grid-step);
+  }
+}
+
 .calendar h3 {
   padding: 0;
+  color: var(--oc-color-text);
   font-size: var(--oc-font-size-m);
   margin-block: 1rem 0;
   margin-inline: 0;
+}
+.calendar h3 .teaser--title {
+  font-size: var(--oc-font-size-teaser-title);
 }
 .calendar h3 a {
   text-decoration: none;

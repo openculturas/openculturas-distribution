@@ -165,6 +165,15 @@
 
 .offcanvas_dialog {
   padding: 0;
+
+  // The fade is on .offcanvas_dialog, the element whose display toggles, so
+  // the close also animates. allow-discrete keeps the dialog rendered until
+  // the transition ends.
+  transition:
+    opacity var(--oc-transition-duration) var(--oc-transition-timing-function),
+    display var(--oc-transition-duration) var(--oc-transition-timing-function) allow-discrete,
+    overlay var(--oc-transition-duration) var(--oc-transition-timing-function) allow-discrete;
+  opacity: 1;
   border: 0 none;
   background: transparent;
 
@@ -174,20 +183,16 @@
   }
 
   .dialog-wrapper {
-    // transition: 1s var(--oc-transition-duration) all var(--oc-transition-timing-function) allow-discrete;
+    // The offcanvas menu is a slide-out panel: no scale and fade of
+    // %dialog-wrapper. The fade above covers it.
+    transition: none;
+
     // border-radius: 0 0 0 50%;
-    // inline-size: 0;
-    animation-name: fade-in;
-    animation-duration: var(--oc-transition-duration);
+    max-inline-size: unset;
   }
 
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  @starting-style {
+    opacity: 0;
   }
 }
 
@@ -200,11 +205,22 @@
   z-index: +2;
   margin: 0 auto;
 
+  // The top layer is positioned against the viewport, so it does not get
+  // the offset that Drupal applies to <body> for the admin toolbar. Without
+  // a toolbar, --drupal-displace-offset-left is unset (see core's
+  // displace.js), so it is only used under .toolbar-horizontal, like
+  // --oc-viewport-width in abstracts/_layout.scss.
+  body.toolbar-horizontal & {
+    inset-inline-start: var(--drupal-displace-offset-left);
+    inset-inline-end: 0;
+    margin-inline: auto;
+  }
+
   .dialog-wrapper {
     // block-size: auto;
     inline-size: var(--oc-page-width);
-    margin-inline-start: var(--drupal-displace-offset-left);
     padding-inline: 0;
+    border: 0 none;
     border-radius: 0;
     background-color: var(--oc-color-bg-light);
     box-shadow: var(--oc-box-shadow-down);
@@ -216,7 +232,28 @@
 }
 
 .header__offcanvas-menu--content {
+  // grid-template-rows (0fr to 1fr) animates without a known content height.
+  // The `open` attribute of #offcanvas_menu_dialog drives it below, which
+  // the browser sets for every way of closing.
+  display: grid;
+  overflow: hidden;
+  grid-template-rows: 0fr;
   padding: var(--oc-row-gap) var(--oc-gutter) var(--oc-section-spacing);
+  transition: grid-template-rows var(--oc-transition-duration) var(--oc-transition-timing-function);
+
+  > * {
+    min-block-size: 0;
+  }
+}
+
+#offcanvas_menu_dialog:popover-open .header__offcanvas-menu--content {
+  grid-template-rows: 1fr;
+
+  // The first frame already matches :popover-open, so without a start value
+  // there is nothing to transition from.
+  @starting-style {
+    grid-template-rows: 0fr;
+  }
 }
 
 .region-offcanvas-menu {

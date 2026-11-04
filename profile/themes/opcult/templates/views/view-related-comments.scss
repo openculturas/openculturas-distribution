@@ -97,3 +97,18 @@
     color: var(--oc-color-text-muted);
   }
 }
+
+// Related comments on node
+
+// If inline with headline, do not make tiles of comments
+.intro-inline:has(.view-related-comments) {
+  .views-infinite-scroll-content-wrapper {
+    --oc-grid-item-count: 1;
+  }
+}
+
+#comments .view-related-comments {
+  @include breakpoint(xl) {
+    margin-inline-end: var(--oc-grid-step);
+  }
+}

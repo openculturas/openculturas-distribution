@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.system_block_modal
+    - field.field.block_content.system_block_modal.field_block_ref
+    - field.field.block_content.system_block_modal.field_modal_cooldown_days
+    - field.field.block_content.system_block_modal.field_modal_permanent_dismiss
+    - field.field.block_content.system_block_modal.field_modal_trigger_delay
+    - field.field.block_content.system_block_modal.field_modal_trigger_mode
+  module:
+    - block_field
+id: block_content.system_block_modal.default
+targetEntityType: block_content
+bundle: system_block_modal
+mode: default
+content:
+  field_block_ref:
+    type: block_field
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_modal_cooldown_days: true
+  field_modal_permanent_dismiss: true
+  field_modal_trigger_delay: true
+  field_modal_trigger_mode: true
+  langcode: true
+  search_api_excerpt: true

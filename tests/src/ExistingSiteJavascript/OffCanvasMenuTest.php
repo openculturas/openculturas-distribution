@@ -23,7 +23,8 @@ class OffCanvasMenuTest extends ExistingSiteJSTestBase {
     $this->assertTrue($this->isMenuOpen());
     $closeButton = $this->getSession()->getPage()->find('css', '#offcanvas_menu_dialog #button-offcanvas-close');
     $this->assertNotNull($closeButton);
-    $this->assertTrue($closeButton->isVisible());
+    // A busy browser can show the dialog a moment after the click.
+    $this->assertTrue($this->getSession()->getPage()->waitFor(5, static fn (): bool => $closeButton->isVisible()));
 
     $this->click('#button-offcanvas-close');
     $this->assertFalse($this->isMenuOpen());

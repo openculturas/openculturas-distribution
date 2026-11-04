@@ -4,9 +4,36 @@ dependencies:
   config:
     - block_content.type.basic
     - field.field.block_content.basic.body
+    - field.field.block_content.basic.field_modal_cooldown_days
+    - field.field.block_content.basic.field_modal_permanent_dismiss
+    - field.field.block_content.basic.field_modal_trigger_delay
+    - field.field.block_content.basic.field_modal_trigger_mode
   module:
     - allowed_formats
+    - conditional_fields
+    - field_group
     - text
+third_party_settings:
+  field_group:
+    group_modal_layer:
+      children:
+        - field_modal_trigger_mode
+        - field_modal_trigger_delay
+        - field_modal_cooldown_days
+        - field_modal_permanent_dismiss
+      label: 'Modal layer'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
 id: block_content.basic.default
 targetEntityType: block_content
 bundle: basic
@@ -14,7 +41,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: -4
+    weight: 1
     region: content
     settings:
       rows: 6
@@ -25,9 +52,93 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
+  field_modal_cooldown_days:
+    type: number
+    weight: 5
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        f5ca938b-7d41-4b89-a61d-5cf79b5407b9:
+          entity_type: block_content
+          bundle: basic
+          dependee: field_modal_trigger_mode
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "delay\r\nscroll"
+            value_form:
+              -
+                value: none
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_modal_permanent_dismiss:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings:
+      conditional_fields:
+        b7f12b1c-81e6-4414-a9c7-d3534fac04d1:
+          entity_type: block_content
+          bundle: basic
+          dependee: field_modal_trigger_mode
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "delay\r\nscroll"
+            value_form:
+              -
+                value: none
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_modal_trigger_delay:
+    type: number
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        a7586986-1617-4bcc-bfa1-3bd12108f41b:
+          entity_type: block_content
+          bundle: basic
+          dependee: field_modal_trigger_mode
+          settings:
+            state: visible
+            reset: false
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: delay
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_modal_trigger_mode:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   info:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -35,7 +146,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 4
     region: content
     settings:
       include_locked: true
