@@ -167,6 +167,7 @@ We might introduce a mixin in a future iteration, for the time being the followi
 ├── js/                            # Javascript files (_not_ compiled from templates folder in case you're wondering)
 ├── sass/                          # SASS files for compilation (SCSS)
 │   ├── _ckeditor.scss             # Selected files to preprocess for (back-end) CKEditor
+│   ├── _polyfills.scss            # Techniques to bridge the gap between modern and old browsers (review every once in a while)
 │   ├── _print.scss                # Print optimizations
 │   ├── _templates.scss            # Forwards all scss files in the templates folder (and sub-folders)
 │   ├── ckeditor.scss              # Compile selection (_ckeditor) plus some extras into a standalone CSS file

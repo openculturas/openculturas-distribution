@@ -1,0 +1,21 @@
+// ---------------------------------------
+// Polyfills
+// ---
+// Techniques to bridge the gap between modern and old browsers
+// @todo Review every once in a while
+// ---------------------------------------
+
+// ---
+// Popover polyfill
+// fallback selectors (@oddbird/popover-polyfill's
+// `.\:popover-open` class). Never comma-combine with `:popover-open` -
+// an unsupporting browser would invalidate the whole selector list.
+// Related: templates/layout/header.scss
+
+#offcanvas_menu_dialog.\:popover-open .header__offcanvas-menu--content {
+  grid-template-rows: 1fr;
+
+  @starting-style {
+    grid-template-rows: 0fr;
+  }
+}

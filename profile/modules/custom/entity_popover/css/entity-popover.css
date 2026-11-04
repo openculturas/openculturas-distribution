@@ -20,6 +20,13 @@
   flex-direction: column;
 }
 
+/* Duplicates above style for @oddbird/popover-polyfill, which can't polyfill
+   the pseudo-class and marks an open popover with this literal class instead. */
+.entity-popover__dialog.\:popover-open {
+  display: flex;
+  flex-direction: column;
+}
+
 .entity-popover__dialog::backdrop {
   background-color: rgb(0, 0, 0, 0.7);
 }

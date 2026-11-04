@@ -9,6 +9,10 @@ page reload and without any custom JavaScript.
 None. The field extends Drupal core's boolean field type and works on any fieldable entity
 type.
 
+Browsers without native Popover API support need the active theme (or site) to
+load a polyfill, e.g. [`@oddbird/popover-polyfill`](https://github.com/oddbird/popover-polyfill),
+for the dialog to open at all. Check if the default theme of your site already does this.
+
 ## Adding a popover toggle to a bundle
 
 1. Add an "Entity popover" field to the entity bundle (e.g. "Enable zoom").

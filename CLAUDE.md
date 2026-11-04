@@ -386,6 +386,22 @@ ddev xdebug off
   `ddev exec 'cd profile/themes/<theme> && npm install'`.
 - Minor bumps of `mglaman/phpstan-drupal` can enable new rules. Run
   `ddev composer run php:phpstan` and include the fixes in the same commit.
+- When you add a dependency, get its latest version from the registry, for
+  example `npm view <package> version` or
+  `ddev composer show --all <vendor>/<package>`. Do not use a version from
+  model knowledge, because it can be out of date.
+- Library packages defined inline in `composer.json` (`"type": "package"`
+  repositories, e.g. `brianvoe/slim-select`) get updates only from the custom
+  regex managers in the shared preset `local>devops/renovate-config`
+  (`composer-inline-repositories.json`, `openculturas.json`). When you add one:
+  - Make sure that one of these regex managers matches the new entry. Check
+    scoped npm packages (`@scope/name`) and URL formats not used before.
+  - Add the package to the preset rule that disables Packagist lookups for
+    inline packages.
+  - The `composer` manager is disabled for these packages, so Renovate does
+    not change their `require` constraint. Use a constraint that accepts the
+    versions the regex manager sets. For `0.x` versions, `^0.6.1` does not
+    accept `0.7.0`.
 
 ## Releases
 
