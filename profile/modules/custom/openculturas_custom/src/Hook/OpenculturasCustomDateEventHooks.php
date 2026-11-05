@@ -89,13 +89,15 @@ class OpenculturasCustomDateEventHooks {
         return;
       }
 
-      $cloned_paragraphs = [];
+      // A clone keeps the ID and UUID, so the date and the event would share
+      // one paragraph. createDuplicate() creates a new paragraph.
+      $duplicated_paragraphs = [];
       /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       foreach ($source_data->referencedEntities() as $paragraph) {
-        $cloned_paragraphs[] = clone $paragraph;
+        $duplicated_paragraphs[] = $paragraph->createDuplicate();
       }
 
-      $node->set('field_people_reference', $cloned_paragraphs);
+      $node->set('field_people_reference', $duplicated_paragraphs);
     }
 
     $is_event_entity = $node->bundle() === 'event' && $node->isNew();
