@@ -44,13 +44,6 @@ main() {
   if module_enabled openculturas_responsive_images; then
     _drush openculturas-responsive-images:migrate-crops
   fi
-  # Fills empty popover toggles on every paragraph bundle, deliberately
-  # skipping the per-bundle choice of the settings form. This script is
-  # export-ignored (.gitattributes), so it only runs on this repository's own
-  # instances; sites installing the distribution still decide per bundle.
-  if module_enabled entity_popover; then
-    _drush entity-popover:backfill-paragraphs
-  fi
   if [[ -n ${CLOUDRON:-} ]]; then
     chown -R www-data:www-data /app/data
   fi
