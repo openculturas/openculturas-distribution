@@ -4,7 +4,6 @@
 declare(strict_types=1);
 
 use DrupalFinder\DrupalFinderComposerRuntime;
-use DrupalRector\Set\DrupalSetProvider;
 use Rector\Config\RectorConfig;
 
 $drupalFinder = new DrupalFinderComposerRuntime();
@@ -22,7 +21,6 @@ return RectorConfig::configure()
   )
   ->withComposerBased(twig: TRUE, phpunit: TRUE, symfony: TRUE, drupal: TRUE)
   ->withPhpSets()
-  ->withSetProviders(DrupalSetProvider::class)
   ->withAutoloadPaths(
     [
       $drupalRoot . '/core',
@@ -48,6 +46,9 @@ return RectorConfig::configure()
       // serializable for the form cache; first-class callables become
       // Closures, which serialize() rejects.
       \Rector\Php81\Rector\Array_\ArrayToFirstClassCallableRector::class,
+      // Drupal core registers event subscribers through
+      // EventSubscriberInterface only and ignores #[AsEventListener].
+      \Rector\Symfony\CodeQuality\Rector\Class_\EventSubscriberToAttributeRector::class,
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
       \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
       \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class => [
