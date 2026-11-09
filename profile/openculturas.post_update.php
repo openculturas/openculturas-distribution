@@ -1044,6 +1044,11 @@ function openculturas_post_update_entity_reference_views(): string {
     'paragraph.member.field_member' => ['entity_reference_node', 'er_profiles'],
     'paragraph.teaser_term.field_term' => ['entity_reference_term', 'er_terms'],
   ];
+  // Fields whose widget can create new entities (e.g. Inline Entity Form)
+  // need a handler that accepts them. The handler keeps the target bundles
+  // of the default handler, so the widget only offers these for new entities.
+  // @see \Drupal\openculturas_custom\Plugin\EntityReferenceSelection\ViewsAutocreateSelection
+  $autocreate_fields = ['node.date.field_location'];
   foreach ($views_by_field as $field_id => [$view_name, $display_name]) {
     $field = FieldConfig::load($field_id);
     if (!$field instanceof FieldConfigInterface) {
@@ -1057,14 +1062,21 @@ function openculturas_post_update_entity_reference_views(): string {
       continue;
     }
 
-    $field->setSetting('handler', 'views');
-    $field->setSetting('handler_settings', [
+    $handler_settings = [
       'view' => [
         'view_name' => $view_name,
         'display_name' => $display_name,
         'arguments' => [],
       ],
-    ]);
+    ];
+    $handler = 'views';
+    if (in_array($field_id, $autocreate_fields, TRUE)) {
+      $handler = 'views_autocreate';
+      $handler_settings['target_bundles'] = $field->getSetting('handler_settings')['target_bundles'] ?? NULL;
+    }
+
+    $field->setSetting('handler', $handler);
+    $field->setSetting('handler_settings', $handler_settings);
     $field->save();
     $logger->info(sprintf('Field %s selects its targets with the %s display of views.view.%s.', $field_id, $display_name, $view_name));
   }
@@ -1116,39 +1128,6 @@ function openculturas_post_update_entity_reference_autocomplete_match_limit(): s
       }
     }
   }
-
-  return $logger->output();
-}
-
-/**
- * Restrict new inline locations of dates to the location bundle.
- */
-function openculturas_post_update_date_location_inline_bundle(): string {
-  /** @var \Drupal\update_helper\UpdateLogger $logger */
-  $logger = \Drupal::service('update_helper.logger');
-  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entityDisplayRepository */
-  $entityDisplayRepository = \Drupal::service('entity_display.repository');
-
-  // The views selection handler has no target bundles, so inline entity
-  // form offers all node bundles for new entities without this setting.
-  $formDisplay = $entityDisplayRepository->getFormDisplay('node', 'date');
-  $component = $formDisplay->getComponent('field_location');
-  if ($component === NULL || ($component['type'] ?? NULL) !== 'inline_entity_form_complex_open') {
-    $logger->notice('SKIPPED. field_location on node.date.default does not use the inline_entity_form_complex_open widget.');
-    return $logger->output();
-  }
-
-  // Keep a bundle that was chosen on the site.
-  if (($component['settings']['bundle'] ?? '') !== '') {
-    $logger->notice(sprintf('SKIPPED. field_location on node.date.default already restricts new entities to %s.', $component['settings']['bundle']));
-    return $logger->output();
-  }
-
-  $component['settings']['bundle'] = 'location';
-  $formDisplay->setComponent('field_location', $component);
-  $formDisplay->save();
-
-  $logger->info('Restricted new inline entities of field_location on node.date.default to location.');
 
   return $logger->output();
 }

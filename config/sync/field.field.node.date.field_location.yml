@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_location
     - node.type.date
+    - node.type.location
 id: node.date.field_location
 field_name: field_location
 entity_type: node
@@ -16,10 +17,14 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: views
+  handler: views_autocreate
   handler_settings:
     view:
       view_name: entity_reference_node
       display_name: er_locations
       arguments: {  }
+    target_bundles:
+      location: location
+    auto_create: false
+    auto_create_bundle: null
 field_type: entity_reference

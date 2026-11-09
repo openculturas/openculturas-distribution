@@ -7,8 +7,11 @@ namespace Drupal\Tests\openculturas\ExistingSite;
 use Behat\Mink\Element\NodeElement;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Tests\openculturas\ExistingSiteBase;
 use Drupal\Tests\openculturas\Traits\LoginTrait;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -158,6 +161,92 @@ class EntityReferenceSelectionTest extends ExistingSiteBase {
 
     $elements = $this->getSession()->getPage()->findAll('css', '[role="alert"], .messages--error');
     return implode(' ', array_map(static fn (NodeElement $element): string => trim($element->getText()), $elements));
+  }
+
+  /**
+   * A new, unsaved location is a valid reference for field_location.
+   *
+   * Reproduces the regression of the Inline Entity Form "add new location"
+   * flow: the field's selection handler must implement
+   * SelectionWithAutocreateInterface for ValidReferenceConstraintValidator to
+   * accept an unsaved target.
+   *
+   * @see \Drupal\openculturas_custom\Plugin\EntityReferenceSelection\ViewsAutocreateSelection
+   */
+  public function testNewLocationIsReferenceable(): void {
+    $account = $this->createUserWithPermissions(['create location content']);
+    $location = Node::create(['type' => 'location', 'title' => 'New location']);
+    $this->assertSame([], $this->getNewLocationViolationMessages($location, $account));
+  }
+
+  /**
+   * A new entity of a bundle outside "target_bundles" is rejected.
+   *
+   * @see \Drupal\openculturas_custom\Plugin\EntityReferenceSelection\ViewsAutocreateSelection::validateReferenceableNewEntities()
+   */
+  public function testNewNonLocationIsRejected(): void {
+    $account = $this->createUserWithPermissions(['create location content', 'create event content']);
+    $event = Node::create(['type' => 'event', 'title' => 'Not a location']);
+    $this->assertSame(
+      ['This entity (node: Not a location) cannot be referenced.'],
+      $this->getNewLocationViolationMessages($event, $account),
+    );
+  }
+
+  /**
+   * A new location is rejected if the user may not create locations.
+   *
+   * @see \Drupal\openculturas_custom\Plugin\EntityReferenceSelection\ViewsAutocreateSelection::validateReferenceableNewEntities()
+   */
+  public function testNewLocationWithoutCreateAccessIsRejected(): void {
+    $location = Node::create(['type' => 'location', 'title' => 'Forbidden location']);
+    $this->assertSame(
+      ['This entity (node: Forbidden location) cannot be referenced.'],
+      $this->getNewLocationViolationMessages($location, new AnonymousUserSession()),
+    );
+  }
+
+  /**
+   * Creates a user with the given permissions.
+   *
+   * @param list<string> $permissions
+   *   The permissions.
+   */
+  private function createUserWithPermissions(array $permissions): UserInterface {
+    $account = $this->createUser($permissions);
+    $this->assertInstanceOf(UserInterface::class, $account);
+    return $account;
+  }
+
+  /**
+   * Validates field_location of an unsaved date referencing the new entity.
+   *
+   * @return list<string>
+   *   The violation messages, stripped of markup.
+   */
+  private function getNewLocationViolationMessages(ContentEntityInterface $location, AccountInterface $account): array {
+    $date = Node::create(['type' => 'date', 'title' => 'Date with new location', 'field_location' => $location]);
+    $account_switcher = $this->container->get('account_switcher');
+    $account_switcher->switchTo($account);
+    try {
+      return $this->getViolationMessages($date->get('field_location')->validate());
+    }
+    finally {
+      $account_switcher->switchBack();
+    }
+  }
+
+  /**
+   * Returns the violation messages, stripped of markup.
+   *
+   * @return list<string>
+   *   The messages.
+   */
+  private function getViolationMessages(iterable $violations): array {
+    return array_values(array_map(
+      static fn ($violation): string => strip_tags((string) $violation->getMessage()),
+      iterator_to_array($violations),
+    ));
   }
 
   /**

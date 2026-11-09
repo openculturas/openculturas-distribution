@@ -52,6 +52,25 @@ block.settings.openculturas_custom_page_title:
       type: boolean
       label: 'Profile picture'
 
+entity_reference_selection.views_autocreate:
+  type: entity_reference_selection.views
+  label: 'Views with autocreate selection handler settings'
+  mapping:
+    target_bundles:
+      type: sequence
+      label: 'Bundles of new entities'
+      nullable: true
+      sequence:
+        type: string
+        label: 'Bundle'
+    auto_create:
+      type: boolean
+      label: 'Create referenced entities if they don''t already exist'
+    auto_create_bundle:
+      type: string
+      label: 'Bundle assigned to the auto-created entities.'
+      nullable: true
+
 views.field.non_translatable_custom:
   type: views_field
   label: 'Custom (non translatable)'
