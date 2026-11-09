@@ -15,7 +15,7 @@ hooks:
         - exec-host: if [[ ! -d web/sites/default/files/translations ]];then mkdir web/sites/default/files/translations;fi
         - exec-host: if [[ ! -h web/sites/default/settings.php ]];then cd web/sites/default/ && ln -sf ../../../.ddev/settings.php;fi
 use_dns_when_possible: true
-composer_version: "2"
+composer_version: stable
 web_environment: []
 nodejs_version: "24"
 corepack_enable: false
@@ -33,7 +33,7 @@ corepack_enable: false
 
 # docroot: <relative_path> # Relative path to the directory containing index.php.
 
-# php_version: "8.4"  # PHP version to use, "5.6" through "8.5"
+# php_version: "8.4"  # PHP version to use; see https://docs.ddev.com/en/stable/users/configuration/config/#php_version.
 
 # You can explicitly specify the webimage but this
 # is not recommended, as the images are often closely tied to DDEV's behavior,
