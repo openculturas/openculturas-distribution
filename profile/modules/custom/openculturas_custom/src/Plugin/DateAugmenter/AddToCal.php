@@ -8,12 +8,12 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\addtocal_augment\Plugin\DateAugmenter\AddToCal as AddToCalOrigin;
 use function array_map;
+use function mb_str_split;
 use function mb_strlen;
+use function mb_substr;
 use function preg_replace;
-use function sprintf;
-use function str_repeat;
 use function str_replace;
-use function substr;
+use function strlen;
 use function trim;
 
 /**
@@ -28,16 +28,14 @@ use function trim;
  * - Google Calendar description is built with a separate parseFieldValue()
  *   call that preserves basic HTML tags (<br>, <p>, etc.), because Google Calendar
  *   renders HTML in event descriptions. The iCal description strips all markup.
- * - RFC 5545 section 3.1 line folding (max 70 chars per content line) is
+ * - RFC 5545 section 3.1 line folding (max 75 octets per content line) is
  *   applied to the iCal output; the upstream does not implement this.
- * - All-day events offset DTEND by +1 day, as iCalendar treats DTEND as
- *   exclusive for DATE values (RFC 5545 section 3.6.1).
  * - Description line breaks are always preserved ($keep_line_breaks = TRUE);
  *   the upstream makes this configurable via retain_spacing.
- * - SUMMARY, DESCRIPTION, and LOCATION are written as raw iCal content-line
- *   values without rawurlencode(); the upstream URL-encodes them.
  * - Ellipsis on truncated descriptions is always appended; the upstream makes
  *   this configurable.
+ * - The timezone always comes from the start date; the
+ *   ignore_timezone_if_UTC setting is not used.
  *
  * parseFieldValue():
  * - New method, used instead of the upstream's parseField(), so its
@@ -99,9 +97,13 @@ class AddToCal extends AddToCalOrigin {
     $timezone = $start->getTimezone()->getName();
     if (isset($options['allday']) && $options['allday']) {
       $start_formatted = $start->format("Ymd", ['timezone' => $timezone]);
-      // Offset the end by one day for calendar ingestion.
-      $end->add(new \DateInterval('P1D'));
-      $end_formatted = $end->format("Ymd", ['timezone' => $timezone]);
+      // All-day end dates in iCal and Google are exclusive, so use the day
+      // after the last day. Work on a copy, so $end keeps its real value for
+      // the Outlook timestamps, and the caller's object (or $start, if $end
+      // defaulted to it) is not changed.
+      $exclusive_end = clone $end;
+      $exclusive_end->modify('+1 day');
+      $end_formatted = $exclusive_end->format("Ymd", ['timezone' => $timezone]);
       $prefix = ':';
     }
     else {
@@ -130,12 +132,7 @@ class AddToCal extends AddToCalOrigin {
       $description = $this->parseFieldValue($config['description'], $entity, TRUE, TRUE);
       $google_link['details'] = $this->parseFieldValue($config['description'], $entity, TRUE, TRUE, '<br><p><b><u><a><ul><ol>');
       $google_link['details'] = str_replace('</p>' . PHP_EOL . PHP_EOL . '<p>', '</p><p>', $google_link['details']);
-      $max_length = $config['max_desc'] ?? 60;
-      if ($max_length) {
-        // @todo Use Smart Trim if available.
-        // @todo Make the use of ellipsis configurable?
-        $description = trim(substr($description, 0, $max_length)) . '...';
-      }
+      $description = $this->trimDescription($description, (int) ($config['max_desc'] ?? 60));
     }
 
     $location = NULL;
@@ -146,7 +143,7 @@ class AddToCal extends AddToCalOrigin {
     $uuid = $entity->uuid() ?? Html::getUniqueId($label);
 
     // Build output.
-    $ical_link = ['data:text/calendar;charset=utf8,BEGIN:VCALENDAR'];
+    $ical_link = ['BEGIN:VCALENDAR'];
     $ical_link[] = 'PRODID:' . $this->configFactory->get('system.site')->get('name');
     if ($timezone !== '' && $timezone !== '0') {
       $offset_from = $start->format('O', ['timezone' => $timezone]);
@@ -201,8 +198,7 @@ class AddToCal extends AddToCalOrigin {
     $ical_link[] = 'END:VEVENT';
     $ical_link[] = 'END:VCALENDAR';
 
-    /* Append every 70 chars a url encoded CRLF sequence followed by a whitespace. see https://icalendar.org/iCalendar-RFC-5545/3-1-content-lines.html */
-    $ical_link = array_map(static fn(array|string $content): null|string|array => is_string($content) && mb_strlen($content) >= 70 ? preg_replace(sprintf('/(%s)/', str_repeat('.', 70)), '${1}%0D%0A%20', $content) : $content, $ical_link);
+    $ical_link = array_map(fn(array|string $content): array|string => is_string($content) ? $this->foldLine($content) : $content, $ical_link);
 
     // Set start/end dates timezone to UTC for Outlook.
     $outlook_link = $ical_link;
@@ -216,10 +212,66 @@ class AddToCal extends AddToCalOrigin {
     $outlook_link['end'] = 'DTEND:' . $end->format($def_format_z);
 
     return [
-      'ical' => $ical_link,
-      'outlook' => $outlook_link,
-      'google' => $google_link,
+      'label' => $label,
+      'ical' => $this->icsLink($ical_link),
+      'outlook' => $this->icsLink($outlook_link),
+      'google' => $this->googleLink($google_link),
     ];
+  }
+
+  /**
+   * Trims the iCal description and appends an ellipsis.
+   *
+   * The iCal payload is part of the ICS URL path, so the description is
+   * trimmed to MAX_DESCRIPTION_LENGTH also when no maximum length is set.
+   *
+   * @param string $description
+   *   The description without markup.
+   * @param int $max_length
+   *   The maximum length from the plugin settings. Zero means no maximum.
+   *
+   * @return string
+   *   The trimmed description.
+   */
+  protected function trimDescription(string $description, int $max_length): string {
+    if ($max_length <= 0 || $max_length > static::MAX_DESCRIPTION_LENGTH) {
+      if (mb_strlen($description) <= static::MAX_DESCRIPTION_LENGTH) {
+        return $description;
+      }
+
+      $max_length = static::MAX_DESCRIPTION_LENGTH;
+    }
+
+    // @todo Use Smart Trim if available.
+    return trim(mb_substr($description, 0, $max_length)) . '...';
+  }
+
+  /**
+   * Folds an iCal content line after 75 octets.
+   *
+   * See RFC 5545 section 3.1. Multibyte characters are not split.
+   *
+   * @param string $line
+   *   The unfolded content line.
+   *
+   * @return string
+   *   The folded content line.
+   */
+  protected function foldLine(string $line): string {
+    $folded = '';
+    $line_length = 0;
+    foreach (mb_str_split($line) as $character) {
+      $character_length = strlen($character);
+      if ($line_length + $character_length > 75) {
+        $folded .= "\r\n ";
+        $line_length = 1;
+      }
+
+      $folded .= $character;
+      $line_length += $character_length;
+    }
+
+    return $folded;
   }
 
   /**
