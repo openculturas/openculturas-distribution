@@ -633,3 +633,36 @@ function openculturas_update_10138(): void {
     $languageSettings->save();
   }
 }
+
+/**
+ * Hides the asset field's label on media displays instead of visually.
+ */
+function openculturas_update_10139(): void {
+  // "Visually hidden" predates alt text being mandatory on media - the label
+  // is redundant now that alt text covers that need, so it should not render
+  // at all. Default displays are included too since new view modes inherit
+  // their settings.
+  $displays = [
+    'media.audio.default' => 'field_media_audio_file',
+    'media.audio.gallery' => 'field_media_audio_file',
+    'media.document.default' => 'field_media_file',
+    'media.image.default' => 'field_media_image',
+    'media.image.content_asset' => 'field_media_image',
+    'media.image.gallery' => 'field_media_image',
+    'media.image.search_index' => 'field_media_image',
+    'media.image.teaser_image' => 'field_media_image',
+    'media.image.teaser_image_big' => 'field_media_image',
+    'media.remote_video.default' => 'field_media_oembed_video',
+    'media.remote_video.gallery' => 'field_media_oembed_video',
+    'media.remote_video.search_index' => 'field_media_oembed_video',
+    'media.sponsor.default' => 'field_media_image',
+  ];
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($displays as $displayId => $fieldName) {
+    $configuration = $configFactory->getEditable('core.entity_view_display.' . $displayId);
+    if (!$configuration->isNew() && $configuration->get('content.' . $fieldName . '.label') === 'visually_hidden') {
+      $configuration->set('content.' . $fieldName . '.label', 'hidden')->save();
+    }
+  }
+}
