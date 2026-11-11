@@ -18,7 +18,8 @@ canonical_source:
       - `#title`, `#description`, `#description_display`, `#title_display`,
         `#required` semantics.
       - `fieldset`, `details`, `radios`, `checkboxes` element definitions.
-      - `image`, `link`, `item_list`, `table` element definitions.
+      - `image`, `link`, `table` element definitions; the `item_list`
+        theme hook.
   - title: Render API overview
     url: https://www.drupal.org/docs/drupal-apis/render-api
     pulls:
@@ -33,8 +34,8 @@ canonical_source:
     url: https://mgifford.github.io/ACCESSIBILITY.md/examples/TABLES_ACCESSIBILITY_BEST_PRACTICES.html
     repo: https://github.com/mgifford/ACCESSIBILITY.md
     pulls:
-      - The "every data table needs caption + scope" baseline that
-        `#type => 'table'` satisfies automatically.
+      - The "every data table needs caption + scope" baseline;
+        `#type => 'table'` renders the caption, `scope` is set per cell.
       - The "do not use tables for layout" rule.
 last_synced: 2026-05-04
 ---

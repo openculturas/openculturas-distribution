@@ -137,10 +137,13 @@ the `drupal-a11y-qa` sub-skill for the disclosure requirement.
 
 ## Tables: use `#type => 'table'`
 
-Drupal's table render element handles the accessibility scaffolding for
-you. It generates `<th scope="col">` for header strings, wraps rows in
-`<thead>` and `<tbody>`, renders `#caption` as `<caption>`, and shows
-`#empty` when there are no rows. Reach for it before any other approach.
+Drupal's table render element handles most of the accessibility
+scaffolding for you. It renders header strings as `<th>` cells in a
+`<thead>`, wraps rows in `<tbody>`, renders `#caption` as `<caption>`, and
+shows `#empty` when there are no rows. Core's table template sets no
+`scope` attribute; extra keys in a cell array become attributes, so add
+`'scope' => 'col'` to a header cell when you need it. Reach for it before
+any other approach.
 
 ```php
 $build['orders'] = [
@@ -158,23 +161,25 @@ $build['orders'] = [
 
 Set `#caption` on every data table. When the first column is a row
 header, mark each cell as a header in the row array
-(`['data' => $label, 'header' => TRUE]`) so it renders as
-`<th scope="row">`. For sortable rows (drag-and-drop reorder), use
+(`['data' => $label, 'header' => TRUE, 'scope' => 'row']`) so it renders
+as `<th scope="row">`. For sortable rows (drag-and-drop reorder), use
 `#tabledrag`; do not hand-build sort handles. Do not build tables with
 `#markup` strings or `#theme => 'table'` workarounds when `#type =>
-'table'` would do — every workaround risks losing `<caption>`, `scope`,
-or the empty-state message.
+'table'` would do — every workaround risks losing `<caption>`, the header
+cells, or the empty-state message.
 
 ## Generate semantic elements via `#type`, not raw HTML
 
 When you need a list, a heading, a navigation block, a table, or any
 element with semantic meaning, find the Drupal `#type` or `#theme` first.
-`#type => 'item_list'` produces a real `<ul>` with the right wrappers.
-`#type => 'table'` produces a `<table>` with `<caption>`, `<th scope>`,
-and Drupal's responsive helpers. `#type => 'link'` produces an `<a>` with
-`#url` validation. Hand-rolling these as `#markup` strings loses the
-semantics every time and frequently loses the translation, sanitisation,
-and cache metadata too.
+`#theme => 'item_list'` with `#items` produces a real `<ul>` with the
+right wrappers; `item_list` is a theme hook, not a render element, so
+`#type => 'item_list'` renders nothing. `#type => 'table'` produces a
+`<table>` with `<caption>`, header cells, and Drupal's responsive
+helpers. `#type => 'link'` produces an `<a>` with `#url` validation.
+Hand-rolling these as `#markup` strings loses the semantics every time
+and frequently loses the translation, sanitisation, and cache metadata
+too.
 
 The redundant-ARIA rule from the dispatcher applies here as well: do not
 add `role="navigation"`, `role="button"`, `role="list"`, or `role="main"`
@@ -185,10 +190,11 @@ to the elements Drupal already generates from `#type`.
 When a form element should not be shown to the current user, set
 `#access => FALSE` on the render element. Do not reach for CSS
 (`display:none`, `.hidden`) or `#attributes['style']` to hide it —
-those approaches remove the element visually but leave it in the
-accessibility tree, where assistive tech will still encounter it. `#access
-=> FALSE` removes the element from both the rendered output and the
-accessibility tree, and also prevents the value from being submitted.
+those approaches hide the element only in the browser: it is still in
+the rendered HTML, its value is still submitted and processed, and CSS
+that hides only visually (such as `.visually-hidden`) also leaves it
+exposed to assistive technology. `#access => FALSE` removes the element
+from the rendered output, and Form API ignores input for it.
 
 ```php
 $form['internal_id'] = [
@@ -229,12 +235,13 @@ $form['email_frequency'] = [
 ];
 ```
 
-**Critical caveat:** `#states` hides elements with CSS (`display:none`).
-Hidden elements *remain in the accessibility tree* and can receive focus
-when their container is scrolled or navigated programmatically. If a
-field must be unconditionally inaccessible (permissions-based hiding,
-not user-driven disclosure), use `#access => FALSE` instead — it removes
-the element from both the DOM and the accessibility tree.
+**Critical caveat:** `#states` acts only in the browser. It toggles the
+field's wrapper with jQuery (`display: none`), which does remove it from
+the accessibility tree, but the element is still rendered in the HTML and
+its value is still submitted and processed. If a field must be
+unconditionally inaccessible (permissions-based hiding, not user-driven
+disclosure), use `#access => FALSE` instead — it removes the element from
+the rendered output, and Form API ignores input for it.
 
 Do not mix `#states` and `#access` on the same element. Use `#states`
 for toggling in response to user input; use `#access` for server-side

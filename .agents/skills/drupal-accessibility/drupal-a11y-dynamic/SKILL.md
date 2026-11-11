@@ -1,6 +1,6 @@
 ---
 name: drupal-a11y-dynamic
-description: Accessibility rules for Drupal JavaScript, AJAX, modals, and test layers. Use when writing or reviewing *.js, Drupal.behaviors, dialog/modal code, or *Test.php that exercises the UI. Mandates Drupal.announce(), FocusCommand for AJAX, Playwright over Nightwatch, and Axe-core in PHPUnit. Loaded by drupal-accessibility.
+description: Accessibility rules for Drupal JavaScript, AJAX, modals, and test layers. Use when writing or reviewing *.js, Drupal.behaviors, dialog/modal code, or *Test.php that exercises the UI. Mandates Drupal.announce(), FocusFirstCommand for AJAX, Playwright over Nightwatch, and Axe-core in PHPUnit. Loaded by drupal-accessibility.
 ---
 
 # Drupal accessibility: interaction and testing
@@ -70,21 +70,25 @@ element the user just interacted with (a "Load more" button replaced
 by the loaded content, an inline edit form swapped for the saved
 value), the rebuilt DOM must place focus somewhere meaningful — usually
 the new equivalent of the trigger, otherwise the page heading or the
-landmark containing the new content. Drupal core ships `FocusCommand`
-(in `\Drupal\Core\Ajax\FocusCommand`) for exactly this; use it over
-manual `element.focus()` so refocusing happens after the command
-queue settles.
+landmark containing the new content. Drupal core ships
+`FocusFirstCommand` (in `\Drupal\Core\Ajax\FocusFirstCommand`) for
+exactly this; use it over manual `element.focus()` so refocusing happens
+after the command queue settles. It takes a selector for a container:
+focus moves to the first tabbable element inside it, or to the
+container itself when that is focusable. When neither exists, focus
+stays on the triggering element, so give a heading or landmark target
+`tabindex="-1"`.
 
 ```php
-use Drupal\Core\Ajax\FocusCommand;
+use Drupal\Core\Ajax\FocusFirstCommand;
 
-// In an AJAX response, move focus to the rebuilt element.
-$response->addCommand(new FocusCommand('.commerce-cart-form'));
+// In an AJAX response, move focus into the rebuilt element.
+$response->addCommand(new FocusFirstCommand('.commerce-cart-form'));
 ```
 
-When server-side `FocusCommand` is unavailable (client-side-only AJAX
-handlers), use the `drupalAjaxSuccess` event that Drupal fires on the
-document after a successful AJAX response:
+When server-side `FocusFirstCommand` is unavailable (client-side-only
+AJAX handlers), use the `drupalAjaxSuccess` event that Drupal fires on
+the document after a successful AJAX response:
 
 ```javascript
 once('load-more', '[data-load-more]', context).forEach((trigger) => {
@@ -105,7 +109,7 @@ failed without having to search the page:
 
 ```php
 // Server side — AJAX form error response.
-$response->addCommand(new FocusCommand('[data-drupal-selector="edit-email"].error'));
+$response->addCommand(new FocusFirstCommand('[data-drupal-selector="edit-email"].error'));
 ```
 
 A "Load more" button that disappears with no focus return strands
@@ -376,7 +380,7 @@ Do not hand-roll Tab-key trapping for non-modal widgets. Use
 interfere with each other otherwise.
 
 Do not rely on `element.focus()` inside an AJAX success callback.
-Use `FocusCommand` (or an equivalent AJAX command) so refocusing
+Use `FocusFirstCommand` (or an equivalent AJAX command) so refocusing
 happens after the command queue has settled and the element exists.
 
 Do not extend Nightwatch coverage. New tests use Playwright per
