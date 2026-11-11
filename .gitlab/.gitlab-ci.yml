@@ -28,7 +28,7 @@ variables:
 
 renovate:update-artifacts:
   extends: .renovate:update-artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.269955@sha256:6f410fab4336b3dbbb0bd658cb1b49e75839dabc39bfeb7456da750a97126714
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.270254@sha256:002742e8d553d5b07e06e819709039eeff24a3423d3a6757496c1d223614a870
   before_script:
     - mkdir --parents --verbose /app/code
     - rsync --archive --exclude=.composer --exclude=.npm . /app/code
@@ -54,7 +54,7 @@ renovate:update-artifacts:
     - if: '($CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH =~ $RENOVATE_BRANCH_PREFIX_PATTERN)'
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.269955@sha256:6f410fab4336b3dbbb0bd658cb1b49e75839dabc39bfeb7456da750a97126714
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.270254@sha256:002742e8d553d5b07e06e819709039eeff24a3423d3a6757496c1d223614a870
   stage: validate
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
@@ -179,7 +179,7 @@ rector dry-run:
           - "**/*.{scss,css,js}"
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.269955@sha256:6f410fab4336b3dbbb0bd658cb1b49e75839dabc39bfeb7456da750a97126714
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.270254@sha256:002742e8d553d5b07e06e819709039eeff24a3423d3a6757496c1d223614a870
   stage: validate
   extends: .validate_rules_npm
   needs:
@@ -257,7 +257,7 @@ rector dry-run:
 
 build:artifacts:
   extends: .build:artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.269955@sha256:6f410fab4336b3dbbb0bd658cb1b49e75839dabc39bfeb7456da750a97126714
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.270254@sha256:002742e8d553d5b07e06e819709039eeff24a3423d3a6757496c1d223614a870
   rules:
     # The prelive deployment needs the artifacts.
     - if: $CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_NAME != $PRELIVE_BRANCH_NAME
@@ -318,7 +318,7 @@ database:snapshot:
     - if: $DB_CREATE_SNAPSHOT
 
 🔍 npm audit:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.269955@sha256:6f410fab4336b3dbbb0bd658cb1b49e75839dabc39bfeb7456da750a97126714
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.4:v7.0.270254@sha256:002742e8d553d5b07e06e819709039eeff24a3423d3a6757496c1d223614a870
   stage: cronjobs
   needs: []
   script:
