@@ -74,11 +74,13 @@ uncommon.
 
 ### Required class attributes
 
-Kernel, Functional, and FunctionalJavascript test classes should declare the
+Kernel, Functional, and FunctionalJavascript test classes need the
 `#[RunTestsInSeparateProcesses]` attribute from PHPUnit (requires
-`use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;`). This became a
-hard requirement in Drupal 11.3 and is strongly recommended on 10.x. Unit tests
-run in-process and do not need this attribute.
+`use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;`). Omitting it
+is deprecated as of Drupal 11.3 and throws an exception from Drupal 12.0. On
+Drupal 10.x, PHPUnit 9 does not read attributes, so it has no effect there;
+modules that also support 11.3 or later should add it anyway. Unit tests run
+in-process and do not need this attribute.
 
 ### Test namespaces
 

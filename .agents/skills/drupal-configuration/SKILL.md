@@ -1,6 +1,6 @@
 ---
 name: drupal-configuration
-description: Guidance for working with Drupal's configuration system — choosing between config, state, and settings; writing config schema; simple config vs. config entities; config dependencies; third-party settings; the config export workflow; and the override system. Covers the mistakes AI agents make most frequently when generating configuration code.
+description: Guidance for working with Drupal's configuration system — choosing between config, state, and settings; writing config schema; simple config vs. config entities; settings forms with #config_target; config dependencies; third-party settings; the config export workflow; and the override system. Covers the mistakes AI agents make most frequently when generating configuration code.
 ---
 
 # Working with Drupal configuration
@@ -49,6 +49,7 @@ committed to git — a security vulnerability.
 | --- | --- |
 | Same across all environments? | Config |
 | Changes frequently at runtime? | State |
+| Modules or exported config that should vary by environment? | Config Split |
 | Environment-specific or secret? | Settings |
 | Admin manages multiple instances through UI? | Config entity |
 | Simple key-value module settings? | Simple config |
@@ -58,6 +59,11 @@ Note: config can differ per environment via the **config override system**
 environments" means the _stored_ value is the same — overrides layer on top
 at runtime without changing the exported YAML. If a value needs to differ per
 environment, store the default in config and override it in settings.php.
+
+Overrides change values. When whole modules or config items should exist
+only on some environments (devel on dev), or be exported differently there,
+use Config Split. Read `references/config-split.md` first: complete vs.
+partial splits, the settings.php switch, and the export trap.
 
 ### Simple config vs. config entities
 
@@ -170,6 +176,10 @@ my_module.settings:
     items_per_page:
       type: integer
       label: 'Items per page'
+      constraints:
+        Range:
+          min: 1
+          max: 100
     enabled:
       type: boolean
       label: 'Enabled'
@@ -183,6 +193,67 @@ common agent error is using `string` for a human-readable label — use `label`
 instead so the value is translatable. Other common mistakes: defining a field
 as `string` when the YAML value is an integer, or omitting `sequence` for list
 values.
+
+### Settings forms with `#config_target` (Drupal 10.2+)
+
+For a simple config settings form, extend `ConfigFormBase` and map each element
+to its config key with `#config_target`. The base class loads the default
+value, validates the submitted value against the config schema, and saves it.
+Do not write the pre-10.2 pattern: `#default_value` from `$config->get()`, a
+hand-written `getEditableConfigNames()`, and `->set()->save()` in
+`submitForm()`. That pattern also skips schema validation, which
+`ConfigFormBase::validateForm()` runs only for `#config_target` elements.
+
+```php
+use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\ConfigTarget;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\RedundantEditableConfigNamesTrait;
+
+final class MyModuleSettingsForm extends ConfigFormBase {
+
+  // Implements getEditableConfigNames(): the targets name the config.
+  use RedundantEditableConfigNamesTrait;
+
+  public function getFormId(): string {
+    return 'my_module_settings';
+  }
+
+  public function buildForm(array $form, FormStateInterface $form_state): array {
+    $form['items_per_page'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Items per page'),
+      '#config_target' => 'my_module.settings:items_per_page',
+    ];
+    $form['api_endpoint'] = [
+      '#type' => 'url',
+      '#title' => $this->t('API endpoint'),
+      // A ConfigTarget object adds fromConfig/toConfig transforms.
+      '#config_target' => new ConfigTarget(
+        'my_module.settings',
+        'api_endpoint',
+        toConfig: fn (string $value): string => rtrim($value, '/'),
+      ),
+    ];
+    return parent::buildForm($form, $form_state);
+  }
+
+}
+```
+
+- No `submitForm()` override is needed to save mapped values. If you override
+  `validateForm()` or `submitForm()` for other work, call the parent method,
+  or schema validation or saving is skipped.
+- Prefer schema constraints to `validateForm()` checks for mapped values: a
+  constraint such as the `Range` on `items_per_page` above becomes an error on
+  the mapped element.
+- A `toConfig` callable can return `ToConfig::NoOp` (leave the key alone, for
+  example when another target sets it) or `ToConfig::DeleteKey` (remove it).
+- To inject other services, pass the typed config manager on to
+  `parent::__construct($config_factory, $typed_config_manager)` (required
+  since 11.0.0). Before 11.4, `ConfigFormBase::create()` passes only those two
+  services, so also override `create()` and pass
+  `$container->get('config.typed')`. From 11.4 the form is autowired.
 
 ### The export workflow
 
@@ -265,6 +336,9 @@ config. Use `\Drupal::state()->set()` and `->get()` instead.
 Do not create config files without a matching schema definition. Config
 validation will reject them, and translation will be broken in any version.
 
+Do not load `#default_value` from config and save in `submitForm()` in a new
+settings form. Use `#config_target`, so the schema validates the input.
+
 Do not hand-edit YAML files in `config/sync/` as the primary way to make
 config changes. Make changes through the UI or API, then export.
 
@@ -287,4 +361,6 @@ cause config import failures.
 - [Config schema/metadata](https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata)
 - [State API](https://www.drupal.org/docs/drupal-apis/state-api)
 - [Configuration override system](https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-override-system)
+- [Config Split](https://www.drupal.org/project/config_split)
 - [Recipes](https://www.drupal.org/docs/extending-drupal/drupal-recipes)
+- [#config_target in ConfigFormBase (change record)](https://www.drupal.org/node/3373502)

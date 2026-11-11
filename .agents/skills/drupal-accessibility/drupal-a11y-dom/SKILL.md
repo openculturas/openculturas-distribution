@@ -221,8 +221,9 @@ theme animations must too.
 Most Drupal accessibility regressions in tables happen when a template
 hand-rolls `<table>` markup instead of rendering a `#type => 'table'`
 render element (see `drupal-a11y-fapi`). Prefer `{{ table }}` so the
-Render API handles `<caption>`, `<th scope>`, `<thead>`/`<tbody>`, and
-the empty-state message for you.
+Render API handles `<caption>`, the `<th>` header cells,
+`<thead>`/`<tbody>`, and the empty-state message for you. Core does not
+add `scope`; set it per cell in the render array.
 
 When a Twig template genuinely must emit `<table>` markup (rendering
 external data, custom layouts that the Render API cannot model), the

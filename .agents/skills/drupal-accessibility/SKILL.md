@@ -66,9 +66,11 @@ Render API (`#type`) rather than raw HTML strings in `#markup`.
 
 **`#states` is not a substitute for `#access`.** The Form API `#states`
 system wires progressive disclosure — it shows/hides fields based on
-sibling field values. However, `#states` uses CSS (`display:none`) under
-the hood and does not remove hidden elements from the accessibility tree
-the way `#access => FALSE` does. Use `#states` for user-driven progressive
+sibling field values. However, `#states` acts only in the browser: it
+toggles the field's wrapper with jQuery (`display: none`), while the
+element is still rendered in the HTML and its value is still submitted
+and processed. `#access => FALSE` keeps the element out of the output, and
+Form API ignores input for it. Use `#states` for user-driven progressive
 disclosure; use `#access` for permission-based or unconditional hiding.
 
 **Testing uses Playwright and Axe-core in PHPUnit, not Nightwatch.**

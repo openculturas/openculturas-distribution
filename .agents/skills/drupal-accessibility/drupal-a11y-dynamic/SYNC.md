@@ -35,7 +35,7 @@ canonical_source:
     pulls:
       - The #[RunTestsInSeparateProcesses] attribute requirement.
       - Test type selection (Functional vs Kernel) for accessibility scans.
-last_synced: 2026-05-04
+last_synced: 2026-09-22
 ---
 
 # Sync sources for drupal-a11y-dynamic
