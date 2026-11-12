@@ -1223,6 +1223,7 @@ function openculturas_post_update_paragraph_block_editorial(): string {
 
   _openculturas_post_update_add_target_bundle('node.article.field_content_paragraphs', 'block_editorial');
   _openculturas_post_update_add_target_bundle('node.page.field_content_paragraphs', 'block_editorial');
+  _openculturas_post_update_add_target_bundle('paragraph.wrapper_section.field_content_paragraphs', 'block_editorial');
 
   user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, ['view paragraph content block_editorial']);
   user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['view paragraph content block_editorial']);

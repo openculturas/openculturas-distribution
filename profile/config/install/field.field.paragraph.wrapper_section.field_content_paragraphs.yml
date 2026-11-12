@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_content_paragraphs
     - paragraphs.paragraphs_type.block
+    - paragraphs.paragraphs_type.block_editorial
     - paragraphs.paragraphs_type.download
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.media
@@ -36,6 +37,7 @@ settings:
       text_slider: text_slider
       download: download
       media_mention: media_mention
+      block_editorial: block_editorial
     negate: 0
     target_bundles_drag_drop:
       a11y_wheelchair:
@@ -49,6 +51,9 @@ settings:
         enabled: false
       block:
         weight: -38
+        enabled: true
+      block_editorial:
+        weight: -39
         enabled: true
       bookable_event:
         weight: -26
@@ -90,7 +95,7 @@ settings:
         weight: -34
         enabled: true
       view:
-        weight: -39
+        weight: -40
         enabled: true
       wrapper_section:
         weight: -21
