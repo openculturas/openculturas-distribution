@@ -152,7 +152,7 @@ All configurations are managed via [config_devel](https://www.drupal.org/project
 Each configuration is listed in the info file of the profile or module.
 Therefore, any changes to the configuration must also be made in the info file.
 
-After that, enable config_devel and run `ddev composer run cde` or `ddev drush cde module`.
+After that, run `ddev composer run cde` or `ddev drush cde module`. The development site has config_devel enabled by default.
 
 This command updates all configuration listed in the info file and removes the key `_core` and `uuid` except for
 views configuration. The uuid is needed because the uuid is used in other configuration as a default value, without this

@@ -18,12 +18,9 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 $settings['config_exclude_modules'] = [
   'devel',
   'stage_file_proxy',
-  'config_inspector',
-  'upgrade_status',
   'bpmn_io',
   'eca_modeller_bpmn',
   'eca_ui',
-  'config_devel',
   'config_update_ui',
   'smtp',
   'language_audit'
