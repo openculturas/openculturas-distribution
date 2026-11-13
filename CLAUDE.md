@@ -184,7 +184,7 @@ Uses `config_devel` module. Config is declared in module `.info.yml` files and e
 
 ```bash
 ddev drush cde <module>  # Updates the configuration for a specific module via config_devel (Current state in database to module for new installation or post updates)
-ddev composer run cde  # Updates the configuration for the main profile and selected modules (openculturas_faq, openculturas_discussions, openculturas_map, openculturas_section, openculturas_openstreetmap) via config_devel
+ddev composer run cde  # Updates the configuration of all extensions listed in the "cde" script in composer.json via config_devel
 composer run export-content  # Export default content
 composer run info_file_normalizer  # Sort .info.yml files alphabetically
 ```
