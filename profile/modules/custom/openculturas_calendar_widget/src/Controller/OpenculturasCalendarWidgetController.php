@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\openculturas_calendar_widget\Controller;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Render\BareHtmlPageRendererInterface;
 use Drupal\Core\Render\HtmlResponse;
@@ -89,11 +90,12 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
       '#display_id' => 'upcoming_dates',
       '#pre_render' => [[View::class, 'preRenderViewElement'], self::preRenderViewElement(...)],
     ];
-    if ($this->request instanceof Request && $this->request->query->has('source_uri')) {
+    $source_url = $this->getSourceUrl();
+    if ($source_url instanceof Url) {
       $build['container']['link'] = [
         '#type' => 'more_link',
         '#title' => $this->t('More dates'),
-        '#url' => Url::fromUri((string) $this->request->query->get('source_uri')),
+        '#url' => $source_url,
         '#attributes' => ['class' => 'button'],
       ];
     }
@@ -112,8 +114,8 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     $build['#attached']['html_head'][] = [$head, 'oc_iframe_base'];
     $hostname = NULL;
     $wildcard = NULL;
-    if ($limit_access && $this->request instanceof Request && $this->request->query->has('access_token')) {
-      $token = (string) $this->request->query->get('access_token');
+    $token = $this->getQueryString('access_token');
+    if ($limit_access && $token !== NULL) {
       $host_list = $config->get('host_list');
       if (is_array($host_list) && array_key_exists($token, $host_list)) {
         /** @var array{hostname?: string, wildcard?: bool, css?: string} $hostEntry */
@@ -159,6 +161,44 @@ final class OpenculturasCalendarWidgetController extends ControllerBase implemen
     }
 
     return $response;
+  }
+
+  /**
+   * Returns the link target for the "More dates" button.
+   *
+   * The embed code sets source_uri to the absolute URL of the calendar page
+   * on this site. Any other value, e.g. a URL on a different host, is ignored,
+   * so a crafted embed URL cannot put a foreign link on this site.
+   */
+  protected function getSourceUrl(): ?Url {
+    $source_uri = $this->getQueryString('source_uri');
+    if ($source_uri === NULL || !$this->request instanceof Request) {
+      return NULL;
+    }
+
+    // Only absolute URLs with a host, which externalIsLocal() requires.
+    if (!UrlHelper::isValid($source_uri, TRUE)) {
+      return NULL;
+    }
+
+    $base_url = $this->request->getSchemeAndHttpHost() . $this->request->getBasePath() . '/';
+    if (!UrlHelper::externalIsLocal($source_uri, $base_url)) {
+      return NULL;
+    }
+
+    return Url::fromUri($source_uri);
+  }
+
+  /**
+   * Returns a query parameter, or NULL if it is missing or not a string.
+   */
+  protected function getQueryString(string $name): ?string {
+    if (!$this->request instanceof Request) {
+      return NULL;
+    }
+
+    $value = $this->request->query->all()[$name] ?? NULL;
+    return is_string($value) && $value !== '' ? $value : NULL;
   }
 
   public static function preRenderViewElement(array $element): array {
