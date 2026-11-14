@@ -34,6 +34,11 @@ services:
     tags:
       - { name: event_subscriber }
 
+  openculturas_custom.infinite_scroll_browser_url_subscriber:
+    class: Drupal\openculturas_custom\EventSubscriber\OpenculturasCustomInfiniteScrollBrowserUrlSubscriber
+    tags:
+      - { name: event_subscriber }
+
   openculturas_custom.people_paragraph_unsharer:
     class: Drupal\openculturas_custom\PeopleParagraphUnsharer
     autowire: true
