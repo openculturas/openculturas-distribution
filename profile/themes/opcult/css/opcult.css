@@ -1986,6 +1986,17 @@ ul.visually-plain {
   list-style: none;
 }
 
+.flex {
+  display: flex;
+  flex-flow: column;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+@media screen and (min-width: 48em) {
+  .flex {
+    flex-flow: row nowrap;
+  }
+}
+
 .inverted {
   --oc-color-text: var(--oc-color-text-inverted);
   --oc-color-link: var(--oc-color-link-inverted);
@@ -2461,6 +2472,28 @@ fieldset[data-drupal-selector=edit-radius-wrapper] .form-item-radius-source-conf
 .block--search .details-wrapper,
 .form--compact .details-wrapper {
   padding: 0;
+}
+
+.external-form .form-email,
+.external-form .form-text {
+  inline-size: 100%;
+  max-inline-size: 28rem;
+}
+
+form .flex {
+  text-align: start;
+  gap: 0 var(--oc-gutter);
+}
+form .flex:has(> .challenge) {
+  justify-content: space-between;
+}
+
+.flex .form-item:has(br) {
+  line-height: 0.5em;
+}
+.flex .form-item:has(br) > label,
+.flex .form-item:has(br) > input {
+  line-height: 1.5em;
 }
 
 .view-header .button,
@@ -7109,6 +7142,9 @@ figure.align-center {
   .field--name-field-started,
   .field--name-field-url {
     margin-inline-start: calc(2 * var(--oc-grid-step));
+  }
+  .dialog-content .field--name-body {
+    margin-inline-start: 0;
   }
   article.teaser .field--name-body {
     margin-inline-start: unset;

@@ -1391,6 +1391,16 @@ a.cta:focus, a.cta:hover {
   padding: unset;
   list-style: none;
 }
+.ck-content .flex {
+  display: flex;
+  flex-flow: column;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+}
+@media screen and (min-width: 48em) {
+  .ck-content .flex {
+    flex-flow: row nowrap;
+  }
+}
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;
   --oc-font-size-icon: 1em;
@@ -1911,6 +1921,25 @@ a.cta:focus, a.cta:hover {
 .ck-content .block--search .details-wrapper,
 .ck-content .form--compact .details-wrapper {
   padding: 0;
+}
+.ck-content .external-form .form-email,
+.ck-content .external-form .form-text {
+  inline-size: 100%;
+  max-inline-size: 28rem;
+}
+.ck-content form .flex {
+  text-align: start;
+  gap: 0 var(--oc-gutter);
+}
+.ck-content form .flex:has(> .challenge) {
+  justify-content: space-between;
+}
+.ck-content .flex .form-item:has(br) {
+  line-height: 0.5em;
+}
+.ck-content .flex .form-item:has(br) > label,
+.ck-content .flex .form-item:has(br) > input {
+  line-height: 1.5em;
 }
 .ck-content .ck-content {
   --oc-font-size-icon-default: 1rem;

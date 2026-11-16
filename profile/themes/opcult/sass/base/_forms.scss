@@ -649,3 +649,36 @@ fieldset[data-drupal-selector="edit-radius-wrapper"] {
     padding: 0;
   }
 }
+
+// --
+// Custom form helper classes (e. g. for embedded forms)
+
+// Override global form styling
+// form.external-form {
+// }
+
+.external-form {
+  .form-email,
+  .form-text {
+    inline-size: 100%;
+    max-inline-size: 28rem;
+  }
+}
+
+form .flex {
+  text-align: start;
+  gap: 0 var(--oc-gutter);
+
+  &:has(> .challenge) {
+    justify-content: space-between;
+  }
+}
+
+.flex .form-item:has(br) {
+  line-height: 0.5em;
+
+  > label,
+  > input {
+    line-height: 1.5em;
+  }
+}

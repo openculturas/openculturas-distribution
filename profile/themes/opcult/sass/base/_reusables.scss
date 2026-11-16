@@ -202,3 +202,15 @@ ul.visually-plain {
   padding: unset;
   list-style: none;
 }
+
+// Easy flex layout
+
+.flex {
+  display: flex;
+  flex-flow: column;
+  gap: var(--oc-row-gap) var(--oc-gutter);
+
+  @include breakpoint(m) {
+    flex-flow: row nowrap;
+  }
+}
