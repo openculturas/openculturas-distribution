@@ -980,11 +980,6 @@ function openculturas_post_update_related_dates_archive_event_status(): string {
 
 /**
  * Recomputes cache_metadata for views using a "Rendered entity" field.
- *
- * @param array|null $sandbox
- *   Batch sandbox, provided by the update system.
- *
- * @param-out array $sandbox
  */
 function openculturas_post_update_rendered_entity_field_cache_metadata(?array &$sandbox = NULL): void {
   // Re-runs core's views_post_update_rendered_entity_field_cache_metadata()
