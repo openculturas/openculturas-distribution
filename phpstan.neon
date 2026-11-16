@@ -17,6 +17,11 @@ parameters:
       path: tests/src/Traits/NodeTrait.php
     # Hook classes bundle unrelated hooks, so a summed class score says little.
     - identifier: complexity.classLike
+    # drush updatedb shows the whole docblock of a pending post-update as its
+    # description, so post-update functions only have a summary and no by-ref
+    # parameter types for $sandbox.
+    - identifier: parameterByRef.unusedType
+      path: '*.post_update.php'
   cognitive_complexity:
     function: 15
   excludePaths:
