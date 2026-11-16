@@ -16,3 +16,8 @@ services:
     arguments: ['@config.manager', '@module_handler']
     tags:
       - { name: event_subscriber }
+
+  openculturas_custom.people_paragraph_unsharer:
+    class: Drupal\openculturas_custom\PeopleParagraphUnsharer
+    autowire: true
+  Drupal\openculturas_custom\PeopleParagraphUnsharer: '@openculturas_custom.people_paragraph_unsharer'
