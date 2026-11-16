@@ -15,6 +15,11 @@ parameters:
     # Kept as a helper for future tests; PHPStan analyses traits only where used.
     - identifier: trait.unused
       path: tests/src/Traits/NodeTrait.php
+    # drush updatedb shows the whole docblock of a pending post-update as its
+    # description, so post-update functions only have a summary and no by-ref
+    # parameter types for $sandbox.
+    - identifier: parameterByRef.unusedType
+      path: '*.post_update.php'
   excludePaths:
     - '*/node_modules/*'
     - '*/ProxyClass/*'
