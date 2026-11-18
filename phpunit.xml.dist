@@ -26,6 +26,13 @@
       <directory>./profile/modules/custom/*/tests/src/ExistingSiteJavascript</directory>
     </testsuite>
     <!--
+      Performance tests. They install the core test module performance_test
+      for the duration of each test and need the selenium-chrome service.
+    -->
+    <testsuite name="existing-site-performance">
+      <directory>./tests/src/ExistingSitePerformance</directory>
+    </testsuite>
+    <!--
       Destructive lifecycle tests for openculturas_responsive_images and
       openculturas_entity_popover. They install, migrate, revert and uninstall
       the modules through the UI, so they must never run as part of

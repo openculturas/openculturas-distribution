@@ -23,8 +23,16 @@ $settings['config_exclude_modules'] = [
   'eca_ui',
   'config_update_ui',
   'smtp',
-  'language_audit'
+  'language_audit',
+  'performance_test',
 ];
+
+// The base class of the performance tests creates this marker file for the
+// duration of a test.
+// @see \Drupal\Tests\openculturas\ExistingSitePerformanceBase
+if (file_exists($app_root . '/../tests/.performance-test-running')) {
+  include $app_root . '/../.ddev/settings.performance-test.php';
+}
 
 $settings['simple_environment_anonymous'] = TRUE;
 $settings['simple_environment_indicator'] = '#000000/#1d70b7 Dev';
