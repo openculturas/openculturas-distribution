@@ -53,7 +53,14 @@ try {
     'phpstan/extension-installer',
     'drupal/coder',
     'mglaman/phpstan-drupal',
-    'micheh/phpcs-gitlab'
+    'micheh/phpcs-gitlab',
+    // Not used by this project.
+    'composer/composer',
+    // Required by other packages already.
+    'justinrainbow/json-schema',
+    'php-http/guzzle7-adapter',
+    'symfony/error-handler',
+    'symfony/var-dumper',
   ];
 
   if (isset($remote_data['require'])) {
