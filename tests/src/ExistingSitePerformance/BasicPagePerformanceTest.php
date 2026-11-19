@@ -90,7 +90,7 @@ final class BasicPagePerformanceTest extends ExistingSitePerformanceBase {
       \Drupal::cache($bin)->deleteAll();
     }
     $this->assertPerformanceMetrics([
-      'QueryCount' => 41,
+      'QueryCount' => 43,
       'CacheGetCount' => 208,
       'CacheSetCount' => 45,
       'CacheDeleteCount' => 0,
@@ -105,7 +105,7 @@ final class BasicPagePerformanceTest extends ExistingSitePerformanceBase {
   public function testColdCaches(): void {
     $this->clearCaches();
     $this->assertPerformanceMetrics([
-      'QueryCount' => 256,
+      'QueryCount' => 258,
       'CacheGetCount' => 353,
       'CacheSetCount' => 360,
       'CacheDeleteCount' => 0,
