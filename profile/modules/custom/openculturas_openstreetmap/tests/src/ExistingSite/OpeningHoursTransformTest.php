@@ -79,6 +79,20 @@ final class OpeningHoursTransformTest extends ExistingSiteBase {
         ],
         'Mo 00:00-24:00; Tu 10:00-18:00',
       ],
+      'slot after an all-day item of the same day is ignored' => [
+        [
+          self::allDay(1),
+          self::slot(1, 1000, 1200),
+        ],
+        'Mo 00:00-24:00',
+      ],
+      'all-day item replaces an earlier slot of the same day' => [
+        [
+          self::slot(1, 1000, 1200),
+          self::allDay(1),
+        ],
+        'Mo 00:00-24:00',
+      ],
       'all day on every day but one is not 24/7' => [
         [
           ...array_map(self::allDay(...), range(1, 6)),
