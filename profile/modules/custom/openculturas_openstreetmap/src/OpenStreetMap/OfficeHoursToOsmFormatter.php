@@ -8,7 +8,6 @@ use function array_filter;
 use function array_pop;
 use function implode;
 use function intdiv;
-use function is_array;
 use function sprintf;
 
 class OfficeHoursToOsmFormatter {
@@ -19,6 +18,7 @@ class OfficeHoursToOsmFormatter {
     }
 
     $opening_hours = [];
+    $all_day_days = [];
     $is_24_27 = NULL;
     $has_7_days = count(array_filter($raw_values, static function (array $value) {
         /** @var array{day:int, all_day:boolean, starthours:int, endhours:int} $value */
@@ -34,12 +34,13 @@ class OfficeHoursToOsmFormatter {
         continue;
       }
 
-      if (isset($opening_hours[$value['day']]) && $opening_hours[$value['day']] === -1) {
+      if (isset($all_day_days[$value['day']])) {
         continue;
       }
 
       if ($value['all_day'] === TRUE) {
-        $opening_hours[$value['day']] = -1;
+        $opening_hours[$value['day']] = [];
+        $all_day_days[$value['day']] = TRUE;
         if ($has_7_days && $is_24_27 === NULL) {
           $is_24_27 = TRUE;
         }
@@ -48,7 +49,6 @@ class OfficeHoursToOsmFormatter {
       }
 
       $is_24_27 = FALSE;
-      /* @phpstan-ignore-next-line */
       $opening_hours[$value['day']][] = $value;
     }
 
@@ -63,7 +63,7 @@ class OfficeHoursToOsmFormatter {
     $same_day_range_first = NULL;
     $added_days = 1;
     foreach ($opening_hours as $day => $range_values) {
-      if (is_array($range_values)) {
+      if (!isset($all_day_days[$day])) {
         $same_day_range_first ??= $day;
 
         $same_day_range_last = $day;
