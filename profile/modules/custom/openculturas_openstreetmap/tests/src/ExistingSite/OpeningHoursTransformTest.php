@@ -90,6 +90,17 @@ final class OpeningHoursTransformTest extends ExistingSiteBase {
         array_map(static fn (int $day): array => self::slot($day, 1400, 1800), [5, 6, 0]),
         'Fr-Sa 14:00-18:00; Su 14:00-18:00',
       ],
+      'hours before ten keep a leading zero' => [
+        [
+          self::slot(1, 930, 1200),
+          self::slot(2, 800, 1730),
+        ],
+        'Mo 09:30-12:00; Tu 08:00-17:30',
+      ],
+      'midnight start' => [
+        [self::slot(5, 0, 200)],
+        'Fr 00:00-02:00',
+      ],
       'exception dates are ignored' => [
         [
           self::slot(1, 1000, 1800),

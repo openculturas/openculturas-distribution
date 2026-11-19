@@ -7,8 +7,9 @@ namespace Drupal\openculturas_openstreetmap\OpenStreetMap;
 use function array_filter;
 use function array_pop;
 use function implode;
+use function intdiv;
 use function is_array;
-use function substr;
+use function sprintf;
 
 class OfficeHoursToOsmFormatter {
 
@@ -58,11 +59,7 @@ class OfficeHoursToOsmFormatter {
     $days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
     $range = [];
-    $time_formatter = static function (int $time): string {
-      $hour = substr((string) $time, 0, -2);
-      $min = substr((string) $time, -2);
-      return $hour . ':' . $min;
-    };
+    $time_formatter = static fn (int $time): string => sprintf('%02d:%02d', intdiv($time, 100), $time % 100);
     $same_day_range_first = NULL;
     $added_days = 1;
     foreach ($opening_hours as $day => $range_values) {
