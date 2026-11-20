@@ -68,10 +68,12 @@ code: |-
     --oc-color-link-opaque: color-mix(in oklab, var(--oc-color-link) 64%, transparent);
     --oc-color-bg-link-translucent: color-mix(in oklab, var(--oc-color-link) 7%, transparent);
     --oc-color-link-inverted: color-mix(in oklab, var(--oc-color-link) 20%, var(--oc-color-text-inverted));
+    --oc-color-interaction-inverted: color-mix(in oklab, var(--oc-color-interaction) 50%, var(--oc-color-text-inverted));
     --oc-underline-color: color-mix(in oklab, currentColor 50%, transparent);
     --oc-color-menu-link: color-mix(in oklab, var(--oc-color-text) 30%, var(--oc-color-link));
     --oc-color-menu-link-focus-text: var(--oc-color-text-inverted);
     --oc-color-menu-link-focus-bg: var(--oc-color-link);
+    --oc-color-menu-link-border: color-mix(in oklab, var(--oc-color-bg-dark) 7%, transparent);
 
     /* Functional colors */
     --oc-color-danger: #d41317;
@@ -93,7 +95,6 @@ code: |-
     --oc-color-bg-light: #ffffff;
     --oc-color-bg-dark: #303236;
     --oc-color-primary-darker: color-mix(in oklab, var(--oc-color-bg-dark) 30%, var(--oc-color-primary) );
-    --oc-color-bg-page-layout: color-mix(in oklab, var(--oc-color-neutral-canvas) 65%, transparent);
     --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark) 3%, var(--oc-color-bg-light));
     --oc-color-bg-exposed-form: var(--oc-color-bg-form);
     --oc-color-bg-fieldset: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent);
@@ -188,8 +189,11 @@ code: |-
 
     /* Other colors */
     --oc-bg-hero-section: color-mix(in oklab, var(--oc-color-interaction) 5%, transparent); /* see also: --oc-bg-hero-padding-* */
+    --oc-color-hero-text: currentColor;
     --oc-bg-hero-image: transparent;
     --oc-image-background: color-mix(in oklab, var(--oc-color-bg-light) 10%, transparent);
+    --oc-bg-caption: transparent; /* color, gradient or image */
+    --oc-caption-border-color: var(--oc-color-divider-light);
     --oc-color-marker-icon: var(--oc-color-primary);
     /* Use a tool like posstack.com/css-color-filter-generator/ for your target color _filter_ */
     --oc-marker-colorizer: brightness(0) saturate(100%) invert(16%) sepia(58%) saturate(3877%) hue-rotate(297deg) brightness(100%) contrast(100%);
@@ -216,6 +220,7 @@ code: |-
   	  /* Link/interaction colors DM */
   	  --oc-color-link: #ffdd00;
   	  --oc-color-interaction: #33bcb2;
+  	  --oc-color-interaction-inverted: color-mix(in oklab, var(--oc-color-interaction) 50%, var(--oc-color-text-inverted));
 
   	  /* Functional colors DM */
   	  --oc-color-danger: #d41317;

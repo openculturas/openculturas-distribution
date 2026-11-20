@@ -88,7 +88,7 @@ a.x::before,
 .fa-tumblr::before, a.reddit::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
-.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .oc-design-panel-trigger::before, .entity-popover__trigger::before, .more-link a::after,
+.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .entity-popover__trigger::before, .oc-design-panel-trigger::before, .more-link a::after,
 a.more-link::after, [dir=rtl] .more-link a::after,
 [dir=rtl] a.more-link::after, a[href^=http]::after,
 a.external::after, [lang][dir=rtl] a[href^=http]::after,
@@ -203,7 +203,7 @@ a.x::before,
 .fa-tumblr::before, a.reddit::before,
 .fa-reddit::before, a.matrix::before,
 .fa-matrix::before, a.spotify::before,
-.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .oc-design-panel-trigger::before, .entity-popover__trigger::before, .anchorlinks::before, input[type=radio]::before, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, .button--edit a::before, button.close::before,
+.fa-spotify::before, .feed-icon::before, .csv-feed .feed-icon::before, .json-feed .feed-icon::before, .xml-feed .feed-icon::before, .attribution-toggle:has(div[class*=attribution--license-cc]) .attribution-popover-trigger::before, .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before, .entity-popover__trigger::before, .oc-design-panel-trigger::before, .anchorlinks::before, input[type=radio]::before, input[type=radio]:checked::before, input[type=checkbox]::before, input[type=checkbox]:checked::before, .attribution-popover-trigger::before, .button--edit a::before, button.close::before,
 a.button.close::before,
 a.leaflet-popup-close-button::before,
 .cookiesjsr-layer--close::before,
@@ -2012,6 +2012,18 @@ ul.visually-plain {
   --oc-color-bg-form: color-mix(in oklab, var(--oc-color-bg-dark-inverted) 3%, var(--oc-color-bg-light));
   --oc-caption-border-color: var(--oc-color-divider-light);
   --oc-color-text-caption: var(--oc-color-text);
+  --oc-button-bg-color: var(--oc-color-bg-light);
+  --oc-button-border-color: var(--oc-color-interaction);
+  --oc-button-text-color: var(--oc-color-interaction);
+  --oc-button-primary-bg-color: var(--oc-color-link);
+  --oc-button-primary-border-color: var(--oc-color-link);
+  --oc-button-primary-text-color: var(--oc-color-text-inverted);
+  --oc-button-focus-bg-color: var(--oc-color-link);
+  --oc-button-focus-border-color: var(--oc-color-link);
+  --oc-button-focus-text-color: var(--oc-color-text-inverted);
+  --oc-button-active-bg-color: var(--oc-color-interaction);
+  --oc-button-active-border-color: var(--oc-color-interaction);
+  --oc-button-active-text-color: var(--oc-color-text-inverted);
   padding: var(--oc-row-gap) var(--oc-gutter);
   color: var(--oc-color-text-inverted);
   background: var(--oc-color-bg-dark);
@@ -3718,10 +3730,6 @@ a.spotify::before,
 
 .attribution-toggle:has(div[class*=attribution--creation-ai]) .attribution-popover-trigger::before {
   --icon-url: url("../sprite/oc-sprite.svg#ai-light");
-}
-
-.oc-design-panel-trigger::before {
-  --icon-url: url("../sprite/oc-sprite.svg#palette-light");
 }
 
 .entity-popover__trigger::before {
@@ -5685,6 +5693,14 @@ a.facets-soft-limit-link {
   text-decoration: none;
   color: var(--oc-button-active-text-color);
   background: var(--oc-button-active-bg-color);
+}
+@media screen and (min-width: 48em) {
+  .cookies-fallback {
+    padding: 1.25rem 2.5rem;
+  }
+  .cookies-fallback .cookies-fallback--btn {
+    margin-block: 1rem;
+  }
 }
 @media screen and (min-width: 48em) {
   .cookies-fallback {
@@ -8828,7 +8844,6 @@ article.profile-teaser.teaser-unified {
   display: grid;
   grid-template-areas: "teaser";
   place-content: stretch;
-  border: var(--oc-card-border);
   border-width: var(--oc-card-border-width);
   border-style: var(--oc-card-border-style);
   border-color: var(--oc-card-border-color);
