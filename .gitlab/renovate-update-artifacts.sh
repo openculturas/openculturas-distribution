@@ -54,18 +54,11 @@ determine_merge_base() {
 
 update_database_artifacts() {
   local merge_base="${1}"
-  git clone --depth 1 "${CI_SERVER_URL}/lvsn/openculturas-distribution-database.git" /tmp/database
-  mv /tmp/database/db.sql.gz /tmp/db.sql.gz
-  cp .gitlab/renovate.settings.local.php /tmp/renovate.settings.local.php
+  # The merge base may not contain these files yet.
+  cp .gitlab/ci-import-database.sh .gitlab/ci.settings.local.php /tmp/
   git checkout --detach "${merge_base}"
   composer install --no-interaction --no-progress --ansi
-  mkdir --parents web/sites/default/files/private web/sites/default/files/translations
-  cp .ddev/settings.php web/sites/default/settings.php
-  cp /tmp/renovate.settings.local.php web/sites/default/settings.local.php
-  bash scripts/db_import.sh
-  # Modules installed by the deploy import make Locale rewrite language.de
-  # config afterwards. A second import restores the merge base state.
-  vendor/bin/drush config:import --yes --ansi
+  bash /tmp/ci-import-database.sh /tmp/ci.settings.local.php
   git checkout "${CI_COMMIT_BRANCH}"
   composer install --no-interaction --no-progress --ansi
   vendor/bin/drush updatedb --yes --ansi
