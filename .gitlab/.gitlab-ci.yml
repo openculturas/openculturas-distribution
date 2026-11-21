@@ -333,7 +333,9 @@ rector dry-run:
 
 # Runs the JavaScript tests in Chromium. The browser runs in the selenium-chrome
 # service and loads the site from the web server in the job container, which
-# the service reaches through the network alias "build". Manual for now.
+# the service reaches through the network alias "build". Runs automatically in
+# pipeline schedules with the variable EXISTING_SITE_TESTS, manually on other
+# branches.
 🧪 PHPUnit (existing-site-javascript):
   extends: .existing-site-tests
   needs: []
@@ -343,15 +345,19 @@ rector dry-run:
     # reach the job container.
     FF_NETWORK_PER_BUILD: "true"
     DTT_BASE_URL: http://build:8888
-    DTT_MINK_DRIVER_ARGS: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"w3c":true,"args":["--disable-dev-shm-usage","--disable-gpu","--headless","--dns-prefetch-disable"]}}, "http://selenium-chrome:4444/wd/hub"]'
+    # Same Chrome options as in .ddev/config.selenium-standalone-chrome.yaml.
+    DTT_MINK_DRIVER_ARGS: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"w3c":true,"args":["--disable-dev-shm-usage","--disable-gpu","--headless","--dns-prefetch-disable","--disable-features=DeferRendererTasksAfterInput"]}}, "http://selenium-chrome:4444/wd/hub"]'
   services:
     - mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902
-    - name: selenium/standalone-chromium:138.0
+    # Same image as SELENIUM_CHROME_DOCKER_IMAGE in .ddev/.env.selenium-chrome.
+    # Renovate updates both in one merge request.
+    - name: selenium/standalone-chromium:155.0
       alias: selenium-chrome
   before_script:
     - |
       timeout 120 bash -c 'until curl --silent http://selenium-chrome:4444/status | grep --quiet "\"ready\": *true"; do sleep 2; done'
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $EXISTING_SITE_TESTS
     - !reference [.validate_rules, rules]
     - if: $CI_COMMIT_BRANCH
       when: manual

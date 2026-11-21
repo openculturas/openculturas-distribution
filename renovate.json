@@ -19,6 +19,15 @@
     ".ddev/docker-compose.phpmyadmin.yaml",
     ".ddev/docker-compose.selenium-chrome.yaml"
   ],
+  "customManagers": [
+    {
+      "description": "Selenium image of the DDEV add-on ddev-selenium-standalone-chrome",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.ddev/\\.env\\.selenium-chrome$/"],
+      "matchStrings": ["SELENIUM_CHROME_DOCKER_IMAGE=\"?(?<depName>[^:\"\\s]+):(?<currentValue>[^\"\\s]+)\"?"],
+      "datasourceTemplate": "docker"
+    }
+  ],
   "baseBranchPatterns": ["3.2.x", "3.1.x", "2.6.x"],
   "packageRules": [
     {
@@ -49,7 +58,13 @@
       }
     },
     {
-      "matchPackageNames": ["seleniarm/standalone-chromium", "docker"],
+      "description": "Update the Selenium image of DDEV and CI in one merge request, so local and CI JavaScript tests use the same browser version",
+      "matchPackageNames": ["selenium/standalone-chromium"],
+      "groupName": "selenium standalone-chromium"
+    },
+    {
+      "description": "DDEV builds its own image from SELENIUM_CHROME_DOCKER_IMAGE and uses the value in the image tag, which cannot contain a digest",
+      "matchFileNames": [".ddev/.env.selenium-chrome"],
       "pinDigests": false
     },
     {
