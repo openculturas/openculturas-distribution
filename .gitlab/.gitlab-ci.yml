@@ -255,9 +255,10 @@ rector dry-run:
     - npm run lint:js -- --cache --format junit --output-file junit.xml . || true
     - exit ${EXIT_CODE:-0}
 
-# Shared setup of the ExistingSite test jobs: imports the shared database
-# snapshot, brings it to the state of the branch, starts a web server and runs
-# the PHPUnit test suite PHPUNIT_TEST_SUITE.
+# Shared setup of the ExistingSite test jobs: prepares the site with the script
+# SITE_SETUP_SCRIPT, starts a web server and runs the PHPUnit test suite
+# PHPUNIT_TEST_SUITE. By default, the site is the shared database snapshot,
+# brought to the state of the branch.
 .existing-site-tests:
   extends: .composer
   stage: validate
@@ -272,11 +273,12 @@ rector dry-run:
     OPENCULTURAS_CI_TESTS: 1
     DTT_BASE_URL: http://localhost:8888
     PHP_CLI_SERVER_WORKERS: 4
+    SITE_SETUP_SCRIPT: .gitlab/ci-import-database.sh
   services:
     - mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902
   script:
     - composer install --ansi --no-interaction --no-progress
-    - bash .gitlab/ci-import-database.sh
+    - bash "${SITE_SETUP_SCRIPT}"
     # The output goes to a file: a background process that keeps the job
     # output open blocks the end of the job.
     - vendor/bin/drush --root="${PWD}/web" runserver --no-browser 0.0.0.0:8888 > runserver.log 2>&1 &
@@ -331,16 +333,11 @@ rector dry-run:
       when: manual
       allow_failure: true
 
-# Runs the JavaScript tests in Chromium. The browser runs in the selenium-chrome
-# service and loads the site from the web server in the job container, which
-# the service reaches through the network alias "build". Runs automatically in
-# pipeline schedules with the variable EXISTING_SITE_TESTS, manually on other
-# branches.
-🧪 PHPUnit (existing-site-javascript):
-  extends: .existing-site-tests
-  needs: []
+# Browser for the jobs that need Selenium. The browser runs in the
+# selenium-chrome service and loads the site from the web server in the job
+# container, which the service reaches through the network alias "build".
+.selenium-tests:
   variables:
-    PHPUNIT_TEST_SUITE: existing-site-javascript
     # Puts the job and its services into one network, so that the services can
     # reach the job container.
     FF_NETWORK_PER_BUILD: "true"
@@ -356,6 +353,34 @@ rector dry-run:
   before_script:
     - |
       timeout 120 bash -c 'until curl --silent http://selenium-chrome:4444/status | grep --quiet "\"ready\": *true"; do sleep 2; done'
+
+# Runs the JavaScript tests in Chromium. Runs automatically in pipeline
+# schedules with the variable EXISTING_SITE_TESTS, manually on other branches.
+🧪 PHPUnit (existing-site-javascript):
+  extends:
+    - .existing-site-tests
+    - .selenium-tests
+  needs: []
+  variables:
+    PHPUNIT_TEST_SUITE: existing-site-javascript
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $EXISTING_SITE_TESTS
+    - !reference [.validate_rules, rules]
+    - if: $CI_COMMIT_BRANCH
+      when: manual
+      allow_failure: true
+
+# Runs the performance tests of the demo content on a new installation. Runs
+# automatically in pipeline schedules with the variable EXISTING_SITE_TESTS,
+# manually on other branches.
+🧪 PHPUnit (existing-site-performance):
+  extends:
+    - .existing-site-tests
+    - .selenium-tests
+  needs: []
+  variables:
+    PHPUNIT_TEST_SUITE: existing-site-performance
+    SITE_SETUP_SCRIPT: .gitlab/ci-install-site.sh
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule" && $EXISTING_SITE_TESTS
     - !reference [.validate_rules, rules]
