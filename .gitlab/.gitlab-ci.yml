@@ -42,7 +42,7 @@ renovate:update-artifacts:
         git config --global credential.helper store
       fi
     # The target branch may not contain the script yet.
-    - cp .gitlab/renovate-update-artifacts.sh /tmp/renovate-update-artifacts.sh
+    - cp .gitlab/renovate-update-artifacts.sh .gitlab/ci-renovate-functions.sh /tmp/
   script:
     - bash /tmp/renovate-update-artifacts.sh
   rules:
@@ -256,12 +256,19 @@ rector dry-run:
     - exit ${EXIT_CODE:-0}
 
 # Runs the ExistingSite tests against the shared database snapshot, brought to
-# the state of the branch. Manual for now.
+# the state of the branch. Runs automatically in pipeline schedules with the
+# variable EXISTING_SITE_TESTS and on Renovate branches, manually on other
+# branches.
 🧪 PHPUnit (existing-site):
   extends: .composer
   stage: validate
   interruptible: true
-  needs: []
+  # On Renovate branches, wait for the artifacts job. When it pushes a commit,
+  # the new pipeline cancels this one and tests the updated artifacts.
+  needs:
+    - job: renovate:update-artifacts
+      optional: true
+      artifacts: false
   variables:
     MYSQL_RANDOM_ROOT_PASSWORD: 1
     MYSQL_USER: app
@@ -275,6 +282,21 @@ rector dry-run:
   services:
     - mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902
   script:
+    # On Renovate branches, skip the tests when no relevant Composer package
+    # changed, e.g. for updates of npm packages, CI images or code analysis
+    # tools. Set UPDATE_ARTIFACTS to run the tests anyway.
+    - |
+      if [[ ${CI_COMMIT_BRANCH:-} =~ ^renovate_ && -z ${UPDATE_ARTIFACTS:-} ]]; then
+        source .gitlab/ci-renovate-functions.sh
+        merge_base="$(determine_renovate_merge_base)"
+        changed_exit_code=0
+        bash .gitlab/test-relevant-changes.sh "${merge_base}" || changed_exit_code=$?
+        if [[ ${changed_exit_code} -eq 10 ]]; then
+          exit 0
+        elif [[ ${changed_exit_code} -ne 0 ]]; then
+          exit "${changed_exit_code}"
+        fi
+      fi
     - composer install --ansi --no-interaction --no-progress
     - bash .gitlab/ci-import-database.sh
     # The output goes to a file: a background process that keeps the job
@@ -293,6 +315,9 @@ rector dry-run:
     reports:
       junit: [junit.xml]
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $EXISTING_SITE_TESTS
+    # A failure blocks the automerge of Renovate updates.
+    - if: $CI_COMMIT_BRANCH =~ /^renovate_/
     - !reference [.validate_rules, rules]
     - if: $CI_COMMIT_BRANCH
       when: manual

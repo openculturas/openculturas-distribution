@@ -2,55 +2,14 @@
 # Regenerates committed artifacts on a Renovate branch: Drupal config exports
 # (only when composer files changed) and theme build output (only for themes
 # whose npm files changed). Runs from the repository root. CI copies this file
-# to /tmp first, because it must survive checking out the target branch.
+# and .gitlab/ci-renovate-functions.sh to /tmp first, because they must survive
+# checking out the merge base.
 set -o errexit -o nounset -o pipefail
 
 readonly THEME_DIRECTORIES=(profile/themes/opcult profile/themes/openculturas_base)
-readonly DEEPEN_STEP=50
-readonly DEEPEN_ATTEMPTS=4
-
-determine_target_branch() {
-  local target_branch
-  target_branch="$(curl --silent --fail --header "PRIVATE-TOKEN: ${GITLAB_TOKEN}" \
-    "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/merge_requests?state=opened&source_branch=${CI_COMMIT_BRANCH}" \
-    | php -r '$requests = json_decode(stream_get_contents(STDIN), TRUE); echo $requests[0]["target_branch"] ?? "";')"
-  if [[ -z ${target_branch} && ${CI_COMMIT_BRANCH} =~ ^renovate_([0-9]+\.[0-9]+\.x)- ]]; then
-    target_branch="${BASH_REMATCH[1]}"
-  fi
-  if [[ -z ${target_branch} ]]; then
-    echo "Cannot determine merge request target branch for ${CI_COMMIT_BRANCH}" >&2
-    exit 1
-  fi
-  echo "${target_branch}"
-}
-
-# Renovate rebases its branches only on conflicts, so a branch often lags the
-# target branch. Comparing against the merge base ignores changes that happened
-# only on the target branch. The shallow clone may not reach the merge base:
-# deepen in steps, then fetch the full history as a last resort.
-determine_merge_base() {
-  local target_branch="${1}"
-  local target_commit="${2}"
-  local merge_base attempt
-  local start_seconds="${SECONDS}"
-  merge_base="$(git merge-base "${target_commit}" HEAD || true)"
-  for ((attempt = 1; attempt <= DEEPEN_ATTEMPTS && ${#merge_base} == 0; attempt++)); do
-    echo "Merge base not found, deepening history by ${DEEPEN_STEP} commits (attempt ${attempt}/${DEEPEN_ATTEMPTS})" >&2
-    git fetch --quiet --deepen="${DEEPEN_STEP}" origin "${target_branch}" >&2
-    merge_base="$(git merge-base "${target_commit}" HEAD || true)"
-  done
-  if [[ -z ${merge_base} && $(git rev-parse --is-shallow-repository) == true ]]; then
-    echo "Merge base not found, fetching full history" >&2
-    git fetch --quiet --unshallow origin "${target_branch}" >&2
-    merge_base="$(git merge-base "${target_commit}" HEAD || true)"
-  fi
-  if [[ -z ${merge_base} ]]; then
-    echo "Cannot determine merge base of ${target_branch} and ${CI_COMMIT_BRANCH}" >&2
-    exit 1
-  fi
-  echo "Merge base determined in $((SECONDS - start_seconds)) seconds" >&2
-  echo "${merge_base}"
-}
+# Copied to /tmp together with this script.
+# shellcheck source=ci-renovate-functions.sh
+source "$(dirname "${BASH_SOURCE[0]}")/ci-renovate-functions.sh"
 
 update_database_artifacts() {
   local merge_base="${1}"
@@ -80,14 +39,9 @@ build_theme() {
 }
 
 main() {
-  local target_branch
-  target_branch="$(determine_target_branch)"
-  git fetch origin "${target_branch}"
-  local target_commit
-  target_commit="$(git rev-parse FETCH_HEAD)"
   local merge_base
-  merge_base="$(determine_merge_base "${target_branch}" "${target_commit}")"
-  echo "Baseline: ${target_branch} at ${merge_base}"
+  merge_base="$(determine_renovate_merge_base)"
+  echo "Merge base: ${merge_base}"
 
   local composer_changed=false
   local -a changed_themes=()
@@ -107,7 +61,7 @@ main() {
   fi
 
   if [[ ${composer_changed} == false && ${#changed_themes[@]} -eq 0 ]]; then
-    echo "Composer and theme dependency files match the merge base with ${target_branch}, nothing to update."
+    echo "Composer and theme dependency files match the merge base, nothing to update."
     exit 0
   fi
 
