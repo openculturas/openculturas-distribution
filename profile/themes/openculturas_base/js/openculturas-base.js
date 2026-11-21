@@ -446,16 +446,6 @@
           $body.toggleClass('is-scrolled-bottom', pxToBottom < 30);
         });
       });
-      $(context)
-        .find('.scroll-to-top')
-        .click(() => {
-          $('html, body').animate(
-            {
-              scrollTop: 0,
-            },
-            500,
-          );
-        });
     },
   };
 })(jQuery, Drupal, once);
