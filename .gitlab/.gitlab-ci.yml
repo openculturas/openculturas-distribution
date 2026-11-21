@@ -285,7 +285,11 @@ rector dry-run:
     - timeout 60 bash -c 'until curl --silent --output /dev/null "${DTT_BASE_URL}"; do sleep 1; done'
     - vendor/bin/phpunit --testsuite "${PHPUNIT_TEST_SUITE}" --log-junit junit.xml
   after_script:
-    - vendor/bin/drush watchdog:show --count=50 --severity-min=Warning --ansi || true
+    # Jobs that skip the tests in before_script have no vendor directory.
+    - |
+      if [[ -x vendor/bin/drush ]]; then
+        vendor/bin/drush watchdog:show --count=50 --severity-min=Warning --ansi || true
+      fi
   artifacts:
     name: "$CI_JOB_NAME artifacts from $CI_PROJECT_NAME on $CI_COMMIT_REF_SLUG"
     when: always
@@ -355,16 +359,45 @@ rector dry-run:
       timeout 120 bash -c 'until curl --silent http://selenium-chrome:4444/status | grep --quiet "\"ready\": *true"; do sleep 2; done'
 
 # Runs the JavaScript tests in Chromium. Runs automatically in pipeline
-# schedules with the variable EXISTING_SITE_TESTS, manually on other branches.
+# schedules with the variable EXISTING_SITE_TESTS and on Renovate branches that
+# update relevant dependencies or the Selenium image, manually on other
+# branches.
 🧪 PHPUnit (existing-site-javascript):
   extends:
     - .existing-site-tests
     - .selenium-tests
-  needs: []
+  needs:
+    - job: renovate:update-artifacts
+      optional: true
+      artifacts: false
   variables:
     PHPUNIT_TEST_SUITE: existing-site-javascript
+  before_script:
+    # On Renovate branches, run the tests under the same conditions as
+    # "🧪 PHPUnit (existing-site)" and also when the Selenium image changed.
+    # Renovate updates the image in .ddev/.env.selenium-chrome together with
+    # the service image of .selenium-tests. Set UPDATE_ARTIFACTS to run the
+    # tests anyway.
+    - |
+      if [[ ${CI_COMMIT_BRANCH:-} =~ ^renovate_ && -z ${UPDATE_ARTIFACTS:-} ]]; then
+        source .gitlab/ci-renovate-functions.sh
+        merge_base="$(determine_renovate_merge_base)"
+        if git diff --quiet "${merge_base}" HEAD -- .ddev/.env.selenium-chrome; then
+          changed_exit_code=0
+          bash .gitlab/test-relevant-changes.sh "${merge_base}" || changed_exit_code=$?
+          if [[ ${changed_exit_code} -eq 10 ]]; then
+            exit 0
+          elif [[ ${changed_exit_code} -ne 0 ]]; then
+            exit "${changed_exit_code}"
+          fi
+        else
+          echo "Selenium image changed."
+        fi
+      fi
+    - !reference [.selenium-tests, before_script]
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule" && $EXISTING_SITE_TESTS
+    - if: $CI_COMMIT_BRANCH =~ /^renovate_/
     - !reference [.validate_rules, rules]
     - if: $CI_COMMIT_BRANCH
       when: manual
