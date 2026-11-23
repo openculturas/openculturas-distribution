@@ -35,6 +35,7 @@ These JavaScript/CSS libraries are not available on Packagist and are declared a
 | heiseonline/shariff | https://github.com/heiseonline/shariff | drupal/shariff |
 | leaflet/leaflet.fullscreen | https://github.com/brunob/leaflet.fullscreen | drupal/leaflet |
 | leaflet/leaflet.markercluster | https://github.com/Leaflet/Leaflet.markercluster | drupal/leaflet |
+| oddbird/popover-polyfill | https://github.com/oddbird/popover-polyfill | openculturas_custom, openculturas_base, opcult |
 | perliedman/leaflet-control-geocoder | https://github.com/perliedman/leaflet-control-geocoder | openculturas_map |
 
 ## Installation
