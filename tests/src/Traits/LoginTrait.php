@@ -30,14 +30,15 @@ trait LoginTrait {
       $this->drupalLogout();
     }
 
-    // Reload to get the latest login timestamp.
-    $account = \Drupal::entityTypeManager()->getStorage('user')->loadUnchanged($account->id());
-    if (!$account instanceof UserInterface) {
+    // Reload to get the latest login timestamp. Keep $account, so the caller's
+    // object gets the session ID for ::drupalUserIsLoggedIn().
+    $unchanged_account = \Drupal::entityTypeManager()->getStorage('user')->loadUnchanged($account->id());
+    if (!$unchanged_account instanceof UserInterface) {
       throw new \InvalidArgumentException('The account to log in does not exist.');
     }
 
     $login = \Drupal::service(OneTimeAuthentication::class)
-      ->generateOneTimeLoginUrl($account, immediate: TRUE)
+      ->generateOneTimeLoginUrl($unchanged_account, immediate: TRUE)
       ->toString();
     $this->drupalGet($login);
     try {
@@ -51,12 +52,15 @@ trait LoginTrait {
     // @see ::drupalUserIsLoggedIn()
     // A runtime property the test framework reads, like in core's
     // UiHelperTrait::drupalLogin(); it is not the entity field.
+    $session_id = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);
+    // @phpstan-ignore property.notFound
+    $account->sessionId = $session_id;
     // @phpstan-ignore assign.propertyType
-    $account->sessionId = $this->getSession()->getCookie(\Drupal::service('session_configuration')->getOptions(\Drupal::request())['name']);
+    $unchanged_account->sessionId = $session_id;
     $this->assertTrue($this->drupalUserIsLoggedIn($account), sprintf('User %s successfully logged in.', $account->getAccountName()));
 
-    $this->loggedInUser = $account;
-    $this->container->get('current_user')->setAccount($account);
+    $this->loggedInUser = $unchanged_account;
+    $this->container->get('current_user')->setAccount($unchanged_account);
   }
 
 }
