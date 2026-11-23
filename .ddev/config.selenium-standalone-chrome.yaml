@@ -1,6 +1,7 @@
-#ddev-generated
-# Remove the line above if you don't want this file to be overwritten when you run
-# ddev get ddev/ddev-selenium-standalone-chrome
+# Not managed by the add-on: the post-start hook is guarded, because the
+# selenium-chrome service only starts with `ddev start --profiles=selenium`
+# (see docker-compose.selenium-chrome-profile.yaml). `ddev add-on get` does
+# not overwrite this file, so merge add-on updates by hand.
 #
 # This file comes from https://github.com/ddev/ddev-selenium-standalone-chrome
 #
@@ -36,9 +37,12 @@ hooks:
   post-start:
     # Trust the DDEV mkcert root CA, so tests that browse the project over
     # HTTPS do not land on a certificate warning page instead of the site.
-    - exec: |
-        if [ -f /mnt/ddev-global-cache/mkcert/rootCA.pem ]; then
-          certutil -d sql:/home/seluser/.pki/nssdb -D -n ddev-mkcert 2>/dev/null || true
-          certutil -d sql:/home/seluser/.pki/nssdb -A -t "C,," -n ddev-mkcert -i /mnt/ddev-global-cache/mkcert/rootCA.pem
+    - exec-host: |
+        if [ "$(docker inspect --format '{{.State.Running}}' ddev-openculturas-selenium-chrome 2>/dev/null)" = "true" ]; then
+          ddev exec --service selenium-chrome '
+            if [ -f /mnt/ddev-global-cache/mkcert/rootCA.pem ]; then
+              certutil -d sql:/home/seluser/.pki/nssdb -D -n ddev-mkcert 2>/dev/null || true
+              certutil -d sql:/home/seluser/.pki/nssdb -A -t "C,," -n ddev-mkcert -i /mnt/ddev-global-cache/mkcert/rootCA.pem
+            fi
+          '
         fi
-      service: selenium-chrome
