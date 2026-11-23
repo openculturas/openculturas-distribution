@@ -93,6 +93,21 @@ composer validate:
   rules:
     - !reference [.validate_rules_php, rules]
 
+readme libraries:
+  extends: .composer
+  stage: validate
+  interruptible: true
+  script:
+    - composer run readme:check
+  rules:
+    - !reference [.validate_rules, rules]
+    - if: $CI_COMMIT_BRANCH
+      changes:
+        paths:
+          - composer.json
+          - README.md
+          - scripts/check_readme_libraries.php
+
 phplint:
   extends:
     - .composer
