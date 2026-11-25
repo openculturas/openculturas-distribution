@@ -15,9 +15,7 @@ return RectorConfig::configure()
     deadCode: true,
     codeQuality: true,
     codingStyle: true,
-    typeDeclarations: true,
-    instanceOf: true,
-    earlyReturn: true
+    typeDeclarations: true
   )
   ->withComposerBased(twig: TRUE, phpunit: TRUE, symfony: TRUE, drupal: TRUE)
   ->withPhpSets()
