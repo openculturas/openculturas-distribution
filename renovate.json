@@ -30,6 +30,12 @@
   "baseBranchPatterns": ["3.2.x", "3.1.x", "2.6.x"],
   "packageRules": [
     {
+      "description": "Distribution: raise the constraints in composer.json and package.json with each update. peerDependencies keep the default widen behaviour",
+      "matchManagers": ["composer", "npm"],
+      "matchDepTypes": ["!peerDependencies"],
+      "rangeStrategy": "bump"
+    },
+    {
       "description": "Do not try to update php, node",
       "matchDepNames": ["php", "node"],
       "enabled": false
