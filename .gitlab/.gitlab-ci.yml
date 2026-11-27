@@ -24,7 +24,7 @@ variables:
   CLOUDRON_DB_SOURCE: 'gitrepo'
 
 .composer:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.3:v7.0.277350@sha256:a8cb3dc16da121c62d6099446391086e4fa7d49b3542afd31b781b300f2985f1
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.3:v7.0.277929@sha256:1a914d274d378f9fc128fea2379b8f29e79db4603bde8bf6017a9c15b67c6947
   stage: validate
   variables:
     COMPOSER_EXIT_ON_PATCH_FAILURE: 1
@@ -163,7 +163,7 @@ rector dry-run:
           - "**/*.{scss,css,js}"
 
 .npm:
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.3:v7.0.277350@sha256:a8cb3dc16da121c62d6099446391086e4fa7d49b3542afd31b781b300f2985f1
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.3:v7.0.277929@sha256:1a914d274d378f9fc128fea2379b8f29e79db4603bde8bf6017a9c15b67c6947
   stage: validate
   extends: .validate_rules_npm
   needs:
@@ -237,7 +237,7 @@ rector dry-run:
 
 build:artifacts:
   extends: .build:artifacts
-  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.3:v7.0.277350@sha256:a8cb3dc16da121c62d6099446391086e4fa7d49b3542afd31b781b300f2985f1
+  image: registry.gzevd.de/safeserver/cloudron-base/sdk/php-8.3:v7.0.277929@sha256:1a914d274d378f9fc128fea2379b8f29e79db4603bde8bf6017a9c15b67c6947
   rules:
     # The prelive deployment needs the artifacts.
     - if: $CI_COMMIT_REF_PROTECTED == "true" && $CI_COMMIT_REF_NAME != $PRELIVE_BRANCH_NAME
